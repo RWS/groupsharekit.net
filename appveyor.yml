@@ -1,7 +1,8 @@
 init:
   - git config --global core.autocrlf input
+artifacts:
+  - cmd: 
 build_script:
   - cmd: build.cmd BuildApp
   - cmd: build.cmd IntegrationTests
-  - cmd: build.cmd CreateGroupSharePackage
 test: off

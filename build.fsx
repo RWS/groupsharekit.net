@@ -89,7 +89,9 @@ Target "CreateGroupSharePackage" (fun _ ->
             Summary = projectSummary
             WorkingDir = packagingDir
             Version = releaseNotes.AssemblyVersion
-            ReleaseNotes = toLines releaseNotes.Notes}) "groupsharekit.nuspec"
+            ReleaseNotes = toLines releaseNotes.Notes
+            AccessKey = getBuildParamOrDefault "nugetkey" ""
+            Publish = hasBuildParam "nugetkey" }) "groupsharekit.nuspec"
 )
 
 Target "Default" DoNothing
