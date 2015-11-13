@@ -41,5 +41,5 @@
 *.sdf    binary
 *.7z     binary
 
-# Generated file should just use CRLF, it's fiiine
+# Generated file should just use CRLFW
 SolutionInfo.cs text eol=crlf diff=csharp
