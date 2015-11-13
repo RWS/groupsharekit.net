@@ -194,3 +194,10 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+packaging/
+tools/FAKE.Core
+tools/xunit.runner.console
+
+# FAKE temporary files
+.fake/

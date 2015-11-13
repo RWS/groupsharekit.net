@@ -4,7 +4,7 @@
 "tools\nuget\nuget.exe" "install" "FAKE.Core" "-OutputDirectory" "tools" "-ExcludeVersion"
 
 :Build
-cls
+
 
 SET TARGET="Default"
 
