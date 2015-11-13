@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>@project@</id>
+    <version>@build.number@</version>
+    <authors>@authors@</authors>
+    <owners>@authors@</owners>
+    <summary>@summary@</summary>
+    <licenseUrl>https://github.com/sdl/groupsharekit.net/blob/master/LICENSEt</licenseUrl>
+    <projectUrl>https://github.com/sdl/groupsharekit.net</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>@description@</description>
+    <releaseNotes>@releaseNotes@</releaseNotes>
+    <copyright>Copyright Sdl Community 2015</copyright>
+    <tags>GroupShare API</tags>
+    <dependencies>
+      <group targetFramework="portable-win81+wpa81">
+        <dependency id="Newtonsoft.Json" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>
