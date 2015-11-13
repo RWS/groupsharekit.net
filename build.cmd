@@ -15,7 +15,6 @@ SET BUILDMODE="RELEASE"
 IF NOT [%2]==[] (set BUILDMODE="%2")
 
 if %TARGET%=="Default" (SET RunBuild=1)
-if %TARGET%=="RunUnitTests" (SET RunBuild=1)
 if %TARGET%=="RunIntegrationTests" (SET RunBuild=1)
 if %TARGET%=="CreatePackages" (SET RunBuild=1)
 

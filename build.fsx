@@ -58,6 +58,19 @@ Target "BuildApp" (fun _ ->
         |> DoNothing
 )
 
+Target "IntegrationTests" (fun _ ->
+    if hasBuildParam "GROUPSHAREKIT_BASEURI" && hasBuildParam "GROUPSHAREKIT_PASSWORD" && hasBuildParam "GROUPSHAREKIT_TESTORGANIZATION"  then
+        !! (sprintf "./Sdl.Community.GroupShareKit.Tests.Integration/bin/%s/**/Sdl.Community.GroupShareKit.Tests.Integration.dll" buildMode)
+        |> xUnit2 (fun p -> 
+                {p with 
+                    HtmlOutputPath = Some (testResultsDir @@ "xunit.html")
+                    TimeOut = TimeSpan.FromMinutes 10.0  })
+    else
+        "The integration tests were skipped because the GROUPSHAREKIT_BASEURI, GROUPSHAREKIT_TESTORGANIZATION and GROUPSHAREKIT_PASSWORD environment variables are not set. " +
+        "Please configure these environment variables for a GitHub test account (DO NOT USE A \"REAL\" ACCOUNT)."
+        |> traceImportant 
+)
+
 Target "CreateGroupSharePackage" (fun _ ->
     let portableDir = packagingDir @@ "lib/portable-net45+wp80+win+wpa81/"
     CleanDirs [portableDir]
