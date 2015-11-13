@@ -196,8 +196,13 @@ FakesAssemblies/
 *.opt
 
 packaging/
-tools/FAKE.Core
-tools/xunit.runner.console
+#tools/FAKE.Core
+#tools/xunit.runner.console
+
+# The packages folder can be ignored because of Package Restore
+**/tools/*
+# except build/, which is used as an MSBuild target.
+!**/tools/Nuget/
 
 # FAKE temporary files
 .fake/
