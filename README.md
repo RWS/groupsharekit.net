@@ -12,10 +12,14 @@ var groupShareClient = await GroupShareClient.AuthenticateClient(userName,
                 new Uri("http://yourgroupshareaddress"),
                 GroupShareClient.AllScopes);
 
-            var users = await groupShareClient.User.GetAllUsers();
+var users = await groupShareClient.User.GetAllUsers();
 
-            foreach (var user in users)
-            {
-                Console.WriteLine(user.DisplayName +" loves Groupshare!");
-            }
+foreach (var user in users)
+{
+    Console.WriteLine(user.DisplayName +" loves Groupshare!");
+}
 ```
+## Supported platforms
+
+* .NET 4.5 (Desktop / Server)
+* Windows 8 / 8.1 /10 Store Apps
