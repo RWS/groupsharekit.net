@@ -79,7 +79,7 @@ owned by that account. Then set the following environment variables:
 `GROUPSHAREKIT_BASEURI` (set this to the url of your GroupShare instance)
 
 Once these are set, the integration tests will be executed both when 
-running the FullBuild MSBuild target, and when running the 
+running the IntegrationTests MSBuild target, and when running the 
 Sdl.Community.GroupShareKit.Tests.Integration assembly through an xUnit.net-friendly test runner.
 
 ## Problems?
