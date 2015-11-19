@@ -35,3 +35,24 @@ Install-Package GroupShareKit
 ## Documentation
 
 Please see http://sdldevelopmentpartners.sdlproducts.com/documentation/api for details about the GroupShare Rest API.
+
+## Build
+
+GroupShareKit is a single assembly designed to be easy to deploy anywhere. If you prefer to compile it yourself, you'll need:
+
+*Visual Studio 2015
+*Windows 8.1 or higher to build and test windows store projects
+
+To clone it locally click the "Clone in Desktop" button above or run the following git commands:
+
+```
+https://github.com/sdl/groupsharekit.net.git
+cd groupsharekit.net
+.\build.cmd
+```
+
+## Copyright and License
+
+Copyright 2015 SDL plc.
+
+Licensed under the [MIT License](https://github.com/sdl/groupsharekit.net/blob/master/LICENSE)
