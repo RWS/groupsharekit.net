@@ -50,6 +50,36 @@ https://github.com/sdl/groupsharekit.net.git
 cd groupsharekit.net
 .\build.cmd
 ```
+## Contribute
+
+You can clone this repository locally from GitHub using the "Clone in Desktop" 
+button from the main project site, or run this command in the Git Shell:
+
+`git clone git@github.com:sdl/groupsharekit.net.git`
+
+If you want to make contributions to the project, 
+[forking the project](https://help.github.com/articles/fork-a-repo) is the 
+easiest way to do this. 
+
+After doing that, run the `.\build.cmd` script at the root of the repository 
+to ensure all the tests pass.
+
+## Problems?
+
+If you find an issue please visit the [issue tracker](https://github.com/sdl/groupsharekit.net/issues) and report the issue. 
+
+Please be kind and search to see if the issue is already logged before creating
+a new one. If you're pressed for time, log it anyways.
+
+When creating an issue, clearly explain
+
+* What you were trying to do.
+* What you expected to happen.
+* What actually happened.
+* Steps to reproduce the problem.
+
+Also include any other information you think is relevant to reproduce the 
+problem.
 
 ## Copyright and License
 
