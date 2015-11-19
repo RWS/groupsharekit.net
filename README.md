@@ -64,6 +64,24 @@ easiest way to do this.
 After doing that, run the `.\build.cmd` script at the root of the repository 
 to ensure all the tests pass.
 
+### Running integration tests
+
+GroupShareKit has integration tests that access the GroupShare Rest API, but they must be 
+configured before they will be executed.
+
+**Note:** To run the tests, we highly recommend you create a test GroupShare
+account (i.e., don't use your real GroupShare account) and a test organization
+owned by that account. Then set the following environment variables:
+
+`GROUPSHAREKIT_USERNAME` (set this to the test account's username)
+`GROUPSHAREKIT_PASSWORD` (set this to the test account's password)
+`GROUPSHAREKIT_TESTORGANIZATION` (set this to the test account's organization)
+`GROUPSHAREKIT_BASEURI` (set this to the url of your GroupShare instance)
+
+Once these are set, the integration tests will be executed both when 
+running the FullBuild MSBuild target, and when running the 
+Sdl.Community.GroupShareKit.Tests.Integration assembly through an xUnit.net-friendly test runner.
+
 ## Problems?
 
 If you find an issue please visit the [issue tracker](https://github.com/sdl/groupsharekit.net/issues) and report the issue. 
