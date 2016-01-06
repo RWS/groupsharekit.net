@@ -8,10 +8,13 @@ namespace Sdl.Community.GroupShareKit.Clients
     /// </remarks>
     public class UserRequest:RequestParameters
     {
-        public UserRequest(string userName)
-        {
-            Name = userName;
-        }
+        /// <summary>
+        /// Gets or sets the user domain for which all details will be returned
+        /// </summary>
+        /// <value>
+        /// The user domain
+        /// </value>
+        public string Domain { get; set; }
 
         /// <summary>
         /// Gets or sets the username for which all details will be returned
@@ -20,5 +23,19 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// The username
         /// </value>
         public string Name { get; set; }
+
+        public UserRequest(string userName)
+        {
+            Name = userName;
+        }
+
+
+        public UserRequest(string domain,string userName)
+        {
+            Domain = domain;
+            Name = userName;
+        }
+
+        
     }
 }

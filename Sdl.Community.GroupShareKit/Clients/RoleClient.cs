@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Helpers;
@@ -7,20 +7,14 @@ using Sdl.Community.GroupShareKit.Models.Response;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
-    /// <summary>
-    /// A client for GroupShare's Management API.
-    /// </summary>
-    /// <remarks>
-    /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">Management API documentation</a> for more details.
-    /// </remarks>
-    public class UserClient : ApiClient, IUserClient
+    public class RoleClient : ApiClient ,IRoleClient
     {
-        public UserClient(IApiConnection apiConnection) : base(apiConnection)
+        public RoleClient(IApiConnection apiConnection) : base(apiConnection)
         {
         }
 
         /// <summary>
-        /// Gets all <see cref="User"/>s.
+        /// Gets all <see cref="Role"/>'s.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -30,14 +24,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="User"/>s.</returns>
-        public Task<IReadOnlyList<User>> GetAllUsers()
+        /// <returns>A list of <see cref="Role"/>s.</returns>
+        public Task<IReadOnlyList<RoleRequest>> GetAllRoles()
         {
-            return ApiConnection.GetAll<User>(ApiUrls.User());
+            return ApiConnection.GetAll<RoleRequest>(ApiUrls.Roles());
         }
 
         /// <summary>
-        /// Get <see cref="User"/>.
+        /// Create <see cref="Role"/>'s.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -47,16 +41,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A <see cref="User"/>.</returns>
-        public Task<User> Get(UserRequest request)
+        /// <returns>A list of <see cref="Role"/>s.</returns>
+        public async Task<string> CreateRole(RoleRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");
 
-            return ApiConnection.Get<User>(ApiUrls.User(), request.ToParametersDictionary());
+            return await ApiConnection.Post<string>(ApiUrls.Roles(), request, "application/json");
         }
 
         /// <summary>
-        /// Update <see cref="User"/>.
+        /// Update <see cref="Role"/>'s.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -66,16 +60,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A <see cref="User"/>.</returns>
-        public Task<string> Update(User user)
+        /// <returns>A list of <see cref="Role"/>s.</returns>
+        public Task<string> Update(RoleRequest role)
         {
-            return ApiConnection.Put<string>(ApiUrls.User(), user);
+            return ApiConnection.Put<string>(ApiUrls.Roles(),role);
         }
 
         /// <summary>
-        /// Search <see cref="User"/>
+        /// Get <see cref="Role"/>'s.
         /// </summary>
-        ///  /// <remarks>
+        /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
         /// </remarks>
@@ -83,19 +77,18 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public Task<IReadOnlyList<User>> Search(string searchText)
+        /// <returns>A list of <see cref="Role"/>s.</returns>
+        public Task<RoleRequest> GetRole(string roleId)
         {
-            
+            Ensure.ArgumentNotNullOrEmptyString(roleId, "roleId");
 
-            return ApiConnection.GetAll<User>(ApiUrls.Search(searchText));
+            return ApiConnection.Get<RoleRequest>(ApiUrls.Role(roleId),null);
         }
 
         /// <summary>
-        /// Delete <see cref="User"/>
+        /// Delete <see cref="Role"/>'s.
         /// </summary>
-        ///  /// <remarks>
+        /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
         /// </remarks>
@@ -103,19 +96,18 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public Task Delete(string userId)
+        /// <returns>A list of <see cref="Role"/>s.</returns>
+        public Task DeleteRole(string roleId)
         {
-            Ensure.ArgumentNotNullOrEmptyString(userId,"userId");
+            Ensure.ArgumentNotNullOrEmptyString(roleId,"roleId");
 
-            return ApiConnection.Delete(ApiUrls.User(userId));
+            return ApiConnection.Delete(ApiUrls.Role(roleId));
         }
 
         /// <summary>
-        /// Create <see cref="User"/>
+        /// Add a user to a role for a specific organization. <see cref="Role"/>'s.
         /// </summary>
-        ///  /// <remarks>
+        /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
         /// </remarks>
@@ -123,13 +115,27 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public async Task<string> Create(CreateUserRequest user)
+        /// <returns>A list of <see cref="Role"/>s.</returns>
+        public Task<string> RoleMembership(List<Role> role)
         {
-            Ensure.ArgumentNotNull(user,"user");
+            return ApiConnection.Put<string>(ApiUrls.RoleMembership(), role);
+        }
 
-            return await ApiConnection.Post<string>(ApiUrls.User(), user, "application/json");
+        /// <summary>
+        /// Delete a user to a role for a specific organization.<see cref="Role"/>s.
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="Role"/>s.</returns>
+        public Task DeleteRoleMembership(List<Role> role)
+        {
+            return ApiConnection.Delete(ApiUrls.RoleMembership(),role, "application/json");
         }
     }
 }

@@ -64,7 +64,9 @@
     </Compile>
     <Compile Include="Clients\AuthenticationClientTests.cs" />
     <Compile Include="Clients\OrganizationClientTests.cs" />
+    <Compile Include="Clients\PermissionClientTest.cs" />
     <Compile Include="Clients\ProjectClientTests.cs" />
+    <Compile Include="Clients\RolesClientTests.cs" />
     <Compile Include="Clients\UserClientTests.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

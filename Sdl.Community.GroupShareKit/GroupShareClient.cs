@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Helpers;
@@ -49,6 +47,8 @@ namespace Sdl.Community.GroupShareKit
             User = new UserClient(apiConnection);
             Organization = new OrganizationClient(apiConnection);
             Authenticate = new AuthenticateClient(apiConnection);
+            Role = new RoleClient(apiConnection);
+            Permission = new PermissionClient(apiConnection);
         }
 
         /// <summary>
@@ -83,6 +83,9 @@ namespace Sdl.Community.GroupShareKit
         public IOrganizationClient Organization { get; set; }
 
         public IAuthenticateClient Authenticate { get; set; }
+
+        public IRoleClient Role { get; set; }
+        public IPermissionClient Permission { get; set; }
 
         /// <summary>
         /// Convenience property for getting and setting credentials.

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Exceptions;
 
 namespace Sdl.Community.GroupShareKit.Http
 {
@@ -133,5 +131,13 @@ namespace Sdl.Community.GroupShareKit.Http
         /// <param name="data">The object to serialize as the body of the request</param>
         /// <returns>A <see cref="Task"/> for the request's execution.</returns>
         Task Delete(Uri uri, object data);
+
+        /// <summary>
+        /// Performs an asynchronous HTTP DELETE request that expects an empty response.
+        /// </summary>
+        /// <param name="uri">URI endpoint to send request to</param>
+        /// <param name="data">The object to serialize as the body of the request</param>
+        /// <returns>A <see cref="Task"/> for the request's execution.</returns>
+        Task Delete(Uri uri, object data, string contentType);
     }
 }

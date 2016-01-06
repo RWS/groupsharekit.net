@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Authentication;
@@ -155,6 +154,24 @@ namespace Sdl.Community.GroupShareKit.Http
             return response.HttpResponse.StatusCode;
         }
 
+        public async Task<HttpStatusCode> Delete(Uri uri, object data, string contentType)
+        {
+            Ensure.ArgumentNotNull(uri, "uri");
+            Ensure.ArgumentNotNull(data, "data");
+
+            var request = new Request
+            {
+                Method = HttpMethod.Delete,
+                Body = data,
+                BaseAddress = BaseAddress,
+                Endpoint = uri,
+                ContentType = contentType
+            };
+            var response = await Run<object>(request, CancellationToken.None);
+            return response.HttpResponse.StatusCode;
+        }
+
+
         private Task<IApiResponse<T>> SendData<T>(Uri uri, HttpMethod method, object body, string contentType,
             TimeSpan timeout,
             CancellationToken cancellationToken, Uri baseAddress = null)
@@ -203,7 +220,7 @@ namespace Sdl.Community.GroupShareKit.Http
 
         private async Task<IResponse> RunRequest(Request request, CancellationToken cancellationToken)
         {
-            request.Headers.Add("User-Agent", UserAgent);
+          request.Headers.Add("User-Agent", UserAgent);
 
             await _authenticator.Apply(request).ConfigureAwait(false);
 

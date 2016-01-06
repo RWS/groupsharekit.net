@@ -1,5 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Models.Response;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
@@ -32,6 +35,45 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(expectedOrganization.Name.Equals(actualOrganization.Name));
 
+        }
+
+
+        [Fact]
+        public async Task Update()
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+
+            var organizations = await groupShareClient.Organization.GetAll(new OrganizationRequest(false));
+
+            organizations[0].Name = "Test API";
+            organizations[0].Path = "Test API";
+ 
+            await groupShareClient.Organization.Update(organizations[0]);
+            var updatedOrganization = await groupShareClient.Organization.GetAll(new OrganizationRequest(false));
+
+             Assert.Equal(updatedOrganization.First().Name, "Test API");
+        }
+
+        [Fact]
+        public async Task Create()
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+             var organization = new Organization()
+             {
+                 UniqueId = Guid.NewGuid(),
+                 Name = "Test organization",
+                 Description = null,
+                 Path = null,
+                 ParentOrganizationId = new Guid("c03a0a9e-a841-47ba-9f31-f5963e71bbb7"),
+                 ChildOrganizations = null
+                
+
+             };
+            var organizationId = await groupShareClient.Organization.Create(organization);
+
+            Assert.True(organizationId != null);
+
+            await groupShareClient.Organization.DeleteOrganization(organizationId);
         }
     }
 }

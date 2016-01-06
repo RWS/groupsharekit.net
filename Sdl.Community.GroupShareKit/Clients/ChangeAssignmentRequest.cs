@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
@@ -22,7 +18,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             public DateTimeOffset DueDate { get; set; }
             public int PhaseId { get; set; }
             public string[] AssignedUsers { get; set; }
-
+           
         }
     }
 }

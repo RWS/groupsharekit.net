@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Helpers
 {
-    public static partial class ApiUrls
+    public static class ApiUrls
     {
-        static readonly Uri CurrentProjectServerUrl = new Uri("projectserver/api/1.0", UriKind.Relative);
-        static readonly Uri CurrentManagementUrl = new Uri("management/api/1.0", UriKind.Relative);
-        static readonly Uri CurrentAuthenticationUrl = new Uri("authentication/api/1.0", UriKind.Relative);
+        public static readonly Uri CurrentProjectServerUrl = new Uri("projectserver/api/1.0", UriKind.Relative);
+        public static readonly Uri CurrentManagementUrl = new Uri("management/api/1.0", UriKind.Relative);
+        public static readonly Uri CurrentAuthenticationUrl = new Uri("authentication/api/1.0", UriKind.Relative);
 
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns a single user for the user name
@@ -31,13 +27,49 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> that returns all users
+        /// Returns the <see cref="Uri"/> that returns a single user for the user id
         /// </summary>
         /// <returns></returns>
-        public static Uri Users()
+        public static Uri User(string userId)
         {
-            return "{0}/users".
+            return "{0}/users/{1}".
+                FormatUri(CurrentManagementUrl,userId);
+        }
+
+        public static Uri Search(string searchText)
+        {
+            return "{0}/users?searchText={1}".
+                FormatUri(CurrentManagementUrl, searchText);
+        }
+
+        /// <summary>
+        ///  Returns the <see cref="Uri"/> that returns all roles
+        /// </summary>
+        /// <returns></returns>
+        public static Uri Roles()
+        {
+            return "{0}/roles".
                 FormatUri(CurrentManagementUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns a single role
+        /// </summary>
+        /// <returns></returns>
+        public static Uri Role(string roleId)
+        {
+
+            return "{0}/roles/{1}".
+                FormatUri(CurrentManagementUrl, roleId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns a membership
+        /// </summary>
+        /// <returns></returns>
+        public static Uri RoleMembership()
+        {
+            return "{0}/roles/membership".FormatUri(CurrentManagementUrl);
         }
 
         /// <summary>
@@ -68,6 +100,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/projects".
                 FormatUri(CurrentProjectServerUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all permissions
+        /// </summary>
+        /// <returns></returns>
+        public static Uri Permission()
+        {
+            return "{0}/permissions".
+                FormatUri(CurrentManagementUrl);
         }
 
         /// <summary>
