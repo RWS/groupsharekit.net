@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Clients;
@@ -103,11 +104,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                     groupShareClient.Project.GetAllProjectsForOrganization(new ProjectsRequest(Helper.TestOrganization,
                         true));
 
-            // Assert.True(projects != null);
-            // Assert.True(projects.Count > 0, "There are no projects available");
-
-            //var project = projects[0];
-
             var request = new[]
             {
                 new ChangeAssignmentRequest.File()
@@ -162,6 +158,56 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(actualProject.ProjectId.Equals(project.ProjectId));
         }
 
+        [Theory]
+        [InlineData("3d7211e8-8b76-4f88-a76c-2ff4509f22c8")]
+        public async Task ProjectFileStatus(string projectId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+
+            var fileStatus = await groupShareClient.Project.FileStatus(projectId);
+
+            Assert.True(fileStatus != null);
+        }
+
+        [Theory]
+        [InlineData("3d7211e8-8b76-4f88-a76c-2ff4509f22c8")]
+        public async Task ProjectLanguageFiles(string projectId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+
+            var languageFiles = await groupShareClient.Project.LanguageFiles(projectId);
+
+            Assert.True(languageFiles != null);
+        }
+
+
+        [Fact]
+        public async Task DownloadFile()
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+
+            //project id, type
+            var file = await groupShareClient.Project.DownloadFile(new FileDownloadRequest("3d7211e8-8b76-4f88-a76c-2ff4509f22c8", null, FileDownloadRequest.Types.All));   
+            Assert.True(file != null);
+
+            //project id, language code
+            var request = await groupShareClient.Project.DownloadFile(new FileDownloadRequest("3d7211e8-8b76-4f88-a76c-2ff4509f22c8", "de-DE",null));
+
+            Assert.True(request != null);
+
+        }
+
+        [Theory]
+        [InlineData("3d7211e8-8b76-4f88-a76c-2ff4509f22c8")]
+        public async Task DownloadFiles(string projectId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+             var languageFilesId = new List<string> { "6fc116cd-c63b-4022-871b-15c0b9cb7aef", "827bbb26-8d72-4104-90b3-4e2eb14c5194" };
+
+            var files = await groupShareClient.Project.DownloadFiles(projectId, languageFilesId);
+
+            Assert.True(files != null);
+        } 
 
     }
 }

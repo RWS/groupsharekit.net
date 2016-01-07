@@ -54,6 +54,7 @@
     <Compile Include="Clients\ChangeAssignmentRequest.cs" />
     <Compile Include="Clients\ChangePhaseRequest.cs" />
     <Compile Include="Clients\CreateProjectRequest.cs" />
+    <Compile Include="Clients\FileDownloadRequest.cs" />
     <Compile Include="Clients\RoleRequest.cs" />
     <Compile Include="Clients\CreateUserRequest.cs" />
     <Compile Include="Clients\IAuthenticateClient.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Clients\ProjectsRequest.cs" />
     <Compile Include="Clients\RoleClient.cs" />
     <Compile Include="Models\Response\LanguageDirections.cs" />
+    <Compile Include="Models\Response\LanguageFiles.cs" />
     <Compile Include="Models\Response\Permission.cs" />
     <Compile Include="Models\Response\Phase.cs" />
     <Compile Include="Clients\ProjectClient.cs" />
@@ -111,6 +113,8 @@
     <Compile Include="Models\Response\File.cs" />
     <Compile Include="Models\Response\Organization.cs" />
     <Compile Include="Models\Response\Project.cs" />
+    <Compile Include="Models\Response\ProjectFile.cs" />
+    <Compile Include="Models\Response\PublishingStatus.cs" />
     <Compile Include="Models\Response\Role.cs" />
     <Compile Include="Models\Response\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

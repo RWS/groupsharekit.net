@@ -84,7 +84,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <param name="request"></param>
-        /// <returns></returns>
+        /// <returns>A <see cref="User"/></returns>
         public Task<IReadOnlyList<User>> Search(string searchText)
         {
             
@@ -124,7 +124,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <param name="request"></param>
-        /// <returns></returns>
+        /// <returns>A <see cref="User"/></returns>
         public async Task<string> Create(CreateUserRequest user)
         {
             Ensure.ArgumentNotNull(user,"user");

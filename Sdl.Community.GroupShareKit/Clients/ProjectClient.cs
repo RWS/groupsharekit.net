@@ -1,9 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
@@ -140,7 +136,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(request, "request");
 
             var projectUri = await ApiConnection.Post<string>(ApiUrls.OrganizationProjects(), request, "application/json");
-            var projectId = projectUri.ToString().Split('/').Last();
+            var projectId = projectUri.Split('/').Last();
 
             var byteContent = new ByteArrayContent(request.RawData);
             byteContent.Headers.Add("Content-Type", "application/octet-stream");
@@ -165,7 +161,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="Phase"/>s.</returns>
+        /// <returns>A list of <see cref="Project"/>s.</returns>
         public Task DeleteProject(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId,"projectId");
@@ -184,12 +180,119 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="Phase"/>s.</returns>
+        /// <returns>A list of <see cref="Project"/>s.</returns>
         public Task<Project> Get(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
 
             return ApiConnection.Get<Project>(ApiUrls.Project(projectId), null);
         }
+
+        /// <summary>
+        /// get the publishing status of a server project.
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="PublishingStatus"/>s.</returns>
+        public async Task<PublishingStatus> PublishingStatus(string projectId)
+        {
+            return await ApiConnection.Get<PublishingStatus>(ApiUrls.PublishingStatus(projectId),null);
+        }
+
+        /// <summary>
+        /// Get the file status of a server project.
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="ProjectFile"/>s.</returns>
+        public async Task<IReadOnlyList<ProjectFile>> FileStatus(string projectId)
+        {
+            return await ApiConnection.GetAll<ProjectFile>(ApiUrls.FileStatus(projectId), null);
+        }
+
+        /// <summary>
+        /// Get the  the status for all language files.
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="LanguageFiles"/>s.</returns>
+        public async Task<IReadOnlyList<LanguageFiles>> LanguageFiles(string projectId)
+        {
+            return await ApiConnection.GetAll<LanguageFiles>(ApiUrls.LanguageFiles(projectId), null);
+        }
+
+        /// <summary>
+        ///Downloads the files with the specific language ids
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="byte[]"/>s.</returns>
+        public async Task<byte[]> DownloadFiles(string projectId, List<string> languageFileIds)
+        {
+            Ensure.ArgumentNotEmpty(languageFileIds, "languageFileIds");
+
+            return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFiles(projectId, LanguageIdQuery(languageFileIds)),null);
+        }
+
+        /// <summary>
+        /// Helper method to create  query
+        /// </summary>
+        /// <param name="languageFileIds"></param>
+        /// <returns></returns>
+        public string LanguageIdQuery(List<string> languageFileIds)
+        {
+            var query = string.Empty;
+            foreach (var id in languageFileIds)
+            {
+                query = query + "languageFileIds=" + id + "&";
+            }
+
+            return query;
+        }
+
+        /// <summary>
+        ///Downloads the files with the specific type and language code
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="byte[]"/>s.</returns>
+        public async Task<byte[]> DownloadFile(FileDownloadRequest downloadRequest)
+        {
+            return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFile(), downloadRequest.ToParametersDictionary());
+        }
+
+
+
+
     }
 }

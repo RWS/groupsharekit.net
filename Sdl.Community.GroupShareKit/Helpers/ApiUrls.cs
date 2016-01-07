@@ -36,6 +36,10 @@ namespace Sdl.Community.GroupShareKit.Helpers
                 FormatUri(CurrentManagementUrl,userId);
         }
 
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that find a user or users, by matching on the user's username or display name.
+        /// </summary>
+        /// <returns></returns>
         public static Uri Search(string searchText)
         {
             return "{0}/users?searchText={1}".
@@ -120,6 +124,56 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/projects/{1}".
                 FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that represents publishing status of a server project.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri PublishingStatus(string projectId)
+        {
+            return "{0}/projects/{1}/publishingstatus".
+                FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that represents file status of a server project.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri FileStatus(string projectId)
+        {
+            return "{0}/projects/{1}/filestatus".
+                FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that represents file status of all language files
+        /// </summary>
+        /// <returns></returns>
+        public static Uri LanguageFiles(string projectId)
+        {
+            return "{0}/projects/{1}/filestatus/languagefiles".
+                FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that represents downloaded files with the specific languageCodeid and type
+        /// </summary>
+        /// <returns></returns>
+        public static Uri DownloadFile()
+        {
+            return "{0}/FileDownload".
+                FormatUri(CurrentProjectServerUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that represents downloaded files with the specific languageCode ids
+        /// </summary>
+        /// <returns></returns>
+        public static Uri DownloadFiles(string projectId,string languageFileIdsQuery)
+        {
+            return "{0}/projects/{1}/download/?{2}archive=true".
+                FormatUri(CurrentProjectServerUrl, projectId,languageFileIdsQuery);
         }
 
         /// <summary>

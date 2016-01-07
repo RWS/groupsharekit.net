@@ -32,6 +32,19 @@ namespace Sdl.Community.GroupShareKit.Helpers
 
             throw new ArgumentException("String cannot be empty", name);
         }
+
+        /// <summary>
+        /// Checks a list argument to ensure it isn't empty.
+        /// </summary>
+        /// <param name = "value">The argument value to check</param>
+        /// <param name = "name">The name of the argument</param>
+        public static void ArgumentNotEmpty([ValidatedNotNull] List<string> value, string name)
+        {
+            if (value.Count == 0)
+            {
+                throw new ArgumentException("List cannot be empty",name);
+            }
+        }
     }
 
     [AttributeUsage(AttributeTargets.Parameter)]
