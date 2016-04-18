@@ -16,6 +16,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         public string Locale { get; set; }
         public Guid OrganizationId { get; set; }
         public string UserType { get; set; }
-        public List<LanguageDirections> LanguageDirections { get; set; }
+        public List<Role> Roles { get; set; }
     }
 }
