@@ -82,10 +82,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Create()
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
+            var uniqueId = Guid.NewGuid();
 
             var newUser = new CreateUserRequest
             {
-                UniqueId = Guid.NewGuid(),
+                UniqueId = uniqueId,
                 Name = "testUser",
                 Password = "Password1",
                 DisplayName = "test",
@@ -94,13 +95,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Locale = "en-US",
                 OrganizationId = new Guid("c03a0a9e-a841-47ba-9f31-f5963e71bbb7"),
                 UserType = "SDLUser",
-                LanguageDirections = new List<LanguageDirections>
+                Roles = new List<Role>
                 {
-                    new LanguageDirections
+                    new Role
                     {
-                        Id = 1,
-                        SourceLanguageCode = "en-Us",
-                        TargetLanguageCode = "fr-FR"
+                         OrganizationId = new Guid("c03a0a9e-a841-47ba-9f31-f5963e71bbb7"),
+                          RoleId = new Guid("0340ad05-63d2-4db6-8bbd-696fac125a19"),//power user
+                           UserId = uniqueId
                     }
                 }
             };
