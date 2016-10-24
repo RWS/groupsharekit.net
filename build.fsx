@@ -72,7 +72,7 @@ Target "IntegrationTests" (fun _ ->
 )
 
 Target "CreateGroupSharePackage" (fun _ ->
-    let portableDir = packagingDir @@ "lib/portable-net45+wp80+win+wpa81/"
+    let portableDir = packagingDir @@ "lib/netstandard1.1/"
     CleanDirs [portableDir]
 
     CopyFile portableDir (buildDir @@ "Release/Portable/Sdl.Community.GroupShareKit.dll")

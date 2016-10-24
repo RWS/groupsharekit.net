@@ -9,3 +9,8 @@
 ### New in 0.5.0
 
 * Support for defining role when creating user
+
+### New in 0.6.0
+
+* Update to .Net Standard library 1.1
+* Added ProjectPhaseId on the LanguageFiles model
