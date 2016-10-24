@@ -10,5 +10,6 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         public string StatusName { get; set; }
         public int PercentComplete { get; set; }
         public string LanguageCode { get; set; }
+        public int ProjectPhaseId { get; set; }
     }
 }
