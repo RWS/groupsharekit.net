@@ -10,7 +10,7 @@ SET TARGET="Default"
 
 IF NOT [%1]==[] (set TARGET="%1")
 
-SET BUILDMODE="RELEASE"
+SET BUILDMODE="Release"
 
 IF NOT [%2]==[] (set BUILDMODE="%2")
 

@@ -23,6 +23,7 @@ foreach (var user in users)
 
 * .NET 4.5 (Desktop / Server)
 * Windows 8 / 8.1 /10 Store Apps
+* GroupShare 2015 or later
 
 ## Getting started
 
