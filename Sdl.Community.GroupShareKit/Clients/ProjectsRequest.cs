@@ -8,19 +8,25 @@ namespace Sdl.Community.GroupShareKit.Clients
     /// </remarks>
     public class ProjectsRequest:RequestParameters
     {
-        public ProjectsRequest(string organizationPath,bool includeChildren)
+        public ProjectsRequest(string page,string limit,FilterOptions filter,SortParameters sort)
         {
-            Group = organizationPath;
-            IncludeChildren = includeChildren;
+            Page = page;
+            Limit = limit;
+            Filter = filter;
+            Sort = sort;
         }
 
+        public ProjectsRequest()
+        {
+            
+        }
         /// <summary>
         /// Gets or sets the organization path for which the projects are returned
         /// </summary>
         /// <value>
         /// The organization path
         /// </value>
-        public string Group { get; set; }
+        public string Page { get; set; }
 
         /// <summary>
         /// Get or sets if the response should include projects for the child organizations
@@ -28,8 +34,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <value>
         /// The include children
         /// </value>
-        public bool IncludeChildren { get; set; }
+        public string Limit { get; set; }
 
+        public FilterOptions Filter { get; set; }
+        public SortParameters Sort { get; set; }
 
     }
 }

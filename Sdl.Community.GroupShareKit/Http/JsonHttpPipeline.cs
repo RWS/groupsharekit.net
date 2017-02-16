@@ -57,8 +57,16 @@ namespace Sdl.Community.GroupShareKit.Http
             {
                 body = "[" + body + "]";
             }
-            var json = _serializer.Deserialize<T>(body);
-            return new ApiResponse<T>(response, json);
+            try
+            {
+                var json = _serializer.Deserialize<T>(body);
+                return new ApiResponse<T>(response, json);
+            }
+            catch (Exception e)
+            {
+            }
+
+            return null;
         }
     }
 }

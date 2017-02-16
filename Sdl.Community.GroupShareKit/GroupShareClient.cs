@@ -59,7 +59,7 @@ namespace Sdl.Community.GroupShareKit
         /// <param name="baseAddress">The address to point this client to.</param>
         /// <param name="scopes">The token scope(s).</param>
         /// <returns></returns>
-        public async static Task<GroupShareClient> AuthenticateClient(string user, string password, Uri baseAddress, IEnumerable<string> scopes)
+        public static async Task<GroupShareClient> AuthenticateClient(string user, string password, Uri baseAddress, IEnumerable<string> scopes)
         {
             var credentials = new Credentials(user,password);
 

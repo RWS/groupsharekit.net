@@ -18,7 +18,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
         public static Credentials Credentials => CredentialsThunk.Value;
 
 
-        public async static Task<GroupShareClient> GetAuthenticatedClient()
+        public static async Task<GroupShareClient> GetAuthenticatedClient()
         {
             return await GroupShareClient.AuthenticateClient(Credentials.Login, Credentials.Password,
                BaseUri,
