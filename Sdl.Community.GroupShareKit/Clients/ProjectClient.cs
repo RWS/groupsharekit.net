@@ -181,11 +181,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Project"/>s.</returns>
-        public Task<Project> Get(string projectId)
+        public Task<ProjectDetails> Get(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
 
-            return ApiConnection.Get<Project>(ApiUrls.Project(projectId), null);
+            return ApiConnection.Get<ProjectDetails>(ApiUrls.Project(projectId), null);
         }
 
         /// <summary>

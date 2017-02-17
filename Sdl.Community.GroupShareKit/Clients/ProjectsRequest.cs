@@ -8,18 +8,6 @@ namespace Sdl.Community.GroupShareKit.Clients
     /// </remarks>
     public class ProjectsRequest:RequestParameters
     {
-        public ProjectsRequest(string page,string limit,FilterOptions filter,SortParameters sort)
-        {
-            Page = page;
-            Limit = limit;
-            Filter = filter;
-            Sort = sort;
-        }
-
-        public ProjectsRequest()
-        {
-            
-        }
         /// <summary>
         /// Gets or sets the organization path for which the projects are returned
         /// </summary>

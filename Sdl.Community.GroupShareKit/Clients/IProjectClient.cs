@@ -124,7 +124,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Phase"/>s.</returns>
-        Task<Project> Get(string projectId);
+        Task<ProjectDetails> Get(string projectId);
 
         /// <summary>
         /// Get the publishing status of a server project.

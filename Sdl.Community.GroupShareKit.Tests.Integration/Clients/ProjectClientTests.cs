@@ -15,6 +15,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
 
+
             var result =
                 await
                     groupShareClient.Project.GetAllProjectsForOrganization(new ProjectsRequest());
@@ -137,25 +138,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.Project.DeleteProject(projectId);
         }
 
-        //[Fact]
-        //public async Task GetProject()
-        //{
-        //    var groupShareClient = await Helper.GetAuthenticatedClient();
+        [Theory]
+        [InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8")]
+        public async Task GetProjectById(string projectId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
 
-        //    var projects =
-        //        await
-        //            groupShareClient.Project.GetAllProjectsForOrganization(new ProjectsRequest(Helper.TestOrganization,
-        //                true));
+            var actualProject = await groupShareClient.Project.Get(projectId);
 
-        //    Assert.True(projects != null);
-        //    Assert.True(projects.Count > 0, "There are no projects available");
-
-        //    var project = projects[0];
-
-        //    var actualProject = await groupShareClient.Project.Get(project.ProjectId.ToString());
-
-        //    Assert.True(actualProject.ProjectId.Equals(project.ProjectId));
-        //}
+           Assert.Equal(actualProject.ProjectId,projectId);
+        }
 
         [Theory]
         [InlineData("3d7211e8-8b76-4f88-a76c-2ff4509f22c8")]
