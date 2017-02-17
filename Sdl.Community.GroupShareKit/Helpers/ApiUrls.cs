@@ -106,6 +106,12 @@ namespace Sdl.Community.GroupShareKit.Helpers
                 FormatUri(CurrentProjectServerUrl);
         }
 
+        public static Uri GetAllProjects()
+        {
+            return "{0}/projects".
+                FormatUri(CurrentProjectServerUrl);
+        }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns all permissions
         /// </summary>

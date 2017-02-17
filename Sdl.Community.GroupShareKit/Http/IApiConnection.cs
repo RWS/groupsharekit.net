@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
+using Sdl.Community.GroupShareKit.Exceptions;
 
 namespace Sdl.Community.GroupShareKit.Http
 {

@@ -26,6 +26,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Project"/>s.</returns>
         Task<IReadOnlyList<Project>> GetAllProjectsForOrganization(ProjectsRequest request);
+        Task <Project>GetAllProjects();
 
         /// <summary>
         /// Gets all <see cref="File"/>s for the project.

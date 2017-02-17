@@ -40,6 +40,11 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.GetAll<Project>(ApiUrls.OrganizationProjects(), request.ToParametersDictionary());
         }
 
+        public Task<Project> GetAllProjects()
+        {
+            return ApiConnection.Get<Project>(ApiUrls.GetAllProjects(),null);
+        }
+
         /// <summary>
         /// Gets all <see cref="File"/>s for the project.
         /// </summary>
