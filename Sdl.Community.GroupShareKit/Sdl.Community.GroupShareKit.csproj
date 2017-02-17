@@ -71,6 +71,7 @@
     <Compile Include="Clients\ProjectsRequest.cs" />
     <Compile Include="Clients\RoleClient.cs" />
     <Compile Include="Clients\SortParameters.cs" />
+    <Compile Include="IJsonRequest.cs" />
     <Compile Include="Models\Response\LanguageDirections.cs" />
     <Compile Include="Models\Response\LanguageFiles.cs" />
     <Compile Include="Models\Response\Permission.cs" />

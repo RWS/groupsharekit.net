@@ -10,18 +10,18 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
     public class ProjectClientTests
     {
 
-        //[Fact]
-        //public async Task GetOrganizationProjects()
-        //{
-        //    var groupShareClient = await Helper.GetAuthenticatedClient();
+        [Fact]
+        public async Task GetProjectByName()
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
 
+            var projectRequest = new ProjectsRequest("/", true, 7) {Filter = {ProjectName = "Andrea"}};
+            var result =
+                await
+                    groupShareClient.Project.GetProjects(projectRequest);
 
-        //    var result =
-        //        await
-        //            groupShareClient.Project.GetAllProjectsForOrganization(new ProjectsRequest());
-
-        //    Assert.True(result.Count>0);
-        //}
+            Assert.True(result.Items[0].Name=="Andrea");
+        }
 
         [Fact]
         public async Task GetAllProjects()

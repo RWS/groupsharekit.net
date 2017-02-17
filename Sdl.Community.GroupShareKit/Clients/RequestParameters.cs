@@ -75,6 +75,21 @@ namespace Sdl.Community.GroupShareKit.Clients
             {
                 return (prop, value) => value?.ToString().ToLowerInvariant();
             }
+            if (typeof (IJsonRequest).IsAssignableFrom(propertyType))
+            {
+                return (prop, value) =>
+                {
+                    var name = prop.Name;
+                    var json = string.Empty;
+                    if (name.Equals("Filter", StringComparison.OrdinalIgnoreCase))
+                    {
+                         json = ((FilterOptions) value).Stringify();
+                        
+                    }
+                   return json;
+
+                };
+            }
 
             return (prop, value) => value?.ToString();
         }

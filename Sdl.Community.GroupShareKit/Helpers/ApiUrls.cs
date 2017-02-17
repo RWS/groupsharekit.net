@@ -100,11 +100,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> that returns all projects associated with the specified organziation
         /// </summary>
         /// <returns></returns>
-        public static Uri OrganizationProjects()
-        {
-            return "{0}/projects".
-                FormatUri(CurrentProjectServerUrl);
-        }
+        //public static Uri OrganizationProjects()
+        //{
+        //    return "{0}/projects".
+        //        FormatUri(CurrentProjectServerUrl);
+        //}
 
         public static Uri GetAllProjects()
         {

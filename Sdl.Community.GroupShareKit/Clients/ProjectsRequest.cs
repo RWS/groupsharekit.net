@@ -1,3 +1,6 @@
+using System;
+using Newtonsoft.Json;
+
 namespace Sdl.Community.GroupShareKit.Clients
 {
     /// <summary>
@@ -8,20 +11,23 @@ namespace Sdl.Community.GroupShareKit.Clients
     /// </remarks>
     public class ProjectsRequest:RequestParameters
     {
-        /// <summary>
-        /// Gets or sets the organization path for which the projects are returned
-        /// </summary>
-        /// <value>
-        /// The organization path
-        /// </value>
-        public string Page { get; set; }
 
-        /// <summary>
-        /// Get or sets if the response should include projects for the child organizations
-        /// </summary>
-        /// <value>
-        /// The include children
-        /// </value>
+        public ProjectsRequest(string organizationPath,bool includeSubOrgs, int status)
+        {
+            Filter= new FilterOptions(organizationPath, includeSubOrgs, status);
+        }
+
+        public ProjectsRequest(SortParameters sortParam)
+        {
+            Sort = sortParam;
+        }
+
+        public ProjectsRequest(string page,string limit)
+        {
+            Page = page;
+            Limit = limit;
+        }
+        public string Page { get; set; }
         public string Limit { get; set; }
 
         public FilterOptions Filter { get; set; }

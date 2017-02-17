@@ -33,11 +33,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Project"/>s.</returns>
-        public Task<IReadOnlyList<Project>> GetAllProjectsForOrganization(ProjectsRequest request)
+        public Task<Project> GetProjects(ProjectsRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");
 
-            return ApiConnection.GetAll<Project>(ApiUrls.OrganizationProjects(), request.ToParametersDictionary());
+            return ApiConnection.Get<Project>(ApiUrls.GetAllProjects(), request.ToParametersDictionary());
         }
 
         public Task<Project> GetAllProjects()
@@ -140,7 +140,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotNull(request, "request");
 
-            var projectUri = await ApiConnection.Post<string>(ApiUrls.OrganizationProjects(), request, "application/json");
+            var projectUri = await ApiConnection.Post<string>(ApiUrls.GetAllProjects(), request, "application/json");
             var projectId = projectUri.Split('/').Last();
 
             var byteContent = new ByteArrayContent(request.RawData);
