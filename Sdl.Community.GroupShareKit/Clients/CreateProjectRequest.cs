@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,6 +33,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </value>
         public string OrganizationId { get; set; }
 
+        public string  Description   { get; set; }
+        public DateTime? DueDate { get; set; }
+        public string ProjectTemplateId { get; set; }
+
         public CreateProjectRequest(string fileName,
             string organizationId,
             byte[] rawData)
@@ -39,6 +44,14 @@ namespace Sdl.Community.GroupShareKit.Clients
             Name = fileName;
             OrganizationId = organizationId;
             RawData = rawData;
+        }
+
+        public CreateProjectRequest(string fileName, string organizationId, byte[] rawData,
+            string description, DateTime dueDate, string projectTemplateId) : this(fileName, organizationId, rawData)
+        {
+            Description = description;
+            DueDate = dueDate;
+            ProjectTemplateId = projectTemplateId;
         }
     }
 }

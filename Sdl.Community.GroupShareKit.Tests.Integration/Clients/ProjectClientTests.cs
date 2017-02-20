@@ -72,6 +72,34 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             }
         }
 
+        [Fact]
+        public async Task CreateProject()
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var rawData =
+                File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\ProjectPackage.sdlppx"));
+
+            var projectId =
+                await groupShareClient.Project.CreateProject(new CreateProjectRequest("ProjectPackage.sdlppx",
+                    "5bdb10b8-e3a9-41ae-9e66-c154347b8d17", rawData));
+
+            Assert.True(!string.IsNullOrEmpty(projectId));
+
+           // await groupShareClient.Project.DeleteProject(projectId);
+        }
+
+        [Theory]
+        [InlineData("6472c9e1-b082-4af9-9d1a-361609141974")]
+        public async Task GetProjectPhases(string projectId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+
+
+
+            var projectPhases = await groupShareClient.Project.GetAllPhasesForProject(projectId);
+
+            Assert.True(projectPhases.Count != 0);
+        }
 
 
 
@@ -97,25 +125,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         //}
 
-        //[Fact]
-        //public async Task GetProjectPhases()
-        //{
-        //    var groupShareClient = await Helper.GetAuthenticatedClient();
-
-        //    var projects =
-        //        await
-        //            groupShareClient.Project.GetAllProjectsForOrganization(new ProjectsRequest(Helper.TestOrganization,
-        //                true));
-
-        //    Assert.True(projects != null);
-        //    Assert.True(projects.Count > 0, "There are no projects available");
-
-        //    var project = projects[0];
-
-        //    var projectPhases = await groupShareClient.Project.GetAllPhasesForProject(project.ProjectId.ToString());
-
-        //    Assert.True(projectPhases != null);
-        //}
 
 
         //[Fact]
@@ -174,21 +183,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //}
 
 
-        //[Fact]
-        //public async Task CreateProject()
-        //{
-        //    var groupShareClient = await Helper.GetAuthenticatedClient();
-        //    var rawData =
-        //        File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\ProjectPackage.sdlppx"));
 
-        //    var projectId =
-        //        await groupShareClient.Project.CreateProject(new CreateProjectRequest("ProjectPackage.sdlppx",
-        //            "c03a0a9e-a841-47ba-9f31-f5963e71bbb7", rawData));
-
-        //    Assert.True(!string.IsNullOrEmpty(projectId));
-
-        //    await groupShareClient.Project.DeleteProject(projectId);
-        //}
 
 
 
