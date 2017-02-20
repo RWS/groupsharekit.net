@@ -32,7 +32,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Property = SortParameters.PropertyOption.ProjectName,
                 Direction = SortParameters.DirectionOption.DESC
             };
-            var test = sortParameters.Stringify();
             var projectRequest = new ProjectsRequest(sortParameters);
             
             var sortedProjects = await groupShareClient.Project.GetProjects(projectRequest);
@@ -49,6 +48,30 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(projects.Count>0);
 
         }
+        [Theory]
+        [InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8")]
+        public async Task GetProjectById(string projectId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+
+            var actualProject = await groupShareClient.Project.Get(projectId);
+
+            Assert.Equal(actualProject.ProjectId, projectId);
+        }
+
+        [Theory]
+        [InlineData("SDL Community Developers")]
+        public async Task GetProjectsForOrganization(string organizationName)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var projects =  groupShareClient.Project.GetProjectsForOrganization(organizationName);
+
+            foreach (var project in projects)
+            {
+                Assert.Equal(project.OrganizationName, organizationName);
+            }
+        }
+
 
 
 
@@ -58,15 +81,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //{
         //    var groupShareClient = await Helper.GetAuthenticatedClient();
 
-            //var projects =
-            //    await
-            //        groupShareClient.Project.GetAllProjectsForOrganization(new ProjectsRequest(Helper.TestOrganization,
-            //            true));
+        //var projects =
+        //    await
+        //        groupShareClient.Project.GetAllProjectsForOrganization(new ProjectsRequest(Helper.TestOrganization,
+        //            true));
 
-            //Assert.True(projects != null);
-            //Assert.True(projects.Count > 0, "There are no projects available");
+        //Assert.True(projects != null);
+        //Assert.True(projects.Count > 0, "There are no projects available");
 
-           // var project = projects[0];
+        // var project = projects[0];
 
         //    var projectFiles = await groupShareClient.Project.GetAllFilesForProject(project.ProjectId.ToString());
 
@@ -167,16 +190,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    await groupShareClient.Project.DeleteProject(projectId);
         //}
 
-        [Theory]
-        [InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8")]
-        public async Task GetProjectById(string projectId)
-        {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
 
-            var actualProject = await groupShareClient.Project.Get(projectId);
-
-           Assert.Equal(actualProject.ProjectId,projectId);
-        }
 
         //[Theory]
         //[InlineData("3d7211e8-8b76-4f88-a76c-2ff4509f22c8")]

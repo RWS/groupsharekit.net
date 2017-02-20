@@ -45,6 +45,12 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Get<Project>(ApiUrls.GetAllProjects(),null);
         }
 
+        public List<ProjectDetails> GetProjectsForOrganization(string organizationName)
+        {
+            var allProjects =  ApiConnection.Get<Project>(ApiUrls.GetAllProjects(), null);
+            return allProjects.Result.Items.Where(o => o.OrganizationName == organizationName).ToList();         
+        }
+
         /// <summary>
         /// Gets all <see cref="File"/>s for the project.
         /// </summary>

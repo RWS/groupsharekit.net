@@ -27,6 +27,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="Project"/>s.</returns>
         Task <Project> GetProjects(ProjectsRequest request);
         Task <Project>GetAllProjects();
+        List<ProjectDetails> GetProjectsForOrganization(string organizationName);
 
         /// <summary>
         /// Gets all <see cref="File"/>s for the project.
