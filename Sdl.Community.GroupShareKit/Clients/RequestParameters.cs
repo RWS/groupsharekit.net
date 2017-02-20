@@ -77,16 +77,26 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
             if (typeof (IJsonRequest).IsAssignableFrom(propertyType))
             {
+               
                 return (prop, value) =>
                 {
                     var name = prop.Name;
                     var json = string.Empty;
                     if (name.Equals("Filter", StringComparison.OrdinalIgnoreCase))
                     {
-                         json = ((FilterOptions) value).Stringify();
+                        if ((FilterOptions) value != null)
+                        {
+                            json = ((FilterOptions)value).Stringify();
+                        }
+                        
                         
                     }
-                   return json;
+                    if (name.Equals("Sort", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var sortParameters = (SortParameters)value;
+                        if (sortParameters != null) json = sortParameters.Stringify();
+                    }
+                    return json;
 
                 };
             }

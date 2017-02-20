@@ -24,6 +24,22 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
+        public async Task SortProjectsByName()
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var sortParameters = new SortParameters()
+            {
+                Property = SortParameters.PropertyOption.ProjectName,
+                Direction = SortParameters.DirectionOption.DESC
+            };
+            var test = sortParameters.Stringify();
+            var projectRequest = new ProjectsRequest(sortParameters);
+            
+            var sortedProjects = await groupShareClient.Project.GetProjects(projectRequest);
+            Assert.True(sortedProjects.Items[0].Name == "Test");
+        }
+
+        [Fact]
         public async Task GetAllProjects()
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
