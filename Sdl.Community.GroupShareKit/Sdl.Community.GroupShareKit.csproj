@@ -72,6 +72,7 @@
     <Compile Include="Clients\RoleClient.cs" />
     <Compile Include="Clients\SortParameters.cs" />
     <Compile Include="IJsonRequest.cs" />
+    <Compile Include="Models\Response\Assignment.cs" />
     <Compile Include="Models\Response\LanguageDirections.cs" />
     <Compile Include="Models\Response\LanguageFiles.cs" />
     <Compile Include="Models\Response\Permission.cs" />
@@ -121,7 +122,9 @@
     <Compile Include="Models\Response\ProjectFile.cs" />
     <Compile Include="Models\Response\PublishingStatus.cs" />
     <Compile Include="Models\Response\Role.cs" />
+    <Compile Include="Models\Response\Statistics.cs" />
     <Compile Include="Models\Response\User.cs" />
+    <Compile Include="Models\Response\UserDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

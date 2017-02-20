@@ -101,41 +101,23 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(projectPhases.Count != 0);
         }
 
+        [Theory]
+        [InlineData("6472c9e1-b082-4af9-9d1a-361609141974")]
+        public async Task GetProjectFiles(string projectId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
 
 
-        //[Theory]
-        //[InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8")]
-        //public async Task GetProjectFiles(string projectId)
-        //{
-        //    var groupShareClient = await Helper.GetAuthenticatedClient();
+            var projectFiles = await groupShareClient.Project.GetAllFilesForProject(projectId);
 
-        //var projects =
-        //    await
-        //        groupShareClient.Project.GetAllProjectsForOrganization(new ProjectsRequest(Helper.TestOrganization,
-        //            true));
+            Assert.True(projectFiles.Count >0);
 
-        //Assert.True(projects != null);
-        //Assert.True(projects.Count > 0, "There are no projects available");
-
-        // var project = projects[0];
-
-        //    var projectFiles = await groupShareClient.Project.GetAllFilesForProject(project.ProjectId.ToString());
-
-        //    Assert.True(projectFiles != null);
-
-        //}
-
-
+        }
 
         //[Fact]
         //public async Task ChangeProjectPhases()
         //{
         //    var groupShareClient = await Helper.GetAuthenticatedClient();
-
-        //    var projects =
-        //        await
-        //            groupShareClient.Project.GetAllProjectsForOrganization(new ProjectsRequest(Helper.TestOrganization,
-        //                true));
 
         //    var request = new[]
         //    {
@@ -149,10 +131,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    var projectPhases =
         //        await
         //            groupShareClient.Project.ChangePhases("3d7211e8-8b76-4f88-a76c-2ff4509f22c8",
-        //                new ChangePhaseRequest("test", request)); 
+        //                new ChangePhaseRequest("test", request));
 
         //    Assert.True(projectPhases != null);
         //}
+
+
+
+
+
+
 
 
         //[Fact]

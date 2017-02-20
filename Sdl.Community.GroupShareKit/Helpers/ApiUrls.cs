@@ -199,7 +199,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <returns></returns>
         public static Uri ProjectFiles(string projectId)
         {
-            return "{0}/projects/{1}/filestatus/languagefiles".
+            return "{0}/projects/{1}/files".
                 FormatUri(CurrentProjectServerUrl, projectId);
         }
 
