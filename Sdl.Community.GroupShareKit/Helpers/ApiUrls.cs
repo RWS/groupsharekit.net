@@ -142,15 +142,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
                 FormatUri(CurrentProjectServerUrl, projectId);
         }
 
-        /// <summary>
-        /// Returns the <see cref="Uri"/> that represents file status of a server project.
-        /// </summary>
-        /// <returns></returns>
-        public static Uri FileStatus(string projectId)
-        {
-            return "{0}/projects/{1}/filestatus".
-                FormatUri(CurrentProjectServerUrl, projectId);
-        }
 
         /// <summary>
         /// Returns the <see cref="Uri"/> that represents file status of all language files

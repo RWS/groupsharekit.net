@@ -143,20 +143,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<PublishingStatus> PublishingStatus(string projectId);
 
         /// <summary>
-        /// Get the file status of a server project.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="ProjectFile"/>s.</returns>
-        Task<IReadOnlyList<ProjectFile>> FileStatus(string projectId);
-
-        /// <summary>
         /// Get the  the status for all language files.
         /// </summary>
         /// <remarks>

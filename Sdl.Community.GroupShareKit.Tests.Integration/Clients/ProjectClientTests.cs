@@ -170,22 +170,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //                new ChangeAssignmentRequest("test", request)); 
         //}
 
-
-
-
-
-
-        //[Theory]
-        //[InlineData("3d7211e8-8b76-4f88-a76c-2ff4509f22c8")]
-        //public async Task ProjectFileStatus(string projectId)
-        //{
-        //    var groupShareClient = await Helper.GetAuthenticatedClient();
-
-        //    var fileStatus = await groupShareClient.Project.FileStatus(projectId);
-
-        //    Assert.True(fileStatus != null);
-        //}
-
         //[Theory]
         //[InlineData("3d7211e8-8b76-4f88-a76c-2ff4509f22c8")]
         //public async Task ProjectLanguageFiles(string projectId)
