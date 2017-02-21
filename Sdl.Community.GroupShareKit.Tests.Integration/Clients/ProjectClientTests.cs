@@ -114,29 +114,30 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         }
 
-        //[Fact]
-        //public async Task ChangeProjectPhases()
-        //{
-        //    var groupShareClient = await Helper.GetAuthenticatedClient();
+        [Theory]
+        [InlineData("a885af0c-d476-4265-97b3-9ecc8a2b4dc5")]
+        public async Task ChangeProjectPhases(string projectId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
 
-        //    var request = new[]
-        //    {
-        //        new ChangePhaseRequest.File()
-        //        {
-        //            LanguageFileId = "6fc116cd-c63b-4022-871b-15c0b9cb7aef",
-        //            PhaseId = 1850
-        //        },
-        //    };
+            var request = new[]
+            {
+                new ChangePhaseRequest.File()
+                {
+                    LanguageFileId = "f07ed07f-6864-45a0-979e-afcc0fd250a1",
+                    PhaseId = 38
+                },
+            };
 
-        //    var projectPhases =
-        //        await
-        //            groupShareClient.Project.ChangePhases("3d7211e8-8b76-4f88-a76c-2ff4509f22c8",
-        //                new ChangePhaseRequest("test", request));
+            var projectPhases =
+                await
+                    groupShareClient.Project.ChangePhases(projectId,
+                        new ChangePhaseRequest("Changed phase ", request));
 
-        //    Assert.True(projectPhases != null);
-        //}
+            Assert.Equal(projectPhases,string.Empty);
+        }
 
-
+      
 
 
 
