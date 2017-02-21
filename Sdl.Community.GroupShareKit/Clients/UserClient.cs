@@ -31,9 +31,9 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="User"/>s.</returns>
-        public Task<IReadOnlyList<User>> GetAllUsers()
+        public Task<UserResponse> GetAllUsers(UsersRequest usersRequest)
         {
-            return ApiConnection.GetAll<User>(ApiUrls.User());
+            return ApiConnection.Get<UserResponse>(ApiUrls.User(), usersRequest.ToParametersDictionary());
         }
 
         /// <summary>
@@ -53,6 +53,13 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(request, "request");
 
             return ApiConnection.Get<User>(ApiUrls.User(), request.ToParametersDictionary());
+        }
+
+        public Task<User> GetUserById(string userId)
+        {
+            Ensure.ArgumentNotNull(userId, "userId");
+
+            return ApiConnection.Get<User>(ApiUrls.User(userId), null);
         }
 
         /// <summary>

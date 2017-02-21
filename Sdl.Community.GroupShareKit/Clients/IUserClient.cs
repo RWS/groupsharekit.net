@@ -26,7 +26,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="User"/>s.</returns>
-        Task<IReadOnlyList<User>> GetAllUsers();
+        Task<UserResponse> GetAllUsers(UsersRequest usersRequest);
 
         /// <summary>
         /// Get <see cref="User"/>.
@@ -41,6 +41,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A <see cref="User"/>.</returns>
         Task<User> Get(UserRequest request);
+
+        Task<User> GetUserById(string userId);
 
         /// <summary>
         /// Update <see cref="User"/>.

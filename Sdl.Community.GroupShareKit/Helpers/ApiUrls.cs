@@ -5,7 +5,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
     public static class ApiUrls
     {
         public static readonly Uri CurrentProjectServerUrl = new Uri("api/projectserver/v2", UriKind.Relative);
-        public static readonly Uri CurrentManagementUrl = new Uri("management/api/1.0", UriKind.Relative);
+        public static readonly Uri CurrentManagementUrl = new Uri("api/management/v2", UriKind.Relative);
         public static readonly Uri CurrentAuthenticationUrl = new Uri("authentication/api/1.0", UriKind.Relative);
 
         /// <summary>
