@@ -80,26 +80,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Search <see cref="User"/>
-        /// </summary>
-        ///  /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <param name="request"></param>
-        /// <returns>A <see cref="User"/></returns>
-        public Task<IReadOnlyList<User>> Search(string searchText)
-        {
-            
-
-            return ApiConnection.GetAll<User>(ApiUrls.Search(searchText));
-        }
-
-        /// <summary>
         /// Delete <see cref="User"/>
         /// </summary>
         ///  /// <remarks>

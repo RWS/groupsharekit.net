@@ -44,33 +44,21 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(user.UniqueId.ToString(),userId);
         }
 
-        //[Theory]
-        //[InlineData("test_chf")]
-        //public async Task Update(string userName)
-        //{
-        //    var groupShareClient = await Helper.GetAuthenticatedClient();
-        //    var response = await groupShareClient.User.Get(new UserRequest(userName));
-
-        //    response.DisplayName = "Test";
-
-        //    var user = await groupShareClient.User.Update(response);
-
-        //    Assert.True(user != null);
-
-        //    var userUpdated = await groupShareClient.User.Get(new UserRequest(userName));
-        //    Assert.Equal(userUpdated.DisplayName,"Test");
-
-        //}
-
         [Theory]
-        [InlineData("test_")]
-        public async Task Search(string text)
+        [InlineData("aghisa")]
+        public async Task Update(string userName)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            var response = await groupShareClient.User.Search(text);
+            var response = await groupShareClient.User.Get(new UserRequest(userName));
 
-       
-            Assert.True(response != null);
+            response.Description = "Description";
+
+            var user = await groupShareClient.User.Update(response);
+
+            Assert.True(user != string.Empty);
+
+            var userUpdated = await groupShareClient.User.Get(new UserRequest(userName));
+            Assert.Equal(userUpdated.Description, "Description");
 
         }
 
