@@ -67,8 +67,10 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Clients\AuthenticationClientTests.cs" />
+    <Compile Include="Clients\FilesTest.cs" />
     <Compile Include="Clients\OrganizationClientTests.cs" />
     <Compile Include="Clients\PermissionClientTest.cs" />
+    <Compile Include="Clients\PhasesTests.cs" />
     <Compile Include="Clients\ProjectClientTests.cs" />
     <Compile Include="Clients\PublishingStatusClientTests.cs" />
     <Compile Include="Clients\RolesClientTests.cs" />

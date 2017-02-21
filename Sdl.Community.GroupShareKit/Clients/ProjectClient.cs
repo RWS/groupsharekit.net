@@ -225,22 +225,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
 
-        /// <summary>
-        /// Get the  the status for all language files.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="LanguageFiles"/>s.</returns>
-        public async Task<IReadOnlyList<LanguageFiles>> LanguageFiles(string projectId)
-        {
-            return await ApiConnection.GetAll<LanguageFiles>(ApiUrls.LanguageFiles(projectId), null);
-        }
 
         /// <summary>
         ///Downloads the files with the specific language ids

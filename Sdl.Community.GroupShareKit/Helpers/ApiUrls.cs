@@ -143,15 +143,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
 
-        /// <summary>
-        /// Returns the <see cref="Uri"/> that represents file status of all language files
-        /// </summary>
-        /// <returns></returns>
-        public static Uri LanguageFiles(string projectId)
-        {
-            return "{0}/projects/{1}/filestatus/languagefiles".
-                FormatUri(CurrentProjectServerUrl, projectId);
-        }
+
 
         /// <summary>
         /// Returns the <see cref="Uri"/> that represents downloaded files with the specific languageCodeid and type
