@@ -117,6 +117,7 @@
     <Compile Include="Models\Response\Authorization.cs" />
     <Compile Include="Models\Response\File.cs" />
     <Compile Include="Models\Response\Organization.cs" />
+    <Compile Include="Models\Response\PhasesWithAssignees.cs" />
     <Compile Include="Models\Response\Project.cs" />
     <Compile Include="Models\Response\ProjectDetails.cs" />
     <Compile Include="Models\Response\ProjectFile.cs" />

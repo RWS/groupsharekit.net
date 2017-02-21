@@ -57,6 +57,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="Phase"/>s.</returns>
         Task<IReadOnlyList<Phase>> GetAllPhasesForProject(string projectId);
 
+        Task<IReadOnlyList<PhasesWithAssignees>> GetPhasesWithAssignees(string projectId, int phaseId);
+
         /// <summary>
         /// Change the project phases
         /// </summary>

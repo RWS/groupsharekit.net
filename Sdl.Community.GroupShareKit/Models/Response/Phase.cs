@@ -1,4 +1,6 @@
-﻿namespace Sdl.Community.GroupShareKit.Models.Response
+﻿using System.Collections.Generic;
+
+namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class Phase
     {
@@ -6,5 +8,6 @@
         public string Name { get; set; }
         public int Order { get; set; }
         public int ProjectPhaseId { get; set; }
+        public List<string> Assignees { get; set; }
     }
 }

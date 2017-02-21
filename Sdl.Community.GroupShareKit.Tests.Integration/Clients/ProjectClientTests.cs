@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Clients;
 using Xunit;
@@ -137,8 +138,20 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(projectPhases,string.Empty);
         }
 
-      
 
+        [Theory]
+        [InlineData("a885af0c-d476-4265-97b3-9ecc8a2b4dc5", 37)]
+        public async Task GetPhasesWithAssignees(string projectId, int phaseId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var phases = await groupShareClient.Project.GetPhasesWithAssignees(projectId, phaseId);
+
+            foreach (var projectPhase in phases.SelectMany(phase => phase.Phases))
+            {
+                Assert.Equal(projectPhase.ProjectPhaseId,37);
+            }
+         
+        }
 
 
 

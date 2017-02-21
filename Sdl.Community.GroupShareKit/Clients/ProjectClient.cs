@@ -89,6 +89,14 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         }
 
+        public Task<IReadOnlyList<PhasesWithAssignees>> GetPhasesWithAssignees(string projectId, int phaseId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            Ensure.ArgumentNotNullOrEmptyString(phaseId.ToString(), "phaseId");
+            return ApiConnection.GetAll<PhasesWithAssignees>(ApiUrls.ProjectPhasesWithAssignees(projectId, phaseId));
+
+        }
+
 
         /// <summary>
         /// Change the project phases

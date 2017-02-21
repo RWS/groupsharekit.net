@@ -205,6 +205,12 @@ namespace Sdl.Community.GroupShareKit.Helpers
                 FormatUri(CurrentProjectServerUrl, projectId);
         }
 
+        public static Uri ProjectPhasesWithAssignees(string projectId,int phaseId)
+        {
+            return "{0}/projects/{1}/phaseswithassignees/{2}".
+                FormatUri(CurrentProjectServerUrl, projectId,phaseId);
+        }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that change the project phases
         /// </summary>
