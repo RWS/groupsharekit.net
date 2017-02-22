@@ -14,7 +14,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         public string EmailAddress { get; set; }
         public string PhoneNumber { get; set; }
         public string Locale { get; set; }
-        public Guid OrganizationId { get; set; }
+        public string OrganizationId { get; set; }
         public string UserType { get; set; }
         public List<Role> Roles { get; set; }
     }

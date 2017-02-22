@@ -62,55 +62,54 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         }
 
-        //[Theory]
-        //[InlineData("test_api", "de-DE")]
-        //[InlineData("test_user","en-US")]
-        //public async Task UpdateUserLanguageDirections(string userName,string locale)
-        //{
-        //    var groupShareClient = await Helper.GetAuthenticatedClient();
-        //    var expected = await groupShareClient.User.Get(new UserRequest(userName));
+        [Theory]
+        [InlineData("testuser", "de-DE")]
+        public async Task UpdateUserLanguageDirections(string userName, string locale)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var expected = await groupShareClient.User.Get(new UserRequest(userName));
 
-        //    expected.Locale = locale;
-        //    await groupShareClient.User.Update(expected);
+            expected.Locale = locale;
+            await groupShareClient.User.Update(expected);
 
-        //    var actual = await groupShareClient.User.Get(new UserRequest(userName));
+            var actual = await groupShareClient.User.Get(new UserRequest(userName));
 
-        //    Assert.True(expected.Locale.Equals(actual.Locale));
-        //}
+            Assert.True(expected.Locale.Equals(actual.Locale));
+        }
 
-        //[Fact]
-        //public async Task Create()
-        //{
-        //    var groupShareClient = await Helper.GetAuthenticatedClient();
-        //    var uniqueId = Guid.NewGuid();
+        [Fact]
+        public async Task Create()
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var uniqueId = Guid.NewGuid();
 
-        //    var newUser = new CreateUserRequest
-        //    {
-        //        UniqueId = uniqueId,
-        //        Name = "testUser",
-        //        Password = "Password1",
-        //        DisplayName = "test",
-        //        Description = null,
-        //        PhoneNumber = null,
-        //        Locale = "en-US",
-        //        OrganizationId = new Guid("c03a0a9e-a841-47ba-9f31-f5963e71bbb7"),
-        //        UserType = "SDLUser",
-        //        Roles = new List<Role>
-        //        {
-        //            new Role
-        //            {
-        //                 OrganizationId = new Guid("c03a0a9e-a841-47ba-9f31-f5963e71bbb7"),
-        //                  RoleId = new Guid("0340ad05-63d2-4db6-8bbd-696fac125a19"),//power user
-        //                   UserId = uniqueId
-        //            }
-        //        }
-        //    };
+            var newUser = new CreateUserRequest
+            {
+                UniqueId = uniqueId,
+                Name = "User",
+                Password = "Password1",
+                DisplayName = "test",
+                Description = null,
+                PhoneNumber = null,
+                Locale = "en-US",
+                OrganizationId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
+                UserType = "SDLUser",
+                Roles = new List<Role>
+                {
+                    new Role
+                    {
+                         OrganizationId = new Guid("5bdb10b8-e3a9-41ae-9e66-c154347b8d17"),
+                          RoleId = new Guid("793f3f38-3899-49e5-b793-99a53cd1d24d"),//power user
+                           UserId = uniqueId
+                    }
+                }
+            };
 
-        //    var userId = await groupShareClient.User.Create(newUser);
+            var userId = await groupShareClient.User.Create(newUser);
 
-        //    Assert.True(userId != null);
+            Assert.True(userId != string.Empty);
 
-        //    await groupShareClient.User.Delete(userId);
-        //}
+            await groupShareClient.User.Delete(userId);
+        }
     }
 }
