@@ -16,42 +16,37 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var response = await groupShareClient.Organization.GetAll(new OrganizationRequest(false));
 
-            Assert.True(response != null);
+            Assert.True(response.Count>0);
         }
 
-        [Fact]
-        public async Task GetOrganizationById()
+        [Theory]
+        [InlineData("5bdb10b8-e3a9-41ae-9e66-c154347b8d17")]
+        public async Task GetOrganizationById(string organizationId)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
 
-            var organizations = await groupShareClient.Organization.GetAll(new OrganizationRequest(false));
+        
 
-            Assert.True(organizations != null);
-            Assert.True(organizations.Count >0, "No organizations for the specified account");
+            var organization = await groupShareClient.Organization.Get(organizationId);
 
-            var expectedOrganization = organizations[0];
-
-            var actualOrganization = await groupShareClient.Organization.Get(expectedOrganization.UniqueId.ToString());
-
-            Assert.True(expectedOrganization.Name.Equals(actualOrganization.Name));
+            Assert.Equal(organization.UniqueId.ToString(),organizationId);
 
         }
 
 
         [Fact]
-        public async Task Update()
+        public async Task Update( string organizationId)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
 
-            var organizations = await groupShareClient.Organization.GetAll(new OrganizationRequest(false));
+            var organization = await groupShareClient.Organization.Get(organizationId);
 
-            organizations[0].Name = "Test API";
-            organizations[0].Path = "Test API";
+            organization.Name = "Updated Name";
  
-            await groupShareClient.Organization.Update(organizations[0]);
-            var updatedOrganization = await groupShareClient.Organization.GetAll(new OrganizationRequest(false));
+            var updatedOrgId=await groupShareClient.Organization.Update(organization);
+            var updatedOrganization = await groupShareClient.Organization.Get(updatedOrgId);
 
-             Assert.Equal(updatedOrganization.First().Name, "Test API");
+             Assert.Equal(updatedOrganization.Name, "Updated Name");
         }
 
         [Fact]
@@ -62,16 +57,19 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
              {
                  UniqueId = Guid.NewGuid(),
                  Name = "Test organization",
+                 IsLibrary = true,
                  Description = null,
                  Path = null,
-                 ParentOrganizationId = new Guid("c03a0a9e-a841-47ba-9f31-f5963e71bbb7"),
+                 ParentOrganizationId = new Guid("5bdb10b8-e3a9-41ae-9e66-c154347b8d17"),
                  ChildOrganizations = null
                 
 
              };
             var organizationId = await groupShareClient.Organization.Create(organization);
 
-            Assert.True(organizationId != null);
+            Assert.True(organizationId != string.Empty);
+
+            await Update(organizationId);
 
             await groupShareClient.Organization.DeleteOrganization(organizationId);
         }

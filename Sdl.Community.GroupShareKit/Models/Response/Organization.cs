@@ -11,6 +11,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         public string Description { get; set; }
         public string Path { get; set; }
         public Guid ParentOrganizationId { get; set; }
+        public bool IsLibrary  { get; set; }
         public List<Organization> ChildOrganizations { get; set; }
 
        
