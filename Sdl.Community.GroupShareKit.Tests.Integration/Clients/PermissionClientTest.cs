@@ -15,7 +15,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetAuthenticatedClient();
             var response = await groupShareClient.Permission.GetAll();
 
-            Assert.True(response != null);
+            Assert.True(response.Count>0);
+        }
+
+        [Fact]
+        public async Task GetAllPermissionsName()
+        {
+            var grClient = await Helper.GetAuthenticatedClient();
+            var response = await  grClient.Permission.GetPermissionsName();
+
+            Assert.True(response.Count>0);
         }
     }
 }

@@ -77,6 +77,7 @@
     <Compile Include="Models\Response\LanguageDirections.cs" />
     <Compile Include="Models\Response\LanguageFiles.cs" />
     <Compile Include="Models\Response\Permission.cs" />
+    <Compile Include="Models\Response\PermissionsName.cs" />
     <Compile Include="Models\Response\Phase.cs" />
     <Compile Include="Clients\ProjectClient.cs" />
     <Compile Include="Clients\RequestParameters.cs" />

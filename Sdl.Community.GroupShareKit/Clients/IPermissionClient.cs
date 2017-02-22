@@ -20,5 +20,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Permission"/>s.</returns>
         Task<IReadOnlyList<Permission>> GetAll();
+
+        Task<IReadOnlyList<PermissionsName>> GetPermissionsName();
     }
 }

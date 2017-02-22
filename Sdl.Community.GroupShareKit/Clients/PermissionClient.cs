@@ -30,6 +30,9 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.GetAll<Permission>(ApiUrls.Permission());
         }
 
-       
+        public Task<IReadOnlyList<PermissionsName>> GetPermissionsName()
+        {
+            return ApiConnection.GetAll<PermissionsName>(ApiUrls.PermissionName());
+        }
     }
 }

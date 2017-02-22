@@ -122,6 +122,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
                 FormatUri(CurrentManagementUrl);
         }
 
+        public static Uri PermissionName()
+        {
+            return "{0}/permissions/user".
+                FormatUri(CurrentManagementUrl);
+        }
         /// <summary>
         /// Returns the <see cref="Uri"/> that represents the project
         /// </summary>
