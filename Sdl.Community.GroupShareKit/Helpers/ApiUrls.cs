@@ -95,6 +95,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/organizations".
                 FormatUri(CurrentManagementUrl);
         }
+        public static Uri OrganizationsResources(string organizationId)
+        {
+            return "{0}/organizationresources/{1}".
+                FormatUri(CurrentManagementUrl,organizationId);
+        }
+        public static Uri OrganizationsResources()
+        {
+            return "{0}/organizationresources".
+                FormatUri(CurrentManagementUrl);
+        }
 
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns all projects associated with the specified organziation

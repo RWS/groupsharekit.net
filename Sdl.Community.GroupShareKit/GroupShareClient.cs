@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
+using Sdl.Community.GroupShareKit.Models.Response;
 
 namespace Sdl.Community.GroupShareKit
 {
@@ -46,6 +47,7 @@ namespace Sdl.Community.GroupShareKit
             Project = new ProjectClient(apiConnection);
             User = new UserClient(apiConnection);
             Organization = new OrganizationClient(apiConnection);
+            OrganizationResources = new OrganizationResourcesClient(apiConnection);
             Authenticate = new AuthenticateClient(apiConnection);
             Role = new RoleClient(apiConnection);
             Permission = new PermissionClient(apiConnection);
@@ -81,6 +83,7 @@ namespace Sdl.Community.GroupShareKit
 
         public IUserClient User { get; }
         public IOrganizationClient Organization { get; set; }
+        public IOrganizationResourcesClient OrganizationResources { get; set; }
 
         public IAuthenticateClient Authenticate { get; set; }
 
