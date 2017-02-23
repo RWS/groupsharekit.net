@@ -9,6 +9,10 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static readonly Uri CurrentAuthenticationUrl = new Uri("authentication/api/1.0", UriKind.Relative);
 
 
+        public static Uri Modules()
+        {
+            return "{0}/modules".FormatUri(CurrentManagementUrl);
+        }
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns a single user for the user name
         /// </summary>
@@ -165,10 +169,10 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> that represents downloaded files with the specific languageCodeid and type
         /// </summary>
         /// <returns></returns>
-        public static Uri DownloadFile()
+        public static Uri DownloadFile(string projectId, string type)
         {
-            return "{0}/FileDownload".
-                FormatUri(CurrentProjectServerUrl);
+            return "{0}/projects/{1}/download/{2}".
+                FormatUri(CurrentProjectServerUrl,projectId,type);
         }
 
         /// <summary>

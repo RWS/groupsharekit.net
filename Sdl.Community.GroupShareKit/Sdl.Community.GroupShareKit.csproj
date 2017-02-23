@@ -57,8 +57,10 @@
     <Compile Include="Clients\CreateProjectRequest.cs" />
     <Compile Include="Clients\FileDownloadRequest.cs" />
     <Compile Include="Clients\FilterOptions.cs" />
+    <Compile Include="Clients\IModuleClient.cs" />
     <Compile Include="Clients\IOrganizationResourcesClient.cs" />
     <Compile Include="Clients\IProjectsTemplateClient.cs" />
+    <Compile Include="Clients\ModuleClient.cs" />
     <Compile Include="Clients\OrganizationResourcesClient.cs" />
     <Compile Include="Clients\OrganizationResourcesRequest.cs" />
     <Compile Include="Clients\ProjectTemplatesClient.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Models\Response\Assignment.cs" />
     <Compile Include="Models\Response\LanguageDirections.cs" />
     <Compile Include="Models\Response\LanguageFiles.cs" />
+    <Compile Include="Models\Response\Modules.cs" />
     <Compile Include="Models\Response\OrganizationResources.cs" />
     <Compile Include="Models\Response\Permission.cs" />
     <Compile Include="Models\Response\PermissionsName.cs" />
