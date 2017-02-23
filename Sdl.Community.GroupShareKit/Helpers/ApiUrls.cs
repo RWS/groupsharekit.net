@@ -8,6 +8,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static readonly Uri CurrentManagementUrl = new Uri("api/management/v2", UriKind.Relative);
         public static readonly Uri CurrentAuthenticationUrl = new Uri("authentication/api/1.0", UriKind.Relative);
 
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns a single user for the user name
         /// </summary>
@@ -201,11 +202,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
                 FormatUri(CurrentProjectServerUrl, projectId);
         }
 
+        public static Uri ProjectTemplates()
+        {
+            return "{0}/projects/templates".
+                FormatUri(CurrentProjectServerUrl);
+        }
        /// <summary>
-        /// Returns the <see cref="Uri"/> that returns all phases associated with the specified project
-        /// </summary>
-        /// <param name="projectId">The project id</param>
-        /// <returns></returns>
+       /// Returns the <see cref="Uri"/> that returns all phases associated with the specified project
+       /// </summary>
+       /// <param name="projectId">The project id</param>
+       /// <returns></returns>
         public static Uri ProjectPhases(string projectId)
         {
             return "{0}/phases/{1}".

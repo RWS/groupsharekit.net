@@ -46,6 +46,7 @@ namespace Sdl.Community.GroupShareKit
             var apiConnection = new ApiConnection(connection);
             Project = new ProjectClient(apiConnection);
             User = new UserClient(apiConnection);
+            ProjectsTemplates = new ProjectTemplatesClient(apiConnection);
             Organization = new OrganizationClient(apiConnection);
             OrganizationResources = new OrganizationResourcesClient(apiConnection);
             Authenticate = new AuthenticateClient(apiConnection);
@@ -84,6 +85,7 @@ namespace Sdl.Community.GroupShareKit
         public IUserClient User { get; }
         public IOrganizationClient Organization { get; set; }
         public IOrganizationResourcesClient OrganizationResources { get; set; }
+        public IProjectsTemplateClient ProjectsTemplates { get; set; }
 
         public IAuthenticateClient Authenticate { get; set; }
 

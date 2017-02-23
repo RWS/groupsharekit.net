@@ -73,6 +73,7 @@
     <Compile Include="Clients\PermissionClientTest.cs" />
     <Compile Include="Clients\PhasesTests.cs" />
     <Compile Include="Clients\ProjectClientTests.cs" />
+    <Compile Include="Clients\ProjectTemplatesTests.cs" />
     <Compile Include="Clients\PublishingStatusClientTests.cs" />
     <Compile Include="Clients\RolesClientTests.cs" />
     <Compile Include="Clients\UserClientTests.cs" />

@@ -58,8 +58,10 @@
     <Compile Include="Clients\FileDownloadRequest.cs" />
     <Compile Include="Clients\FilterOptions.cs" />
     <Compile Include="Clients\IOrganizationResourcesClient.cs" />
+    <Compile Include="Clients\IProjectsTemplateClient.cs" />
     <Compile Include="Clients\OrganizationResourcesClient.cs" />
     <Compile Include="Clients\OrganizationResourcesRequest.cs" />
+    <Compile Include="Clients\ProjectTemplatesClient.cs" />
     <Compile Include="Clients\RoleRequest.cs" />
     <Compile Include="Clients\CreateUserRequest.cs" />
     <Compile Include="Clients\IAuthenticateClient.cs" />
@@ -127,6 +129,7 @@
     <Compile Include="Models\Response\Project.cs" />
     <Compile Include="Models\Response\ProjectDetails.cs" />
     <Compile Include="Models\Response\ProjectFile.cs" />
+    <Compile Include="Models\Response\ProjectTemplates.cs" />
     <Compile Include="Models\Response\PublishingStatus.cs" />
     <Compile Include="Models\Response\Role.cs" />
     <Compile Include="Models\Response\Statistics.cs" />
