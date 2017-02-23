@@ -19,5 +19,22 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
            return await ApiConnection.GetAll<ProjectTemplates>(ApiUrls.ProjectTemplates(),null);
         }
+
+        public async Task<string> CreateTemplate(ProjectTemplates templateRequest)
+        {
+            return await ApiConnection.Post<string>(ApiUrls.ProjectTemplates(), templateRequest, "application/json");
+        }
+
+        public async Task<string> GetTemplateById(string templateId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
+            return await ApiConnection.Get<string>(ApiUrls.ProjectTemplates(templateId), null);
+        }
+
+        public async Task Delete(string templateId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
+            await ApiConnection.Delete(ApiUrls.ProjectTemplates(templateId));
+        }
     }
 }

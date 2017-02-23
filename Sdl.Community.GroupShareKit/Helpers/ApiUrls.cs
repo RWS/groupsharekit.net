@@ -207,11 +207,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/projects/templates".
                 FormatUri(CurrentProjectServerUrl);
         }
-       /// <summary>
-       /// Returns the <see cref="Uri"/> that returns all phases associated with the specified project
-       /// </summary>
-       /// <param name="projectId">The project id</param>
-       /// <returns></returns>
+        public static Uri ProjectTemplates(string templateId)
+        {
+            return "{0}/projects/templates/{1}".
+                FormatUri(CurrentProjectServerUrl,templateId);
+        }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all phases associated with the specified project
+        /// </summary>
+        /// <param name="projectId">The project id</param>
+        /// <returns></returns>
         public static Uri ProjectPhases(string projectId)
         {
             return "{0}/phases/{1}".

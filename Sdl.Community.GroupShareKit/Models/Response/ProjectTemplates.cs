@@ -12,5 +12,13 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         public string Name { get; set; }
         public string Description { get; set; }
         public string OrganizationId { get; set; }
+
+        public ProjectTemplates(string id,string name,string description,string organizationId)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            OrganizationId = organizationId;
+        }
     }
 }
