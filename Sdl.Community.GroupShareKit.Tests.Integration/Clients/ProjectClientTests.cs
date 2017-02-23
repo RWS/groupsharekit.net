@@ -91,33 +91,5 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
 
 
-        //[Fact]
-        //public async Task DownloadFile()
-        //{
-        //    var groupShareClient = await Helper.GetAuthenticatedClient();
-
-        //    //project id, type
-        //    var file = await groupShareClient.Project.DownloadFile(new FileDownloadRequest("3d7211e8-8b76-4f88-a76c-2ff4509f22c8", null, FileDownloadRequest.Types.All));   
-        //    Assert.True(file != null);
-
-        //    //project id, language code
-        //    var request = await groupShareClient.Project.DownloadFile(new FileDownloadRequest("3d7211e8-8b76-4f88-a76c-2ff4509f22c8", "de-DE",null));
-
-        //    Assert.True(request != null);
-
-        //}
-
-        //[Theory]
-        //[InlineData("3d7211e8-8b76-4f88-a76c-2ff4509f22c8")]
-        //public async Task DownloadFiles(string projectId)
-        //{
-        //    var groupShareClient = await Helper.GetAuthenticatedClient();
-        //     var languageFilesId = new List<string> { "6fc116cd-c63b-4022-871b-15c0b9cb7aef", "827bbb26-8d72-4104-90b3-4e2eb14c5194" };
-
-        //    var files = await groupShareClient.Project.DownloadFiles(projectId, languageFilesId);
-
-        //    Assert.True(files != null);
-        //} 
-
     }
 }
