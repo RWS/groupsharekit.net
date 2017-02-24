@@ -70,6 +70,7 @@
     <Compile Include="Clients\FileDownloadTests.cs" />
     <Compile Include="Clients\FilesTest.cs" />
     <Compile Include="Clients\FileVersionsClientTests.cs" />
+    <Compile Include="Clients\LicenseClientTests.cs" />
     <Compile Include="Clients\ModuleClientTests.cs" />
     <Compile Include="Clients\OrganizationClientTests.cs" />
     <Compile Include="Clients\OrganizationResourcesTests.cs" />

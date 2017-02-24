@@ -54,6 +54,7 @@ namespace Sdl.Community.GroupShareKit
             Permission = new PermissionClient(apiConnection);
             ModuleClient = new ModuleClient(apiConnection);
             FileVersion = new FileVersionClient(apiConnection);
+            License = new LicenseClient(apiConnection);
         }
 
         /// <summary>
@@ -95,6 +96,7 @@ namespace Sdl.Community.GroupShareKit
 
         public IRoleClient Role { get; set; }
         public IPermissionClient Permission { get; set; }
+        public ILicense License { get; set; }
 
         /// <summary>
         /// Convenience property for getting and setting credentials.

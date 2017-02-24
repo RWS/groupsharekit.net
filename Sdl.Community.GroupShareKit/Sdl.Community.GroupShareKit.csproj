@@ -59,9 +59,11 @@
     <Compile Include="Clients\FileVersionClient.cs" />
     <Compile Include="Clients\FilterOptions.cs" />
     <Compile Include="Clients\IFileVersion.cs" />
+    <Compile Include="Clients\ILicense.cs" />
     <Compile Include="Clients\IModuleClient.cs" />
     <Compile Include="Clients\IOrganizationResourcesClient.cs" />
     <Compile Include="Clients\IProjectsTemplateClient.cs" />
+    <Compile Include="Clients\LicenseClient.cs" />
     <Compile Include="Clients\ModuleClient.cs" />
     <Compile Include="Clients\OrganizationResourcesClient.cs" />
     <Compile Include="Clients\OrganizationResourcesRequest.cs" />
@@ -86,6 +88,8 @@
     <Compile Include="Models\Response\FileVersion.cs" />
     <Compile Include="Models\Response\LanguageDirections.cs" />
     <Compile Include="Models\Response\LanguageFiles.cs" />
+    <Compile Include="Models\Response\License.cs" />
+    <Compile Include="Models\Response\LicenseDetails.cs" />
     <Compile Include="Models\Response\Modules.cs" />
     <Compile Include="Models\Response\OrganizationResources.cs" />
     <Compile Include="Models\Response\Permission.cs" />

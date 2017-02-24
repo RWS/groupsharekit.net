@@ -266,5 +266,10 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/projects/{1}/fileversions/download/{2}/{3}".
                 FormatUri(CurrentProjectServerUrl, projectId, languageFileId, version);
         }
+
+        public static Uri GetLicenseInformations()
+        {
+            return "{0}/license".FormatUri(CurrentManagementUrl);
+        }
     }
 }
