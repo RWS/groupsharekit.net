@@ -276,5 +276,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/projects/userassignments".FormatUri(CurrentProjectServerUrl);
         }
+
+        public static Uri GetProjectAssignmentById(string projectId, string fileIdQuery)
+        {
+            return "{0}/projects/{1}/assignment?{2}"
+                .FormatUri(CurrentProjectServerUrl, projectId, fileIdQuery);
+        }
     }
 }

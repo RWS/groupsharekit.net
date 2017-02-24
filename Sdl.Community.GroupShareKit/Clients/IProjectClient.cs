@@ -173,6 +173,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<byte[]> DownloadFile(FileDownloadRequest downloadRequest);
 
         Task<IReadOnlyList<UserAssignments>> GetProjectsAssignments();
+        Task<IReadOnlyList<ProjectAssignment>> GetProjectAssignmentById(string projectId, List<string> fileIdsList);
 
     }
 }

@@ -263,6 +263,16 @@ namespace Sdl.Community.GroupShareKit.Clients
             return query;
         }
 
+        public string FileIdQuery(List<string> languageFileIds)
+        {
+            var query = string.Empty;
+            foreach (var id in languageFileIds)
+            {
+                query = query + "fileId=" + id + "&";
+            }
+
+            return query;
+        }
         /// <summary>
         ///Downloads the files with the specific type and language code
         /// </summary>
@@ -294,6 +304,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
            
             return await ApiConnection.GetAll<UserAssignments>(ApiUrls.GetProjectsAssignments(), null);
+        }
+
+        public async Task<IReadOnlyList<ProjectAssignment>> GetProjectAssignmentById(string projectId, List<string> fileIdsList)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId,"projectId");
+            Ensure.ArgumentNotNull(fileIdsList,"fileIdsList");
+
+            return
+                await
+                    ApiConnection.GetAll<ProjectAssignment>(
+                        ApiUrls.GetProjectAssignmentById(projectId, FileIdQuery(fileIdsList)), null);
         }
     }
 }

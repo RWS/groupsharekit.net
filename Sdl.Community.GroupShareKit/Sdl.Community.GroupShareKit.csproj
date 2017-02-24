@@ -137,6 +137,7 @@
     <Compile Include="Models\Response\Organization.cs" />
     <Compile Include="Models\Response\PhasesWithAssignees.cs" />
     <Compile Include="Models\Response\Project.cs" />
+    <Compile Include="Models\Response\ProjectAssignment.cs" />
     <Compile Include="Models\Response\ProjectDetails.cs" />
     <Compile Include="Models\Response\ProjectFile.cs" />
     <Compile Include="Models\Response\ProjectTemplates.cs" />

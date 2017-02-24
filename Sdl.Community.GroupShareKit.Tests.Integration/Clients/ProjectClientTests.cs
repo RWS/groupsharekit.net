@@ -100,5 +100,19 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(projects.Count > 0);
 
         }
+
+        [Theory]
+        [InlineData("a885af0c-d476-4265-97b3-9ecc8a2b4dc5")]
+        public async Task GetProjectAssignmentsById(string projectId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var fileIds = new List<string>() { "675a1fc6-d7c1-4011-8080-9623ed1e4dec", "f07ed07f-6864-45a0-979e-afcc0fd250a1" };
+
+            var assignments = await groupShareClient.Project.
+                GetProjectAssignmentById(projectId, fileIds);
+
+            Assert.True(assignments.Count>0);
+
+        }
     }
 }
