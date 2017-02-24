@@ -172,5 +172,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="byte[]"/>s.</returns>
         Task<byte[]> DownloadFile(FileDownloadRequest downloadRequest);
 
+        Task<IReadOnlyList<UserAssignments>> GetProjectsAssignments();
+
     }
 }

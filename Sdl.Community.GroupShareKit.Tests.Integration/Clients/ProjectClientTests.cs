@@ -21,7 +21,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 await
                     groupShareClient.Project.GetProjects(projectRequest);
 
-            Assert.True(result.Items[0].Name=="Andrea");
+            Assert.True(result.Items[0].Name == "Andrea");
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Direction = SortParameters.DirectionOption.DESC
             };
             var projectRequest = new ProjectsRequest(sortParameters);
-            
+
             var sortedProjects = await groupShareClient.Project.GetProjects(projectRequest);
             Assert.True(sortedProjects.Items[0].Name == "Test");
         }
@@ -46,9 +46,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var projects = await groupShareClient.Project.GetAllProjects();
 
-            Assert.True(projects.Count>0);
+            Assert.True(projects.Count > 0);
 
         }
+
         [Theory]
         [InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8")]
         public async Task GetProjectById(string projectId)
@@ -65,7 +66,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetProjectsForOrganization(string organizationName)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            var projects =  groupShareClient.Project.GetProjectsForOrganization(organizationName);
+            var projects = groupShareClient.Project.GetProjectsForOrganization(organizationName);
 
             foreach (var project in projects)
             {
@@ -86,10 +87,18 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(!string.IsNullOrEmpty(projectId));
 
-           // await groupShareClient.Project.DeleteProject(projectId);
+            // await groupShareClient.Project.DeleteProject(projectId);
         }
 
+        [Fact]
 
+        public async Task GetProjectsAssignments()
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var projects = await groupShareClient.Project.GetProjectsAssignments();
 
+            Assert.True(projects.Count > 0);
+
+        }
     }
 }

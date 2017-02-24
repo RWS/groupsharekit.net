@@ -289,5 +289,11 @@ namespace Sdl.Community.GroupShareKit.Clients
                 return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFile(downloadRequest.ProjectId, "all"), null);
 
         }
+        
+        public async Task<IReadOnlyList<UserAssignments>> GetProjectsAssignments()
+        {
+           
+            return await ApiConnection.GetAll<UserAssignments>(ApiUrls.GetProjectsAssignments(), null);
+        }
     }
 }

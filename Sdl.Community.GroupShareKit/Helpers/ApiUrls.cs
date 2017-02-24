@@ -271,5 +271,10 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/license".FormatUri(CurrentManagementUrl);
         }
+
+        public static Uri GetProjectsAssignments()
+        {
+            return "{0}/projects/userassignments".FormatUri(CurrentProjectServerUrl);
+        }
     }
 }
