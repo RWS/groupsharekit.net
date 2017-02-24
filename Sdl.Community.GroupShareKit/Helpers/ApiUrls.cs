@@ -255,5 +255,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
                FormatUri(CurrentProjectServerUrl, projectId);
         }
 
+        public static Uri GetFileVersion(string languageFileId)
+        {
+            return "{0}/projects/fileversions/{1}".
+                FormatUri(CurrentProjectServerUrl, languageFileId);
+        }
+
+        public static Uri DownloadFileForVersion(string projectId, string languageFileId, int version)
+        {
+            return "{0}/projects/{1}/fileversions/download/{2}/{3}".
+                FormatUri(CurrentProjectServerUrl, projectId, languageFileId, version);
+        }
     }
 }

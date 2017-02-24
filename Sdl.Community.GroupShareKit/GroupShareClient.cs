@@ -53,6 +53,7 @@ namespace Sdl.Community.GroupShareKit
             Role = new RoleClient(apiConnection);
             Permission = new PermissionClient(apiConnection);
             ModuleClient = new ModuleClient(apiConnection);
+            FileVersion = new FileVersionClient(apiConnection);
         }
 
         /// <summary>
@@ -86,6 +87,7 @@ namespace Sdl.Community.GroupShareKit
         public IUserClient User { get; }
         public IModuleClient ModuleClient { get; set; }
         public IOrganizationClient Organization { get; set; }
+        public IFileVersion FileVersion  { get; set; }
         public IOrganizationResourcesClient OrganizationResources { get; set; }
         public IProjectsTemplateClient ProjectsTemplates { get; set; }
 
