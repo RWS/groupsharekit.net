@@ -10,7 +10,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
     public class PublishingStatusClientTests
     {
         [Theory]
-        [InlineData("3d7211e8-8b76-4f88-a76c-2ff4509f22c8")]
+        [InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8")]
         public async Task PublishingStatusProject(string projectId)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();

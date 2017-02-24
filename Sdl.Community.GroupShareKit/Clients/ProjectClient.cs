@@ -222,6 +222,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="PublishingStatus"/>s.</returns>
         public async Task<PublishingStatus> PublishingStatus(string projectId)
         {
+            Ensure.ArgumentNotNullOrEmptyString(projectId,"projectId");
             return await ApiConnection.Get<PublishingStatus>(ApiUrls.PublishingStatus(projectId),null);
         }
 
