@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Helpers;
@@ -35,6 +36,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             await ApiConnection.Delete(ApiUrls.ProjectTemplates(templateId));
+        }
+
+        public async Task<string> UploadProjectTemplate(string templateId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
+            var multipartContent = new MultipartContent("file", "name");
+
+            return await ApiConnection.Put<string>(ApiUrls.UploadProjectTemplate(templateId), multipartContent);
+
         }
     }
 }

@@ -158,15 +158,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             var projectUri = await ApiConnection.Post<string>(ApiUrls.GetAllProjects(), request, "application/json");
             var projectId = projectUri.Split('/').Last();
 
-            var byteContent = new ByteArrayContent(request.RawData);
-            byteContent.Headers.Add("Content-Type", "application/octet-stream");
-            var multipartContent = new MultipartFormDataContent
-            {
-                {byteContent, "file", request.Name}
-            };
-
-            await ApiConnection.Post<string>(ApiUrls.PublishProjectPackage(projectId), multipartContent, "application/octet-stream");
-
+            await UploadFilesForProject(projectId, request.RawData);
             return projectId;
         }
 
@@ -315,6 +307,18 @@ namespace Sdl.Community.GroupShareKit.Clients
                 await
                     ApiConnection.GetAll<ProjectAssignment>(
                         ApiUrls.GetProjectAssignmentById(projectId, FileIdQuery(fileIdsList)), null);
+        }
+
+        public async Task<string> UploadFilesForProject(string projectId,byte[] rawData)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            var byteContent = new ByteArrayContent(rawData);
+            byteContent.Headers.Add("Content-Type", "application/zip");
+            var multipartContent = new MultipartFormDataContent
+            {
+                {byteContent,"file", "testZip"}
+            };
+            return await ApiConnection.Post<string>(ApiUrls.UploadFilesForProject(projectId), multipartContent, "application/zip");
         }
     }
 }

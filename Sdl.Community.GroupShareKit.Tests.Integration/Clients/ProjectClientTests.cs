@@ -78,16 +78,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task CreateProject()
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
+            //var rawData =
+            //    File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\ProjectPackage.sdlppx"));
             var rawData =
-                File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\ProjectPackage.sdlppx"));
-
+                File.ReadAllBytes(@"C:\Users\aghisa\Desktop\Grammar.zip");
             var projectId =
-                await groupShareClient.Project.CreateProject(new CreateProjectRequest("ProjectPackage.sdlppx",
-                    "5bdb10b8-e3a9-41ae-9e66-c154347b8d17", rawData));
+                await groupShareClient.Project.CreateProject(new CreateProjectRequest("Project", "ee72759d-917e-4c60-ba30-1ed595699c4d", null, DateTime.Today, "7bf6410d-58a7-4817-a559-7aa8a3a99aa9", rawData));
 
             Assert.True(!string.IsNullOrEmpty(projectId));
-
-            // await groupShareClient.Project.DeleteProject(projectId);
+            
+           //  await groupShareClient.Project.DeleteProject(projectId);
         }
 
         [Fact]
@@ -114,5 +114,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(assignments.Count>0);
 
         }
+
+
     }
 }

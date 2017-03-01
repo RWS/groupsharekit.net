@@ -41,5 +41,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             await groupShareClient.ProjectsTemplates.Delete(templateId);
        }
+
+       [Theory]
+       [InlineData("8ca83811-5951-4c76-8d57-314320e4e7ac")]
+       public async Task UploadProjectTemplate(string templateId)
+       {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+           var response = await groupShareClient.ProjectsTemplates.UploadProjectTemplate(templateId);
+
+            Assert.True(response==string.Empty);
+       }
+
     }
 }

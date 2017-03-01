@@ -282,5 +282,15 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/projects/{1}/assignment?{2}"
                 .FormatUri(CurrentProjectServerUrl, projectId, fileIdQuery);
         }
+
+        public static Uri UploadProjectTemplate(string templateId)
+        {
+            return "{0}/projects/templates/{1}/upload".FormatUri(CurrentProjectServerUrl, templateId);
+        }
+
+        public static Uri UploadFilesForProject(string projectId)
+        {
+            return "{0}/projects/{1}/files/upload".FormatUri(CurrentProjectServerUrl, projectId);
+        }
     }
 }
