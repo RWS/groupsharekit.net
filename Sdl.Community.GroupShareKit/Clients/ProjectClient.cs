@@ -320,5 +320,22 @@ namespace Sdl.Community.GroupShareKit.Clients
             };
             return await ApiConnection.Post<string>(ApiUrls.UploadFilesForProject(projectId), multipartContent, "application/zip");
         }
+
+        public async Task<string> ChangeProjectStatus(ChangeStatusRequest statusRequest)
+        {
+
+             return await ApiConnection.Put<string>(ApiUrls.ChangeProjectStatus(statusRequest.ProjectId, Enum.GetName(typeof(ChangeStatusRequest.ProjectStatus), statusRequest.Status)),statusRequest);
+           
+        }
+
+        public async Task<string> ChangeProjectStatusDetach(ChangeStatusRequest statusRequest)
+        {
+            return await ApiConnection.Put<string>(ApiUrls.ChangeProjectStatus(statusRequest), statusRequest);
+        }
+
+        public async Task ChangeProjectStatusDeleteDetach(string projectId, bool deleteTms)
+        {
+            await ApiConnection.Delete(ApiUrls.ProjectStatusDeleteDetach(projectId, deleteTms));
+        }
     }
 }

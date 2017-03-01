@@ -115,6 +115,29 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         }
 
+        [Fact]
+        public async Task ChangeProjectStatus()
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var projectStatusRequest = new ChangeStatusRequest("c1f47d9c-a9dd-4069-b636-3405d4fb98a8", ChangeStatusRequest.ProjectStatus.Completed);
 
+            await groupShareClient.Project.ChangeProjectStatus(projectStatusRequest);
+
+            var project = await groupShareClient.Project.Get("c1f47d9c-a9dd-4069-b636-3405d4fb98a8");
+            Assert.Equal(project.Status,4);
+          
+        }
+
+        [Fact]
+        public async Task ChangeProjectStatusDetach()
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var projectStatusRequest = new ChangeStatusRequest("5afaf0b5-05c8-4401-920c-d3366096cfc6", ChangeStatusRequest.ProjectStatus.Completed);
+            await groupShareClient.Project.ChangeProjectStatusDetach(projectStatusRequest);
+
+            var project = await groupShareClient.Project.Get("5afaf0b5-05c8-4401-920c-d3366096cfc6");
+            Assert.Equal(project.Status, 4);
+
+        }
     }
 }

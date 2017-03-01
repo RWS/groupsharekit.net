@@ -1,4 +1,5 @@
 ﻿using System;
+using Sdl.Community.GroupShareKit.Clients;
 
 namespace Sdl.Community.GroupShareKit.Helpers
 {
@@ -291,6 +292,22 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri UploadFilesForProject(string projectId)
         {
             return "{0}/projects/{1}/files/upload".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        public static Uri ChangeProjectStatus(string projectId, string status)
+        {
+            return "{0}/projects/{1}/changestatus/{2}".FormatUri(CurrentProjectServerUrl,projectId, status);
+        }
+
+        public static Uri ChangeProjectStatus(ChangeStatusRequest statusRequest)
+        {
+            var status = Enum.GetName(typeof (ChangeStatusRequest.ProjectStatus), statusRequest.Status);
+            return "{0}/projects/{1}/detach?status={2}".FormatUri(CurrentProjectServerUrl, statusRequest.ProjectId,status);
+        }
+
+        public static Uri ProjectStatusDeleteDetach(string projectId, bool deleteTms)
+        {
+            return "{0}/projects/{1}/detach/{2}".FormatUri(CurrentProjectServerUrl, projectId, deleteTms);
         }
     }
 }

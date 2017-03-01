@@ -175,6 +175,9 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<UserAssignments>> GetProjectsAssignments();
         Task<IReadOnlyList<ProjectAssignment>> GetProjectAssignmentById(string projectId, List<string> fileIdsList);
         Task<string> UploadFilesForProject(string projectId,byte[] rawData);
+        Task<string> ChangeProjectStatus(ChangeStatusRequest statusRequest);
+        Task<string> ChangeProjectStatusDetach(ChangeStatusRequest statusRequest);
+        Task ChangeProjectStatusDeleteDetach(string projectId, bool deleteTms);
 
     }
 }

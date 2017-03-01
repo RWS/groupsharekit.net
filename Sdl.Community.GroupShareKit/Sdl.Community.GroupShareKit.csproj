@@ -54,6 +54,7 @@
     <Compile Include="Clients\AuthenticateClient.cs" />
     <Compile Include="Clients\ChangeAssignmentRequest.cs" />
     <Compile Include="Clients\ChangePhaseRequest.cs" />
+    <Compile Include="Clients\ChangeStatusRequest.cs" />
     <Compile Include="Clients\CreateProjectRequest.cs" />
     <Compile Include="Clients\FileDownloadRequest.cs" />
     <Compile Include="Clients\FileVersionClient.cs" />
