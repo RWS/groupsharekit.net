@@ -15,6 +15,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<string> CreateTemplate(ProjectTemplates projectRequest);
         Task<string> GetTemplateById(string templateId);
         Task Delete(string id);
-        Task<string> UploadProjectTemplate(string templateId);
+        Task<string> UploadProjectTemplate(string templateId,byte[] projectTemplate,string templateName);
     }
 }

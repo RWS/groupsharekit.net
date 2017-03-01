@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Models.Response;
 using Xunit;
+using File = System.IO.File;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
    public  class ProjectTemplatesTests
-    {
+   {
+       private ProjectClientTests _projectTests = new ProjectClientTests();
         [Fact]
         public async Task GetAllProjectsTemplates()
         {
@@ -21,36 +23,31 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
        [Theory]
        [InlineData("7bf6410d-58a7-4817-a559-7aa8a3a99aa9")]
-       public async Task GetTemplateById(string templateId)
+       public async Task<string> GetTemplateById(string templateId)
        {
             var groupShareClient = await Helper.GetAuthenticatedClient();
 
            var template = await groupShareClient.ProjectsTemplates.GetTemplateById(templateId);
 
             Assert.True(template!=string.Empty);
+           return template;
        }
 
         [Fact]
        public async Task CreateTemplate()
        {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            var templateRequest = new ProjectTemplates("4499f098-0c69-449a-a95e-1058367d3653","Test","", "5bdb10b8-e3a9-41ae-9e66-c154347b8d17");
+
+            var rawData =
+               File.ReadAllBytes(@"C:\Users\aghisa\Documents\Studio 2017\Project Templates\SampleTemplate.sdltpl");
+            var templateRequest = new ProjectTemplates(" kit","", "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",rawData);
             var templateId = await groupShareClient.ProjectsTemplates.CreateTemplate(templateRequest);
 
             Assert.True(templateId!=string.Empty);
 
-            await groupShareClient.ProjectsTemplates.Delete(templateId);
-       }
+              await groupShareClient.ProjectsTemplates.Delete(templateId);
+        }
 
-       [Theory]
-       [InlineData("8ca83811-5951-4c76-8d57-314320e4e7ac")]
-       public async Task UploadProjectTemplate(string templateId)
-       {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
-           var response = await groupShareClient.ProjectsTemplates.UploadProjectTemplate(templateId);
-
-            Assert.True(response==string.Empty);
-       }
 
     }
 }

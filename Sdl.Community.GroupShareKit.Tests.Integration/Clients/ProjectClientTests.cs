@@ -87,7 +87,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(!string.IsNullOrEmpty(projectId));
             
-           //  await groupShareClient.Project.DeleteProject(projectId);
+            // await groupShareClient.Project.DeleteProject(projectId);
         }
 
         [Fact]

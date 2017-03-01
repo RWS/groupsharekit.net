@@ -23,7 +23,9 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         public async Task<string> CreateTemplate(ProjectTemplates templateRequest)
         {
-            return await ApiConnection.Post<string>(ApiUrls.ProjectTemplates(), templateRequest, "application/json");
+            var templateId=  await ApiConnection.Post<string>(ApiUrls.ProjectTemplates(), templateRequest, "application/json");
+             await UploadProjectTemplate(templateId, templateRequest.RawData,templateRequest.Name);
+            return templateId;
         }
 
         public async Task<string> GetTemplateById(string templateId)
@@ -38,12 +40,16 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Delete(ApiUrls.ProjectTemplates(templateId));
         }
 
-        public async Task<string> UploadProjectTemplate(string templateId)
+        public async Task<string> UploadProjectTemplate(string templateId, byte[] projectTemplate,string templateName)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            var multipartContent = new MultipartContent("file", "name");
+            var templateByteArray = new ByteArrayContent(projectTemplate);
+            var multipartContent = new MultipartFormDataContent
+            {
+                {templateByteArray,"file", templateName}
+            };
 
-            return await ApiConnection.Put<string>(ApiUrls.UploadProjectTemplate(templateId), multipartContent);
+            return await ApiConnection.Post<string>(ApiUrls.UploadProjectTemplate(templateId), multipartContent, "application/json");
 
         }
     }

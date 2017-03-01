@@ -8,17 +8,18 @@ namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class ProjectTemplates
     {
-        public string Id { get; set; }
+       
         public string Name { get; set; }
         public string Description { get; set; }
         public string OrganizationId { get; set; }
+        public byte[] RawData { get; set; }
 
-        public ProjectTemplates(string id,string name,string description,string organizationId)
+        public ProjectTemplates( string name, string description, string organizationId, byte[] rawData)
         {
-            Id = id;
             Name = name;
             Description = description;
             OrganizationId = organizationId;
+            RawData = rawData;
         }
     }
 }
