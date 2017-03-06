@@ -9,6 +9,10 @@ namespace Sdl.Community.GroupShareKit.Clients
 {
     public interface IModuleClient
     {
+        /// <summary>
+        /// Get models
+        /// </summary>
+        /// <returns><see cref="Modules"/>/// </returns>
         Task<Modules> GetModules();
     }
 }

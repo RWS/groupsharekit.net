@@ -9,8 +9,9 @@ namespace Sdl.Community.GroupShareKit.Clients
     {
 
         /// <summary>
-        /// Gets<see cref="Organization"/>.
+        /// Gets organizarion by Id<see cref="Organization"/>.
         /// </summary>
+        ///  <param name="organizationId">string></param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
@@ -19,12 +20,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="Organization"/>s.</returns>
+        /// <returns> <see cref="Organization"/>s.</returns>
         Task<Organization> Get(string organizationId);
 
         /// <summary>
         /// Gets all <see cref="Organization"/>'s.
         /// </summary>
+        /// <param name="request"><see cref="OrganizationRequest"/></param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
@@ -39,6 +41,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Delete <see cref="Organization"/>'s.
         /// </summary>
+        /// <param name="organizationId">string</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
@@ -53,6 +56,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Updates <see cref="Organization"/>'s.
         /// </summary>
+        /// <param name="organization"><see cref="Organization"/></param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
@@ -71,6 +75,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
         /// </remarks>
+        ///  <param name="organization"><see cref="Organization"/></param>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
@@ -78,10 +83,54 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="Organization"/>s.</returns>
         Task<string> Create(Organization organization);
 
+        /// <summary>
+        /// Gets all resources for a organization 
+        /// </summary>
+        /// <param name="organizationId">string</param>
+        /// <returns>A list of<see cref="OrganizationResources"/></returns>
         Task<IReadOnlyList<OrganizationResources>> GetAllOrganizationResources(string organizationId);
 
-        Task<string> MoveResourceToOrganization(OrganizationResourcesRequest request);
+        /// <summary>
+        /// Moves a resource to specific organization
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <param name="request"><see cref="OrganizationResourcesRequest"/></param> 
+        Task MoveResourceToOrganization(OrganizationResourcesRequest request);
+
+        /// <summary>
+        /// Links a resource to specific organization
+        /// </summary>  
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <param name="resource"><see cref="OrganizationResourcesRequest"/></param> 
         Task LinkResourceToOrganization(OrganizationResourcesRequest resource);
+
+
+        /// <summary>
+        /// Unlinks a resource from a specific organization
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <param name="resource"><see cref="OrganizationResourcesRequest"/></param> 
         Task UnlinkResourceToOrganization(OrganizationResourcesRequest resource);
     }
 }
