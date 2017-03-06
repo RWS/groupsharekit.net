@@ -22,7 +22,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetAllPermissionsName()
         {
             var grClient = await Helper.GetAuthenticatedClient();
-            var response = await  grClient.Permission.GetPermissionsName();
+            var response = await  grClient.Permission.GetUsersPermisions();
 
             Assert.True(response.Count>0);
         }

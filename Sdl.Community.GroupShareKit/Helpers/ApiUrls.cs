@@ -137,8 +137,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/permissions".
                 FormatUri(CurrentManagementUrl);
         }
-
-        public static Uri PermissionName()
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all permissions for users
+        /// </summary>
+        /// <returns></returns>
+        public static Uri PermissionUsers()
         {
             return "{0}/permissions/user".
                 FormatUri(CurrentManagementUrl);
