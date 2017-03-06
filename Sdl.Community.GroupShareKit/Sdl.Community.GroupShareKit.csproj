@@ -62,11 +62,9 @@
     <Compile Include="Clients\IFileVersion.cs" />
     <Compile Include="Clients\ILicense.cs" />
     <Compile Include="Clients\IModuleClient.cs" />
-    <Compile Include="Clients\IOrganizationResourcesClient.cs" />
     <Compile Include="Clients\IProjectsTemplateClient.cs" />
     <Compile Include="Clients\LicenseClient.cs" />
     <Compile Include="Clients\ModuleClient.cs" />
-    <Compile Include="Clients\OrganizationResourcesClient.cs" />
     <Compile Include="Clients\OrganizationResourcesRequest.cs" />
     <Compile Include="Clients\ProjectTemplatesClient.cs" />
     <Compile Include="Clients\RoleRequest.cs" />

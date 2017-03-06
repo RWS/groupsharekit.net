@@ -77,5 +77,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Organization"/>s.</returns>
         Task<string> Create(Organization organization);
+
+        Task<IReadOnlyList<OrganizationResources>> GetAllOrganizationResources(string organizationId);
+
+        Task<string> MoveResourceToOrganization(OrganizationResourcesRequest request);
+        Task LinkResourceToOrganization(OrganizationResourcesRequest resource);
+        Task UnlinkResourceToOrganization(OrganizationResourcesRequest resource);
     }
 }

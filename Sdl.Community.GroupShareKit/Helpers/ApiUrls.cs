@@ -309,5 +309,10 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/projects/{1}/detach/{2}".FormatUri(CurrentProjectServerUrl, projectId, deleteTms);
         }
+
+        public static Uri LinkResourceToOrganization()
+        {
+            return "{0}/resourcelink ".FormatUri(CurrentManagementUrl);
+        }
     }
 }

@@ -48,7 +48,6 @@ namespace Sdl.Community.GroupShareKit
             User = new UserClient(apiConnection);
             ProjectsTemplates = new ProjectTemplatesClient(apiConnection);
             Organization = new OrganizationClient(apiConnection);
-            OrganizationResources = new OrganizationResourcesClient(apiConnection);
             Authenticate = new AuthenticateClient(apiConnection);
             Role = new RoleClient(apiConnection);
             Permission = new PermissionClient(apiConnection);
@@ -89,7 +88,6 @@ namespace Sdl.Community.GroupShareKit
         public IModuleClient ModuleClient { get; set; }
         public IOrganizationClient Organization { get; set; }
         public IFileVersion FileVersion  { get; set; }
-        public IOrganizationResourcesClient OrganizationResources { get; set; }
         public IProjectsTemplateClient ProjectsTemplates { get; set; }
 
         public IAuthenticateClient Authenticate { get; set; }

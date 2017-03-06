@@ -73,7 +73,6 @@
     <Compile Include="Clients\LicenseClientTests.cs" />
     <Compile Include="Clients\ModuleClientTests.cs" />
     <Compile Include="Clients\OrganizationClientTests.cs" />
-    <Compile Include="Clients\OrganizationResourcesTests.cs" />
     <Compile Include="Clients\PermissionClientTest.cs" />
     <Compile Include="Clients\PhasesTests.cs" />
     <Compile Include="Clients\ProjectClientTests.cs" />

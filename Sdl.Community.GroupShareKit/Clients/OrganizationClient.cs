@@ -103,5 +103,32 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             return await ApiConnection.Post<string>(ApiUrls.Organizations(), organization,"application/json");
         }
+        public async Task<IReadOnlyList<OrganizationResources>> GetAllOrganizationResources(string organizationId)
+        {
+            return await ApiConnection.GetAll<OrganizationResources>(ApiUrls.OrganizationsResources(organizationId));
+        }
+
+        public Task<string> MoveResourceToOrganization(OrganizationResourcesRequest request)
+        {
+            return ApiConnection.Put<string>(ApiUrls.OrganizationsResources(), request);
+        }
+
+        /// <summary>
+        /// Links resource to a organization
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <returns></returns>
+        public async Task LinkResourceToOrganization(OrganizationResourcesRequest resource)
+        {
+            Ensure.ArgumentNotNull(resource, "resource");
+
+            await ApiConnection.Put<OrganizationResourcesRequest>(ApiUrls.LinkResourceToOrganization(), resource);
+        }
+
+        public async Task UnlinkResourceToOrganization(OrganizationResourcesRequest resource)
+        {
+            Ensure.ArgumentNotNull(resource, "resource");
+            await ApiConnection.Delete(ApiUrls.LinkResourceToOrganization(), resource, "application/json");
+        }
     }
 }
