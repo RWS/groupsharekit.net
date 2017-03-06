@@ -91,6 +91,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
+        public async Task PublishPackage()
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var rawData =
+                File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\ProjectPackage.sdlppx"));
+            var createProjectRequest = new CreateProjectRequest("ProjectForPublish", "ee72759d-917e-4c60-ba30-1ed595699c4d", null,
+                DateTime.Today, "7bf6410d-58a7-4817-a559-7aa8a3a99aa9", rawData);
+
+            await groupShareClient.Project.PublishPackage(createProjectRequest);
+        }
+        [Fact]
 
         public async Task GetProjectsAssignments()
         {

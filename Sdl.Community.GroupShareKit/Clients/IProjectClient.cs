@@ -178,6 +178,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<string> ChangeProjectStatus(ChangeStatusRequest statusRequest);
         Task<string> ChangeProjectStatusDetach(ChangeStatusRequest statusRequest);
         Task ChangeProjectStatusDeleteDetach(string projectId, bool deleteTms);
-
+        Task PublishPackage(CreateProjectRequest projectRequest);
     }
 }

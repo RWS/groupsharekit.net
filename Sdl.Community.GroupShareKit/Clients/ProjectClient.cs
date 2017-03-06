@@ -337,5 +337,27 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             await ApiConnection.Delete(ApiUrls.ProjectStatusDeleteDetach(projectId, deleteTms));
         }
+
+        public async Task PublishPackage(CreateProjectRequest projectRequest)
+        {
+            Ensure.ArgumentNotNull(projectRequest, "request");
+            var projectId = await CreateProjectForPublishingPackage(projectRequest);
+
+            var byteContent = new ByteArrayContent(projectRequest.RawData);
+            byteContent.Headers.Add("Content-Type", "application/json");
+            var multipartContent = new MultipartFormDataContent
+            {
+                {byteContent,projectRequest.Name, projectRequest.Name}
+            };
+            await ApiConnection.Post<string>(ApiUrls.PublishProjectPackage(projectId), multipartContent, "application/json");
+
+        }
+        private async Task<string> CreateProjectForPublishingPackage(CreateProjectRequest request)
+        {
+            Ensure.ArgumentNotNull(request, "request");
+
+            var projectUri = await ApiConnection.Post<string>(ApiUrls.GetAllProjects(), request, "application/json");
+            return  projectUri.Split('/').Last();
+        }
     }
 }
