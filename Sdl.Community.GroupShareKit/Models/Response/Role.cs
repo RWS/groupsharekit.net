@@ -4,8 +4,8 @@ namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class Role
     {
-        public Guid OrganizationId { get; set; }
-        public Guid RoleId { get; set; }
-        public Guid UserId { get; set; }
+        public string OrganizationId { get; set; }
+        public string RoleId { get; set; }
+        public string UserId { get; set; }
     }
 }

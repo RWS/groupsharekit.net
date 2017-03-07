@@ -6,7 +6,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 {
     public class CreateUserRequest
     {
-        public Guid UniqueId { get; set; }
+        public string UniqueId { get; set; }
         public string Name { get; set; }
         public object Password { get; set; }
         public string DisplayName { get; set; }

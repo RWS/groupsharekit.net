@@ -112,15 +112,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
                 FormatUri(CurrentManagementUrl);
         }
 
-        /// <summary>
-        /// Returns the <see cref="Uri"/> that returns all projects associated with the specified organziation
-        /// </summary>
-        /// <returns></returns>
-        //public static Uri OrganizationProjects()
-        //{
-        //    return "{0}/projects".
-        //        FormatUri(CurrentProjectServerUrl);
-        //}
 
         public static Uri GetAllProjects()
         {
@@ -316,6 +307,26 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri LinkResourceToOrganization()
         {
             return "{0}/resourcelink ".FormatUri(CurrentManagementUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that gets a list of users in a certain role 
+        /// </summary>
+        /// <param name="roleId">The role id</param>
+        /// <returns></returns>
+        public static Uri GetUsersForRole(string roleId)
+        {
+            return "{0}/roles/{1}/membership".FormatUri(CurrentManagementUrl, roleId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that removes  users from a certain role 
+        /// </summary>
+        /// <param name="roleId">The role id</param>
+        /// <returns></returns>
+        public static Uri DeleteUserFromRole(string roleId)
+        {
+            return "{0}/roles/{1}/users".FormatUri(CurrentManagementUrl, roleId);
         }
     }
 }

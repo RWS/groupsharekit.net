@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Models.Response;
@@ -93,7 +94,64 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             await groupShareClient.Role.DeleteRole(roleId);
         }
-       
+
+        [Theory]
+        [InlineData("793f3f38-3899-49e5-b793-99a53cd1d24d")]
+        public async Task GetUsersForSpecificRole(string roleId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var users = await groupShareClient.Role.GetUsersForRole(roleId);
+
+            Assert.True(users.Count!=0);
+        }
+
+        [Theory]
+        [InlineData("b05db681-2871-4cb4-9789-61a5e9d0cfb4")]
+        public async Task AddUsersToRole(string roleId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var roleList = new List<Role>
+            {
+                new Role
+                {
+                    OrganizationId = "ee72759d-917e-4c60-ba30-1ed595699c4d",
+                    UserId = "6d4e85a2-163b-4574-8c56-60d96e2296f3",
+                    RoleId = roleId
+                }
+            };
+            await groupShareClient.Role.AddUserToRole(roleList);
+
+            var roles = await groupShareClient.Role.GetUsersForRole(roleId);
+
+            var addedUser = roles.FirstOrDefault(u => u.UniqueId.ToString() == "6d4e85a2-163b-4574-8c56-60d96e2296f3");
+
+            Assert.True(addedUser!=null);
+        }
+
+        [Theory]
+        [InlineData("b05db681-2871-4cb4-9789-61a5e9d0cfb4")]
+        public async Task RemoveUsersFromRole(string roleId)
+        {
+
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var roleList = new List<Role>
+            {
+                new Role
+                {
+                    OrganizationId = "ee72759d-917e-4c60-ba30-1ed595699c4d",
+                    UserId = "6d4e85a2-163b-4574-8c56-60d96e2296f3",
+                    RoleId = roleId
+                }
+            };
+
+            await groupShareClient.Role.RemoveUserFromRole(roleList, roleId);
+            var roles = await groupShareClient.Role.GetUsersForRole(roleId);
+
+            var addedUser = roles.FirstOrDefault(u => u.UniqueId.ToString() == "6d4e85a2-163b-4574-8c56-60d96e2296f3");
+
+            Assert.True(addedUser == null);
+        }
+
 
     }
 }

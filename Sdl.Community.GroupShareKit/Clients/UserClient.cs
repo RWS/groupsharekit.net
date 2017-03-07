@@ -90,7 +90,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <param name="request"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
         public Task Delete(string userId)
         {
@@ -110,7 +110,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <param name="request"></param>
+        /// <param name="user"></param>
         /// <returns>A <see cref="User"/></returns>
         public async Task<string> Create(CreateUserRequest user)
         {

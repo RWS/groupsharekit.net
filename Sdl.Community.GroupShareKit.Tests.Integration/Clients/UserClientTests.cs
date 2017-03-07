@@ -81,7 +81,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Create()
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            var uniqueId = Guid.NewGuid();
+            var uniqueId = Guid.NewGuid().ToString();
 
             var newUser = new CreateUserRequest
             {
@@ -98,8 +98,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 {
                     new Role
                     {
-                         OrganizationId = new Guid("5bdb10b8-e3a9-41ae-9e66-c154347b8d17"),
-                          RoleId = new Guid("793f3f38-3899-49e5-b793-99a53cd1d24d"),//power user
+                         OrganizationId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
+                          RoleId = "793f3f38-3899-49e5-b793-99a53cd1d24d",//power user
                            UserId = uniqueId
                     }
                 }
