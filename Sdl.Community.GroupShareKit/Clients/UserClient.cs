@@ -55,6 +55,19 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Get<User>(ApiUrls.User(), request.ToParametersDictionary());
         }
 
+        /// <summary>
+        /// Get <see cref="User"/>.
+        /// </summary>
+        /// <remarks>
+        /// <param name="userId">string</param>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A <see cref="User"/>.</returns>
         public Task<User> GetUserById(string userId)
         {
             Ensure.ArgumentNotNull(userId, "userId");
@@ -79,39 +92,35 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Put<string>(ApiUrls.User(), user);
         }
 
+
         /// <summary>
-        /// Delete <see cref="User"/>
+        /// Delete <see cref="User"/>.
         /// </summary>
-        ///  /// <remarks>
+        /// /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <param name="userId"></param>
-        /// <returns></returns>
         public Task Delete(string userId)
         {
             Ensure.ArgumentNotNullOrEmptyString(userId,"userId");
 
             return ApiConnection.Delete(ApiUrls.User(userId));
         }
-
         /// <summary>
-        /// Create <see cref="User"/>
+        /// Create <see cref="User"/>.
         /// </summary>
-        ///  /// <remarks>
+        /// /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <param name="user"></param>
-        /// <returns>A <see cref="User"/></returns>
+        /// <param name="user"><see cref="CreateUserRequest"/></param>
+        /// <returns>Created user Id</returns>
         public async Task<string> Create(CreateUserRequest user)
         {
             Ensure.ArgumentNotNull(user,"user");

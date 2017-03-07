@@ -42,6 +42,19 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A <see cref="User"/>.</returns>
         Task<User> Get(UserRequest request);
 
+        /// <summary>
+        /// Get <see cref="User"/>.
+        /// </summary>
+        /// <remarks>
+        /// <param name="userId">string</param>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A <see cref="User"/>.</returns>
         Task<User> GetUserById(string userId);
 
         /// <summary>
@@ -69,8 +82,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
-        /// <param name="name"></param>
-        /// <returns></returns>
+        /// <param name="userId">string</param>
         Task Delete(string userId);
 
         /// <summary>
@@ -83,8 +95,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
-        /// <param name="name"></param>
-        /// <returns></returns>
+        /// <param name="user"><see cref="CreateUserRequest"/></param>
+        /// <returns>Created user Id</returns>
         Task<string> Create(CreateUserRequest user);
     }
 
