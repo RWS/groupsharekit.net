@@ -19,7 +19,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectRequest = new ProjectsRequest("/", true, 7) {Filter = {ProjectName = "Andrea"}};
             var result =
                 await
-                    groupShareClient.Project.GetProjects(projectRequest);
+                    groupShareClient.Project.GetProject(projectRequest);
 
             Assert.True(result.Items[0].Name == "Andrea");
         }
@@ -35,7 +35,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
             var projectRequest = new ProjectsRequest(sortParameters);
 
-            var sortedProjects = await groupShareClient.Project.GetProjects(projectRequest);
+            var sortedProjects = await groupShareClient.Project.GetProject(projectRequest);
             Assert.True(sortedProjects.Items[0].Name == "Test");
         }
 
@@ -106,7 +106,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetProjectsAssignments()
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            var projects = await groupShareClient.Project.GetProjectsAssignments();
+            var projects = await groupShareClient.Project.GetUserAssignments();
 
             Assert.True(projects.Count > 0);
 

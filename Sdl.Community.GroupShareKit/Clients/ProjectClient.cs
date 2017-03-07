@@ -34,7 +34,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Project"/>s.</returns>
-        public Task<Project> GetProjects(ProjectsRequest request)
+        public Task<Project> GetProject(ProjectsRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");
 
@@ -111,7 +111,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Phase"/>s.</returns>
-        public Task<string> ChangePhases(string projectId, ChangePhaseRequest request)
+        public Task ChangePhases(string projectId, ChangePhaseRequest request)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
             Ensure.ArgumentNotNull(request, "request");
@@ -131,7 +131,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Phase"/>s.</returns>
-        public Task<string> ChangeAssignments(string projectId, ChangeAssignmentRequest request)
+        public Task ChangeAssignments(string projectId, ChangeAssignmentRequest request)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
             Ensure.ArgumentNotNull(request, "request");
@@ -292,7 +292,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         }
         
-        public async Task<IReadOnlyList<UserAssignments>> GetProjectsAssignments()
+        public async Task<IReadOnlyList<UserAssignments>> GetUserAssignments()
         {
            
             return await ApiConnection.GetAll<UserAssignments>(ApiUrls.GetProjectsAssignments(), null);

@@ -37,12 +37,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 },
             };
 
-            var projectPhases =
                 await
                     groupShareClient.Project.ChangePhases(projectId,
                         new ChangePhaseRequest("Changed phase ", request));
-
-            Assert.Equal(projectPhases, string.Empty);
+       
         }
 
 
@@ -77,8 +75,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                     AssignedUsers = new[] { "sdlcommunity" }
                 }
             };
-
-            var projectAssignements =
                 await
                     groupShareClient.Project.ChangeAssignments(projectId,
                         new ChangeAssignmentRequest("test assignement", request));

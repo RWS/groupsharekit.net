@@ -14,7 +14,22 @@ namespace Sdl.Community.GroupShareKit.Clients
     public interface IProjectClient
     {
         /// <summary>
-        /// Gets all <see cref="Project"/>s for the organization.
+        /// Gets a <see cref="Project"/>s
+        /// </summary>
+        /// <remarks>
+        /// <param name="request"><see cref="ProjectsRequest"/></param>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="Project"/></returns>
+
+        Task<Project> GetProject(ProjectsRequest request);
+        /// <summary>
+        /// Gets all <see cref="Project"/>s
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -25,13 +40,27 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Project"/>s.</returns>
-        Task <Project> GetProjects(ProjectsRequest request);
-        Task <Project>GetAllProjects();
+        Task<Project>GetAllProjects();
+
+        /// <summary>
+        /// Gets all <see cref="Project"/>s for the organization.
+        /// </summary>
+        /// <remarks>
+        /// <param name="organizationName">string</param>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="ProjectDetails"/>s.</returns>
         List<ProjectDetails> GetProjectsForOrganization(string organizationName);
 
         /// <summary>
         /// Gets all <see cref="File"/>s for the project.
         /// </summary>
+        /// <param name="projectId">string</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
@@ -40,11 +69,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="Project"/>s.</returns>
+        /// <returns>A list of <see cref="File"/>s.</returns>
         Task<IReadOnlyList<File>> GetAllFilesForProject(string projectId);
 
         /// <summary>
-        /// Gets all <see cref="Phase"/>s for the organization.
+        /// Gets all <see cref="Phase"/>s for the project.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -57,10 +86,22 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="Phase"/>s.</returns>
         Task<IReadOnlyList<Phase>> GetAllPhasesForProject(string projectId);
 
+        /// <summary>
+        /// Gets the list of files for the requested project with all the project phases and theirs assignees <see cref="PhasesWithAssignees"/>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="PhasesWithAssignees"/>s.</returns>
         Task<IReadOnlyList<PhasesWithAssignees>> GetPhasesWithAssignees(string projectId, int phaseId);
 
         /// <summary>
-        /// Change the project phases
+        /// Changes the phases for files from a server project
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -71,11 +112,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Phase"/>s.</returns>
-        Task<string> ChangePhases(string projectId, ChangePhaseRequest request);
+        Task ChangePhases(string projectId, ChangePhaseRequest request);
 
 
         /// <summary>
-        /// Change the project assignments
+        /// Changes the assignment for a specific phase for files from a server project,
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -86,7 +127,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Phase"/>s.</returns>
-        Task<string> ChangeAssignments(string projectId, ChangeAssignmentRequest request);
+        Task ChangeAssignments(string projectId, ChangeAssignmentRequest request);
 
         /// <summary>
         /// Create project
@@ -99,8 +140,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="Phase"/>s.</returns>
-        Task<string> CreateProject(CreateProjectRequest request);
+         Task<string> CreateProject(CreateProjectRequest request);
 
         /// <summary>
         /// Delete project
@@ -113,7 +153,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="Phase"/>s.</returns>
         Task DeleteProject(string projectId);
 
         /// <summary>
@@ -127,7 +166,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="Phase"/>s.</returns>
+        /// <returns> <see cref="ProjectDetails"/></returns>
         Task<ProjectDetails> Get(string projectId);
 
         /// <summary>
@@ -141,7 +180,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="PublishingStatus"/>s.</returns>
+        /// <returns> <see cref="PublishingStatus"/></returns>
         Task<PublishingStatus> PublishingStatus(string projectId);
 
         /// <summary>
@@ -172,9 +211,61 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="byte[]"/>s.</returns>
         Task<byte[]> DownloadFile(FileDownloadRequest downloadRequest);
 
-        Task<IReadOnlyList<UserAssignments>> GetProjectsAssignments();
+
+
+        /// <summary>
+        ///Gets a list of user assignements
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="UserAssignments"/>s.</returns>
+        Task<IReadOnlyList<UserAssignments>> GetUserAssignments();
+
+        /// <summary>
+        ///Gets a list of assignements for a project
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="ProjectAssignment"/>s.</returns>
         Task<IReadOnlyList<ProjectAssignment>> GetProjectAssignmentById(string projectId, List<string> fileIdsList);
+
+        /// <summary>
+        ///Uploads file for a specific project
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<string> UploadFilesForProject(string projectId,byte[] rawData);
+
+        /// <summary>
+        ///change project status
+        /// <param name="statusRequest"><see cref="ChangeStatusRequest"/></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<string> ChangeProjectStatus(ChangeStatusRequest statusRequest);
         Task<string> ChangeProjectStatusDetach(ChangeStatusRequest statusRequest);
         Task ChangeProjectStatusDeleteDetach(string projectId, bool deleteTms);
