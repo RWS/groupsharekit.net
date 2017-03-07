@@ -33,8 +33,19 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </value>
         public string OrganizationId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the description
+        /// </summary>
         public string  Description   { get; set; }
+
+        /// <summary>
+        /// Gets or sets the due date
+        /// </summary>
         public DateTime? DueDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the template id
+        /// </summary>
         public string ProjectTemplateId { get; set; }
 
 
