@@ -8,9 +8,21 @@ namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class UserDetails
     {
+        /// <summary>
+        /// Gets or sets the user id
+        /// </summary>
         public string UserId { get; set; }
+        /// <summary>
+        /// Gets or sets the user name
+        /// </summary>
         public string UserName { get; set; }
+        /// <summary>
+        /// Gets or sets the display name
+        /// </summary>
         public string DisplayName { get; set; }
+        /// <summary>
+        /// Gets or sets the email
+        /// </summary>
         public string Email { get; set; }
 
     }

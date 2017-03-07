@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Models.Response
 {
@@ -24,12 +20,24 @@ namespace Sdl.Community.GroupShareKit.Models.Response
             Scopes = scopes;
         }
 
+        /// <summary>
+        /// Gets or sets the user name
+        /// </summary>
         public string UserName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the token
+        /// </summary>
         public string Token { get; set; }
 
+        /// <summary>
+        /// Gets or sets the expiration date
+        /// </summary>
         public DateTimeOffset ExpirationDate { get; set; }
 
+        /// <summary>
+        /// Gets or sets the scopes
+        /// </summary>
         public string[] Scopes { get; set; }
     }
 }
