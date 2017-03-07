@@ -58,7 +58,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         List<ProjectDetails> GetProjectsForOrganization(string organizationName);
 
         /// <summary>
-        /// Gets all <see cref="File"/>s for the project.
+        /// Gets all <see cref="File"/>s for  project.
         /// </summary>
         /// <param name="projectId">string</param>
         /// <remarks>
@@ -255,7 +255,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<string> UploadFilesForProject(string projectId,byte[] rawData);
 
         /// <summary>
-        ///change project status
+        ///Change project status
         /// <param name="statusRequest"><see cref="ChangeStatusRequest"/></param>
         /// </summary>
         /// <remarks>
@@ -267,8 +267,47 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<string> ChangeProjectStatus(ChangeStatusRequest statusRequest);
+
+        /// <summary>
+        ///Change project status detach
+        /// <param name="statusRequest"><see cref="ChangeStatusRequest"/></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<string> ChangeProjectStatusDetach(ChangeStatusRequest statusRequest);
+
+        /// <summary>
+        ///Deletes detach to a project status
+        /// <param name="projectId deleteTms">></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task ChangeProjectStatusDeleteDetach(string projectId, bool deleteTms);
+
+        /// <summary>
+        ///Publish  project
+        /// <param name="projectRequest"><see cref="CreateProjectRequest"/></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task PublishPackage(CreateProjectRequest projectRequest);
     }
 }
