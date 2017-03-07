@@ -14,7 +14,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetFileVersions(string languageFileId)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            var fileVersion = await groupShareClient.FileVersion.GetFileVersion(languageFileId);
+            var fileVersion = await groupShareClient.FileVersion.GetFileVersions(languageFileId);
 
             Assert.True(fileVersion.Count>0);
         }

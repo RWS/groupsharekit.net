@@ -123,7 +123,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>List of <see cref="OrganizationResources"/></returns>
         public async Task<IReadOnlyList<OrganizationResources>> GetAllOrganizationResources(string organizationId)
         {
-            return await ApiConnection.GetAll<OrganizationResources>(ApiUrls.OrganizationsResources(organizationId));
+            return await ApiConnection.GetAll<OrganizationResources>(ApiUrls.OrganizationResources(organizationId));
         }
 
 
@@ -141,7 +141,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public Task MoveResourceToOrganization(OrganizationResourcesRequest request)
         {
-            return ApiConnection.Put<string>(ApiUrls.OrganizationsResources(), request);
+            return ApiConnection.Put<string>(ApiUrls.MoveOrganizationsResources(), request);
         }
 
         /// <summary>

@@ -27,7 +27,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="Permission"/>s.</returns>
         public Task<IReadOnlyList<Permission>> GetAll()
         {
-            return ApiConnection.GetAll<Permission>(ApiUrls.Permission());
+            return ApiConnection.GetAll<Permission>(ApiUrls.Permissions());
         }
 
 

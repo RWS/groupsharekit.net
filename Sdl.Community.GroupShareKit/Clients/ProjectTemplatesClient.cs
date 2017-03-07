@@ -92,7 +92,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         /// <summary>
         ///Uploades a template to a newly created project 
-        /// This method shoulg be called after you create a project in order to add the template
+        /// This method should be called after you create a project in order to add the template
         /// </summary>
         /// <param name="templateId">string</param>
         /// <param name="projectTemplate">byte[]</param>
