@@ -293,6 +293,11 @@ namespace Sdl.Community.GroupShareKit.Clients
             return query;
         }
 
+        /// <summary>
+        /// Helper method to create  query
+        /// </summary>
+        /// <param name="languageFileIds"></param>
+        /// <returns></returns>
         public string FileIdQuery(List<string> languageFileIds)
         {
             var query = string.Empty;
