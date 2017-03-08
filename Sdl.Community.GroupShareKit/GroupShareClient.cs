@@ -5,7 +5,6 @@ using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Clients.TranslationMemory;
 using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
-using Sdl.Community.GroupShareKit.Models.Response;
 
 namespace Sdl.Community.GroupShareKit
 {
@@ -60,6 +59,7 @@ namespace Sdl.Community.GroupShareKit
             FileVersion = new FileVersionClient(apiConnection);
             License = new LicenseClient(apiConnection);
             TranslationMemories = new TranslationMemoriesClient(apiConnection);
+            TermBase = new TermBasesClient(apiConnection);
         }
 
         /// <summary>
@@ -102,6 +102,7 @@ namespace Sdl.Community.GroupShareKit
         public IRoleClient Role { get; set; }
         public IPermissionClient Permission { get; set; }
         public ILicense License { get; set; }
+        public ITermBases TermBase { get; set; }
 
         /// <summary>
         /// Convenience property for getting and setting credentials.

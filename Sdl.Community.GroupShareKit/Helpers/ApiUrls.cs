@@ -9,6 +9,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static readonly Uri CurrentManagementUrl = new Uri("api/management/v2", UriKind.Relative);
         public static readonly Uri CurrentAuthenticationUrl = new Uri("authentication/api/1.0", UriKind.Relative);
         public static readonly Uri CurrentTranslationMemoriesUrl = new Uri("api/tmservice", UriKind.Relative);
+        public static readonly Uri CurrentMultitermUrl = new Uri("multiterm/api/1.0", UriKind.Relative);
 
 
         public static Uri Modules()
@@ -406,6 +407,14 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri GetTmsNumberByFieldTemplateId(string fieldTemplateId)
         {
             return "{0}/tms/by-field-template/{1}/count".FormatUri(CurrentTranslationMemoriesUrl, fieldTemplateId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that gives a list of termbases
+        /// </summary>
+        public static Uri GetTermbases()
+        {
+            return "{0}/termbases".FormatUri(CurrentMultitermUrl);
         }
     }
 }

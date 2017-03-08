@@ -63,6 +63,7 @@
     <Compile Include="Clients\ILicense.cs" />
     <Compile Include="Clients\IModuleClient.cs" />
     <Compile Include="Clients\IProjectsTemplateClient.cs" />
+    <Compile Include="Clients\ITermBases.cs" />
     <Compile Include="Clients\LicenseClient.cs" />
     <Compile Include="Clients\ModuleClient.cs" />
     <Compile Include="Clients\OrganizationResourcesRequest.cs" />
@@ -145,6 +146,8 @@
     <Compile Include="Models\Response\PublishingStatus.cs" />
     <Compile Include="Models\Response\Role.cs" />
     <Compile Include="Models\Response\Statistics.cs" />
+    <Compile Include="Models\Response\TermbaseInformations.cs" />
+    <Compile Include="Models\Response\Termbase.cs" />
     <Compile Include="Models\Response\TranslationMemory\BackgroundTask.cs" />
     <Compile Include="Models\Response\TranslationMemory\BackgroundTaskDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\Container.cs" />
@@ -162,6 +165,7 @@
     <Compile Include="Models\Response\UserDetails.cs" />
     <Compile Include="Models\Response\UserResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Clients\TermBasesClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GroupShareKit.snk" />

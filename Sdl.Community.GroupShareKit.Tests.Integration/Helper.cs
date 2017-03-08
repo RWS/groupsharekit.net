@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Http;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration
