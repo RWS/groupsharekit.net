@@ -81,6 +81,8 @@
     <Compile Include="Clients\ProjectsRequest.cs" />
     <Compile Include="Clients\RoleClient.cs" />
     <Compile Include="Clients\SortParameters.cs" />
+    <Compile Include="Clients\TranslationMemory\ITranslationMemoriesClient.cs" />
+    <Compile Include="Clients\TranslationMemory\TranslationMemoriesClient.cs" />
     <Compile Include="Clients\UsersRequest.cs" />
     <Compile Include="IJsonRequest.cs" />
     <Compile Include="Models\Response\Assignment.cs" />
@@ -143,6 +145,18 @@
     <Compile Include="Models\Response\PublishingStatus.cs" />
     <Compile Include="Models\Response\Role.cs" />
     <Compile Include="Models\Response\Statistics.cs" />
+    <Compile Include="Models\Response\TranslationMemory\BackgroundTask.cs" />
+    <Compile Include="Models\Response\TranslationMemory\BackgroundTaskDetails.cs" />
+    <Compile Include="Models\Response\TranslationMemory\Container.cs" />
+    <Compile Include="Models\Response\TranslationMemory\DatabaseServer.cs" />
+    <Compile Include="Models\Response\TranslationMemory\Field.cs" />
+    <Compile Include="Models\Response\TranslationMemory\FieldTemplate.cs" />
+    <Compile Include="Models\Response\TranslationMemory\FuzzyIndexTuningSettings.cs" />
+    <Compile Include="Models\Response\TranslationMemory\LanguageDirection.cs" />
+    <Compile Include="Models\Response\TranslationMemory\Metadata.cs" />
+    <Compile Include="Models\Response\TranslationMemory\Settings.cs" />
+    <Compile Include="Models\Response\TranslationMemory\TranslationMemory.cs" />
+    <Compile Include="Models\Response\TranslationMemory\TranslationMemoryDetails.cs" />
     <Compile Include="Models\Response\User.cs" />
     <Compile Include="Models\Response\UserAssignments.cs" />
     <Compile Include="Models\Response\UserDetails.cs" />
@@ -158,6 +172,7 @@
       <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\Facades\System.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

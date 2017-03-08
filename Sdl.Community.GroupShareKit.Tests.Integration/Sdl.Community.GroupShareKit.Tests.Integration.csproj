@@ -79,6 +79,7 @@
     <Compile Include="Clients\ProjectTemplatesTests.cs" />
     <Compile Include="Clients\PublishingStatusClientTests.cs" />
     <Compile Include="Clients\RolesClientTests.cs" />
+    <Compile Include="Clients\TranslationMemotiesClient.cs" />
     <Compile Include="Clients\UserClientTests.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

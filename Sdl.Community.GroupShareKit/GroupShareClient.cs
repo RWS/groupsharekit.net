@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Clients.TranslationMemory;
 using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response;
@@ -16,12 +17,16 @@ namespace Sdl.Community.GroupShareKit
 
         public const string ManagementApi = "ManagementRestApi";
         public const string ProjectApi = "ProjectServerRestApi";
+        public const string MultiTermApi = "MultiTermRestApi";
+        public const string TmServerApi = "TMServerRestApi";
 
         public static IEnumerable<string> AllScopes =
             new[]
             {
                 ManagementApi,
-                ProjectApi
+                ProjectApi,
+                MultiTermApi,
+                TmServerApi
             }; 
 
         /// <summary>
@@ -54,6 +59,7 @@ namespace Sdl.Community.GroupShareKit
             ModuleClient = new ModuleClient(apiConnection);
             FileVersion = new FileVersionClient(apiConnection);
             License = new LicenseClient(apiConnection);
+            TranslationMemories = new TranslationMemoriesClient(apiConnection);
         }
 
         /// <summary>
@@ -83,6 +89,7 @@ namespace Sdl.Community.GroupShareKit
             return groupShareClient;
         }
         public IProjectClient Project { get; }
+        public ITranslationMemoriesClient TranslationMemories { get; set; }
 
         public IUserClient User { get; }
         public IModuleClient ModuleClient { get; set; }
