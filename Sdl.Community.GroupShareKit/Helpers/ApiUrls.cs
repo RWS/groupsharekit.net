@@ -369,10 +369,43 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> that gives a list of tms
         /// </summary>
-        /// <returns></returns>
         public static Uri GetTms()
         {
             return "{0}/tms".FormatUri(CurrentTranslationMemoriesUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that gives specified tm.
+        /// </summary>
+        public static Uri GetTmById(string tmId)
+        {
+            return "{0}/tms/{1}".FormatUri(CurrentTranslationMemoriesUrl,tmId);
+        }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that gives the language direction information for a specified tm
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <param name="languageDirectionId"></param>
+        public static Uri GetLanguageDirectionForTm(string tmId, string languageDirectionId)
+        {
+            return "{0}/tms/{1}/language-directions/{2}".FormatUri(CurrentTranslationMemoriesUrl, tmId,languageDirectionId);
+        }
+
+        /// <summary>
+        ///  Returns the <see cref="Uri"/> that gives the tms for resource language template id
+        /// </summary>
+        /// <param name="resourceTemplateId">resource te,plate id</param>
+        public static Uri GetTmsNumberByLanguageResourceTemplateId(string resourceTemplateId)
+        {
+            return "{0}/tms/by-language-resource-template/{1}/count".FormatUri(CurrentTranslationMemoriesUrl, resourceTemplateId);
+        }
+        /// <summary>
+        ///  Returns the <see cref="Uri"/> that gives the tms for field template id
+        /// </summary>
+        /// <param name="fieldTemplateId"> field template id</param>
+        public static Uri GetTmsNumberByFieldTemplateId(string fieldTemplateId)
+        {
+            return "{0}/tms/by-field-template/{1}/count".FormatUri(CurrentTranslationMemoriesUrl, fieldTemplateId);
         }
     }
 }
