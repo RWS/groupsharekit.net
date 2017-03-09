@@ -416,5 +416,12 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/termbases".FormatUri(CurrentMultitermUrl);
         }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that gives specified tm
+        /// </summary>
+        public static Uri GetTermbaseById(string termbaseId)
+        {
+            return "{0}/termbases/{1}".FormatUri(CurrentMultitermUrl,termbaseId);
+        }
     }
 }

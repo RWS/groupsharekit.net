@@ -87,9 +87,13 @@
     <Compile Include="Clients\UsersRequest.cs" />
     <Compile Include="IJsonRequest.cs" />
     <Compile Include="Models\Response\Assignment.cs" />
+    <Compile Include="Models\Response\Atribute.cs" />
+    <Compile Include="Models\Response\EntryClass.cs" />
     <Compile Include="Models\Response\FileVersion.cs" />
+    <Compile Include="Models\Response\Language.cs" />
     <Compile Include="Models\Response\LanguageDirections.cs" />
     <Compile Include="Models\Response\LanguageFiles.cs" />
+    <Compile Include="Models\Response\LanguageIndexDetails.cs" />
     <Compile Include="Models\Response\License.cs" />
     <Compile Include="Models\Response\LicenseDetails.cs" />
     <Compile Include="Models\Response\Modules.cs" />
@@ -146,6 +150,7 @@
     <Compile Include="Models\Response\PublishingStatus.cs" />
     <Compile Include="Models\Response\Role.cs" />
     <Compile Include="Models\Response\Statistics.cs" />
+    <Compile Include="Models\Response\TermbaseDetails.cs" />
     <Compile Include="Models\Response\TermbaseInformations.cs" />
     <Compile Include="Models\Response\Termbase.cs" />
     <Compile Include="Models\Response\TranslationMemory\BackgroundTask.cs" />

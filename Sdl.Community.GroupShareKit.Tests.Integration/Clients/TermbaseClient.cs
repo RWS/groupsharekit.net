@@ -17,5 +17,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(termbases !=null);
         }
+
+        //needs to be tested later when we'll have a termbase in GS
+        [Theory]
+        [InlineData("")]
+        public async Task GetTermbaseById(string termbaseId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var termbase = await groupShareClient.TermBase.GetTermbaseById("termbaseId");
+        }
+
     }
 }

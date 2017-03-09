@@ -28,5 +28,22 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             return await ApiConnection.Get<Termbase>(ApiUrls.GetTermbases(), null);
         }
+        /// <summary>
+        /// Gets  <see cref="TermbaseDetails"/>s.
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> <see cref="TermbaseDetails"/></returns>
+        public async Task<TermbaseDetails> GetTermbaseById(string termbaseId)
+        {
+           Ensure.ArgumentNotNullOrEmptyString(termbaseId,"termbaseId");
+            return await ApiConnection.Get<TermbaseDetails>(ApiUrls.GetTermbaseById(termbaseId), null);
+        }
     }
 }
