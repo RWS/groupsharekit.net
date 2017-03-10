@@ -62,7 +62,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("Tm from kit")]
+        [InlineData("Tm from kit2")]
         public async Task CreateTm(string tmName)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
@@ -83,8 +83,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                         LastRecomputeSize = null
                     }
                 },
-                FieldTemplateId =Guid.NewGuid().ToString(),
-                LanguageResourceTemplateId = "63080db2-0c7a-4026-bbbe-5e450f036055",
+                FieldTemplateId = "ec6acfc3-e166-486f-9823-3220499dc95b",
+                LanguageResourceTemplateId = "78df3807-06ac-438e-b2c8-5e233df1a6a2",
                 Recognizers = "RecognizeAll",
                 FuzzyIndexes = "SourceWordBased,TargetWordBased",
                 Location = "/SDL Community Developers",
@@ -107,6 +107,31 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var tmId = await groupShareClient.TranslationMemories.Create(tmRequest);
 
             Assert.True(tmId!=string.Empty);
+        }
+
+        [Fact]
+        public async Task DeleteTm()
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            await groupShareClient.TranslationMemories.Delete("b7c6c496-b2ac-4615-919a-e1cec538ac83");
+        }
+
+        [Theory]
+        [InlineData("95114373-f19a-4885-94a5-12d1a8c7ccb3")]
+        public async Task UpdateTm(string tmId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+
+            var tm = await groupShareClient.TranslationMemories.GetTmById(tmId);
+
+            tm.Name = "Updated tm";
+
+            await groupShareClient.TranslationMemories.Update(tmId, tm);
+
+            var updatedTm = await groupShareClient.TranslationMemories.GetTmById(tmId);
+
+            Assert.Equal(updatedTm.Name, "Updated tm");
+
         }
     }
 }

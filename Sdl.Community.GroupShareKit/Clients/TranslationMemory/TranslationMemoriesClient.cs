@@ -133,5 +133,40 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(tm,"Translation memory");
             return await ApiConnection.Post<string>(ApiUrls.GetTms(), tm, "application/json");
         }
+
+        /// <summary>
+        /// Deletes<see cref="Models.Response.TranslationMemory.TranslationMemory"/> .
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task Delete(string tmId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
+            await ApiConnection.Delete(ApiUrls.GetTmById(tmId));
+        }
+
+        /// <summary>
+        /// Updates<see cref="Models.Response.TranslationMemory.TranslationMemory"/> .
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task Update(string tmId, TranslationMemoryDetails tm)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId,"tmId");
+            Ensure.ArgumentNotNull(tm,"tm");
+            await ApiConnection.Put<string>(ApiUrls.GetTmById(tmId), tm);
+        }
     }
 }
