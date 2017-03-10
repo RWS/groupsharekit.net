@@ -124,6 +124,14 @@ namespace Sdl.Community.GroupShareKit.Http
             return response.HttpResponse.StatusCode;
         }
 
+        public async Task<HttpStatusCode> Patch(Uri uri, object body, string contentType)
+        {
+            Ensure.ArgumentNotNull(uri, "uri");
+            var method = new HttpMethod("PATCH");
+            var response = await SendData<object>(uri, method, body, null, CancellationToken.None);
+            return  response.HttpResponse.StatusCode;
+        }
+
         public async Task<HttpStatusCode> Delete(Uri uri)
         {
             Ensure.ArgumentNotNull(uri, "uri");

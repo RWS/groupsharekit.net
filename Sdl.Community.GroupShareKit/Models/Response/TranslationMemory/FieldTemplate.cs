@@ -27,6 +27,14 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// <summary>
         /// Gets or sets a fields list
         /// </summary>
-        public List<Field> Field { get; set; }
+        public List<Field> Fields { get; set; }
+        /// <summary>
+        /// Gets or sets a field location
+        /// </summary>
+        public string Location { get; set; }
+        /// <summary>
+        /// Gets or sets owner id
+        /// </summary>
+        public string OwnerId { get; set; }
     }
 }

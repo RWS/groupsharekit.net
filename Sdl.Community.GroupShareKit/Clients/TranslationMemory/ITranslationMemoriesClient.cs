@@ -26,7 +26,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<Models.Response.TranslationMemory.TranslationMemory> GetTms();
 
         /// <summary>
-        /// Gets specified tm<see cref="Models.Response.TranslationMemory.TranslationMemory"/>.
+        /// Gets specified tm<see cref="TranslationMemoryDetails"/>.
         /// </summary>
         /// <remarks>
         /// <param name="tmId">translation memory id</param>
@@ -37,7 +37,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  <see cref="Models.Response.TranslationMemory.TranslationMemory"/></returns>
+        /// <returns>  <see cref="TranslationMemoryDetails"/></returns>
         Task<TranslationMemoryDetails> GetTmById(string tmId);
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  <see cref="Models.Response.TranslationMemory.TranslationMemory"/> number</returns>
+        /// <returns>  Tm number</returns>
         Task<int> GetTmsNumberByLanguageResourceTemplateId(string resourceTemplateId);
 
         /// <summary>
@@ -81,7 +81,22 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  <see cref="Models.Response.TranslationMemory.TranslationMemory"/> number</returns>
+        /// <returns>  Tm number</returns>
         Task<int> GetTmsNumberByFieldTemplateId(string fieldTemplateId);
+
+        /// <summary>
+        /// Gets specified tm<see cref="TranslationMemoryDetails"/>.
+        /// </summary>
+        /// <remarks>
+        /// <param name="tm">translation memory </param>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>  <see cref="TranslationMemoryDetails"/></returns>
+        Task<string> Create(CreateTmRequest tm);
     }
 }

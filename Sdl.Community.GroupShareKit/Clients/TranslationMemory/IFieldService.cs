@@ -4,19 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
-using Sdl.Community.GroupShareKit.Helpers;
-using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 
 namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 {
-    public class TranslationMemoriesClient: ApiClient,ITranslationMemoriesClient
+    public interface IFieldService
     {
-        public TranslationMemoriesClient(IApiConnection apiConnection) : base(apiConnection)
-        {
-        }
         /// <summary>
-        /// Gets all tms<see cref="Models.Response.TranslationMemory.TranslationMemory"/>.
+        /// Creates <see cref="FieldTemplate"/>.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -26,17 +21,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  <see cref="Models.Response.TranslationMemory.TranslationMemory"/></returns>
-        public async Task<Models.Response.TranslationMemory.TranslationMemory> GetTms()
-        {
-            return await ApiConnection.Get<Models.Response.TranslationMemory.TranslationMemory>(ApiUrls.GetTms(),null);
-        }
+        ///<returns>Created field template id</returns>
+        Task<string> CreateTemplate(FieldTemplate template);
 
         /// <summary>
-        /// Gets specified tm<see cref="Models.Response.TranslationMemory.TranslationMemory"/>.
+        /// Gets <see cref="FieldTemplates"/>.
         /// </summary>
         /// <remarks>
-        /// <param name="tmId">translation memory id</param>
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
         /// </remarks>
@@ -44,39 +35,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  <see cref="Models.Response.TranslationMemory.TranslationMemory"/></returns>
-        public async Task<TranslationMemoryDetails> GetTmById(string tmId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
-            return
-                await
-                    ApiConnection.Get<TranslationMemoryDetails>(ApiUrls.GetTmById(tmId), null);
-        }
-        /// <summary>
-        /// Gets <see cref="LanguageDirection"/> for tm
-        /// </summary>
-        /// <remarks>
-        /// <param name="tmId">translation memory id</param>
-        /// <param name="languageDirectionId">language direction id</param>
-        /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  <see cref="LanguageDirection"/></returns>
-        public async Task<LanguageDirection> GetLanguageDirectionForTm(string tmId, string languageDirectionId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
-            Ensure.ArgumentNotNullOrEmptyString(languageDirectionId, "languageDirectionId");
-            return
-                await
-                    ApiConnection.Get<LanguageDirection>(ApiUrls.GetLanguageDirectionForTm(tmId,languageDirectionId), null);
-        }
+        ///<returns>Returns <see cref="FieldTemplates"/> which contains a list of <see cref="FieldTemplate"/></returns>
+        Task<FieldTemplates> GetFieldTemplates();
 
         /// <summary>
-        /// Gets the  tms<see cref="Models.Response.TranslationMemory.TranslationMemory"/> number.
+        /// Gets <see cref="FieldTemplate"/> by id.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -86,19 +49,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  <see cref="Models.Response.TranslationMemory.TranslationMemory"/> number</returns>
-        public async Task<int> GetTmsNumberByLanguageResourceTemplateId(string resourceTemplateId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(resourceTemplateId, "resourceTemplateId");
-            return
-                await
-                    ApiConnection.Get<int>(ApiUrls.GetTmsNumberByLanguageResourceTemplateId(resourceTemplateId), null);
-        }
+        ///<returns><see cref="FieldTemplate"/></returns>
+        Task<FieldTemplate> GetFieldTemplateById(string id);
 
         /// <summary>
-        /// Gets the  tms<see cref="Models.Response.TranslationMemory.TranslationMemory"/> number.
+        /// Updates <see cref="FieldTemplate"/> 
         /// </summary>
         /// <remarks>
+        /// <param name="templateRequest"><see cref="FieldTemplateRequest"/></param>
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
         /// </remarks>
@@ -106,20 +64,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  <see cref="Models.Response.TranslationMemory.TranslationMemory"/> number</returns>
-        public async Task<int> GetTmsNumberByFieldTemplateId(string fieldTemplateId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
-            return
-               await
-                   ApiConnection.Get<int>(ApiUrls.GetTmsNumberByFieldTemplateId(fieldTemplateId), null);
-        }
+        ///<returns><see cref="FieldTemplate"/> id</returns>
+        Task UpdateFieldTemplate(string templateId, FieldTemplateRequest templateRequest);
+
 
         /// <summary>
-        /// Gets specified tm<see cref="TranslationMemoryDetails"/>.
+        /// Deletes <see cref="FieldTemplate"/> by id.
         /// </summary>
         /// <remarks>
-        /// <param name="tm">translation memory </param>
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
         /// </remarks>
@@ -127,11 +79,21 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  <see cref="TranslationMemoryDetails"/></returns>
-        public async Task<string> Create(CreateTmRequest tm)
-        {
-            Ensure.ArgumentNotNull(tm,"Translation memory");
-            return await ApiConnection.Post<string>(ApiUrls.GetTms(), tm, "application/json");
-        }
+        Task DeleteFieldTemplate(string templateId);
+
+
+        /// <summary>
+        /// Updates <see cref="FieldTemplate"/> 
+        /// </summary>
+        /// <remarks>
+        /// <param name="request"><see cref="FieldTemplatePatchRequest"/></param>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        Task AddOperationsForFieldTemplate(string templateId, FieldTemplatePatchRequest request);
     }
 }

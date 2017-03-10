@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
@@ -58,6 +59,54 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var tmNumber = await groupShareClient.TranslationMemories.GetTmsNumberByFieldTemplateId(id);
 
             Assert.True(tmNumber > 0);
+        }
+
+        [Theory]
+        [InlineData("Tm from kit")]
+        public async Task CreateTm(string tmName)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var tmRequest = new CreateTmRequest
+            {
+                TranslationMemoryId = Guid.NewGuid().ToString(),
+                Name = tmName,
+                LanguageDirections = new List<LanguageDirection>
+                {
+                    new LanguageDirection
+                    {
+                        LanguageDirectionId = Guid.NewGuid().ToString(),
+                        Source = "en-us",
+                        Target = "de-de",
+                        LastReIndexSize = null,
+                        LastReIndexDate = null,
+                        LastRecomputeDate = null,
+                        LastRecomputeSize = null
+                    }
+                },
+                FieldTemplateId =Guid.NewGuid().ToString(),
+                LanguageResourceTemplateId = "63080db2-0c7a-4026-bbbe-5e450f036055",
+                Recognizers = "RecognizeAll",
+                FuzzyIndexes = "SourceWordBased,TargetWordBased",
+                Location = "/SDL Community Developers",
+                WordCountFlags = "DefaultFlags",
+                OwnerId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
+                FuzzyIndexTuningSettings = new FuzzyIndexTuningSettings
+                {
+                    MinScoreIncrease = 20,
+                    MinSearchVectorLengthSourceCharIndex = 5,
+                    MinSearchVectorLengthSourceWordIndex = 3,
+                    MinSearchVectorLengthTargetCharIndex = 5,
+                    MinSearchVectorLengthTargetWordIndex = 3
+
+                },            
+                ContainerId = "bb9c7d71-a7b5-46ba-9f42-47ffd41b80f7"
+                
+
+            };
+
+            var tmId = await groupShareClient.TranslationMemories.Create(tmRequest);
+
+            Assert.True(tmId!=string.Empty);
         }
     }
 }

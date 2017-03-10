@@ -77,7 +77,9 @@ namespace Sdl.Community.GroupShareKit.Http
         /// <returns>The returned <seealso cref="HttpStatusCode"/></returns>
         Task<HttpStatusCode> Put(Uri uri);
 
-        /// <summary>
+        Task<HttpStatusCode> Patch(Uri uri, object body, string contentType);
+
+            /// <summary>
         /// Performs an asynchronous HTTP DELETE request that expects an empty response.
         /// </summary>
         /// <param name="uri">URI endpoint to send request to</param>

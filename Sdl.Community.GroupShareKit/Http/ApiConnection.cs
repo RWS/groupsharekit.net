@@ -229,5 +229,13 @@ namespace Sdl.Community.GroupShareKit.Http
 
             return Connection.Delete(uri, data,contentType);
         }
+
+        public Task Patch(Uri uri, object data, string contentType)
+        {
+            Ensure.ArgumentNotNull(uri, "uri");
+            Ensure.ArgumentNotNull(data, "data"); ;
+
+            return Connection.Patch(uri, data, contentType);
+        }
     }
 }

@@ -141,5 +141,7 @@ namespace Sdl.Community.GroupShareKit.Http
         /// <param name="data">The object to serialize as the body of the request</param>
         /// <returns>A <see cref="Task"/> for the request's execution.</returns>
         Task Delete(Uri uri, object data, string contentType);
+
+        Task Patch(Uri uri, object data, string contentType);
     }
 }

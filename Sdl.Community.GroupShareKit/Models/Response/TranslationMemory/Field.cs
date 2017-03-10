@@ -27,6 +27,6 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// <summary>
         /// Gets or sets a list of values
         /// </summary>
-        public List<string> Values { get; set; }
+        public List<Value> Values { get; set; }
     }
 }
