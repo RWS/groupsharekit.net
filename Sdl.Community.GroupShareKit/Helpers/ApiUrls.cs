@@ -433,11 +433,18 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/templates".FormatUri(CurrentFieldServiceUrl);
         }
         /// <summary>
-        /// Returns the <see cref="Uri"/> that returns specibic  field template
+        /// Returns the <see cref="Uri"/> that returns specific  field template
         /// </summary>
         public static Uri GetFieldTemplateById(string id)
         {
             return "{0}/templates/{1}".FormatUri(CurrentFieldServiceUrl,id);
+        }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns the health status of tm service
+        /// </summary>
+        public static Uri Health()
+        {
+            return "{0}/health".FormatUri(CurrentTranslationMemoriesUrl);
         }
     }
 }

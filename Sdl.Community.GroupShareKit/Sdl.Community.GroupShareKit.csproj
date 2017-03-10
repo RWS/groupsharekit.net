@@ -166,6 +166,7 @@
     <Compile Include="Models\Response\TranslationMemory\FieldTemplateRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\FieldTemplates.cs" />
     <Compile Include="Models\Response\TranslationMemory\FuzzyIndexTuningSettings.cs" />
+    <Compile Include="Models\Response\TranslationMemory\Health.cs" />
     <Compile Include="Models\Response\TranslationMemory\LanguageDirection.cs" />
     <Compile Include="Models\Response\TranslationMemory\Metadata.cs" />
     <Compile Include="Models\Response\TranslationMemory\Operation.cs" />

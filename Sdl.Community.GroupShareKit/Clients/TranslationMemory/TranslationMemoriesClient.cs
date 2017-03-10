@@ -168,5 +168,22 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(tm,"tm");
             await ApiConnection.Put<string>(ApiUrls.GetTmById(tmId), tm);
         }
+
+        /// <summary>
+        /// Gets<see cref="Health"/> of tm service .
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Returns the status of tm service</returns>
+        public async Task<Health> Health()
+        {
+            return await ApiConnection.Get<Health>(ApiUrls.Health(), null);
+        }
     }
 }

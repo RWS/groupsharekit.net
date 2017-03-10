@@ -133,5 +133,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(updatedTm.Name, "Updated tm");
 
         }
+
+        [Fact]
+        public async Task GetTmServiceHealth()
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var health = await groupShareClient.TranslationMemories.Health();
+
+            Assert.Equal(health.Status,"UP");
+        }
     }
 }
