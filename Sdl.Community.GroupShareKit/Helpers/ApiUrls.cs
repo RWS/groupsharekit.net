@@ -454,5 +454,13 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/termbases/{1}/filters".FormatUri(CurrentMultitermUrl, termbaseId);
         }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that search for terms in termbase
+        /// </summary>
+        public static Uri Search()
+        {
+            return "{0}/termbases/search".FormatUri(CurrentMultitermUrl);
+        }
     }
 }

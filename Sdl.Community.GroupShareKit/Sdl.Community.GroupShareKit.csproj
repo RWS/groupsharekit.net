@@ -81,6 +81,7 @@
     <Compile Include="Clients\PermissionClient.cs" />
     <Compile Include="Clients\ProjectsRequest.cs" />
     <Compile Include="Clients\RoleClient.cs" />
+    <Compile Include="Clients\SearchTermRequest.cs" />
     <Compile Include="Clients\SortParameters.cs" />
     <Compile Include="Clients\TranslationMemory\FieldServiceClient.cs" />
     <Compile Include="Clients\TranslationMemory\IFieldService.cs" />
@@ -153,11 +154,13 @@
     <Compile Include="Models\Response\ProjectTemplates.cs" />
     <Compile Include="Models\Response\PublishingStatus.cs" />
     <Compile Include="Models\Response\Role.cs" />
+    <Compile Include="Models\Response\SearchResponse.cs" />
     <Compile Include="Models\Response\Statistics.cs" />
     <Compile Include="Models\Response\TermbaseDetails.cs" />
     <Compile Include="Models\Response\TermbaseInformations.cs" />
     <Compile Include="Models\Response\Termbase.cs" />
     <Compile Include="Models\Response\TermbaseResponse.cs" />
+    <Compile Include="Models\Response\Term.cs" />
     <Compile Include="Models\Response\TranslationMemory\BackgroundTask.cs" />
     <Compile Include="Models\Response\TranslationMemory\BackgroundTaskDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\Container.cs" />

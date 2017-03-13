@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sdl.Community.GroupShareKit.Clients;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
@@ -40,5 +41,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         }
 
+        [Theory]
+        [InlineData("testTB","window", "English", "German")]
+        public async Task SearchTerm(string termbaseId,string query, string sourceLanguageId, string targetLanguageId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var request = new SearchTermRequest(termbaseId,sourceLanguageId,query,targetLanguageId);
+
+            var searchedResponse = await groupShareClient.TermBase.SearchTerm(request);
+            var searchedWord = searchedResponse.Terms.FirstOrDefault(s => s.TermText == query);
+            Assert.True(searchedWord != null);
+        }
     }
 }
