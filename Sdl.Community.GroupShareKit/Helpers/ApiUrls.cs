@@ -462,5 +462,20 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/termbases/search".FormatUri(CurrentMultitermUrl);
         }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that gets a concept
+        /// </summary>
+        public static Uri GetConcepts(ConceptRequest request)
+        {
+            return "{0}/termbases/{1}/concepts?conceptId={2}".FormatUri(CurrentMultitermUrl,request.TermbaseId,request.ConceptId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that gets a concept
+        /// </summary>
+        public static Uri GetConcepts(string termbaseId, string conceptId)
+        {
+            return "{0}/termbases/{1}/concepts/{2}".FormatUri(CurrentMultitermUrl, termbaseId, conceptId);
+        }
     }
 }

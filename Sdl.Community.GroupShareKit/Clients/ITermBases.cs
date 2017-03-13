@@ -69,5 +69,33 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="SearchResponse"/></returns>
         Task<SearchResponse> SearchTerm(SearchTermRequest request);
+
+        /// <summary>
+        /// Gets <see cref="ConceptResponse"/> 
+        /// </summary>
+        /// <param name="request"><see cref="ConceptRequest"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> <see cref="ConceptResponse"/></returns>
+        Task<ConceptResponse> GetConcept(ConceptRequest request);
+        /// <summary>
+        /// Gets <see cref="ConceptResponse"/> 
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> <see cref="ConceptResponse"/></returns>
+        Task<ConceptResponse> GetConcept(string termbaseId,string conceptId);
     }
 }

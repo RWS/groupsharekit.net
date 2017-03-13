@@ -52,5 +52,20 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var searchedWord = searchedResponse.Terms.FirstOrDefault(s => s.TermText == query);
             Assert.True(searchedWord != null);
         }
+
+        [Theory]
+        [InlineData("testTB", "1")]
+        public async Task GetConcept(string termbaseId, string conceptId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var conceptRequest = new ConceptRequest(termbaseId,conceptId);
+
+            var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
+            Assert.Equal(conceptResponse.Concept.Id,conceptId);
+
+            var conceptResponse1 = await groupShareClient.TermBase.GetConcept(termbaseId,conceptId);
+            Assert.Equal(conceptResponse1.Concept.Id, conceptId);
+
+        }
     }
 }

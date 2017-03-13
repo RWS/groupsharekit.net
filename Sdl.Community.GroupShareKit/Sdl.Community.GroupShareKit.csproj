@@ -55,6 +55,7 @@
     <Compile Include="Clients\ChangeAssignmentRequest.cs" />
     <Compile Include="Clients\ChangePhaseRequest.cs" />
     <Compile Include="Clients\ChangeStatusRequest.cs" />
+    <Compile Include="Clients\ConceptRequest.cs" />
     <Compile Include="Clients\CreateProjectRequest.cs" />
     <Compile Include="Clients\FileDownloadRequest.cs" />
     <Compile Include="Clients\FileVersionClient.cs" />
@@ -91,6 +92,9 @@
     <Compile Include="IJsonRequest.cs" />
     <Compile Include="Models\Response\Assignment.cs" />
     <Compile Include="Models\Response\Atribute.cs" />
+    <Compile Include="Models\Response\Attributes.cs" />
+    <Compile Include="Models\Response\Concept.cs" />
+    <Compile Include="Models\Response\ConceptResponse.cs" />
     <Compile Include="Models\Response\EntryClass.cs" />
     <Compile Include="Models\Response\FileVersion.cs" />
     <Compile Include="Models\Response\Filter.cs" />
@@ -159,8 +163,12 @@
     <Compile Include="Models\Response\TermbaseDetails.cs" />
     <Compile Include="Models\Response\TermbaseInformations.cs" />
     <Compile Include="Models\Response\Termbase.cs" />
+    <Compile Include="Models\Response\TermbaseLanguages.cs" />
     <Compile Include="Models\Response\TermbaseResponse.cs" />
     <Compile Include="Models\Response\Term.cs" />
+    <Compile Include="Models\Response\TermbaseTerms.cs" />
+    <Compile Include="Models\Response\Transactions.cs" />
+    <Compile Include="Models\Response\TransactionsDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\BackgroundTask.cs" />
     <Compile Include="Models\Response\TranslationMemory\BackgroundTaskDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\Container.cs" />

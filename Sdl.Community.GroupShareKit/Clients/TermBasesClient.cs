@@ -84,5 +84,43 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(request,"request");
             return await ApiConnection.Get<SearchResponse>(ApiUrls.Search(), request.ToParametersDictionary());
         }
+
+        /// <summary>
+        /// Gets <see cref="ConceptResponse"/> 
+        /// </summary>
+        /// <param name="request"><see cref="ConceptRequest"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> <see cref="ConceptResponse"/></returns>
+        public async Task<ConceptResponse> GetConcept(ConceptRequest request)
+        {
+            Ensure.ArgumentNotNull(request,"request");
+            return await ApiConnection.Get<ConceptResponse>(ApiUrls.GetConcepts(request), null);
+        }
+
+        /// <summary>
+        /// Gets <see cref="ConceptResponse"/> 
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> <see cref="ConceptResponse"/></returns>
+        public async Task<ConceptResponse> GetConcept(string termbaseId, string conceptId)
+        {
+           Ensure.ArgumentNotNullOrEmptyString(termbaseId,"termbaseId");
+            Ensure.ArgumentNotNullOrEmptyString(conceptId,"conceptId");
+            return await ApiConnection.Get<ConceptResponse>(ApiUrls.GetConcepts(termbaseId, conceptId), null);
+        }
     }
 }
