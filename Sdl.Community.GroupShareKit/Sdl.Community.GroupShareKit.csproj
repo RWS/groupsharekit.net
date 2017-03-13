@@ -92,6 +92,8 @@
     <Compile Include="Models\Response\Atribute.cs" />
     <Compile Include="Models\Response\EntryClass.cs" />
     <Compile Include="Models\Response\FileVersion.cs" />
+    <Compile Include="Models\Response\Filter.cs" />
+    <Compile Include="Models\Response\FilterResponse.cs" />
     <Compile Include="Models\Response\Language.cs" />
     <Compile Include="Models\Response\LanguageDirections.cs" />
     <Compile Include="Models\Response\LanguageFiles.cs" />
@@ -155,6 +157,7 @@
     <Compile Include="Models\Response\TermbaseDetails.cs" />
     <Compile Include="Models\Response\TermbaseInformations.cs" />
     <Compile Include="Models\Response\Termbase.cs" />
+    <Compile Include="Models\Response\TermbaseResponse.cs" />
     <Compile Include="Models\Response\TranslationMemory\BackgroundTask.cs" />
     <Compile Include="Models\Response\TranslationMemory\BackgroundTaskDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\Container.cs" />

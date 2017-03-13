@@ -40,10 +40,30 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="TermbaseDetails"/></returns>
-        public async Task<TermbaseDetails> GetTermbaseById(string termbaseId)
+        public async Task<TermbaseResponse> GetTermbaseById(string termbaseId)
         {
            Ensure.ArgumentNotNullOrEmptyString(termbaseId,"termbaseId");
-            return await ApiConnection.Get<TermbaseDetails>(ApiUrls.GetTermbaseById(termbaseId), null);
+            return await ApiConnection.Get<TermbaseResponse>(ApiUrls.GetTermbaseById(termbaseId), null);
+        }
+
+
+        /// <summary>
+        /// Gets  <see cref="Filter"/>s.
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> <see cref="Filter"/></returns>
+        public async Task<FilterResponse> GetFilters(string termbaseId)
+        {
+           Ensure.ArgumentNotNullOrEmptyString(termbaseId,"termbaseId");
+            return await ApiConnection.Get<FilterResponse>(ApiUrls.GetFilers(termbaseId),null);
         }
     }
 }

@@ -37,6 +37,21 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="TermbaseDetails"/></returns>
-        Task<TermbaseDetails> GetTermbaseById(string termbaseId);
+        Task<TermbaseResponse> GetTermbaseById(string termbaseId);
+
+        /// <summary>
+        /// Gets  <see cref="Filter"/>s.
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> <see cref="Filter"/></returns>
+        Task<FilterResponse> GetFilters(string termbaseId);
     }
 }

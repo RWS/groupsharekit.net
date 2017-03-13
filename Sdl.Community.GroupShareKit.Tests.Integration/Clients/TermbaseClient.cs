@@ -18,16 +18,26 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(termbases.TotalCount>0);
         }
 
-        //needs to be tested later when we'll have a termbase in GS
         [Theory]
-        [InlineData("cf6c4742-ba81-494e-8a53-fa186ce118f8")]
+        [InlineData("TestFromMultiterm")]
         public async Task GetTermbaseById(string termbaseId)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            var termbase = await groupShareClient.TermBase.GetTermbaseById("termbaseId");
+            var termbase = await groupShareClient.TermBase.GetTermbaseById(termbaseId);
 
-            Assert.Equal(termbase.Name, "TestFromMultiterm");
-            Assert.Equal(termbase.Id,termbaseId);
+            Assert.Equal(termbase.Termbase.Id, termbaseId);
+            Assert.Equal(termbase.Termbase.Name,termbaseId);
+        }
+
+        [Theory]
+        [InlineData("TestFromMultiterm")]
+        public async Task GetFilters(string termbaseId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var filters = await groupShareClient.TermBase.GetFilters(termbaseId);
+
+            Assert.True(filters!=null);
+
         }
 
     }

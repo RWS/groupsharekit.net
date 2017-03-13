@@ -446,5 +446,13 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/health".FormatUri(CurrentTranslationMemoriesUrl);
         }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that gets filters from the specified termbase
+        /// </summary>
+        public static Uri GetFilers(string termbaseId)
+        {
+            return "{0}/termbases/{1}/filters".FormatUri(CurrentMultitermUrl, termbaseId);
+        }
     }
 }
