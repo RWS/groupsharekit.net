@@ -11,6 +11,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static readonly Uri CurrentTranslationMemoriesUrl = new Uri("api/tmservice", UriKind.Relative);
         public static readonly Uri CurrentFieldServiceUrl = new Uri("api/fieldservice", UriKind.Relative);
         public static readonly Uri CurrentMultitermUrl = new Uri("multiterm/api/1.0", UriKind.Relative);
+        public static readonly Uri CurrentLangugageResourceServiceUrl = new Uri("api/language-resource-service", UriKind.Relative);
 
 
         public static Uri Modules()
@@ -483,6 +484,21 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri GetConcepts(string termbaseId, string conceptId)
         {
             return "{0}/termbases/{1}/concepts/{2}".FormatUri(CurrentMultitermUrl, termbaseId, conceptId);
+        }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that gets all language resource templates
+        /// </summary>
+        public static Uri LanguageResourceServiceTemplates()
+        {
+            return "{0}/templates".FormatUri(CurrentLangugageResourceServiceUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that specified  language resource template
+        /// </summary>
+        public static Uri GetLanguageResourceTemplateById(string templateId)
+        {
+            return "{0}/templates/{1}".FormatUri(CurrentLangugageResourceServiceUrl, templateId);
         }
     }
 }

@@ -84,8 +84,10 @@
     <Compile Include="Clients\RoleClient.cs" />
     <Compile Include="Clients\SearchTermRequest.cs" />
     <Compile Include="Clients\SortParameters.cs" />
+    <Compile Include="Clients\TranslationMemory\ILanguageResourceTemplate.cs" />
     <Compile Include="Clients\TranslationMemory\FieldServiceClient.cs" />
     <Compile Include="Clients\TranslationMemory\IFieldService.cs" />
+    <Compile Include="Clients\TranslationMemory\LanguageResourceTemplateClient.cs" />
     <Compile Include="Clients\TranslationMemory\ITranslationMemoriesClient.cs" />
     <Compile Include="Clients\TranslationMemory\TranslationMemoriesClient.cs" />
     <Compile Include="Clients\UsersRequest.cs" />
@@ -182,6 +184,9 @@
     <Compile Include="Models\Response\TranslationMemory\FuzzyIndexTuningSettings.cs" />
     <Compile Include="Models\Response\TranslationMemory\Health.cs" />
     <Compile Include="Models\Response\TranslationMemory\LanguageDirection.cs" />
+    <Compile Include="Models\Response\TranslationMemory\LanguageResource.cs" />
+    <Compile Include="Models\Response\TranslationMemory\LanguageResourceTemplate.cs" />
+    <Compile Include="Models\Response\TranslationMemory\LanguageResourceTemplates.cs" />
     <Compile Include="Models\Response\TranslationMemory\Metadata.cs" />
     <Compile Include="Models\Response\TranslationMemory\Operation.cs" />
     <Compile Include="Models\Response\TranslationMemory\Settings.cs" />

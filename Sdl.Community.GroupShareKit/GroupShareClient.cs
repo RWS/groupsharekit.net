@@ -61,6 +61,7 @@ namespace Sdl.Community.GroupShareKit
             TranslationMemories = new TranslationMemoriesClient(apiConnection);
             TermBase = new TermBasesClient(apiConnection);
             FieldService = new FieldServiceClient(apiConnection);
+            LanguageResourceTemplate = new LanguageResourceTemplateClient(apiConnection);
         }
 
         /// <summary>
@@ -105,6 +106,8 @@ namespace Sdl.Community.GroupShareKit
         public ILicense License { get; set; }
         public ITermBases TermBase { get; set; }
         public IFieldService FieldService { get; set; }
+
+        public ILanguageResourceTemplate LanguageResourceTemplate { get; set; }
 
         /// <summary>
         /// Convenience property for getting and setting credentials.

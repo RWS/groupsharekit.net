@@ -71,6 +71,7 @@
     <Compile Include="Clients\FileDownloadTests.cs" />
     <Compile Include="Clients\FilesTest.cs" />
     <Compile Include="Clients\FileVersionsClientTests.cs" />
+    <Compile Include="Clients\LanguageResourceTemplateClient.cs" />
     <Compile Include="Clients\LicenseClientTests.cs" />
     <Compile Include="Clients\ModuleClientTests.cs" />
     <Compile Include="Clients\OrganizationClientTests.cs" />
@@ -81,7 +82,7 @@
     <Compile Include="Clients\PublishingStatusClientTests.cs" />
     <Compile Include="Clients\RolesClientTests.cs" />
     <Compile Include="Clients\TermbaseClient.cs" />
-    <Compile Include="Clients\TranslationMemotiesClient.cs" />
+    <Compile Include="Clients\TranslationMemoriesClient.cs" />
     <Compile Include="Clients\UserClientTests.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

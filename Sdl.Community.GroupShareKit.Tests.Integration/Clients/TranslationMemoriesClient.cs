@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
-    public class TranslationMemotiesClient
+    public class TranslationMemoriesClient
     {
         [Fact]
         public async Task GetTms()
