@@ -469,6 +469,13 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/termbases/{1}/concepts?conceptId={2}".FormatUri(CurrentMultitermUrl,request.TermbaseId,request.ConceptId);
         }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that gets a concept
+        /// </summary
+        public static Uri GetConcepts(string termbaseId )
+        {
+            return "{0}/termbases/{1}/concepts".FormatUri(CurrentMultitermUrl, termbaseId);
+        }
 
         /// <summary>
         /// Returns the <see cref="Uri"/> that gets a concept

@@ -97,5 +97,48 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="ConceptResponse"/></returns>
         Task<ConceptResponse> GetConcept(string termbaseId,string conceptId);
+
+        /// <summary>
+        /// Updates a entry in termbase<see cref="ConceptResponse"/> 
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> Updated<see cref="ConceptResponse"/> </returns>
+        Task<ConceptResponse> EditConcept(string termbaseId, ConceptResponse concept);
+
+            /// <summary>
+        /// Creates termbase concept <see cref="Concept"/> 
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> </returns>
+        Task<string> CreateConcept(string termbaseId, Concept conceptRequest);
+
+        /// <summary>
+        /// Deletes termbase concept <see cref="Concept"/> 
+        /// </summary>
+        /// <param name="termbaseId">Termbase id</param>
+        /// <param name="conceptId">Concept id</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        Task DeleteConcept(string termbaseId, string conceptId);
     }
 }
