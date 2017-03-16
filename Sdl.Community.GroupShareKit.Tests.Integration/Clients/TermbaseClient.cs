@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Models.Response;
 using Xunit;
+using ConceptResponse = Sdl.Community.GroupShareKit.Clients.ConceptResponse;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
@@ -59,7 +60,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetConcept(string termbaseId, string conceptId)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            var conceptRequest = new ConceptRequest(termbaseId,conceptId);
+            var conceptRequest = new ConceptResponse(termbaseId,conceptId);
 
             var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
             Assert.Equal(conceptResponse.Concept.Id,conceptId);
@@ -75,7 +76,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
 
-            var conceptRequest = new ConceptRequest(termbaseId, conceptId);
+            var conceptRequest = new ConceptResponse(termbaseId, conceptId);
             var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
             conceptResponse.Concept.Languages[0].Terms[0].Text = "Updated Term From kit2";
 
@@ -95,92 +96,111 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("testTB")]
-        public async Task CreateConcept(string termbaseId)
+        [InlineData("testTB","AddedFromKit")]
+        public async Task CreateConcept(string termbaseId,string entryText)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            var concept = new Concept
+            var concept = new Models.Response.ConceptResponse
             {
-                Id = "2",
-                EntryClass = new Entry() {Id = "2"},
-                Attributes = new List<Attributes>(),
-                Languages = new List<TermbaseLanguages>
+                Concept = new Concept
                 {
-                    new TermbaseLanguages
+                    EntryClass = new Entry
                     {
-                        Language = new Language
+                        Id = "4"
+                    } ,
+                    Attributes = null,
+                    Languages = new List<TermbaseLanguages>
                         {
-                            Id = "English",
-                            Name = "English",
-                            Code = "en"
-                        },
-                        Attributes = null,
-                        Terms = new List<TermbaseTerms>
-                        {
-                            new TermbaseTerms
+                            new TermbaseLanguages
                             {
-                                Attributes = new List<Attributes>(),
-                                Transactions = new List<Transactions>
+                                Language = new Language
                                 {
-                                    new Transactions
+                                    Id = "English",
+                                    Name = "English",
+                                    Code = "EN"
+                                },
+                                Attributes = null,
+                                Terms = new List<TermbaseTerms>
+                                {
+                                    new TermbaseTerms
                                     {
-                                        DateTime = DateTime.Now,
-                                        Id = null,
-                                        Username = "aghisa",
-                                        Details = new TransactionsDetails
+                                        Attributes = null,
+                                        Transactions = new List<Transactions>
                                         {
-                                            User = "aghisa",
-                                            Type = "created"
-                                        }
+                                            new Transactions
+                                            {
+                                                DateTime = DateTime.Now,
+                                                Id = null,
+                                                Username = "aghisa",
+                                                Details = new TransactionsDetails
+                                                {
+                                                    User = "aghisa",
+                                                    Type = "Create"
+                                                }
+
+                                            }
+                                        },
+                                        Text = entryText
 
                                     }
-                                },
-                                Text = "car"
-
-                            }
-                        }
-                    },
-                    new TermbaseLanguages
-                    {
-                        Language = new Language
-                        {
-                            Id = "German",
-                            Name = "German",
-                            Code = "DE"
-                        },
-                        Attributes = null,
-                        Terms = new List<TermbaseTerms>
-                        {
-                            new TermbaseTerms
+                                }
+                            },
+                            new TermbaseLanguages
                             {
-                                Attributes = new List<Attributes>(),
-                                Transactions = new List<Transactions>
+                                Language = new Language
                                 {
-                                    new Transactions
+                                    Id = "German",
+                                    Name = "German",
+                                    Code = "DE"
+                                },
+                                Attributes = null,
+                                Terms = new List<TermbaseTerms>
+                                {
+                                    new TermbaseTerms
                                     {
-                                        DateTime = DateTime.Now,
-                                        Id = null,
-                                        Username = "aghisa",
-                                        Details = new TransactionsDetails
+                                        Attributes = null,
+                                        Transactions = new List<Transactions>
                                         {
-                                            User = "aghisa",
-                                            Type = "created"
-                                        }
+                                            new Transactions
+                                            {
+                                                DateTime = DateTime.Now,
+                                                Id = null,
+                                                Username = "aghisa",
+                                                Details = new TransactionsDetails
+                                                {
+                                                    User = "aghisa",
+                                                    Type = "Create"
+                                                }
+
+                                            }
+                                        },
+                                        Text = "ttt"
 
                                     }
-                                },
-                                Text = "ttt"
+                                }
 
                             }
+                        },
+                    Transactions = new List<Transactions>
+                    {
+                        new Transactions
+                        {
+                            DateTime = DateTime.Now,
+                            Id = null,
+                            Details = new TransactionsDetails
+                            {
+                                User = "sdlcommunity",
+                                Type = "Create"
+                            },
+                            Username = "sdlcommunity"
                         }
-
-                    },
+                    }
                 }
-
             };
 
-            var created = await groupShareClient.TermBase.CreateConcept(termbaseId, concept);
+            var createdEntry = await groupShareClient.TermBase.CreateConcept(termbaseId, concept);
 
+            Assert.True(createdEntry.Concept.Id!=string.Empty);
         }
     }
 }

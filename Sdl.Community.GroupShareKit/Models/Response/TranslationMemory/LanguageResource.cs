@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
-    public class LanguageResource
+    public class Resource
     {
         /// <summary>
         /// Gets or sets language resource id

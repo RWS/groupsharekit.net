@@ -48,7 +48,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("Created from kit")]
+        [InlineData("Created")]
         public async Task CreateTemplate(string templateName)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
@@ -60,7 +60,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 OwnerId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
                 Location = "/SDL Community Developers",
                 IsTmSpecific = false,
-                LanguageResources = new List<LanguageResource>()
+                LanguageResources = new List<Resource>()
+       
             };
 
             var id = await groupShareClient.LanguageResourceTemplate.CreateTemplate(template);
@@ -81,7 +82,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 OwnerId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
                 Location = "/SDL Community Developers",
                 IsTmSpecific = false,
-                LanguageResources = new List<LanguageResource>()
+                LanguageResources = new List<Resource>()
             };
 
             var id = await groupShareClient.LanguageResourceTemplate.CreateTemplate(template);

@@ -86,9 +86,9 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Gets <see cref="ConceptResponse"/> 
+        /// Gets <see cref="Models.Response.ConceptResponse"/> 
         /// </summary>
-        /// <param name="request"><see cref="ConceptRequest"/></param>
+        /// <param name="response"><see cref="ConceptResponse"/></param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
@@ -97,15 +97,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> <see cref="ConceptResponse"/></returns>
-        public async Task<ConceptResponse> GetConcept(ConceptRequest request)
+        /// <returns> <see cref="Models.Response.ConceptResponse"/></returns>
+        public async Task<Models.Response.ConceptResponse> GetConcept(ConceptResponse response)
         {
-            Ensure.ArgumentNotNull(request,"request");
-            return await ApiConnection.Get<ConceptResponse>(ApiUrls.GetConcepts(request), null);
+            Ensure.ArgumentNotNull(response,"request");
+            return await ApiConnection.Get<Models.Response.ConceptResponse>(ApiUrls.GetConcepts(response), null);
         }
 
         /// <summary>
-        /// Gets <see cref="ConceptResponse"/> 
+        /// Gets <see cref="Models.Response.ConceptResponse"/> 
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -115,16 +115,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> <see cref="ConceptResponse"/></returns>
-        public async Task<ConceptResponse> GetConcept(string termbaseId, string conceptId)
+        /// <returns> <see cref="Models.Response.ConceptResponse"/></returns>
+        public async Task<Models.Response.ConceptResponse> GetConcept(string termbaseId, string conceptId)
         {
             Ensure.ArgumentNotNullOrEmptyString(termbaseId, "termbaseId");
             Ensure.ArgumentNotNullOrEmptyString(conceptId, "conceptId");
-            return await ApiConnection.Get<ConceptResponse>(ApiUrls.GetConcepts(termbaseId, conceptId), null);
+            return await ApiConnection.Get<Models.Response.ConceptResponse>(ApiUrls.GetConcepts(termbaseId, conceptId), null);
         }
 
         /// <summary>
-        /// Updates a entry in termbase<see cref="ConceptResponse"/> 
+        /// Updates a entry in termbase<see cref="Models.Response.ConceptResponse"/> 
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -134,13 +134,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> Updated<see cref="ConceptResponse"/> </returns>
-        public async Task<ConceptResponse> EditConcept(string termbaseId, ConceptResponse concept)
+        /// <returns> Updated<see cref="Models.Response.ConceptResponse"/> </returns>
+        public async Task<Models.Response.ConceptResponse> EditConcept(string termbaseId, Models.Response.ConceptResponse concept)
         {
             Ensure.ArgumentNotNullOrEmptyString(termbaseId, "termbaseId");
             Ensure.ArgumentNotNull(concept,"concept");
 
-            return await ApiConnection.Put<ConceptResponse>(ApiUrls.GetConcepts(termbaseId), concept);
+            return await ApiConnection.Put<Models.Response.ConceptResponse>(ApiUrls.GetConcepts(termbaseId), concept);
         }
 
         
@@ -157,12 +157,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> </returns>
-        public async Task<string> CreateConcept(string termbaseId, Concept conceptRequest)
+        public async Task<Models.Response.ConceptResponse> CreateConcept(string termbaseId, Models.Response.ConceptResponse conceptResponse)
         {
             Ensure.ArgumentNotNullOrEmptyString(termbaseId,"termbaseId");
-            Ensure.ArgumentNotNull(conceptRequest,"conceptRequest");
+            Ensure.ArgumentNotNull(conceptResponse,"conceptRequest");
 
-            return await ApiConnection.Post<string>(ApiUrls.GetConcepts(termbaseId), conceptRequest);
+             return await ApiConnection.Post<Models.Response.ConceptResponse>(ApiUrls.GetConcepts(termbaseId), conceptResponse,"application/json");
         }
 
         /// <summary>

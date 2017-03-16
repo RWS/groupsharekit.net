@@ -466,9 +466,9 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> that gets a concept
         /// </summary>
-        public static Uri GetConcepts(ConceptRequest request)
+        public static Uri GetConcepts(ConceptResponse response)
         {
-            return "{0}/termbases/{1}/concepts?conceptId={2}".FormatUri(CurrentMultitermUrl,request.TermbaseId,request.ConceptId);
+            return "{0}/termbases/{1}/concepts?conceptId={2}".FormatUri(CurrentMultitermUrl,response.TermbaseId,response.ConceptId);
         }
         /// <summary>
         /// Returns the <see cref="Uri"/> that gets a concept
@@ -494,11 +494,19 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> that specified  language resource template
+        /// Returns the <see cref="Uri"/> for specified  language resource template
         /// </summary>
         public static Uri GetLanguageResourceTemplateById(string templateId)
         {
             return "{0}/templates/{1}".FormatUri(CurrentLangugageResourceServiceUrl, templateId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> tha tgivea a list of language resource for specified templateId
+        /// </summary>
+        public static Uri LanguageResource(string templateId)
+        {
+            return "{0}/templates/{1}/resources".FormatUri(CurrentLangugageResourceServiceUrl, templateId);
         }
     }
 }

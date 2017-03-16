@@ -84,9 +84,11 @@
     <Compile Include="Clients\RoleClient.cs" />
     <Compile Include="Clients\SearchTermRequest.cs" />
     <Compile Include="Clients\SortParameters.cs" />
+    <Compile Include="Clients\TranslationMemory\ILanguageResource.cs" />
     <Compile Include="Clients\TranslationMemory\ILanguageResourceTemplate.cs" />
     <Compile Include="Clients\TranslationMemory\FieldServiceClient.cs" />
     <Compile Include="Clients\TranslationMemory\IFieldService.cs" />
+    <Compile Include="Clients\TranslationMemory\LanguageResourceClient.cs" />
     <Compile Include="Clients\TranslationMemory\LanguageResourceTemplateClient.cs" />
     <Compile Include="Clients\TranslationMemory\ITranslationMemoriesClient.cs" />
     <Compile Include="Clients\TranslationMemory\TranslationMemoriesClient.cs" />
@@ -190,6 +192,7 @@
     <Compile Include="Models\Response\TranslationMemory\Metadata.cs" />
     <Compile Include="Models\Response\TranslationMemory\Operation.cs" />
     <Compile Include="Models\Response\TranslationMemory\Settings.cs" />
+    <Compile Include="Models\Response\TranslationMemory\Test.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationMemory.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationMemoryDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\Value.cs" />

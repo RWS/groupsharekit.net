@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
-   public  class ConceptRequest:RequestParameters
+   public  class ConceptResponse:RequestParameters
     {
        public string TermbaseId { get; set; }
        public string ConceptId { get; set; }
 
-       public ConceptRequest(string termbaseId,string conceptId)
+       public ConceptResponse(string termbaseId,string conceptId)
        {
            TermbaseId = termbaseId;
            ConceptId = conceptId;
