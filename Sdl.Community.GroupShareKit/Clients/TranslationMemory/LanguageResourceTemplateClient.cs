@@ -93,7 +93,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task<string> CreateTemplate(LanguageResourceTemplate templateRequest)
         {
             Ensure.ArgumentNotNull(templateRequest,"templateRequest");
-
+            foreach (var resource in templateRequest.LanguageResources)
+            {
+                var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(resource.Data));
+                resource.Data = encoded;
+            }
+           
             var responseUrl =
                 await
                     ApiConnection.Post<string>(ApiUrls.LanguageResourceServiceTemplates(), templateRequest, "application/json");

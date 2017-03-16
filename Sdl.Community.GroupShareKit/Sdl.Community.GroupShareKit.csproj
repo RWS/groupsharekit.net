@@ -69,6 +69,7 @@
     <Compile Include="Clients\ModuleClient.cs" />
     <Compile Include="Clients\OrganizationResourcesRequest.cs" />
     <Compile Include="Clients\ProjectTemplatesClient.cs" />
+    <Compile Include="Clients\ResourceServiceDefaultsRequest.cs" />
     <Compile Include="Clients\RoleRequest.cs" />
     <Compile Include="Clients\CreateUserRequest.cs" />
     <Compile Include="Clients\IAuthenticateClient.cs" />
@@ -186,7 +187,7 @@
     <Compile Include="Models\Response\TranslationMemory\FuzzyIndexTuningSettings.cs" />
     <Compile Include="Models\Response\TranslationMemory\Health.cs" />
     <Compile Include="Models\Response\TranslationMemory\LanguageDirection.cs" />
-    <Compile Include="Models\Response\TranslationMemory\LanguageResource.cs" />
+    <Compile Include="Models\Response\TranslationMemory\Resource.cs" />
     <Compile Include="Models\Response\TranslationMemory\LanguageResourceTemplate.cs" />
     <Compile Include="Models\Response\TranslationMemory\LanguageResourceTemplates.cs" />
     <Compile Include="Models\Response\TranslationMemory\Metadata.cs" />

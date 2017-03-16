@@ -20,5 +20,14 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// Gets or sets from
         /// </summary>
         public string From { get; set; }
+
+        public List<Values> Value { get; set; }
+    }
+
+    public class Values
+    {
+        public string CultureName { get; set; }
+        public string Type { get; set; }
+        public List<string> Items { get; set; }
     }
 }

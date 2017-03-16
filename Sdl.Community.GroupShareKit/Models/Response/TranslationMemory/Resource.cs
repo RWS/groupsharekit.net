@@ -21,7 +21,8 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// </summary>
         public string CultureName { get; set; }
         /// <summary>
-        /// Gets or sets type
+        /// Gets or sets type 
+        /// Type possibble value: Variables, Abbreviations,OrdinalFollowers,SegmentationRules
         /// </summary>
         public string Type { get; set; }
         /// <summary>

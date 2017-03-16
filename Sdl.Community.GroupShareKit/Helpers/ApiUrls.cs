@@ -11,7 +11,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static readonly Uri CurrentTranslationMemoriesUrl = new Uri("api/tmservice", UriKind.Relative);
         public static readonly Uri CurrentFieldServiceUrl = new Uri("api/fieldservice", UriKind.Relative);
         public static readonly Uri CurrentMultitermUrl = new Uri("multiterm/api/1.0", UriKind.Relative);
-        public static readonly Uri CurrentLangugageResourceServiceUrl = new Uri("api/language-resource-service", UriKind.Relative);
+        public static readonly Uri CurrentLanguageResourceServiceUrl = new Uri("api/language-resource-service", UriKind.Relative);
 
 
         public static Uri Modules()
@@ -490,7 +490,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri LanguageResourceServiceTemplates()
         {
-            return "{0}/templates".FormatUri(CurrentLangugageResourceServiceUrl);
+            return "{0}/templates".FormatUri(CurrentLanguageResourceServiceUrl);
         }
 
         /// <summary>
@@ -498,15 +498,30 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri GetLanguageResourceTemplateById(string templateId)
         {
-            return "{0}/templates/{1}".FormatUri(CurrentLangugageResourceServiceUrl, templateId);
+            return "{0}/templates/{1}".FormatUri(CurrentLanguageResourceServiceUrl, templateId);
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> tha tgivea a list of language resource for specified templateId
+        /// Returns the <see cref="Uri"/> that gives a list of language resource for specified templateId
         /// </summary>
         public static Uri LanguageResource(string templateId)
         {
-            return "{0}/templates/{1}/resources".FormatUri(CurrentLangugageResourceServiceUrl, templateId);
+            return "{0}/templates/{1}/resources".FormatUri(CurrentLanguageResourceServiceUrl, templateId);
+        }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that gives default type for a language
+        /// </summary>
+        public static Uri GetDefaults(string type, string language)
+        {
+            return "{0}/defaults/{1}/{2}".FormatUri(CurrentLanguageResourceServiceUrl, type, language);
+        }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that language resources for specified template and resource.
+        /// </summary>
+        public static Uri LanguageResourcesForTemplate(string templateId, string languageResourceId)
+        {
+            return "{0}/templates/{1}/resources/{2}".FormatUri(CurrentLanguageResourceServiceUrl, templateId,
+                languageResourceId);
         }
     }
 }

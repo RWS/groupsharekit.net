@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using Xunit;
 
@@ -48,10 +49,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("Created")]
+        [InlineData("Kit2")]
         public async Task CreateTemplate(string templateName)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
+            var request = new ResourceServiceDefaultsRequest(ResourceServiceDefaultsRequest.ResourceType.Variables,
+                "ro-ro");
+
+            var resource = await groupShareClient.LanguageResource.GetDefaultsType(request);
             var template = new LanguageResourceTemplate
             {
                 LanguageResourceTemplateId = Guid.NewGuid().ToString(),
@@ -60,13 +65,24 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 OwnerId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
                 Location = "/SDL Community Developers",
                 IsTmSpecific = false,
-                LanguageResources = new List<Resource>()
-       
+               // LanguageResources = new List<Resource> {resource}
+               LanguageResources = new List<Resource>
+               {
+                   new Resource
+                   {
+                       Type = "Variables",
+                       LanguageResourceTemplateId = "78df3807-06ac-438e-b2c8-5e233df1a6a2",
+                       Data = "andrea",
+                       CultureName = "ro-ro",
+                       
+                   }
+               }
+
             };
 
             var id = await groupShareClient.LanguageResourceTemplate.CreateTemplate(template);
 
-            Assert.True(id!=string.Empty);
+            Assert.True(id != string.Empty);
         }
 
         [Theory]
