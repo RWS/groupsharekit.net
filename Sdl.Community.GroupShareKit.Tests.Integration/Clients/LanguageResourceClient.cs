@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,8 +74,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetAuthenticatedClient();
             var resource =
                 await groupShareClient.LanguageResource.GetLanguageResourceForTemplate(templateId, languageResourceId);
-            resource.CultureName = "ro-ro";
-            var updatedReponse =
+            resource.CultureName = "de-de";
+
                 await
                     groupShareClient.LanguageResource.UpdateLanguageResourceForTemplate(templateId, languageResourceId,
                         resource);
@@ -82,7 +83,42 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var updatedResource = 
                 await groupShareClient.LanguageResource.GetLanguageResourceForTemplate(templateId, languageResourceId);
 
-            Assert.Equal(updatedResource.Data,"ro-ro");
+            Assert.Equal(updatedResource.CultureName, "de-de");
+        }
+
+
+        [Theory]
+        [InlineData("b8ca7722-2d0a-4cfb-ae33-a36814aa0efc", "14eb022b-863c-4d15-bc5e-76b4a813a016")]
+        public async Task ImportFileForLanguageResource(string templateId, string languageResourceId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+
+            var rawData =
+               File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\test.txt"));
+
+            await
+                groupShareClient.LanguageResource.ImportFileForLanguageResource(templateId, languageResourceId, rawData);
+        }
+        [Theory]
+        [InlineData("b8ca7722-2d0a-4cfb-ae33-a36814aa0efc", "14eb022b-863c-4d15-bc5e-76b4a813a016")]
+        public async Task ExportFileForLanguageResource(string templateId, string languageResourceId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+
+          
+
+            var document =await
+                groupShareClient.LanguageResource.ExportFileForLanguageResource(templateId, languageResourceId);
+
+            Assert.True(document.Count()!=0);
+        }
+        [Theory]
+        [InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "4ba4843e-fa19-4447-8a42-26aef99a3f9c")]
+        public async Task ResetToDefaultLanguageResource(string templateId, string languageResourceId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            await groupShareClient.LanguageResource.ResetToDefaultLanguageResource(templateId, languageResourceId);
+
         }
 
         [Theory]

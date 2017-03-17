@@ -96,7 +96,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("testTB","AddedFromKit")]
+        [InlineData("testTB","entry")]
         public async Task CreateConcept(string termbaseId,string entryText)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
@@ -107,7 +107,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                     EntryClass = new Entry
                     {
                         Id = "4"
-                    } ,
+                    },
+
                     Attributes = null,
                     Languages = new List<TermbaseLanguages>
                         {

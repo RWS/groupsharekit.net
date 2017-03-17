@@ -78,10 +78,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task CreateProject()
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            //var rawData =
-            //    File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\ProjectPackage.sdlppx"));
             var rawData =
-                File.ReadAllBytes(@"C:\Users\aghisa\Desktop\Grammar.zip");
+                File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
+
             var projectId =
                 await groupShareClient.Project.CreateProject(new CreateProjectRequest("Project", "ee72759d-917e-4c60-ba30-1ed595699c4d", null, DateTime.Today, "7bf6410d-58a7-4817-a559-7aa8a3a99aa9", rawData));
 

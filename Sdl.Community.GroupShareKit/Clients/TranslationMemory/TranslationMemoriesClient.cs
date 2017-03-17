@@ -116,10 +116,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Gets specified tm<see cref="TranslationMemoryDetails"/>.
+        /// Before you create a TM please make sure you HAVE CREATED A TEMPLATE FIELD and a LANGUAGE RESOURCE TEMPLATE
+        /// USE thoes id in the create request 
+        /// Creates a Translation Memory/>.
         /// </summary>
         /// <remarks>
-        /// <param name="tm">translation memory </param>
+        /// <param name="tm">translation memory request <see cref="CreateTmRequest"/> </param>
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
         /// </remarks>
@@ -127,7 +129,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  <see cref="TranslationMemoryDetails"/></returns>
+        /// <returns>  Translation memory Id</returns>
         public async Task<string> Create(CreateTmRequest tm)
         {
             Ensure.ArgumentNotNull(tm,"Translation memory");

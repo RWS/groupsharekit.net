@@ -523,5 +523,14 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/templates/{1}/resources/{2}".FormatUri(CurrentLanguageResourceServiceUrl, templateId,
                 languageResourceId);
         }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for the following language resource actions:reset, import or export .
+        /// </summary>
+        public static Uri LanguageResourceActions(string templateId, string languageResourceId, string action)
+        {
+            return "{0}/templates/{1}/resources/{2}/{3}".FormatUri(CurrentLanguageResourceServiceUrl, templateId,
+                languageResourceId, action);
+        }
     }
 }

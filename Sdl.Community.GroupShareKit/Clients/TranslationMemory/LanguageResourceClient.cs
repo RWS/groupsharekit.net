@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
@@ -142,7 +143,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task<string> UpdateLanguageResourceForTemplate(string templateId, string languageResourceId, Resource resourceRequest)
+        public async Task UpdateLanguageResourceForTemplate(string templateId, string languageResourceId, Resource resourceRequest)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             Ensure.ArgumentNotNullOrEmptyString(languageResourceId, "languageResourceId");
@@ -150,11 +151,81 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             var encodeData = Convert.ToBase64String(Encoding.UTF8.GetBytes(resourceRequest.Data));
             resourceRequest.Data = encodeData;
-
-            return
+       
                 await
                     ApiConnection.Put<string>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId),
                         resourceRequest);
+        }
+
+        /// <summary>
+        ///Reset to default Culture values a specific Language Resource in a specific Language Resource Template
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task ResetToDefaultLanguageResource(string templateId, string languageResourceId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
+            Ensure.ArgumentNotNullOrEmptyString(languageResourceId, "languageResourceId");
+
+            await ApiConnection.Put<string>(ApiUrls.LanguageResourceActions(templateId, languageResourceId, "reset"), templateId);
+        }
+
+        /// <summary>
+        /// Imports a file with data for a specific Language Resource Template 
+        /// Document type be text (.txt)
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task ImportFileForLanguageResource(string templateId, string languageResourceId, byte[] file)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
+            Ensure.ArgumentNotNullOrEmptyString(languageResourceId, "languageResourceId");
+            Ensure.ArgumentNotNull(file,"fileData");
+
+            var byteContent = new ByteArrayContent(file);
+            byteContent.Headers.Add("Content-Type", "application/json");
+            var multipartContent = new MultipartFormDataContent
+            {
+                {byteContent,"file"}
+            };
+
+            await
+                ApiConnection.Post<string>(ApiUrls.LanguageResourceActions(templateId, languageResourceId, "import"),
+                    multipartContent);
+        }
+        /// <summary>
+        /// Exports a file with data for a specific Language Resource Template 
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>byte[] that represents the document content</returns>
+        public async Task<byte[]> ExportFileForLanguageResource(string templateId, string languageResourceId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
+            Ensure.ArgumentNotNullOrEmptyString(languageResourceId, "languageResourceId");
+            var document=
+                await
+                    ApiConnection.Get<string>(
+                        ApiUrls.LanguageResourceActions(templateId, languageResourceId, "export"), null);
+            return Encoding.UTF8.GetBytes(document);
         }
     }
 }
