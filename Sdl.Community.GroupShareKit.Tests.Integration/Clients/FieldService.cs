@@ -27,7 +27,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
 
             };
-            var templateId = await groupShareClient.FieldService.CreateTemplate(fieldTemplate);
+            var templateId = await groupShareClient.FieldService.CreateFieldTemplate(fieldTemplate);
             Assert.True(templateId!=string.Empty);
 
         }
@@ -82,7 +82,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
 
             };
-            var templateId = await groupShareClient.FieldService.CreateTemplate(fieldTemplate);
+            var templateId = await groupShareClient.FieldService.CreateFieldTemplate(fieldTemplate);
 
             await groupShareClient.FieldService.DeleteFieldTemplate(templateId);
         }
@@ -108,5 +108,72 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var template = await groupShareClient.FieldService.GetFieldTemplateById(templateId);
 
         }
+
+        [Theory]
+        [InlineData("ec6acfc3-e166-486f-9823-3220499dc95b")]
+        public async Task GetFieldsForTemplate(string fieldTemplateId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var fields = await groupShareClient.FieldService.GetFieldsForTemplate(fieldTemplateId);
+
+            Assert.True(fields.Count>0);
+        }
+
+        [Theory]
+        [InlineData("ec6acfc3-e166-486f-9823-3220499dc95b", "b31c9cb5-bef4-4f0b-b4da-92f5bd06ec48")]
+        public async Task GetFieldForTemplate(string fieldTemplateId,string fieldId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var field = await groupShareClient.FieldService.GetFieldForTemplate(fieldTemplateId, fieldId);
+
+            Assert.Equal(field.FieldId,fieldId);
+        }
+
+        [Theory]
+        [InlineData("ec6acfc3-e166-486f-9823-3220499dc95b", "b31c9cb5-bef4-4f0b-b4da-92f5bd06ec48")]
+        public async Task UpdateFieldForTemplate(string fieldTemplateId, string fieldId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var field = await groupShareClient.FieldService.GetFieldForTemplate(fieldTemplateId, fieldId);
+            field.Name = "Updated field Name";
+            await groupShareClient.FieldService.UpdateFieldForTemplate(fieldTemplateId, fieldId, field);
+        }
+        [Theory]
+        [InlineData("253988f6-0bd3-4aaa-85f6-5e99e8e32a8f","Added")]
+        public async Task CreateFieldForTemplate(string fieldTemplateId,string fieldName)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var field = new FieldRequest
+            {
+                FieldId = Guid.NewGuid().ToString(),
+                Name = fieldName,
+                Type =  FieldRequest.TypeEnum.MultiplePicklist,
+                Values = new List<string>() { "test", "anotherValue" }
+            };
+
+            var fieldId = await groupShareClient.FieldService.CreateFieldForTemplate(fieldTemplateId, field);
+
+            Assert.True(fieldId!=string.Empty);
+        }
+
+        [Theory]
+        [InlineData("253988f6-0bd3-4aaa-85f6-5e99e8e32a8f", "Name")]
+        public async Task DeleteFieldForTemplate(string fieldTemplateId, string fieldName)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var field = new FieldRequest
+            {
+                FieldId = Guid.NewGuid().ToString(),
+                Name = fieldName,
+                Type = FieldRequest.TypeEnum.MultiplePicklist,
+                Values = new List<string>()
+            };
+
+            var fieldId = await groupShareClient.FieldService.CreateFieldForTemplate(fieldTemplateId, field);
+            Assert.True(fieldId != string.Empty);
+
+            await groupShareClient.FieldService.DeleteFieldForTemplate(fieldTemplateId, fieldId);
+        }
+
     }
 }

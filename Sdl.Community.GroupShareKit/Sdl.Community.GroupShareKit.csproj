@@ -180,6 +180,7 @@
     <Compile Include="Models\Response\TranslationMemory\CreateTmRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\DatabaseServer.cs" />
     <Compile Include="Models\Response\TranslationMemory\Field.cs" />
+    <Compile Include="Models\Response\TranslationMemory\FieldRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\FieldTemplate.cs" />
     <Compile Include="Models\Response\TranslationMemory\FieldTemplatePatchRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\FieldTemplateRequest.cs" />

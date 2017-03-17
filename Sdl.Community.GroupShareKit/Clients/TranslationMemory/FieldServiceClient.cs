@@ -28,7 +28,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         ///<returns>Created field template id</returns>
-        public async Task<string> CreateTemplate(FieldTemplate template)
+        public async Task<string> CreateFieldTemplate(FieldTemplate template)
         {
             Ensure.ArgumentNotNull(template, "FieldTemplate");
             var templateLocation =
@@ -129,6 +129,138 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(request,"request");
 
              await ApiConnection.Patch(ApiUrls.GetFieldTemplateById(templateId), request, "application/json");
+        }
+
+        /// <summary>
+        /// Gets a list of Fields for a specific field Template ID
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="Field"/>'s</returns>
+        public async Task<IReadOnlyList<Field>> GetFieldsForTemplate(string fieldTemplateId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
+            return await ApiConnection.GetAll<Field>(ApiUrls.GetFields(fieldTemplateId), null);
+        }
+
+        /// <summary>
+        /// Gets a specified Field for a specific Field Template ID
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> <see cref="Field"/></returns>
+        public async Task<Field> GetFieldForTemplate(string fieldTemplateId, string fieldId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
+            Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
+            return await ApiConnection.Get<Field>(ApiUrls.GetField(fieldTemplateId, fieldId), null);
+
+        }
+        /// <summary>
+        /// Creates a Field for a specific Field Template ID
+        /// If selected type is SinglePicklist or MultiplePicklist , "values " property should be filled out.
+        ///  For each value the id should be a new Guid, and the "name" property should be the value you want to add.
+        /// </summary>
+        /// <remarks>
+        /// <param name="fieldRequest"><see cref="FieldRequest"/></param>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> Field Id</returns>
+        public async Task<string> CreateFieldForTemplate(string fieldTemplateId, FieldRequest fieldRequest)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId,"fieldTemplateId");
+            Ensure.ArgumentNotNull(fieldRequest, "field request");
+            var fieldType = Enum.GetName(typeof (FieldRequest.TypeEnum), fieldRequest.Type);
+
+            // in case the type is SinglePicklist or MultiplePicklist the values will be a list of strings.
+   
+            var field = new Field
+            {
+                Type = fieldType,
+                Name = fieldRequest.Name,
+                FieldId = fieldRequest.FieldId,
+                Values = GetValues(fieldRequest.Values)
+            };
+            return
+                await
+                    ApiConnection.Post<string>(ApiUrls.GetFields(fieldTemplateId), field, "application/json");
+        }
+
+        /// <summary>
+        /// Helper method in case of SinglePicklist or MultiplePicklist type
+        /// </summary>
+        /// <param name="valuesList"></param>
+        /// <returns>A list of <see cref="Value"/>'s</returns>
+        private List<Value> GetValues(List<string> valuesList)
+        {
+            var multipleValuesList = new List<Value>();
+            foreach (var value in valuesList)
+                {
+                var item = new Value
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = value
+                };
+                multipleValuesList.Add(item);
+            }
+            return multipleValuesList;
+        }
+
+        /// <summary>
+        /// Updates a Field for a specific Field Template ID
+        /// </summary>
+        /// <remarks>
+        /// <param name="fieldRequest"><see cref="FieldRequest"/></param>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task UpdateFieldForTemplate(string fieldTemplateId, string fieldId, Field field)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
+            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
+            Ensure.ArgumentNotNull(field, "field request");
+            await
+                ApiConnection.Put<string>(ApiUrls.GetField(fieldTemplateId, fieldId), field);
+        }
+
+        /// <summary>
+        /// Deletes a specified Field for a specific Field Template ID
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task DeleteFieldForTemplate(string fieldTemplateId, string fieldId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
+            Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
+
+            await ApiConnection.Delete(ApiUrls.GetField(fieldTemplateId, fieldId));
         }
     }
 }

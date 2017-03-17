@@ -532,5 +532,20 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/templates/{1}/resources/{2}/{3}".FormatUri(CurrentLanguageResourceServiceUrl, templateId,
                 languageResourceId, action);
         }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that gets a list of Fields for a specific Template ID.
+        /// </summary>
+        public static Uri GetFields(string templateId)
+        {
+            return "{0}/templates/{1}/fields".FormatUri(CurrentFieldServiceUrl, templateId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that gets a specified Field for a specific Field Template ID.
+        /// </summary>
+        public static Uri GetField(string fieldTemplateId, string fieldId)
+        {
+            return "{0}/templates/{1}/fields/{2}".FormatUri(CurrentFieldServiceUrl, fieldTemplateId, fieldId);
+        }
     }
 }
