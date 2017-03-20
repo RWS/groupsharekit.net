@@ -71,7 +71,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<SearchResponse> SearchTerm(SearchTermRequest request);
 
         /// <summary>
-        /// Gets <see cref="Models.Response.ConceptResponse"/> 
+        /// Gets <see cref="Models.Response.ConceptDetails"/> 
         /// </summary>
         /// <param name="response"><see cref="ConceptResponse"/></param>
         /// <remarks>
@@ -82,24 +82,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> <see cref="Models.Response.ConceptResponse"/></returns>
-        Task<Models.Response.ConceptResponse> GetConcept(ConceptResponse response);
-        /// <summary>
-        /// Gets <see cref="Models.Response.ConceptResponse"/> 
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> <see cref="Models.Response.ConceptResponse"/></returns>
-        Task<Models.Response.ConceptResponse> GetConcept(string termbaseId,string conceptId);
+        /// <returns> <see cref="ConceptDetails"/></returns>
+        Task<Models.Response.ConceptDetails> GetConcept(ConceptResponse response);
 
         /// <summary>
-        /// Updates a entry in termbase<see cref="Models.Response.ConceptResponse"/> 
+        /// Gets <see cref="Models.Response.ConceptDetails"/> 
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -109,11 +96,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> Updated<see cref="Models.Response.ConceptResponse"/> </returns>
-        Task<Models.Response.ConceptResponse> EditConcept(string termbaseId, Models.Response.ConceptResponse concept);
+        /// <returns> <see cref="ConceptDetails"/></returns>
+        Task<ConceptDetails> GetConcept(string termbaseId, string conceptId);
 
-            /// <summary>
-        /// Creates termbase concept <see cref="Concept"/> 
+        /// <summary>
+        /// Updates a entry in termbase<see cref="Models.Response.ConceptDetails"/> 
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -123,8 +110,40 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> </returns>
-        Task<Models.Response.ConceptResponse> CreateConcept(string termbaseId, Models.Response.ConceptResponse conceptRequest);
+        /// <returns> Updated<see cref="ConceptDetails"/> </returns>
+        Task<ConceptDetails> EditConcept(string termbaseId, Models.Response.ConceptDetails concept);
+
+        /// <summary>
+        /// Creates termbase concept <see cref="Concept"/> with the default entry class Id
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Created concept <see cref="ConceptDetails"/></returns>
+        Task<ConceptDetails> CreateConcept(TermbaseResponse termbase, ConceptRequest conceptRequest);
+
+        /// <summary>
+        /// Creates termbase concept <see cref="Concept"/> with custom entry class Id
+        /// </summary>
+        /// <remarks>
+        /// <param name="entryId">Entry class id</param>
+        /// <param name="conceptRequest">Concept request <see cref="ConceptRequest"/></param>
+        /// <param name="termbaseId">Termbase id</param>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Created concept <see cref="ConceptDetails"/></returns>
+        Task<ConceptDetails> CreateConceptWithCustomEntryClass(string entryId, string termbaseId,
+            ConceptRequest conceptRequest);
 
         /// <summary>
         /// Deletes termbase concept <see cref="Concept"/> 

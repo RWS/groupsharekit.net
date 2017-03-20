@@ -187,5 +187,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             return await ApiConnection.Get<Health>(ApiUrls.Health(), null);
         }
+
+ 
+        //public async Task<ApplyTmResponse> ApplyTm(ApplyTmRequest request)
+        //{
+        //   Ensure.ArgumentNotNull(request,"apply tm request");
+        //    return await ApiConnection.Post<ApplyTmResponse>(ApiUrls.ApplyTm(), request, "application/json");
+        //}
     }
 }

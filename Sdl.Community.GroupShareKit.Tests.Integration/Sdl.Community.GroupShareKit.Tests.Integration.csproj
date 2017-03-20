@@ -96,6 +96,12 @@
     <None Include="Resources\ProjectPackage.sdlppx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Ro.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\RoTm.sdltm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\test.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

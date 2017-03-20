@@ -547,5 +547,12 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/templates/{1}/fields/{2}".FormatUri(CurrentFieldServiceUrl, fieldTemplateId, fieldId);
         }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that schedules a pre-translate operation.
+        /// </summary>
+        public static Uri ApplyTm()
+        {
+            return "{0}/applytm".FormatUri(CurrentTranslationMemoriesUrl);
+        }
     }
 }

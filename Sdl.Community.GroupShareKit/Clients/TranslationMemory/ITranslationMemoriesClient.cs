@@ -140,5 +140,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Returns the status of tm service</returns>
         Task<Health> Health();
+
+
+        //Task<ApplyTmResponse> ApplyTm(ApplyTmRequest request);
     }
 }

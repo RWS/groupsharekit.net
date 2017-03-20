@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -142,5 +143,28 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.Equal(health.Status,"UP");
         }
+
+        //[Fact]
+        //public async Task ApplyTm()
+        //{
+        //    var groupShareClient = await Helper.GetAuthenticatedClient();
+        //    var request = new ApplyTmRequest
+        //    {
+        //        TranslationMemories =
+        //            new List<string>() { "fc291116-1dae-4cc7-8f94-1da56c211e03"},
+        //        Documents = new List<Documents>()
+        //        {
+        //            new Documents
+        //            {
+        //                SourceLanguage = "ro-ro",
+        //                TargetLanguage = "en-us",
+        //                Url = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Ro.docx")
+        //            }
+        //        }
+        //    };
+
+        //    var response = await groupShareClient.TranslationMemories.ApplyTm(request);
+
+        //}
     }
 }

@@ -3,19 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sdl.Community.GroupShareKit.Models.Response;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
-   public  class ConceptResponse:RequestParameters
+    public class ConceptRequest
     {
-       public string TermbaseId { get; set; }
-       public string ConceptId { get; set; }
-
-       public ConceptResponse(string termbaseId,string conceptId)
-       {
-           TermbaseId = termbaseId;
-           ConceptId = conceptId;
-
-       }
+        public List<TermbaseLanguages> Languages { get; set; }
+        public List<Transactions> Transactions { get; set; }
+        public List<Attributes> Attributes { get; set; }
     }
 }
