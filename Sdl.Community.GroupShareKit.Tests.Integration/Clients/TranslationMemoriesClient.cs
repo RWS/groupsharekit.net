@@ -228,27 +228,86 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(tuResponse != null);
         }
 
-        //[Fact]
-            //public async Task ApplyTm()
-            //{
-            //    var groupShareClient = await Helper.GetAuthenticatedClient();
-            //    var request = new ApplyTmRequest
-            //    {
-            //        TranslationMemories =
-            //            new List<string>() { "fc291116-1dae-4cc7-8f94-1da56c211e03"},
-            //        Documents = new List<Documents>()
-            //        {
-            //            new Documents
-            //            {
-            //                SourceLanguage = "ro-ro",
-            //                TargetLanguage = "en-us",
-            //                Url = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Ro.docx")
-            //            }
-            //        }
-            //    };
+        [Theory]
+        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
+        public async Task GetTusForTm(string tmId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var translationUnitRequest = new TranslationUnitDetailsRequest("ro-ro","en-us",1,9);
 
-            //    var response = await groupShareClient.TranslationMemories.ApplyTm(request);
+            var tus = await groupShareClient.TranslationMemories.GetTranslationUnitForTm(tmId, translationUnitRequest);
 
-            //}
+            Assert.True(tus!=null);
         }
+
+        [Theory]
+        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
+        public async Task GetTusNumberForTm(string tmId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var languageParameters = new LanguageParameters("ro-ro","en-us");
+
+            var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfTus(tmId, languageParameters);
+
+            Assert.True(tusNumber>0);
+        }
+
+        [Theory]
+        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
+        public async Task GetTusNumberForPostDatedTm(string tmId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var languageParameters = new LanguageParameters("ro-ro", "en-us");
+
+            var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfPostDatedTus(tmId, languageParameters);
+
+            Assert.Equal(tusNumber ,0);
+        }
+
+        [Theory]
+        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
+        public async Task GetTusNumberForPreDatedTm(string tmId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var languageParameters = new LanguageParameters("ro-ro", "en-us");
+
+            var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfPreDatedTus(tmId, languageParameters);
+
+            Assert.Equal(tusNumber, 0);
+        }
+        [Theory]
+        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
+        public async Task GetTusNumberForUnalignedTm(string tmId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var languageParameters = new LanguageParameters("ro-ro", "en-us");
+
+            var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfUnalignedTus(tmId, languageParameters);
+
+            Assert.Equal(tusNumber, 0);
+        }
+
+        //[Fact]
+        //public async Task ApplyTm()
+        //{
+        //    var groupShareClient = await Helper.GetAuthenticatedClient();
+        //    var request = new ApplyTmRequest
+        //    {
+        //        TranslationMemories =
+        //            new List<string>() { "fc291116-1dae-4cc7-8f94-1da56c211e03"},
+        //        Documents = new List<Documents>()
+        //        {
+        //            new Documents
+        //            {
+        //                SourceLanguage = "ro-ro",
+        //                TargetLanguage = "en-us",
+        //                Url = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Ro.docx")
+        //            }
+        //        }
+        //    };
+
+        //    var response = await groupShareClient.TranslationMemories.ApplyTm(request);
+
+        //}
+    }
 }

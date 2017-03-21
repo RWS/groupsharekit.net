@@ -242,6 +242,117 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                         "application/json");
         }
 
+        /// <summary>
+        /// Gets specified translation unit for TM
+        /// <param name="request"><see cref="TranslationUnitDetailsRequest"/></param>
+        /// <param name="tmId">Translation memory id</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="TranslationUnitDetailsResponse"/></returns>
+        public async Task<TranslationUnitDetailsResponse> GetTranslationUnitForTm(string tmId, TranslationUnitDetailsRequest request)
+        {
+            Ensure.ArgumentNotNull(request,"translation request params");
+            Ensure.ArgumentNotNullOrEmptyString(tmId,"translation memory id");
+
+            return
+                await ApiConnection.Get<TranslationUnitDetailsResponse>(ApiUrls.Tus(tmId), request.ToParametersDictionary());
+        }
+
+        /// <summary>
+        /// Gets the translation units number from the translation memory
+        /// <param name="language"><see cref="LanguageParameters"/></param>
+        /// <param name="tmId">Translation memory id</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>int</returns>
+        public async Task<int> GetNumberOfTus(string tmId, LanguageParameters language)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId,"translation memory id");
+            Ensure.ArgumentNotNull(language,"language parameters request");
+
+            return await ApiConnection.Get<int>(ApiUrls.TusCount(tmId), language.ToParametersDictionary());
+        }
+
+        /// <summary>
+        /// Gets the postdated translation units count from the translation memory
+        /// <param name="language"><see cref="LanguageParameters"/></param>
+        /// <param name="tmId">Translation memory id</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>int</returns>
+        public async Task<int> GetNumberOfPostDatedTus(string tmId, LanguageParameters language)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
+            Ensure.ArgumentNotNull(language, "language parameters request");
+
+            return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId,"postdated"), language.ToParametersDictionary());
+        }
+
+        /// <summary>
+        /// Gets the predated translation units count from the translation memory
+        /// <param name="language"><see cref="LanguageParameters"/></param>
+        /// <param name="tmId">Translation memory id</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>int</returns>
+        public async Task<int> GetNumberOfPreDatedTus(string tmId, LanguageParameters language)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
+            Ensure.ArgumentNotNull(language, "language parameters request");
+
+            return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "predated"), language.ToParametersDictionary());
+        }
+
+        /// <summary>
+        /// Gets the unaligned translation units count from the translation memory
+        /// <param name="language"><see cref="LanguageParameters"/></param>
+        /// <param name="tmId">Translation memory id</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>int</returns>
+        public async Task<int> GetNumberOfUnalignedTus(string tmId, LanguageParameters language)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
+            Ensure.ArgumentNotNull(language, "language parameters request");
+
+            return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "unaligned"), language.ToParametersDictionary());
+        }
+
 
         //public async Task<ApplyTmResponse> ApplyTm(ApplyTmRequest request)
         //{

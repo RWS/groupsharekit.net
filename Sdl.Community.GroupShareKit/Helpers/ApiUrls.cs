@@ -561,5 +561,28 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/tms/{1}/tus/{2}".FormatUri(CurrentTranslationMemoriesUrl, tmId, action);
         }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that retrieves the translation units from the Translation memory
+        /// </summary>
+        public static Uri Tus(string tmId)
+        {
+            return "{0}/tms/{1}/tus".FormatUri(CurrentTranslationMemoriesUrl,tmId);
+        }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that retrieves the number of translation units from the Translation memory
+        /// </summary>
+        public static Uri TusCount(string tmId)
+        {
+            return "{0}/tms/{1}/tus/count".FormatUri(CurrentTranslationMemoriesUrl, tmId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that retrieves the number of translation units from the Translation memory
+        /// </summary>
+        public static Uri TusByType(string tmId,string type)
+        {
+            return "{0}/tms/{1}/tus/{2}/count".FormatUri(CurrentTranslationMemoriesUrl, tmId,type);
+        }
+    
     }
 }
