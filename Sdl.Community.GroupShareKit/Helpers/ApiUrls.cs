@@ -554,5 +554,12 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/applytm".FormatUri(CurrentTranslationMemoriesUrl);
         }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that adds a new translation unit to the translation memory
+        /// </summary>
+        public static Uri TranslationUnits( string tmId,string action)
+        {
+            return "{0}/tms/{1}/tus/{2}".FormatUri(CurrentTranslationMemoriesUrl, tmId, action);
+        }
     }
 }

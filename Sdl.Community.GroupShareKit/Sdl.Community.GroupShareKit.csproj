@@ -189,8 +189,10 @@
     <Compile Include="Models\Response\TranslationMemory\FieldTemplatePatchRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\FieldTemplateRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\FieldTemplates.cs" />
+    <Compile Include="Models\Response\TranslationMemory\FieldValue.cs" />
     <Compile Include="Models\Response\TranslationMemory\FuzzyIndexTuningSettings.cs" />
     <Compile Include="Models\Response\TranslationMemory\Health.cs" />
+    <Compile Include="Models\Response\TranslationMemory\LanguageDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\LanguageDirection.cs" />
     <Compile Include="Models\Response\TranslationMemory\Resource.cs" />
     <Compile Include="Models\Response\TranslationMemory\LanguageResourceTemplate.cs" />
@@ -198,9 +200,11 @@
     <Compile Include="Models\Response\TranslationMemory\Metadata.cs" />
     <Compile Include="Models\Response\TranslationMemory\Operation.cs" />
     <Compile Include="Models\Response\TranslationMemory\Settings.cs" />
-    <Compile Include="Models\Response\TranslationMemory\Test.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationMemory.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationMemoryDetails.cs" />
+    <Compile Include="Models\Response\TranslationMemory\TranslationUnitDetails.cs" />
+    <Compile Include="Models\Response\TranslationMemory\TranslationUnitRequest.cs" />
+    <Compile Include="Models\Response\TranslationMemory\TranslationUnitResponse.cs" />
     <Compile Include="Models\Response\TranslationMemory\Value.cs" />
     <Compile Include="Models\Response\User.cs" />
     <Compile Include="Models\Response\UserAssignments.cs" />

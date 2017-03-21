@@ -139,7 +139,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.FieldService.UpdateFieldForTemplate(fieldTemplateId, fieldId, field);
         }
         [Theory]
-        [InlineData("253988f6-0bd3-4aaa-85f6-5e99e8e32a8f","Added")]
+        [InlineData("3244d091-7ce3-4ada-99db-7682cce6f0ff", "another field")]
         public async Task CreateFieldForTemplate(string fieldTemplateId,string fieldName)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
@@ -147,8 +147,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             {
                 FieldId = Guid.NewGuid().ToString(),
                 Name = fieldName,
-                Type =  FieldRequest.TypeEnum.MultiplePicklist,
-                Values = new List<string>() { "test", "anotherValue" }
+                Type =  FieldRequest.TypeEnum.SingleString,
+                Values = new List<string>() { "andrea2","test" }
             };
 
             var fieldId = await groupShareClient.FieldService.CreateFieldForTemplate(fieldTemplateId, field);

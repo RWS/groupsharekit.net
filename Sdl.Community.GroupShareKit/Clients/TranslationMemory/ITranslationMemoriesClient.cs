@@ -143,5 +143,42 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
 
         //Task<ApplyTmResponse> ApplyTm(ApplyTmRequest request);
+
+        /// <summary>
+        /// Add a custom translation units to a specified TM .
+        /// Please make sure the fields values you add corresponds  to the TM
+        /// To find the right values look at "fieldTemplateId" corresponding to the TM -> "fields" (take the fieldName), 
+        /// from "values", "name" values should be added to a list 
+        /// Confirmation levels possible values: Unspecified, Draft, Translated, RejectedTranslation
+        /// ApprovedTranslation,RejectedSignOff,ApprovedSignOff
+        /// <param name="unitRequest"><see cref="TranslationUnitRequest"/></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="TranslationUnitResponse"/></returns>
+        Task<TranslationUnitResponse> AddCustomTranslationUnit(TranslationUnitRequest unitRequest,string tmId);
+
+        /// <summary>
+        /// Add all  translation units from a field template to a specified TM .
+        /// Confirmation levels possible values: Unspecified, Draft, Translated, RejectedTranslation
+        /// ApprovedTranslation,RejectedSignOff,ApprovedSignOff
+        /// <param name="unitRequest"><see cref="TranslationUnitRequest"/></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="TranslationUnitResponse"/></returns>
+        Task<TranslationUnitResponse> AddAllTranslationUnits(TranslationUnitRequest unitRequest, string tmId, FieldTemplate fieldTemplate);
     }
 }

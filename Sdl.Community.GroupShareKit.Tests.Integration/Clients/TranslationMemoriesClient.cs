@@ -144,27 +144,111 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(health.Status,"UP");
         }
 
+        [Theory]
+        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
+        public async Task AddTranslationUnitText(string tmId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var tuRequest = new TranslationUnitRequest
+            {
+                TranslationUnit = new TranslationUnitDetails
+                {
+                    Source = new LanguageDetails
+                    {
+                        Language = "ro-ro",
+                        Text = "casa"
+                    },
+                    Target = new LanguageDetails
+                    {
+                        Language = "en-us",
+                        Text = "house"
+                    }
+                },
+                Settings = new Settings
+                {
+                    AcronymsAutoSubstitution = true,
+                    CheckMatchingSublanguages = true,
+                    ConfirmationLevels = new List<string>() { "Draft"},
+                    ExistingFieldsUpdateMode = Settings.ExistingFieldsMode.Merge,
+                    ExistingTUsUpdateMode = Settings.UpdateMode.AddNew,
+                    NewFieldsBehaviour = Settings.FieldsBehaviour.AddToSetup,
+                    TuProcessingMode = Settings.ProccesingMode.ProcessCleanedTUOnly,
+                    FieldValues = new List<FieldValue>()
+                    {
+                        new FieldValue
+                        {
+                            Values = new List<string>() {"andrea" },
+                            FieldName = "Added field"
+                        }
+                    }
+                }
+            };
+
+            var tuResponse = await groupShareClient.TranslationMemories.AddCustomTranslationUnit(tuRequest, tmId);
+
+            Assert.True(tuResponse!=null);
+        }
+
+        [Theory]
+        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03", "3244d091-7ce3-4ada-99db-7682cce6f0ff")]
+        public async Task AddAllTranslationUnitText(string tmId,string fieldTemplateId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var tuRequest = new TranslationUnitRequest
+            {
+                TranslationUnit = new TranslationUnitDetails
+                {
+                    Source = new LanguageDetails
+                    {
+                        Language = "ro-ro",
+                        Text = "pix"
+                    },
+                    Target = new LanguageDetails
+                    {
+                        Language = "en-us",
+                        Text = "pen"
+                    }
+                },
+                Settings = new Settings
+                {
+                    AcronymsAutoSubstitution = true,
+                    CheckMatchingSublanguages = true,
+                    ConfirmationLevels = new List<string>() { "Draft","Unspecified" },
+                    ExistingFieldsUpdateMode = Settings.ExistingFieldsMode.Merge,
+                    ExistingTUsUpdateMode = Settings.UpdateMode.AddNew,
+                    NewFieldsBehaviour = Settings.FieldsBehaviour.AddToSetup,
+                    TuProcessingMode = Settings.ProccesingMode.ProcessCleanedTUOnly,
+                    FieldValues = new List<FieldValue>()
+                }
+            };
+
+            var fieldTemplate = await groupShareClient.FieldService.GetFieldTemplateById(fieldTemplateId);
+            var tuResponse = await groupShareClient.TranslationMemories.AddAllTranslationUnits(tuRequest, tmId,fieldTemplate);
+
+            Assert.True(tuResponse != null);
+        }
+
         //[Fact]
-        //public async Task ApplyTm()
-        //{
-        //    var groupShareClient = await Helper.GetAuthenticatedClient();
-        //    var request = new ApplyTmRequest
-        //    {
-        //        TranslationMemories =
-        //            new List<string>() { "fc291116-1dae-4cc7-8f94-1da56c211e03"},
-        //        Documents = new List<Documents>()
-        //        {
-        //            new Documents
-        //            {
-        //                SourceLanguage = "ro-ro",
-        //                TargetLanguage = "en-us",
-        //                Url = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Ro.docx")
-        //            }
-        //        }
-        //    };
+            //public async Task ApplyTm()
+            //{
+            //    var groupShareClient = await Helper.GetAuthenticatedClient();
+            //    var request = new ApplyTmRequest
+            //    {
+            //        TranslationMemories =
+            //            new List<string>() { "fc291116-1dae-4cc7-8f94-1da56c211e03"},
+            //        Documents = new List<Documents>()
+            //        {
+            //            new Documents
+            //            {
+            //                SourceLanguage = "ro-ro",
+            //                TargetLanguage = "en-us",
+            //                Url = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Ro.docx")
+            //            }
+            //        }
+            //    };
 
-        //    var response = await groupShareClient.TranslationMemories.ApplyTm(request);
+            //    var response = await groupShareClient.TranslationMemories.ApplyTm(request);
 
-        //}
-    }
+            //}
+        }
 }

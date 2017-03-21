@@ -188,7 +188,61 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<Health>(ApiUrls.Health(), null);
         }
 
- 
+        /// Confirmation levels possible values: Unspecified, Draft, Translated, RejectedTranslation
+        /// ApprovedTranslation,RejectedSignOff,ApprovedSignOff
+        public async Task<TranslationUnitResponse> AddCustomTranslationUnit(TranslationUnitRequest unitRequest,string tmId)
+        {
+            Ensure.ArgumentNotNull(unitRequest,"translation unit request");
+            Ensure.ArgumentNotNullOrEmptyString(tmId,"translation memory id");
+            return
+                await
+                    ApiConnection.Post<TranslationUnitResponse>(ApiUrls.TranslationUnits(tmId,"text"), unitRequest,
+                        "application/json");
+        }
+
+
+        /// <summary>
+        /// Add all  translation units from a field template to a specified TM .
+        /// Confirmation levels possible values: Unspecified, Draft, Translated, RejectedTranslation
+        /// ApprovedTranslation,RejectedSignOff,ApprovedSignOff
+        /// <param name="unitRequest"><see cref="TranslationUnitRequest"/></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="TranslationUnitResponse"/></returns>
+        public async Task<TranslationUnitResponse> AddAllTranslationUnits(TranslationUnitRequest unitRequest,
+            string tmId, FieldTemplate fieldTemplate)
+        {
+            Ensure.ArgumentNotNull(unitRequest, "translation unit request");
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
+            Ensure.ArgumentNotNull(fieldTemplate, "field template");
+
+            var fieldValues = new List<FieldValue>();
+            foreach (var template in fieldTemplate.Fields)
+            {
+                var field = new FieldValue {FieldName = template.Name};
+                var fieldValue = template.Values.Select(t => t.Name).ToList();
+                if (fieldValue.Count > 0)
+                {
+                    field.Values = fieldValue;
+                }
+                fieldValues.Add(field);
+            }
+            unitRequest.Settings.FieldValues = fieldValues;
+
+            return
+                await
+                    ApiConnection.Post<TranslationUnitResponse>(ApiUrls.TranslationUnits(tmId, "text"), unitRequest,
+                        "application/json");
+        }
+
+
         //public async Task<ApplyTmResponse> ApplyTm(ApplyTmRequest request)
         //{
         //   Ensure.ArgumentNotNull(request,"apply tm request");
