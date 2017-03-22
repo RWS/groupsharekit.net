@@ -190,6 +190,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
+        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
+        public async Task UpdateTranslationUnitText(string tmId)
+        {
+
+        }
+
+        [Theory]
         [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03", "3244d091-7ce3-4ada-99db-7682cce6f0ff")]
         public async Task AddAllTranslationUnitText(string tmId,string fieldTemplateId)
         {
@@ -238,6 +245,48 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var tus = await groupShareClient.TranslationMemories.GetTranslationUnitForTm(tmId, translationUnitRequest);
 
             Assert.True(tus!=null);
+        }
+
+        [Theory]
+        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
+        public async Task GetDuplicatesForTm(string tmId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var request = new DuplicatesTusRequest
+            {
+                MaxCount = 10,
+                MaxScan = 10,
+                PositionFrom = new Position
+                {
+                    Hash = 0,
+                    TuId = 0
+                },
+                PositionTo = new Position
+                {
+                    Hash = 10,
+                    TuId = 10
+                },
+                Forward = true,
+                Filter = new FilterDuplicates
+                {
+                    Expression = "andrea",
+                    Fields = new List<FieldsDuplicate>
+                    {
+                        new FieldsDuplicate
+                        {
+                            Type = FieldsDuplicate.TypeEnum.SingleString,
+                            Name = "Added field",
+                            Values = new List<string> {"andrea"}
+                        }
+                    }
+                }
+
+            };
+
+            var language = new LanguageParameters("ro-ro", "en-us");
+
+            var response = await groupShareClient.TranslationMemories.GetDuplicateTusForTm(tmId, language, request);
+
         }
 
         [Theory]

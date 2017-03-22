@@ -583,6 +583,13 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/tms/{1}/tus/{2}/count".FormatUri(CurrentTranslationMemoriesUrl, tmId,type);
         }
-    
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that retrieves the Duplicate Translation Units in a specific TM
+        /// </summary>
+        public static Uri TranslationUnitsDuplicates(string tmId, string source, string target)
+        {
+            return "{0}/tms/{1}/tus/duplicate/source={2}&target={3}".FormatUri(CurrentTranslationMemoriesUrl, tmId,
+                source, target);
+        }
     }
 }

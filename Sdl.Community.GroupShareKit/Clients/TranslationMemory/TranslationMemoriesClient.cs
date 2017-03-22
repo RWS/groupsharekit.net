@@ -200,6 +200,32 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                         "application/json");
         }
 
+        /// <summary>
+        /// Updates a custom translation units to a specified TM .
+        /// Please make sure the fields values you add corresponds  to the TM
+        /// To find the right values look at "fieldTemplateId" corresponding to the TM -> "fields" (take the fieldName), 
+        /// from "values", "name" values should be added to a list 
+        /// Confirmation levels possible values: Unspecified, Draft, Translated, RejectedTranslation
+        /// ApprovedTranslation,RejectedSignOff,ApprovedSignOff
+        /// <param name="unitRequest"><see cref="TranslationUnitRequest"/></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="TranslationUnitResponse"/></returns>
+        public async Task<TranslationUnitResponse> UpdateCustomTranslationUnit(TranslationUnitRequest unitRequest, string tmId)
+        {
+            Ensure.ArgumentNotNull(unitRequest,"translation unit request");
+            Ensure.ArgumentNotNullOrEmptyString(tmId,"tmId");
+
+            return await ApiConnection.Put<TranslationUnitResponse>(ApiUrls.TranslationUnits(tmId, "text"), unitRequest);
+        }
+
 
         /// <summary>
         /// Add all  translation units from a field template to a specified TM .
@@ -351,6 +377,34 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(language, "language parameters request");
 
             return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "unaligned"), language.ToParametersDictionary());
+        }
+
+        /// <summary>
+        /// Retrieves the Duplicate Translation Units in a specific TM
+        /// <param name="language"><see cref="LanguageParameters"/></param>
+        /// <param name="tmId">Translation memory id</param>
+        /// <param name="duplicatesRequest"><see cref="DuplicatesTusRequest"/></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="TranslationUnitDetailsResponse"/></returns>
+        public async Task<TranslationUnitDetailsResponse> GetDuplicateTusForTm(string tmId, LanguageParameters language, DuplicatesTusRequest duplicatesRequest)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
+            Ensure.ArgumentNotNull(language, "language parameters request");
+            Ensure.ArgumentNotNull(duplicatesRequest,"duplicates request");
+
+            return
+                await
+                    ApiConnection.Post<TranslationUnitDetailsResponse>(ApiUrls.TranslationUnitsDuplicates(tmId, language.Source,language.Target),
+                        duplicatesRequest);
+
         }
 
 
