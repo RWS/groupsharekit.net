@@ -301,6 +301,21 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
+        public async Task ImportTm(string tmId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var language = new LanguageParameters("ro-ro", "en-us");
+
+            var rawData =
+            File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\RoTm.sdltm"));
+
+            var response = await groupShareClient.TranslationMemories.ImportTm(tmId, language,rawData);
+
+            Assert.True(response!=null);
+        }
+
+        [Theory]
+        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
         public async Task GetDuplicatesForTm(string tmId)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();

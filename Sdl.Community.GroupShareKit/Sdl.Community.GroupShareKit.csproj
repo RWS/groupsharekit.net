@@ -210,6 +210,9 @@
     <Compile Include="Models\Response\TranslationMemory\FuzzyIndexTuningSettings.cs" />
     <Compile Include="Models\Response\TranslationMemory\FuzzyRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\Health.cs" />
+    <Compile Include="Models\Response\TranslationMemory\ImportDocRequest.cs" />
+    <Compile Include="Models\Response\TranslationMemory\ImportResponse.cs" />
+    <Compile Include="Models\Response\TranslationMemory\ImportSettings.cs" />
     <Compile Include="Models\Response\TranslationMemory\Items.cs" />
     <Compile Include="Models\Response\TranslationMemory\LanguageDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\LanguageDirection.cs" />

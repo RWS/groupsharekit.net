@@ -623,5 +623,13 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/tms/{1}/export?source={2}&target={3}".FormatUri(CurrentTranslationMemoriesUrl, tmId,source,target);
         }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that imports TUs into a Translation Memory
+        /// </summary>
+        public static Uri Import(string tmId, string source, string target)
+        {
+            return "{0}/tms/{1}/import?source={2}&target={3}".FormatUri(CurrentTranslationMemoriesUrl, tmId, source, target);
+        }
     }
 }

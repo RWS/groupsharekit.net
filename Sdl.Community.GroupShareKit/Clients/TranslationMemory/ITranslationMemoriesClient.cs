@@ -348,5 +348,22 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="ExportResponse"/></returns>
         Task<ExportResponse> ExportTm(string tmId, ExportRequest request,LanguageParameters language);
+
+        /// <summary>
+        /// Imports TUs into a Translation Memory
+        /// <param name="tmId">Translation memory id</param>
+        /// <param name="language"><see cref="LanguageParameters"/></param>
+        /// <param name="rawFile">byte[] which represents the file</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ImportResponse"/></returns>
+        Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile);
     }
 }

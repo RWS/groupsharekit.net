@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
@@ -431,7 +432,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
         /// <summary>
         /// Schedules a reindex operation
-        /// <param name="FuzzyRequest"><see cref="FuzzyRequest"/></param>
+        /// <param name="request"><see cref="FuzzyRequest"/></param>
         /// <param name="tmId">Translation memory id</param>
         /// </summary>
         /// <remarks>
@@ -476,6 +477,39 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                 await
                     ApiConnection.Post<ExportResponse>(ApiUrls.Export(tmId, language.Source, language.Target), request,
                         "application/json");
+        }
+        /// <summary>
+        /// Imports TUs into a Translation Memory
+        /// <param name="tmId">Translation memory id</param>
+        /// <param name="language"><see cref="LanguageParameters"/></param>
+        /// <param name="rawFile">byte[] which represents the file</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ImportResponse"/></returns>
+        public async Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId,"tm id");
+            Ensure.ArgumentNotNull(language,"language parameters");
+            Ensure.ArgumentNotNull(rawFile,"file");
+
+            var byteContent = new ByteArrayContent(rawFile);
+            byteContent.Headers.Add("Content-Type", "application/json");
+            var multipartContent = new MultipartFormDataContent
+            {
+                {byteContent,"file"}
+            };
+
+            return
+                await
+                    ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target),
+                        multipartContent, "application/json");
         }
 
 
