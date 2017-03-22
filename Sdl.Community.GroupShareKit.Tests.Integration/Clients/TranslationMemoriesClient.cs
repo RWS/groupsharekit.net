@@ -273,6 +273,34 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
+        public async Task ExportTm(string tmId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var request = new ExportRequest
+            {
+                Filter = new FilterExport
+                {
+                    Fields = new List<FieldsDuplicate>()
+                    {
+                        new FieldsDuplicate
+                        {
+                            Type = FieldsDuplicate.TypeEnum.SingleString,
+                            Name = "Added field",
+                            Values = new List<string> {"andrea"}
+                        }
+                    },
+                    Expression = "(File Format =XML)"
+                }
+            };
+            var language = new LanguageParameters("ro-ro","en-us");
+
+            var response = await groupShareClient.TranslationMemories.ExportTm(tmId, request, language);
+            Assert.Equal(response.TranslationMemoryId,tmId);
+
+        }
+
+        [Theory]
+        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
         public async Task GetDuplicatesForTm(string tmId)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();

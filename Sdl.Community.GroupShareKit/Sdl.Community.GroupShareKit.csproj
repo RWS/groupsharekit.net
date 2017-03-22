@@ -193,6 +193,8 @@
     <Compile Include="Models\Response\TranslationMemory\DependencyFile.cs" />
     <Compile Include="Models\Response\TranslationMemory\Documents.cs" />
     <Compile Include="Models\Response\TranslationMemory\DuplicatesTusRequest.cs" />
+    <Compile Include="Models\Response\TranslationMemory\ExportRequest.cs" />
+    <Compile Include="Models\Response\TranslationMemory\ExportResponse.cs" />
     <Compile Include="Models\Response\TranslationMemory\Field.cs" />
     <Compile Include="Models\Response\TranslationMemory\FieldRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\FieldsDuplicate.cs" />
@@ -202,6 +204,7 @@
     <Compile Include="Models\Response\TranslationMemory\FieldTemplates.cs" />
     <Compile Include="Models\Response\TranslationMemory\FieldValue.cs" />
     <Compile Include="Models\Response\TranslationMemory\FilterDuplicates.cs" />
+    <Compile Include="Models\Response\TranslationMemory\FilterExport.cs" />
     <Compile Include="Models\Response\TranslationMemory\FormattingGroup.cs" />
     <Compile Include="Models\Response\TranslationMemory\FuzzyIndexResponse.cs" />
     <Compile Include="Models\Response\TranslationMemory\FuzzyIndexTuningSettings.cs" />

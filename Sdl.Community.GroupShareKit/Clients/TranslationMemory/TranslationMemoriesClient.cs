@@ -451,6 +451,33 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Post<FuzzyIndexResponse>(ApiUrls.Fuzzy(tmId, "reindex"), request, "application/json");
         }
 
+        /// <summary>
+        /// Exports TUs from a Translation Memory
+        /// <param name="request"><see cref="ExportRequest"/></param>
+        /// <param name="tmId">Translation memory id</param>
+        /// <param name="language"><see cref="LanguageParameters"/></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ExportResponse"/></returns>
+        public async Task<ExportResponse> ExportTm(string tmId, ExportRequest request, LanguageParameters language)
+        {
+           Ensure.ArgumentNotNullOrEmptyString(tmId,"tm is");
+            Ensure.ArgumentNotNull(request,"request");
+            Ensure.ArgumentNotNull(language,"language parameters");
+
+            return
+                await
+                    ApiConnection.Post<ExportResponse>(ApiUrls.Export(tmId, language.Source, language.Target), request,
+                        "application/json");
+        }
+
 
         //public async Task<ApplyTmResponse> ApplyTm(ApplyTmRequest request)
         //{
