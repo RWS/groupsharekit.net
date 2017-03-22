@@ -203,7 +203,9 @@
     <Compile Include="Models\Response\TranslationMemory\FieldValue.cs" />
     <Compile Include="Models\Response\TranslationMemory\FilterDuplicates.cs" />
     <Compile Include="Models\Response\TranslationMemory\FormattingGroup.cs" />
+    <Compile Include="Models\Response\TranslationMemory\FuzzyIndexResponse.cs" />
     <Compile Include="Models\Response\TranslationMemory\FuzzyIndexTuningSettings.cs" />
+    <Compile Include="Models\Response\TranslationMemory\FuzzyRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\Health.cs" />
     <Compile Include="Models\Response\TranslationMemory\Items.cs" />
     <Compile Include="Models\Response\TranslationMemory\LanguageDetails.cs" />
@@ -221,6 +223,7 @@
     <Compile Include="Models\Response\TranslationMemory\Operation.cs" />
     <Compile Include="Models\Response\TranslationMemory\Settings.cs" />
     <Compile Include="Models\Response\TranslationMemory\Skeleton.cs" />
+    <Compile Include="Models\Response\TranslationMemory\StatisticsDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\StructureTagDefinition.cs" />
     <Compile Include="Models\Response\TranslationMemory\SubContent.cs" />
     <Compile Include="Models\Response\TranslationMemory\TagPairDefinition.cs" />

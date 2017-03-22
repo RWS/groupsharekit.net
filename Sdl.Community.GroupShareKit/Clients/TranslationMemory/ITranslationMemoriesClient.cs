@@ -162,7 +162,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="TranslationUnitResponse"/></returns>
-        Task<TranslationUnitResponse> AddCustomTranslationUnit(TranslationUnitRequest unitRequest,string tmId);
+        Task<TranslationUnitResponse> AddCustomTranslationUnit(TranslationUnitRequest unitRequest, string tmId);
 
         /// <summary>
         /// Updates a custom translation units to a specified TM .
@@ -199,7 +199,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="TranslationUnitResponse"/></returns>
-        Task<TranslationUnitResponse> AddAllTranslationUnits(TranslationUnitRequest unitRequest, string tmId, FieldTemplate fieldTemplate);
+        Task<TranslationUnitResponse> AddAllTranslationUnits(TranslationUnitRequest unitRequest, string tmId,
+            FieldTemplate fieldTemplate);
+
         /// <summary>
         /// Gets specified translation unit for TM
         /// <param name="request"><see cref="TranslationUnitDetailsRequest"/></param>
@@ -215,6 +217,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="TranslationUnitDetailsResponse"/></returns>
         Task<TranslationUnitDetailsResponse> GetTranslationUnitForTm(string tmId, TranslationUnitDetailsRequest request);
+
         /// <summary>
         /// Gets the translation units number from the translation memory
         /// <param name="language"><see cref="LanguageParameters"/></param>
@@ -230,6 +233,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>int</returns>
         Task<int> GetNumberOfTus(string tmId, LanguageParameters language);
+
         /// <summary>
         /// Gets the postdated translation units count from the translation memory
         /// <param name="language"><see cref="LanguageParameters"/></param>
@@ -245,6 +249,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>int</returns>
         Task<int> GetNumberOfPostDatedTus(string tmId, LanguageParameters language);
+
         /// <summary>
         /// Gets the predated translation units count from the translation memory
         /// <param name="language"><see cref="LanguageParameters"/></param>
@@ -260,6 +265,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>int</returns>
         Task<int> GetNumberOfPreDatedTus(string tmId, LanguageParameters language);
+
         /// <summary>
         /// Gets the unaligned translation units count from the translation memory
         /// <param name="language"><see cref="LanguageParameters"/></param>
@@ -293,5 +299,37 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns><see cref="TranslationUnitDetailsResponse"/></returns>
         Task<TranslationUnitDetailsResponse> GetDuplicateTusForTm(string tmId, LanguageParameters language,
             DuplicatesTusRequest duplicatesRequest);
+
+        /// <summary>
+        /// Schedules a recompute statistics operation
+        /// <param name="FuzzyRequest"><see cref="FuzzyRequest"/></param>
+        /// <param name="tmId">Translation memory id</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="FuzzyIndexResponse"/></returns>
+        Task<FuzzyIndexResponse> RecomputeStatistics(string tmId, FuzzyRequest request);
+
+        /// <summary>
+        /// Schedules a reindex operation
+        /// <param name="FuzzyRequest"><see cref="FuzzyRequest"/></param>
+        /// <param name="tmId">Translation memory id</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="FuzzyIndexResponse"/></returns>
+        Task<FuzzyIndexResponse> Reindex(string tmId, FuzzyRequest request);
     }
 }

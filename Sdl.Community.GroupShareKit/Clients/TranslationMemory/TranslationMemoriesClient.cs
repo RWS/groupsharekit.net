@@ -407,6 +407,50 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
         }
 
+        /// <summary>
+        /// Schedules a recompute statistics operation
+        /// <param name="request"><see cref="FuzzyRequest"/></param>
+        /// <param name="tmId">Translation memory id</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="FuzzyIndexResponse"/></returns>
+        public async Task<FuzzyIndexResponse> RecomputeStatistics(string tmId, FuzzyRequest request)
+        {
+           Ensure.ArgumentNotNullOrEmptyString(tmId,"tmId");
+            Ensure.ArgumentNotNull(request,"request");
+
+            return await ApiConnection.Post<FuzzyIndexResponse>(ApiUrls.Fuzzy(tmId, "recomputestatistics"), request,"application/json");
+        }
+
+        /// <summary>
+        /// Schedules a reindex operation
+        /// <param name="FuzzyRequest"><see cref="FuzzyRequest"/></param>
+        /// <param name="tmId">Translation memory id</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="FuzzyIndexResponse"/></returns>
+        public async Task<FuzzyIndexResponse> Reindex(string tmId, FuzzyRequest request)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
+            Ensure.ArgumentNotNull(request, "request");
+
+            return await ApiConnection.Post<FuzzyIndexResponse>(ApiUrls.Fuzzy(tmId, "reindex"), request, "application/json");
+        }
+
 
         //public async Task<ApplyTmResponse> ApplyTm(ApplyTmRequest request)
         //{

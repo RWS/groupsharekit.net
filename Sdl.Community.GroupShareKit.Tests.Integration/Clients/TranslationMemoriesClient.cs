@@ -249,6 +249,30 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
+        public async Task RecomputeStatistics(string tmId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var request = new FuzzyRequest();
+
+            var response = await groupShareClient.TranslationMemories.RecomputeStatistics(tmId, request);
+
+            Assert.True(response!=null);
+        }
+
+        [Theory]
+        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
+        public async Task Reindex(string tmId)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var request = new FuzzyRequest();
+
+            var response = await groupShareClient.TranslationMemories.Reindex(tmId, request);
+
+            Assert.True(response != null);
+        }
+
+        [Theory]
+        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
         public async Task GetDuplicatesForTm(string tmId)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();

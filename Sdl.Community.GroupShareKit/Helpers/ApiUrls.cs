@@ -607,5 +607,13 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/dbservers/{1}".FormatUri(CurrentTranslationMemoriesUrl,serverId);
         }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that schedules a recompute statistics operation
+        /// </summary>
+        public static Uri Fuzzy(string tmId, string action)
+        {
+            return "{0}/tms/{1}/fuzzyindex/{2}".FormatUri(CurrentTranslationMemoriesUrl, tmId, action);
+        }
     }
 }
