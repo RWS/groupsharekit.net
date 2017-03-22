@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,6 +37,16 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// Gets or sets a translation memory list
         /// </summary>
         public List<TranslationMemoryDetails> TranslationMemories { get; set; }
+
+        /// <summary>
+        /// Gets or sets the container location
+        /// </summary>
+        public string Location { get; set; }
+        /// <summary>
+        /// Gets or sets the owner id
+        /// </summary>
+        public string OwnerId { get; set; }
+
 
 
     }

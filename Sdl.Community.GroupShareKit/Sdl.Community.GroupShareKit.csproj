@@ -86,6 +86,8 @@
     <Compile Include="Clients\RoleClient.cs" />
     <Compile Include="Clients\SearchTermRequest.cs" />
     <Compile Include="Clients\SortParameters.cs" />
+    <Compile Include="Clients\TranslationMemory\DatabaseServerClient.cs" />
+    <Compile Include="Clients\TranslationMemory\IDatabaseServer.cs" />
     <Compile Include="Clients\TranslationMemory\ILanguageResource.cs" />
     <Compile Include="Clients\TranslationMemory\ILanguageResourceTemplate.cs" />
     <Compile Include="Clients\TranslationMemory\FieldServiceClient.cs" />
@@ -186,6 +188,8 @@
     <Compile Include="Models\Response\TranslationMemory\ContextDefinition.cs" />
     <Compile Include="Models\Response\TranslationMemory\CreateTmRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\DatabaseServer.cs" />
+    <Compile Include="Models\Response\TranslationMemory\DatabaseServerRequest.cs" />
+    <Compile Include="Models\Response\TranslationMemory\DatabaseServerResponse.cs" />
     <Compile Include="Models\Response\TranslationMemory\DependencyFile.cs" />
     <Compile Include="Models\Response\TranslationMemory\Documents.cs" />
     <Compile Include="Models\Response\TranslationMemory\DuplicatesTusRequest.cs" />
@@ -209,6 +213,7 @@
     <Compile Include="Models\Response\TranslationMemory\ParagraphUnitLanguageDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\PlaceholderTagDefinition.cs" />
     <Compile Include="Models\Response\TranslationMemory\Position.cs" />
+    <Compile Include="Models\Response\TranslationMemory\RequestDbServer.cs" />
     <Compile Include="Models\Response\TranslationMemory\Resource.cs" />
     <Compile Include="Models\Response\TranslationMemory\LanguageResourceTemplate.cs" />
     <Compile Include="Models\Response\TranslationMemory\LanguageResourceTemplates.cs" />

@@ -67,6 +67,7 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Clients\AuthenticationClientTests.cs" />
+    <Compile Include="Clients\DatabaseServerClientTest.cs" />
     <Compile Include="Clients\FieldService.cs" />
     <Compile Include="Clients\FileDownloadTests.cs" />
     <Compile Include="Clients\FilesTest.cs" />

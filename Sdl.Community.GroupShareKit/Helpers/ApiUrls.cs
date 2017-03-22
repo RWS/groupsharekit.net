@@ -591,5 +591,21 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/tms/{1}/tus/duplicate/source={2}&target={3}".FormatUri(CurrentTranslationMemoriesUrl, tmId,
                 source, target);
         }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that retrieves  a list of all available database servers
+        /// </summary>
+        public static Uri DbServers()
+        {
+            return "{0}/dbservers".FormatUri(CurrentTranslationMemoriesUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that retrieves  specified database server
+        /// </summary>
+        public static Uri DbServers(string serverId)
+        {
+            return "{0}/dbservers/{1}".FormatUri(CurrentTranslationMemoriesUrl,serverId);
+        }
     }
 }
