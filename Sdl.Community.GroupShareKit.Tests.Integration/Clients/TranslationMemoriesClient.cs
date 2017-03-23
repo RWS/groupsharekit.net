@@ -272,7 +272,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
+        [InlineData("423c5f5a-e495-4bfd-9934-6f9aa40f58b8")]
         public async Task ExportTm(string tmId)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
@@ -296,20 +296,21 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var response = await groupShareClient.TranslationMemories.ExportTm(tmId, request, language);
             Assert.Equal(response.TranslationMemoryId,tmId);
+         
 
         }
 
         [Theory]
-        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
+        [InlineData("423c5f5a-e495-4bfd-9934-6f9aa40f58b8")]
         public async Task ImportTm(string tmId)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
             var language = new LanguageParameters("ro-ro", "en-us");
 
             var rawData =
-            File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\RoTm.sdltm"));
+            File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\RO-EN.tmx"));
 
-            var response = await groupShareClient.TranslationMemories.ImportTm(tmId, language,rawData);
+            var response = await groupShareClient.TranslationMemories.ImportTm(tmId, language,rawData, "RO-EN.tmx");
 
             Assert.True(response!=null);
         }
@@ -403,27 +404,5 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(tusNumber, 0);
         }
 
-        //[Fact]
-        //public async Task ApplyTm()
-        //{
-        //    var groupShareClient = await Helper.GetAuthenticatedClient();
-        //    var request = new ApplyTmRequest
-        //    {
-        //        TranslationMemories =
-        //            new List<string>() { "fc291116-1dae-4cc7-8f94-1da56c211e03"},
-        //        Documents = new List<Documents>()
-        //        {
-        //            new Documents
-        //            {
-        //                SourceLanguage = "ro-ro",
-        //                TargetLanguage = "en-us",
-        //                Url = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Ro.docx")
-        //            }
-        //        }
-        //    };
-
-        //    var response = await groupShareClient.TranslationMemories.ApplyTm(request);
-
-        //}
     }
 }

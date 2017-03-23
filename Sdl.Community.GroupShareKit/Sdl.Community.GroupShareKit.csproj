@@ -177,8 +177,6 @@
     <Compile Include="Models\Response\TermbaseTerms.cs" />
     <Compile Include="Models\Response\Transactions.cs" />
     <Compile Include="Models\Response\TransactionsDetails.cs" />
-    <Compile Include="Models\Response\TranslationMemory\ApplyTmRequest.cs" />
-    <Compile Include="Models\Response\TranslationMemory\ApplyTmResponse.cs" />
     <Compile Include="Models\Response\TranslationMemory\BackgroundTask.cs" />
     <Compile Include="Models\Response\TranslationMemory\BackgroundTaskDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\Children.cs" />

@@ -17,27 +17,27 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// <summary>
         /// Gets or sets if segment should be imported as a plain text
         /// </summary>
-        public bool ImportAsPlainText { get; set; }
+        public bool? ImportAsPlainText { get; set; }
         /// <summary>
         /// Gets or sets if tm from  user id thoud be used
         /// </summary>
-        public bool UseTmUserIdFromBilingualFile { get; set; }
+        public bool? UseTmUserIdFromBilingualFile { get; set; }
         /// <summary>
         /// Gets or sets if recomputed statistics should be triggered
         /// </summary>
-        public bool TriggerRecomputeStatistics { get; set; }
+        public bool? TriggerRecomputeStatistics { get; set; }
         /// <summary>
         /// Gets or sets if invalid translation units should be exported
         /// </summary>
-        public bool ExportInvalidTranslationUnits { get; set; }
+        public bool? ExportInvalidTranslationUnits { get; set; }
         /// <summary>
         /// Gets or sets id should use acronyms autosubstitution
         /// </summary>
-        public bool AcronymsAutoSubstitution { get; set; }
+        public bool? AcronymsAutoSubstitution { get; set; }
         /// <summary>
         /// Gets or sets  if maching sublanguages should be checked
         /// </summary>
-        public bool CheckMatchingSublanguages { get; set; }
+        public bool? CheckMatchingSublanguages { get; set; }
         /// <summary>
         /// Gets or sets a list of comfirmation levels
         /// </summary>
@@ -53,19 +53,19 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// Gets or sets existing fields update mode
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public Settings.ExistingFieldsMode ExistingFieldsUpdateMode { get; set; }
+        public Settings.ExistingFieldsMode? ExistingFieldsUpdateMode { get; set; }
 
         /// <summary>
         /// Gets or sets new fields behaviour
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public Settings.FieldsBehaviour NewFieldsBehaviour { get; set; }
+        public Settings.FieldsBehaviour? NewFieldsBehaviour { get; set; }
 
         /// <summary>
         /// Gets or sets tu processing mode
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public Settings.ProccesingMode TuProcessingMode { get; set; }
+        public Settings.ProccesingMode? TuProcessingMode { get; set; }
 
         /// <summary>
         /// Gets or sets field values

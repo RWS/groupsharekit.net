@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -140,9 +141,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Returns the status of tm service</returns>
         Task<Health> Health();
-
-
-        //Task<ApplyTmResponse> ApplyTm(ApplyTmRequest request);
 
         /// <summary>
         /// Add a custom translation units to a specified TM .
@@ -351,9 +349,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
         /// <summary>
         /// Imports TUs into a Translation Memory
+        /// The file should be a TMX type.
         /// <param name="tmId">Translation memory id</param>
         /// <param name="language"><see cref="LanguageParameters"/></param>
         /// <param name="rawFile">byte[] which represents the file</param>
+        /// <param name="fileName">file name</param>
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -364,6 +364,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="ImportResponse"/></returns>
-        Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile);
+        Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile,string fileName);
     }
 }

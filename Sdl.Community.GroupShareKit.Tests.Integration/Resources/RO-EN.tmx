@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tmx version="1.4">
+  <header creationtool="SDL Language Platform" creationtoolversion="8.0" o-tmf="SDL TM8 Format" datatype="xml" segtype="sentence" adminlang="ro-RO" srclang="ro-RO" creationdate="20170320T081444Z" creationid="GLOBAL\aghisa">
+    <prop type="x-Recognizers">RecognizeAll</prop>
+    <prop type="x-TMName">RoTm</prop>
+    <prop type="x-TokenizerFlags">DefaultFlags</prop>
+    <prop type="x-WordCountFlags">DefaultFlags</prop>
+  </header>
+  <body>
+    <tu creationdate="20170320T082313Z" creationid="GLOBAL\aghisa" changedate="20170320T082317Z" changeid="GLOBAL\aghisa" lastusagedate="20170320T082317Z">
+      <prop type="x-Context">0, 0</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">Translated</prop>
+      <tuv xml:lang="ro-RO">
+        <seg>Casa</seg>
+      </tuv>
+      <tuv xml:lang="en-US">
+        <seg>house</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20170320T082340Z" creationid="GLOBAL\aghisa" changedate="20170320T082345Z" changeid="GLOBAL\aghisa" lastusagedate="20170320T082345Z">
+      <prop type="x-Context">117562819, 3649483835</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">Translated</prop>
+      <tuv xml:lang="ro-RO">
+        <seg>Masina</seg>
+      </tuv>
+      <tuv xml:lang="en-US">
+        <seg>car</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20170320T082347Z" creationid="GLOBAL\aghisa" changedate="20170320T082347Z" changeid="GLOBAL\aghisa" lastusagedate="20170320T082347Z">
+      <prop type="x-Context">3653682134, 117562788</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">Translated</prop>
+      <tuv xml:lang="ro-RO">
+        <seg>Pix</seg>
+      </tuv>
+      <tuv xml:lang="en-US">
+        <seg>pen</seg>
+      </tuv>
+    </tu>
+  </body>
+</tmx>

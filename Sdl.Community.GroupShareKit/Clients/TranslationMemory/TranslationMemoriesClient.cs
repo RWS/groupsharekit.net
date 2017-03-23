@@ -480,9 +480,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
         /// <summary>
         /// Imports TUs into a Translation Memory
+        /// The file should be a TMX type.
         /// <param name="tmId">Translation memory id</param>
         /// <param name="language"><see cref="LanguageParameters"/></param>
         /// <param name="rawFile">byte[] which represents the file</param>
+        /// <param name="fileName">file name</param>
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -493,17 +495,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="ImportResponse"/></returns>
-        public async Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile)
+        public async Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile,string fileName)
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId,"tm id");
             Ensure.ArgumentNotNull(language,"language parameters");
             Ensure.ArgumentNotNull(rawFile,"file");
+            Ensure.ArgumentNotNullOrEmptyString(fileName, "file name");
 
             var byteContent = new ByteArrayContent(rawFile);
             byteContent.Headers.Add("Content-Type", "application/json");
             var multipartContent = new MultipartFormDataContent
             {
-                {byteContent,"file"}
+                {byteContent,"file",fileName}
             };
 
             return
@@ -512,11 +515,5 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                         multipartContent, "application/json");
         }
 
-
-        //public async Task<ApplyTmResponse> ApplyTm(ApplyTmRequest request)
-        //{
-        //   Ensure.ArgumentNotNull(request,"apply tm request");
-        //    return await ApiConnection.Post<ApplyTmResponse>(ApiUrls.ApplyTm(), request, "application/json");
-        //}
     }
 }
