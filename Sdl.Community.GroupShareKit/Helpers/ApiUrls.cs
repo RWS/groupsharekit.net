@@ -88,6 +88,9 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/organizations".
                 FormatUri(CurrentManagementUrl);
         }
+
+    
+
         /// <summary>
         ///  Returns the <see cref="Uri"/> that gets all organization resources
         /// </summary>
@@ -624,6 +627,22 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri Import(string tmId, string source, string target)
         {
             return "{0}/tms/{1}/import?source={2}&target={3}".FormatUri(CurrentTranslationMemoriesUrl, tmId, source, target);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns a list of all available containers
+        /// </summary>
+        public static Uri Containers()
+        {
+            return "{0}/containers".FormatUri(CurrentTranslationMemoriesUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that a specified container
+        /// </summary>
+        public static Uri Containers(string containerid)
+        {
+            return "{0}/containers/{1}".FormatUri(CurrentTranslationMemoriesUrl,containerid);
         }
     }
 }

@@ -64,6 +64,7 @@ namespace Sdl.Community.GroupShareKit
             LanguageResourceTemplate = new LanguageResourceTemplateClient(apiConnection);
             LanguageResource = new LanguageResourceClient(apiConnection);
             DatabaseServer = new DatabaseServerClient(apiConnection);
+            Container =new ContainerClient(apiConnection);
         }
 
         /// <summary>
@@ -112,6 +113,7 @@ namespace Sdl.Community.GroupShareKit
         public ILanguageResourceTemplate LanguageResourceTemplate { get; set; }
         public ILanguageResource LanguageResource { get; set; }
         public IDatabaseServer DatabaseServer { get; set; }
+        public IContainer Container { get; set; }
 
         /// <summary>
         /// Convenience property for getting and setting credentials.

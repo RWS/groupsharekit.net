@@ -86,7 +86,9 @@
     <Compile Include="Clients\RoleClient.cs" />
     <Compile Include="Clients\SearchTermRequest.cs" />
     <Compile Include="Clients\SortParameters.cs" />
+    <Compile Include="Clients\TranslationMemory\ContainerClient.cs" />
     <Compile Include="Clients\TranslationMemory\DatabaseServerClient.cs" />
+    <Compile Include="Clients\TranslationMemory\IContainer.cs" />
     <Compile Include="Clients\TranslationMemory\IDatabaseServer.cs" />
     <Compile Include="Clients\TranslationMemory\ILanguageResource.cs" />
     <Compile Include="Clients\TranslationMemory\ILanguageResourceTemplate.cs" />
@@ -182,6 +184,8 @@
     <Compile Include="Models\Response\TranslationMemory\Children.cs" />
     <Compile Include="Models\Response\TranslationMemory\CommentDefinition.cs" />
     <Compile Include="Models\Response\TranslationMemory\Container.cs" />
+    <Compile Include="Models\Response\TranslationMemory\ContainerRequest.cs" />
+    <Compile Include="Models\Response\TranslationMemory\ContainerResponse.cs" />
     <Compile Include="Models\Response\TranslationMemory\Context.cs" />
     <Compile Include="Models\Response\TranslationMemory\ContextDefinition.cs" />
     <Compile Include="Models\Response\TranslationMemory\CreateTmRequest.cs" />
@@ -242,6 +246,7 @@
     <Compile Include="Models\Response\TranslationMemory\TranslationUnitDetailsResponse.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationUnitRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationUnitResponse.cs" />
+    <Compile Include="Models\Response\TranslationMemory\UpdateContainerRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\Value.cs" />
     <Compile Include="Models\Response\User.cs" />
     <Compile Include="Models\Response\UserAssignments.cs" />
