@@ -74,7 +74,7 @@
     </Compile>
     <Compile Include="Clients\AuthenticationClientTests.cs" />
     <Compile Include="Clients\TmClientContainer.cs" />
-    <Compile Include="Clients\DatabaseServerClientTest.cs" />
+    <Compile Include="Clients\TranslationMemoryClientDatabaseServerTest.cs" />
     <Compile Include="Clients\FieldService.cs" />
     <Compile Include="Clients\FileDownloadTests.cs" />
     <Compile Include="Clients\FilesTest.cs" />
@@ -91,7 +91,7 @@
     <Compile Include="Clients\PublishingStatusClientTests.cs" />
     <Compile Include="Clients\RolesClientTests.cs" />
     <Compile Include="Clients\TermbaseClient.cs" />
-    <Compile Include="Clients\TranslationMemoriesClient.cs" />
+    <Compile Include="Clients\TranslationMemoriesClientTest.cs" />
     <Compile Include="Clients\UserClientTests.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

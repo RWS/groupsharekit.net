@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
-    public class TranslationMemoriesClient
+    public class TranslationMemoriesClientTest
     {
         [Fact]
         public async Task GetTms()
@@ -187,13 +187,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var tuResponse = await groupShareClient.TranslationMemories.AddCustomTranslationUnit(tuRequest, tmId);
 
             Assert.True(tuResponse!=null);
-        }
-
-        [Theory]
-        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
-        public async Task UpdateTranslationUnitText(string tmId)
-        {
-
         }
 
         [Theory]
