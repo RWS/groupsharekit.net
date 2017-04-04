@@ -85,7 +85,7 @@ namespace Sdl.Community.GroupShareKit
 
             var authorization = await tokenGroupShareClient.Authenticate.Post(scopes);
 
-            credentials = new Credentials(authorization.Token);
+            credentials = new Credentials(authorization.Token,user,password);
 
             inMemoryCredentials = new InMemoryCredentialStore(credentials);
 

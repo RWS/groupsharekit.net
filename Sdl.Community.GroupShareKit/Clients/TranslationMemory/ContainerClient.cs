@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
+using Sdl.Community.GroupShareKit.Models.Response;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
+using Sdl.TmService.Sdk;
 
 namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 {
@@ -16,6 +18,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
         }
 
+        private TmServiceRestClient _client;
 
         /// <summary>
         ///Returns a list of all available containers
@@ -69,7 +72,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task<Container> GetContainerById(string containerId)
         {
            Ensure.ArgumentNotNullOrEmptyString(containerId,"container id");
-
+            //var test = ApiConnection.Connection.Credentials.
+            ////var groupSharePassword = Environment.GetEnvironmentVariable("GROUPSHAREKIT_PASSWORD");
+            //_client = new TmServiceRestClient();
             return await ApiConnection.Get<Container>(ApiUrls.Containers(containerId), null);
         }
 

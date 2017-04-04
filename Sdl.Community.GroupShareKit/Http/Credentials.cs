@@ -6,12 +6,13 @@ namespace Sdl.Community.GroupShareKit.Http
     public class Credentials
     {
 
-        public Credentials(string token)
+        public Credentials(string token,string login,string password)
         {
             Ensure.ArgumentNotNullOrEmptyString(token, "token");
 
-            Login = null;
-            Password = token;
+            Login = login;
+            Password = password;
+            Token = token;
             AuthenticationType = AuthenticationType.Oauth;
         }
         public Credentials(string login, string password)
@@ -30,6 +31,8 @@ namespace Sdl.Community.GroupShareKit.Http
             private set;
         }
 
+        public string Token { get; set; }
+
         public string Password
         {
             get;
@@ -44,7 +47,7 @@ namespace Sdl.Community.GroupShareKit.Http
 
         public string GetToken()
         {
-            return Password;
+            return Token;
         }
     }
 }

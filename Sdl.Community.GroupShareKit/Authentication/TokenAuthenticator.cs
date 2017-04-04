@@ -25,12 +25,12 @@ namespace Sdl.Community.GroupShareKit.Authentication
 
             var token = credentials.GetToken();
 
-            if (credentials.Login != null)
-            {
+            //if (credentials.Login != null)
+            //{
 
-                throw new InvalidOperationException("The Login is not null for a token authentication request. You " +
-                    "probably did something wrong.");
-            }
+            //    throw new InvalidOperationException("The Login is not null for a token authentication request. You " +
+            //        "probably did something wrong.");
+            //}
 
             if (token != null)
             {

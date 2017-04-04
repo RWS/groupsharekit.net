@@ -37,6 +37,12 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Sdl.Core.Bcm.BcmModel">
+      <HintPath>..\Sdl.Community.GroupShareKit\3rd party\Sdl.Core.Bcm.BcmModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Sdl.TmService.Sdk">
+      <HintPath>..\Sdl.Community.GroupShareKit\3rd party\Sdl.TmService.Sdk.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
