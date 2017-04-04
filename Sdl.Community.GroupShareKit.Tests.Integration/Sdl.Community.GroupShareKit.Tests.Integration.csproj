@@ -73,7 +73,7 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Clients\AuthenticationClientTests.cs" />
-    <Compile Include="Clients\ContainerClient.cs" />
+    <Compile Include="Clients\TmClientContainer.cs" />
     <Compile Include="Clients\DatabaseServerClientTest.cs" />
     <Compile Include="Clients\FieldService.cs" />
     <Compile Include="Clients\FileDownloadTests.cs" />

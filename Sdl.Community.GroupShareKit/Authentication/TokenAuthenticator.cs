@@ -25,13 +25,6 @@ namespace Sdl.Community.GroupShareKit.Authentication
 
             var token = credentials.GetToken();
 
-            //if (credentials.Login != null)
-            //{
-
-            //    throw new InvalidOperationException("The Login is not null for a token authentication request. You " +
-            //        "probably did something wrong.");
-            //}
-
             if (token != null)
             {
                 request.Headers["Authorization"] = string.Format(CultureInfo.InvariantCulture, "Bearer {0}", token);

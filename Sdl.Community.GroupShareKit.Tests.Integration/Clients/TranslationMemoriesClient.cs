@@ -105,7 +105,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             };
 
-            var tmId = await groupShareClient.TranslationMemories.Create(tmRequest);
+            var tmId = await groupShareClient.TranslationMemories.CreateTm(tmRequest);
 
             Assert.True(tmId!=string.Empty);
         }
@@ -114,7 +114,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task DeleteTm()
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            await groupShareClient.TranslationMemories.Delete("b7c6c496-b2ac-4615-919a-e1cec538ac83");
+            await groupShareClient.TranslationMemories.DeleteTm("b7c6c496-b2ac-4615-919a-e1cec538ac83");
         }
 
         [Theory]

@@ -86,9 +86,7 @@
     <Compile Include="Clients\RoleClient.cs" />
     <Compile Include="Clients\SearchTermRequest.cs" />
     <Compile Include="Clients\SortParameters.cs" />
-    <Compile Include="Clients\TranslationMemory\ContainerClient.cs" />
     <Compile Include="Clients\TranslationMemory\DatabaseServerClient.cs" />
-    <Compile Include="Clients\TranslationMemory\IContainer.cs" />
     <Compile Include="Clients\TranslationMemory\IDatabaseServer.cs" />
     <Compile Include="Clients\TranslationMemory\ILanguageResource.cs" />
     <Compile Include="Clients\TranslationMemory\ILanguageResourceTemplate.cs" />

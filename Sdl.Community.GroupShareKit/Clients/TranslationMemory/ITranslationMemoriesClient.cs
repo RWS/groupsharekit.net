@@ -12,6 +12,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 {
     public interface ITranslationMemoriesClient
     {
+        #region Translation memory methods
         /// <summary>
         /// Gets all tms<see cref="Models.Response.TranslationMemory.TranslationMemory"/>.
         /// </summary>
@@ -42,50 +43,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<TranslationMemoryDetails> GetTmById(string tmId);
 
         /// <summary>
-        /// Gets <see cref="LanguageDirection"/> for tm
-        /// </summary>
-        /// <remarks>
-        /// <param name="tmId">translation memory id</param>
-        /// <param name="languageDirectionId">language direction id</param>
-        /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  <see cref="LanguageDirection"/></returns>
-        Task<LanguageDirection> GetLanguageDirectionForTm(string tmId, string languageDirectionId);
-
-        /// <summary>
-        /// Gets the  tms<see cref="Models.Response.TranslationMemory.TranslationMemory"/> number.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  Tm number</returns>
-        Task<int> GetTmsNumberByLanguageResourceTemplateId(string resourceTemplateId);
-
-        /// <summary>
-        /// Gets the  tms<see cref="Models.Response.TranslationMemory.TranslationMemory"/> number.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  Tm number</returns>
-        Task<int> GetTmsNumberByFieldTemplateId(string fieldTemplateId);
-
-        /// <summary>
         /// Before you create a TM please make sure you HAVE CREATED A TEMPLATE FIELD and a LANGUAGE RESOURCE TEMPLATE
         /// USE thoes id in the create request 
         /// Creates a Translation Memory/>.
@@ -100,7 +57,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>  Translation memory Id</returns>
-        Task<string> Create(CreateTmRequest tm);
+        Task<string> CreateTm(CreateTmRequest tm);
 
         /// <summary>
         /// Deletes<see cref="Models.Response.TranslationMemory.TranslationMemory"/> .
@@ -113,7 +70,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task Delete(string tmId);
+        Task DeleteTm(string tmId);
 
         /// <summary>
         /// Updates<see cref="Models.Response.TranslationMemory.TranslationMemory"/> .
@@ -142,6 +99,120 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns>Returns the status of tm service</returns>
         Task<Health> Health();
 
+        /// <summary>
+        /// Exports TUs from a Translation Memory
+        /// <param name="request"><see cref="ExportRequest"/></param>
+        /// <param name="tmId">Translation memory id</param>
+        /// <param name="language"><see cref="LanguageParameters"/></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ExportResponse"/></returns>
+        Task<ExportResponse> ExportTm(string tmId, ExportRequest request, LanguageParameters language);
+
+        /// <summary>
+        /// Imports TUs into a Translation Memory
+        /// The file should be a TMX type.
+        /// <param name="tmId">Translation memory id</param>
+        /// <param name="language"><see cref="LanguageParameters"/></param>
+        /// <param name="rawFile">byte[] which represents the file</param>
+        /// <param name="fileName">file name</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ImportResponse"/></returns>
+        Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile, string fileName);
+
+        /// <summary>
+        /// Gets the  tms number by language resource template.
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>  Tm number</returns>
+        Task<int> GetTmsNumberByLanguageResourceTemplateId(string resourceTemplateId);
+
+        /// <summary>
+        /// Gets the  tms number by field template id number.
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>  Tm number</returns>
+        Task<int> GetTmsNumberByFieldTemplateId(string fieldTemplateId);
+
+
+        /// <summary>
+        /// Schedules a recompute statistics operation
+        /// <param name="request"><see cref="FuzzyRequest"/></param>
+        /// <param name="tmId">Translation memory id</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="FuzzyIndexResponse"/></returns>
+        Task<FuzzyIndexResponse> RecomputeStatistics(string tmId, FuzzyRequest request);
+
+        /// <summary>
+        /// Schedules a reindex operation
+        /// <param name="request"><see cref="FuzzyRequest"/></param>
+        /// <param name="tmId">Translation memory id</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="FuzzyIndexResponse"/></returns>
+        Task<FuzzyIndexResponse> Reindex(string tmId, FuzzyRequest request);
+        /// <summary>
+        /// Gets <see cref="LanguageDirection"/> for tm
+        /// </summary>
+        /// <remarks>
+        /// <param name="tmId">translation memory id</param>
+        /// <param name="languageDirectionId">language direction id</param>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>  <see cref="LanguageDirection"/></returns>
+        Task<LanguageDirection> GetLanguageDirectionForTm(string tmId, string languageDirectionId);
+        #endregion
+
+        #region Translation unit methods
         /// <summary>
         /// Add a custom translation units to a specified TM .
         /// Please make sure the fields values you add corresponds  to the TM
@@ -298,26 +369,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<TranslationUnitDetailsResponse> GetDuplicateTusForTm(string tmId, LanguageParameters language,
             DuplicatesTusRequest duplicatesRequest);
 
-        /// <summary>
-        /// Schedules a recompute statistics operation
-        /// <param name="FuzzyRequest"><see cref="FuzzyRequest"/></param>
-        /// <param name="tmId">Translation memory id</param>
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="FuzzyIndexResponse"/></returns>
-        Task<FuzzyIndexResponse> RecomputeStatistics(string tmId, FuzzyRequest request);
+        #endregion
+   
+        #region Container methods
 
         /// <summary>
-        /// Schedules a reindex operation
-        /// <param name="FuzzyRequest"><see cref="FuzzyRequest"/></param>
-        /// <param name="tmId">Translation memory id</param>
+        ///Returns a list of all available containers
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -327,16 +384,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="FuzzyIndexResponse"/></returns>
-        Task<FuzzyIndexResponse> Reindex(string tmId, FuzzyRequest request);
+        ///<returns><see cref="ContainerResponse"/></returns>
+        Task<ContainerResponse> GetContainers();
 
         /// <summary>
-        /// Exports TUs from a Translation Memory
-        /// <param name="request"><see cref="ExportRequest"/></param>
-        /// <param name="tmId">Translation memory id</param>
-        /// <param name="language"><see cref="LanguageParameters"/></param>
+        ///creates a new container
         /// </summary>
         /// <remarks>
+        /// <param name="request"><see cref="ContainerRequest"/></param>
         /// This method requires authentication.
         /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
         /// </remarks>
@@ -344,16 +399,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="ExportResponse"/></returns>
-        Task<ExportResponse> ExportTm(string tmId, ExportRequest request,LanguageParameters language);
+        ///<returns>Container's Id</returns>
+        Task<string> CreateContainer(ContainerRequest request);
 
         /// <summary>
-        /// Imports TUs into a Translation Memory
-        /// The file should be a TMX type.
-        /// <param name="tmId">Translation memory id</param>
-        /// <param name="language"><see cref="LanguageParameters"/></param>
-        /// <param name="rawFile">byte[] which represents the file</param>
-        /// <param name="fileName">file name</param>
+        ///Returns  specified container
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -363,7 +413,36 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="ImportResponse"/></returns>
-        Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile,string fileName);
+        ///<returns><see cref="Container"/></returns>
+        Task<Container> GetContainerById(string containerId);
+
+        /// <summary>
+        ///Deletes  specified container
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        Task DeleteContainer(string containerId);
+
+        /// <summary>
+        ///Updates  specified container
+        /// </summary>
+        /// <remarks>
+        /// <param name="request"><see cref="UpdateContainerRequest"/></param>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        Task UpdateContainer(string containerId, UpdateContainerRequest request);
+
+        #endregion
     }
 }
