@@ -80,7 +80,7 @@
     <Compile Include="Clients\FilesTest.cs" />
     <Compile Include="Clients\FileVersionsClientTests.cs" />
     <Compile Include="Clients\TranslationMemoryClientLanguageResourceTests.cs" />
-    <Compile Include="Clients\LanguageResourceTemplateClient.cs" />
+    <Compile Include="Clients\TranslationMemoryClientLanguageResourceTemplateTests.cs" />
     <Compile Include="Clients\LicenseClientTests.cs" />
     <Compile Include="Clients\ModuleClientTests.cs" />
     <Compile Include="Clients\OrganizationClientTests.cs" />

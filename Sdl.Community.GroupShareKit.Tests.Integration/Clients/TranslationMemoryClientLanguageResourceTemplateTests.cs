@@ -9,13 +9,13 @@ using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
-    public class LanguageResourceTemplateClient
+    public class TranslationMemoryClientLanguageResourceTemplateTests
     {
         [Fact]
         public async Task GetAllLanguageResourceTemplates()
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            var templatesResponse = await groupShareClient.LanguageResourceTemplate.GetAllLanguageResourceTemplates();
+            var templatesResponse = await groupShareClient.TranslationMemories.GetAllLanguageResourceTemplates();
 
             Assert.True(templatesResponse.Items.Count>0);
         }
@@ -25,7 +25,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetLanguageResourceTemplateById(string templateId)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            var template = await groupShareClient.LanguageResourceTemplate.GetTemplateById(templateId);
+            var template = await groupShareClient.TranslationMemories.GetTemplateById(templateId);
 
             Assert.Equal(template.LanguageResourceTemplateId, templateId);
         }
@@ -41,9 +41,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Description = "updated from kit"
             };
 
-             await groupShareClient.LanguageResourceTemplate.EditTemplate(templateId, request);
+             await groupShareClient.TranslationMemories.EditTemplate(templateId, request);
 
-            var template = await groupShareClient.LanguageResourceTemplate.GetTemplateById(templateId);
+            var template = await groupShareClient.TranslationMemories.GetTemplateById(templateId);
 
             Assert.Equal(template.Name, "UpdatedName");
         }
@@ -80,7 +80,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             };
 
-            var id = await groupShareClient.LanguageResourceTemplate.CreateTemplate(template);
+            var id = await groupShareClient.TranslationMemories.CreateTemplate(template);
 
             Assert.True(id != string.Empty);
         }
@@ -101,9 +101,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 LanguageResources = new List<Resource>()
             };
 
-            var id = await groupShareClient.LanguageResourceTemplate.CreateTemplate(template);
+            var id = await groupShareClient.TranslationMemories.CreateTemplate(template);
 
-            await groupShareClient.LanguageResourceTemplate.DeleteTemplate(id);
+            await groupShareClient.TranslationMemories.DeleteTemplate(id);
         }
     }
 }
