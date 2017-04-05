@@ -222,7 +222,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 }
             };
 
-            var fieldTemplate = await groupShareClient.FieldService.GetFieldTemplateById(fieldTemplateId);
+            var fieldTemplate = await groupShareClient.TranslationMemories.GetFieldTemplateById(fieldTemplateId);
             var tuResponse = await groupShareClient.TranslationMemories.AddAllTranslationUnits(tuRequest, tmId,fieldTemplate);
 
             Assert.True(tuResponse != null);

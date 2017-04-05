@@ -36,10 +36,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.GetAll<Resource>(ApiUrls.LanguageResource(templateId), null);
         }
 
-        //public Task<string> CreateLanguageResourceForTemplate(string templateId, Resource request)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         /// <summary>
         /// Creates a  language resources <see cref="Resource"/> for specified template.

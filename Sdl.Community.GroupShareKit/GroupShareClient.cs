@@ -60,7 +60,6 @@ namespace Sdl.Community.GroupShareKit
             License = new LicenseClient(apiConnection);
             TranslationMemories = new TranslationMemoriesClient(apiConnection);
             TermBase = new TermBasesClient(apiConnection);
-            FieldService = new FieldServiceClient(apiConnection);
             LanguageResourceTemplate = new LanguageResourceTemplateClient(apiConnection);
             LanguageResource = new LanguageResourceClient(apiConnection);
         }
@@ -106,7 +105,6 @@ namespace Sdl.Community.GroupShareKit
         public IPermissionClient Permission { get; set; }
         public ILicense License { get; set; }
         public ITermBases TermBase { get; set; }
-        public IFieldService FieldService { get; set; }
 
         public ILanguageResourceTemplate LanguageResourceTemplate { get; set; }
         public ILanguageResource LanguageResource { get; set; }
