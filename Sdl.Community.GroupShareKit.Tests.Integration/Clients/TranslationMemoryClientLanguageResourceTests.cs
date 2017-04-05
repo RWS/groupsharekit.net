@@ -11,14 +11,14 @@ using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
-    public class LanguageResourceClient
+    public class TranslationMemoryClientLanguageResourceTests
     {
         [Theory]
         [InlineData("b8ca7722-2d0a-4cfb-ae33-a36814aa0efc")]
         public async Task GetLanguageResourcesForTemplate(string templateId)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            var resources = await groupShareClient.LanguageResource.GetLanguageResourcesForTemplate(templateId);
+            var resources = await groupShareClient.TranslationMemories.GetLanguageResourcesForTemplate(templateId);
 
             Assert.True(resources.Count>0);
         }
@@ -37,7 +37,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 CultureName = "sq-al",
                 Data = "test data"
             };
-            var id = await groupShareClient.LanguageResource.CreateLanguageResourceForTemplate(templateId, resource);
+            var id = await groupShareClient.TranslationMemories.CreateLanguageResourceForTemplate(templateId, resource);
 
             Assert.True(id!=string.Empty);
 
@@ -50,7 +50,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetAuthenticatedClient();
             var request = new ResourceServiceDefaultsRequest(ResourceServiceDefaultsRequest.ResourceType.Variables, language);
 
-            var resource = await groupShareClient.LanguageResource.GetDefaultsType(request);
+            var resource = await groupShareClient.TranslationMemories.GetDefaultsType(request);
 
             Assert.True(resource!=null);
 
@@ -62,7 +62,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
             var resource =
-                await groupShareClient.LanguageResource.GetLanguageResourceForTemplate(templateId, languageResourceId);
+                await groupShareClient.TranslationMemories.GetLanguageResourceForTemplate(templateId, languageResourceId);
 
             Assert.True(resource!=null);
         }
@@ -73,15 +73,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
             var resource =
-                await groupShareClient.LanguageResource.GetLanguageResourceForTemplate(templateId, languageResourceId);
+                await groupShareClient.TranslationMemories.GetLanguageResourceForTemplate(templateId, languageResourceId);
             resource.CultureName = "de-de";
 
                 await
-                    groupShareClient.LanguageResource.UpdateLanguageResourceForTemplate(templateId, languageResourceId,
+                    groupShareClient.TranslationMemories.UpdateLanguageResourceForTemplate(templateId, languageResourceId,
                         resource);
 
             var updatedResource = 
-                await groupShareClient.LanguageResource.GetLanguageResourceForTemplate(templateId, languageResourceId);
+                await groupShareClient.TranslationMemories.GetLanguageResourceForTemplate(templateId, languageResourceId);
 
             Assert.Equal(updatedResource.CultureName, "de-de");
         }
@@ -97,7 +97,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\test.txt"));
 
             await
-                groupShareClient.LanguageResource.ImportFileForLanguageResource(templateId, languageResourceId, rawData);
+                groupShareClient.TranslationMemories.ImportFileForLanguageResource(templateId, languageResourceId, rawData);
         }
         [Theory]
         [InlineData("b8ca7722-2d0a-4cfb-ae33-a36814aa0efc", "14eb022b-863c-4d15-bc5e-76b4a813a016")]
@@ -108,7 +108,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
           
 
             var document =await
-                groupShareClient.LanguageResource.ExportFileForLanguageResource(templateId, languageResourceId);
+                groupShareClient.TranslationMemories.ExportFileForLanguageResource(templateId, languageResourceId);
 
             Assert.True(document.Count()!=0);
         }
@@ -117,7 +117,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task ResetToDefaultLanguageResource(string templateId, string languageResourceId)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            await groupShareClient.LanguageResource.ResetToDefaultLanguageResource(templateId, languageResourceId);
+            await groupShareClient.TranslationMemories.ResetToDefaultLanguageResource(templateId, languageResourceId);
 
         }
 
@@ -126,7 +126,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task DeleteLanguageResourceForTemplate(string templateId, string languageResourceId)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            await groupShareClient.LanguageResource.DeleteLanguageResourceForTemplate(templateId, languageResourceId);
+            await groupShareClient.TranslationMemories.DeleteLanguageResourceForTemplate(templateId, languageResourceId);
         }
     }
 }

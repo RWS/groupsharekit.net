@@ -56,7 +56,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var request = new ResourceServiceDefaultsRequest(ResourceServiceDefaultsRequest.ResourceType.Variables,
                 "ro-ro");
 
-            var resource = await groupShareClient.LanguageResource.GetDefaultsType(request);
+            var resource = await groupShareClient.TranslationMemories.GetDefaultsType(request);
             var template = new LanguageResourceTemplate
             {
                 LanguageResourceTemplateId = Guid.NewGuid().ToString(),
