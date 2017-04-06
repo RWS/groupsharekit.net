@@ -59,13 +59,10 @@ namespace Sdl.Community.GroupShareKit.Helpers
             {
                 expression = sourceFieldExpression + "&" + targetFieldExpression;
             }
-
-            if (sourceFieldExpression != string.Empty)
+            else if (sourceFieldExpression != string.Empty)
             {
                 expression = sourceFieldExpression;
-            }
-
-            if (targetFieldExpression != string.Empty)
+            }else if (targetFieldExpression != string.Empty)
             {
                 expression = targetFieldExpression;
             }
@@ -112,8 +109,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
                         Values = null
                     }
                 };
-            }
-            if (!string.IsNullOrEmpty(langage.SourceText))
+            }else if (!string.IsNullOrEmpty(langage.SourceText))
             {
                 restFilterExpression.Expression = expression;
                 restFilterExpression.Fields = new List<RestFilterField>
@@ -125,10 +121,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
                         Values = null
                     }
                 };
-            }
-            
-
-            //Create target expression
+            }else   //Create target expression
             if (!string.IsNullOrEmpty(langage.TargetText))
             {
                 restFilterExpression.Expression = expression;

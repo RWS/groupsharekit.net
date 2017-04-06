@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Models.Response;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
@@ -403,13 +404,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Filter()
         {
             var groupShareClient = await Helper.GetAuthenticatedClient(); 
-                //var languageDetails = new LanguageDetailsRequest("Europäischen", "de-de", "Acord ", "ro-ro");
-                var languageDetails = new LanguageDetailsRequest("", "de-de", "Informare", "ro-ro");
+          //      var languageDetails = new LanguageDetailsRequest("Europäischen", "de-de", "Acord ", "ro-ro");
+              var languageDetails = new LanguageDetailsRequest("", "de-de", "Informare", "ro-ro");
             var tmDetails = new TranslationMemoryDetailsRequest(new Guid("4b45a229-ea3f-4a2f-bce4-04cf5fdc3530"),0,50);
 
-            var filter = await groupShareClient.TranslationMemories.FilterAsPlainText(languageDetails, tmDetails,false,true);
+            var filter = await groupShareClient.TranslationMemories.FilterAsPlainText(languageDetails, tmDetails,true,true);
 
-            Assert.True(filter.Count>0);
+            foreach (var segment in filter)
+            {
+                Assert.True(segment.Target.Contains("Informare"));
+            }
 
         }
     }
