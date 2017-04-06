@@ -542,8 +542,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Alist of <see cref="Models.Response.TranslationMemory.FilterResponse"/> which represent filter data</returns>
-        public async Task<IReadOnlyList<Models.Response.TranslationMemory.FilterResponse>> FilterAsPlainText(
+        /// <returns>Alist of <see cref="FilterResponse"/> which represent filter data</returns>
+        public async Task<IReadOnlyList<FilterResponse>> FilterAsPlainText(
             LanguageDetailsRequest languageRequest, TranslationMemoryDetailsRequest tmRequest, bool caseSensitive,
             bool allowWildCards)
         {
@@ -556,48 +556,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             Ensure.ArgumentNotNull(tmRequest.TmId, "translation memory id");
 
-            var expression = FilterExpression.CreateFilter("AVÂND", false, false, true);
-            var filter = new RestFilterExpression
-            {
-                Expression = expression,
-                Fields = new List<RestFilterField>
-                {
-                    new RestFilterField
-                    {
-                        Name = "trg",
-                        Type = "SingleString",
-                        Values = null
-                    }
-                }
-            };
-            var document = await _client.GetTranslationUnitsAsync(tmRequest.TmId, "de-de", "ro-ro", 0, 50, filter);
+            var expression = FilterExpression.CreateFilter(languageRequest,caseSensitive, allowWildCards);
 
-            var searchResult = new List<FilterResponse>();
-            if (document != null)
-            {
-                foreach (var file in document.Files)
-                {
-                    foreach (var paragraphUnit in file.ParagraphUnits)
-                    {
-                        if (paragraphUnit.IsStructure)
-                            continue;
-                        foreach (var pair in paragraphUnit.SegmentPairs)
-                        {
-                            var sourceText = FilterExpression.ConvertSegmentPair(pair.Source);
-                            var targetText = FilterExpression.ConvertSegmentPair(pair.Target);
-                            var result = new FilterResponse
-                            {
-                                Source = sourceText,
-                                Target = targetText,
-                            };
-                            searchResult.Add(result);
-                        }
+            var restFilterExpression = FilterExpression.GetRestFilterExpression(expression, languageRequest);
+
+            var document =
+                await
+                    _client.GetTranslationUnitsAsync(tmRequest.TmId, languageRequest.SourceLanguageCode,
+                        languageRequest.TargetLanguageCode, tmRequest.StartTuId, tmRequest.Count, restFilterExpression);
 
 
-                    }
-                }
-               
-            }
+            var searchResult = FilterResults.GetFilterResultForDocument(document);
+
             return searchResult;
         }
 

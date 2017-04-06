@@ -91,6 +91,7 @@
     <Compile Include="Clients\UsersRequest.cs" />
     <Compile Include="Helpers\ExpressionFieldValue.cs" />
     <Compile Include="Helpers\FilterExpression.cs" />
+    <Compile Include="Helpers\FilterResults.cs" />
     <Compile Include="Helpers\PlainTextVisitor.cs" />
     <Compile Include="IJsonRequest.cs" />
     <Compile Include="Models\Response\Assignment.cs" />

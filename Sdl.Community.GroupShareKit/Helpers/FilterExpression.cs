@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Sdl.Community.GroupShareKit.Models.Response;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using Sdl.Core.Bcm.BcmModel;
+using Sdl.TmService.Sdk.Model;
 
 namespace Sdl.Community.GroupShareKit.Helpers
 {
@@ -20,7 +22,58 @@ namespace Sdl.Community.GroupShareKit.Helpers
 
         }
 
-        public static string CreateFilter(string searchText, bool isSorceText, bool caseSensitive, bool useWildCards)
+        public static string CreateFilter(LanguageDetailsRequest languageRequest, bool caseSensitive, bool useWildCards)
+        {
+            var sourceFieldExpression=string.Empty;
+            var targetFieldExpression=string.Empty;
+            var expression = string.Empty;
+
+            //Create source expression
+            if (!string.IsNullOrEmpty(languageRequest.SourceText))
+            {
+                var sourceExpr = EscapeCharacters(languageRequest.SourceText, caseSensitive, useWildCards);
+                var sourceFieldValue = new ExpressionFieldValue
+                {
+                    Name = "src",
+                    Operator = "~",
+                    Value = sourceExpr
+                };
+                sourceFieldExpression = sourceFieldValue.ToString();
+            }
+
+            //Create target expression
+            if (!string.IsNullOrEmpty(languageRequest.TargetText))
+            {
+                var targetExpr = EscapeCharacters(languageRequest.TargetText, caseSensitive, useWildCards);
+                var targetFieldValue = new ExpressionFieldValue
+                {
+                    Name = "trg",
+                    Operator = "~",
+                    Value = targetExpr
+                };
+                targetFieldExpression = targetFieldValue.ToString();
+            }
+
+            // combine expressions if we have both source and target
+            if (sourceFieldExpression != string.Empty && targetFieldExpression != string.Empty)
+            {
+                expression = sourceFieldExpression + "&" + targetFieldExpression;
+            }
+
+            if (sourceFieldExpression != string.Empty)
+            {
+                expression = sourceFieldExpression;
+            }
+
+            if (targetFieldExpression != string.Empty)
+            {
+                expression = targetFieldExpression;
+            }
+ 
+            return expression;
+        }
+
+        private static string EscapeCharacters(string searchText, bool caseSensitive, bool useWildCards)
         {
             //escape all special regex characters
             var regexPattern = Regex.Escape(searchText);
@@ -34,18 +87,62 @@ namespace Sdl.Community.GroupShareKit.Helpers
                 //make the entire expression case insensitive
                 regexPattern = "(?i:" + regexPattern + ")";
             }
+           return regexPattern;
+        }
 
+        public static RestFilterExpression GetRestFilterExpression(string expression, LanguageDetailsRequest langage)
+        {
+            var restFilterExpression = new RestFilterExpression();
 
-            var fieldValue = new ExpressionFieldValue
+            if (!string.IsNullOrEmpty(langage.SourceText) && !string.IsNullOrEmpty(langage.TargetText))
             {
-                Name = "trg",
-                Operator = "~",
-                Value = regexPattern
-            };
+                restFilterExpression.Expression = expression;
+                restFilterExpression.Fields = new List<RestFilterField>
+                {
+                    new RestFilterField
+                    {
+                        Name = "src",
+                        Type = "SingleString",
+                        Values = null
+                    },
+                    new RestFilterField
+                    {
+                        Name = "trg",
+                        Type = "SingleString",
+                        Values = null
+                    }
+                };
+            }
+            if (!string.IsNullOrEmpty(langage.SourceText))
+            {
+                restFilterExpression.Expression = expression;
+                restFilterExpression.Fields = new List<RestFilterField>
+                {
+                    new RestFilterField
+                    {
+                        Name = "src",
+                        Type = "SingleString",
+                        Values = null
+                    }
+                };
+            }
+            
 
-            var expression = fieldValue.ToString();
-
-            return expression;
+            //Create target expression
+            if (!string.IsNullOrEmpty(langage.TargetText))
+            {
+                restFilterExpression.Expression = expression;
+                restFilterExpression.Fields = new List<RestFilterField>
+                {
+                    new RestFilterField
+                    {
+                        Name = "trg",
+                        Type = "SingleString",
+                        Values = null
+                    }
+                };
+            }
+            return restFilterExpression;
         }
     }
 }

@@ -402,8 +402,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task Filter()
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
-            var languageDetails = new LanguageDetailsRequest("","de-de", "AVÂND","ro-ro");
+            var groupShareClient = await Helper.GetAuthenticatedClient(); 
+                //var languageDetails = new LanguageDetailsRequest("Europäischen", "de-de", "Acord ", "ro-ro");
+                var languageDetails = new LanguageDetailsRequest("", "de-de", "Informare", "ro-ro");
             var tmDetails = new TranslationMemoryDetailsRequest(new Guid("4b45a229-ea3f-4a2f-bce4-04cf5fdc3530"),0,50);
 
             var filter = await groupShareClient.TranslationMemories.FilterAsPlainText(languageDetails, tmDetails,false,true);
