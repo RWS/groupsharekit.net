@@ -369,7 +369,25 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<TranslationUnitDetailsResponse> GetDuplicateTusForTm(string tmId, LanguageParameters language,
             DuplicatesTusRequest duplicatesRequest);
 
-        #endregion
+        /// <summary>
+        /// Filters translation units, retrives a string maching the expression
+        /// <param name="languageRequest"><see cref="LanguageDetailsRequest"/></param>
+        /// <param name="tmRequest"><see cref="TranslationMemoryDetailsRequest"/></param>
+        /// <param name="allowWildCards"></param>
+        /// <param name="caseSensitive"></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Alist of <see cref="Models.Response.TranslationMemory.FilterResponse"/> which represent filter data</returns>
+        Task<IReadOnlyList<Models.Response.TranslationMemory.FilterResponse>> FilterAsPlainText(LanguageDetailsRequest languageRequest,TranslationMemoryDetailsRequest tmRequest,bool caseSensitive,bool allowWildCards);
+
+            #endregion
    
         #region Container methods
 

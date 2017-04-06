@@ -7,15 +7,22 @@ using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
+using Sdl.Community.GroupShareKit.Models.Response;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using Sdl.TmService.Sdk;
+using Sdl.TmService.Sdk.Model;
+using FilterResponse = Sdl.Community.GroupShareKit.Models.Response.TranslationMemory.FilterResponse;
 
 namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 {
     public class TranslationMemoriesClient: ApiClient,ITranslationMemoriesClient
     {
+        private TmServiceRestClient _client;
         public TranslationMemoriesClient(IApiConnection apiConnection) : base(apiConnection)
         {
+            var userName = ApiConnection.Connection.Credentials.Login;
+            var password = ApiConnection.Connection.Credentials.Password;
+            _client = new TmServiceRestClient(ApiConnection.Connection.BaseAddress, userName, password, ServiceLocation.OnPremise);
         }
 
         #region Translation memory methods
@@ -519,10 +526,85 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                         duplicatesRequest);
 
         }
+
+        /// <summary>
+        /// Filters translation units, retrives a string maching the expression
+        /// <param name="languageRequest"><see cref="LanguageDetailsRequest"/></param>
+        /// <param name="tmRequest"><see cref="TranslationMemoryDetailsRequest"/></param>
+        /// <param name="allowWildCards"></param>
+        /// <param name="caseSensitive"></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Alist of <see cref="Models.Response.TranslationMemory.FilterResponse"/> which represent filter data</returns>
+        public async Task<IReadOnlyList<Models.Response.TranslationMemory.FilterResponse>> FilterAsPlainText(
+            LanguageDetailsRequest languageRequest, TranslationMemoryDetailsRequest tmRequest, bool caseSensitive,
+            bool allowWildCards)
+        {
+            Ensure.ArgumentNotNull(languageRequest, "languageRequest");
+            Ensure.ArgumentNotNull(tmRequest, "translation memory request");
+
+            //language validation
+            Ensure.ArgumentNotNull(languageRequest.SourceLanguageCode, "source language code");
+            Ensure.ArgumentNotNull(languageRequest.TargetLanguageCode, "target language code");
+
+            Ensure.ArgumentNotNull(tmRequest.TmId, "translation memory id");
+
+            var expression = FilterExpression.CreateFilter("AVÂND", false, false, true);
+            var filter = new RestFilterExpression
+            {
+                Expression = expression,
+                Fields = new List<RestFilterField>
+                {
+                    new RestFilterField
+                    {
+                        Name = "trg",
+                        Type = "SingleString",
+                        Values = null
+                    }
+                }
+            };
+            var document = await _client.GetTranslationUnitsAsync(tmRequest.TmId, "de-de", "ro-ro", 0, 50, filter);
+
+            var searchResult = new List<FilterResponse>();
+            if (document != null)
+            {
+                foreach (var file in document.Files)
+                {
+                    foreach (var paragraphUnit in file.ParagraphUnits)
+                    {
+                        if (paragraphUnit.IsStructure)
+                            continue;
+                        foreach (var pair in paragraphUnit.SegmentPairs)
+                        {
+                            var sourceText = FilterExpression.ConvertSegmentPair(pair.Source);
+                            var targetText = FilterExpression.ConvertSegmentPair(pair.Target);
+                            var result = new FilterResponse
+                            {
+                                Source = sourceText,
+                                Target = targetText,
+                            };
+                            searchResult.Add(result);
+                        }
+
+
+                    }
+                }
+               
+            }
+            return searchResult;
+        }
+
         #endregion
 
         #region Container methods
-        private TmServiceRestClient _client;
+       
 
         /// <summary>
         ///Returns a list of all available containers
@@ -576,9 +658,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task<Container> GetContainerById(string containerId)
         {
             Ensure.ArgumentNotNullOrEmptyString(containerId, "container id");
-            //var test = ApiConnection.Connection.Credentials.
-            ////var groupSharePassword = Environment.GetEnvironmentVariable("GROUPSHAREKIT_PASSWORD");
-            //_client = new TmServiceRestClient();
             return await ApiConnection.Get<Container>(ApiUrls.Containers(containerId), null);
         }
 

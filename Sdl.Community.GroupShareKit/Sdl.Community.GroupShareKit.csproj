@@ -89,6 +89,9 @@
     <Compile Include="Clients\TranslationMemory\ITranslationMemoriesClient.cs" />
     <Compile Include="Clients\TranslationMemory\TranslationMemoriesClient.cs" />
     <Compile Include="Clients\UsersRequest.cs" />
+    <Compile Include="Helpers\ExpressionFieldValue.cs" />
+    <Compile Include="Helpers\FilterExpression.cs" />
+    <Compile Include="Helpers\PlainTextVisitor.cs" />
     <Compile Include="IJsonRequest.cs" />
     <Compile Include="Models\Response\Assignment.cs" />
     <Compile Include="Models\Response\Atribute.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="Models\Response\EntryClass.cs" />
     <Compile Include="Models\Response\FileVersion.cs" />
     <Compile Include="Models\Response\Filter.cs" />
+    <Compile Include="Models\Response\LanguageDetailsRequest.cs" />
     <Compile Include="Models\Response\FilterResponse.cs" />
     <Compile Include="Models\Response\Language.cs" />
     <Compile Include="Models\Response\LanguageDirections.cs" />
@@ -197,6 +201,7 @@
     <Compile Include="Models\Response\TranslationMemory\FieldValue.cs" />
     <Compile Include="Models\Response\TranslationMemory\FilterDuplicates.cs" />
     <Compile Include="Models\Response\TranslationMemory\FilterExport.cs" />
+    <Compile Include="Models\Response\TranslationMemory\FilterResponse.cs" />
     <Compile Include="Models\Response\TranslationMemory\FormattingGroup.cs" />
     <Compile Include="Models\Response\TranslationMemory\FuzzyIndexResponse.cs" />
     <Compile Include="Models\Response\TranslationMemory\FuzzyIndexTuningSettings.cs" />
@@ -231,6 +236,7 @@
     <Compile Include="Models\Response\TranslationMemory\TmFile.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationMemory.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationMemoryDetails.cs" />
+    <Compile Include="Models\Response\TranslationMemory\TranslationMemoryDetailsRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationUnitDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationUnitDetailsRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationUnitDetailsResponse.cs" />
