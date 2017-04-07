@@ -571,6 +571,40 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return searchResult;
         }
 
+        /// <summary>
+        /// Filters translation units, retrives a string maching the expression
+        /// <param name="request"><see cref="RawFilterRequest"/></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Alist of <see cref="FilterResponse"/> which represent filter data</returns>
+        public async Task<IReadOnlyList<FilterResponse>> RawFilter(RawFilterRequest request)
+        {
+            Ensure.ArgumentNotNull(request,"filter request");
+            Ensure.ArgumentNotNull(request.TmId,"tm id");
+            Ensure.ArgumentNotNullOrEmptyString(request.SourceLanguageCode, "source language code");
+            Ensure.ArgumentNotNullOrEmptyString(request.TargetLanguageCode, "target language code");
+            Ensure.ArgumentNotNullOrEmptyString(request.Filter.Expression,"filter expression");
+            Ensure.ArgumentNotNull(request.Filter.Fields,"filter fields");
+
+            var customFilterExpressionRequest = FilterExpression.GetCustomRestFilterExpression(request.Filter);
+
+            var document =
+               await
+                   _client.GetTranslationUnitsAsync(request.TmId, request.SourceLanguageCode,
+                       request.TargetLanguageCode, request.StartTuId, request.Count, customFilterExpressionRequest);
+
+            var searchResult = FilterResults.GetFilterResultForDocument(document);
+
+            return searchResult;
+        }
+
         #endregion
 
         #region Container methods

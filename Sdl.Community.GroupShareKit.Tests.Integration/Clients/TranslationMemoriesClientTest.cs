@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Models.Response;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using Xunit;
@@ -414,6 +415,64 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             {
                 Assert.True(segment.Target.Contains("Informare"));
             }
+
+        }
+
+        [Theory]
+        [InlineData("4b45a229-ea3f-4a2f-bce4-04cf5fdc3530", " \"TestField\" = \"andrea\"",
+            "(\"TestField\" = \"andrea\" | \"Second\" = \"Test\")")]
+        public async Task CustomFilterExpression(string tmid, string simpleExpression, string customExpression)
+        {
+            var groupShareClient = await Helper.GetAuthenticatedClient();
+            // simple expression 
+            var filedsList = new List<FieldFilter>
+            {
+                new FieldFilter
+                {
+                    Name = "TestField",
+                    Type = FieldFilter.TypeEnum.SingleString,
+                    Values = null
+                }
+            };
+
+            var filterRequest = new FieldFilterRequest(filedsList, simpleExpression);
+
+            var rawFilterRequest = new RawFilterRequest(new Guid(tmid), "de-de", "ro-ro", 0, 30, filterRequest);
+
+            var responseSimpleExpr = await groupShareClient.TranslationMemories.RawFilter(rawFilterRequest);
+
+            foreach (var item in responseSimpleExpr)
+            {
+                Assert.Equal(item.Target, "TRADUCERE");
+            }
+
+            //custom expression
+            var customFiledsList = new List<FieldFilter>
+            {
+                new FieldFilter
+                {
+                    Name = "TestField",
+                    Type = FieldFilter.TypeEnum.SingleString,
+                    Values = null
+                },
+                new FieldFilter
+                {
+                    Name = "Second",
+                    Type = FieldFilter.TypeEnum.SingleString,
+                    Values = null
+
+                }
+            };
+
+            var customFilterRequest = new FieldFilterRequest(customFiledsList, customExpression);
+
+            var customRawFilterRequest = new RawFilterRequest(new Guid(tmid), "de-de", "ro-ro", 0, 30,
+                customFilterRequest);
+
+            var responseCustomExpr = await groupShareClient.TranslationMemories.RawFilter(customRawFilterRequest);
+
+            Assert.Equal(responseCustomExpr.Count, 2);
+
 
         }
     }

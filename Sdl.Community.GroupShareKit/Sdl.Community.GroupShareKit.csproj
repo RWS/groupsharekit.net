@@ -193,6 +193,8 @@
     <Compile Include="Models\Response\TranslationMemory\ExportRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\ExportResponse.cs" />
     <Compile Include="Models\Response\TranslationMemory\Field.cs" />
+    <Compile Include="Models\Response\TranslationMemory\FieldFilter.cs" />
+    <Compile Include="Models\Response\TranslationMemory\FieldFilterRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\FieldRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\FieldsDuplicate.cs" />
     <Compile Include="Models\Response\TranslationMemory\FieldTemplate.cs" />
@@ -219,6 +221,7 @@
     <Compile Include="Models\Response\TranslationMemory\ParagraphUnitLanguageDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\PlaceholderTagDefinition.cs" />
     <Compile Include="Models\Response\TranslationMemory\Position.cs" />
+    <Compile Include="Models\Response\TranslationMemory\RawFilterRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\RequestDbServer.cs" />
     <Compile Include="Models\Response\TranslationMemory\Resource.cs" />
     <Compile Include="Models\Response\TranslationMemory\LanguageResourceTemplate.cs" />

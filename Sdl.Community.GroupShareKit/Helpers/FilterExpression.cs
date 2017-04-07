@@ -137,5 +137,29 @@ namespace Sdl.Community.GroupShareKit.Helpers
             }
             return restFilterExpression;
         }
+
+
+        public static RestFilterExpression GetCustomRestFilterExpression(FieldFilterRequest filterRequest)
+        {
+            var customField = new List<RestFilterField>();
+
+            foreach (var field in filterRequest.Fields)
+            {
+                var restFilter = new RestFilterField
+                {
+                    Name = field.Name,
+                    Type = "SingleString",
+                    Values = null
+                };
+                customField.Add(restFilter);
+            }
+            var restFilterExpression = new RestFilterExpression
+            {
+                Expression = filterRequest.Expression,
+                Fields = customField
+            };
+            return restFilterExpression;
+
+        }
     }
 }
