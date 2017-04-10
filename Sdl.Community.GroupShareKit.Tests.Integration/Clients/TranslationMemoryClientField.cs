@@ -12,7 +12,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
     public class TranslationMemoryClientField
     {
         [Theory]
-        [InlineData("New Template")]
+        [InlineData("LastTemplate")]
         public async Task CreateFieldTemplate(string templateName)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
