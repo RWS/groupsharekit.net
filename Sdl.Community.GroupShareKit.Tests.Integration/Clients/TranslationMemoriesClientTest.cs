@@ -233,11 +233,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("fc291116-1dae-4cc7-8f94-1da56c211e03")]
+        [InlineData("4b45a229-ea3f-4a2f-bce4-04cf5fdc3530")]
         public async Task GetTusForTm(string tmId)
         {
             var groupShareClient = await Helper.GetAuthenticatedClient();
-            var translationUnitRequest = new TranslationUnitDetailsRequest("ro-ro","en-us",1,9);
+            var translationUnitRequest = new TranslationUnitDetailsRequest("de-de", "ro-ro", 0,50);
 
             var tus = await groupShareClient.TranslationMemories.GetTranslationUnitForTm(tmId, translationUnitRequest);
 

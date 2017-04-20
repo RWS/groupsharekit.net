@@ -21,7 +21,7 @@ namespace Sdl.Community.GroupShareKit.Authentication
         {
             Ensure.ArgumentNotNull(request, "request");
             Ensure.ArgumentNotNull(credentials, "credentials");
-            Ensure.ArgumentNotNull(credentials.Password, "credentials.Password");
+            Ensure.ArgumentNotNull(credentials.Token, "credentials.Token");
 
             var token = credentials.GetToken();
 

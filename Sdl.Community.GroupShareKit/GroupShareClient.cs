@@ -71,21 +71,28 @@ namespace Sdl.Community.GroupShareKit
         /// <param name="baseAddress">The address to point this client to.</param>
         /// <param name="scopes">The token scope(s).</param>
         /// <returns></returns>
-        public static async Task<GroupShareClient> AuthenticateClient(string user, string password, Uri baseAddress, IEnumerable<string> scopes)
+
+        public static async Task<string> GetRequestToken(string user, string password, Uri baseAddress,
+            IEnumerable<string> scopes)
         {
-            var credentials = new Credentials(user,password);
+            var credentials = new Credentials(user, password);
 
             var inMemoryCredentials = new InMemoryCredentialStore(credentials);
 
             var tokenGroupShareClient = new GroupShareClient(inMemoryCredentials, baseAddress);
 
             var authorization = await tokenGroupShareClient.Authenticate.Post(scopes);
+            return authorization.Token;
+        }
 
-            credentials = new Credentials(authorization.Token,user,password);
+        public static async Task<GroupShareClient> AuthenticateClient(string token,string user, string password, Uri baseAddress,
+            IEnumerable<string> scopes)
+        {
+            var credentials = new Credentials(token, user, password);
 
-            inMemoryCredentials = new InMemoryCredentialStore(credentials);
+            var inMemoryCredentials = new InMemoryCredentialStore(credentials);
 
-            var groupShareClient = new GroupShareClient(inMemoryCredentials,baseAddress);
+            var groupShareClient = new GroupShareClient(inMemoryCredentials, baseAddress);
 
             return groupShareClient;
         }

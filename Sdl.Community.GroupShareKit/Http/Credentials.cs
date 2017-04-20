@@ -5,17 +5,19 @@ namespace Sdl.Community.GroupShareKit.Http
 {
     public class Credentials
     {
-
+  
         public Credentials(string token,string login,string password)
         {
             Ensure.ArgumentNotNullOrEmptyString(token, "token");
+            Ensure.ArgumentNotNullOrEmptyString(login, "login");
+            Ensure.ArgumentNotNullOrEmptyString(password, "password");
 
             Login = login;
             Password = password;
             Token = token;
             AuthenticationType = AuthenticationType.Oauth;
         }
-        public Credentials(string login, string password)
+        internal Credentials(string login, string password)
         {
             Ensure.ArgumentNotNullOrEmptyString(login, "login");
             Ensure.ArgumentNotNullOrEmptyString(password, "password");

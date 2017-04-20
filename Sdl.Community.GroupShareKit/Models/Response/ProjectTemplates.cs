@@ -8,7 +8,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class ProjectTemplates
     {
-
+        public string  Id { get; set; }
         /// <summary>
         /// Gets or sets the template name
         /// </summary>
