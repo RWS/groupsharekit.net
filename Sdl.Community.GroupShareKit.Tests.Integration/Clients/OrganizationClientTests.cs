@@ -13,7 +13,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetOrganizations()
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
 
             var response = await groupShareClient.Organization.GetAll(new OrganizationRequest(false));
 
@@ -24,7 +24,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("5bdb10b8-e3a9-41ae-9e66-c154347b8d17")]
         public async Task GetOrganizationById(string organizationId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
 
         
 
@@ -38,7 +38,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task Update( string organizationId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
 
             var organization = await groupShareClient.Organization.Get(organizationId);
 
@@ -53,7 +53,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task Create()
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
              var organization = new Organization()
              {
                  UniqueId = Guid.NewGuid(),
@@ -79,7 +79,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("5bdb10b8-e3a9-41ae-9e66-c154347b8d17")]
         public async Task GetOrganizationResources(string organizationId)
         {
-            var grClient = await Helper.GetAuthenticatedClient();
+            var grClient = await Helper.GetGroupShareClient();
             var orgResources = await grClient.Organization.GetAllOrganizationResources(organizationId);
 
             Assert.True(orgResources.Count > 0);
@@ -89,7 +89,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("10356fd8-a087-4676-a320-d72c8f1fa0bd")]
         public async Task MoveResourceToOrganization(string organizartionId)
         {
-            var grClient = await Helper.GetAuthenticatedClient();
+            var grClient = await Helper.GetGroupShareClient();
             var resourceRequest =
                 new OrganizationResourcesRequest(new List<string>() { "bb9c7d71-a7b5-46ba-9f42-47ffd41b80f7" },
                     organizartionId);
@@ -105,7 +105,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("10356fd8-a087-4676-a320-d72c8f1fa0bd")]
         public async Task LinkResourceToOrganization(string organizationId)
         {
-            var grClient = await Helper.GetAuthenticatedClient();
+            var grClient = await Helper.GetGroupShareClient();
             var resourceRequest =
                 new OrganizationResourcesRequest(new List<string>() { "78df3807-06ac-438e-b2c8-5e233df1a6a2", "388d8bd2-f47d-4051-a951-95225f73dfe8" },
                     organizationId);

@@ -15,7 +15,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetAllProjectsTemplates()
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var templates = await groupShareClient.ProjectsTemplates.GetAllTemplates();
 
             Assert.True(templates.Count>0);
@@ -25,9 +25,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
        [InlineData("7bf6410d-58a7-4817-a559-7aa8a3a99aa9")]
        public async Task<string> GetTemplateById(string templateId)
        {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
 
-           var template = await groupShareClient.ProjectsTemplates.GetTemplateById(templateId);
+            var template = await groupShareClient.ProjectsTemplates.GetTemplateById(templateId);
 
             Assert.True(template!=string.Empty);
            return template;
@@ -36,7 +36,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
        public async Task CreateTemplate()
        {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
 
             var rawData =
                File.ReadAllBytes(@"C:\Users\aghisa\Documents\Studio 2017\Project Templates\SampleTemplate.sdltpl");

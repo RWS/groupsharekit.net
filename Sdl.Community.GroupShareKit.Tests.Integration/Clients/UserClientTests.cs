@@ -14,7 +14,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetAllUsers()
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
 
             var userRequest = new UsersRequest(1,2,7);
 
@@ -27,7 +27,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("rcrisan")]
         public async Task GetUser(string userName)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var response = await groupShareClient.User.Get(new UserRequest(userName));
 
             Assert.True(response.Name.Equals(userName));
@@ -37,7 +37,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("83551d37-2568-4bc6-9342-2fce68ed6b0a")]
         public async Task GetUserById(string userId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
 
             var user = await groupShareClient.User.GetUserById(userId);
 
@@ -48,7 +48,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("aghisa")]
         public async Task Update(string userName)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var response = await groupShareClient.User.Get(new UserRequest(userName));
 
             response.Description = "Description";
@@ -66,7 +66,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("testuser", "de-DE")]
         public async Task UpdateUserLanguageDirections(string userName, string locale)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var expected = await groupShareClient.User.Get(new UserRequest(userName));
 
             expected.Locale = locale;
@@ -80,7 +80,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task Create()
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var uniqueId = Guid.NewGuid().ToString();
 
             var newUser = new CreateUserRequest

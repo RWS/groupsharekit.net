@@ -13,17 +13,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
        [Fact]
        public async Task GetContainers()
        {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
 
-           var response = await groupShareClient.TranslationMemories.GetContainers();
+            var response = await groupShareClient.TranslationMemories.GetContainers();
             Assert.True(response.Items.Count>0);
        }
 
        [Fact]
        public async Task CreateContainer()
        {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
-           var request = new ContainerRequest
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var request = new ContainerRequest
            {
                OwnerId = "10356fd8-a087-4676-a320-d72c8f1fa0bd",
                Location = "/SDL Community Developers/Project Resources",
@@ -44,8 +44,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
        [InlineData("bb9c7d71-a7b5-46ba-9f42-47ffd41b80f7")]
        public async Task GetContainerById(string containerId)
        {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
-           var container = await groupShareClient.TranslationMemories.GetContainerById(containerId);
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var container = await groupShareClient.TranslationMemories.GetContainerById(containerId);
 
             Assert.Equal(container.ContainerId,containerId);
        }
@@ -53,7 +53,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
        [Fact]
        public async Task DeleteContainer()
        {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var request = new ContainerRequest
             {
                 OwnerId = "10356fd8-a087-4676-a320-d72c8f1fa0bd",
@@ -74,7 +74,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
        public async Task UpdateContainer()
        {
             //Creates a new container
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var request = new ContainerRequest
             {
                 OwnerId = "10356fd8-a087-4676-a320-d72c8f1fa0bd",

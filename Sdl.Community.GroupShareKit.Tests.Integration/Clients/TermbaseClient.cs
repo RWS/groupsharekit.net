@@ -15,7 +15,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetTermbases()
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var termbases = await groupShareClient.TermBase.GetTermbases();
 
             Assert.True(termbases.TotalCount>0);
@@ -25,7 +25,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("TestFromMultiterm")]
         public async Task GetTermbaseById(string termbaseId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var termbase = await groupShareClient.TermBase.GetTermbaseById(termbaseId);
 
             Assert.Equal(termbase.Termbase.Id, termbaseId);
@@ -36,7 +36,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("TestFromMultiterm")]
         public async Task GetFilters(string termbaseId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var filters = await groupShareClient.TermBase.GetFilters(termbaseId);
 
             Assert.True(filters!=null);
@@ -47,7 +47,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("testTB","window", "English", "German")]
         public async Task SearchTerm(string termbaseId,string query, string sourceLanguageId, string targetLanguageId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var request = new SearchTermRequest(termbaseId,sourceLanguageId,query,targetLanguageId);
 
             var searchedResponse = await groupShareClient.TermBase.SearchTerm(request);
@@ -59,7 +59,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("testTB", "1")]
         public async Task GetConcept(string termbaseId, string conceptId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var conceptRequest = new ConceptResponse(termbaseId,conceptId);
 
             var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
@@ -74,7 +74,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("testTB", "2")]
         public async Task UpdateConcept(string termbaseId, string conceptId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
 
             var conceptRequest = new ConceptResponse(termbaseId, conceptId);
             var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
@@ -91,7 +91,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("testTB", "3")]
         public async Task DeleteConcept(string termbaseId, string conceptId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             await groupShareClient.TermBase.DeleteConcept(termbaseId, conceptId);
         }
 
@@ -99,7 +99,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("testTB","entry")]
         public async Task CreateConcept(string termbaseId,string entryName)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var termBase = await groupShareClient.TermBase.GetTermbaseById(termbaseId);
             var conceptRequest = new ConceptRequest
             {
@@ -201,7 +201,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("testTB", "customClassId", "2")]
         public async Task CreateConceptCustomClassId(string termbaseId, string entryName, string customClassId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var conceptRequest = new ConceptRequest
             {
                 Attributes = null,

@@ -13,7 +13,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetDbServers()
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
 
             var response = await groupShareClient.TranslationMemories.GetDbServers();
 
@@ -23,7 +23,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task CreateDbServer()
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var dbServerRequest = new DatabaseServerRequest
             {
                 DatabaseServerId = Guid.NewGuid().ToString(),
@@ -47,7 +47,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("3749eee2-a488-46c0-a504-e679aab22604")]
         public async Task GetDbServer(string serverId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
 
             var server = await groupShareClient.TranslationMemories.GetDbServerById(serverId);
 
@@ -57,7 +57,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
        [Fact]
         public async Task UpdateDbServer()
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
 
             var dbServerRequest = new DatabaseServerRequest
             {
@@ -88,7 +88,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task DeleteDbServer()
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var dbServerRequest = new DatabaseServerRequest
             {
                 DatabaseServerId = Guid.NewGuid().ToString(),

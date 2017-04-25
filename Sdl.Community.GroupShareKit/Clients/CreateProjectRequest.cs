@@ -18,7 +18,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the raw data.
+        /// Gets or sets the raw data (a zip file which contains all the files).
         /// </summary>
         /// <value>
         /// The raw data.

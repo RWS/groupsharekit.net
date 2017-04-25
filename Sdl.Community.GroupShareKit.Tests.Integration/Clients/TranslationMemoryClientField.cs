@@ -15,7 +15,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("LastTemplate")]
         public async Task CreateFieldTemplate(string templateName)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var fieldTemplate = new FieldTemplate
             {
                 Name = templateName,
@@ -35,7 +35,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetFieldTemplates()
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var fieldTemplates = await groupShareClient.TranslationMemories.GetFieldTemplates();
 
             Assert.True(fieldTemplates.Items.Count>0);
@@ -45,7 +45,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("3d24c52b-4d3e-447e-a44d-42174f269526")]
         public async Task  GetFieldTemplateById(string templateId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
 
             var template = await groupShareClient.TranslationMemories.GetFieldTemplateById(templateId);
             Assert.Equal(template.Name, "Ro Copy");
@@ -56,7 +56,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("253988f6-0bd3-4aaa-85f6-5e99e8e32a8f")]
         public async Task UpdateFieldTemplate(string fieldTemplateId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var fieldRequest = new FieldTemplateRequest
             {
                 Name = "Updated name"
@@ -70,7 +70,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task DeleteFieldTemplate()
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var fieldTemplate = new FieldTemplate
             {
                 Name = "Template to be deleted",
@@ -91,7 +91,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("253988f6-0bd3-4aaa-85f6-5e99e8e32a8f")]
         public async Task AddOperations(string templateId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var request = new FieldTemplatePatchRequest
             {
                 Operations = new List<Operation>
@@ -113,7 +113,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("ec6acfc3-e166-486f-9823-3220499dc95b")]
         public async Task GetFieldsForTemplate(string fieldTemplateId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var fields = await groupShareClient.TranslationMemories.GetFieldsForTemplate(fieldTemplateId);
 
             Assert.True(fields.Count>0);
@@ -123,7 +123,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("ec6acfc3-e166-486f-9823-3220499dc95b", "b31c9cb5-bef4-4f0b-b4da-92f5bd06ec48")]
         public async Task GetFieldForTemplate(string fieldTemplateId,string fieldId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var field = await groupShareClient.TranslationMemories.GetFieldForTemplate(fieldTemplateId, fieldId);
 
             Assert.Equal(field.FieldId,fieldId);
@@ -133,7 +133,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("ec6acfc3-e166-486f-9823-3220499dc95b", "b31c9cb5-bef4-4f0b-b4da-92f5bd06ec48")]
         public async Task UpdateFieldForTemplate(string fieldTemplateId, string fieldId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var field = await groupShareClient.TranslationMemories.GetFieldForTemplate(fieldTemplateId, fieldId);
             field.Name = "Updated name";
             await groupShareClient.TranslationMemories.UpdateFieldForTemplate(fieldTemplateId, fieldId, field);
@@ -142,7 +142,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("3244d091-7ce3-4ada-99db-7682cce6f0ff", "another field")]
         public async Task CreateFieldForTemplate(string fieldTemplateId,string fieldName)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var field = new FieldRequest
             {
                 FieldId = Guid.NewGuid().ToString(),
@@ -160,7 +160,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("253988f6-0bd3-4aaa-85f6-5e99e8e32a8f", "Name")]
         public async Task DeleteFieldForTemplate(string fieldTemplateId, string fieldName)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var field = new FieldRequest
             {
                 FieldId = Guid.NewGuid().ToString(),

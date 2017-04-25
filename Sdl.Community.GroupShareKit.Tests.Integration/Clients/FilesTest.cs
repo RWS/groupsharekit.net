@@ -14,7 +14,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("6472c9e1-b082-4af9-9d1a-361609141974")]
         public async Task GetProjectFiles(string projectId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
 
 
             var projectFiles = await groupShareClient.Project.GetAllFilesForProject(projectId);

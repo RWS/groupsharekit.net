@@ -14,7 +14,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetAllRoles()
         {
 
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var response = await groupShareClient.Role.GetAllRoles();
 
             Assert.True(response.Count>0);
@@ -24,7 +24,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("793f3f38-3899-49e5-b793-99a53cd1d24d")]
         public async Task GetRole(string roleId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
 
 
             var response = await groupShareClient.Role.GetRole(roleId);
@@ -37,7 +37,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //[Fact]
         //public async Task RoleMembership()
         //{
-        //    var groupShareClient = await Helper.GetAuthenticatedClient();
+        //    var groupShareClient = await Helper.GetGroupShareClient();
 
         //    var newRoleMembership = new List<Role>
         //    {
@@ -75,7 +75,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task CreateRole()
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
 
             var roleId =
                 await
@@ -99,7 +99,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("793f3f38-3899-49e5-b793-99a53cd1d24d")]
         public async Task GetUsersForSpecificRole(string roleId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var users = await groupShareClient.Role.GetUsersForRole(roleId);
 
             Assert.True(users.Count!=0);
@@ -109,7 +109,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("b05db681-2871-4cb4-9789-61a5e9d0cfb4")]
         public async Task AddUsersToRole(string roleId)
         {
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var roleList = new List<Role>
             {
                 new Role
@@ -133,7 +133,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task RemoveUsersFromRole(string roleId)
         {
 
-            var groupShareClient = await Helper.GetAuthenticatedClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
             var roleList = new List<Role>
             {
                 new Role

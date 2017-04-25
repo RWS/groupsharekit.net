@@ -10,7 +10,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //[Fact]
         //public async Task GetAndCheckAuthorizationToken()
         //{
-        //    var groupShareClient = await Helper.GetAuthenticatedClient();
+        //    var groupShareClient = await Helper.GetGroupShareClient();
 
         //    Assert.True(groupShareClient.Credentials.AuthenticationType == AuthenticationType.Oauth);
 
