@@ -10,6 +10,6 @@ namespace Sdl.Community.GroupShareKit.Models.Response
     {
         public Language Language { get; set; }
         public List<TermbaseTerms> Terms { get; set; }
-        public Attributes Attributes { get; set; }
+        public List<Attributes> Attributes { get; set; }
     }
 }

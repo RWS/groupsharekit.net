@@ -56,7 +56,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("testTB", "1")]
+        [InlineData("testTB", "4")]
         public async Task GetConcept(string termbaseId, string conceptId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
