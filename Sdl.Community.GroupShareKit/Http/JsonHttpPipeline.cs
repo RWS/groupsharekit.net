@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Sdl.Community.GroupShareKit.Helpers;
 using static System.String;
 
@@ -35,7 +37,7 @@ namespace Sdl.Community.GroupShareKit.Http
             if (request.Method == HttpMethod.Get || request.Body == null) return;
             if (request.Body is string || request.Body is Stream || request.Body is HttpContent) return;
 
-            request.Body = _serializer.Serialize(request.Body);
+             request.Body=_serializer.Serialize(request.Body);
         }
 
         public IApiResponse<T> DeserializeResponse<T>(IResponse response)

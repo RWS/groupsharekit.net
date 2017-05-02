@@ -10,7 +10,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
     {
         public string  Id { get; set; }
         public Entry EntryClass { get; set; }
-        public  List<Attributes> Attributes { get; set; }
+        public  List<Attribute> Attributes { get; set; }
         public List<TermbaseLanguages> Languages { get; set; }
         public List<Transactions> Transactions { get; set; }
 

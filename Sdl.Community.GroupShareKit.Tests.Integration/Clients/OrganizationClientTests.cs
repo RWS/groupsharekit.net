@@ -36,18 +36,18 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
 
         [Fact]
-        public async Task Update( string organizationId)
+        public async Task Update()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
 
-            var organization = await groupShareClient.Organization.Get(organizationId);
+            var organization = await groupShareClient.Organization.Get("cf1caadd-9e85-4f24-863e-235756a33b44");
 
-            organization.Name = "Updated Name";
+            organization.Name = "Name";
  
             var updatedOrgId=await groupShareClient.Organization.Update(organization);
             var updatedOrganization = await groupShareClient.Organization.Get(updatedOrgId);
 
-             Assert.Equal(updatedOrganization.Name, "Updated Name");
+             Assert.Equal(updatedOrganization.Name, "Name");
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
              var organization = new Organization()
              {
                  UniqueId = Guid.NewGuid(),
-                 Name = "Test organization",
+                 Name = "CreatedOrganization",
                  IsLibrary = true,
                  Description = null,
                  Path = null,
@@ -70,9 +70,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(organizationId != string.Empty);
 
-            await Update(organizationId);
+            //await Update(organizationId);
 
-            await groupShareClient.Organization.DeleteOrganization(organizationId);
+            //await groupShareClient.Organization.DeleteOrganization(organizationId);
         }
 
         [Theory]
@@ -118,7 +118,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await grClient.Organization.UnlinkResourceToOrganization(resourceRequest);
 
             var resources = await grClient.Organization.GetAllOrganizationResources(organizationId);
-            Assert.Equal(resources.Count, 0);
+            Assert.Equal(resources.Count, organizationResources.Count-2);
         }
 
     }

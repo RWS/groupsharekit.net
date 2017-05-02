@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Models.Response;
 using Xunit;
+using Attribute = Sdl.Community.GroupShareKit.Models.Response.Attribute;
 using ConceptResponse = Sdl.Community.GroupShareKit.Clients.ConceptResponse;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
@@ -18,7 +19,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var termbases = await groupShareClient.TermBase.GetTermbases();
 
-            Assert.True(termbases.TotalCount>0);
+            Assert.True(termbases.TotalCount > 0);
         }
 
         [Theory]
@@ -29,7 +30,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var termbase = await groupShareClient.TermBase.GetTermbaseById(termbaseId);
 
             Assert.Equal(termbase.Termbase.Id, termbaseId);
-            Assert.Equal(termbase.Termbase.Name,termbaseId);
+            Assert.Equal(termbase.Termbase.Name, termbaseId);
         }
 
         [Theory]
@@ -39,16 +40,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var filters = await groupShareClient.TermBase.GetFilters(termbaseId);
 
-            Assert.True(filters!=null);
+            Assert.True(filters != null);
 
         }
 
         [Theory]
-        [InlineData("testTB","window", "English", "German")]
-        public async Task SearchTerm(string termbaseId,string query, string sourceLanguageId, string targetLanguageId)
+        [InlineData("testTB", "window", "English", "German")]
+        public async Task SearchTerm(string termbaseId, string query, string sourceLanguageId, string targetLanguageId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var request = new SearchTermRequest(termbaseId,sourceLanguageId,query,targetLanguageId);
+            var request = new SearchTermRequest(termbaseId, sourceLanguageId, query, targetLanguageId);
 
             var searchedResponse = await groupShareClient.TermBase.SearchTerm(request);
             var searchedWord = searchedResponse.Terms.FirstOrDefault(s => s.TermText == query);
@@ -56,35 +57,160 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("testTB", "4")]
+        [InlineData("testTB", "16")]
         public async Task GetConcept(string termbaseId, string conceptId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var conceptRequest = new ConceptResponse(termbaseId,conceptId);
+            var conceptRequest = new ConceptResponse(termbaseId, conceptId);
 
             var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
-            Assert.Equal(conceptResponse.Concept.Id,conceptId);
+            Assert.Equal(conceptResponse.Concept.Id, conceptId);
 
-            var conceptResponse1 = await groupShareClient.TermBase.GetConcept(termbaseId,conceptId);
+            var conceptResponse1 = await groupShareClient.TermBase.GetConcept(termbaseId, conceptId);
             Assert.Equal(conceptResponse1.Concept.Id, conceptId);
 
         }
 
         [Theory]
-        [InlineData("testTB", "2")]
+        [InlineData("testTB", "15")]
         public async Task UpdateConcept(string termbaseId, string conceptId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
 
             var conceptRequest = new ConceptResponse(termbaseId, conceptId);
             var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
-            conceptResponse.Concept.Languages[0].Terms[0].Text = "Updated Term From kit2";
+            conceptResponse.Concept.Languages[0].Terms[0].Text = "updated";
 
             var updatedResponse = await groupShareClient.TermBase.EditConcept(termbaseId, conceptResponse);
 
             var updatedText = updatedResponse.Concept.Languages[0].Terms[0].Text;
 
-            Assert.Equal(updatedText, "Updated Term From kit2");
+            Assert.Equal(updatedText, "updated");
+        }
+
+        [Theory]
+        [InlineData("testTB", "13")]
+        public async Task UpdateConceptWithCustomFields(string termbaseId, string conceptId)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+
+            var conceptRequest = new ConceptResponse(termbaseId, conceptId);
+            var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
+            conceptResponse.Concept.Languages[0].Terms[0].Text = "Updated Term From kit with custm fields";
+
+            var updatedResponse = await groupShareClient.TermBase.EditConcept(termbaseId, conceptResponse);
+
+            var updatedText = updatedResponse.Concept.Languages[0].Terms[0].Text;
+
+            Assert.Equal(updatedText, "Updated Term From kit with custm fields");
+        }
+        [Theory]
+        [InlineData("testTB", "13")]
+        public async Task AddCustomFieldForTerm(string termbaseId, string conceptId)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var conceptRequest = new ConceptResponse(termbaseId, conceptId);
+
+            var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
+            var attributes = new List<Attribute>();
+            var attribute = new Attribute
+            {
+               
+                Name = "Note",
+                Delete = "false",
+                Value = new List<Types>
+                {
+                    new Types
+                    {
+                        Value = "field from kit",
+                        Type = "Text"
+                    }
+                }
+            };
+            attributes.Add(attribute);
+            conceptResponse.Concept.Languages[0].Terms[0].Attributes.AddRange(attributes);
+            //conceptResponse.Concept.Languages[0].Terms[0].Transactions.Add(new Transactions
+            //{
+            //    DateTime = DateTime.Now,
+            //    Details = new TransactionsDetails
+            //    {
+            //        Type = "modified",
+            //        User = "sdlcommunity"
+            //    }
+            //});
+            var updatedResponse = await groupShareClient.TermBase.EditConcept(termbaseId, conceptResponse);
+        }
+
+        [Theory]
+        [InlineData("testTB", "15")]
+        public async Task AddTermForConceptWithoutCustomFields(string termbaseId, string conceptId)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+
+            var conceptRequest = new ConceptResponse(termbaseId, conceptId);
+            var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
+            var newTerm = new TermbaseTerms
+            {
+                Attributes = null,
+
+                Transactions = new List<Transactions>
+                {
+                    new Transactions
+                    {
+                        DateTime = DateTime.Now,
+                        Id = null,
+                        Username = "",
+                        Details = new TransactionsDetails
+                        {
+                            User = "",
+                            Type = "Create"
+                        }
+
+                    }
+                },
+                Text = "gsKit2"
+            };
+            //var language = conceptResponse.Concept.Languages.Where(i => i.Language.Code == "EN");
+
+            conceptResponse.Concept.Languages[0].Terms.Add(newTerm);
+
+            var updatedResponse = await groupShareClient.TermBase.EditConcept(termbaseId, conceptResponse);
+        }
+
+        [Theory]
+        [InlineData("testTB", "13")]
+        public async Task AddTermForConceptWithCustomFields(string termbaseId, string conceptId)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+
+            var conceptRequest = new ConceptResponse(termbaseId, conceptId);
+            var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
+            var newTerm = new TermbaseTerms
+            {
+                Attributes = null,
+
+                Transactions = new List<Transactions>
+                {
+                    new Transactions
+                    {
+                        DateTime = DateTime.Now,
+                        Id = null,
+                        Username = "",
+                        Details = new TransactionsDetails
+                        {
+                            User = "",
+                            Type = "Create"
+                        }
+
+                    }
+                },
+                Text = "Added term with custom fields"
+            };
+            //var language = conceptResponse.Concept.Languages.Where(i => i.Language.Code == "EN");
+
+            conceptResponse.Concept.Languages[0].Terms.Add(newTerm);
+
+            var updatedResponse = await groupShareClient.TermBase.EditConcept(termbaseId, conceptResponse);
         }
 
         [Theory]
@@ -299,6 +425,20 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                         conceptRequest);
 
             Assert.True(conceptResponse.Concept.Id != string.Empty);
+        }
+
+        [Theory]
+        [InlineData("testTB", "18")]
+        public async Task UpdateNewCreatedConcept(string termbaseId, string conceptId)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+
+            var conceptRequest = new ConceptResponse(termbaseId, conceptId);
+            var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
+
+            conceptResponse.Concept.Languages[0].Terms[0].Text = "json";
+
+            var updatedResponse = await groupShareClient.TermBase.EditConcept(termbaseId, conceptResponse);
         }
 
 

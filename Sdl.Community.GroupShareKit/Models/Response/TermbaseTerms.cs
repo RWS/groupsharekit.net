@@ -11,7 +11,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// <summary>
         /// Gets or sets attributes
         /// </summary>
-        public List<Attributes> Attributes { get; set; }
+        public List<Attribute> Attributes { get; set; }
         /// <summary>
         /// Gets or sets term base entry text
         /// </summary>

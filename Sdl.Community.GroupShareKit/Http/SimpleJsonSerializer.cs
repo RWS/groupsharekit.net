@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Sdl.Community.GroupShareKit.Http
 {
@@ -9,7 +10,9 @@ namespace Sdl.Community.GroupShareKit.Http
 
         public string Serialize(object item)
         {
-            return JsonConvert.SerializeObject(item);
+            
+            return JsonConvert.SerializeObject(item,Formatting.Indented,
+                new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
         }
 
         public T Deserialize<T>(string json)

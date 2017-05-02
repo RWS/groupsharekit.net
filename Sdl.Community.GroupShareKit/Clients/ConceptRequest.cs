@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Models.Response;
+using Attribute = Sdl.Community.GroupShareKit.Models.Response.Attribute;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
@@ -11,6 +12,6 @@ namespace Sdl.Community.GroupShareKit.Clients
     {
         public List<TermbaseLanguages> Languages { get; set; }
         public List<Transactions> Transactions { get; set; }
-        public List<Attributes> Attributes { get; set; }
+        public List<Attribute> Attributes { get; set; }
     }
 }

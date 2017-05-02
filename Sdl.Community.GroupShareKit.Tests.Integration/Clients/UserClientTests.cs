@@ -51,14 +51,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var response = await groupShareClient.User.Get(new UserRequest(userName));
 
-            response.Description = "Description";
+            response.Description = "Updated Description";
 
             var user = await groupShareClient.User.Update(response);
 
             Assert.True(user != string.Empty);
 
             var userUpdated = await groupShareClient.User.Get(new UserRequest(userName));
-            Assert.Equal(userUpdated.Description, "Description");
+            Assert.Equal(userUpdated.Description, "Updated Description");
 
         }
 
