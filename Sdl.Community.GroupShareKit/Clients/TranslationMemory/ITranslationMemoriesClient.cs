@@ -389,6 +389,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
         /// <summary>
         /// Filters translation units, retrives a string maching the expression
+        /// For source and target language language code is required
+        /// For example : German (Germany) - de-de , English (United States) - en-us
         /// <param name="request"><see cref="RawFilterRequest"/></param>
         /// </summary>
         /// <remarks>

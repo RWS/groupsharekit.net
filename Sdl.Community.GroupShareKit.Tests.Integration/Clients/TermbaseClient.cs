@@ -45,15 +45,26 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("testTB", "window", "English", "German")]
-        public async Task SearchTerm(string termbaseId, string query, string sourceLanguageId, string targetLanguageId)
+        [InlineData("testTB", "ttt", "German")]
+        public async Task SearchTerm(string termbaseId, string query, string language)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var request = new SearchTermRequest(termbaseId, sourceLanguageId, query, targetLanguageId);
+            var request = new SearchTermRequest(termbaseId, language, query);
 
             var searchedResponse = await groupShareClient.TermBase.SearchTerm(request);
             var searchedWord = searchedResponse.Terms.FirstOrDefault(s => s.TermText == query);
             Assert.True(searchedWord != null);
+        }
+        [Theory]
+        [InlineData("testTB", "window", "German")]
+        public async Task SearrchNotFoundTerm(string termbaseId, string query, string language)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var request = new SearchTermRequest(termbaseId, language, query);
+
+            var searchedResponse = await groupShareClient.TermBase.SearchTerm(request);
+
+            Assert.Equal(searchedResponse.Terms.Count,0);
         }
 
         [Theory]

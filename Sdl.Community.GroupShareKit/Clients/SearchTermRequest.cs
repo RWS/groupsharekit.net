@@ -40,14 +40,13 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         public SearchTermRequest(string termbaseId, string srcLang, string query, string trgLang, string pageSize,
             string from
-            , string filterId):this(termbaseId,srcLang,query,trgLang)
+            , string filterId):this(termbaseId,srcLang,trgLang,query)
         {
             PageSize = pageSize;
             From = from;
             FilterId = filterId;
         }
-
-        public SearchTermRequest(string termbaseId, string srcLang, string query, string trgLang)
+        public SearchTermRequest(string termbaseId, string srcLang, string trgLang, string query)
         {
 
             Tid = termbaseId;
@@ -55,5 +54,15 @@ namespace Sdl.Community.GroupShareKit.Clients
             Query = query;
             TrgLangId = trgLang;
         }
+
+        public SearchTermRequest(string termbaseId, string language, string query)
+        {
+
+            Tid = termbaseId;
+            SrcLangId = language;
+            Query = query;
+        }
+
+      
     }
 }
