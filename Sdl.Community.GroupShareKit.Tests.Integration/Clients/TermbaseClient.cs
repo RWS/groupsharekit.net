@@ -83,11 +83,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("testTB", "15")]
-        public async Task UpdateConcept(string termbaseId, string conceptId)
+        [InlineData("testTB")]
+
+        public async Task UpdateConcept(string termbaseId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-
+            var conceptId = await CreateConcept(termbaseId, "NewEntry");
             var conceptRequest = new ConceptResponse(termbaseId, conceptId);
             var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
             conceptResponse.Concept.Languages[0].Terms[0].Text = "updated";
@@ -97,14 +98,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var updatedText = updatedResponse.Concept.Languages[0].Terms[0].Text;
 
             Assert.Equal(updatedText, "updated");
+            await DeleteConcept(termbaseId, conceptId);
         }
 
         [Theory]
-        [InlineData("testTB", "13")]
-        public async Task UpdateConceptWithCustomFields(string termbaseId, string conceptId)
+        [InlineData("testTB")]
+        public async Task UpdateConceptWithCustomFields(string termbaseId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-
+            var conceptId = await CreateConceptWithCustomFields(termbaseId, "conceptName");
             var conceptRequest = new ConceptResponse(termbaseId, conceptId);
             var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
             conceptResponse.Concept.Languages[0].Terms[0].Text = "Updated Term From kit with custm fields";
@@ -114,49 +116,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var updatedText = updatedResponse.Concept.Languages[0].Terms[0].Text;
 
             Assert.Equal(updatedText, "Updated Term From kit with custm fields");
+            await DeleteConcept(termbaseId, conceptId);
         }
+  
         [Theory]
-        [InlineData("testTB", "13")]
-        public async Task AddCustomFieldForTerm(string termbaseId, string conceptId)
+        [InlineData("testTB")]
+        public async Task AddTermForConceptWithoutCustomFields(string termbaseId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var conceptRequest = new ConceptResponse(termbaseId, conceptId);
-
-            var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
-            var attributes = new List<Attribute>();
-            var attribute = new Attribute
-            {
-               
-                Name = "Note",
-                Delete = "false",
-                Value = new List<Types>
-                {
-                    new Types
-                    {
-                        Value = "field from kit",
-                        Type = "Text"
-                    }
-                }
-            };
-            attributes.Add(attribute);
-            conceptResponse.Concept.Languages[0].Terms[0].Attributes.AddRange(attributes);
-            //conceptResponse.Concept.Languages[0].Terms[0].Transactions.Add(new Transactions
-            //{
-            //    DateTime = DateTime.Now,
-            //    Details = new TransactionsDetails
-            //    {
-            //        Type = "modified",
-            //        User = "sdlcommunity"
-            //    }
-            //});
-            var updatedResponse = await groupShareClient.TermBase.EditConcept(termbaseId, conceptResponse);
-        }
-
-        [Theory]
-        [InlineData("testTB", "15")]
-        public async Task AddTermForConceptWithoutCustomFields(string termbaseId, string conceptId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var conceptId = await CreateConcept(termbaseId, "NewEntry");
 
             var conceptRequest = new ConceptResponse(termbaseId, conceptId);
             var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
@@ -181,19 +149,19 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 },
                 Text = "gsKit2"
             };
-            //var language = conceptResponse.Concept.Languages.Where(i => i.Language.Code == "EN");
 
             conceptResponse.Concept.Languages[0].Terms.Add(newTerm);
 
             var updatedResponse = await groupShareClient.TermBase.EditConcept(termbaseId, conceptResponse);
+            await DeleteConcept(termbaseId, conceptId);
         }
 
         [Theory]
-        [InlineData("testTB", "13")]
-        public async Task AddTermForConceptWithCustomFields(string termbaseId, string conceptId)
+        [InlineData("testTB")]
+        public async Task AddTermForConceptWithCustomFields(string termbaseId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-
+            var conceptId = await CreateConceptWithCustomFields(termbaseId, "NewEntry");
             var conceptRequest = new ConceptResponse(termbaseId, conceptId);
             var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
             var newTerm = new TermbaseTerms
@@ -217,11 +185,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 },
                 Text = "Added term with custom fields"
             };
-            //var language = conceptResponse.Concept.Languages.Where(i => i.Language.Code == "EN");
 
             conceptResponse.Concept.Languages[0].Terms.Add(newTerm);
 
             var updatedResponse = await groupShareClient.TermBase.EditConcept(termbaseId, conceptResponse);
+
+            await DeleteConcept(termbaseId, conceptId);
         }
 
         [Theory]
@@ -232,9 +201,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.TermBase.DeleteConcept(termbaseId, conceptId);
         }
 
-        [Theory]
-        [InlineData("testTB","entry")]
-        public async Task CreateConcept(string termbaseId,string entryName)
+   
+        public async Task<string> CreateConcept(string termbaseId,string entryName)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
             var termBase = await groupShareClient.TermBase.GetTermbaseById(termbaseId);
@@ -306,7 +274,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
                                     }
                                 },
-                                Text = "ttt"
+                                Text = "NewCreated"
 
                             }
                         }
@@ -332,8 +300,124 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var conceptResponse = await groupShareClient.TermBase.CreateConcept(termBase, conceptRequest);
 
             Assert.True(conceptResponse.Concept.Id!=string.Empty);
+            return conceptResponse.Concept.Id;
         }
 
+        public async Task<string> CreateConceptWithCustomFields(string termbaseId,string entryName)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var termBase = await groupShareClient.TermBase.GetTermbaseById(termbaseId);        
+            
+            var conceptRequest = new ConceptRequest
+            {
+                Attributes = null,
+                Languages = new List<TermbaseLanguages>
+                {
+                    new TermbaseLanguages
+                    {
+                        Language = new Language
+                        {
+                            Id = "English",
+                            Name = "English",
+                            Code = "EN"
+                        },
+                        Attributes = new List<Attribute>
+                        {
+                          new Attribute
+                          {
+                              Name = "Note",
+                              Value = new List<Types>
+                              {
+                                  new Types
+                                  {
+                                      Type = "Text",
+                                      Value = "kitNote"
+                                  }
+                              }
+
+                          }
+                        }
+                        ,
+                        Terms = new List<TermbaseTerms>
+                        {
+                            new TermbaseTerms
+                            {
+                                Attributes = null,
+                                Transactions = new List<Transactions>
+                                {
+                                    new Transactions
+                                    {
+                                        DateTime = DateTime.Now,
+                                        Id = null,
+                                        Username = "aghisa",
+                                        Details = new TransactionsDetails
+                                        {
+                                            User = "aghisa",
+                                            Type = "Create"
+                                        }
+
+                                    }
+                                },
+                                Text = entryName
+
+                            }
+                        }
+                    },
+                    new TermbaseLanguages
+                    {
+                        Language = new Language
+                        {
+                            Id = "German",
+                            Name = "German",
+                            Code = "DE"
+                        },
+                        Attributes = null,
+                        Terms = new List<TermbaseTerms>
+                        {
+                            new TermbaseTerms
+                            {
+                                Attributes = null,
+                                Transactions = new List<Transactions>
+                                {
+                                    new Transactions
+                                    {
+                                        DateTime = DateTime.Now,
+                                        Id = null,
+                                        Username = "aghisa",
+                                        Details = new TransactionsDetails
+                                        {
+                                            User = "aghisa",
+                                            Type = "Create"
+                                        }
+
+                                    }
+                                },
+                                Text = "NewCreated"
+
+                            }
+                        }
+
+                    }
+                },
+                Transactions = new List<Transactions>
+                {
+                    new Transactions
+                    {
+                        DateTime = DateTime.Now,
+                        Id = null,
+                        Details = new TransactionsDetails
+                        {
+                            User = "sdlcommunity",
+                            Type = "Create"
+                        },
+                        Username = "sdlcommunity"
+                    }
+                }
+            };
+
+            var conceptResponse = await groupShareClient.TermBase.CreateConcept(termBase, conceptRequest);
+            return conceptResponse.Concept.Id;
+        }
         [Theory]
         [InlineData("testTB", "customClassId", "2")]
         public async Task CreateConceptCustomClassId(string termbaseId, string entryName, string customClassId)

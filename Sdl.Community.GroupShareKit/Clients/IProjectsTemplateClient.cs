@@ -38,7 +38,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Id of created template/></returns>
-        Task<string> CreateTemplate(ProjectTemplates projectRequest);
+        Task<string> CreateTemplate(ProjectTemplates projectRequest, byte[] rawData);
 
         /// <summary>
         ///Get a template by id

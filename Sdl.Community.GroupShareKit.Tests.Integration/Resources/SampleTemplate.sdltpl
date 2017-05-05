@@ -1,0 +1,1432 @@
+<?xml version="1.0"?>
+<ProjectTemplate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Guid="c0f801de-cbdc-444b-8614-b00e9dc718f3" SettingsBundleGuid="52e54ec9-a19f-4848-a19e-cc6e5be44450" Version="4.0.0.0">
+  <LanguageDirections>
+    <LanguageDirection Guid="ea12b677-8965-4246-bb42-8b1df8a2cac1" SettingsBundleGuid="7d9afbf6-dab7-42fa-96a9-49f7e96ec99d" TargetLanguageCode="de-DE" SourceLanguageCode="en-US">
+      <AutoSuggestDictionaries>
+        <AutoSuggestDictionary FilePath="AutoSuggest\AutoSuggest_EN-US_DE-DE.bpm" />
+      </AutoSuggestDictionaries>
+      <CascadeItem OverrideParent="false" StopSearchingWhenResultsFound="false" />
+    </LanguageDirection>
+    <LanguageDirection Guid="dbe39060-be2c-4e3b-bbe8-3007f31c3e83" SettingsBundleGuid="9796ffd3-7728-4f50-a4f5-2554f8e5c791" TargetLanguageCode="fr-FR" SourceLanguageCode="en-US">
+      <AutoSuggestDictionaries>
+        <AutoSuggestDictionary FilePath="AutoSuggest\AutoSuggest_EN-US_FR-FR.bpm" />
+      </AutoSuggestDictionaries>
+      <CascadeItem OverrideParent="false" StopSearchingWhenResultsFound="false" />
+    </LanguageDirection>
+    <LanguageDirection Guid="291aeba9-56f0-4c24-8621-a5fc92ee3186" SettingsBundleGuid="4ed9a977-3deb-4f07-9a3e-4d1292043af8" TargetLanguageCode="ja-JP" SourceLanguageCode="en-US">
+      <AutoSuggestDictionaries />
+      <CascadeItem OverrideParent="false" StopSearchingWhenResultsFound="false" />
+    </LanguageDirection>
+  </LanguageDirections>
+  <TermbaseConfiguration>
+    <Termbases>
+      <Name>Printer Termbase</Name>
+      <SettingsXml>&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;TermbaseSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;Path&gt;C:\Users\aghisa\Documents\Studio 2017\Projects\Sample Project\Termbase\Printer.sdltb&lt;/Path&gt;
+  &lt;IsOpen&gt;false&lt;/IsOpen&gt;
+  &lt;Filter&gt;0&lt;/Filter&gt;
+  &lt;FilterHighlight&gt;true&lt;/FilterHighlight&gt;
+  &lt;Layout&gt;0&lt;/Layout&gt;
+  &lt;Local&gt;true&lt;/Local&gt;
+  &lt;IsCustom&gt;false&lt;/IsCustom&gt;
+&lt;/TermbaseSettings&gt;</SettingsXml>
+      <Enabled>true</Enabled>
+    </Termbases>
+    <LanguageIndexMappings>
+      <Language>de-DE</Language>
+      <Index>German</Index>
+    </LanguageIndexMappings>
+    <LanguageIndexMappings>
+      <Language>en-US</Language>
+      <Index>English</Index>
+    </LanguageIndexMappings>
+    <LanguageIndexMappings>
+      <Language>fr-FR</Language>
+      <Index>French</Index>
+    </LanguageIndexMappings>
+    <LanguageIndexMappings>
+      <Language>ja-JP</Language>
+      <Index>Japanese</Index>
+    </LanguageIndexMappings>
+    <RecognitionOptions>
+      <ShowWithNoAvailableTranslation>false</ShowWithNoAvailableTranslation>
+      <MinimumMatchValue>70</MinimumMatchValue>
+      <SearchDepth>200</SearchDepth>
+      <SearchOrder>Parallel</SearchOrder>
+    </RecognitionOptions>
+  </TermbaseConfiguration>
+  <SettingsBundles>
+    <SettingsBundle Guid="52e54ec9-a19f-4848-a19e-cc6e5be44450">
+      <SettingsBundle>
+        <SettingsGroup Id="QAVerificationSettings">
+          <Setting Id="Enabled">False</Setting>
+          <Setting Id="CheckNumbers">True</Setting>
+          <Setting Id="CheckMeasurements">True</Setting>
+          <Setting Id="ElementContextExclusionValue">True</Setting>
+          <Setting Id="ExclusionStringValue">True</Setting>
+          <Setting Id="WrongWordPairs">True</Setting>
+          <Setting Id="RegExRules">True</Setting>
+          <Setting Id="TrademarksSymbols">True</Setting>
+          <Setting Id="TrademarksSymbols0">®</Setting>
+          <Setting Id="TrademarksSymbols1">©</Setting>
+          <Setting Id="TrademarksSymbols2">™</Setting>
+          <Setting Id="TrademarksSymbols3">(c)</Setting>
+          <Setting Id="TrademarksSymbols4">(r)</Setting>
+          <Setting Id="TrademarksSymbols5">(tm)</Setting>
+          <Setting Id="AbsoluteLengthElements">True</Setting>
+          <Setting Id="CheckPunctuationDifferences">True</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="SettingsTermVerifier">
+          <Setting Id="Enabled">False</Setting>
+          <Setting Id="ForbiddenDefValues">True</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="MT XDT">
+          <Setting Id="ElementData10Name">Readonly</Setting>
+          <Setting Id="ElementData10IsInline">false</Setting>
+          <Setting Id="ElementData10IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData11Name">Languages</Setting>
+          <Setting Id="ElementData11IsInline">false</Setting>
+          <Setting Id="ElementData11IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData12Name">ItemLocale</Setting>
+          <Setting Id="ElementData12IsInline">false</Setting>
+          <Setting Id="ElementData12IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData13Name">ItemText</Setting>
+          <Setting Id="ElementData13IsInline">false</Setting>
+          <Setting Id="ElementData13IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData14Name">IsTargetOnly</Setting>
+          <Setting Id="ElementData14IsInline">false</Setting>
+          <Setting Id="ElementData14IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData15Name">TerminologyFields</Setting>
+          <Setting Id="ElementData15IsInline">false</Setting>
+          <Setting Id="ElementData15IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData16Name">Structure</Setting>
+          <Setting Id="ElementData16IsInline">false</Setting>
+          <Setting Id="ElementData16IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData17Name">Type</Setting>
+          <Setting Id="ElementData17IsInline">false</Setting>
+          <Setting Id="ElementData17IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData18Name">History</Setting>
+          <Setting Id="ElementData18IsInline">false</Setting>
+          <Setting Id="ElementData18IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData19Name">Description</Setting>
+          <Setting Id="ElementData19IsInline">false</Setting>
+          <Setting Id="ElementData19IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData20Name">PicklistValue</Setting>
+          <Setting Id="ElementData20IsInline">false</Setting>
+          <Setting Id="ElementData20IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData21Name">Option</Setting>
+          <Setting Id="ElementData21IsInline">false</Setting>
+          <Setting Id="ElementData21IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData22Name">CaseSensitive</Setting>
+          <Setting Id="ElementData22IsInline">false</Setting>
+          <Setting Id="ElementData22IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData23Name">IgnoreNonAlpha</Setting>
+          <Setting Id="ElementData23IsInline">false</Setting>
+          <Setting Id="ElementData23IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData24Name">TermbaseDescription</Setting>
+          <Setting Id="ElementData24IsInline">false</Setting>
+          <Setting Id="ElementData24IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData25Name">CopyrightText</Setting>
+          <Setting Id="ElementData25IsInline">false</Setting>
+          <Setting Id="ElementData25IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData26Name">SplashImage</Setting>
+          <Setting Id="ElementData26IsInline">false</Setting>
+          <Setting Id="ElementData26IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData27Name">IconFile</Setting>
+          <Setting Id="ElementData27IsInline">false</Setting>
+          <Setting Id="ElementData27IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData28Name">RefInfo</Setting>
+          <Setting Id="ElementData28IsInline">false</Setting>
+          <Setting Id="ElementData28IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData29Name">Schema</Setting>
+          <Setting Id="ElementData29IsInline">false</Setting>
+          <Setting Id="ElementData29IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData30Name">ElementType</Setting>
+          <Setting Id="ElementData30IsInline">false</Setting>
+          <Setting Id="ElementData30IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData31Name">Occurences</Setting>
+          <Setting Id="ElementData31IsInline">false</Setting>
+          <Setting Id="ElementData31IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData32Name">Level</Setting>
+          <Setting Id="ElementData32IsInline">false</Setting>
+          <Setting Id="ElementData32IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData33Name">AttributeType</Setting>
+          <Setting Id="ElementData33IsInline">false</Setting>
+          <Setting Id="ElementData33IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData34Name">EmptyEntry</Setting>
+          <Setting Id="ElementData34IsInline">false</Setting>
+          <Setting Id="ElementData34IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData35Name">conceptGrp</Setting>
+          <Setting Id="ElementData35IsInline">false</Setting>
+          <Setting Id="ElementData35IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData36Name">system</Setting>
+          <Setting Id="ElementData36IsInline">false</Setting>
+          <Setting Id="ElementData36IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData37Name">languageGrp</Setting>
+          <Setting Id="ElementData37IsInline">false</Setting>
+          <Setting Id="ElementData37IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData38Name">language</Setting>
+          <Setting Id="ElementData38IsInline">false</Setting>
+          <Setting Id="ElementData38IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData39Name">termGrp</Setting>
+          <Setting Id="ElementData39IsInline">false</Setting>
+          <Setting Id="ElementData39IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData40Name">term</Setting>
+          <Setting Id="ElementData40IsInline">false</Setting>
+          <Setting Id="ElementData40IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData41Name">DummyEntry</Setting>
+          <Setting Id="ElementData41IsInline">false</Setting>
+          <Setting Id="ElementData41IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData42Name">concept</Setting>
+          <Setting Id="ElementData42IsInline">false</Setting>
+          <Setting Id="ElementData42IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData43Name">transacGrp</Setting>
+          <Setting Id="ElementData43IsInline">false</Setting>
+          <Setting Id="ElementData43IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData44Name">transac</Setting>
+          <Setting Id="ElementData44IsInline">false</Setting>
+          <Setting Id="ElementData44IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData45Name">date</Setting>
+          <Setting Id="ElementData45IsInline">false</Setting>
+          <Setting Id="ElementData45IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData46Name">FullEntry</Setting>
+          <Setting Id="ElementData46IsInline">false</Setting>
+          <Setting Id="ElementData46IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData47Name">descripGrp</Setting>
+          <Setting Id="ElementData47IsInline">false</Setting>
+          <Setting Id="ElementData47IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData48Name">descrip</Setting>
+          <Setting Id="ElementData48IsInline">false</Setting>
+          <Setting Id="ElementData48IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData49Name">xref</Setting>
+          <Setting Id="ElementData49IsInline">true</Setting>
+          <Setting Id="ElementData49IsInlinePlaceholder">false</Setting>
+          <Setting Id="SnifferNamespaces">True</Setting>
+          <Setting Id="SnifferRootElements">True</Setting>
+          <Setting Id="SnifferRootElements0">Output</Setting>
+          <Setting Id="SnifferXPaths">True</Setting>
+          <Setting Id="ElementData">True</Setting>
+          <Setting Id="ElementData0">True</Setting>
+          <Setting Id="ElementData0Name">Output</Setting>
+          <Setting Id="ElementData0IsInline">false</Setting>
+          <Setting Id="ElementData0IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData0AttributeData">True</Setting>
+          <Setting Id="ElementData1">True</Setting>
+          <Setting Id="ElementData1Name">Object</Setting>
+          <Setting Id="ElementData1IsInline">false</Setting>
+          <Setting Id="ElementData1IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData1AttributeData">True</Setting>
+          <Setting Id="ElementData2">True</Setting>
+          <Setting Id="ElementData2Name">Tree</Setting>
+          <Setting Id="ElementData2IsInline">false</Setting>
+          <Setting Id="ElementData2IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData2AttributeData">True</Setting>
+          <Setting Id="ElementData3">True</Setting>
+          <Setting Id="ElementData3Name">Node</Setting>
+          <Setting Id="ElementData3IsInline">false</Setting>
+          <Setting Id="ElementData3IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData3AttributeData">True</Setting>
+          <Setting Id="ElementData3AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>ID</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData4">True</Setting>
+          <Setting Id="ElementData4Name">TextChild</Setting>
+          <Setting Id="ElementData4IsInline">false</Setting>
+          <Setting Id="ElementData4IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData4AttributeData">True</Setting>
+          <Setting Id="ElementData4AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData4AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData5">True</Setting>
+          <Setting Id="ElementData5Name">NodeType</Setting>
+          <Setting Id="ElementData5IsInline">false</Setting>
+          <Setting Id="ElementData5IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData5AttributeData">True</Setting>
+          <Setting Id="ElementData5AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData5AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData6">True</Setting>
+          <Setting Id="ElementData6Name">Mandatory</Setting>
+          <Setting Id="ElementData6IsInline">false</Setting>
+          <Setting Id="ElementData6IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData6AttributeData">True</Setting>
+          <Setting Id="ElementData6AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData6AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData7">True</Setting>
+          <Setting Id="ElementData7Name">Multiply</Setting>
+          <Setting Id="ElementData7IsInline">false</Setting>
+          <Setting Id="ElementData7IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData7AttributeData">True</Setting>
+          <Setting Id="ElementData7AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData7AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData8">True</Setting>
+          <Setting Id="ElementData8Name">labels</Setting>
+          <Setting Id="ElementData8IsInline">false</Setting>
+          <Setting Id="ElementData8IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData8AttributeData">True</Setting>
+          <Setting Id="ElementData8AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData8AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData9">True</Setting>
+          <Setting Id="ElementData9Name">description</Setting>
+          <Setting Id="ElementData9IsInline">false</Setting>
+          <Setting Id="ElementData9IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData9AttributeData">True</Setting>
+          <Setting Id="ElementData9AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData9AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData10">True</Setting>
+          <Setting Id="ElementData10AttributeData">True</Setting>
+          <Setting Id="ElementData10AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData10AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData11">True</Setting>
+          <Setting Id="ElementData11AttributeData">True</Setting>
+          <Setting Id="ElementData12">True</Setting>
+          <Setting Id="ElementData12AttributeData">True</Setting>
+          <Setting Id="ElementData13">True</Setting>
+          <Setting Id="ElementData13AttributeData">True</Setting>
+          <Setting Id="ElementData14">True</Setting>
+          <Setting Id="ElementData14AttributeData">True</Setting>
+          <Setting Id="ElementData15">True</Setting>
+          <Setting Id="ElementData15AttributeData">True</Setting>
+          <Setting Id="ElementData16">True</Setting>
+          <Setting Id="ElementData16AttributeData">True</Setting>
+          <Setting Id="ElementData17">True</Setting>
+          <Setting Id="ElementData17AttributeData">True</Setting>
+          <Setting Id="ElementData18">True</Setting>
+          <Setting Id="ElementData18AttributeData">True</Setting>
+          <Setting Id="ElementData19">True</Setting>
+          <Setting Id="ElementData19AttributeData">True</Setting>
+          <Setting Id="ElementData20">True</Setting>
+          <Setting Id="ElementData20AttributeData">True</Setting>
+          <Setting Id="ElementData21">True</Setting>
+          <Setting Id="ElementData21AttributeData">True</Setting>
+          <Setting Id="ElementData21AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData21AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData22">True</Setting>
+          <Setting Id="ElementData22AttributeData">True</Setting>
+          <Setting Id="ElementData22AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData22AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData23">True</Setting>
+          <Setting Id="ElementData23AttributeData">True</Setting>
+          <Setting Id="ElementData23AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData23AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData24">True</Setting>
+          <Setting Id="ElementData24AttributeData">True</Setting>
+          <Setting Id="ElementData25">True</Setting>
+          <Setting Id="ElementData25AttributeData">True</Setting>
+          <Setting Id="ElementData26">True</Setting>
+          <Setting Id="ElementData26AttributeData">True</Setting>
+          <Setting Id="ElementData27">True</Setting>
+          <Setting Id="ElementData27AttributeData">True</Setting>
+          <Setting Id="ElementData28">True</Setting>
+          <Setting Id="ElementData28AttributeData">True</Setting>
+          <Setting Id="ElementData29">True</Setting>
+          <Setting Id="ElementData29AttributeData">True</Setting>
+          <Setting Id="ElementData29AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>name</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData30">True</Setting>
+          <Setting Id="ElementData30AttributeData">True</Setting>
+          <Setting Id="ElementData30AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>ID</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData30AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>name</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData30AttributeData2">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>content</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData30AttributeData3">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>order</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData30AttributeData4">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>type</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData30AttributeData5">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>history</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData30AttributeData6">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>values</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData30AttributeData7">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>readOnly</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData31">True</Setting>
+          <Setting Id="ElementData31AttributeData">True</Setting>
+          <Setting Id="ElementData32">True</Setting>
+          <Setting Id="ElementData32AttributeData">True</Setting>
+          <Setting Id="ElementData32AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>minOccurs</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData32AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>maxOccurs</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData33">True</Setting>
+          <Setting Id="ElementData33AttributeData">True</Setting>
+          <Setting Id="ElementData33AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>name</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData33AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>type</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData33AttributeData2">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>values</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData34">True</Setting>
+          <Setting Id="ElementData34AttributeData">True</Setting>
+          <Setting Id="ElementData35">True</Setting>
+          <Setting Id="ElementData35AttributeData">True</Setting>
+          <Setting Id="ElementData36">True</Setting>
+          <Setting Id="ElementData36AttributeData">True</Setting>
+          <Setting Id="ElementData36AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>type</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData37">True</Setting>
+          <Setting Id="ElementData37AttributeData">True</Setting>
+          <Setting Id="ElementData38">True</Setting>
+          <Setting Id="ElementData38AttributeData">True</Setting>
+          <Setting Id="ElementData38AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>type</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData38AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>lang</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData39">True</Setting>
+          <Setting Id="ElementData39AttributeData">True</Setting>
+          <Setting Id="ElementData40">True</Setting>
+          <Setting Id="ElementData40AttributeData">True</Setting>
+          <Setting Id="ElementData41">True</Setting>
+          <Setting Id="ElementData41AttributeData">True</Setting>
+          <Setting Id="ElementData42">True</Setting>
+          <Setting Id="ElementData42AttributeData">True</Setting>
+          <Setting Id="ElementData43">True</Setting>
+          <Setting Id="ElementData43AttributeData">True</Setting>
+          <Setting Id="ElementData44">True</Setting>
+          <Setting Id="ElementData44AttributeData">True</Setting>
+          <Setting Id="ElementData44AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>type</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData45">True</Setting>
+          <Setting Id="ElementData45AttributeData">True</Setting>
+          <Setting Id="ElementData46">True</Setting>
+          <Setting Id="ElementData46AttributeData">True</Setting>
+          <Setting Id="ElementData47">True</Setting>
+          <Setting Id="ElementData47AttributeData">True</Setting>
+          <Setting Id="ElementData48">True</Setting>
+          <Setting Id="ElementData48AttributeData">True</Setting>
+          <Setting Id="ElementData48AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>type</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData49">True</Setting>
+          <Setting Id="ElementData49AttributeData">True</Setting>
+          <Setting Id="ElementData49AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>Tlink</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="Xml_Translate_Rule_">True</Setting>
+          <Setting Id="Xml_Translate_Rule_0">True</Setting>
+          <Setting Id="Xml_Translate_Rule_0XPathSelector">//Output</Setting>
+          <Setting Id="Xml_Translate_Rule_1">True</Setting>
+          <Setting Id="Xml_Translate_Rule_1XPathSelector">//Object</Setting>
+          <Setting Id="Xml_Translate_Rule_2">True</Setting>
+          <Setting Id="Xml_Translate_Rule_2XPathSelector">//Tree</Setting>
+          <Setting Id="Xml_Translate_Rule_3">True</Setting>
+          <Setting Id="Xml_Translate_Rule_3XPathSelector">//Node</Setting>
+          <Setting Id="Xml_Translate_Rule_4">True</Setting>
+          <Setting Id="Xml_Translate_Rule_4XPathSelector">//TextChild</Setting>
+          <Setting Id="Xml_Translate_Rule_5">True</Setting>
+          <Setting Id="Xml_Translate_Rule_5XPathSelector">//NodeType</Setting>
+          <Setting Id="Xml_Translate_Rule_6">True</Setting>
+          <Setting Id="Xml_Translate_Rule_6XPathSelector">//Mandatory</Setting>
+          <Setting Id="Xml_Translate_Rule_7">True</Setting>
+          <Setting Id="Xml_Translate_Rule_7XPathSelector">//Multiply</Setting>
+          <Setting Id="Xml_Translate_Rule_8">True</Setting>
+          <Setting Id="Xml_Translate_Rule_8XPathSelector">//labels</Setting>
+          <Setting Id="Xml_Translate_Rule_9">True</Setting>
+          <Setting Id="Xml_Translate_Rule_9XPathSelector">//description</Setting>
+          <Setting Id="Xml_Translate_Rule_10">True</Setting>
+          <Setting Id="Xml_Translate_Rule_10XPathSelector">//Readonly</Setting>
+          <Setting Id="Xml_Translate_Rule_11">True</Setting>
+          <Setting Id="Xml_Translate_Rule_11XPathSelector">//Languages</Setting>
+          <Setting Id="Xml_Translate_Rule_12">True</Setting>
+          <Setting Id="Xml_Translate_Rule_12XPathSelector">//ItemLocale</Setting>
+          <Setting Id="Xml_Translate_Rule_13">True</Setting>
+          <Setting Id="Xml_Translate_Rule_13XPathSelector">//ItemText</Setting>
+          <Setting Id="Xml_Translate_Rule_14">True</Setting>
+          <Setting Id="Xml_Translate_Rule_14XPathSelector">//IsTargetOnly</Setting>
+          <Setting Id="Xml_Translate_Rule_15">True</Setting>
+          <Setting Id="Xml_Translate_Rule_15XPathSelector">//TerminologyFields</Setting>
+          <Setting Id="Xml_Translate_Rule_16">True</Setting>
+          <Setting Id="Xml_Translate_Rule_16XPathSelector">//Structure</Setting>
+          <Setting Id="Xml_Translate_Rule_17">True</Setting>
+          <Setting Id="Xml_Translate_Rule_17XPathSelector">//Type</Setting>
+          <Setting Id="Xml_Translate_Rule_18">True</Setting>
+          <Setting Id="Xml_Translate_Rule_18XPathSelector">//History</Setting>
+          <Setting Id="Xml_Translate_Rule_19">True</Setting>
+          <Setting Id="Xml_Translate_Rule_19XPathSelector">//Description</Setting>
+          <Setting Id="Xml_Translate_Rule_20">True</Setting>
+          <Setting Id="Xml_Translate_Rule_20XPathSelector">//PicklistValue</Setting>
+          <Setting Id="Xml_Translate_Rule_21">True</Setting>
+          <Setting Id="Xml_Translate_Rule_21XPathSelector">//Option</Setting>
+          <Setting Id="Xml_Translate_Rule_22">True</Setting>
+          <Setting Id="Xml_Translate_Rule_22XPathSelector">//CaseSensitive</Setting>
+          <Setting Id="Xml_Translate_Rule_23">True</Setting>
+          <Setting Id="Xml_Translate_Rule_23XPathSelector">//IgnoreNonAlpha</Setting>
+          <Setting Id="Xml_Translate_Rule_24">True</Setting>
+          <Setting Id="Xml_Translate_Rule_24XPathSelector">//TermbaseDescription</Setting>
+          <Setting Id="Xml_Translate_Rule_25">True</Setting>
+          <Setting Id="Xml_Translate_Rule_25XPathSelector">//CopyrightText</Setting>
+          <Setting Id="Xml_Translate_Rule_26">True</Setting>
+          <Setting Id="Xml_Translate_Rule_26XPathSelector">//SplashImage</Setting>
+          <Setting Id="Xml_Translate_Rule_27">True</Setting>
+          <Setting Id="Xml_Translate_Rule_27XPathSelector">//IconFile</Setting>
+          <Setting Id="Xml_Translate_Rule_28">True</Setting>
+          <Setting Id="Xml_Translate_Rule_28XPathSelector">//RefInfo</Setting>
+          <Setting Id="Xml_Translate_Rule_29">True</Setting>
+          <Setting Id="Xml_Translate_Rule_29XPathSelector">//Schema</Setting>
+          <Setting Id="Xml_Translate_Rule_30">True</Setting>
+          <Setting Id="Xml_Translate_Rule_30XPathSelector">//ElementType</Setting>
+          <Setting Id="Xml_Translate_Rule_31">True</Setting>
+          <Setting Id="Xml_Translate_Rule_31XPathSelector">//Occurences</Setting>
+          <Setting Id="Xml_Translate_Rule_32">True</Setting>
+          <Setting Id="Xml_Translate_Rule_32XPathSelector">//Level</Setting>
+          <Setting Id="Xml_Translate_Rule_33">True</Setting>
+          <Setting Id="Xml_Translate_Rule_33XPathSelector">//AttributeType</Setting>
+          <Setting Id="Xml_Translate_Rule_34">True</Setting>
+          <Setting Id="Xml_Translate_Rule_34XPathSelector">//EmptyEntry</Setting>
+          <Setting Id="Xml_Translate_Rule_35">True</Setting>
+          <Setting Id="Xml_Translate_Rule_35XPathSelector">//conceptGrp</Setting>
+          <Setting Id="Xml_Translate_Rule_36">True</Setting>
+          <Setting Id="Xml_Translate_Rule_36XPathSelector">//system</Setting>
+          <Setting Id="Xml_Translate_Rule_37">True</Setting>
+          <Setting Id="Xml_Translate_Rule_37XPathSelector">//languageGrp</Setting>
+          <Setting Id="Xml_Translate_Rule_38">True</Setting>
+          <Setting Id="Xml_Translate_Rule_38XPathSelector">//language</Setting>
+          <Setting Id="Xml_Translate_Rule_39">True</Setting>
+          <Setting Id="Xml_Translate_Rule_39XPathSelector">//termGrp</Setting>
+          <Setting Id="Xml_Translate_Rule_40">True</Setting>
+          <Setting Id="Xml_Translate_Rule_40XPathSelector">//term</Setting>
+          <Setting Id="Xml_Translate_Rule_41">True</Setting>
+          <Setting Id="Xml_Translate_Rule_41XPathSelector">//DummyEntry</Setting>
+          <Setting Id="Xml_Translate_Rule_42">True</Setting>
+          <Setting Id="Xml_Translate_Rule_42XPathSelector">//concept</Setting>
+          <Setting Id="Xml_Translate_Rule_43">True</Setting>
+          <Setting Id="Xml_Translate_Rule_43XPathSelector">//transacGrp</Setting>
+          <Setting Id="Xml_Translate_Rule_44">True</Setting>
+          <Setting Id="Xml_Translate_Rule_44XPathSelector">//transac</Setting>
+          <Setting Id="Xml_Translate_Rule_45">True</Setting>
+          <Setting Id="Xml_Translate_Rule_45XPathSelector">//date</Setting>
+          <Setting Id="Xml_Translate_Rule_46">True</Setting>
+          <Setting Id="Xml_Translate_Rule_46XPathSelector">//FullEntry</Setting>
+          <Setting Id="Xml_Translate_Rule_47">True</Setting>
+          <Setting Id="Xml_Translate_Rule_47XPathSelector">//descripGrp</Setting>
+          <Setting Id="Xml_Translate_Rule_48">True</Setting>
+          <Setting Id="Xml_Translate_Rule_48XPathSelector">//descrip</Setting>
+          <Setting Id="Xml_Translate_Rule_49">True</Setting>
+          <Setting Id="Xml_Translate_Rule_49XPathSelector">//xref</Setting>
+          <Setting Id="Xml_WithinText_Rule_">True</Setting>
+          <Setting Id="Xml_WithinText_Rule_0">True</Setting>
+          <Setting Id="Xml_WithinText_Rule_0XPathSelector">//xref</Setting>
+          <Setting Id="Xml_WithinText_Rule_0WithinText">yes</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="XDT">
+          <Setting Id="ElementData10Name">Readonly</Setting>
+          <Setting Id="ElementData10IsInline">false</Setting>
+          <Setting Id="ElementData10IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData11Name">Languages</Setting>
+          <Setting Id="ElementData11IsInline">false</Setting>
+          <Setting Id="ElementData11IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData12Name">ItemLocale</Setting>
+          <Setting Id="ElementData12IsInline">false</Setting>
+          <Setting Id="ElementData12IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData13Name">ItemText</Setting>
+          <Setting Id="ElementData13IsInline">false</Setting>
+          <Setting Id="ElementData13IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData14Name">IsTargetOnly</Setting>
+          <Setting Id="ElementData14IsInline">false</Setting>
+          <Setting Id="ElementData14IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData15Name">TerminologyFields</Setting>
+          <Setting Id="ElementData15IsInline">false</Setting>
+          <Setting Id="ElementData15IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData16Name">Structure</Setting>
+          <Setting Id="ElementData16IsInline">false</Setting>
+          <Setting Id="ElementData16IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData17Name">Type</Setting>
+          <Setting Id="ElementData17IsInline">false</Setting>
+          <Setting Id="ElementData17IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData18Name">History</Setting>
+          <Setting Id="ElementData18IsInline">false</Setting>
+          <Setting Id="ElementData18IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData19Name">Description</Setting>
+          <Setting Id="ElementData19IsInline">false</Setting>
+          <Setting Id="ElementData19IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData20Name">PicklistValue</Setting>
+          <Setting Id="ElementData20IsInline">false</Setting>
+          <Setting Id="ElementData20IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData21Name">Option</Setting>
+          <Setting Id="ElementData21IsInline">false</Setting>
+          <Setting Id="ElementData21IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData22Name">CaseSensitive</Setting>
+          <Setting Id="ElementData22IsInline">false</Setting>
+          <Setting Id="ElementData22IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData23Name">IgnoreNonAlpha</Setting>
+          <Setting Id="ElementData23IsInline">false</Setting>
+          <Setting Id="ElementData23IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData24Name">TermbaseDescription</Setting>
+          <Setting Id="ElementData24IsInline">false</Setting>
+          <Setting Id="ElementData24IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData25Name">CopyrightText</Setting>
+          <Setting Id="ElementData25IsInline">false</Setting>
+          <Setting Id="ElementData25IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData26Name">SplashImage</Setting>
+          <Setting Id="ElementData26IsInline">false</Setting>
+          <Setting Id="ElementData26IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData27Name">IconFile</Setting>
+          <Setting Id="ElementData27IsInline">false</Setting>
+          <Setting Id="ElementData27IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData28Name">RefInfo</Setting>
+          <Setting Id="ElementData28IsInline">false</Setting>
+          <Setting Id="ElementData28IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData29Name">Schema</Setting>
+          <Setting Id="ElementData29IsInline">false</Setting>
+          <Setting Id="ElementData29IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData30Name">ElementType</Setting>
+          <Setting Id="ElementData30IsInline">false</Setting>
+          <Setting Id="ElementData30IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData31Name">Occurences</Setting>
+          <Setting Id="ElementData31IsInline">false</Setting>
+          <Setting Id="ElementData31IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData32Name">Level</Setting>
+          <Setting Id="ElementData32IsInline">false</Setting>
+          <Setting Id="ElementData32IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData33Name">AttributeType</Setting>
+          <Setting Id="ElementData33IsInline">false</Setting>
+          <Setting Id="ElementData33IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData34Name">EmptyEntry</Setting>
+          <Setting Id="ElementData34IsInline">false</Setting>
+          <Setting Id="ElementData34IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData35Name">conceptGrp</Setting>
+          <Setting Id="ElementData35IsInline">false</Setting>
+          <Setting Id="ElementData35IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData36Name">system</Setting>
+          <Setting Id="ElementData36IsInline">false</Setting>
+          <Setting Id="ElementData36IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData37Name">languageGrp</Setting>
+          <Setting Id="ElementData37IsInline">false</Setting>
+          <Setting Id="ElementData37IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData38Name">language</Setting>
+          <Setting Id="ElementData38IsInline">false</Setting>
+          <Setting Id="ElementData38IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData39Name">termGrp</Setting>
+          <Setting Id="ElementData39IsInline">false</Setting>
+          <Setting Id="ElementData39IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData40Name">term</Setting>
+          <Setting Id="ElementData40IsInline">false</Setting>
+          <Setting Id="ElementData40IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData41Name">DummyEntry</Setting>
+          <Setting Id="ElementData41IsInline">false</Setting>
+          <Setting Id="ElementData41IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData42Name">concept</Setting>
+          <Setting Id="ElementData42IsInline">false</Setting>
+          <Setting Id="ElementData42IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData43Name">transacGrp</Setting>
+          <Setting Id="ElementData43IsInline">false</Setting>
+          <Setting Id="ElementData43IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData44Name">transac</Setting>
+          <Setting Id="ElementData44IsInline">false</Setting>
+          <Setting Id="ElementData44IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData45Name">date</Setting>
+          <Setting Id="ElementData45IsInline">false</Setting>
+          <Setting Id="ElementData45IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData46Name">FullEntry</Setting>
+          <Setting Id="ElementData46IsInline">false</Setting>
+          <Setting Id="ElementData46IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData47Name">descripGrp</Setting>
+          <Setting Id="ElementData47IsInline">false</Setting>
+          <Setting Id="ElementData47IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData48Name">descrip</Setting>
+          <Setting Id="ElementData48IsInline">false</Setting>
+          <Setting Id="ElementData48IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData49Name">xref</Setting>
+          <Setting Id="ElementData49IsInline">true</Setting>
+          <Setting Id="ElementData49IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData">True</Setting>
+          <Setting Id="ElementData0">True</Setting>
+          <Setting Id="ElementData0Name">Output</Setting>
+          <Setting Id="ElementData0IsInline">false</Setting>
+          <Setting Id="ElementData0IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData0AttributeData">True</Setting>
+          <Setting Id="ElementData1">True</Setting>
+          <Setting Id="ElementData1Name">Object</Setting>
+          <Setting Id="ElementData1IsInline">false</Setting>
+          <Setting Id="ElementData1IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData1AttributeData">True</Setting>
+          <Setting Id="ElementData2">True</Setting>
+          <Setting Id="ElementData2Name">Tree</Setting>
+          <Setting Id="ElementData2IsInline">false</Setting>
+          <Setting Id="ElementData2IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData2AttributeData">True</Setting>
+          <Setting Id="ElementData3">True</Setting>
+          <Setting Id="ElementData3Name">Node</Setting>
+          <Setting Id="ElementData3IsInline">false</Setting>
+          <Setting Id="ElementData3IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData3AttributeData">True</Setting>
+          <Setting Id="ElementData3AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>ID</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData4">True</Setting>
+          <Setting Id="ElementData4Name">TextChild</Setting>
+          <Setting Id="ElementData4IsInline">false</Setting>
+          <Setting Id="ElementData4IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData4AttributeData">True</Setting>
+          <Setting Id="ElementData4AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData4AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData5">True</Setting>
+          <Setting Id="ElementData5Name">NodeType</Setting>
+          <Setting Id="ElementData5IsInline">false</Setting>
+          <Setting Id="ElementData5IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData5AttributeData">True</Setting>
+          <Setting Id="ElementData5AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData5AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData6">True</Setting>
+          <Setting Id="ElementData6Name">Mandatory</Setting>
+          <Setting Id="ElementData6IsInline">false</Setting>
+          <Setting Id="ElementData6IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData6AttributeData">True</Setting>
+          <Setting Id="ElementData6AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData6AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData7">True</Setting>
+          <Setting Id="ElementData7Name">Multiply</Setting>
+          <Setting Id="ElementData7IsInline">false</Setting>
+          <Setting Id="ElementData7IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData7AttributeData">True</Setting>
+          <Setting Id="ElementData7AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData7AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData8">True</Setting>
+          <Setting Id="ElementData8Name">labels</Setting>
+          <Setting Id="ElementData8IsInline">false</Setting>
+          <Setting Id="ElementData8IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData8AttributeData">True</Setting>
+          <Setting Id="ElementData8AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData8AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData9">True</Setting>
+          <Setting Id="ElementData9Name">description</Setting>
+          <Setting Id="ElementData9IsInline">false</Setting>
+          <Setting Id="ElementData9IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData9AttributeData">True</Setting>
+          <Setting Id="ElementData9AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData9AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData10">True</Setting>
+          <Setting Id="ElementData10AttributeData">True</Setting>
+          <Setting Id="ElementData10AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData10AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData11">True</Setting>
+          <Setting Id="ElementData11AttributeData">True</Setting>
+          <Setting Id="ElementData12">True</Setting>
+          <Setting Id="ElementData12AttributeData">True</Setting>
+          <Setting Id="ElementData13">True</Setting>
+          <Setting Id="ElementData13AttributeData">True</Setting>
+          <Setting Id="ElementData14">True</Setting>
+          <Setting Id="ElementData14AttributeData">True</Setting>
+          <Setting Id="ElementData15">True</Setting>
+          <Setting Id="ElementData15AttributeData">True</Setting>
+          <Setting Id="ElementData16">True</Setting>
+          <Setting Id="ElementData16AttributeData">True</Setting>
+          <Setting Id="ElementData17">True</Setting>
+          <Setting Id="ElementData17AttributeData">True</Setting>
+          <Setting Id="ElementData18">True</Setting>
+          <Setting Id="ElementData18AttributeData">True</Setting>
+          <Setting Id="ElementData19">True</Setting>
+          <Setting Id="ElementData19AttributeData">True</Setting>
+          <Setting Id="ElementData20">True</Setting>
+          <Setting Id="ElementData20AttributeData">True</Setting>
+          <Setting Id="ElementData21">True</Setting>
+          <Setting Id="ElementData21AttributeData">True</Setting>
+          <Setting Id="ElementData21AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData21AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData22">True</Setting>
+          <Setting Id="ElementData22AttributeData">True</Setting>
+          <Setting Id="ElementData22AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData22AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData23">True</Setting>
+          <Setting Id="ElementData23AttributeData">True</Setting>
+          <Setting Id="ElementData23AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>dt:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData23AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>xmlns:dt</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData24">True</Setting>
+          <Setting Id="ElementData24AttributeData">True</Setting>
+          <Setting Id="ElementData25">True</Setting>
+          <Setting Id="ElementData25AttributeData">True</Setting>
+          <Setting Id="ElementData26">True</Setting>
+          <Setting Id="ElementData26AttributeData">True</Setting>
+          <Setting Id="ElementData27">True</Setting>
+          <Setting Id="ElementData27AttributeData">True</Setting>
+          <Setting Id="ElementData28">True</Setting>
+          <Setting Id="ElementData28AttributeData">True</Setting>
+          <Setting Id="ElementData29">True</Setting>
+          <Setting Id="ElementData29AttributeData">True</Setting>
+          <Setting Id="ElementData29AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>name</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData30">True</Setting>
+          <Setting Id="ElementData30AttributeData">True</Setting>
+          <Setting Id="ElementData30AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>ID</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData30AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>name</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData30AttributeData2">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>content</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData30AttributeData3">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>order</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData30AttributeData4">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>type</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData30AttributeData5">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>history</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData30AttributeData6">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>values</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData30AttributeData7">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>readOnly</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData31">True</Setting>
+          <Setting Id="ElementData31AttributeData">True</Setting>
+          <Setting Id="ElementData32">True</Setting>
+          <Setting Id="ElementData32AttributeData">True</Setting>
+          <Setting Id="ElementData32AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>minOccurs</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData32AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>maxOccurs</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData33">True</Setting>
+          <Setting Id="ElementData33AttributeData">True</Setting>
+          <Setting Id="ElementData33AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>name</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData33AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>type</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData33AttributeData2">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>values</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData34">True</Setting>
+          <Setting Id="ElementData34AttributeData">True</Setting>
+          <Setting Id="ElementData35">True</Setting>
+          <Setting Id="ElementData35AttributeData">True</Setting>
+          <Setting Id="ElementData36">True</Setting>
+          <Setting Id="ElementData36AttributeData">True</Setting>
+          <Setting Id="ElementData36AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>type</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData37">True</Setting>
+          <Setting Id="ElementData37AttributeData">True</Setting>
+          <Setting Id="ElementData38">True</Setting>
+          <Setting Id="ElementData38AttributeData">True</Setting>
+          <Setting Id="ElementData38AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>type</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData38AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>lang</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData39">True</Setting>
+          <Setting Id="ElementData39AttributeData">True</Setting>
+          <Setting Id="ElementData40">True</Setting>
+          <Setting Id="ElementData40AttributeData">True</Setting>
+          <Setting Id="ElementData41">True</Setting>
+          <Setting Id="ElementData41AttributeData">True</Setting>
+          <Setting Id="ElementData42">True</Setting>
+          <Setting Id="ElementData42AttributeData">True</Setting>
+          <Setting Id="ElementData43">True</Setting>
+          <Setting Id="ElementData43AttributeData">True</Setting>
+          <Setting Id="ElementData44">True</Setting>
+          <Setting Id="ElementData44AttributeData">True</Setting>
+          <Setting Id="ElementData44AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>type</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData45">True</Setting>
+          <Setting Id="ElementData45AttributeData">True</Setting>
+          <Setting Id="ElementData46">True</Setting>
+          <Setting Id="ElementData46AttributeData">True</Setting>
+          <Setting Id="ElementData47">True</Setting>
+          <Setting Id="ElementData47AttributeData">True</Setting>
+          <Setting Id="ElementData48">True</Setting>
+          <Setting Id="ElementData48AttributeData">True</Setting>
+          <Setting Id="ElementData48AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>type</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData49">True</Setting>
+          <Setting Id="ElementData49AttributeData">True</Setting>
+          <Setting Id="ElementData49AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>Tlink</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="SnifferNamespaces">True</Setting>
+          <Setting Id="SnifferRootElements">True</Setting>
+          <Setting Id="SnifferRootElements0">Output</Setting>
+          <Setting Id="SnifferXPaths">True</Setting>
+          <Setting Id="Xml_Translate_Rule_">True</Setting>
+          <Setting Id="Xml_Translate_Rule_0">True</Setting>
+          <Setting Id="Xml_Translate_Rule_0XPathSelector">//Output</Setting>
+          <Setting Id="Xml_Translate_Rule_1">True</Setting>
+          <Setting Id="Xml_Translate_Rule_1XPathSelector">//Object</Setting>
+          <Setting Id="Xml_Translate_Rule_2">True</Setting>
+          <Setting Id="Xml_Translate_Rule_2XPathSelector">//Tree</Setting>
+          <Setting Id="Xml_Translate_Rule_3">True</Setting>
+          <Setting Id="Xml_Translate_Rule_3XPathSelector">//Node</Setting>
+          <Setting Id="Xml_Translate_Rule_4">True</Setting>
+          <Setting Id="Xml_Translate_Rule_4XPathSelector">//TextChild</Setting>
+          <Setting Id="Xml_Translate_Rule_5">True</Setting>
+          <Setting Id="Xml_Translate_Rule_5XPathSelector">//NodeType</Setting>
+          <Setting Id="Xml_Translate_Rule_6">True</Setting>
+          <Setting Id="Xml_Translate_Rule_6XPathSelector">//Mandatory</Setting>
+          <Setting Id="Xml_Translate_Rule_7">True</Setting>
+          <Setting Id="Xml_Translate_Rule_7XPathSelector">//Multiply</Setting>
+          <Setting Id="Xml_Translate_Rule_8">True</Setting>
+          <Setting Id="Xml_Translate_Rule_8XPathSelector">//labels</Setting>
+          <Setting Id="Xml_Translate_Rule_9">True</Setting>
+          <Setting Id="Xml_Translate_Rule_9XPathSelector">//description</Setting>
+          <Setting Id="Xml_Translate_Rule_10">True</Setting>
+          <Setting Id="Xml_Translate_Rule_10XPathSelector">//Readonly</Setting>
+          <Setting Id="Xml_Translate_Rule_11">True</Setting>
+          <Setting Id="Xml_Translate_Rule_11XPathSelector">//Languages</Setting>
+          <Setting Id="Xml_Translate_Rule_12">True</Setting>
+          <Setting Id="Xml_Translate_Rule_12XPathSelector">//ItemLocale</Setting>
+          <Setting Id="Xml_Translate_Rule_13">True</Setting>
+          <Setting Id="Xml_Translate_Rule_13XPathSelector">//ItemText</Setting>
+          <Setting Id="Xml_Translate_Rule_14">True</Setting>
+          <Setting Id="Xml_Translate_Rule_14XPathSelector">//IsTargetOnly</Setting>
+          <Setting Id="Xml_Translate_Rule_15">True</Setting>
+          <Setting Id="Xml_Translate_Rule_15XPathSelector">//TerminologyFields</Setting>
+          <Setting Id="Xml_Translate_Rule_16">True</Setting>
+          <Setting Id="Xml_Translate_Rule_16XPathSelector">//Structure</Setting>
+          <Setting Id="Xml_Translate_Rule_17">True</Setting>
+          <Setting Id="Xml_Translate_Rule_17XPathSelector">//Type</Setting>
+          <Setting Id="Xml_Translate_Rule_18">True</Setting>
+          <Setting Id="Xml_Translate_Rule_18XPathSelector">//History</Setting>
+          <Setting Id="Xml_Translate_Rule_19">True</Setting>
+          <Setting Id="Xml_Translate_Rule_19XPathSelector">//Description</Setting>
+          <Setting Id="Xml_Translate_Rule_20">True</Setting>
+          <Setting Id="Xml_Translate_Rule_20XPathSelector">//PicklistValue</Setting>
+          <Setting Id="Xml_Translate_Rule_21">True</Setting>
+          <Setting Id="Xml_Translate_Rule_21XPathSelector">//Option</Setting>
+          <Setting Id="Xml_Translate_Rule_22">True</Setting>
+          <Setting Id="Xml_Translate_Rule_22XPathSelector">//CaseSensitive</Setting>
+          <Setting Id="Xml_Translate_Rule_23">True</Setting>
+          <Setting Id="Xml_Translate_Rule_23XPathSelector">//IgnoreNonAlpha</Setting>
+          <Setting Id="Xml_Translate_Rule_24">True</Setting>
+          <Setting Id="Xml_Translate_Rule_24XPathSelector">//TermbaseDescription</Setting>
+          <Setting Id="Xml_Translate_Rule_25">True</Setting>
+          <Setting Id="Xml_Translate_Rule_25XPathSelector">//CopyrightText</Setting>
+          <Setting Id="Xml_Translate_Rule_26">True</Setting>
+          <Setting Id="Xml_Translate_Rule_26XPathSelector">//SplashImage</Setting>
+          <Setting Id="Xml_Translate_Rule_27">True</Setting>
+          <Setting Id="Xml_Translate_Rule_27XPathSelector">//IconFile</Setting>
+          <Setting Id="Xml_Translate_Rule_28">True</Setting>
+          <Setting Id="Xml_Translate_Rule_28XPathSelector">//RefInfo</Setting>
+          <Setting Id="Xml_Translate_Rule_29">True</Setting>
+          <Setting Id="Xml_Translate_Rule_29XPathSelector">//Schema</Setting>
+          <Setting Id="Xml_Translate_Rule_30">True</Setting>
+          <Setting Id="Xml_Translate_Rule_30XPathSelector">//ElementType</Setting>
+          <Setting Id="Xml_Translate_Rule_31">True</Setting>
+          <Setting Id="Xml_Translate_Rule_31XPathSelector">//Occurences</Setting>
+          <Setting Id="Xml_Translate_Rule_32">True</Setting>
+          <Setting Id="Xml_Translate_Rule_32XPathSelector">//Level</Setting>
+          <Setting Id="Xml_Translate_Rule_33">True</Setting>
+          <Setting Id="Xml_Translate_Rule_33XPathSelector">//AttributeType</Setting>
+          <Setting Id="Xml_Translate_Rule_34">True</Setting>
+          <Setting Id="Xml_Translate_Rule_34XPathSelector">//EmptyEntry</Setting>
+          <Setting Id="Xml_Translate_Rule_35">True</Setting>
+          <Setting Id="Xml_Translate_Rule_35XPathSelector">//conceptGrp</Setting>
+          <Setting Id="Xml_Translate_Rule_36">True</Setting>
+          <Setting Id="Xml_Translate_Rule_36XPathSelector">//system</Setting>
+          <Setting Id="Xml_Translate_Rule_37">True</Setting>
+          <Setting Id="Xml_Translate_Rule_37XPathSelector">//languageGrp</Setting>
+          <Setting Id="Xml_Translate_Rule_38">True</Setting>
+          <Setting Id="Xml_Translate_Rule_38XPathSelector">//language</Setting>
+          <Setting Id="Xml_Translate_Rule_39">True</Setting>
+          <Setting Id="Xml_Translate_Rule_39XPathSelector">//termGrp</Setting>
+          <Setting Id="Xml_Translate_Rule_40">True</Setting>
+          <Setting Id="Xml_Translate_Rule_40XPathSelector">//term</Setting>
+          <Setting Id="Xml_Translate_Rule_41">True</Setting>
+          <Setting Id="Xml_Translate_Rule_41XPathSelector">//DummyEntry</Setting>
+          <Setting Id="Xml_Translate_Rule_42">True</Setting>
+          <Setting Id="Xml_Translate_Rule_42XPathSelector">//concept</Setting>
+          <Setting Id="Xml_Translate_Rule_43">True</Setting>
+          <Setting Id="Xml_Translate_Rule_43XPathSelector">//transacGrp</Setting>
+          <Setting Id="Xml_Translate_Rule_44">True</Setting>
+          <Setting Id="Xml_Translate_Rule_44XPathSelector">//transac</Setting>
+          <Setting Id="Xml_Translate_Rule_45">True</Setting>
+          <Setting Id="Xml_Translate_Rule_45XPathSelector">//date</Setting>
+          <Setting Id="Xml_Translate_Rule_46">True</Setting>
+          <Setting Id="Xml_Translate_Rule_46XPathSelector">//FullEntry</Setting>
+          <Setting Id="Xml_Translate_Rule_47">True</Setting>
+          <Setting Id="Xml_Translate_Rule_47XPathSelector">//descripGrp</Setting>
+          <Setting Id="Xml_Translate_Rule_48">True</Setting>
+          <Setting Id="Xml_Translate_Rule_48XPathSelector">//descrip</Setting>
+          <Setting Id="Xml_Translate_Rule_49">True</Setting>
+          <Setting Id="Xml_Translate_Rule_49XPathSelector">//xref</Setting>
+          <Setting Id="Xml_WithinText_Rule_">True</Setting>
+          <Setting Id="Xml_WithinText_Rule_0">True</Setting>
+          <Setting Id="Xml_WithinText_Rule_0XPathSelector">//xref</Setting>
+          <Setting Id="Xml_WithinText_Rule_0WithinText">yes</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="XDT_Entries">
+          <Setting Id="ElementData10Name">termGrp</Setting>
+          <Setting Id="ElementData10IsInline">false</Setting>
+          <Setting Id="ElementData10IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData11Name">term</Setting>
+          <Setting Id="ElementData11IsInline">false</Setting>
+          <Setting Id="ElementData11IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData12Name">xref</Setting>
+          <Setting Id="ElementData12IsInline">false</Setting>
+          <Setting Id="ElementData12IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData">True</Setting>
+          <Setting Id="ElementData0">True</Setting>
+          <Setting Id="ElementData0Name">mtf</Setting>
+          <Setting Id="ElementData0IsInline">false</Setting>
+          <Setting Id="ElementData0IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData0AttributeData">True</Setting>
+          <Setting Id="ElementData1">True</Setting>
+          <Setting Id="ElementData1Name">conceptGrp</Setting>
+          <Setting Id="ElementData1IsInline">false</Setting>
+          <Setting Id="ElementData1IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData1AttributeData">True</Setting>
+          <Setting Id="ElementData2">True</Setting>
+          <Setting Id="ElementData2Name">concept</Setting>
+          <Setting Id="ElementData2IsInline">false</Setting>
+          <Setting Id="ElementData2IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData2AttributeData">True</Setting>
+          <Setting Id="ElementData3">True</Setting>
+          <Setting Id="ElementData3Name">transacGrp</Setting>
+          <Setting Id="ElementData3IsInline">false</Setting>
+          <Setting Id="ElementData3IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData3AttributeData">True</Setting>
+          <Setting Id="ElementData4">True</Setting>
+          <Setting Id="ElementData4Name">transac</Setting>
+          <Setting Id="ElementData4IsInline">false</Setting>
+          <Setting Id="ElementData4IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData4AttributeData">True</Setting>
+          <Setting Id="ElementData4AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>type</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData5">True</Setting>
+          <Setting Id="ElementData5Name">date</Setting>
+          <Setting Id="ElementData5IsInline">false</Setting>
+          <Setting Id="ElementData5IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData5AttributeData">True</Setting>
+          <Setting Id="ElementData6">True</Setting>
+          <Setting Id="ElementData6Name">descripGrp</Setting>
+          <Setting Id="ElementData6IsInline">false</Setting>
+          <Setting Id="ElementData6IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData6AttributeData">True</Setting>
+          <Setting Id="ElementData7">True</Setting>
+          <Setting Id="ElementData7Name">descrip</Setting>
+          <Setting Id="ElementData7IsInline">false</Setting>
+          <Setting Id="ElementData7IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData7AttributeData">True</Setting>
+          <Setting Id="ElementData7AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>type</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData8">True</Setting>
+          <Setting Id="ElementData8Name">languageGrp</Setting>
+          <Setting Id="ElementData8IsInline">false</Setting>
+          <Setting Id="ElementData8IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData8AttributeData">True</Setting>
+          <Setting Id="ElementData9">True</Setting>
+          <Setting Id="ElementData9Name">language</Setting>
+          <Setting Id="ElementData9IsInline">false</Setting>
+          <Setting Id="ElementData9IsInlinePlaceholder">false</Setting>
+          <Setting Id="ElementData9AttributeData">True</Setting>
+          <Setting Id="ElementData9AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>type</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData9AttributeData1">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>lang</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="ElementData10">True</Setting>
+          <Setting Id="ElementData10AttributeData">True</Setting>
+          <Setting Id="ElementData11">True</Setting>
+          <Setting Id="ElementData11AttributeData">True</Setting>
+          <Setting Id="ElementData12">True</Setting>
+          <Setting Id="ElementData12AttributeData">True</Setting>
+          <Setting Id="ElementData12AttributeData0">
+            <AttributeData xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Native.Xml.FilterSettings">
+              <Name>Tlink</Name>
+            </AttributeData>
+          </Setting>
+          <Setting Id="SnifferNamespaces">True</Setting>
+          <Setting Id="SnifferRootElements">True</Setting>
+          <Setting Id="SnifferRootElements0">mtf</Setting>
+          <Setting Id="SnifferXPaths">True</Setting>
+          <Setting Id="Xml_Translate_Rule_">True</Setting>
+          <Setting Id="Xml_Translate_Rule_0">True</Setting>
+          <Setting Id="Xml_Translate_Rule_0XPathSelector">//*</Setting>
+          <Setting Id="Xml_Translate_Rule_0Translate">no</Setting>
+          <Setting Id="Xml_Translate_Rule_1">True</Setting>
+          <Setting Id="Xml_Translate_Rule_1XPathSelector">//descrip/@type</Setting>
+          <Setting Id="Xml_Translate_Rule_1Translate">yes</Setting>
+          <Setting Id="Xml_Translate_Rule_2">True</Setting>
+          <Setting Id="Xml_Translate_Rule_2XPathSelector">//language/@type</Setting>
+          <Setting Id="Xml_Translate_Rule_2Translate">yes</Setting>
+          <Setting Id="Xml_Translate_Rule_3">True</Setting>
+          <Setting Id="Xml_Translate_Rule_3XPathSelector">//descrip[@type='Freigabestatus']</Setting>
+          <Setting Id="Xml_Translate_Rule_3Translate">yes</Setting>
+          <Setting Id="Xml_Translate_Rule_4">True</Setting>
+          <Setting Id="Xml_Translate_Rule_4XPathSelector">//descrip[@type='Form']</Setting>
+          <Setting Id="Xml_Translate_Rule_4Translate">yes</Setting>
+          <Setting Id="Xml_Translate_Rule_5">True</Setting>
+          <Setting Id="Xml_Translate_Rule_5XPathSelector">//descrip[@type='Genus']</Setting>
+          <Setting Id="Xml_Translate_Rule_5Translate">yes</Setting>
+          <Setting Id="Xml_Translate_Rule_6">True</Setting>
+          <Setting Id="Xml_Translate_Rule_6XPathSelector">//descrip[@type='Numerus']</Setting>
+          <Setting Id="Xml_Translate_Rule_6Translate">yes</Setting>
+          <Setting Id="Xml_Translate_Rule_7">True</Setting>
+          <Setting Id="Xml_Translate_Rule_7XPathSelector">//descrip[@type='Sachgebiet']</Setting>
+          <Setting Id="Xml_Translate_Rule_7Translate">yes</Setting>
+          <Setting Id="Xml_Translate_Rule_8">True</Setting>
+          <Setting Id="Xml_Translate_Rule_8XPathSelector">//descrip[@type='Sprachgebiet']</Setting>
+          <Setting Id="Xml_Translate_Rule_8Translate">yes</Setting>
+          <Setting Id="Xml_Translate_Rule_9">True</Setting>
+          <Setting Id="Xml_Translate_Rule_9XPathSelector">//descrip[@type='Verwendung']</Setting>
+          <Setting Id="Xml_Translate_Rule_9Translate">yes</Setting>
+          <Setting Id="Xml_Translate_Rule_10">True</Setting>
+          <Setting Id="Xml_Translate_Rule_10XPathSelector">//descrip[@type='Wortart']</Setting>
+          <Setting Id="Xml_Translate_Rule_10Translate">yes</Setting>
+          <Setting Id="Xml_Translate_Rule_11">True</Setting>
+          <Setting Id="Xml_Translate_Rule_11XPathSelector">//descrip[@type='Projekt']</Setting>
+          <Setting Id="Xml_Translate_Rule_11Translate">yes</Setting>
+          <Setting Id="Xml_WithinText_Rule_">True</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="Word 2007 v 2.0.0.0">
+          <Setting Id="NonTranslatableStyleMappingRules">True</Setting>
+          <Setting Id="NonTranslatableStyleMappingRules0">
+            <NonTranslatableStyleMappingRule xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Filters.Word">
+              <StyleName>tw4winInternal</StyleName>
+              <TagProperty>Inline</TagProperty>
+            </NonTranslatableStyleMappingRule>
+          </Setting>
+          <Setting Id="NonTranslatableStyleMappingRules1">
+            <NonTranslatableStyleMappingRule xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Filters.Word">
+              <StyleName>tw4winExternal</StyleName>
+              <TagProperty>Structure</TagProperty>
+            </NonTranslatableStyleMappingRule>
+          </Setting>
+          <Setting Id="NonTranslatableStyleMappingRules2">
+            <NonTranslatableStyleMappingRule xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Filters.Word">
+              <StyleName>tw4winJump</StyleName>
+              <TagProperty>Inline</TagProperty>
+            </NonTranslatableStyleMappingRule>
+          </Setting>
+          <Setting Id="NonTranslatableStyleMappingRules3">
+            <NonTranslatableStyleMappingRule xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.FileTypeSupport.Filters.Word">
+              <StyleName>tw4winMark</StyleName>
+              <TagProperty>Inline</TagProperty>
+            </NonTranslatableStyleMappingRule>
+          </Setting>
+          <Setting Id="ExtractDocumentProperties">True</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="PerfectMatchTaskSettings">
+          <Setting Id="MarkAsPerfectMatchAndLock">True</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="Plugin.AnyTM.SourceLanguages">
+          <Setting Id="HasMixedSourceLanguages">False</Setting>
+          <Setting Id="AutoDetectSourceLanguage">True</Setting>
+          <Setting Id="SourceLanguages">en-US</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="SettingsTagVerifier">
+          <Setting Id="Enabled">False</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="GrammarCheckerSettings">
+          <Setting Id="Enabled">True</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="ProjectTemplateSettings">
+          <Setting Id="ProjectLocation">C:\Users\aghisa\Documents\Studio 2017\Projects</Setting>
+        </SettingsGroup>
+      </SettingsBundle>
+    </SettingsBundle>
+  </SettingsBundles>
+  <InitialTaskTemplate Description="ComplexTask_Prepare_NoProjectTM_Description" Name="ComplexTask_Prepare_NoProjectTM_Name" Id="Sdl.ProjectApi.AutomaticTask.Prepare.NoProjectTM">
+    <SubTaskTemplates>
+      <SubTaskTemplate TaskTemplateId="Sdl.ProjectApi.AutomaticTasks.Conversion" />
+      <SubTaskTemplate TaskTemplateId="Sdl.ProjectApi.AutomaticTasks.Split" />
+      <SubTaskTemplate TaskTemplateId="Sdl.ProjectApi.AutomaticTasks.PerfectMatch" />
+      <SubTaskTemplate TaskTemplateId="Sdl.ProjectApi.AutomaticTasks.Analysis" />
+      <SubTaskTemplate TaskTemplateId="Sdl.ProjectApi.AutomaticTasks.Translate" />
+    </SubTaskTemplates>
+  </InitialTaskTemplate>
+  <AnalysisBands>
+    <AnalysisBand MinimumMatchValue="50" />
+    <AnalysisBand MinimumMatchValue="75" />
+    <AnalysisBand MinimumMatchValue="85" />
+    <AnalysisBand MinimumMatchValue="95" />
+  </AnalysisBands>
+  <ManualTaskTemplates />
+  <Users>
+    <User UserId="GLOBAL\aghisa" FullName="Andrea-Melinda Ghisa" Description="" Email="aghisa@sdl.com" PhoneNumber="" EmailType="Smtp" />
+  </Users>
+  <CascadeItem OverrideParent="true" StopSearchingWhenResultsFound="false">
+    <CascadeEntryItem PerformConcordanceSearch="true" Penalty="0" PerformUpdate="true" PerformNormalSearch="true">
+      <MainTranslationProviderItem Uri="sdltm.file:///C:/Users/aghisa/Documents/Studio 2017/Projects/Sample Project/TMs/English-French.sdltm" Enabled="true" />
+    </CascadeEntryItem>
+    <CascadeEntryItem PerformConcordanceSearch="true" Penalty="0" PerformUpdate="true" PerformNormalSearch="true">
+      <MainTranslationProviderItem Uri="sdltm.file:///C:/Users/aghisa/Documents/Studio 2017/Projects/Sample Project/TMs/English-German.sdltm" Enabled="true" />
+    </CascadeEntryItem>
+    <CascadeEntryItem PerformConcordanceSearch="true" Penalty="0" PerformUpdate="true" PerformNormalSearch="true">
+      <MainTranslationProviderItem Uri="sdltm.file:///C:/Users/aghisa/Documents/Studio 2017/Projects/Sample Project/TMs/English-Japanese.sdltm" Enabled="true" />
+    </CascadeEntryItem>
+  </CascadeItem>
+  <GeneralProjectTemplateInfo Description="" CreatedAt="2016-10-28T11:40:02.2777795Z" CreatedBy="GLOBAL\aghisa" />
+</ProjectTemplate>

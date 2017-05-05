@@ -24,14 +24,15 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// <summary>
         /// Gets or sets the raw template data
         /// </summary>
-        public byte[] RawData { get; set; }
+       // public byte[] RawData { get; set; }
 
-        public ProjectTemplates( string name, string description, string organizationId, byte[] rawData)
+        public ProjectTemplates( string id,string name, string description, string organizationId)
         {
+            Id = id;
             Name = name;
             Description = description;
             OrganizationId = organizationId;
-            RawData = rawData;
+        //    RawData = rawData;
         }
     }
 }

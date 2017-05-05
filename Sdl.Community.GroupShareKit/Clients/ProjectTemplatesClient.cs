@@ -47,10 +47,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Id of created template/></returns>
-        public async Task<string> CreateTemplate(ProjectTemplates templateRequest)
+        public async Task<string> CreateTemplate(ProjectTemplates templateRequest,byte []rawData)
         {
             var templateId=  await ApiConnection.Post<string>(ApiUrls.ProjectTemplates(), templateRequest, "application/json");
-             await UploadProjectTemplate(templateId, templateRequest.RawData,templateRequest.Name);
+             await UploadProjectTemplate(templateId, rawData, templateRequest.Name);
             return templateId;
         }
 

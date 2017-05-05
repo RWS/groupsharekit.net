@@ -113,6 +113,9 @@
     <None Include="Resources\RoTm.sdltm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\SampleTemplate.sdltpl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\test.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
