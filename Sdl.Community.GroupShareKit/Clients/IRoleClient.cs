@@ -12,7 +12,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -27,7 +27,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         /// <param name="request"><see cref="RoleRequest"/></param>
         /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -41,7 +41,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -55,7 +55,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -69,7 +69,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -83,7 +83,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -97,7 +97,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -111,7 +111,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -126,7 +126,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         /// <param name="roles"><see cref="Role"/></param>
         /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -141,7 +141,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <param name="roles"><see cref="Role"/></param>
         /// <param name="roleId">string</param>
         /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
