@@ -22,6 +22,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
         }
 
+        #region Project management methods
         /// <summary>
         /// Gets a <see cref="Project"/>s
         /// </summary>
@@ -56,7 +57,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="Project"/>s.</returns>
         public Task<Project> GetAllProjects()
         {
-            return ApiConnection.Get<Project>(ApiUrls.GetAllProjects(),null);
+            return ApiConnection.Get<Project>(ApiUrls.GetAllProjects(), null);
         }
 
         /// <summary>
@@ -74,8 +75,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="ProjectDetails"/>s.</returns>
         public List<ProjectDetails> GetProjectsForOrganization(string organizationName)
         {
-            var allProjects =  ApiConnection.Get<Project>(ApiUrls.GetAllProjects(), null);
-            return allProjects.Result.Items.Where(o => o.OrganizationName == organizationName).ToList();         
+            var allProjects = ApiConnection.Get<Project>(ApiUrls.GetAllProjects(), null);
+            return allProjects.Result.Items.Where(o => o.OrganizationName == organizationName).ToList();
         }
 
 
@@ -197,7 +198,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             var projectUri = await ApiConnection.Post<string>(ApiUrls.GetAllProjects(), request, "application/json");
             var projectId = projectUri.Split('/').Last();
 
-            await UploadFilesForProject(projectId, request.RawData,request.Name);
+            await UploadFilesForProject(projectId, request.RawData, request.Name);
             return projectId;
         }
 
@@ -214,7 +215,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public Task DeleteProject(string projectId)
         {
-            Ensure.ArgumentNotNullOrEmptyString(projectId,"projectId");
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
 
             return ApiConnection.Delete(ApiUrls.Project(projectId));
         }
@@ -252,8 +253,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns> <see cref="PublishingStatus"/></returns>
         public async Task<PublishingStatus> PublishingStatus(string projectId)
         {
-            Ensure.ArgumentNotNullOrEmptyString(projectId,"projectId");
-            return await ApiConnection.Get<PublishingStatus>(ApiUrls.PublishingStatus(projectId),null);
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            return await ApiConnection.Get<PublishingStatus>(ApiUrls.PublishingStatus(projectId), null);
         }
 
 
@@ -274,7 +275,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotEmpty(languageFileIds, "languageFileIds");
 
-            return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFiles(projectId, LanguageIdQuery(languageFileIds)),null);
+            return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFiles(projectId, LanguageIdQuery(languageFileIds)), null);
         }
 
         /// <summary>
@@ -325,13 +326,13 @@ namespace Sdl.Community.GroupShareKit.Clients
             if (downloadRequest.Type != null)
             {
                 return
-                 await 
+                 await
                      ApiConnection.Get<byte[]>(
-                         ApiUrls.DownloadFile(downloadRequest.ProjectId, Enum.GetName(typeof(FileDownloadRequest.Types),downloadRequest.Type)),
+                         ApiUrls.DownloadFile(downloadRequest.ProjectId, Enum.GetName(typeof(FileDownloadRequest.Types), downloadRequest.Type)),
                          null);
             }
 
-                return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFile(downloadRequest.ProjectId, "all"), null);
+            return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFile(downloadRequest.ProjectId, "all"), null);
 
         }
 
@@ -350,7 +351,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="UserAssignments"/>s.</returns>
         public async Task<IReadOnlyList<UserAssignments>> GetUserAssignments()
         {
-           
+
             return await ApiConnection.GetAll<UserAssignments>(ApiUrls.GetProjectsAssignments(), null);
         }
 
@@ -368,8 +369,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="ProjectAssignment"/>s.</returns>
         public async Task<IReadOnlyList<ProjectAssignment>> GetProjectAssignmentById(string projectId, List<string> fileIdsList)
         {
-            Ensure.ArgumentNotNullOrEmptyString(projectId,"projectId");
-            Ensure.ArgumentNotNull(fileIdsList,"fileIdsList");
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            Ensure.ArgumentNotNull(fileIdsList, "fileIdsList");
 
             return
                 await
@@ -388,7 +389,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task<string> UploadFilesForProject(string projectId,byte[] rawData,string name)
+        public async Task<string> UploadFilesForProject(string projectId, byte[] rawData, string name)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             var byteContent = new ByteArrayContent(rawData);
@@ -415,8 +416,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         public async Task<string> ChangeProjectStatus(ChangeStatusRequest statusRequest)
         {
 
-             return await ApiConnection.Put<string>(ApiUrls.ChangeProjectStatus(statusRequest.ProjectId, Enum.GetName(typeof(ChangeStatusRequest.ProjectStatus), statusRequest.Status)),statusRequest);
-           
+            return await ApiConnection.Put<string>(ApiUrls.ChangeProjectStatus(statusRequest.ProjectId, Enum.GetName(typeof(ChangeStatusRequest.ProjectStatus), statusRequest.Status)), statusRequest);
+
         }
 
         /// <summary>
@@ -484,7 +485,112 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(request, "request");
 
             var projectUri = await ApiConnection.Post<string>(ApiUrls.GetAllProjects(), request, "application/json");
-            return  projectUri.Split('/').Last();
+            return projectUri.Split('/').Last();
         }
+        #endregion
+
+
+        #region Project template methods
+        /// <summary>
+        ///Gets all templates
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A List of <see cref="ProjectTemplates"/></returns>
+        public async Task<IReadOnlyList<ProjectTemplates>> GetAllTemplates()
+        {
+            return await ApiConnection.GetAll<ProjectTemplates>(ApiUrls.ProjectTemplates(), null);
+        }
+
+        /// <summary>
+        ///Creates a template
+        /// </summary>
+        /// <param name="templateRequest"><see cref="ProjectTemplates"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Id of created template/></returns>
+        public async Task<string> CreateTemplate(ProjectTemplates templateRequest, byte[] rawData)
+        {
+            var templateId = await ApiConnection.Post<string>(ApiUrls.ProjectTemplates(), templateRequest, "application/json");
+            await UploadProjectTemplate(templateId, rawData, templateRequest.Name);
+            return templateId;
+        }
+
+        /// <summary>
+        ///Get a template by id
+        /// </summary>
+        /// <param name="templateId">string</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Te contend of template in a string/></returns>
+        public async Task<string> GetTemplateById(string templateId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
+            return await ApiConnection.Get<string>(ApiUrls.ProjectTemplates(templateId), null);
+        }
+
+        /// <summary>
+        ///Deletes a template 
+        /// </summary>
+        /// <param name="templateId">string</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        public async Task Delete(string templateId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
+            await ApiConnection.Delete(ApiUrls.ProjectTemplates(templateId));
+        }
+
+        /// <summary>
+        ///Uploades a template to a newly created project 
+        /// This method should be called after you create a project in order to add the template
+        /// </summary>
+        /// <param name="templateId">string</param>
+        /// <param name="projectTemplate">byte[]</param>
+        /// <param name="templateName">string</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task<string> UploadProjectTemplate(string templateId, byte[] projectTemplate, string templateName)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
+            var templateByteArray = new ByteArrayContent(projectTemplate);
+            var multipartContent = new MultipartFormDataContent
+            {
+                {templateByteArray,"file", templateName}
+            };
+
+            return await ApiConnection.Post<string>(ApiUrls.UploadProjectTemplate(templateId), multipartContent, "application/json");
+
+        }
+        #endregion
     }
 }

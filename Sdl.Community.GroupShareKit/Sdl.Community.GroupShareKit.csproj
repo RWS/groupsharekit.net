@@ -64,12 +64,10 @@
     <Compile Include="Clients\IFileVersion.cs" />
     <Compile Include="Clients\ILicense.cs" />
     <Compile Include="Clients\IModuleClient.cs" />
-    <Compile Include="Clients\IProjectsTemplateClient.cs" />
     <Compile Include="Clients\ITerminology.cs" />
     <Compile Include="Clients\LicenseClient.cs" />
     <Compile Include="Clients\ModuleClient.cs" />
     <Compile Include="Clients\OrganizationResourcesRequest.cs" />
-    <Compile Include="Clients\ProjectTemplatesClient.cs" />
     <Compile Include="Clients\ResourceServiceDefaultsRequest.cs" />
     <Compile Include="Clients\RoleRequest.cs" />
     <Compile Include="Clients\CreateUserRequest.cs" />
