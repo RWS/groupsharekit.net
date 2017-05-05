@@ -23,7 +23,7 @@ foreach (var user in users)
 
 * .NET 4.5 (Desktop / Server)
 * Windows 8 / 8.1 /10 Store Apps
-* GroupShare 2015 or later
+* GroupShare 2017
 
 ## Getting started
 
@@ -35,7 +35,8 @@ Install-Package GroupShareKit
 
 ## Documentation
 
-Please see http://sdldevelopmentpartners.sdlproducts.com/documentation/api for details about the GroupShare Rest API.
+Please see http://gs2017dev.sdl.com:41234/documentation/api/index#/ for details about the GroupShare Rest API.
+Please see http://gs2017dev.sdl.com:41235/docs/ui/index#/ for details about the Translation Memory Service.
 
 ## Build
 
@@ -102,6 +103,6 @@ problem.
 
 ## Copyright and License
 
-Copyright 2015 SDL plc.
+Copyright 2017 SDL plc.
 
 Licensed under the [MIT License](https://github.com/sdl/groupsharekit.net/blob/master/LICENSE)

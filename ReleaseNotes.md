@@ -14,3 +14,22 @@
 
 * Update to .Net Standard library 1.1
 * Added ProjectPhaseId on the LanguageFiles model
+
+### New in 1.0
+
+* Added support for GroupShare 2017 Rest API
+* Support for creating and publishing a project
+* Support for users, membership, organization and organization resources management
+* Support for termbase : get termbase, search term in a specific termbase
+* Support for add, update and delete term from a specific termbase
+* Support for project templates
+* Support for file download
+* Support for license informations
+
+*Added Support for Translation Memory Service
+* Support for translation memory management
+* Support for adding translation units, search translation units as plain text
+* Support for importing and exporting translation units into a translation memory
+* Support for database server, and containers management
+* Support for fuzzy index
+* Support for field and field template management
