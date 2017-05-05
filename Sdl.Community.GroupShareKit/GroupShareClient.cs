@@ -59,7 +59,7 @@ namespace Sdl.Community.GroupShareKit
             FileVersion = new FileVersionClient(apiConnection);
             License = new LicenseClient(apiConnection);
             TranslationMemories = new TranslationMemoriesClient(apiConnection);
-            TermBase = new TermBasesClient(apiConnection);
+            Terminology = new TerminologyClient(apiConnection);
 
         }
 
@@ -110,7 +110,7 @@ namespace Sdl.Community.GroupShareKit
         public IRoleClient Role { get; set; }
         public IPermissionClient Permission { get; set; }
         public ILicense License { get; set; }
-        public ITermBases TermBase { get; set; }
+        public ITerminology Terminology { get; set; }
 
         /// <summary>
         /// Convenience property for getting and setting credentials.

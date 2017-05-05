@@ -65,7 +65,7 @@
     <Compile Include="Clients\ILicense.cs" />
     <Compile Include="Clients\IModuleClient.cs" />
     <Compile Include="Clients\IProjectsTemplateClient.cs" />
-    <Compile Include="Clients\ITermBases.cs" />
+    <Compile Include="Clients\ITerminology.cs" />
     <Compile Include="Clients\LicenseClient.cs" />
     <Compile Include="Clients\ModuleClient.cs" />
     <Compile Include="Clients\OrganizationResourcesRequest.cs" />
@@ -253,7 +253,7 @@
     <Compile Include="Models\Response\UserDetails.cs" />
     <Compile Include="Models\Response\UserResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Clients\TermBasesClient.cs" />
+    <Compile Include="Clients\TerminologyClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GroupShareKit.snk" />

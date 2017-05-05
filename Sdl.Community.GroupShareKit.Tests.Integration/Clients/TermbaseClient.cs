@@ -17,7 +17,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetTermbases()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var termbases = await groupShareClient.TermBase.GetTermbases();
+            var termbases = await groupShareClient.Terminology.GetTermbases();
 
             Assert.True(termbases.TotalCount > 0);
         }
@@ -27,7 +27,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetTermbaseById(string termbaseId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var termbase = await groupShareClient.TermBase.GetTermbaseById(termbaseId);
+            var termbase = await groupShareClient.Terminology.GetTermbaseById(termbaseId);
 
             Assert.Equal(termbase.Termbase.Id, termbaseId);
             Assert.Equal(termbase.Termbase.Name, termbaseId);
@@ -38,7 +38,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetFilters(string termbaseId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var filters = await groupShareClient.TermBase.GetFilters(termbaseId);
+            var filters = await groupShareClient.Terminology.GetFilters(termbaseId);
 
             Assert.True(filters != null);
 
@@ -51,7 +51,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var request = new SearchTermRequest(termbaseId, language, query);
 
-            var searchedResponse = await groupShareClient.TermBase.SearchTerm(request);
+            var searchedResponse = await groupShareClient.Terminology.SearchTerm(request);
             var searchedWord = searchedResponse.Terms.FirstOrDefault(s => s.TermText == query);
             Assert.True(searchedWord != null);
         }
@@ -62,7 +62,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var request = new SearchTermRequest(termbaseId, language, query);
 
-            var searchedResponse = await groupShareClient.TermBase.SearchTerm(request);
+            var searchedResponse = await groupShareClient.Terminology.SearchTerm(request);
 
             Assert.Equal(searchedResponse.Terms.Count,0);
         }
@@ -74,10 +74,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var conceptRequest = new ConceptResponse(termbaseId, conceptId);
 
-            var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
+            var conceptResponse = await groupShareClient.Terminology.GetConcept(conceptRequest);
             Assert.Equal(conceptResponse.Concept.Id, conceptId);
 
-            var conceptResponse1 = await groupShareClient.TermBase.GetConcept(termbaseId, conceptId);
+            var conceptResponse1 = await groupShareClient.Terminology.GetConcept(termbaseId, conceptId);
             Assert.Equal(conceptResponse1.Concept.Id, conceptId);
 
         }
@@ -90,10 +90,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var conceptId = await CreateConcept(termbaseId, "NewEntry");
             var conceptRequest = new ConceptResponse(termbaseId, conceptId);
-            var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
+            var conceptResponse = await groupShareClient.Terminology.GetConcept(conceptRequest);
             conceptResponse.Concept.Languages[0].Terms[0].Text = "updated";
 
-            var updatedResponse = await groupShareClient.TermBase.EditConcept(termbaseId, conceptResponse);
+            var updatedResponse = await groupShareClient.Terminology.EditConcept(termbaseId, conceptResponse);
 
             var updatedText = updatedResponse.Concept.Languages[0].Terms[0].Text;
 
@@ -108,10 +108,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var conceptId = await CreateConceptWithCustomFields(termbaseId, "conceptName");
             var conceptRequest = new ConceptResponse(termbaseId, conceptId);
-            var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
+            var conceptResponse = await groupShareClient.Terminology.GetConcept(conceptRequest);
             conceptResponse.Concept.Languages[0].Terms[0].Text = "Updated Term From kit with custm fields";
 
-            var updatedResponse = await groupShareClient.TermBase.EditConcept(termbaseId, conceptResponse);
+            var updatedResponse = await groupShareClient.Terminology.EditConcept(termbaseId, conceptResponse);
 
             var updatedText = updatedResponse.Concept.Languages[0].Terms[0].Text;
 
@@ -127,7 +127,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var conceptId = await CreateConcept(termbaseId, "NewEntry");
 
             var conceptRequest = new ConceptResponse(termbaseId, conceptId);
-            var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
+            var conceptResponse = await groupShareClient.Terminology.GetConcept(conceptRequest);
             var newTerm = new TermbaseTerms
             {
                 Attributes = null,
@@ -152,7 +152,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             conceptResponse.Concept.Languages[0].Terms.Add(newTerm);
 
-            var updatedResponse = await groupShareClient.TermBase.EditConcept(termbaseId, conceptResponse);
+            var updatedResponse = await groupShareClient.Terminology.EditConcept(termbaseId, conceptResponse);
             await DeleteConcept(termbaseId, conceptId);
         }
 
@@ -163,7 +163,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var conceptId = await CreateConceptWithCustomFields(termbaseId, "NewEntry");
             var conceptRequest = new ConceptResponse(termbaseId, conceptId);
-            var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
+            var conceptResponse = await groupShareClient.Terminology.GetConcept(conceptRequest);
             var newTerm = new TermbaseTerms
             {
                 Attributes = null,
@@ -188,7 +188,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             conceptResponse.Concept.Languages[0].Terms.Add(newTerm);
 
-            var updatedResponse = await groupShareClient.TermBase.EditConcept(termbaseId, conceptResponse);
+            var updatedResponse = await groupShareClient.Terminology.EditConcept(termbaseId, conceptResponse);
 
             await DeleteConcept(termbaseId, conceptId);
         }
@@ -198,14 +198,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task DeleteConcept(string termbaseId, string conceptId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            await groupShareClient.TermBase.DeleteConcept(termbaseId, conceptId);
+            await groupShareClient.Terminology.DeleteConcept(termbaseId, conceptId);
         }
 
    
         public async Task<string> CreateConcept(string termbaseId,string entryName)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var termBase = await groupShareClient.TermBase.GetTermbaseById(termbaseId);
+            var termBase = await groupShareClient.Terminology.GetTermbaseById(termbaseId);
             var conceptRequest = new ConceptRequest
             {
                 Attributes = null,
@@ -297,7 +297,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 }
             };
 
-            var conceptResponse = await groupShareClient.TermBase.CreateConcept(termBase, conceptRequest);
+            var conceptResponse = await groupShareClient.Terminology.CreateConcept(termBase, conceptRequest);
 
             Assert.True(conceptResponse.Concept.Id!=string.Empty);
             return conceptResponse.Concept.Id;
@@ -306,7 +306,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task<string> CreateConceptWithCustomFields(string termbaseId,string entryName)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var termBase = await groupShareClient.TermBase.GetTermbaseById(termbaseId);        
+            var termBase = await groupShareClient.Terminology.GetTermbaseById(termbaseId);        
             
             var conceptRequest = new ConceptRequest
             {
@@ -415,7 +415,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 }
             };
 
-            var conceptResponse = await groupShareClient.TermBase.CreateConcept(termBase, conceptRequest);
+            var conceptResponse = await groupShareClient.Terminology.CreateConcept(termBase, conceptRequest);
             return conceptResponse.Concept.Id;
         }
         [Theory]
@@ -516,7 +516,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var conceptResponse =
                 await
-                    groupShareClient.TermBase.CreateConceptWithCustomEntryClass(customClassId, termbaseId,
+                    groupShareClient.Terminology.CreateConceptWithCustomEntryClass(customClassId, termbaseId,
                         conceptRequest);
 
             Assert.True(conceptResponse.Concept.Id != string.Empty);
@@ -529,11 +529,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
 
             var conceptRequest = new ConceptResponse(termbaseId, conceptId);
-            var conceptResponse = await groupShareClient.TermBase.GetConcept(conceptRequest);
+            var conceptResponse = await groupShareClient.Terminology.GetConcept(conceptRequest);
 
             conceptResponse.Concept.Languages[0].Terms[0].Text = "json";
 
-            var updatedResponse = await groupShareClient.TermBase.EditConcept(termbaseId, conceptResponse);
+            var updatedResponse = await groupShareClient.Terminology.EditConcept(termbaseId, conceptResponse);
         }
 
 
