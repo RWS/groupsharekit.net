@@ -38,13 +38,14 @@ namespace Sdl.Community.GroupShareKit
             : this(new Connection(baseAddress, credentialStore))
         {
         }
+
         /// <summary>
         /// Create a new instance of the GroupShare API v1 client using the specified connection.
         /// </summary>
         /// <param name="connection">The underlying <seealso cref="IConnection"/> used to make requests</param>
         public GroupShareClient(IConnection connection)
         {
-            Ensure.ArgumentNotNull(connection,"connection");
+            Ensure.ArgumentNotNull(connection, "connection");
 
             Connection = connection;
             var apiConnection = new ApiConnection(connection);
@@ -55,7 +56,6 @@ namespace Sdl.Community.GroupShareKit
             Role = new RoleClient(apiConnection);
             Permission = new PermissionClient(apiConnection);
             ModuleClient = new ModuleClient(apiConnection);
-            FileVersion = new FileVersionClient(apiConnection);
             License = new LicenseClient(apiConnection);
             TranslationMemories = new TranslationMemoriesClient(apiConnection);
             Terminology = new TerminologyClient(apiConnection);
@@ -101,7 +101,6 @@ namespace Sdl.Community.GroupShareKit
         public IUserClient User { get; }
         public IModuleClient ModuleClient { get; set; }
         public IOrganizationClient Organization { get; set; }
-        public IFileVersion FileVersion  { get; set; }
 
         public IAuthenticateClient Authenticate { get; set; }
 

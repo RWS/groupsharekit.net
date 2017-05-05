@@ -77,8 +77,6 @@
     <Compile Include="Clients\TranslationMemoryClientDatabaseServerTest.cs" />
     <Compile Include="Clients\TranslationMemoryClientField.cs" />
     <Compile Include="Clients\FileDownloadTests.cs" />
-    <Compile Include="Clients\FilesTest.cs" />
-    <Compile Include="Clients\FileVersionsClientTests.cs" />
     <Compile Include="Clients\TranslationMemoryClientLanguageResourceTests.cs" />
     <Compile Include="Clients\TranslationMemoryClientLanguageResourceTemplateTests.cs" />
     <Compile Include="Clients\LicenseClientTests.cs" />
@@ -87,7 +85,6 @@
     <Compile Include="Clients\PermissionClientTest.cs" />
     <Compile Include="Clients\PhasesTests.cs" />
     <Compile Include="Clients\ProjectClientTests.cs" />
-    <Compile Include="Clients\ProjectTemplatesTests.cs" />
     <Compile Include="Clients\PublishingStatusClientTests.cs" />
     <Compile Include="Clients\RolesClientTests.cs" />
     <Compile Include="Clients\TermbaseClient.cs" />

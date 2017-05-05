@@ -13,13 +13,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
     public class ProjectClientTests
     {
 
+        #region Project tests
         [Theory]
         [InlineData("today")]
         public async Task GetProjectByName(string projectName)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
 
-            var projectRequest = new ProjectsRequest("/", true, 7) {Filter = {ProjectName = projectName } };
+            var projectRequest = new ProjectsRequest("/", true, 7) { Filter = { ProjectName = projectName } };
             var result =
                 await
                     groupShareClient.Project.GetProject(projectRequest);
@@ -40,6 +41,19 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var sortedProjects = await groupShareClient.Project.GetProject(projectRequest);
             Assert.True(sortedProjects.Items[0].Name == "wwww");
+        }
+
+        [Theory]
+        [InlineData("6472c9e1-b082-4af9-9d1a-361609141974")]
+        public async Task GetProjectFiles(string projectId)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+
+
+            var projectFiles = await groupShareClient.Project.GetAllFilesForProject(projectId);
+
+            Assert.True(projectFiles.Count > 0);
+
         }
 
         [Fact]
@@ -88,8 +102,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 await groupShareClient.Project.CreateProject(new CreateProjectRequest(projectName, "ee72759d-917e-4c60-ba30-1ed595699c4d", null, DateTime.Today, "7bf6410d-58a7-4817-a559-7aa8a3a99aa9", rawData));
 
             Assert.True(!string.IsNullOrEmpty(projectId));
-            
-            
+
+
         }
 
         [Fact]
@@ -124,7 +138,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var assignments = await groupShareClient.Project.
                 GetProjectAssignmentById(projectId, fileIds);
 
-            Assert.True(assignments.Count>0);
+            Assert.True(assignments.Count > 0);
 
         }
 
@@ -137,8 +151,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.Project.ChangeProjectStatus(projectStatusRequest);
 
             var project = await groupShareClient.Project.Get("c1f47d9c-a9dd-4069-b636-3405d4fb98a8");
-            Assert.Equal(project.Status,4);
-          
+            Assert.Equal(project.Status, 4);
+
         }
 
         [Fact]
@@ -152,6 +166,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(project.Status, 4);
 
         }
+        #endregion
 
         #region Project template tests
         [Fact]
@@ -190,6 +205,30 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             await groupShareClient.Project.Delete(templateId);
         }
+        #endregion
+
+        #region File version tests
+        [Theory]
+        [InlineData("c6ece69e-baec-46ed-8275-53d848ae3b70")]
+        public async Task GetFileVersions(string languageFileId)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var fileVersion = await groupShareClient.Project.GetFileVersions(languageFileId);
+
+            Assert.True(fileVersion.Count > 0);
+        }
+
+        [Theory]
+        [InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8", "c6ece69e-baec-46ed-8275-53d848ae3b70", 0)]
+        public async Task DownloadFileVersion(string projectId, string languageFileId, int version)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var downloadedFile =
+                await groupShareClient.Project.DownloadFileVersion(projectId, languageFileId, version);
+
+            Assert.True(downloadedFile.Length != 0);
+        }
+
         #endregion
     }
 }
