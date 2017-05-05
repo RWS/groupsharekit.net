@@ -7,7 +7,7 @@ using Sdl.Community.GroupShareKit.Http;
 namespace Sdl.Community.GroupShareKit
 {
     /// <summary>
-    /// A Client for the GroupShare API v1. 
+    /// A Client for the GroupShare API v2. 
     /// </summary>
     public interface IGroupShareClient
     {
@@ -20,7 +20,7 @@ namespace Sdl.Community.GroupShareKit
         /// Access GroupShare's Project API.
         /// </summary>
         /// <remarks>
-        /// Refer to the API docmentation for more information: http://sdldevelopmentpartners.sdlproducts.com/documentation/api
+        /// Refer to the API docmentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
         /// </remarks>
         IProjectClient Project { get; }
 
@@ -28,7 +28,7 @@ namespace Sdl.Community.GroupShareKit
         /// Access GroupShare's User API.
         /// </summary>
         /// <remarks>
-        /// Refer to the API docmentation for more information: http://sdldevelopmentpartners.sdlproducts.com/documentation/api
+        /// Refer to the API docmentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
         /// </remarks>
         IUserClient User { get; }
 
@@ -36,7 +36,7 @@ namespace Sdl.Community.GroupShareKit
         /// Access GroupShare's Organization API.
         /// </summary>
         /// <remarks>
-        /// Refer to the API docmentation for more information: http://sdldevelopmentpartners.sdlproducts.com/documentation/api
+        /// Refer to the API docmentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
         /// </remarks>
         IOrganizationClient Organization { get; set; }
 
@@ -44,7 +44,7 @@ namespace Sdl.Community.GroupShareKit
         /// Access GroupShare's Authentication API.
         /// </summary>
         /// <remarks>
-        /// Refer to the API docmentation for more information: http://sdldevelopmentpartners.sdlproducts.com/documentation/api
+        /// Refer to the API docmentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
         /// </remarks>
         IAuthenticateClient Authenticate { get; set; }
 

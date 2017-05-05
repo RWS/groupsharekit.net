@@ -16,7 +16,7 @@ namespace Sdl.Community.GroupShareKit.Clients
        ///  <param name="languageFileId">Language file id></param>
        /// <remarks>
        /// This method requires authentication.
-       /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+       /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
        /// </remarks>
        /// <exception cref="AuthorizationException">
        /// Thrown when the current user does not have permission to make the request.
@@ -33,7 +33,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <param name="version"> File version</param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://sdldevelopmentpartners.sdlproducts.com/documentation/api">API documentation</a> for more information.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
