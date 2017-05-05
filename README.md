@@ -48,7 +48,7 @@ GroupShareKit is a single assembly designed to be easy to deploy anywhere. If yo
 To clone it locally click the "Clone in Desktop" button above or run the following git commands:
 
 ```
-https://github.com/sdl/groupsharekit.net.git
+http://gs2017dev.sdl.com:41234/documentation/api/index#/
 cd groupsharekit.net
 .\build.cmd
 ```
