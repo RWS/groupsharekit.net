@@ -34,7 +34,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Type = "OrdinalFollowers",
                 LanguageResourceTemplateId = Guid.NewGuid().ToString(),
                 LanguageResourceId = Guid.NewGuid().ToString(),
-                CultureName = "sq-al",
+                CultureName = "de-de",
                 Data = "test data"
             };
             var id = await groupShareClient.TranslationMemories.CreateLanguageResourceForTemplate(templateId, resource);
@@ -57,7 +57,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("b8ca7722-2d0a-4cfb-ae33-a36814aa0efc", "a81c0e63-9274-48df-80f0-f2598e90fb00")]
+        [InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "4ba4843e-fa19-4447-8a42-26aef99a3f9c")]
         public async Task GetLanguageResourceForTemplate(string templateId, string languageResourceId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
@@ -68,7 +68,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("b8ca7722-2d0a-4cfb-ae33-a36814aa0efc", "a81c0e63-9274-48df-80f0-f2598e90fb00")]
+        [InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "4ba4843e-fa19-4447-8a42-26aef99a3f9c")]
         public async Task UpdateLanguageResourceForTemplate(string templateId, string languageResourceId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
@@ -121,12 +121,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         }
 
-        [Theory]
-        [InlineData("4b4f20e7-9371-4438-8566-8a4904d44a5d", "23bc4cf8-3fc3-4c4a-8687-86d82496b446")]
-        public async Task DeleteLanguageResourceForTemplate(string templateId, string languageResourceId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            await groupShareClient.TranslationMemories.DeleteLanguageResourceForTemplate(templateId, languageResourceId);
-        }
+
     }
 }

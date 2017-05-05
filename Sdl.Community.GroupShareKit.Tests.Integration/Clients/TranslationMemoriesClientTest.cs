@@ -59,7 +59,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("e669d7d2-8ea6-4c4b-8a72-ecd7e40cf097")]
+        [InlineData("5a1a0f36-a9ab-464d-a215-2ed1e3cc12d7")]
         public async Task GetTmsNumberByFieldTemplateId(string id)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
