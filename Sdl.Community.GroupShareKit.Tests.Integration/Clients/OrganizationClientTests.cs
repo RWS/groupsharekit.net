@@ -34,20 +34,19 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         }
 
-
-        [Fact]
-        public async Task Update()
+        
+        public async Task Update(string organizationId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
 
-            var organization = await groupShareClient.Organization.Get("cf1caadd-9e85-4f24-863e-235756a33b44");
+            var organization = await groupShareClient.Organization.Get(organizationId);
 
-            organization.Name = "Name";
+            organization.Description = "AddedDescription";
  
             var updatedOrgId=await groupShareClient.Organization.Update(organization);
             var updatedOrganization = await groupShareClient.Organization.Get(updatedOrgId);
 
-             Assert.Equal(updatedOrganization.Name, "Name");
+             Assert.Equal(updatedOrganization.Description, "AddedDescription");
         }
 
         [Fact]
@@ -57,7 +56,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
              var organization = new Organization()
              {
                  UniqueId = Guid.NewGuid(),
-                 Name = "CreatedOrganization",
+                 Name = "NewCreatedOrg",
                  IsLibrary = true,
                  Description = null,
                  Path = null,
@@ -70,9 +69,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(organizationId != string.Empty);
 
-            //await Update(organizationId);
+            await Update(organizationId);
 
-            //await groupShareClient.Organization.DeleteOrganization(organizationId);
+            await groupShareClient.Organization.DeleteOrganization(organizationId);
         }
 
         [Theory]

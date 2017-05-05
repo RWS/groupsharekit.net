@@ -197,7 +197,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             var projectUri = await ApiConnection.Post<string>(ApiUrls.GetAllProjects(), request, "application/json");
             var projectId = projectUri.Split('/').Last();
 
-            await UploadFilesForProject(projectId, request.RawData);
+            await UploadFilesForProject(projectId, request.RawData,request.Name);
             return projectId;
         }
 
@@ -388,14 +388,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task<string> UploadFilesForProject(string projectId,byte[] rawData)
+        public async Task<string> UploadFilesForProject(string projectId,byte[] rawData,string name)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             var byteContent = new ByteArrayContent(rawData);
             byteContent.Headers.Add("Content-Type", "application/zip");
             var multipartContent = new MultipartFormDataContent
             {
-                {byteContent,"file", "testZip"}
+                {byteContent,"file", name}
             };
             return await ApiConnection.Post<string>(ApiUrls.UploadFilesForProject(projectId), multipartContent, "application/zip");
         }

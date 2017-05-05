@@ -37,7 +37,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectRequest = new ProjectsRequest(sortParameters);
 
             var sortedProjects = await groupShareClient.Project.GetProject(projectRequest);
-            Assert.True(sortedProjects.Items[0].Name == "Test");
+            Assert.True(sortedProjects.Items[0].Name == "wwww");
         }
 
         [Fact]
@@ -81,13 +81,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var rawData =
                 File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
-
+            var projectName = Guid.NewGuid().ToString();
             var projectId =
-                await groupShareClient.Project.CreateProject(new CreateProjectRequest("Project", "ee72759d-917e-4c60-ba30-1ed595699c4d", null, DateTime.Today, "7bf6410d-58a7-4817-a559-7aa8a3a99aa9", rawData));
+                await groupShareClient.Project.CreateProject(new CreateProjectRequest(projectName, "ee72759d-917e-4c60-ba30-1ed595699c4d", null, DateTime.Today, "7bf6410d-58a7-4817-a559-7aa8a3a99aa9", rawData));
 
             Assert.True(!string.IsNullOrEmpty(projectId));
             
-            // await groupShareClient.Project.DeleteProject(projectId);
+            
         }
 
         [Fact]
