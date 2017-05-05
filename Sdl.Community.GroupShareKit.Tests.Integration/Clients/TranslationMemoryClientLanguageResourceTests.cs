@@ -34,12 +34,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Type = "OrdinalFollowers",
                 LanguageResourceTemplateId = Guid.NewGuid().ToString(),
                 LanguageResourceId = Guid.NewGuid().ToString(),
-                CultureName = "de-de",
+                CultureName = "en-en",
                 Data = "test data"
             };
             var id = await groupShareClient.TranslationMemories.CreateLanguageResourceForTemplate(templateId, resource);
 
             Assert.True(id!=string.Empty);
+            await groupShareClient.TranslationMemories.DeleteLanguageResourceForTemplate(templateId, id);
 
         }
 

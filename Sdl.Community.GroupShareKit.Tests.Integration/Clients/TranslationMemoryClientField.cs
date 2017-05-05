@@ -139,14 +139,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.TranslationMemories.UpdateFieldForTemplate(fieldTemplateId, fieldId, field);
         }
         [Theory]
-        [InlineData("5a1a0f36-a9ab-464d-a215-2ed1e3cc12d7", "another field")]
-        public async Task CreateFieldForTemplate(string fieldTemplateId,string fieldName)
+        [InlineData("5a1a0f36-a9ab-464d-a215-2ed1e3cc12d7")]
+        public async Task CreateFieldForTemplate(string fieldTemplateId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
             var field = new FieldRequest
             {
                 FieldId = Guid.NewGuid().ToString(),
-                Name = fieldName,
+                Name = Guid.NewGuid().ToString(),
                 Type =  FieldRequest.TypeEnum.SingleString,
                 Values = new List<string>() { "andrea2","test" }
             };
