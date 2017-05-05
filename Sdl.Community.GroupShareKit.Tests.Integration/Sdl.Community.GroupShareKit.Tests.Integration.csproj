@@ -87,7 +87,7 @@
     <Compile Include="Clients\ProjectClientTests.cs" />
     <Compile Include="Clients\PublishingStatusClientTests.cs" />
     <Compile Include="Clients\RolesClientTests.cs" />
-    <Compile Include="Clients\TermbaseClient.cs" />
+    <Compile Include="Clients\TerminologyClient.cs" />
     <Compile Include="Clients\TranslationMemoriesClientTest.cs" />
     <Compile Include="Clients\UserClientTests.cs" />
     <Compile Include="Helper.cs" />

@@ -11,7 +11,7 @@ using ConceptResponse = Sdl.Community.GroupShareKit.Clients.ConceptResponse;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
-    public class TermbaseClient
+    public class TerminologyClient
     {
         [Fact]
         public async Task GetTermbases()

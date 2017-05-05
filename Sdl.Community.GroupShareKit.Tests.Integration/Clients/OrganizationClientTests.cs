@@ -100,11 +100,25 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         }
 
-        [Theory]
-        [InlineData("10356fd8-a087-4676-a320-d72c8f1fa0bd")]
-        public async Task LinkResourceToOrganization(string organizationId)
+
+        [Fact]
+        public async Task LinkResourceToOrganization()
         {
             var grClient = await Helper.GetGroupShareClient();
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var organization = new Organization()
+            {
+                UniqueId = Guid.NewGuid(),
+                Name = "NewCreatedOrg",
+                IsLibrary = true,
+                Description = null,
+                Path = null,
+                ParentOrganizationId = new Guid("5bdb10b8-e3a9-41ae-9e66-c154347b8d17"),
+                ChildOrganizations = null
+
+
+            };
+            var organizationId = await groupShareClient.Organization.Create(organization);
             var resourceRequest =
                 new OrganizationResourcesRequest(new List<string>() { "78df3807-06ac-438e-b2c8-5e233df1a6a2", "388d8bd2-f47d-4051-a951-95225f73dfe8" },
                     organizationId);
@@ -117,7 +131,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await grClient.Organization.UnlinkResourceToOrganization(resourceRequest);
 
             var resources = await grClient.Organization.GetAllOrganizationResources(organizationId);
-            Assert.Equal(resources.Count, organizationResources.Count-2);
+            Assert.Equal(resources.Count, 0);
+
+            await groupShareClient.Organization.DeleteOrganization(organizationId);
         }
 
     }
