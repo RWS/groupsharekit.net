@@ -34,3 +34,8 @@
 * Support for database server, and containers management
 * Support for fuzzy index
 * Support for field and field template management
+
+### New in 1.0.1
+
+* Change Terminology Client naming
+* Update Project Client to include project template and file actions
