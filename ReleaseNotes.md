@@ -18,6 +18,7 @@
 ### New in 1.0
 
 * Added support for GroupShare 2017 Rest API
+* Update to .NET Standard library 1.3
 * Support for creating and publishing a project
 * Support for users, membership, organization and organization resources management
 * Support for termbase : get termbase, search term in a specific termbase
@@ -26,7 +27,7 @@
 * Support for file download
 * Support for license informations
 
-*Added Support for Translation Memory Service
+* Added Support for Translation Memory Service
 * Support for translation memory management
 * Support for adding translation units, search translation units as plain text
 * Support for importing and exporting translation units into a translation memory

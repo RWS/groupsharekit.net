@@ -11,11 +11,11 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>@description@</description>
     <releaseNotes>@releaseNotes@</releaseNotes>
-    <copyright>Copyright Sdl Community 2016</copyright>
+    <copyright>Copyright Sdl Community 2017</copyright>
     <tags>GroupShare API</tags>
     <dependencies>
-      <group targetFramework="portable-win81+wpa81">
-        <dependency id="Newtonsoft.Json" />
+      <group targetFramework="netstandard1.3">
+        <dependency id="Newtonsoft.Json" version="9.0"/>
       </group>
     </dependencies>
   </metadata>
