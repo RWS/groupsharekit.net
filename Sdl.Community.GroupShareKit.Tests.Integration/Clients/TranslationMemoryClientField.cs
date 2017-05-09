@@ -30,6 +30,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var templateId = await groupShareClient.TranslationMemories.CreateFieldTemplate(fieldTemplate);
             Assert.True(templateId!=string.Empty);
 
+            await DeleteFieldTemplate(templateId);
         }
 
         [Fact]
@@ -67,23 +68,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(updatedTemplate.Name, "Updated name");
         }
 
-        [Fact]
-        public async Task DeleteFieldTemplate()
+
+        public async Task DeleteFieldTemplate(string templateId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var fieldTemplate = new FieldTemplate
-            {
-                Name = "Template to be deleted",
-                Description = "test",
-                FieldTemplateId = Guid.NewGuid().ToString(),
-                IsTmSpecific = false,
-                Location = "/SDL Community Developers",
-                OwnerId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17"
-
-
-            };
-            var templateId = await groupShareClient.TranslationMemories.CreateFieldTemplate(fieldTemplate);
-
+          
             await groupShareClient.TranslationMemories.DeleteFieldTemplate(templateId);
         }
 
@@ -138,11 +127,22 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             field.Name = "Updated name";
             await groupShareClient.TranslationMemories.UpdateFieldForTemplate(fieldTemplateId, fieldId, field);
         }
-        [Theory]
-        [InlineData("5a1a0f36-a9ab-464d-a215-2ed1e3cc12d7")]
-        public async Task CreateFieldForTemplate(string fieldTemplateId)
+        [Fact]
+        public async Task CreateFieldForTemplate()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
+            var fieldTemplate = new FieldTemplate
+            {
+                Name = "NewTemplate",
+                Description = "test",
+                FieldTemplateId = Guid.NewGuid().ToString(),
+                IsTmSpecific = false,
+                Location = "/SDL Community Developers",
+                OwnerId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17"
+
+
+            };
+            var templateId = await groupShareClient.TranslationMemories.CreateFieldTemplate(fieldTemplate);
             var field = new FieldRequest
             {
                 FieldId = Guid.NewGuid().ToString(),
@@ -151,9 +151,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Values = new List<string>() { "andrea2","test" }
             };
 
-            var fieldId = await groupShareClient.TranslationMemories.CreateFieldForTemplate(fieldTemplateId, field);
+            var fieldId = await groupShareClient.TranslationMemories.CreateFieldForTemplate(templateId, field);
 
             Assert.True(fieldId!=string.Empty);
+            await DeleteFieldTemplate(templateId);
+            
         }
 
         [Theory]

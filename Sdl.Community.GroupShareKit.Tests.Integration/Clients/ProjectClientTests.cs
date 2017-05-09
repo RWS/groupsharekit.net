@@ -95,13 +95,22 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task CreateProject()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var rawData =
-                File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
-            var projectName = Guid.NewGuid().ToString();
-            var projectId =
-                await groupShareClient.Project.CreateProject(new CreateProjectRequest(projectName, "ee72759d-917e-4c60-ba30-1ed595699c4d", null, DateTime.Today, "7bf6410d-58a7-4817-a559-7aa8a3a99aa9", rawData));
 
-            Assert.True(!string.IsNullOrEmpty(projectId));
+            var projectRequest = new ProjectsRequest("/", true, 7) { Filter = { ProjectName = "today" } };
+            var result =
+                await
+                    groupShareClient.Project.GetProject(projectRequest);
+            if (result.Items.Count ==0)
+            {
+                var rawData =
+                File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
+                var projectName = Guid.NewGuid().ToString();
+                var projectId =
+                    await groupShareClient.Project.CreateProject(new CreateProjectRequest(projectName, "ee72759d-917e-4c60-ba30-1ed595699c4d", null, DateTime.Today, "7bf6410d-58a7-4817-a559-7aa8a3a99aa9", rawData));
+
+                Assert.True(!string.IsNullOrEmpty(projectId));
+            }
+           
 
 
         }

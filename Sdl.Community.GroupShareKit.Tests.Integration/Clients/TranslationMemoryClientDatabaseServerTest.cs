@@ -44,7 +44,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("3749eee2-a488-46c0-a504-e679aab22604")]
+        [InlineData("6c32b2ed-77b3-41fa-87f3-02cce2db72e4")]
         public async Task GetDbServer(string serverId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();

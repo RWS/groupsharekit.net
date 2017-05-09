@@ -90,12 +90,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var grClient = await Helper.GetGroupShareClient();
             var resourceRequest =
-                new OrganizationResourcesRequest(new List<string>() { "bb9c7d71-a7b5-46ba-9f42-47ffd41b80f7" },
+                new OrganizationResourcesRequest(new List<string>() { "fe611664-c7c2-4074-8840-e350208ffaf9" },
                     organizartionId);
             await grClient.Organization.MoveResourceToOrganization(resourceRequest);
 
             var resources = await grClient.Organization.GetAllOrganizationResources(organizartionId);
-            var addedResource = resources.FirstOrDefault(r => r.Id.ToString() == "bb9c7d71-a7b5-46ba-9f42-47ffd41b80f7");
+            var addedResource = resources.FirstOrDefault(r => r.Id.ToString() == "fe611664-c7c2-4074-8840-e350208ffaf9");
             Assert.True(addedResource != null);
 
         }

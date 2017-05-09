@@ -41,7 +41,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
        [Theory]
-       [InlineData("bb9c7d71-a7b5-46ba-9f42-47ffd41b80f7")]
+       [InlineData("ee2871af-a5a5-46ca-9b05-0f216744e8fe")]
        public async Task GetContainerById(string containerId)
        {
             var groupShareClient = await Helper.GetGroupShareClient();
