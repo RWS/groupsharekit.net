@@ -21,8 +21,12 @@ foreach (var user in users)
 ```
 ## Supported platforms
 
-* .NET 4.5 (Desktop / Server)
-* Windows 8 / 8.1 /10 Store Apps
+* .NET 4.6.1 (Desktop / Server)
+* .NET Core 1.0
+* Mono 4.6
+* Windows 10 Store Apps
+* Xamarin.iOS 10 
+* Xamarin.Android 7
 * GroupShare 2017
 
 ## Getting started
