@@ -4634,9 +4634,24 @@
     ],
     ".NETStandard,Version=v1.3": []
   },
-  "tools": {},
-  "projectFileToolGroups": {},
   "packageFolders": {
-    "C:\\Users\\aghisa\\.nuget\\packages\\": {}
+    "C:\\Users\\rocrisan\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "restore": {
+      "projectUniqueName": "C:\\Work\\Git\\groupsharekit.net\\Sdl.Community.GroupShareKit\\Sdl.Community.GroupShareKit.csproj",
+      "projectName": "Sdl.Community.GroupShareKit",
+      "projectPath": "C:\\Work\\Git\\groupsharekit.net\\Sdl.Community.GroupShareKit\\Sdl.Community.GroupShareKit.csproj",
+      "projectJsonPath": "C:\\Work\\Git\\groupsharekit.net\\Sdl.Community.GroupShareKit\\project.json",
+      "projectStyle": "ProjectJson"
+    },
+    "dependencies": {
+      "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
+      "NETStandard.Library": "1.6.1",
+      "Newtonsoft.Json": "10.0.2"
+    },
+    "frameworks": {
+      "netstandard1.3": {}
+    }
   }
 }

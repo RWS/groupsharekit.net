@@ -13,15 +13,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class TranslationMemoryClientLanguageResourceTests
     {
-        [Theory]
-        [InlineData("fe611664-c7c2-4074-8840-e350208ffaf9")]
-        public async Task GetLanguageResourcesForTemplate(string templateId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var resources = await groupShareClient.TranslationMemories.GetLanguageResourcesForTemplate(templateId);
+        //[Theory]
+        //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9")]
+        //public async Task GetLanguageResourcesForTemplate(string templateId)
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var resources = await groupShareClient.TranslationMemories.GetLanguageResourcesForTemplate(templateId);
 
-            Assert.True(resources.Count>0);
-        }
+        //    Assert.True(resources.Count>0);
+        //}
 
         [Theory]
         [InlineData("a3b1fd22-e3cd-4931-9e2a-91f6c6c246c0", "ro-ro")]
@@ -57,71 +57,71 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         }
 
-        [Theory]
-        [InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
-        public async Task GetLanguageResourceForTemplate(string templateId, string languageResourceId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var resource =
-                await groupShareClient.TranslationMemories.GetLanguageResourceForTemplate(templateId, languageResourceId);
+        //[Theory]
+        //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
+        //public async Task GetLanguageResourceForTemplate(string templateId, string languageResourceId)
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var resource =
+        //        await groupShareClient.TranslationMemories.GetLanguageResourceForTemplate(templateId, languageResourceId);
 
-            Assert.True(resource!=null);
-        }
+        //    Assert.True(resource!=null);
+        //}
 
-        [Theory]
-        [InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
-        public async Task UpdateLanguageResourceForTemplate(string templateId, string languageResourceId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var resource =
-                await groupShareClient.TranslationMemories.GetLanguageResourceForTemplate(templateId, languageResourceId);
-            resource.CultureName = "de-de";
+        //[Theory]
+        //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
+        //public async Task UpdateLanguageResourceForTemplate(string templateId, string languageResourceId)
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var resource =
+        //        await groupShareClient.TranslationMemories.GetLanguageResourceForTemplate(templateId, languageResourceId);
+        //    resource.CultureName = "de-de";
 
-                await
-                    groupShareClient.TranslationMemories.UpdateLanguageResourceForTemplate(templateId, languageResourceId,
-                        resource);
+        //        await
+        //            groupShareClient.TranslationMemories.UpdateLanguageResourceForTemplate(templateId, languageResourceId,
+        //                resource);
 
-            var updatedResource = 
-                await groupShareClient.TranslationMemories.GetLanguageResourceForTemplate(templateId, languageResourceId);
+        //    var updatedResource = 
+        //        await groupShareClient.TranslationMemories.GetLanguageResourceForTemplate(templateId, languageResourceId);
 
-            Assert.Equal(updatedResource.CultureName, "de-de");
-        }
+        //    Assert.Equal(updatedResource.CultureName, "de-de");
+        //}
 
 
-        [Theory]
-        [InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
-        public async Task ImportFileForLanguageResource(string templateId, string languageResourceId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
+        //[Theory]
+        //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
+        //public async Task ImportFileForLanguageResource(string templateId, string languageResourceId)
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
 
-            var rawData =
-               File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\test.txt"));
+        //    var rawData =
+        //       File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\test.txt"));
 
-            await
-                groupShareClient.TranslationMemories.ImportFileForLanguageResource(templateId, languageResourceId, rawData);
-        }
-        [Theory]
-        [InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
-        public async Task ExportFileForLanguageResource(string templateId, string languageResourceId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
+        //    await
+        //        groupShareClient.TranslationMemories.ImportFileForLanguageResource(templateId, languageResourceId, rawData);
+        //}
+        //[Theory]
+        //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
+        //public async Task ExportFileForLanguageResource(string templateId, string languageResourceId)
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
 
           
 
-            var document =await
-                groupShareClient.TranslationMemories.ExportFileForLanguageResource(templateId, languageResourceId);
+        //    var document =await
+        //        groupShareClient.TranslationMemories.ExportFileForLanguageResource(templateId, languageResourceId);
 
-            Assert.True(document.Count()!=0);
-        }
-        [Theory]
-        // [InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "4ba4843e-fa19-4447-8a42-26aef99a3f9c")]
-        [InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
-        public async Task ResetToDefaultLanguageResource(string templateId, string languageResourceId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            await groupShareClient.TranslationMemories.ResetToDefaultLanguageResource(templateId, languageResourceId);
+        //    Assert.True(document.Count()!=0);
+        //}
+        //[Theory]
+        //// [InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "4ba4843e-fa19-4447-8a42-26aef99a3f9c")]
+        //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
+        //public async Task ResetToDefaultLanguageResource(string templateId, string languageResourceId)
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    await groupShareClient.TranslationMemories.ResetToDefaultLanguageResource(templateId, languageResourceId);
 
-        }
+        //}
 
 
     }

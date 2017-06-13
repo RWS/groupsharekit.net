@@ -14,18 +14,20 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
     {
 
         #region Project tests
-        [Theory]
-        [InlineData("today")]
-        public async Task GetProjectByName(string projectName)
+        [Fact]
+        public async Task GetProjectByName()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
+            //  var project = await GetProject(groupShareClient);
+            var projects = await groupShareClient.Project.GetAllProjects();
+            var project = projects.Items.FirstOrDefault();
 
-            var projectRequest = new ProjectsRequest("/", true, 7) { Filter = { ProjectName = projectName } };
+            var projectRequest = new ProjectsRequest("/", true, 7) { Filter = { ProjectName = project.Name } };
             var result =
                 await
                     groupShareClient.Project.GetProject(projectRequest);
 
-            Assert.True(result.Items[0].Name == projectName);
+            Assert.True(result.Items[0].Name == project.Name);
         }
 
         [Fact]
@@ -40,17 +42,18 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectRequest = new ProjectsRequest(sortParameters);
 
             var sortedProjects = await groupShareClient.Project.GetProject(projectRequest);
-            Assert.True(sortedProjects.Items[0].Name == "wwww");
+            var projects = await groupShareClient.Project.GetAllProjects();
+            Assert.True(sortedProjects.Items.Count == projects.Items.Count);
         }
 
-        [Theory]
-        [InlineData("6472c9e1-b082-4af9-9d1a-361609141974")]
-        public async Task GetProjectFiles(string projectId)
+        [Fact]
+        public async Task GetProjectFiles()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
+            var projects = await groupShareClient.Project.GetAllProjects();
+            var project = projects.Items.FirstOrDefault();
 
-
-            var projectFiles = await groupShareClient.Project.GetAllFilesForProject(projectId);
+            var projectFiles = await groupShareClient.Project.GetAllFilesForProject(project.ProjectId);
 
             Assert.True(projectFiles.Count > 0);
 
@@ -67,15 +70,18 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         }
 
-        [Theory]
-        [InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8")]
-        public async Task GetProjectById(string projectId)
+        [Fact]
+        public async Task GetProjectById()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
 
-            var actualProject = await groupShareClient.Project.Get(projectId);
+            var projects = await groupShareClient.Project.GetAllProjects();
+            var project = projects.Items.FirstOrDefault();
 
-            Assert.Equal(actualProject.ProjectId, projectId);
+
+            var actualProject = await groupShareClient.Project.Get(project.ProjectId);
+
+            Assert.Equal(actualProject.ProjectId, project.ProjectId);
         }
 
         [Theory]
@@ -239,5 +245,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         #endregion
+
+
+        //private static async Task<ProjectDetails> GetProject(GroupShareClient groupShareClient)
+        //{
+        //    var projects = await groupShareClient.Project.GetAllProjects();
+        //    return projects.Items.FirstOrDefault();
+        //}
+
     }
 }
