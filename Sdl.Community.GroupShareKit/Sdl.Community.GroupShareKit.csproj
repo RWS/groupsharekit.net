@@ -92,6 +92,12 @@
     <Compile Include="Helpers\FilterResults.cs" />
     <Compile Include="Helpers\PlainTextVisitor.cs" />
     <Compile Include="IJsonRequest.cs" />
+    <Compile Include="Models\Response\Analyse.cs" />
+    <Compile Include="Models\Response\AnalyseDetails.cs" />
+    <Compile Include="Models\Response\BatchTotal.cs" />
+    <Compile Include="Models\Response\FileAnalyse.cs" />
+    <Compile Include="Models\Response\ProjectAnalyseDetails.cs" />
+    <Compile Include="Models\Response\AnalysisReports.cs" />
     <Compile Include="Models\Response\Assignment.cs" />
     <Compile Include="Models\Response\Atribute.cs" />
     <Compile Include="Models\Response\Attributes.cs" />
@@ -100,6 +106,7 @@
     <Compile Include="Models\Response\EntryClass.cs" />
     <Compile Include="Models\Response\FileVersion.cs" />
     <Compile Include="Models\Response\Filter.cs" />
+    <Compile Include="Models\Response\Fuzzy.cs" />
     <Compile Include="Models\Response\LanguageDetailsRequest.cs" />
     <Compile Include="Models\Response\FilterResponse.cs" />
     <Compile Include="Models\Response\Language.cs" />
@@ -160,9 +167,11 @@
     <Compile Include="Models\Response\ProjectFile.cs" />
     <Compile Include="Models\Response\ProjectTemplates.cs" />
     <Compile Include="Models\Response\PublishingStatus.cs" />
+    <Compile Include="Models\Response\Report.cs" />
     <Compile Include="Models\Response\Role.cs" />
     <Compile Include="Models\Response\SearchResponse.cs" />
     <Compile Include="Models\Response\Statistics.cs" />
+    <Compile Include="Models\Response\TaskReport.cs" />
     <Compile Include="Models\Response\TermbaseDetails.cs" />
     <Compile Include="Models\Response\TermbaseInformations.cs" />
     <Compile Include="Models\Response\Termbase.cs" />
@@ -250,6 +259,7 @@
     <Compile Include="Models\Response\UserAssignments.cs" />
     <Compile Include="Models\Response\UserDetails.cs" />
     <Compile Include="Models\Response\UserResponse.cs" />
+    <Compile Include="Models\Response\TaskInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Clients\TerminologyClient.cs" />
   </ItemGroup>

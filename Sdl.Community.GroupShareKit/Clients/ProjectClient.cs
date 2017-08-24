@@ -643,6 +643,30 @@ namespace Sdl.Community.GroupShareKit.Clients
             return rawContent;
 
         }
+
+        /// <summary>
+        /// Get the project analysis report for a given project.
+        /// The project must be created in GroupShare, not in Studio and published in GS
+        /// </summary>
+        /// <param name="projectId">The project id</param>
+        /// <param name="languageCode"> language code. Eg: en-US/param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> List <see cref="AnalysisReports"/>s.</returns>
+        public async Task<IReadOnlyList<AnalysisReports>> GetAnalysisReports(string projectId, string languageCode)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            Ensure.ArgumentNotNullOrEmptyString(languageCode, "languageCode");
+
+            var reportResult = await ApiConnection.GetAll<AnalysisReports>(ApiUrls.AnalysisReports(projectId, languageCode),null);
+            return reportResult;
+        }
         #endregion
     }
 }

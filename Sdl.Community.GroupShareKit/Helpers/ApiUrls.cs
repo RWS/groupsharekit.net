@@ -644,5 +644,10 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/containers/{1}".FormatUri(CurrentTranslationMemoriesUrl,containerid);
         }
+
+        public static Uri AnalysisReports(string projectId,string languageCode)
+        {
+            return "{0}/projects/{1}/analysisreports/{2}".FormatUri(CurrentProjectServerUrl, projectId, languageCode);
+        }
     }
 }

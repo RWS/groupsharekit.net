@@ -71,6 +71,21 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
+        public async Task AnalysisReports()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var projectId = await CreateProject();
+            if (string.IsNullOrEmpty(projectId))
+            {
+                var report = await groupShareClient.Project.GetAnalysisReports(projectId, "en-US");
+                Assert.True(report.Count > 0);
+
+                await groupShareClient.Project.DeleteProject(projectId);
+            }
+        }
+        
+
+        [Fact]
         public async Task GetProjectById()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
@@ -97,8 +112,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             }
         }
 
-        [Fact]
-        public async Task CreateProject()
+        //[Fact]
+        public async Task<string> CreateProject()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
 
@@ -115,10 +130,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                     await groupShareClient.Project.CreateProject(new CreateProjectRequest(projectName, "ee72759d-917e-4c60-ba30-1ed595699c4d", null, DateTime.Today, "7bf6410d-58a7-4817-a559-7aa8a3a99aa9", rawData));
 
                 Assert.True(!string.IsNullOrEmpty(projectId));
+                return projectId;
             }
-           
-
-
+            return null;
         }
 
         [Fact]
