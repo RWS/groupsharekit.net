@@ -235,6 +235,7 @@
     <Compile Include="Models\Response\TranslationMemory\LanguageResourceTemplates.cs" />
     <Compile Include="Models\Response\TranslationMemory\Metadata.cs" />
     <Compile Include="Models\Response\TranslationMemory\Operation.cs" />
+    <Compile Include="Models\Response\TranslationMemory\SearchRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\Settings.cs" />
     <Compile Include="Models\Response\TranslationMemory\Skeleton.cs" />
     <Compile Include="Models\Response\TranslationMemory\StatisticsDetails.cs" />

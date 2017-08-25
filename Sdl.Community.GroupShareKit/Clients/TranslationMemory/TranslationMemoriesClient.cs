@@ -565,28 +565,62 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                     _client.GetTranslationUnitsAsync(tmRequest.TmId, languageRequest.SourceLanguageCode,
                         languageRequest.TargetLanguageCode, tmRequest.StartTuId, tmRequest.Count, restFilterExpression);
 
-
+           
             var searchResult = FilterResults.GetFilterResultForDocument(document);
 
             return searchResult;
         }
 
-        /// <summary>
-        /// Filters translation units, retrives a string maching the expression
-        /// For source and target language language code is required
-        /// For example : German (Germany) - de-de , English (United States) - en-us
-        /// <param name="request"><see cref="RawFilterRequest"/></param>
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Alist of <see cref="FilterResponse"/> which represent filter data</returns>
-        public async Task<IReadOnlyList<FilterResponse>> RawFilter(RawFilterRequest request)
+        public async Task<IReadOnlyList<FilterResponse>> SearchText(SearchRequest searchRequest)
+        {
+            Ensure.ArgumentNotNull(searchRequest, "Search request null");
+            var searchResults = new List<FilterResponse>();
+            var restTextSearch = new RestTextSearch
+            {
+                SearchText = searchRequest.SearchText
+            };
+            var restSearchResult = await _client.TextSearchAsync(searchRequest.TmId, searchRequest.SourceLanguageCode, searchRequest.TargetLanguageCode, restTextSearch);
+
+            foreach (var result in restSearchResult.Results)
+            {
+                var searchResult = FilterResults.GetFilterResultForDocument(result.MemoryTranslationUnit);
+
+                searchResults.AddRange(searchResult);
+            }
+
+            return searchResults;
+        }
+
+        //public async Task<RestSearchResults> ConcordanceSearch(SearchRequest searchRequest)
+        //{
+        //    Ensure.ArgumentNotNull(searchRequest, "Search request null");
+
+        //    var restTextSearch = new RestConcordanceSearch
+        //    {
+        //        SearchText = searchRequest.SearchText
+        //    };
+        //    var searchResult = await _client.ConcordanceSearchAsync(searchRequest.TmId, searchRequest.SourceLanguageCode, searchRequest.TargetLanguageCode, restTextSearch);
+        //    // var concordance = await _client.ConcordanceSearchAsync
+        //    return searchResult;
+        //}
+
+
+            /// <summary>
+            /// Filters translation units, retrives a string maching the expression
+            /// For source and target language language code is required
+            /// For example : German (Germany) - de-de , English (United States) - en-us
+            /// <param name="request"><see cref="RawFilterRequest"/></param>
+            /// </summary>
+            /// <remarks>
+            /// This method requires authentication.
+            /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
+            /// </remarks>
+            /// <exception cref="AuthorizationException">
+            /// Thrown when the current user does not have permission to make the request.
+            /// </exception>
+            /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+            /// <returns>Alist of <see cref="FilterResponse"/> which represent filter data</returns>
+            public async Task<IReadOnlyList<FilterResponse>> RawFilter(RawFilterRequest request)
         {
             Ensure.ArgumentNotNull(request,"filter request");
             Ensure.ArgumentNotNull(request.TmId,"tm id");
@@ -1367,6 +1401,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNullOrEmptyString(languageResourceTemplateId, "languageResourceTemplateId");
             await ApiConnection.Delete(ApiUrls.GetLanguageResourceTemplateById(languageResourceTemplateId));
         }
+
+
         #endregion
 
     }

@@ -225,17 +225,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.Equal(tusNumber, 0);
         }
-        [Theory]
-        [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
-        public async Task GetTusNumberForUnalignedTm(string tmId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var languageParameters = new LanguageParameters("de-de", "ro-ro");
+        //[Theory]
+        //[InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
+        //public async Task GetTusNumberForUnalignedTm(string tmId)
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var languageParameters = new LanguageParameters("de-de", "ro-ro");
 
-            var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfUnalignedTus(tmId, languageParameters);
+        //    var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfUnalignedTus(tmId, languageParameters);
 
-            Assert.Equal(tusNumber, 0);
-        }
+        //    Assert.Equal(tusNumber, 0);
+        //}
 
         [Fact]
         public async Task Filter()
@@ -252,6 +252,20 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Assert.True(segment.Target.Contains("Informare"));
             }
 
+        }
+
+        [Fact]
+        public async Task SimpleSearch()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var searchRequest = new SearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "Blue eyes", "en-us", "ca-es");
+
+            var searchResponse = await groupShareClient.TranslationMemories.SearchText(searchRequest);
+            
+            foreach(var response in searchResponse)
+            {
+                Assert.Contains("Blue eyes", response.Source);
+            }
         }
 
         [Theory]
