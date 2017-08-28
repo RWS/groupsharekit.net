@@ -50,18 +50,18 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(languageDirection.LanguageDirectionId,languageDirectionId);
         }
 
-        [Fact]
-        public async Task ExportTm()
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var languageParam = new LanguageParameters("en-us", "ro-ro");
+        //[Fact]
+        //public async Task ExportTm()
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var languageParam = new LanguageParameters("en-us", "ro-ro");
 
 
-            var tm = await groupShareClient.TranslationMemories.ExportTm("b5e457e0-fe37-47cc-8ba5-4dccdcb10d78", new ExportRequest(), languageParam);
+        //    var tm = await groupShareClient.TranslationMemories.ExportTm("b5e457e0-fe37-47cc-8ba5-4dccdcb10d78", new ExportRequest(), languageParam);
 
-            Assert.True(tm.Length > 0);
+        //    Assert.True(tm.Length > 0);
 
-        }
+        //}
 
         [Theory]
         [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
