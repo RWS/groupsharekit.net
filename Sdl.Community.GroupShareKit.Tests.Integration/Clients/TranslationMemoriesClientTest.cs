@@ -10,6 +10,7 @@ using Sdl.Community.GroupShareKit.Models.Response;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using Xunit;
 using File = System.IO.File;
+using System.IO.Compression;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
@@ -47,6 +48,19 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 await groupShareClient.TranslationMemories.GetLanguageDirectionForTm(tmId, languageDirectionId);
 
             Assert.Equal(languageDirection.LanguageDirectionId,languageDirectionId);
+        }
+
+        [Fact]
+        public async Task ExportTm()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var languageParam = new LanguageParameters("en-us", "ro-ro");
+
+
+            var tm = await groupShareClient.TranslationMemories.ExportTm("b5e457e0-fe37-47cc-8ba5-4dccdcb10d78", new ExportRequest(), languageParam);
+
+            Assert.True(tm.Length > 0);
+
         }
 
         [Theory]
@@ -258,13 +272,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task SimpleSearch()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var searchRequest = new SearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "Blue eyes", "en-us", "ca-es");
+            var searchRequest = new SearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "Blu", "en-us", "ca-es");
 
             var searchResponse = await groupShareClient.TranslationMemories.SearchText(searchRequest);
             
             foreach(var response in searchResponse)
             {
-                Assert.Contains("Blue eyes", response.Source);
+                Assert.Contains("Blue eye", response.Source);
             }
         }
 

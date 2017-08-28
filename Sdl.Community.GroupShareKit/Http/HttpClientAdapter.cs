@@ -59,11 +59,11 @@ namespace Sdl.Community.GroupShareKit.Http
                     contentType = GetContentMediaType(responseMessage.Content);
 
                     if (contentType != null && (contentType.StartsWith("image/")
-                                                ||
-                                                contentType.Equals("application/zip", StringComparison.OrdinalIgnoreCase)
-                                                ||
-                                                contentType.Equals("application/x-gzip",
-                                                    StringComparison.OrdinalIgnoreCase)))
+                                            ||
+                                            contentType.Equals("application/zip", StringComparison.OrdinalIgnoreCase)
+                                            ||
+                                            contentType.Equals("application/x-gzip",
+                                                StringComparison.OrdinalIgnoreCase)))
                     {
                         responseBody = await responseMessage.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
                     }

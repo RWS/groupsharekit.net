@@ -649,5 +649,10 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/projects/{1}/analysisreports/{2}".FormatUri(CurrentProjectServerUrl, projectId, languageCode);
         }
+
+        public  static Uri TaskOutput(string taskId)
+        {
+            return "{0}/tasks/{1}/output".FormatUri(CurrentTranslationMemoriesUrl, taskId);
+        }
     }
 }

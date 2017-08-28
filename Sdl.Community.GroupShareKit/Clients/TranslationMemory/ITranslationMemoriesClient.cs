@@ -115,8 +115,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="ExportResponse"/></returns>
-        Task<ExportResponse> ExportTm(string tmId, ExportRequest request, LanguageParameters language);
-
+        //Task<byte[]> ExportTm(string tmId, ExportRequest request, LanguageParameters language);
+        Task<byte[]> ExportTm(string tmId, ExportRequest request, LanguageParameters language);
+ 
         /// <summary>
         /// Imports TUs into a Translation Memory
         /// The file should be a TMX type.

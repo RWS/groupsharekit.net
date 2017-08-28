@@ -257,17 +257,21 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="ExportResponse"/></returns>
-        public async Task<ExportResponse> ExportTm(string tmId, ExportRequest request, LanguageParameters language)
+        /// <returns byte[]></returns>
+        public async Task<byte[]> ExportTm(string tmId, ExportRequest request, LanguageParameters language)
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId, "tm is");
             Ensure.ArgumentNotNull(request, "request");
             Ensure.ArgumentNotNull(language, "language parameters");
 
-            return
+            var response=
                 await
                     ApiConnection.Post<ExportResponse>(ApiUrls.Export(tmId, language.Source, language.Target), request,
                         "application/json");
+
+            var fileContent =  await ApiConnection.Get<string>(ApiUrls.TaskOutput(response.Id), null);
+            var rawContent = Encoding.UTF8.GetBytes(fileContent);
+            return rawContent;
         }
         /// <summary>
         /// Imports TUs into a Translation Memory
@@ -577,8 +581,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             var searchResults = new List<FilterResponse>();
             var restTextSearch = new RestTextSearch
             {
-                SearchText = searchRequest.SearchText
+                SearchText = searchRequest.SearchText,
+               Settings = new RestSearchSettings()
             };
+            restTextSearch.Settings.MinScore = 30;
+            
             var restSearchResult = await _client.TextSearchAsync(searchRequest.TmId, searchRequest.SourceLanguageCode, searchRequest.TargetLanguageCode, restTextSearch);
 
             foreach (var result in restSearchResult.Results)
@@ -1401,7 +1408,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNullOrEmptyString(languageResourceTemplateId, "languageResourceTemplateId");
             await ApiConnection.Delete(ApiUrls.GetLanguageResourceTemplateById(languageResourceTemplateId));
         }
-
 
         #endregion
 
