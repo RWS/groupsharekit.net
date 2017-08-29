@@ -27,7 +27,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// <summary>
         /// Gets or sets background task details
         /// </summary>
-        public BackgroundTaskDetails Details { get; set; }
+        public List<BackgroundTaskDetails> Details { get; set; }
         /// <summary>
         /// Gets or sets the status
         /// </summary>

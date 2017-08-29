@@ -263,15 +263,29 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNullOrEmptyString(tmId, "tm is");
             Ensure.ArgumentNotNull(request, "request");
             Ensure.ArgumentNotNull(language, "language parameters");
-
-            var response=
-                await
-                    ApiConnection.Post<ExportResponse>(ApiUrls.Export(tmId, language.Source, language.Target), request,
+            
+            var response=await
+                
+                     ApiConnection.Post<ExportResponse>(ApiUrls.Export(tmId, language.Source, language.Target), request,
                         "application/json");
 
-            var fileContent =  await ApiConnection.Get<string>(ApiUrls.TaskOutput(response.Id), null);
+            BackgroundTask backgroundTask = new BackgroundTask();
+            do
+            {
+                backgroundTask = await ApiConnection.Get<BackgroundTask>(ApiUrls.GetTaskById(response.Id), null);
+            } while (backgroundTask.Status != "Done");
+             
+         
+          
+            var fileContent =  await ApiConnection.Get<string>(ApiUrls.TaskOutput(backgroundTask.Id), null);
+         
             var rawContent = Encoding.UTF8.GetBytes(fileContent);
-            return rawContent;
+           return rawContent;
+        }
+        public async Task<BackgroundTask> GetBackgroundTask(string taskId)
+        {
+            var backgroundTask = await ApiConnection.Get<BackgroundTask>(ApiUrls.GetTaskById(taskId), null);
+            return backgroundTask;
         }
         /// <summary>
         /// Imports TUs into a Translation Memory
@@ -1407,6 +1421,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNullOrEmptyString(languageResourceTemplateId, "languageResourceTemplateId");
             await ApiConnection.Delete(ApiUrls.GetLanguageResourceTemplateById(languageResourceTemplateId));
+        }
+
+        public void TestCall()
+        {
+            var test = "yes";
         }
 
         #endregion

@@ -117,6 +117,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns><see cref="ExportResponse"/></returns>
         //Task<byte[]> ExportTm(string tmId, ExportRequest request, LanguageParameters language);
         Task<byte[]> ExportTm(string tmId, ExportRequest request, LanguageParameters language);
+        void TestCall();
+        Task<BackgroundTask> GetBackgroundTask(string taskId);
  
         /// <summary>
         /// Imports TUs into a Translation Memory

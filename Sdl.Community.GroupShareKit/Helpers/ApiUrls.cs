@@ -13,7 +13,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static readonly Uri CurrentMultitermUrl = new Uri("multiterm/api/1.0", UriKind.Relative);
         public static readonly Uri CurrentLanguageResourceServiceUrl = new Uri("api/language-resource-service", UriKind.Relative);
 
-
         public static Uri Modules()
         {
             return "{0}/modules".FormatUri(CurrentManagementUrl);
@@ -654,5 +653,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/tasks/{1}/output".FormatUri(CurrentTranslationMemoriesUrl, taskId);
         }
+
+        public static Uri GetTaskById(string taskId)
+        {
+            return "{0}/tasks/{1}".FormatUri(CurrentTranslationMemoriesUrl, taskId);
+        }
+
     }
 }
