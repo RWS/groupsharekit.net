@@ -244,7 +244,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Exports TUs from a Translation Memory
+        /// Exports a translation memory as byte[]
+        /// The encoding file format is a zip with the .gz extension
+        /// To save the Tm on disk the array should be decopressed using GZipStream()
         /// <param name="request"><see cref="ExportRequest"/></param>
         /// <param name="tmId">Translation memory id</param>
         /// <param name="language"><see cref="LanguageParameters"/></param>
@@ -257,7 +259,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns byte[]></returns>
+        /// <returns>Selected tm as byte[]</returns>
         public async Task<byte[]> ExportTm(string tmId, ExportRequest request, LanguageParameters language)
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId, "tm is");
@@ -1422,9 +1424,22 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Delete(ApiUrls.GetLanguageResourceTemplateById(languageResourceTemplateId));
         }
 
-        public void TestCall()
+
+        /// <summary>
+        /// Gets<see cref="TmServiceDetails"/> of tm service .
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Returns the status of tm service and the dependencies</returns>
+        public async Task<TmServiceDetails> HealthVersion()
         {
-            var test = "yes";
+            return await ApiConnection.Get<TmServiceDetails>(ApiUrls.HealthVersion(), null);
         }
 
         #endregion

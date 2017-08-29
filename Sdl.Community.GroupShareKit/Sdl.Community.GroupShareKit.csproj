@@ -236,6 +236,7 @@
     <Compile Include="Models\Response\TranslationMemory\Metadata.cs" />
     <Compile Include="Models\Response\TranslationMemory\Operation.cs" />
     <Compile Include="Models\Response\TranslationMemory\SearchRequest.cs" />
+    <Compile Include="Models\Response\TranslationMemory\ServiceDependencies.cs" />
     <Compile Include="Models\Response\TranslationMemory\Settings.cs" />
     <Compile Include="Models\Response\TranslationMemory\Skeleton.cs" />
     <Compile Include="Models\Response\TranslationMemory\StatisticsDetails.cs" />
@@ -246,6 +247,8 @@
     <Compile Include="Models\Response\TranslationMemory\TermTm.cs" />
     <Compile Include="Models\Response\TranslationMemory\TermTranslation.cs" />
     <Compile Include="Models\Response\TranslationMemory\TmFile.cs" />
+    <Compile Include="Models\Response\TranslationMemory\TmServiceDetails.cs" />
+    <Compile Include="Models\Response\TranslationMemory\TmServiceHealth.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationMemory.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationMemoryDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationMemoryDetailsRequest.cs" />

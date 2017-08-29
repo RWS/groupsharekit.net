@@ -101,7 +101,23 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<Health> Health();
 
         /// <summary>
-        /// Exports TUs from a Translation Memory
+        /// Gets<see cref="TmServiceDetails"/> of tm service .
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Returns the status of tm service and the dependencies</returns>
+        Task<TmServiceDetails> HealthVersion();
+
+        /// <summary>
+        /// Exports a translation memory as byte[]
+        /// The encoding file format is a zip with the .gz extension
+        /// To save the Tm on disk the array should be decopressed using GZipStream()
         /// <param name="request"><see cref="ExportRequest"/></param>
         /// <param name="tmId">Translation memory id</param>
         /// <param name="language"><see cref="LanguageParameters"/></param>
@@ -114,10 +130,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="ExportResponse"/></returns>
-        //Task<byte[]> ExportTm(string tmId, ExportRequest request, LanguageParameters language);
+        /// <returns>Selected tm as byte[]</returns>
         Task<byte[]> ExportTm(string tmId, ExportRequest request, LanguageParameters language);
-        void TestCall();
+
         Task<BackgroundTask> GetBackgroundTask(string taskId);
  
         /// <summary>

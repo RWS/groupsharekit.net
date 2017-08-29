@@ -451,6 +451,14 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> that returns the health version details of tm service
+        /// </summary>
+        public static Uri HealthVersion()
+        {
+            return "{0}/health/version".FormatUri(CurrentTranslationMemoriesUrl);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that gets filters from the specified termbase
         /// </summary>
         public static Uri GetFilers(string termbaseId)
@@ -644,20 +652,30 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/containers/{1}".FormatUri(CurrentTranslationMemoriesUrl,containerid);
         }
 
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns the analysis report for a project
+        /// </summary>
         public static Uri AnalysisReports(string projectId,string languageCode)
         {
             return "{0}/projects/{1}/analysisreports/{2}".FormatUri(CurrentProjectServerUrl, projectId, languageCode);
         }
 
-        public  static Uri TaskOutput(string taskId)
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns the output of a background task
+        /// </summary>
+        public static Uri TaskOutput(string taskId)
         {
             return "{0}/tasks/{1}/output".FormatUri(CurrentTranslationMemoriesUrl, taskId);
         }
 
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns a background task by id
+        /// </summary>
         public static Uri GetTaskById(string taskId)
         {
             return "{0}/tasks/{1}".FormatUri(CurrentTranslationMemoriesUrl, taskId);
         }
+
 
     }
 }

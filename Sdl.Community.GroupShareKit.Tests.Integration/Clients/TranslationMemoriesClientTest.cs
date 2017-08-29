@@ -77,6 +77,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         }
   
+        [Fact]
+        public async Task HealthVersion()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+
+            var healthVersion = await groupShareClient.TranslationMemories.HealthVersion();
+
+            Assert.True(healthVersion != null);
+        }
 
         [Theory]
         [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
