@@ -637,10 +637,9 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(version, "version");
 
             var fileContent = await
-                    ApiConnection.Get<string>(ApiUrls.DownloadFileForVersion(projectId, languageFileId, version), null);
+                    ApiConnection.Get<byte[]>(ApiUrls.DownloadFileForVersion(projectId, languageFileId, version), null);
 
-            var rawContent = Encoding.UTF8.GetBytes(fileContent);
-            return rawContent;
+            return fileContent;
 
         }
 

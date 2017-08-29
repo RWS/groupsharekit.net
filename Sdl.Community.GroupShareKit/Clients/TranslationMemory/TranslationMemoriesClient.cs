@@ -277,10 +277,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
              
          
           
-            var fileContent =  await ApiConnection.Get<string>(ApiUrls.TaskOutput(backgroundTask.Id), null);
-         
-            var rawContent = Encoding.UTF8.GetBytes(fileContent);
-           return rawContent;
+            var fileContent =  await ApiConnection.Get<byte[]>(ApiUrls.TaskOutput(backgroundTask.Id), null);
+
+            return fileContent;
         }
         public async Task<BackgroundTask> GetBackgroundTask(string taskId)
         {

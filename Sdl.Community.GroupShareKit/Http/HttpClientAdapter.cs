@@ -63,7 +63,11 @@ namespace Sdl.Community.GroupShareKit.Http
                                             contentType.Equals("application/zip", StringComparison.OrdinalIgnoreCase)
                                             ||
                                             contentType.Equals("application/x-gzip",
-                                                StringComparison.OrdinalIgnoreCase)))
+                                                StringComparison.OrdinalIgnoreCase)
+                                                ||
+                                                 contentType.Equals("application/xml",
+                                                StringComparison.OrdinalIgnoreCase)
+                                                ))
                     {
                         responseBody = await responseMessage.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
                     }

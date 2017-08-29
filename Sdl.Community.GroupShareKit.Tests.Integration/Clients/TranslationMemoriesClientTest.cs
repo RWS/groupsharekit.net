@@ -11,6 +11,8 @@ using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using Xunit;
 using File = System.IO.File;
 using System.IO.Compression;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
@@ -23,7 +25,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var tmsResponse = await groupShareClient.TranslationMemories.GetTms();
 
-            Assert.True(tmsResponse.Items.Count>0);
+            Assert.True(tmsResponse.Items.Count > 0);
         }
 
 
@@ -41,28 +43,40 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638", "6e9c3b55-1cec-4439-96c6-7e3c1af590d1")]
-        public async Task GetLanguageDirectionForTm(string tmId,string languageDirectionId)
+        public async Task GetLanguageDirectionForTm(string tmId, string languageDirectionId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
             var languageDirection =
                 await groupShareClient.TranslationMemories.GetLanguageDirectionForTm(tmId, languageDirectionId);
 
-            Assert.Equal(languageDirection.LanguageDirectionId,languageDirectionId);
+            Assert.Equal(languageDirection.LanguageDirectionId, languageDirectionId);
         }
 
         [Fact]
         public async Task ExportTm()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var languageParam = new LanguageParameters("en-us", "ro-ro");
+            var languageParam = new LanguageParameters("en-us", "es-es");
 
             var requestExportRequest = new ExportRequest();
 
-            var tm = await groupShareClient.TranslationMemories.ExportTm("b5e457e0-fe37-47cc-8ba5-4dccdcb10d78", requestExportRequest, languageParam);
-           
-           Assert.True(tm.Length > 0);
+            var tm = await groupShareClient.TranslationMemories.ExportTm("613e77ce-e838-4b80-a1a9-0afee3704632", requestExportRequest, languageParam);
+
+            Assert.True(tm.Length > 0);
+
+            //Example of how the byte[] should be decompressed and how to write the tm to disk
+
+            //using (var compressedStream = new MemoryStream(tm))
+            //using (var zipStream = new GZipStream(compressedStream, CompressionMode.Decompress))
+            //using (var resultStream = new MemoryStream())
+            //{
+            //    zipStream.CopyTo(resultStream);
+            //    var test = resultStream.ToArray();
+            //    File.WriteAllBytes(@"C:\Users\aghisa\Desktop\testTm.tmx", test);
+            //}
 
         }
+  
 
         [Theory]
         [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
