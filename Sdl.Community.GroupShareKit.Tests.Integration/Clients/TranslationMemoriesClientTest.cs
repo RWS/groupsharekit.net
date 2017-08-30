@@ -13,6 +13,7 @@ using File = System.IO.File;
 using System.IO.Compression;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Sdl.TmService.Sdk.Model;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
@@ -305,6 +306,114 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Assert.Contains("Blue eye", response.Source);
             }
         }
+
+        #region Concordance Search for source
+        [Fact]
+        public async Task ConcordanceSimpleSearch()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "blue", "en-us", "ca-es");
+
+            var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearch(concordanceSearchRequest);
+
+            foreach (var response in searchResponse)
+            {
+                Assert.Contains("blue", response.Source.ToLower());
+            }
+        }
+
+        //Concordance search with custom settings
+        [Fact]
+        public async Task ConcordanceSearchWithCustomSettings()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+
+            // the score for this search is 85
+            var concordanceSearchSettings = new ConcordanceSearchSettings
+            {
+                MinScore = 90
+            };
+            var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "blu", "en-us", "ca-es", concordanceSearchSettings);
+
+            var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearch(concordanceSearchRequest);
+
+            Assert.True(searchResponse.Count == 0);
+
+
+            var concordanceSearchMaxResults = new ConcordanceSearchSettings
+            {
+                MaxResults = 3
+            };
+            var concordanceSearchMaxRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "blue", "en-us", "ca-es", concordanceSearchMaxResults);
+
+            var concordanceMaxRequest = await groupShareClient.TranslationMemories.ConcordanceSearch(concordanceSearchMaxRequest);
+
+            Assert.True(concordanceMaxRequest.Count == 3);
+        }
+        #endregion
+        [Fact]
+        public async Task TargetConcordanceSearch()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var concordanceSearchSettings = new ConcordanceSearchSettings
+            {
+                IsTargetConcodanceSearch = true
+            };
+            var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "negre", "en-us", "ca-es", concordanceSearchSettings);
+            var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearch(concordanceSearchRequest);
+
+            Assert.True(searchResponse.Count > 0);
+        }
+
+
+        //The implementation of  search with filters is not complete
+        //Test comented until that.
+
+        //[Theory]
+        //[InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", " \"Andrea\" = \"AndreaValue\"","high")]
+        //public async Task SearchWithFilterExpression(string tmId, string simpleExpression,string searchText)
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    // simple expression 
+        //    var filedsList = new List<FieldFilter>
+        //    {
+        //        new FieldFilter
+        //        {
+        //            Name = "andrea",
+        //            Type = FieldFilter.TypeEnum.SingleString,
+        //            Values = null
+        //        }
+        //    };
+        //    var test = new RestTextSearch
+        //    {
+        //        Settings = new RestSearchSettings
+        //        {
+        //            //Filters = new List<RestFilter>
+        //            //{
+        //            //    new RestFilter
+        //            //    {
+        //            //        Name ="AndreaValue",
+
+        //            //    }
+        //            //}
+        //            HardFilter = new RestFilterExpression
+        //            {
+        //                Fields = new List<RestFilterField>
+        //                {
+        //                    new RestFilterField
+        //                    {
+        //                        Name = "Andrea",
+
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    };
+        //    var filterRequest = new FieldFilterRequest(filedsList, simpleExpression);
+        //    var searchRequest = new SearchRequest(new Guid(tmId), searchText, "en-us", "ca-es", filterRequest);
+
+        //    var searchResponse = await groupShareClient.TranslationMemories.SearchText(searchRequest);
+        //}
 
         [Theory]
         [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638", " \"andrea\" = \"TestValue\"")]

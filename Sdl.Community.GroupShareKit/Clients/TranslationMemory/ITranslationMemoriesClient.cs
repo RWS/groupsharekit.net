@@ -406,7 +406,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns>Alist of <see cref="Models.Response.TranslationMemory.FilterResponse"/> which represent filter data</returns>
         Task<IReadOnlyList<Models.Response.TranslationMemory.FilterResponse>> FilterAsPlainText(LanguageDetailsRequest languageRequest,TranslationMemoryDetailsRequest tmRequest,bool caseSensitive,bool allowWildCards);
         Task<IReadOnlyList<Models.Response.TranslationMemory.FilterResponse>> SearchText(SearchRequest searchRequest);
-        
+
+        Task<IReadOnlyList<Models.Response.TranslationMemory.FilterResponse>> ConcordanceSearch(ConcordanceSearchRequest concordanceSearchRequest);
 
         /// <summary>
         /// Filters translation units, retrives a string maching the expression

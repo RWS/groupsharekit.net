@@ -70,19 +70,27 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         }
 
-        [Fact]
-        public async Task AnalysisReports()
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var projectId = await CreateProject();
-            if (string.IsNullOrEmpty(projectId))
-            {
-                var report = await groupShareClient.Project.GetAnalysisReports(projectId, "en-US");
-                Assert.True(report.Count > 0);
+        //[Fact]
+        //public async Task AnalysisReports()
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var projectId = await CreateProject();
+        //    if (!string.IsNullOrEmpty(projectId))
+        //    {
+        //        var report = await groupShareClient.Project.GetAnalysisReports(projectId, "en-US");
+        //        Assert.True(report.Count > 0);
 
-                await groupShareClient.Project.DeleteProject(projectId);
-            }
-        }
+        //        int publishingStatus;
+
+        //        do
+        //        {
+        //            var statusResponse = await groupShareClient.Project.PublishingStatus(projectId);
+        //            publishingStatus = statusResponse.Status;
+        //        } while (publishingStatus != 3);
+
+        //        await groupShareClient.Project.DeleteProject(projectId);
+        //    }
+        //}
         
 
         [Fact]

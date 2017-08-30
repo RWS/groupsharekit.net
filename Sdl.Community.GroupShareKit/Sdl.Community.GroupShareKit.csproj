@@ -185,6 +185,8 @@
     <Compile Include="Models\Response\TranslationMemory\BackgroundTaskDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\Children.cs" />
     <Compile Include="Models\Response\TranslationMemory\CommentDefinition.cs" />
+    <Compile Include="Models\Response\TranslationMemory\ConcordanceSearchRequest.cs" />
+    <Compile Include="Models\Response\TranslationMemory\ConcordanceSearchSettings.cs" />
     <Compile Include="Models\Response\TranslationMemory\Container.cs" />
     <Compile Include="Models\Response\TranslationMemory\ContainerRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\ContainerResponse.cs" />

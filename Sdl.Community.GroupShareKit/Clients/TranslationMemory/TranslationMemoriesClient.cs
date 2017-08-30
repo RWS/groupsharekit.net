@@ -597,8 +597,26 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             var restTextSearch = new RestTextSearch
             {
                 SearchText = searchRequest.SearchText,
-               Settings = new RestSearchSettings()
+                Settings = new RestSearchSettings()
             };
+            //var restTextSearch = new RestTextSearch
+            //{
+            //    SearchText = searchRequest.SearchText,
+            //    Settings = new RestSearchSettings
+            //    {
+            //        HardFilter = new RestFilterExpression
+            //        {
+            //            Fields = new List<RestFilterField>
+            //            {
+            //                new RestFilterField
+            //                {
+            //                    Name = "Andrea",
+
+            //                }
+            //            }
+            //        }
+            //    }
+            //};
             restTextSearch.Settings.MinScore = 30;
             
             var restSearchResult = await _client.TextSearchAsync(searchRequest.TmId, searchRequest.SourceLanguageCode, searchRequest.TargetLanguageCode, restTextSearch);
@@ -613,36 +631,79 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return searchResults;
         }
 
-        //public async Task<RestSearchResults> ConcordanceSearch(SearchRequest searchRequest)
-        //{
-        //    Ensure.ArgumentNotNull(searchRequest, "Search request null");
+        public async Task<IReadOnlyList<FilterResponse>> ConcordanceSearch(ConcordanceSearchRequest searchRequest)
+        {
+            Ensure.ArgumentNotNull(searchRequest, "Search request null");
 
-        //    var restTextSearch = new RestConcordanceSearch
-        //    {
-        //        SearchText = searchRequest.SearchText
-        //    };
-        //    var searchResult = await _client.ConcordanceSearchAsync(searchRequest.TmId, searchRequest.SourceLanguageCode, searchRequest.TargetLanguageCode, restTextSearch);
-        //    // var concordance = await _client.ConcordanceSearchAsync
-        //    return searchResult;
-        //}
+            var restConcordanceSearch = new RestConcordanceSearch
+            {
 
+                Settings = new RestConcordanceSearchSettings(),
+                SearchText = searchRequest.SearchText
+            };
+        
+            var searchResults = new List<FilterResponse>();
 
-            /// <summary>
-            /// Filters translation units, retrives a string maching the expression
-            /// For source and target language language code is required
-            /// For example : German (Germany) - de-de , English (United States) - en-us
-            /// <param name="request"><see cref="RawFilterRequest"/></param>
-            /// </summary>
-            /// <remarks>
-            /// This method requires authentication.
-            /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-            /// </remarks>
-            /// <exception cref="AuthorizationException">
-            /// Thrown when the current user does not have permission to make the request.
-            /// </exception>
-            /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-            /// <returns>Alist of <see cref="FilterResponse"/> which represent filter data</returns>
-            public async Task<IReadOnlyList<FilterResponse>> RawFilter(RawFilterRequest request)
+            if (searchRequest.Settings != null)
+            {
+                restConcordanceSearch = CreateRestConcordanceSearch(searchRequest.Settings);
+                restConcordanceSearch.SearchText = searchRequest.SearchText;
+            }
+               
+
+            var concordanceSearchResult = await _client.ConcordanceSearchAsync(searchRequest.TmId, searchRequest.SourceLanguageCode, searchRequest.TargetLanguageCode, restConcordanceSearch);
+            foreach (var result in concordanceSearchResult.Results)
+            {
+                var searchResult = FilterResults.GetFilterResultForDocument(result.MemoryTranslationUnit);
+
+                searchResults.AddRange(searchResult);
+            }
+
+            return searchResults;
+        }
+
+        private RestConcordanceSearch CreateRestConcordanceSearch(ConcordanceSearchSettings searchSettings)
+        {
+            var restSearch = new RestConcordanceSearch{
+
+                Settings= new RestConcordanceSearchSettings(),
+                 };
+
+            if (searchSettings.IsTargetConcodanceSearch)
+            {
+                restSearch.IsTargetConcordanceSearch = true;
+            }
+
+            //By default is 70
+            if (searchSettings.MinScore >= 30 && searchSettings.MinScore <= 100)
+            {
+                restSearch.Settings.MinScore = searchSettings.MinScore;
+            }
+            //by default is 30
+            if (searchSettings.MaxResults >= 1 && searchSettings.MinScore <= 99)
+            {
+                restSearch.Settings.MaxResults = searchSettings.MaxResults;
+            }
+
+            return restSearch;
+        }
+
+        /// <summary>
+        /// Filters translation units, retrives a string maching the expression
+        /// For source and target language language code is required
+        /// For example : German (Germany) - de-de , English (United States) - en-us
+        /// <param name="request"><see cref="RawFilterRequest"/></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Alist of <see cref="FilterResponse"/> which represent filter data</returns>
+        public async Task<IReadOnlyList<FilterResponse>> RawFilter(RawFilterRequest request)
         {
             Ensure.ArgumentNotNull(request,"filter request");
             Ensure.ArgumentNotNull(request.TmId,"tm id");
