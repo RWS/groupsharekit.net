@@ -185,6 +185,7 @@
     <Compile Include="Models\Response\TranslationMemory\BackgroundTaskDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\Children.cs" />
     <Compile Include="Models\Response\TranslationMemory\CommentDefinition.cs" />
+    <Compile Include="Models\Response\TranslationMemory\ConcordanceSearchFilter.cs" />
     <Compile Include="Models\Response\TranslationMemory\ConcordanceSearchRequest.cs" />
     <Compile Include="Models\Response\TranslationMemory\ConcordanceSearchSettings.cs" />
     <Compile Include="Models\Response\TranslationMemory\Container.cs" />
@@ -228,6 +229,7 @@
     <Compile Include="Models\Response\TranslationMemory\LanguageParameters.cs" />
     <Compile Include="Models\Response\TranslationMemory\ParagraphUnit.cs" />
     <Compile Include="Models\Response\TranslationMemory\ParagraphUnitLanguageDetails.cs" />
+    <Compile Include="Models\Response\TranslationMemory\Penalty.cs" />
     <Compile Include="Models\Response\TranslationMemory\PlaceholderTagDefinition.cs" />
     <Compile Include="Models\Response\TranslationMemory\Position.cs" />
     <Compile Include="Models\Response\TranslationMemory\RawFilterRequest.cs" />

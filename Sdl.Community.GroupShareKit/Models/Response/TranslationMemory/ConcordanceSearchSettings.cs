@@ -11,6 +11,10 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         public bool IsTargetConcodanceSearch { get; set; }
         public int MinScore { get; set; }
         public int MaxResults { get; set; }
-        //We need to add filter property
+        public List<ConcordanceSearchFilter> Filters { get; set; }
+        public List<Penalty> Penalties { get; set; }
+        public bool IncludeTokens { get; set; }
+       
+
     }
 }

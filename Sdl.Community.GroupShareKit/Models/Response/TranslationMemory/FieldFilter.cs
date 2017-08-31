@@ -29,7 +29,8 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 
         public enum TypeEnum
         {
-            SingleString
+            SingleString,
+            MultipleString
         }
     }
 }

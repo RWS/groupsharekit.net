@@ -77,7 +77,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             //}
 
         }
-  
+
         [Fact]
         public async Task HealthVersion()
         {
@@ -95,7 +95,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var tmNumber = await groupShareClient.TranslationMemories.GetTmsNumberByLanguageResourceTemplateId(id);
 
-            Assert.Equal(tmNumber,0);
+            Assert.Equal(tmNumber, 0);
         }
 
         [Theory]
@@ -105,7 +105,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var tmNumber = await groupShareClient.TranslationMemories.GetTmsNumberByFieldTemplateId(id);
 
-            Assert.Equal(tmNumber , 0);
+            Assert.Equal(tmNumber, 0);
         }
 
 
@@ -144,7 +144,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                     MinSearchVectorLengthTargetCharIndex = 5,
                     MinSearchVectorLengthTargetWordIndex = 3
 
-                },            
+                },
                 ContainerId = "ee2871af-a5a5-46ca-9b05-0f216744e8fe"
 
 
@@ -152,11 +152,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var tmId = await groupShareClient.TranslationMemories.CreateTm(tmRequest);
 
-            Assert.True(tmId!=string.Empty);
+            Assert.True(tmId != string.Empty);
             return tmId;
         }
 
-        
+
         public async Task DeleteTm(string tmId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
@@ -187,21 +187,21 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var health = await groupShareClient.TranslationMemories.Health();
 
-            Assert.Equal(health.Status,"UP");
+            Assert.Equal(health.Status, "UP");
         }
 
- 
+
 
         [Theory]
         [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
         public async Task GetTusForTm(string tmId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var translationUnitRequest = new TranslationUnitDetailsRequest("de-de", "ro-ro", 0,50);
+            var translationUnitRequest = new TranslationUnitDetailsRequest("de-de", "ro-ro", 0, 50);
 
             var tus = await groupShareClient.TranslationMemories.GetTranslationUnitForTm(tmId, translationUnitRequest);
 
-            Assert.True(tus!=null);
+            Assert.True(tus != null);
         }
         [Fact]
         public async Task RecomputeStatistics()
@@ -212,7 +212,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var response = await groupShareClient.TranslationMemories.RecomputeStatistics(tmId, request);
 
-            Assert.True(response!=null);
+            Assert.True(response != null);
             await DeleteTm(tmId);
         }
 
@@ -238,7 +238,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfTus(tmId, languageParameters);
 
-            Assert.True(tusNumber>0);
+            Assert.True(tusNumber > 0);
         }
 
         [Theory]
@@ -250,7 +250,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfPostDatedTus(tmId, languageParameters);
 
-            Assert.Equal(tusNumber ,0);
+            Assert.Equal(tusNumber, 0);
         }
 
         [Theory]
@@ -282,9 +282,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             //      var languageDetails = new LanguageDetailsRequest("Europäischen", "de-de", "Acord ", "ro-ro");
             var languageDetails = new LanguageDetailsRequest("", "de-de", "Informare", "ro-ro");
-            var tmDetails = new TranslationMemoryDetailsRequest(new Guid("27782e18-a0df-4266-ac9f-29965d3a3638"),0,50);
+            var tmDetails = new TranslationMemoryDetailsRequest(new Guid("27782e18-a0df-4266-ac9f-29965d3a3638"), 0, 50);
 
-            var filter = await groupShareClient.TranslationMemories.FilterAsPlainText(languageDetails, tmDetails,true,true);
+            var filter = await groupShareClient.TranslationMemories.FilterAsPlainText(languageDetails, tmDetails, true, true);
 
             foreach (var segment in filter)
             {
@@ -300,8 +300,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var searchRequest = new SearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "Blu", "en-us", "ca-es");
 
             var searchResponse = await groupShareClient.TranslationMemories.SearchText(searchRequest);
-            
-            foreach(var response in searchResponse)
+
+            foreach (var response in searchResponse)
             {
                 Assert.Contains("Blue eye", response.Source);
             }
@@ -314,7 +314,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "blue", "en-us", "ca-es");
 
-            var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearch(concordanceSearchRequest);
+            var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
 
             foreach (var response in searchResponse)
             {
@@ -335,7 +335,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
             var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "blu", "en-us", "ca-es", concordanceSearchSettings);
 
-            var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearch(concordanceSearchRequest);
+            var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
 
             Assert.True(searchResponse.Count == 0);
 
@@ -346,10 +346,102 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
             var concordanceSearchMaxRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "blue", "en-us", "ca-es", concordanceSearchMaxResults);
 
-            var concordanceMaxRequest = await groupShareClient.TranslationMemories.ConcordanceSearch(concordanceSearchMaxRequest);
+            var concordanceMaxRequest = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchMaxRequest);
 
             Assert.True(concordanceMaxRequest.Count == 3);
         }
+
+        [Theory]
+        [InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", "\"Andrea\" = (\"AndreaField\")", "TestFilterName")]
+        public async Task ConcordanceSearchWithCustomFilter(string tmId, string expression, string filterName)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var fieldFilter = new List<FieldFilter>
+            {
+                new FieldFilter
+                {
+                    //filed name
+                    Name="Andrea",
+                    Type = FieldFilter.TypeEnum.MultipleString,
+                    Values = null
+                }
+            };
+            var concordanceSearchSettings = new ConcordanceSearchSettings
+            {
+                Filters = new List<ConcordanceSearchFilter>
+                {
+                    new ConcordanceSearchFilter
+                    {
+                        Expression = new FieldFilterRequest(fieldFilter,expression),
+                        Penalty = 10,
+                        Name=filterName
+                    },
+
+                },
+                IncludeTokens = true
+
+            };
+
+            var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "blue", "en-us", "ca-es", concordanceSearchSettings);
+
+            var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+
+            foreach (var response in searchResponse)
+            {
+                Assert.Contains("blue", response.Source.ToLower());
+            }
+        }
+
+        [Theory]
+        [InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", "\"Andrea\" = (\"AndreaField\")", "TestFilterName")]
+        public async Task ConcordanceSearchWithPenalties(string tmId, string expression, string filterName)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var fieldFilter = new List<FieldFilter>
+            {
+                new FieldFilter
+                {
+                    //filed name
+                    Name="Andrea",
+                    Type = FieldFilter.TypeEnum.MultipleString,
+                    Values = null
+                }
+            };
+            var concordanceSearchSettings = new ConcordanceSearchSettings
+            {
+                Filters = new List<ConcordanceSearchFilter>
+                {
+                    new ConcordanceSearchFilter
+                    {
+                        Expression = new FieldFilterRequest(fieldFilter,expression),
+                        Penalty = 10,
+                        Name=filterName
+                    },
+
+                },
+                Penalties = new List<Penalty>
+                {
+                    new Penalty
+                    {
+                        Malus = 1,
+                        PenaltyType = Penalty.PenaltyTypeEnum.AutoLocalization
+                    }
+                },
+            IncludeTokens = true
+
+            };
+
+            var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "blue", "en-us", "ca-es", concordanceSearchSettings);
+
+            var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+
+            foreach (var response in searchResponse)
+            {
+                Assert.Contains("blue", response.Source.ToLower());
+            }
+
+        }
+
         #endregion
         [Fact]
         public async Task TargetConcordanceSearch()
@@ -360,7 +452,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 IsTargetConcodanceSearch = true
             };
             var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "negre", "en-us", "ca-es", concordanceSearchSettings);
-            var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearch(concordanceSearchRequest);
+            var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
 
             Assert.True(searchResponse.Count > 0);
         }

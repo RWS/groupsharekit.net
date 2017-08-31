@@ -407,7 +407,28 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<IReadOnlyList<Models.Response.TranslationMemory.FilterResponse>> FilterAsPlainText(LanguageDetailsRequest languageRequest,TranslationMemoryDetailsRequest tmRequest,bool caseSensitive,bool allowWildCards);
         Task<IReadOnlyList<Models.Response.TranslationMemory.FilterResponse>> SearchText(SearchRequest searchRequest);
 
-        Task<IReadOnlyList<Models.Response.TranslationMemory.FilterResponse>> ConcordanceSearch(ConcordanceSearchRequest concordanceSearchRequest);
+
+        /// <summary>
+        /// Performs a concordance search, retrives a string maching the expression
+        /// Source and target language language code is required
+        /// For example : German (Germany) - de-de , English (United States) - en-us
+        /// For a custom search Settings property should be set. If is not set the search will have the defailt values as follows:
+        /// It will perform a search in source . 
+        /// MinScore default value is 70
+        /// MaxResult default value is set to 30
+        /// Example of custom filter expression:   "\"Andrea\" = (\"AndreaField\")", "TestFilterName") 
+        /// For more examples see https://github.com/sdl/groupsharekit.net/blob/master/Sdl.Community.GroupShareKit.Tests.Integration/Clients/TranslationMemoriesClientTest.cs
+        /// <param name="concordanceSearchRequest"><see cref="ConcordanceSearchRequest"/></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        Task<IReadOnlyList<Models.Response.TranslationMemory.FilterResponse>> ConcordanceSearchAsPlainText(ConcordanceSearchRequest concordanceSearchRequest);
 
         /// <summary>
         /// Filters translation units, retrives a string maching the expression
