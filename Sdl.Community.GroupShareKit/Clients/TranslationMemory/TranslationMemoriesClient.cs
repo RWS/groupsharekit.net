@@ -683,13 +683,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return searchResults;
         }
 
+        //private RestSearchSettings CreateRestTextSearchSettings()
+        //{
+
+        //}
         private RestConcordanceSearch CreateRestConcordanceSearch(ConcordanceSearchSettings searchSettings)
         {
             var restSearch = new RestConcordanceSearch{
 
                 Settings= new RestConcordanceSearchSettings(),
                  };
-
+          
             if (searchSettings.IsTargetConcodanceSearch)
             {
                 restSearch.IsTargetConcordanceSearch = true;
@@ -705,10 +709,72 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             {
                 restSearch.Settings.MaxResults = searchSettings.MaxResults;
             }
-
+            if (searchSettings.Filters != null)
+            {
+                if (searchSettings.Filters.Count > 0)
+                {
+                    restSearch.Settings.Filters = CreateRestFilterList(searchSettings.Filters);
+                }
+            }
+            if (searchSettings.Penalties != null)
+            {
+                if (searchSettings.Penalties.Count > 0)
+                {
+                    restSearch.Settings.Penalties = CreatePenaltiesFilterList(searchSettings.Penalties);
+                }
+            }
+            
+            
             return restSearch;
         }
 
+        private List<RestPenalty> CreatePenaltiesFilterList(List<Penalty> penalties)
+        {
+            var restPenaltyTypes = new List<RestPenalty>();
+            foreach(var penalty in penalties)
+            {
+                var restPenalty = new RestPenalty
+                {
+                    Malus = penalty.Malus,
+                    PenaltyType = penalty.PenaltyType.ToString()
+                };
+                restPenaltyTypes.Add(restPenalty);
+            }
+            return restPenaltyTypes;
+        }
+
+        private List<RestFilter> CreateRestFilterList(List<ConcordanceSearchFilter> searchSettings)
+        {
+            var serviceFilters = new List<RestFilter>();
+            foreach (var filter in searchSettings)
+            {
+
+                var restFilterFields = new List<RestFilterField>();
+
+                foreach (var field in filter.Expression.Fields)
+                {
+                     var restField = new RestFilterField
+                    {
+                        Name = field.Name,
+                        Type = field.Type.ToString(),
+                        Values = field.Values
+                    };
+                    restFilterFields.Add(restField);
+                };
+                var restFilter = new RestFilter
+                {
+                    Expression = new RestFilterExpression
+                    {
+                        Expression = filter.Expression.Expression,
+                        Fields = restFilterFields
+                    },
+                    Name = filter.Name,
+                    Penalty = filter.Penalty,
+                };
+                serviceFilters.Add(restFilter);
+            }
+            return serviceFilters;
+        }
         /// <summary>
         /// Filters translation units, retrives a string maching the expression
         /// For source and target language language code is required

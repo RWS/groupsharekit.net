@@ -23,5 +23,6 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
            Fields = fields;
            Expression = expression;
        }
+
     }
 }

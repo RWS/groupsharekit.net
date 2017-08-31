@@ -462,46 +462,36 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //Test comented until that.
 
         //[Theory]
-        //[InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", " \"Andrea\" = \"AndreaValue\"","high")]
-        //public async Task SearchWithFilterExpression(string tmId, string simpleExpression,string searchText)
+        //[InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", "\"Andrea\" = (\"AndreaField\")", "TestFilterName", "high")]
+        //public async Task SearchWithFilterExpression(string tmId, string simpleExpression, string filterName, string searchText)
         //{
         //    var groupShareClient = await Helper.GetGroupShareClient();
         //    // simple expression 
-        //    var filedsList = new List<FieldFilter>
+        //    var fieldFilter = new List<FieldFilter>
         //    {
         //        new FieldFilter
         //        {
-        //            Name = "andrea",
-        //            Type = FieldFilter.TypeEnum.SingleString,
+        //            //filed name
+        //            Name="Andrea",
+        //            Type = FieldFilter.TypeEnum.MultipleString,
         //            Values = null
         //        }
         //    };
-        //    var test = new RestTextSearch
-        //    {
-        //        Settings = new RestSearchSettings
+
+        //    var filterRequest = new List<ConcordanceSearchFilter>
         //        {
-        //            //Filters = new List<RestFilter>
-        //            //{
-        //            //    new RestFilter
-        //            //    {
-        //            //        Name ="AndreaValue",
-
-        //            //    }
-        //            //}
-        //            HardFilter = new RestFilterExpression
+        //            new ConcordanceSearchFilter
         //            {
-        //                Fields = new List<RestFilterField>
-        //                {
-        //                    new RestFilterField
-        //                    {
-        //                        Name = "Andrea",
+        //                Expression = new FieldFilterRequest(fieldFilter,simpleExpression),
+        //                Penalty = 10,
+        //                Name=filterName
+        //            },
 
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    };
-        //    var filterRequest = new FieldFilterRequest(filedsList, simpleExpression);
+        //        };
+
+
+
+
         //    var searchRequest = new SearchRequest(new Guid(tmId), searchText, "en-us", "ca-es", filterRequest);
 
         //    var searchResponse = await groupShareClient.TranslationMemories.SearchText(searchRequest);
