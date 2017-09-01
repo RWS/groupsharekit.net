@@ -590,6 +590,27 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return searchResult;
         }
 
+
+        /// <summary>
+        /// Performs a text search, retrives a string maching the expression
+        /// Source and target language language code is required
+        /// For example : German (Germany) - de-de , English (United States) - en-us
+        /// For a custom search Settings property should be set. If is not set the search will have the defailt values as follows:
+        /// It will perform a search in source . 
+        /// MinScore default value is 70
+        /// MaxResult default value is set to 30
+        /// Example of custom filter expression:   "\"Andrea\" = (\"AndreaField\")", "TestFilterName") 
+        /// For more examples see https://github.com/sdl/groupsharekit.net/blob/master/Sdl.Community.GroupShareKit.Tests.Integration/Clients/TranslationMemoriesClientTest.cs
+        /// <param name="concordanceSearchRequest"><see cref="SearchRequest"/></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task<IReadOnlyList<FilterResponse>> SearchText(SearchRequest searchRequest)
         {
             Ensure.ArgumentNotNull(searchRequest, "Search request null");
@@ -599,25 +620,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                 SearchText = searchRequest.SearchText,
                 Settings = new RestSearchSettings()
             };
-            //var restTextSearch = new RestTextSearch
-            //{
-            //    SearchText = searchRequest.SearchText,
-            //    Settings = new RestSearchSettings
-            //    {
-            //        HardFilter = new RestFilterExpression
-            //        {
-            //            Fields = new List<RestFilterField>
-            //            {
-            //                new RestFilterField
-            //                {
-            //                    Name = "Andrea",
 
-            //                }
-            //            }
-            //        }
-            //    }
-            //};
-            restTextSearch.Settings.MinScore = 30;
+            if (searchRequest.Settings != null)
+            {
+                restTextSearch.Settings = CreateRestTextSearchSettings(searchRequest.Settings);
+                restTextSearch.SearchText = searchRequest.SearchText;
+            }
             
             var restSearchResult = await _client.TextSearchAsync(searchRequest.TmId, searchRequest.SourceLanguageCode, searchRequest.TargetLanguageCode, restTextSearch);
 
@@ -683,10 +691,86 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return searchResults;
         }
 
-        //private RestSearchSettings CreateRestTextSearchSettings()
-        //{
+        private RestSearchSettings CreateRestTextSearchSettings(SearchTextSettings searchSettings)
+        {
+            var restSearchSettings = new RestSearchSettings();
+            var restFilterList =new List<RestFilter>();
 
-        //}
+            if(searchSettings.MinScore>=30&& searchSettings.MinScore <= 100)
+            {
+                restSearchSettings.MinScore = searchSettings.MinScore;
+            }
+
+            if (searchSettings.MaxResults >= 1 && searchSettings.MinScore <= 99)
+            {
+                restSearchSettings.MaxResults = searchSettings.MaxResults;
+            }
+
+            if (searchSettings.Filters != null)
+            {
+                if (searchSettings.Filters.Count > 0)
+                {                   
+                    restSearchSettings.Filters = CreateSearchTextRestFilter(searchSettings);
+                }
+            }
+            if (searchSettings.Penalties != null)
+            {
+                if (searchSettings.Penalties.Count > 0)
+                {
+                    restSearchSettings.Penalties = CreateSearchTextPenaltiesRestFilter(searchSettings.Penalties);
+                }
+            }  
+
+            return restSearchSettings;
+
+        }
+
+        private List<RestPenalty> CreateSearchTextPenaltiesRestFilter(List<Penalty> penalties)
+        {
+            var pentalyRest = new List<RestPenalty>();
+            foreach (var penalty in penalties)
+            {
+                var restPenalty = new RestPenalty
+                {
+                    Malus = penalty.Malus,
+                    PenaltyType = penalty.PenaltyType.ToString()
+                };
+                pentalyRest.Add(restPenalty);
+            }
+            return pentalyRest;
+        }
+
+        private List<RestFilter> CreateSearchTextRestFilter(SearchTextSettings searchSettings)
+        {
+            var restFilterList = new List<RestFilter>();
+            var restFilterFields = new List<RestFilterField>();
+            foreach (var filter in searchSettings.Filters)
+            {
+                foreach (var filterField in filter.Expression.Fields)
+                {
+                    var restField = new RestFilterField
+                    {
+                        Name = filterField.Name,
+                        Values = filterField.Values,
+                        Type = filterField.Type.ToString()
+                    };
+                    restFilterFields.Add(restField);
+                }
+
+                var restFilter = new RestFilter
+                {
+                    Name = filter.Name,
+                    Penalty = filter.Penalty,
+                    Expression = new RestFilterExpression
+                    {
+                        Expression = filter.Expression.Expression,
+                        Fields = restFilterFields
+                    }
+                };
+                restFilterList.Add(restFilter);
+            }
+            return restFilterList;
+        }
         private RestConcordanceSearch CreateRestConcordanceSearch(ConcordanceSearchSettings searchSettings)
         {
             var restSearch = new RestConcordanceSearch{

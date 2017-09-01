@@ -17,6 +17,10 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 
         public enum PenaltyTypeEnum
         {
+            Unknown,
+            TargetSegmentMismatch,
+            FilterPenalty,
+            ProviderPenalty,
             MemoryTagsDeleted,
             TagMismatch,
             MultipleTranslations,

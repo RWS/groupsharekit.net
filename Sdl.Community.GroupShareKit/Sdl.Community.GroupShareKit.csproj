@@ -240,6 +240,7 @@
     <Compile Include="Models\Response\TranslationMemory\Metadata.cs" />
     <Compile Include="Models\Response\TranslationMemory\Operation.cs" />
     <Compile Include="Models\Response\TranslationMemory\SearchRequest.cs" />
+    <Compile Include="Models\Response\TranslationMemory\SearchTextSettings.cs" />
     <Compile Include="Models\Response\TranslationMemory\ServiceDependencies.cs" />
     <Compile Include="Models\Response\TranslationMemory\Settings.cs" />
     <Compile Include="Models\Response\TranslationMemory\Skeleton.cs" />

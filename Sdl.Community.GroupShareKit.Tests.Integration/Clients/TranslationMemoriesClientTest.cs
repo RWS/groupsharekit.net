@@ -293,6 +293,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         }
 
+
+        #region Text Search
+
         [Fact]
         public async Task SimpleSearch()
         {
@@ -306,6 +309,96 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Assert.Contains("Blue eye", response.Source);
             }
         }
+
+        [Theory]
+        [InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", "\"Andrea\" = (\"AndreaField\")", "TestFilterName", "blue")]
+        public async Task SearchWithFilterExpression(string tmId, string simpleExpression, string filterName, string searchText)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            // simple expression 
+            var fieldFilter = new List<FieldFilter>
+            {
+                new FieldFilter
+                {
+                    //filed name
+                    Name="Andrea",
+                    Type = FieldFilter.TypeEnum.MultipleString,
+                    Values = null
+                }
+            };
+
+            var filterRequest = new List<ConcordanceSearchFilter>
+                {
+                    new ConcordanceSearchFilter
+                    {
+                        Expression = new FieldFilterRequest(fieldFilter,simpleExpression),
+                        Penalty = 10,
+                        Name=filterName
+                    },
+
+                };
+
+            var searchSettings = new SearchTextSettings
+            {
+                Filters = filterRequest
+            };
+            
+            var searchRequest = new SearchRequest(new Guid(tmId), searchText, "en-us", "ca-es", searchSettings);
+
+            var searchResponse = await groupShareClient.TranslationMemories.SearchText(searchRequest);
+
+            Assert.True(searchResponse.Count == 0);
+        }
+
+        [Fact]
+        public async Task TextSearchMinAndMaxResultSet()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            //set Min score
+            var settingsMin = new SearchTextSettings
+            {
+                MinScore = 40
+            };
+            var minSearchRequest = new SearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "Blue", "en-us", "ca-es", settingsMin);
+            
+
+            var minSearchResponse = await groupShareClient.TranslationMemories.SearchText(minSearchRequest);
+            Assert.True(minSearchResponse != null);
+
+            var settingsMax = new SearchTextSettings
+            {
+               MaxResults = 2
+            };
+            var maxSearchRequest = new SearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "Blue", "en-us", "ca-es", settingsMax);
+
+
+            var maxSearchResponse = await groupShareClient.TranslationMemories.SearchText(maxSearchRequest);
+            Assert.True(maxSearchResponse.Count <= 2);
+        }
+
+        [Fact]
+        public async Task TextSearchPenalties()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+
+            var settings = new SearchTextSettings
+            {
+                Penalties = new List<Penalty>
+                {
+                    new Penalty
+                    {
+                        Malus=2,
+                        PenaltyType = Penalty.PenaltyTypeEnum.FilterPenalty
+                    }
+                }
+            };
+            var searchRequest = new SearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "Blue", "en-us", "ca-es", settings);
+
+            var searchResponse = await groupShareClient.TranslationMemories.SearchText(searchRequest);
+            Assert.True(searchResponse!=null);
+        }
+
+        #endregion
 
         #region Concordance Search for source
         [Fact]
@@ -321,6 +414,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Assert.Contains("blue", response.Source.ToLower());
             }
         }
+
+
+
 
         //Concordance search with custom settings
         [Fact]
@@ -456,46 +552,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(searchResponse.Count > 0);
         }
-
-
-        //The implementation of  search with filters is not complete
-        //Test comented until that.
-
-        //[Theory]
-        //[InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", "\"Andrea\" = (\"AndreaField\")", "TestFilterName", "high")]
-        //public async Task SearchWithFilterExpression(string tmId, string simpleExpression, string filterName, string searchText)
-        //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
-        //    // simple expression 
-        //    var fieldFilter = new List<FieldFilter>
-        //    {
-        //        new FieldFilter
-        //        {
-        //            //filed name
-        //            Name="Andrea",
-        //            Type = FieldFilter.TypeEnum.MultipleString,
-        //            Values = null
-        //        }
-        //    };
-
-        //    var filterRequest = new List<ConcordanceSearchFilter>
-        //        {
-        //            new ConcordanceSearchFilter
-        //            {
-        //                Expression = new FieldFilterRequest(fieldFilter,simpleExpression),
-        //                Penalty = 10,
-        //                Name=filterName
-        //            },
-
-        //        };
-
-
-
-
-        //    var searchRequest = new SearchRequest(new Guid(tmId), searchText, "en-us", "ca-es", filterRequest);
-
-        //    var searchResponse = await groupShareClient.TranslationMemories.SearchText(searchRequest);
-        //}
+     
 
         [Theory]
         [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638", " \"andrea\" = \"TestValue\"")]

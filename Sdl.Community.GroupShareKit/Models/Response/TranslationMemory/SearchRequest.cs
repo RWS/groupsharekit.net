@@ -12,9 +12,9 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         public string TargetLanguageCode { get; set; }
         public Guid TmId { get; set; }
         public string SearchText { get; set; }
-        public List<ConcordanceSearchFilter> Filters { get; set; }
 
-    
+        public SearchTextSettings Settings { get; set; }
+
         public SearchRequest(Guid tmId, string searchText,string sourceCode,string targetCode )
         {
             SourceLanguageCode = sourceCode;
@@ -24,10 +24,10 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 
         }
 
-        public SearchRequest(Guid tmId, string searchText, string sourceCode, string targetCode, List<ConcordanceSearchFilter> filterRequest)
+        public SearchRequest(Guid tmId, string searchText, string sourceCode, string targetCode, SearchTextSettings searchSettings)
             : this(tmId, searchText, sourceCode, targetCode)
         {
-            Filters = filterRequest;
+            Settings = searchSettings;
         }
     }
 }
