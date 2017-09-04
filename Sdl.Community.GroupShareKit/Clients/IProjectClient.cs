@@ -439,5 +439,22 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> List <see cref="AnalysisReports"/>s.</returns>
         Task<IReadOnlyList<AnalysisReports>> GetAnalysisReports(string projectId, string languageCode);
+
+        /// <summary>
+        /// Get the project analysis report for a given project, in html format.
+        /// The project must be created in GroupShare, not in Studio and published in GS
+        /// </summary>
+        /// <param name="projectId">The project id</param>
+        /// <param name="languageCode"> language code. Eg: en-US/param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> List <see cref="AnalyseResponseHtml"/>s.</returns>
+        Task<IReadOnlyList<AnalyseResponseHtml>> GetAnalysisReportsAsHtml(string projectId, string languageCode);
     }
 }

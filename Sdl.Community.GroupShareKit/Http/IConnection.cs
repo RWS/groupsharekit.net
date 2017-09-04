@@ -30,6 +30,8 @@ namespace Sdl.Community.GroupShareKit.Http
         /// <returns><seealso cref="IResponse"/> representing the received HTTP response</returns>
         Task<IApiResponse<T>> Get<T>(Uri uri, TimeSpan timeout);
 
+        Task<IApiResponse<T>> Get<T>(Uri uri, string contentType);
+
         /// <summary>
         /// Performs an asynchronous HTTP POST request.
         /// </summary>

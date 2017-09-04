@@ -585,7 +585,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                         languageRequest.TargetLanguageCode, tmRequest.StartTuId, tmRequest.Count, restFilterExpression);
 
            
-            var searchResult = FilterResults.GetFilterResultForDocument(document);
+            var searchResult = FilterResults.GetFilterResultForDocument(document,null);
 
             return searchResult;
         }
@@ -631,7 +631,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             foreach (var result in restSearchResult.Results)
             {
-                var searchResult = FilterResults.GetFilterResultForDocument(result.MemoryTranslationUnit);
+                var searchResult = FilterResults.GetFilterResultForDocument(result.MemoryTranslationUnit,null);
 
                 searchResults.AddRange(searchResult);
             }
@@ -683,7 +683,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             var concordanceSearchResult = await _client.ConcordanceSearchAsync(searchRequest.TmId, searchRequest.SourceLanguageCode, searchRequest.TargetLanguageCode, restConcordanceSearch);
             foreach (var result in concordanceSearchResult.Results)
             {
-                var searchResult = FilterResults.GetFilterResultForDocument(result.MemoryTranslationUnit);
+                var searchResult = FilterResults.GetFilterResultForDocument(result.MemoryTranslationUnit,result.ScoringResult);
 
                 searchResults.AddRange(searchResult);
             }
@@ -890,7 +890,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                    _client.GetTranslationUnitsAsync(request.TmId, request.SourceLanguageCode,
                        request.TargetLanguageCode, request.StartTuId, request.Count, customFilterExpressionRequest);
 
-            var searchResult = FilterResults.GetFilterResultForDocument(document);
+            var searchResult = FilterResults.GetFilterResultForDocument(document,null);
 
             return searchResult;
         }

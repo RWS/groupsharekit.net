@@ -78,6 +78,11 @@ namespace Sdl.Community.GroupShareKit.Http
             return SendData<T>(uri.ApplyParameters(parameters), HttpMethod.Get, null, null, CancellationToken.None);
         }
 
+        public Task<IApiResponse<T>> Get<T>(Uri uri, string contentType)
+        {
+            Ensure.ArgumentNotNull(uri, "uri");
+            return SendData<T>(uri, HttpMethod.Get, null, contentType, CancellationToken.None);
+        }
 
 
         public Task<IApiResponse<T>> Get<T>(Uri uri, TimeSpan timeout)
@@ -205,7 +210,8 @@ namespace Sdl.Community.GroupShareKit.Http
             {
                 Method = method,
                 BaseAddress = baseAddress ?? BaseAddress,
-                Endpoint = uri
+                Endpoint = uri,
+                ContentType = contentType
             };
 
             return SendDataInternal<T>(body, contentType, cancellationToken, request);
@@ -260,6 +266,8 @@ namespace Sdl.Community.GroupShareKit.Http
                 throw new ApiException(response);
             }
         }
+
+       
 
         public Uri BaseAddress { get; }
         public ICredentialStore CredentialStore { get; }

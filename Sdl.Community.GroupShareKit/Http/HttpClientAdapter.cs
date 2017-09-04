@@ -116,6 +116,15 @@ namespace Sdl.Community.GroupShareKit.Http
                 {
                     requestMessage.Content = new StringContent(body, Encoding.UTF8, request.ContentType);
                 }
+                else
+                { 
+                    // for Get methods to set accept header for analyse report as html
+                    if (!string.IsNullOrEmpty(request.ContentType))
+                    {
+                        requestMessage.Headers.Add("Accept", request.ContentType);
+                    }
+                    
+                }
 
                 var bodyStream = request.Body as Stream;
                 if (bodyStream != null)

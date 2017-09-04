@@ -139,6 +139,13 @@ namespace Sdl.Community.GroupShareKit.Http
 
         }
 
+        public async Task<T> GetWithContent<T>(Uri uri, string contentType)
+        {
+            Ensure.ArgumentNotNull(uri, "uri");
+            var response = await Connection.Get<T>(uri, contentType).ConfigureAwait(false);
+            return response.Body;
+        }
+
         /// <summary>
         /// Performs an asynchronous HTTP POST request.
         /// Attempts to map the response body to an object of type <typeparamref name="T"/>
@@ -237,5 +244,7 @@ namespace Sdl.Community.GroupShareKit.Http
 
             return Connection.Patch(uri, data, contentType);
         }
+
+        
     }
 }

@@ -94,6 +94,7 @@
     <Compile Include="IJsonRequest.cs" />
     <Compile Include="Models\Response\Analyse.cs" />
     <Compile Include="Models\Response\AnalyseDetails.cs" />
+    <Compile Include="Models\Response\AnalyseResponseHtml.cs" />
     <Compile Include="Models\Response\BatchTotal.cs" />
     <Compile Include="Models\Response\FileAnalyse.cs" />
     <Compile Include="Models\Response\ProjectAnalyseDetails.cs" />

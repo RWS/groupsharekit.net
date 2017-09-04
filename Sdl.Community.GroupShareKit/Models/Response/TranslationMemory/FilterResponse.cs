@@ -16,5 +16,6 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// Gets or sets  target text
         /// </summary>
         public string Target { get; set; }
+        public string MatchScore { get; set; }
     }
 }
