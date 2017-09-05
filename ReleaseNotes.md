@@ -39,3 +39,10 @@
 
 * Change Terminology Client naming
 * Update Project Client to include project template and file actions
+
+### New in 1.1
+* Fixed Export Translation memory method. Translation memory is returned as byte[]
+* Support for concordance search as plain text
+* Support for text seach as plain text
+* Support for  project analyse report
+
