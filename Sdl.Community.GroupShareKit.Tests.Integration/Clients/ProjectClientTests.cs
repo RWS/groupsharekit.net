@@ -74,7 +74,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task AnalysisReports()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var report = await groupShareClient.Project.GetAnalysisReports("522dde85-7f5b-4aa5-a4d9-af97d78798f2", "en-US");
+            var report = await groupShareClient.Project.GetAnalysisReports("522dde85-7f5b-4aa5-a4d9-af97d78798f2", null);
                     Assert.True(report.Count > 0);
         }
 
@@ -82,7 +82,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task AnalysisReportsAsHtml()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var report = await groupShareClient.Project.GetAnalysisReportsAsHtml("522dde85-7f5b-4aa5-a4d9-af97d78798f2", "en-US");
+            // var report = await groupShareClient.Project.GetAnalysisReportsAsHtml("522dde85-7f5b-4aa5-a4d9-af97d78798f2", "en-US");
+            var report = await groupShareClient.Project.GetAnalysisReportsAsHtml("522dde85-7f5b-4aa5-a4d9-af97d78798f2",null);
             Assert.True(report!=null);
         }
 

@@ -661,7 +661,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         public async Task<IReadOnlyList<AnalysisReports>> GetAnalysisReports(string projectId, string languageCode)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotNullOrEmptyString(languageCode, "languageCode");
 
             var reportResult = await ApiConnection.GetAll<AnalysisReports>(ApiUrls.AnalysisReports(projectId, languageCode),null);
             return reportResult;
@@ -685,7 +684,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         public async Task<IReadOnlyList<AnalyseResponseHtml>> GetAnalysisReportsAsHtml(string projectId, string languageCode)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotNullOrEmptyString(languageCode, "languageCode");
+
             var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalyseResponseHtml>>(ApiUrls.AnalysisReports(projectId, languageCode), "text/html");
 
             return reportResult;

@@ -46,3 +46,9 @@
 * Support for text seach as plain text
 * Support for  project analyse report
 
+### New in 1.1.1
+* Removed language code required validation for Analyse project as html
+
+### New in 1.1.2
+* Removed language code required validation for Analyse project 
+
