@@ -50,5 +50,10 @@
 * Removed language code required validation for Analyse project as html
 
 ### New in 1.1.2
-* Removed language code required validation for Analyse project 
-
+* Removed language code required validation for Analyse project
+### New in 1.1.3
+* Updated Nuget dependencies
+### New in 1.1.4
+* Added System.Net.Http latest version
+### New in 1.1.5
+* Added System.Net.Http latest version

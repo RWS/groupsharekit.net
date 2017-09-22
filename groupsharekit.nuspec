@@ -15,7 +15,8 @@
     <tags>GroupShare API</tags>
     <dependencies>
       <group targetFramework="netstandard1.3">
-        <dependency id="Newtonsoft.Json" version="9.0"/>
+        <dependency id="Newtonsoft.Json" version="10.*"/>
+        <dependency id="System.Net.Http" version="4.3.*"/>
       </group>
     </dependencies>
   </metadata>
