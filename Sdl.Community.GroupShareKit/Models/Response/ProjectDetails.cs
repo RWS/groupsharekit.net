@@ -64,5 +64,6 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// Gets or sets the status number
         /// </summary>
         public int Status { get; set; }
+        public ProjectStatistics Statistics { get; set; }
     }
 }
