@@ -44,7 +44,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// <summary>
         /// Gets or sets a list of atributes
         /// </summary>
-        public List<Atribute> Atributes { get; set; }
+        public List<Atribute> Attributes { get; set; }
 
         /// <summary>
         /// Gets or sets a list of entry classes

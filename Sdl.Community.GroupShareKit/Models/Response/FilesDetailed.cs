@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Models.Response
 {
-    public class File
+    public class FilesDetailed
     {
         /// <summary>
         /// Gets or sets the file id
@@ -50,10 +53,6 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// </summary>
         public DateTime? LastCheckIn { get; set; }
         /// <summary>
-        /// Gets or sets the statistics <see cref="Statistics"/>
-        /// </summary>
-        public Statistics Statistics { get; set; }
-        /// <summary>
         /// Gets or sets the assignment <see cref="Assignment"/>
         /// </summary>
         public Assignment Assignment { get; set; }
@@ -69,5 +68,9 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// Gets or sets a list of user details <see cref="UserDetails"/>
         /// </summary>
         public List<UserDetails> OnlineCheckOutTo { get; set; }
+        /// <summary>
+        /// Gets or sets the project analysis statistics <see cref="ProjectStatistics"/>
+        /// </summary>
+        public ProjectStatistics Statistics { get; set; }
     }
 }

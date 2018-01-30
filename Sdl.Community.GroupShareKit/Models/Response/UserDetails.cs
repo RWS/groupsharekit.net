@@ -24,6 +24,10 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// Gets or sets the email
         /// </summary>
         public string Email { get; set; }
+        /// <summary>
+        /// Gets or sets the role
+        /// </summary>
+        public string Role { get; set; }
 
     }
 }

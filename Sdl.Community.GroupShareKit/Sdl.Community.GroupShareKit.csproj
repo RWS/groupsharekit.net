@@ -97,6 +97,7 @@
     <Compile Include="Models\Response\AnalyseResponseHtml.cs" />
     <Compile Include="Models\Response\BatchTotal.cs" />
     <Compile Include="Models\Response\FileAnalyse.cs" />
+    <Compile Include="Models\Response\FilesDetailed.cs" />
     <Compile Include="Models\Response\ProjectAnalyseDetails.cs" />
     <Compile Include="Models\Response\AnalysisReports.cs" />
     <Compile Include="Models\Response\Assignment.cs" />
