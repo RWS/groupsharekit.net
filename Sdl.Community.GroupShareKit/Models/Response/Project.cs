@@ -12,7 +12,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         public Guid OrganizationId { get; set; }
         public string SourceLanguage { get; set; }
         public string TargetLanguage { get; set; }
-        public DateTime DueDate { get; set; }
+        public DateTime? DueDate { get; set; }
         public object AnalysisStatistics { get; set; }
         public string CreatedAt { get; set; }
         public string CreatedBy { get; set; }
