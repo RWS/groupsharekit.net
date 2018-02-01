@@ -33,6 +33,10 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// </summary>
         public string OrganizationId { get; set; }
         /// <summary>
+        /// Gets or sets the organization path
+        /// </summary>
+        public string OrganizationPath { get; set; }
+        /// <summary>
         /// Gets or sets the source language
         /// </summary>
         public string SourceLanguage { get; set; }

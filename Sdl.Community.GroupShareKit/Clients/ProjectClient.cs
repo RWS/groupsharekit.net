@@ -488,6 +488,12 @@ namespace Sdl.Community.GroupShareKit.Clients
             var projectUri = await ApiConnection.Post<string>(ApiUrls.GetAllProjects(), request, "application/json");
             return projectUri.Split('/').Last();
         }
+        public Task<IReadOnlyList<ProjectFileStatistics>> GetAllProjectFileStatistics(string projectId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+
+            return ApiConnection.GetAll<ProjectFileStatistics>(ApiUrls.ProjectFileStatistics(projectId), null);
+        }
         #endregion
 
 

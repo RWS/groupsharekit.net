@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Models.Response
 {
-    public class FilesDetailed
+    public class ProjectFileStatistics
     {
         /// <summary>
         /// Gets or sets the file id

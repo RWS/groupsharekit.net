@@ -676,6 +676,15 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/tasks/{1}".FormatUri(CurrentTranslationMemoriesUrl, taskId);
         }
 
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all files statistics associated with the specified project
+        /// </summary>
+        /// <param name="projectId">The project id</param>
+        public static Uri ProjectFileStatistics(string projectId)
+        {
+            return "{0}/projects/{1}/files/detailed-information".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
 
     }
 }
