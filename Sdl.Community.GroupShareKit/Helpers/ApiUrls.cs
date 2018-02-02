@@ -685,6 +685,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/projects/{1}/files/detailed-information".FormatUri(CurrentProjectServerUrl, projectId);
         }
 
+        public static Uri ProjectLanguageStatistics(string projectId)
+        {
+            return "{0}/projects/{1}/languages".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
 
     }
 }
