@@ -6,8 +6,8 @@ open System
 let authors = ["Sdl Community"]
 
 //project details
-let projectName = "GroupShareKit"
-let projectDescription="A GroupShare API client library for .NET"
+let projectName = "GroupShareKit2015"
+let projectDescription="Client library of GroupShare v1 API for .NET"
 let projectSummary = projectDescription
 
 //directories

@@ -5,3 +5,4 @@
 ### New in 0.2.1
 
 * Updated Project response model to support nullable Date
+* Updated request url for FileDownload 

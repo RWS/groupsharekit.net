@@ -2,13 +2,13 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyProductAttribute("GroupShareKit")]
+[assembly: AssemblyProductAttribute("GroupShareKit2015")]
 [assembly: AssemblyVersionAttribute("0.2.1")]
 [assembly: AssemblyFileVersionAttribute("0.2.1")]
 [assembly: ComVisibleAttribute(false)]
 namespace System {
     internal static class AssemblyVersionInformation {
-        internal const System.String AssemblyProduct = "GroupShareKit";
+        internal const System.String AssemblyProduct = "GroupShareKit2015";
         internal const System.String AssemblyVersion = "0.2.1";
         internal const System.String AssemblyFileVersion = "0.2.1";
         internal const System.Boolean ComVisible = false;
