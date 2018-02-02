@@ -6,6 +6,7 @@ using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
@@ -288,11 +289,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="byte[]"/>s.</returns>
         public async Task<byte[]> DownloadFile(FileDownloadRequest downloadRequest)
         {
-            return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFile(), downloadRequest.ToParametersDictionary());
+            if (downloadRequest.Type != null)
+            {
+                return
+                 await
+                    ApiConnection.Get<byte[]>(
+                        ApiUrls.DownloadFile(downloadRequest.ProjectId,
+                        Enum.GetName(typeof(FileDownloadRequest.Types),downloadRequest.Type)),null);
+            }
+            return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFile(downloadRequest.ProjectId, "all"), null);
         }
-
-
-
-
     }
 }

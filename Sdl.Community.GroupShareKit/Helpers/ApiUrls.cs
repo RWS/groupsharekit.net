@@ -160,10 +160,10 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> that represents downloaded files with the specific languageCodeid and type
         /// </summary>
         /// <returns></returns>
-        public static Uri DownloadFile()
+        public static Uri DownloadFile(string projectId, string type)
         {
-            return "{0}/FileDownload".
-                FormatUri(CurrentProjectServerUrl);
+            return "{0}/projects/{1}/download/{2}".
+                FormatUri(CurrentProjectServerUrl, projectId, type);
         }
 
         /// <summary>
