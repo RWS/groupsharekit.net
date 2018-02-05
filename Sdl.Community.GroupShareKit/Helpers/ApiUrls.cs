@@ -685,6 +685,10 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/projects/{1}/files/detailed-information".FormatUri(CurrentProjectServerUrl, projectId);
         }
 
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all language statistics associated with the specified project
+        /// </summary>
+        /// <param name="projectId">The project id</param>
         public static Uri ProjectLanguageStatistics(string projectId)
         {
             return "{0}/projects/{1}/languages".FormatUri(CurrentProjectServerUrl, projectId);

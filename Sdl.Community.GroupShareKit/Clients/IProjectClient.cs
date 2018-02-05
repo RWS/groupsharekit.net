@@ -323,6 +323,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="GetAllProjectFileStatistics"/>s.</returns>
         Task<IReadOnlyList<ProjectFileStatistics>> GetAllProjectFileStatistics(string projectId);
+        Task<Dictionary<string, object>> GetProjectLanguageStatistics(string projectId);
         #endregion
 
         #region Project template client
