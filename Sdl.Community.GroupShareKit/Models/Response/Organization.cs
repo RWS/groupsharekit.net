@@ -34,8 +34,12 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// Gets or sets a list of child organizations <see cref="Organization"/>
         /// </summary>
         public List<Organization> ChildOrganizations { get; set; }
+        /// <summary>
+        /// Gets or sets a list of tags
+        /// </summary>
+        public List<string> Tags { get; set; }
 
-       
+
     }
 
 }
