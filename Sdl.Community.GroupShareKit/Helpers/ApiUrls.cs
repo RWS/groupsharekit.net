@@ -88,7 +88,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
                 FormatUri(CurrentManagementUrl);
         }
 
-    
+        /// <summary>
+        /// Returns the <see cref="Uri"/> based on the organization tag
+        /// </summary>
+        public static Uri GetOrganizationsByTag(string tag)
+        {
+            return "{0}/organizations?tag={1}".
+                FormatUri(CurrentManagementUrl, tag);
+        }
+
+
 
         /// <summary>
         ///  Returns the <see cref="Uri"/> that gets all organization resources

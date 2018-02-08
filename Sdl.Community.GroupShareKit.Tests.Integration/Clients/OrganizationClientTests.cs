@@ -61,8 +61,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                  Description = null,
                  Path = null,
                  ParentOrganizationId = new Guid("5bdb10b8-e3a9-41ae-9e66-c154347b8d17"),
-                 ChildOrganizations = null
-                
+                 ChildOrganizations = null,
+                 Tags = new List<string>() { "tagTest" }
+
 
              };
             var organizationId = await groupShareClient.Organization.Create(organization);

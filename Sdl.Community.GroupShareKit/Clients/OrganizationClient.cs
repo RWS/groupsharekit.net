@@ -34,6 +34,26 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// Gets<see cref="Organization"/>.
+        /// </summary>
+        /// <remarks>
+        /// <param name="tag">string</param>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> <see cref="Organization"/>s.</returns>
+        public Task<IReadOnlyList<Organization>> GetByTag(string tag)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tag, "tag");
+
+            return ApiConnection.GetAll<Organization>(ApiUrls.GetOrganizationsByTag(tag), null);
+        }
+
+        /// <summary>
         /// Gets all <see cref="Organization"/>'s.
         /// </summary>
         /// <remarks>
