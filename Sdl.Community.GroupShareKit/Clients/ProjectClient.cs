@@ -494,11 +494,11 @@ namespace Sdl.Community.GroupShareKit.Clients
 
             return ApiConnection.GetAll<ProjectFileStatistics>(ApiUrls.ProjectFileStatistics(projectId), null);
         }
-        public Task<Dictionary<string, object>> GetProjectLanguageStatistics(string projectId)
+        public Task<Dictionary<string, ProjectStatistics>> GetProjectLanguageStatistics(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
 
-            return ApiConnection.Get<Dictionary<string,object>>(ApiUrls.ProjectLanguageStatistics(projectId), null);
+            return ApiConnection.Get<Dictionary<string, ProjectStatistics>>(ApiUrls.ProjectLanguageStatistics(projectId), null);
         }
         #endregion
 

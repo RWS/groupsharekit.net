@@ -323,7 +323,19 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="GetAllProjectFileStatistics"/>s.</returns>
         Task<IReadOnlyList<ProjectFileStatistics>> GetAllProjectFileStatistics(string projectId);
-        Task<Dictionary<string, object>> GetProjectLanguageStatistics(string projectId);
+        /// <summary>
+        /// Get the project language statistics.
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A dictionary with the key represneting the language code and the value as project statistics </returns>
+        Task<Dictionary<string, ProjectStatistics>> GetProjectLanguageStatistics(string projectId);
         #endregion
 
         #region Project template client
