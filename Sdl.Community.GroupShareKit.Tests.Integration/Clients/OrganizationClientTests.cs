@@ -70,9 +70,20 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(organizationId != string.Empty);
 
+            await GetOrganizationsByTag(organization.Tags[0]);
+
             await Update(organizationId);
 
             await groupShareClient.Organization.DeleteOrganization(organizationId);
+        }
+
+        public async Task GetOrganizationsByTag(string tag)
+        {
+
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var response = await groupShareClient.Organization.GetByTag(tag);
+
+            Assert.True(response.Count > 0);
         }
 
         [Theory]

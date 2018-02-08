@@ -2,10 +2,9 @@ namespace Sdl.Community.GroupShareKit.Clients
 {
     public class OrganizationRequest:RequestParameters
     {
-        public OrganizationRequest(bool flatten, string tag="")
+        public OrganizationRequest(bool flatten)
         {
             Flatten = flatten;
-            Tag = tag;
         }        
 
         /// <summary>
@@ -15,6 +14,5 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// True if the list is going to be flatten
         /// </value>
         public bool Flatten { get; set; }
-        public string Tag { get; set; }
     }
 }
