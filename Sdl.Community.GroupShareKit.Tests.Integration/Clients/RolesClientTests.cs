@@ -92,6 +92,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(roleId!=string.Empty);
 
+            await AddUsersToRole(roleId);
+
+            await RemoveUsersFromRole(roleId);
+
             await groupShareClient.Role.DeleteRole(roleId);
         }
 
@@ -104,9 +108,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(users.Count!=0);
         }
-
-        [Theory]
-        [InlineData("b05db681-2871-4cb4-9789-61a5e9d0cfb4")]
+        
         public async Task AddUsersToRole(string roleId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
@@ -127,9 +129,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(addedUser!=null);
         }
-
-        [Theory]
-        [InlineData("b05db681-2871-4cb4-9789-61a5e9d0cfb4")]
+        
         public async Task RemoveUsersFromRole(string roleId)
         {
 
