@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using Sdl.Core.Bcm.BcmModel;
 using Sdl.TmService.Sdk.Model;
+using Sdl.TmService.Sdk.Model.Search;
 
 namespace Sdl.Community.GroupShareKit.Helpers
 {

@@ -703,6 +703,14 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/projects/{1}/languages".FormatUri(CurrentProjectServerUrl, projectId);
         }
 
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that performs a concordance search
+        /// </summary>
+        /// <param name="tmId">The project id</param>
+        public static Uri ConcordanceSearch(string tmId)
+        {
+            return "{0}/tms/{1}/search/concordance".FormatUri(CurrentTranslationMemoriesUrl, tmId);
+        }
 
     }
 }

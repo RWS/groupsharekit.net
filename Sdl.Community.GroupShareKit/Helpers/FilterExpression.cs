@@ -94,15 +94,15 @@ namespace Sdl.Community.GroupShareKit.Helpers
             if (!string.IsNullOrEmpty(langage.SourceText) && !string.IsNullOrEmpty(langage.TargetText))
             {
                 restFilterExpression.Expression = expression;
-                restFilterExpression.Fields = new List<RestFilterField>
+                restFilterExpression.Fields = new List<RequestField>
                 {
-                    new RestFilterField
+                    new RequestField
                     {
                         Name = "src",
                         Type = "SingleString",
                         Values = null
                     },
-                    new RestFilterField
+                    new RequestField
                     {
                         Name = "trg",
                         Type = "SingleString",
@@ -112,9 +112,9 @@ namespace Sdl.Community.GroupShareKit.Helpers
             }else if (!string.IsNullOrEmpty(langage.SourceText))
             {
                 restFilterExpression.Expression = expression;
-                restFilterExpression.Fields = new List<RestFilterField>
+                restFilterExpression.Fields = new List<RequestField>
                 {
-                    new RestFilterField
+                    new RequestField
                     {
                         Name = "src",
                         Type = "SingleString",
@@ -125,9 +125,9 @@ namespace Sdl.Community.GroupShareKit.Helpers
             if (!string.IsNullOrEmpty(langage.TargetText))
             {
                 restFilterExpression.Expression = expression;
-                restFilterExpression.Fields = new List<RestFilterField>
+                restFilterExpression.Fields = new List<RequestField>
                 {
-                    new RestFilterField
+                    new RequestField
                     {
                         Name = "trg",
                         Type = "SingleString",
@@ -141,11 +141,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
 
         public static RestFilterExpression GetCustomRestFilterExpression(FieldFilterRequest filterRequest)
         {
-            var customField = new List<RestFilterField>();
+            var customField = new List<Sdl.TmService.Sdk.Model.RequestField>();
 
             foreach (var field in filterRequest.Fields)
             {
-                var restFilter = new RestFilterField
+                var restFilter = new RequestField
                 {
                     Name = field.Name,
                     Type = "SingleString",

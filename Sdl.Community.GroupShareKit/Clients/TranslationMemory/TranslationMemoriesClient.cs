@@ -12,6 +12,8 @@ using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using Sdl.TmService.Sdk;
 using Sdl.TmService.Sdk.Model;
 using FilterResponse = Sdl.Community.GroupShareKit.Models.Response.TranslationMemory.FilterResponse;
+using Sdl.TmService.Sdk.Model.Search.Settings;
+using Sdl.TmService.Sdk.Model.Search;
 
 namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 {
@@ -743,12 +745,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         private List<RestFilter> CreateSearchTextRestFilter(SearchTextSettings searchSettings)
         {
             var restFilterList = new List<RestFilter>();
-            var restFilterFields = new List<RestFilterField>();
+            var restFilterFields = new List<RequestField>();
             foreach (var filter in searchSettings.Filters)
             {
                 foreach (var filterField in filter.Expression.Fields)
                 {
-                    var restField = new RestFilterField
+                    var restField = new RequestField
                     {
                         Name = filterField.Name,
                         Values = filterField.Values,
@@ -777,11 +779,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
                 Settings= new RestConcordanceSearchSettings(),
                  };
-          
-            if (searchSettings.IsTargetConcodanceSearch)
-            {
-                restSearch.IsTargetConcordanceSearch = true;
-            }
 
             //By default is 70
             if (searchSettings.MinScore >= 30 && searchSettings.MinScore <= 100)
@@ -833,12 +830,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             foreach (var filter in searchSettings)
             {
 
-                var restFilterFields = new List<RestFilterField>();
+                var restFilterFields = new List<RequestField>();
 
                 foreach (var field in filter.Expression.Fields)
                 {
-                     var restField = new RestFilterField
-                    {
+                     var restField = new RequestField
+                     {
                         Name = field.Name,
                         Type = field.Type.ToString(),
                         Values = field.Values

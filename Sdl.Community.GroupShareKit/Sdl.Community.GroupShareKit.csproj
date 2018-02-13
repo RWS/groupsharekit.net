@@ -286,7 +286,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>3rd party\Sdl.Core.Bcm.BcmModel.dll</HintPath>
     </Reference>
-    <Reference Include="Sdl.TmService.Sdk, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c28cdb26c445c888, processorArchitecture=MSIL">
+    <Reference Include="Sdl.TmService.Sdk, Version=2.1.0.0, Culture=neutral, PublicKeyToken=c28cdb26c445c888, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>3rd party\Sdl.TmService.Sdk.dll</HintPath>
     </Reference>
