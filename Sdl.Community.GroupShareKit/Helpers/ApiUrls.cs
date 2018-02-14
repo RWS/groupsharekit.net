@@ -460,11 +460,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> that returns the health version details of tm service
+        /// Returns the <see cref="Uri"/> that returns the info of tm service
         /// </summary>
-        public static Uri HealthVersion()
+        public static Uri GetTmServiceInfo()
         {
-            return "{0}/health/version".FormatUri(CurrentTranslationMemoriesUrl);
+            return "{0}/info".FormatUri(CurrentTranslationMemoriesUrl);
         }
 
         /// <summary>

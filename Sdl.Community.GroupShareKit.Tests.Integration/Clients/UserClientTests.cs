@@ -72,7 +72,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var newUser = new CreateUserRequest
             {
                 UniqueId = uniqueId,
-                Name = "user to update",
+                Name = "user to update2",
                 Password = "Password1",
                 DisplayName = "test",
                 Description = null,
@@ -96,7 +96,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(userId != string.Empty);
 
             var expectedUser = await groupShareClient.User.GetUserById(userId);
-            Assert.Equal(expectedUser.Name, "user to update");
+            Assert.Equal(expectedUser.Name, "user to update2");
 
             expectedUser.Locale = "de-DE";
             await groupShareClient.User.Update(expectedUser);

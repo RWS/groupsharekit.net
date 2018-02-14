@@ -258,7 +258,7 @@
     <Compile Include="Models\Response\TranslationMemory\TermTranslation.cs" />
     <Compile Include="Models\Response\TranslationMemory\TmFile.cs" />
     <Compile Include="Models\Response\TranslationMemory\TmServiceDetails.cs" />
-    <Compile Include="Models\Response\TranslationMemory\TmServiceHealth.cs" />
+    <Compile Include="Models\Response\TranslationMemory\TmServiceInfo.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationMemory.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationMemoryDetails.cs" />
     <Compile Include="Models\Response\TranslationMemory\TranslationMemoryDetailsRequest.cs" />

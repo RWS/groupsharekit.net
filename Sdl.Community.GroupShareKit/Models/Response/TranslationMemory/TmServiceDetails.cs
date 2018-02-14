@@ -8,6 +8,6 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
     public class TmServiceDetails
     {
-        public TmServiceHealth TmService { get; set; }
+        public TmServiceInfo TmService { get; set; }
     }
 }

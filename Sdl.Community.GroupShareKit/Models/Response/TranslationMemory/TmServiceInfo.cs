@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
-    public class TmServiceHealth
+    public class TmServiceInfo
     {
         public string ContainerVersion { get; set; }
         public string ServiceVersion { get; set; }

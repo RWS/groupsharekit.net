@@ -112,7 +112,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Returns the status of tm service and the dependencies</returns>
-        Task<TmServiceDetails> HealthVersion();
+        Task<TmServiceDetails> TmServiceInfo();
 
         /// <summary>
         /// Exports a translation memory as byte[]

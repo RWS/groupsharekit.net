@@ -1666,9 +1666,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Returns the status of tm service and the dependencies</returns>
-        public async Task<TmServiceDetails> HealthVersion()
+        public async Task<TmServiceDetails> TmServiceInfo()
         {
-            return await ApiConnection.Get<TmServiceDetails>(ApiUrls.HealthVersion(), null);
+            return await ApiConnection.Get<TmServiceDetails>(ApiUrls.GetTmServiceInfo(), null);
         }
 
         #endregion
