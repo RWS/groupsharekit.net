@@ -107,6 +107,6 @@ problem.
 
 ## Copyright and License
 
-Copyright 2017 SDL plc.
+Copyright 2018 SDL plc.
 
 Licensed under the [MIT License](https://github.com/sdl/groupsharekit.net/blob/master/LICENSE)

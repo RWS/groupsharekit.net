@@ -57,3 +57,10 @@
 * Added System.Net.Http latest version
 ### New in 1.1.5
 * Added System.Net.Http latest version
+
+### New in 1.2.0
+
+* Added support obtaining project analysis statistics
+* Added support obtaining project file analysis statistics
+* Added support obtaining project language analysis statistics
+* Added support organization filtering based on the tag

@@ -3,14 +3,14 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyProductAttribute("GroupShareKit")]
-[assembly: AssemblyVersionAttribute("1.1.5")]
-[assembly: AssemblyFileVersionAttribute("1.1.5")]
+[assembly: AssemblyVersionAttribute("1.2.0")]
+[assembly: AssemblyFileVersionAttribute("1.2.0")]
 [assembly: ComVisibleAttribute(false)]
 namespace System {
     internal static class AssemblyVersionInformation {
         internal const System.String AssemblyProduct = "GroupShareKit";
-        internal const System.String AssemblyVersion = "1.1.5";
-        internal const System.String AssemblyFileVersion = "1.1.5";
+        internal const System.String AssemblyVersion = "1.2.0";
+        internal const System.String AssemblyFileVersion = "1.2.0";
         internal const System.Boolean ComVisible = false;
     }
 }
