@@ -397,7 +397,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             byteContent.Headers.Add("Content-Type", "application/zip");
             var multipartContent = new MultipartFormDataContent
             {
-                {byteContent,"file", name}
+                {byteContent,"file", name + ".zip"}
             };
             return await ApiConnection.Post<string>(ApiUrls.UploadFilesForProject(projectId), multipartContent, "application/zip");
         }
@@ -467,7 +467,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task PublishPackage(CreateProjectRequest projectRequest)
+        public async Task<string> PublishPackage(CreateProjectRequest projectRequest)
         {
             Ensure.ArgumentNotNull(projectRequest, "request");
             var projectId = await CreateProjectForPublishingPackage(projectRequest);
@@ -480,6 +480,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             };
             await ApiConnection.Post<string>(ApiUrls.PublishProjectPackage(projectId), multipartContent, "application/json");
 
+            return projectId;
         }
         private async Task<string> CreateProjectForPublishingPackage(CreateProjectRequest request)
         {
