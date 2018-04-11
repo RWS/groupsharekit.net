@@ -309,7 +309,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task PublishPackage(CreateProjectRequest projectRequest);
+        Task<string> PublishPackage(CreateProjectRequest projectRequest);
         /// <summary>
         ///Gets a list of file statistics for a project
         /// </summary>
