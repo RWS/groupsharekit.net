@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+
 
 namespace Sdl.Community.GroupShareKit.Models.Response
 {
@@ -23,6 +25,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// <summary>
         /// Gets or sets creation date
         /// </summary>
+        [JsonConverter(typeof(TwelveHourDateTimeConverter))]
         public DateTime? CreationDate { get; set; }
         /// <summary>
         /// Gets or sets copyright
@@ -52,5 +55,5 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         public List<EntryClass> EntryClasses { get; set; }
     }
 
-   
+
 }
