@@ -70,11 +70,11 @@ Target "CreateGroupSharePackage" (fun _ ->
     let portableDir = packagingDir @@ "lib/netstandard2.0/"
     CleanDirs [portableDir]
 
-    CopyFile portableDir (buildDir @@ "Release/Portable/Sdl.Community.GroupShareKit.dll")
-    CopyFile portableDir (buildDir @@ "Release/Portable/Sdl.Community.GroupShareKit.XML")
-    CopyFile portableDir (buildDir @@ "Release/Portable/Sdl.Community.GroupShareKit.pdb")
-    CopyFile portableDir (buildDir @@ "Release/Portable/Sdl.Core.Bcm.BcmModel.dll")
-    CopyFile portableDir (buildDir @@ "Release/Portable/Sdl.TmService.Sdk.dll")
+    CopyFile portableDir (buildDir @@ "Release/netstandard2.0/Sdl.Community.GroupShareKit.dll")
+    CopyFile portableDir (buildDir @@ "Release/netstandard2.0/Sdl.Community.GroupShareKit.XML")
+    CopyFile portableDir (buildDir @@ "Release/netstandard2.0/Sdl.Community.GroupShareKit.pdb")
+    CopyFile portableDir (buildDir @@ "Release/netstandard2.0/Sdl.Core.Bcm.BcmModel.dll")
+    CopyFile portableDir (buildDir @@ "Release/netstandard2.0/Sdl.TmService.Sdk.dll")
     CopyFiles packagingDir ["LICENSE"; "README.md"; "ReleaseNotes.md"]
 
     NuGet (fun p -> 
@@ -98,5 +98,7 @@ Target "CreatePackages" DoNothing
 "Clean"
    ==> "AssemblyInfo"
    ==> "BuildApp"
+   ==> "IntegrationTests"
+   ==> "CreateGroupSharePackage"
 
 RunTargetOrDefault "Default"
