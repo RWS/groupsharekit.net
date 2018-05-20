@@ -187,7 +187,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             return null;
         }
 
-        [Fact]
+        [Fact(Skip ="Looks like a potential issue in GS2017 CU7")]
         public async Task PublishPackage()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
@@ -276,6 +276,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = await Helper.GetGroupShareClient();
 
+           
             var rawData =
                File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
             var id = Guid.NewGuid().ToString();
