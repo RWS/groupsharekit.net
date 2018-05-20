@@ -187,7 +187,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             return null;
         }
 
-        [Fact(Skip ="Looks like a potential issue in GS2017 CU7")]
+        [Fact(Skip ="This used to work so for the time being I assume it's GS2017 CU7")]
         public async Task PublishPackage()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
