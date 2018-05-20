@@ -14,8 +14,8 @@
     <copyright>Copyright Sdl Community 2017</copyright>
     <tags>GroupShare API</tags>
     <dependencies>
-      <group targetFramework="netstandard1.3">
-        <dependency id="Newtonsoft.Json" version="10.*"/>
+      <group targetFramework="netstandard2.0">
+        <dependency id="Newtonsoft.Json" version="11.*"/>
         <dependency id="System.Net.Http" version="4.3.*"/>
       </group>
     </dependencies>
