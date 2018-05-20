@@ -1,4 +1,6 @@
-# GroupShareKit - GroupShare Rest API Client Library for .NET [![Build status](https://ci.appveyor.com/api/projects/status/7ckqg155ap8rknls?svg=true)](https://ci.appveyor.com/project/cromica/groupsharekit-net)
+# GroupShareKit - GroupShare Rest API Client Library for .NET 
+
+![Build status](https://sdl.visualstudio.com/_apis/public/build/definitions/e8296e54-6fd0-402e-8a1e-84616278ef42/528/badge)
 
 GroupShareKit is a client library targeting .NET 4.6 and above that provides an easy way to interact with [GroupShare Rest API](http://gs2017dev.sdl.com:41234/documentation/api/index#/)
 
