@@ -65,5 +65,5 @@
 * Added support obtaining project language analysis statistics
 * Added support organization filtering based on the tag
 
-### New in 1.2.1
+### New in 1.2.2
 * custom DateTime converter which uses a default format string, though this can be overridden with an environment variable
