@@ -22,11 +22,7 @@ let releaseNotes =
 
 let buildMode = getBuildParamOrDefault "buildMode" "Release"
 
-MSBuildDefaults <-{
-    MSBuildDefaults with 
-        ToolsVersion = Some "14.0"
-        Verbosity = Some MSBuildVerbosity.Minimal
-}
+
 
 Target "Clean"(fun _ ->
     CleanDirs[buildDir;testResultsDir;packagingRoot;packagingDir]
@@ -45,7 +41,7 @@ Target "AssemblyInfo" (fun _ ->
 
 let setParams defaults = {
     defaults with
-        ToolsVersion = Some("14.0")
+        ToolsVersion = Some("15.0")
         Targets = ["Build"]
         Properties =
             [
@@ -72,7 +68,7 @@ Target "IntegrationTests" (fun _ ->
 )
 
 Target "CreateGroupSharePackage" (fun _ ->
-    let portableDir = packagingDir @@ "lib/netstandard1.3/"
+    let portableDir = packagingDir @@ "lib/netstandard2.0/"
     CleanDirs [portableDir]
 
     CopyFile portableDir (buildDir @@ "Release/Portable/Sdl.Community.GroupShareKit.dll")
