@@ -98,7 +98,7 @@ Target "CreatePackages" DoNothing
 "Clean"
    ==> "AssemblyInfo"
    ==> "BuildApp"
-   ==> "IntegrationTests"
+ //  ==> "IntegrationTests"
    ==> "CreateGroupSharePackage"
 
 RunTargetOrDefault "Default"
