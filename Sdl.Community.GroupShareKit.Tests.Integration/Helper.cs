@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using System;
+using System.Configuration;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Http;
@@ -8,10 +10,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
     public static class Helper
     {
 
+        private static string GetVariable(string key)
+        {
+            return Environment.GetEnvironmentVariable(key) ?? ConfigurationManager.AppSettings[key];
+        }
+
         public static async Task<GroupShareClient> GetGroupShareClient()
         {
-            var groupShareUser = Environment.GetEnvironmentVariable("GROUPSHAREKIT_USERNAME");
-            var groupSharePassword = Environment.GetEnvironmentVariable("GROUPSHAREKIT_PASSWORD");
+            var groupShareUser = Helper.GetVariable("GROUPSHAREKIT_USERNAME");
+            var groupSharePassword = Helper.GetVariable("GROUPSHAREKIT_PASSWORD");
 
             var token =
                 await
@@ -26,8 +33,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
         } 
 
 
-        public static Uri BaseUri => new Uri(Environment.GetEnvironmentVariable("GROUPSHAREKIT_BASEURI"));
+        public static Uri BaseUri => new Uri(Helper.GetVariable("GROUPSHAREKIT_BASEURI"));
 
-        public static string TestOrganization => Environment.GetEnvironmentVariable("GROUPSHAREKIT_TESTORGANIZATION");
+        public static string TestOrganization => Helper.GetVariable("GROUPSHAREKIT_TESTORGANIZATION");
     }
 }
