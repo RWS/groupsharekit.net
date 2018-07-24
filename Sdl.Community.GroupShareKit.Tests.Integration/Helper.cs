@@ -8,10 +8,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
     public static class Helper
     {
 
+        public static string GetVariable(string key)
+        {
+            // by default it gets a process variable. Allow getting user as well
+            return Environment.GetEnvironmentVariable(key) ??
+                Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.User);
+        }
+
         public static async Task<GroupShareClient> GetGroupShareClient()
         {
-            var groupShareUser = Environment.GetEnvironmentVariable("GROUPSHAREKIT_USERNAME");
-            var groupSharePassword = Environment.GetEnvironmentVariable("GROUPSHAREKIT_PASSWORD");
+            var groupShareUser = Helper.GetVariable("GROUPSHAREKIT_USERNAME");
+            var groupSharePassword = Helper.GetVariable("GROUPSHAREKIT_PASSWORD");
 
             var token =
                 await
@@ -26,8 +33,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
         } 
 
 
-        public static Uri BaseUri => new Uri(Environment.GetEnvironmentVariable("GROUPSHAREKIT_BASEURI"));
+        public static Uri BaseUri => new Uri(Helper.GetVariable("GROUPSHAREKIT_BASEURI"));
 
-        public static string TestOrganization => Environment.GetEnvironmentVariable("GROUPSHAREKIT_TESTORGANIZATION");
+        public static string TestOrganization => Helper.GetVariable("GROUPSHAREKIT_TESTORGANIZATION");
     }
 }
