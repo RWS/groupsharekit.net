@@ -15,7 +15,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
                 Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.User);
         }
 
-        public static async Task<GroupShareClient> GetGroupShareClient()
+        public static async Task<IGroupShareClient> GetGroupShareClient()
         {
             var groupShareUser = Helper.GetVariable("GROUPSHAREKIT_USERNAME");
             var groupSharePassword = Helper.GetVariable("GROUPSHAREKIT_PASSWORD");
