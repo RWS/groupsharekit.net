@@ -124,11 +124,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task CreateFieldForTemplate()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
+            var id = Guid.NewGuid().ToString();
+            var name = $"NewTemplate - {id}";
             var fieldTemplate = new FieldTemplate
             {
-                Name = "NewTemplate",
+                Name = name,
                 Description = "test",
-                FieldTemplateId = Guid.NewGuid().ToString(),
+                FieldTemplateId = id,
                 IsTmSpecific = false,
                 Location = "/SDL Community Developers",
                 OwnerId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17"
@@ -147,7 +149,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var fieldId = await groupShareClient.TranslationMemories.CreateFieldForTemplate(templateId, field);
 
             Assert.True(fieldId!=string.Empty);
-        //    await groupShareClient.TranslationMemories.DeleteFieldForTemplate(templateId, fieldId);
             await groupShareClient.TranslationMemories.DeleteFieldTemplate(templateId);
 
 
