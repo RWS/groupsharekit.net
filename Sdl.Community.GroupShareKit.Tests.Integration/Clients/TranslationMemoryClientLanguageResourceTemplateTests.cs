@@ -45,7 +45,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var template = await groupShareClient.TranslationMemories.GetTemplateById(templateId);
 
-            Assert.Equal(template.Name, "UpdatedName");
+            Assert.Equal("UpdatedName", template.Name);
         }
 
         [Theory]

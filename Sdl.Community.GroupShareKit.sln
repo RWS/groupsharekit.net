@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sdl.Community.GroupShareKit", "Sdl.Community.GroupShareKit\Sdl.Community.GroupShareKit.csproj", "{2A8A6988-57DD-4779-8888-6B5301E489CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sdl.Community.GroupShareKit", "Sdl.Community.GroupShareKit\Sdl.Community.GroupShareKit.csproj", "{2A8A6988-57DD-4779-8888-6B5301E489CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sdl.Community.GroupShareKit.Tests.Integration", "Sdl.Community.GroupShareKit.Tests.Integration\Sdl.Community.GroupShareKit.Tests.Integration.csproj", "{D29100C2-941B-4047-9E89-6790B9B08F51}"
 EndProject
@@ -41,5 +41,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2CCE1939-7F5F-4181-A8EC-FD059EE885B6}
 	EndGlobalSection
 EndGlobal

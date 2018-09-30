@@ -30,7 +30,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var templateId = await groupShareClient.TranslationMemories.CreateFieldTemplate(fieldTemplate);
             Assert.True(templateId!=string.Empty);
 
-            await DeleteFieldTemplate(templateId);
+            await groupShareClient.TranslationMemories.DeleteFieldTemplate(templateId);
+
         }
 
         [Fact]
@@ -49,7 +50,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
 
             var template = await groupShareClient.TranslationMemories.GetFieldTemplateById(templateId);
-            Assert.Equal(template.Name, "Ro Copy");
+            Assert.Equal("Ro Copy", template.Name);
             Assert.Equal(template.FieldTemplateId,templateId);
         }
 
@@ -65,15 +66,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.TranslationMemories.UpdateFieldTemplate(fieldTemplateId, fieldRequest);
 
             var updatedTemplate = await groupShareClient.TranslationMemories.GetFieldTemplateById(fieldTemplateId);
-            Assert.Equal(updatedTemplate.Name, "Updated name");
-        }
-
-
-        public async Task DeleteFieldTemplate(string templateId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-          
-            await groupShareClient.TranslationMemories.DeleteFieldTemplate(templateId);
+            Assert.Equal("Updated name", updatedTemplate.Name);
         }
 
         [Theory]
@@ -154,8 +147,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var fieldId = await groupShareClient.TranslationMemories.CreateFieldForTemplate(templateId, field);
 
             Assert.True(fieldId!=string.Empty);
-            await DeleteFieldTemplate(templateId);
-            
+        //    await groupShareClient.TranslationMemories.DeleteFieldForTemplate(templateId, fieldId);
+            await groupShareClient.TranslationMemories.DeleteFieldTemplate(templateId);
+
+
         }
 
         [Theory]

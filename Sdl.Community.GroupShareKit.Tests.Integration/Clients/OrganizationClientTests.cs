@@ -34,7 +34,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         }
 
-        
+        [Theory]
+        [InlineData("5bdb10b8-e3a9-41ae-9e66-c154347b8d17")]
         public async Task Update(string organizationId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
@@ -46,7 +47,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var updatedOrgId=await groupShareClient.Organization.Update(organization);
             var updatedOrganization = await groupShareClient.Organization.Get(updatedOrgId);
 
-             Assert.Equal(updatedOrganization.Description, "AddedDescription");
+             Assert.Equal("AddedDescription",updatedOrganization.Description);
         }
 
         [Fact]
@@ -77,6 +78,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.Organization.DeleteOrganization(organizationId);
         }
 
+        [Theory]
+        [InlineData("string")]
         public async Task GetOrganizationsByTag(string tag)
         {
 

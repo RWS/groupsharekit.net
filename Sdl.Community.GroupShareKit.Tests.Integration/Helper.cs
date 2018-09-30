@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Http;
+using Sdl.Community.GroupShareKit.Models.Response;
+using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration
 {
@@ -14,6 +18,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
             return Environment.GetEnvironmentVariable(key) ??
                 Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.User);
         }
+
+       
 
         public static async Task<IGroupShareClient> GetGroupShareClient()
         {

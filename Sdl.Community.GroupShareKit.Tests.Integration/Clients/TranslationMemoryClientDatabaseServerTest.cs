@@ -80,7 +80,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.TranslationMemories.UpdateDbServer(serverId, request);
             var updatedServer = await groupShareClient.TranslationMemories.GetDbServerById(serverId);
 
-            Assert.Equal(updatedServer.Name, "Updated server name");
+            Assert.Equal("Updated server name", updatedServer.Name);
 
            await groupShareClient.TranslationMemories.DeleteDbServer(serverId);
         }

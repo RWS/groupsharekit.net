@@ -18,7 +18,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetProjectByName()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            //  var project = await GetProject(groupShareClient);
             var projects = await groupShareClient.Project.GetAllProjects();
             var project = projects.Items.FirstOrDefault();
 
@@ -82,33 +81,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task AnalysisReportsAsHtml()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            // var report = await groupShareClient.Project.GetAnalysisReportsAsHtml("522dde85-7f5b-4aa5-a4d9-af97d78798f2", "en-US");
             var report = await groupShareClient.Project.GetAnalysisReportsAsHtml("522dde85-7f5b-4aa5-a4d9-af97d78798f2",null);
             Assert.True(report!=null);
         }
-
-        //[Fact]
-        //public async Task AnalysisReports()
-        //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
-        //    var projectId = await CreateProject();
-        //    if (!string.IsNullOrEmpty(projectId))
-        //    {
-        //        var report = await groupShareClient.Project.GetAnalysisReports(projectId, "en-US");
-        //        Assert.True(report.Count > 0);
-
-        //        int publishingStatus;
-
-        //        do
-        //        {
-        //            var statusResponse = await groupShareClient.Project.PublishingStatus(projectId);
-        //            publishingStatus = statusResponse.Status;
-        //        } while (publishingStatus != 3);
-
-        //        await groupShareClient.Project.DeleteProject(projectId);
-        //    }
-        //}
-
 
         [Fact]
         public async Task GetProjectById()
@@ -187,7 +162,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             return null;
         }
 
-        [Fact(Skip ="This used to work so for the time being I assume it's GS2017 CU7")]
+        [Fact(Skip = "Used to work until GroupShare 2017 CU7")]
         public async Task PublishPackage()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
@@ -232,7 +207,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.Project.ChangeProjectStatus(projectStatusRequest);
 
             var project = await groupShareClient.Project.Get("c1f47d9c-a9dd-4069-b636-3405d4fb98a8");
-            Assert.Equal(project.Status, 4);
+            Assert.Equal(4, project.Status);
 
         }
 
@@ -244,7 +219,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.Project.ChangeProjectStatusDetach(projectStatusRequest);
 
             var project = await groupShareClient.Project.Get("5afaf0b5-05c8-4401-920c-d3366096cfc6");
-            Assert.Equal(project.Status, 4);
+            Assert.Equal(4, project.Status);
 
         }
         #endregion
@@ -312,13 +287,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         #endregion
-
-
-        //private static async Task<ProjectDetails> GetProject(GroupShareClient groupShareClient)
-        //{
-        //    var projects = await groupShareClient.Project.GetAllProjects();
-        //    return projects.Items.FirstOrDefault();
-        //}
 
     }
 }

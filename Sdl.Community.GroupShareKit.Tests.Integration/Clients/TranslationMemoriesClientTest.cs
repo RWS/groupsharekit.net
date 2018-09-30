@@ -37,8 +37,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var tmId = await CreateTm("NewTm");
             var tm = await groupShareClient.TranslationMemories.GetTmById(tmId);
 
-            Assert.Equal(tm.Name, "NewTm");
-            await DeleteTm(tmId);
+            Assert.Equal("NewTm",tm.Name);
+            await groupShareClient.TranslationMemories.DeleteTm(tmId);
 
         }
 
@@ -95,7 +95,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var tmNumber = await groupShareClient.TranslationMemories.GetTmsNumberByLanguageResourceTemplateId(id);
 
-            Assert.Equal(tmNumber, 0);
+            Assert.Equal(0, tmNumber);
         }
 
         [Theory]
@@ -105,7 +105,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var tmNumber = await groupShareClient.TranslationMemories.GetTmsNumberByFieldTemplateId(id);
 
-            Assert.Equal(tmNumber, 0);
+            Assert.Equal(0,tmNumber);
         }
 
 
@@ -156,13 +156,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             return tmId;
         }
 
-
-        public async Task DeleteTm(string tmId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            await groupShareClient.TranslationMemories.DeleteTm(tmId);
-        }
-
         [Theory]
         [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
         public async Task UpdateTm(string tmId)
@@ -177,7 +170,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var updatedTm = await groupShareClient.TranslationMemories.GetTmById(tmId);
 
-            Assert.Equal(updatedTm.Description, "Updated tm");
+            Assert.Equal("Updated tm", updatedTm.Description);
 
         }
 
@@ -187,7 +180,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var health = await groupShareClient.TranslationMemories.Health();
 
-            Assert.Equal(health.Status, "DOWN");
+            Assert.Equal("DOWN", health.Status);
         }
 
 
@@ -213,7 +206,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var response = await groupShareClient.TranslationMemories.RecomputeStatistics(tmId, request);
 
             Assert.True(response != null);
-            await DeleteTm(tmId);
+            await groupShareClient.TranslationMemories.DeleteTm(tmId);
         }
 
         [Fact]
@@ -226,7 +219,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var response = await groupShareClient.TranslationMemories.Reindex(tmId, request);
 
             Assert.True(response != null);
-            await DeleteTm(tmId);
+            await groupShareClient.TranslationMemories.DeleteTm(tmId);
+
         }
 
         [Theory]
@@ -250,7 +244,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfPostDatedTus(tmId, languageParameters);
 
-            Assert.Equal(tusNumber, 0);
+            Assert.Equal(0, tusNumber);
         }
 
         [Theory]
@@ -262,7 +256,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfPreDatedTus(tmId, languageParameters);
 
-            Assert.Equal(tusNumber, 0);
+            Assert.Equal(0, tusNumber);
         }
         //[Theory]
         //[InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
@@ -288,7 +282,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             foreach (var segment in filter)
             {
-                Assert.True(segment.Target.Contains("Informare"));
+                Assert.Contains("Informare", segment.Target);
             }
 
         }
@@ -478,7 +472,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             };
 
-            var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "blue", "en-us", "ca-es", concordanceSearchSettings);
+            var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid(tmId),
+                "blue",
+                "en-us",
+                "ca-es",
+                concordanceSearchSettings);
 
             var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
 
@@ -527,7 +525,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             };
 
-            var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "blue", "en-us", "ca-es", concordanceSearchSettings);
+            var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid(tmId),
+                "blue",
+                "en-us",
+                "ca-es",
+                concordanceSearchSettings);
 
             var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
 
@@ -575,7 +577,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             foreach (var item in responseSimpleExpr)
             {
-                Assert.Equal(item.Target, "TRADUCERE");
+                Assert.Equal("TRADUCERE", item.Target);
             }
 
         }

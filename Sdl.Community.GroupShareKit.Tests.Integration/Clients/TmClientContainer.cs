@@ -99,7 +99,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
            var container = await groupShareClient.TranslationMemories.GetContainerById(containerId);
 
-            Assert.Equal(container.DisplayName, "Updated Name");
+            Assert.Equal("Updated Name", container.DisplayName);
 
             //Deletes created container
            await groupShareClient.TranslationMemories.DeleteContainer(containerId);

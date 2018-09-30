@@ -6,12 +6,12 @@
     <authors>@authors@</authors>
     <owners>@authors@</owners>
     <summary>@summary@</summary>
-    <licenseUrl>https://github.com/sdl/groupsharekit.net/blob/master/LICENSEt</licenseUrl>
+    <licenseUrl>https://github.com/sdl/groupsharekit.net/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/sdl/groupsharekit.net</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>@description@</description>
     <releaseNotes>@releaseNotes@</releaseNotes>
-    <copyright>Copyright Sdl Community 2017</copyright>
+    <copyright>Copyright Sdl Community 2018</copyright>
     <tags>GroupShare API</tags>
     <dependencies>
       <group targetFramework="netstandard2.0">

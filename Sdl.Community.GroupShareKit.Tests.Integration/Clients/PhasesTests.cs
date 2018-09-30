@@ -53,7 +53,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             foreach (var projectPhase in phases.SelectMany(phase => phase.Phases))
             {
-                Assert.Equal(projectPhase.ProjectPhaseId, 37);
+                Assert.Equal(37, projectPhase.ProjectPhaseId);
             }
 
         }

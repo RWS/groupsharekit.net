@@ -30,7 +30,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var response = await groupShareClient.User.Get(new UserRequest(userName));
 
-            Assert.True(response.Name.Equals(userName));
+            Assert.Equal(userName,response.Name);
         }
 
         [Theory]
@@ -58,7 +58,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(user != string.Empty);
 
             var userUpdated = await groupShareClient.User.Get(new UserRequest(userName));
-            Assert.Equal(userUpdated.Description, "Updated Description");
+            Assert.Equal("Updated Description", userUpdated.Description);
 
         }
         
@@ -68,11 +68,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
 
             var uniqueId = Guid.NewGuid().ToString();
+            var name = $"automated user {uniqueId}";
 
             var newUser = new CreateUserRequest
             {
                 UniqueId = uniqueId,
-                Name = "user to update2",
+                Name = name,
                 Password = "Password1",
                 DisplayName = "test",
                 Description = null,
@@ -92,20 +93,25 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             var userId = await groupShareClient.User.Create(newUser);
+            try
+            {
+                Assert.True(userId != string.Empty);
 
-            Assert.True(userId != string.Empty);
+                var expectedUser = await groupShareClient.User.GetUserById(userId);
+                Assert.Equal(name, expectedUser.Name);
 
-            var expectedUser = await groupShareClient.User.GetUserById(userId);
-            Assert.Equal(expectedUser.Name, "user to update2");
+                expectedUser.Locale = "de-DE";
+                await groupShareClient.User.Update(expectedUser);
 
-            expectedUser.Locale = "de-DE";
-            await groupShareClient.User.Update(expectedUser);
+                var actualUser = await groupShareClient.User.GetUserById(userId);
 
-            var actualUser = await groupShareClient.User.GetUserById(userId);
+                Assert.Equal("de-DE", actualUser.Locale);
+            }
+            finally
+            {
 
-            Assert.True(actualUser.Locale.Equals("de-DE"));
-
-            await groupShareClient.User.Delete(userId);
+                await groupShareClient.User.Delete(userId);
+            }
         }
 
         [Fact]

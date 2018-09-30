@@ -491,7 +491,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
         /// <summary>
         /// Returns the <see cref="Uri"/> that gets a concept
-        /// </summary
+        /// </summary>
         public static Uri GetConcepts(string termbaseId )
         {
             return "{0}/termbases/{1}/concepts".FormatUri(CurrentMultitermUrl, termbaseId);

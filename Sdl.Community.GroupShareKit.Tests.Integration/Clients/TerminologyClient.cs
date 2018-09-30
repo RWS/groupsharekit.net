@@ -64,7 +64,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var searchedResponse = await groupShareClient.Terminology.SearchTerm(request);
 
-            Assert.Equal(searchedResponse.Terms.Count,0);
+            Assert.Empty(searchedResponse.Terms);
         }
 
         [Theory]
@@ -97,7 +97,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var updatedText = updatedResponse.Concept.Languages[0].Terms[0].Text;
 
-            Assert.Equal(updatedText, "updated");
+            Assert.Equal("updated", updatedText);
             await DeleteConcept(termbaseId, conceptId);
         }
 
@@ -109,13 +109,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var conceptId = await CreateConceptWithCustomFields(termbaseId, "conceptName");
             var conceptRequest = new ConceptResponse(termbaseId, conceptId);
             var conceptResponse = await groupShareClient.Terminology.GetConcept(conceptRequest);
-            conceptResponse.Concept.Languages[0].Terms[0].Text = "Updated Term From kit with custm fields";
+            conceptResponse.Concept.Languages[0].Terms[0].Text = "Updated Term From kit with custom fields";
 
             var updatedResponse = await groupShareClient.Terminology.EditConcept(termbaseId, conceptResponse);
 
             var updatedText = updatedResponse.Concept.Languages[0].Terms[0].Text;
 
-            Assert.Equal(updatedText, "Updated Term From kit with custm fields");
+            Assert.Equal("Updated Term From kit with custom fields", updatedText);
             await DeleteConcept(termbaseId, conceptId);
         }
   

@@ -228,6 +228,7 @@ namespace Sdl.Community.GroupShareKit.Http
         /// </summary>
         /// <param name="uri">URI endpoint to send request to</param>
         /// <param name="data">The object to serialize as the body of the request</param>
+        /// <param name="contentType">The http content type</param>
         /// <returns>A <see cref="Task"/> for the request's execution.</returns>
         public Task Delete(Uri uri, object data, string contentType)
         {

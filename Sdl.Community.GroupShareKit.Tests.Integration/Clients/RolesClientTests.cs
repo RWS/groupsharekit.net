@@ -76,11 +76,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task CreateRole()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-
+            var id = Guid.NewGuid();
+            var name = $"testRole-{id}";
             var roleId =
                 await
-                    groupShareClient.Role.CreateRole(new RoleRequest(Guid.NewGuid(),
-                        "testRole", false, new List<Permission>() {new Permission()
+                    groupShareClient.Role.CreateRole(new RoleRequest(id,
+                        name,
+                        false,
+                        new List<Permission>() {new Permission()
                         {
                             UniqueId = new Guid("b05db681-2871-4cb4-9789-61a5e9d0cfb4"),
                             DisplayName = "View Library",
@@ -92,26 +95,30 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(roleId!=string.Empty);
 
-            await AddUsersToRole(roleId);
 
-            await RemoveUsersFromRole(roleId);
 
-            await groupShareClient.Role.DeleteRole(roleId);
         }
 
-        [Theory]
-        [InlineData("793f3f38-3899-49e5-b793-99a53cd1d24d")]
-        public async Task GetUsersForSpecificRole(string roleId)
+        [Fact]
+        public async Task AddRemoveUsersToRole()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var users = await groupShareClient.Role.GetUsersForRole(roleId);
-
-            Assert.True(users.Count!=0);
-        }
-        
-        public async Task AddUsersToRole(string roleId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var id = Guid.NewGuid();
+            var name = $"testRole-{id}";
+            var roleId =
+               await
+                   groupShareClient.Role.CreateRole(new RoleRequest(id,
+                       name,
+                       false,
+                       new List<Permission>() {new Permission()
+                        {
+                            UniqueId = new Guid("b05db681-2871-4cb4-9789-61a5e9d0cfb4"),
+                            DisplayName = "View Library",
+                            Description = null,
+                            FullName = "RG.view",
+                            PermissionName = "view",
+                            ResourceName = "RG"
+                        } }));
             var roleList = new List<Role>
             {
                 new Role
@@ -125,32 +132,34 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var roles = await groupShareClient.Role.GetUsersForRole(roleId);
 
-            var addedUser = roles.FirstOrDefault(u => u.UniqueId.ToString() == "6d4e85a2-163b-4574-8c56-60d96e2296f3");
+            var addedRole = roles.FirstOrDefault(u => u.UniqueId.ToString() == "6d4e85a2-163b-4574-8c56-60d96e2296f3");
 
-            Assert.True(addedUser!=null);
-        }
-        
-        public async Task RemoveUsersFromRole(string roleId)
-        {
-
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var roleList = new List<Role>
-            {
-                new Role
-                {
-                    OrganizationId = "ee72759d-917e-4c60-ba30-1ed595699c4d",
-                    UserId = "6d4e85a2-163b-4574-8c56-60d96e2296f3",
-                    RoleId = roleId
-                }
-            };
+            Assert.True(addedRole != null);
 
             await groupShareClient.Role.RemoveUserFromRole(roleList, roleId);
-            var roles = await groupShareClient.Role.GetUsersForRole(roleId);
 
-            var addedUser = roles.FirstOrDefault(u => u.UniqueId.ToString() == "6d4e85a2-163b-4574-8c56-60d96e2296f3");
+            roles = await groupShareClient.Role.GetUsersForRole(roleId);
 
-            Assert.True(addedUser == null);
+            var removedRole = roles.FirstOrDefault(u => u.UniqueId.ToString() == "6d4e85a2-163b-4574-8c56-60d96e2296f3");
+
+            Assert.True(removedRole == null);
+
+            await groupShareClient.Role.DeleteRole(roleId);
+
         }
+
+
+        [Theory]
+        [InlineData("793f3f38-3899-49e5-b793-99a53cd1d24d")]
+        public async Task GetUsersForSpecificRole(string roleId)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var users = await groupShareClient.Role.GetUsersForRole(roleId);
+
+            Assert.True(users.Count!=0);
+        }
+        
+      
 
 
     }

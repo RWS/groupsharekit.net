@@ -21,6 +21,10 @@ namespace Sdl.Community.GroupShareKit.Http
     {
         private readonly HttpClient _httpClient;
 
+        /// <summary>
+        /// Constructor for the Http adapter
+        /// </summary>
+        /// <param name="getHandler"></param>
         public HttpClientAdapter(Func<HttpMessageHandler> getHandler)
         {
             Ensure.ArgumentNotNull(getHandler,"getHandler");

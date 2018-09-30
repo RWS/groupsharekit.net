@@ -1270,9 +1270,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                 FieldId = fieldRequest.FieldId,
                 Values = GetValues(fieldRequest.Values)
             };
-            return
+            var fieldLocation =
                 await
                     ApiConnection.Post<string>(ApiUrls.GetFields(fieldTemplateId), field, "application/json");
+            var fieldId = fieldLocation.Split('/').Last();
+            return fieldId;
         }
 
         /// <summary>

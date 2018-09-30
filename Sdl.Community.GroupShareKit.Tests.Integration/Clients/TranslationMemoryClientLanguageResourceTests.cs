@@ -24,7 +24,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //}
 
         [Theory]
-        [InlineData("a3b1fd22-e3cd-4931-9e2a-91f6c6c246c0", "ro-ro")]
+        [InlineData("a3b1fd22-e3cd-4931-9e2a-91f6c6c246c0", "en-en")]
         public async Task CreateLanguageResourceForTemplate(string templateId,string language)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
@@ -34,7 +34,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Type = "OrdinalFollowers",
                 LanguageResourceTemplateId = Guid.NewGuid().ToString(),
                 LanguageResourceId = Guid.NewGuid().ToString(),
-                CultureName = "en-en",
+                CultureName = language,
                 Data = "test data"
             };
             var id = await groupShareClient.TranslationMemories.CreateLanguageResourceForTemplate(templateId, resource);

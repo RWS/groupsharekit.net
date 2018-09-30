@@ -441,6 +441,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         ///Deletes detach to a project status
         /// <param name="projectId deleteTms">></param>
+        /// <param name="deleteTms"></param>
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -450,6 +451,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// 
         public async Task ChangeProjectStatusDeleteDetach(string projectId, bool deleteTms)
         {
             await ApiConnection.Delete(ApiUrls.ProjectStatusDeleteDetach(projectId, deleteTms));
@@ -526,6 +528,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///Creates a template
         /// </summary>
         /// <param name="templateRequest"><see cref="ProjectTemplates"/></param>
+        /// <param name="rawData">The project temaplate file as a byte array.</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -661,7 +664,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// The project must be created in GroupShare, not in Studio and published in GS
         /// </summary>
         /// <param name="projectId">The project id</param>
-        /// <param name="languageCode"> language code. Eg: en-US/param>
+        /// <param name="languageCode"> language code. Eg: en-US</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -684,7 +687,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// The project must be created in GroupShare, not in Studio and published in GS
         /// </summary>
         /// <param name="projectId">The project id</param>
-        /// <param name="languageCode"> language code. Eg: en-US/param>
+        /// <param name="languageCode"> language code. Eg: en-US</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.

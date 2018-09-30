@@ -168,7 +168,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Links resource to a organization
         /// <param name="resource"><see cref="OrganizationResourcesRequest"/></param>
         /// </summary>
-        /// <param name="resource"></param>
         public async Task LinkResourceToOrganization(OrganizationResourcesRequest resource)
         {
             Ensure.ArgumentNotNull(resource, "resource");
