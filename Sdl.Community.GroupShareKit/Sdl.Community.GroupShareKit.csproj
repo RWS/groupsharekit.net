@@ -2,6 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>GroupShareKit ($(TargetFramework))</Product>
+    <PackageId>GroupShareKit</PackageId>
+    <Description>A GroupShare API client library for .NET</Description>
+    <Company>SDL</Company>
+    <Authors>Sdl Community</Authors>
+    <PackageTags>Trados GroupShare</PackageTags>
+    <Copyright>Copyright ©  2018</Copyright>
+    <PackageProjectUrl>https://github.com/sdl/groupsharekit.net</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/sdl/groupsharekit.net/blob/master/LICENSE</PackageLicenseUrl>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>GroupShareKit.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -13,10 +25,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="2.2.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="System.Net.Http" Version="4.3.3" />
   </ItemGroup>

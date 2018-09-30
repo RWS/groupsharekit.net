@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-    <id>@project@</id>
-    <version>@build.number@</version>
-    <authors>@authors@</authors>
-    <owners>@authors@</owners>
-    <summary>@summary@</summary>
+    <id>GroupShareKit</id>
+    <version>$version$</version>
+    <authors>Sdl Community</authors>
+    <owners>SDL</owners>
+    <title>GroupShareKit</title>
+    <summary>A GroupShare API client library for .NET</summary>
     <licenseUrl>https://github.com/sdl/groupsharekit.net/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/sdl/groupsharekit.net</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>@description@</description>
-    <releaseNotes>@releaseNotes@</releaseNotes>
+    <description>A GroupShare API client library for .NET</description>
     <copyright>Copyright Sdl Community 2018</copyright>
-    <tags>GroupShare API</tags>
+    <tags>Trados GroupShare</tags>
+    <repository type="$RepositoryType$" url="$RepositoryUrl$" commit="$RepositoryCommit$" />
     <dependencies>
       <group targetFramework="netstandard2.0">
         <dependency id="Newtonsoft.Json" version="11.*"/>
@@ -20,4 +21,8 @@
       </group>
     </dependencies>
   </metadata>
+  <files>
+    <file src="Sdl.Community.GroupShareKit\bin\Release\netstandard2.0\*.dll" target="lib\netstandard2.0" />
+    <file src="Sdl.Community.GroupShareKit\bin\Release\netstandard2.0\*.xml" target="lib\netstandard2.0" />
+  </files>
 </package>
