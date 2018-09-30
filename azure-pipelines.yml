@@ -37,7 +37,6 @@ steps:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-    msbuildArgs: '/p:OutDir=$(Build.ArtifactStagingDirectory)'
 
 - powershell: |
     mkdir $(Build.ArtifactStagingDirectory)\Package     
