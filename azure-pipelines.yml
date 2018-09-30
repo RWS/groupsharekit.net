@@ -24,6 +24,9 @@ steps:
   condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
 - task: NuGetToolInstaller@0
+  displayName: Use NuGet 4.7.0
+  inputs:
+    versionSpec: 4.7.0
 
 - task: NuGetCommand@2
   inputs:
@@ -40,7 +43,7 @@ steps:
     mkdir $(Build.ArtifactStagingDirectory)\Package     
     $version = .\nbgv get-version -f json | ConvertFrom-Json
     $version
-    ls *.nuspec | %{ nuget pack $_.FullName -version "$($version.NuGetPackageVersion)" -NoPackageAnalysis -OutputDirectory $(Build.ArtifactStagingDirectory)\Packages}
+    ls *.nuspec | %{ nuget pack $_.FullName -version "$($version.NuGetPackageVersion)" -NoPackageAnalysis -OutputDirectory $(Build.ArtifactStagingDirectory)\Packages -Properties "RepositoryType=git;RepositoryCommit=$($version.GitCommitId);RepositoryUrl=https://github.com/sdl/groupsharekit.net"}
   displayName: Create package
   condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
