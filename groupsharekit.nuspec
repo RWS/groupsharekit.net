@@ -19,6 +19,10 @@
         <dependency id="Newtonsoft.Json" version="11.*"/>
         <dependency id="System.Net.Http" version="4.3.*"/>
       </group>
+      <group targetFramework="net4.6">
+        <dependency id="Newtonsoft.Json" version="11.*"/>
+        <dependency id="System.Net.Http" version="4.3.*"/>
+      </group>
     </dependencies>
   </metadata>
   <files>
