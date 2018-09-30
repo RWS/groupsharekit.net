@@ -117,7 +117,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = await Helper.GetGroupShareClient();
             var field = await groupShareClient.TranslationMemories.GetFieldForTemplate(fieldTemplateId, fieldId);
-            field.Name = "Updated name";
+            field.Name = $"Updated name + {Guid.NewGuid()}";
             await groupShareClient.TranslationMemories.UpdateFieldForTemplate(fieldTemplateId, fieldId, field);
         }
         [Fact]
