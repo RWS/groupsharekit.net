@@ -1,5 +1,5 @@
 # GroupShareKit - GroupShare Rest API Client Library for .NET 
-
+[![NuGet Stats](https://img.shields.io/nuget/v/groupsharekit.svg)](https://www.nuget.org/packages/GroupShareKit)
 [![Build Status](https://dev.azure.com/sdl/GroupShareKit/_apis/build/status/sdl.groupsharekit.net)](https://dev.azure.com/sdl/GroupShareKit/_build/latest?definitionId=808)
 
 GroupShareKit is a client library targeting .NET 4.6 and above that provides an easy way to interact with [GroupShare Rest API](http://gs2017dev.sdl.com:41234/documentation/api/index#/)
