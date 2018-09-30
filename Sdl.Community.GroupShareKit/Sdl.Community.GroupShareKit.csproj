@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
     <Product>GroupShareKit ($(TargetFramework))</Product>
     <PackageId>GroupShareKit</PackageId>
     <Description>A GroupShare API client library for .NET</Description>
@@ -16,12 +16,8 @@
     <AssemblyOriginatorKeyFile>GroupShareKit.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\Sdl.Community.GroupShareKit.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\Sdl.Community.GroupShareKit.xml</DocumentationFile>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net46|AnyCPU'">
+    <DocumentationFile>C:\Work\Git\groupsharekit.net\Sdl.Community.GroupShareKit\Sdl.Community.GroupShareKit.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

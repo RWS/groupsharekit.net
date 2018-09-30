@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+<package>
+  <metadata minClientVersion="2.12">
     <id>GroupShareKit</id>
     <version>$version$</version>
     <authors>Sdl Community</authors>
@@ -22,6 +22,8 @@
     </dependencies>
   </metadata>
   <files>
+    <file src="Sdl.Community.GroupShareKit\bin\Release\net46\*.dll" target="lib\net46" />
+    <file src="Sdl.Community.GroupShareKit\bin\Release\net46\*.xml" target="lib\net46" />
     <file src="Sdl.Community.GroupShareKit\bin\Release\netstandard2.0\*.dll" target="lib\netstandard2.0" />
     <file src="Sdl.Community.GroupShareKit\bin\Release\netstandard2.0\*.xml" target="lib\netstandard2.0" />
   </files>
