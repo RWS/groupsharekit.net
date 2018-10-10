@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Models.Response;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Clients;
-using Sdl.Community.GroupShareKit.Models.Response;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
@@ -13,11 +13,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetAllRoles()
         {
-
             var groupShareClient = await Helper.GetGroupShareClient();
             var response = await groupShareClient.Role.GetAllRoles();
 
-            Assert.True(response.Count>0);
+            Assert.True(response.Count > 0);
         }
 
         [Theory]
@@ -25,14 +24,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetRole(string roleId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-
-
             var response = await groupShareClient.Role.GetRole(roleId);
 
-            Assert.Equal(response.UniqueId.ToString(),roleId);
+            Assert.Equal(response.UniqueId.ToString(), roleId);
         }
-
-
 
         //[Fact]
         //public async Task RoleMembership()
@@ -47,7 +42,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //            UserId = new Guid("36c91548-8b79-4ba1-a252-cea654184230"),
         //            RoleId = new Guid("ba6f1a20-eb88-44d0-87d6-521613468941")
         //        },
-
         //        new Role
         //        {
         //            OrganizationId = new Guid("c03a0a9e-a841-47ba-9f31-f5963e71bbb7"),
@@ -71,16 +65,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    await groupShareClient.Role.DeleteRoleMembership(roleMembershipToRemove);
         //}
 
-
         [Fact]
         public async Task CreateRole()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
             var id = Guid.NewGuid();
             var name = $"testRole-{id}";
-            var roleId =
-                await
-                    groupShareClient.Role.CreateRole(new RoleRequest(id,
+            var roleId = await groupShareClient.Role.CreateRole(new RoleRequest(
+                        id,
                         name,
                         false,
                         new List<Permission>() {new Permission()
@@ -93,10 +85,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                             ResourceName = "RG"
                         } }));
 
-            Assert.True(roleId!=string.Empty);
-
-
-
+            Assert.True(roleId != string.Empty);
         }
 
         [Fact]
@@ -105,9 +94,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var id = Guid.NewGuid();
             var name = $"testRole-{id}";
-            var roleId =
-               await
-                   groupShareClient.Role.CreateRole(new RoleRequest(id,
+            var roleId = await groupShareClient.Role.CreateRole(new RoleRequest(
+                       id,
                        name,
                        false,
                        new List<Permission>() {new Permission()
@@ -145,7 +133,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(removedRole == null);
 
             await groupShareClient.Role.DeleteRole(roleId);
-
         }
 
 
@@ -156,11 +143,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var users = await groupShareClient.Role.GetUsersForRole(roleId);
 
-            Assert.True(users.Count!=0);
+            Assert.True(users.Count != 0);
         }
-        
-      
-
-
     }
 }

@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Models.Response;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Clients;
-using Sdl.Community.GroupShareKit.Models.Response;
 using Xunit;
 using Attribute = Sdl.Community.GroupShareKit.Models.Response.Attribute;
 using ConceptResponse = Sdl.Community.GroupShareKit.Clients.ConceptResponse;
@@ -41,7 +40,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var filters = await groupShareClient.Terminology.GetFilters(termbaseId);
 
             Assert.True(filters != null);
-
         }
 
         [Theory]
@@ -55,6 +53,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var searchedWord = searchedResponse.Terms.FirstOrDefault(s => s.TermText == query);
             Assert.True(searchedWord != null);
         }
+
         [Theory]
         [InlineData("testTB", "window", "German")]
         public async Task SearrchNotFoundTerm(string termbaseId, string query, string language)
@@ -79,12 +78,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var conceptResponse1 = await groupShareClient.Terminology.GetConcept(termbaseId, conceptId);
             Assert.Equal(conceptResponse1.Concept.Id, conceptId);
-
         }
 
         [Theory]
         [InlineData("testTB")]
-
         public async Task UpdateConcept(string termbaseId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
@@ -118,7 +115,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal("Updated Term From kit with custom fields", updatedText);
             await DeleteConcept(termbaseId, conceptId);
         }
-  
+
         [Theory]
         [InlineData("testTB")]
         public async Task AddTermForConceptWithoutCustomFields(string termbaseId)
@@ -131,7 +128,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var newTerm = new TermbaseTerms
             {
                 Attributes = null,
-
                 Transactions = new List<Transactions>
                 {
                     new Transactions
@@ -144,7 +140,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                             User = "",
                             Type = "Create"
                         }
-
                     }
                 },
                 Text = "gsKit2"
@@ -167,7 +162,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var newTerm = new TermbaseTerms
             {
                 Attributes = null,
-
                 Transactions = new List<Transactions>
                 {
                     new Transactions
@@ -180,7 +174,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                             User = "",
                             Type = "Create"
                         }
-
                     }
                 },
                 Text = "Added term with custom fields"
@@ -201,8 +194,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.Terminology.DeleteConcept(termbaseId, conceptId);
         }
 
-   
-        public async Task<string> CreateConcept(string termbaseId,string entryName)
+        public async Task<string> CreateConcept(string termbaseId, string entryName)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
             var termBase = await groupShareClient.Terminology.GetTermbaseById(termbaseId);
@@ -241,7 +233,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                                     }
                                 },
                                 Text = entryName
-
                             }
                         }
                     },
@@ -271,14 +262,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                                             User = "aghisa",
                                             Type = "Create"
                                         }
-
                                     }
                                 },
                                 Text = "NewCreated"
-
                             }
                         }
-
                     }
                 },
                 Transactions = new List<Transactions>
@@ -299,15 +287,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var conceptResponse = await groupShareClient.Terminology.CreateConcept(termBase, conceptRequest);
 
-            Assert.True(conceptResponse.Concept.Id!=string.Empty);
+            Assert.True(conceptResponse.Concept.Id != string.Empty);
             return conceptResponse.Concept.Id;
         }
 
-        public async Task<string> CreateConceptWithCustomFields(string termbaseId,string entryName)
+        public async Task<string> CreateConceptWithCustomFields(string termbaseId, string entryName)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var termBase = await groupShareClient.Terminology.GetTermbaseById(termbaseId);        
-            
+            var termBase = await groupShareClient.Terminology.GetTermbaseById(termbaseId);
+
             var conceptRequest = new ConceptRequest
             {
                 Attributes = null,
@@ -334,7 +322,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                                       Value = "kitNote"
                                   }
                               }
-
                           }
                         }
                         ,
@@ -355,11 +342,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                                             User = "aghisa",
                                             Type = "Create"
                                         }
-
                                     }
                                 },
                                 Text = entryName
-
                             }
                         }
                     },
@@ -389,14 +374,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                                             User = "aghisa",
                                             Type = "Create"
                                         }
-
                                     }
                                 },
                                 Text = "NewCreated"
-
                             }
                         }
-
                     }
                 },
                 Transactions = new List<Transactions>
@@ -414,10 +396,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                     }
                 }
             };
-
             var conceptResponse = await groupShareClient.Terminology.CreateConcept(termBase, conceptRequest);
             return conceptResponse.Concept.Id;
         }
+
         [Theory]
         [InlineData("testTB", "customClassId", "2")]
         public async Task CreateConceptCustomClassId(string termbaseId, string entryName, string customClassId)
@@ -454,11 +436,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                                             User = "aghisa",
                                             Type = "Create"
                                         }
-
                                     }
                                 },
                                 Text = entryName
-
                             }
                         }
                     },
@@ -488,14 +468,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                                             User = "aghisa",
                                             Type = "Create"
                                         }
-
                                     }
                                 },
                                 Text = "ttt"
-
                             }
                         }
-
                     }
                 },
                 Transactions = new List<Transactions>
@@ -514,10 +491,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 }
             };
 
-            var conceptResponse =
-                await
-                    groupShareClient.Terminology.CreateConceptWithCustomEntryClass(customClassId, termbaseId,
-                        conceptRequest);
+            var conceptResponse = await groupShareClient.Terminology.CreateConceptWithCustomEntryClass(
+                customClassId,
+                termbaseId,
+                conceptRequest);
 
             Assert.True(conceptResponse.Concept.Id != string.Empty);
         }
@@ -535,8 +512,5 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var updatedResponse = await groupShareClient.Terminology.EditConcept(termbaseId, conceptResponse);
         }
-
-
-
     }
 }

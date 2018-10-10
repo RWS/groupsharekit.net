@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
+using System;
 using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
@@ -38,7 +35,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var serverId = await groupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
 
-            Assert.True(serverId!=string.Empty);
+            Assert.True(serverId != string.Empty);
 
             await groupShareClient.TranslationMemories.DeleteDbServer(serverId);
         }
@@ -54,7 +51,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(server.DatabaseServerId,serverId);
         }
 
-       [Fact]
+        [Fact]
         public async Task UpdateDbServer()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
@@ -82,7 +79,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.Equal("Updated server name", updatedServer.Name);
 
-           await groupShareClient.TranslationMemories.DeleteDbServer(serverId);
+            await groupShareClient.TranslationMemories.DeleteDbServer(serverId);
         }
 
         [Fact]
@@ -103,8 +100,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var serverId = await groupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
 
-           await groupShareClient.TranslationMemories.DeleteDbServer(serverId);
-        }
-        
+            await groupShareClient.TranslationMemories.DeleteDbServer(serverId);
+        }        
     }
 }

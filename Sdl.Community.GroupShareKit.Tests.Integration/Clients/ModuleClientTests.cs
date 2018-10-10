@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
-   public class ModuleClientTests
+    public class ModuleClientTests
     {
-       [Fact]
-       public async Task GetModules()
-       {
+        [Fact]
+        public async Task GetModules()
+        {
             var groupShareClient = await Helper.GetGroupShareClient();
-           var modules = await groupShareClient.ModuleClient.GetModules();
+            var modules = await groupShareClient.ModuleClient.GetModules();
 
-            Assert.True(modules!=null);
-       }
+            Assert.True(modules != null);
+        }
     }
 }

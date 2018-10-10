@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Clients;
+﻿using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
@@ -17,7 +15,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var templatesResponse = await groupShareClient.TranslationMemories.GetAllLanguageResourceTemplates();
 
-            Assert.True(templatesResponse.Items.Count>0);
+            Assert.True(templatesResponse.Items.Count > 0);
         }
 
         [Theory]
@@ -41,7 +39,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Description = "updated from kit"
             };
 
-             await groupShareClient.TranslationMemories.EditTemplate(templateId, request);
+            await groupShareClient.TranslationMemories.EditTemplate(templateId, request);
 
             var template = await groupShareClient.TranslationMemories.GetTemplateById(templateId);
 
@@ -65,8 +63,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 OwnerId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
                 Location = "/SDL Community Developers",
                 IsTmSpecific = false,
-               // LanguageResources = new List<Resource> {resource}
-               LanguageResources = new List<Resource>
+                // LanguageResources = new List<Resource> {resource}
+                LanguageResources = new List<Resource>
                {
                    new Resource
                    {
@@ -74,10 +72,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                        LanguageResourceTemplateId = "78df3807-06ac-438e-b2c8-5e233df1a6a2",
                        Data = "andrea",
                        CultureName = "ro-ro",
-                       
                    }
                }
-
             };
 
             var id = await groupShareClient.TranslationMemories.CreateTemplate(template);

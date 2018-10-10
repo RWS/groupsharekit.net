@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Sdl.Community.GroupShareKit.Clients;
+using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Clients;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
@@ -15,13 +13,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetProjectPhases(string projectId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-
-
-
             var projectPhases = await groupShareClient.Project.GetAllPhasesForProject(projectId);
 
             Assert.True(projectPhases.Count != 0);
         }
+
         [Theory]
         [InlineData("a885af0c-d476-4265-97b3-9ecc8a2b4dc5")]
         public async Task ChangeProjectPhases(string projectId)
@@ -36,11 +32,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                     PhaseId = 38
                 },
             };
-
-                await
-                    groupShareClient.Project.ChangePhases(projectId,
-                        new ChangePhaseRequest("Changed phase ", request));
-       
+            await groupShareClient.Project.ChangePhases(projectId, new ChangePhaseRequest("Changed phase ", request));
         }
 
 
@@ -55,7 +47,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             {
                 Assert.Equal(37, projectPhase.ProjectPhaseId);
             }
-
         }
 
         [Theory]
@@ -63,7 +54,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task ChangeProjectAssignments(string projectId, string fileId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-
 
             var request = new[]
             {
@@ -75,10 +65,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                     AssignedUsers = new[] { "sdlcommunity" }
                 }
             };
-                await
-                    groupShareClient.Project.ChangeAssignments(projectId,
-                        new ChangeAssignmentRequest("test assignement", request));
+            await groupShareClient.Project.ChangeAssignments(projectId, new ChangeAssignmentRequest("test assignement", request));
         }
-
     }
 }
