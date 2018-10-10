@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Sdl.Community.GroupShareKit.Clients;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Clients;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
@@ -23,7 +20,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var request = await groupShareClient.Project.DownloadFile(new FileDownloadRequest("c1f47d9c-a9dd-4069-b636-3405d4fb98a8", "en-US", null));
 
             Assert.True(request != null);
-
         }
 
         [Theory]

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
@@ -15,16 +11,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var response = await groupShareClient.Permission.GetAll();
 
-            Assert.True(response.Count>0);
+            Assert.True(response.Count > 0);
         }
 
         [Fact]
         public async Task GetAllPermissionsName()
         {
             var grClient = await Helper.GetGroupShareClient();
-            var response = await  grClient.Permission.GetUsersPermisions();
+            var response = await grClient.Permission.GetUsersPermisions();
 
-            Assert.True(response.Count>0);
+            Assert.True(response.Count > 0);
         }
     }
 }

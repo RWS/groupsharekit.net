@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Clients;
+﻿using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
@@ -17,7 +16,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var response = await groupShareClient.Organization.GetAll(new OrganizationRequest(false));
 
-            Assert.True(response.Count>0);
+            Assert.True(response.Count > 0);
         }
 
         [Theory]
@@ -25,13 +24,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetOrganizationById(string organizationId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-
-        
-
             var organization = await groupShareClient.Organization.Get(organizationId);
 
-            Assert.Equal(organization.UniqueId.ToString(),organizationId);
-
+            Assert.Equal(organization.UniqueId.ToString(), organizationId);
         }
 
         [Theory]
@@ -43,30 +38,30 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var organization = await groupShareClient.Organization.Get(organizationId);
 
             organization.Description = "AddedDescription";
- 
-            var updatedOrgId=await groupShareClient.Organization.Update(organization);
+
+            var updatedOrgId = await groupShareClient.Organization.Update(organization);
             var updatedOrganization = await groupShareClient.Organization.Get(updatedOrgId);
 
-             Assert.Equal("AddedDescription",updatedOrganization.Description);
+            Assert.Equal("AddedDescription", updatedOrganization.Description);
         }
 
         [Fact]
         public async Task Create()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-             var organization = new Organization()
-             {
-                 UniqueId = Guid.NewGuid(),
-                 Name = "NewCreatedOrg",
-                 IsLibrary = true,
-                 Description = null,
-                 Path = null,
-                 ParentOrganizationId = new Guid("5bdb10b8-e3a9-41ae-9e66-c154347b8d17"),
-                 ChildOrganizations = null,
-                 Tags = new List<string>() { "tagTest" }
+            var organization = new Organization()
+            {
+                UniqueId = Guid.NewGuid(),
+                Name = "NewCreatedOrg",
+                IsLibrary = true,
+                Description = null,
+                Path = null,
+                ParentOrganizationId = new Guid("5bdb10b8-e3a9-41ae-9e66-c154347b8d17"),
+                ChildOrganizations = null,
+                Tags = new List<string>() { "tagTest" }
 
 
-             };
+            };
             var organizationId = await groupShareClient.Organization.Create(organization);
 
             Assert.True(organizationId != string.Empty);
@@ -82,7 +77,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("string")]
         public async Task GetOrganizationsByTag(string tag)
         {
-
             var groupShareClient = await Helper.GetGroupShareClient();
             var response = await groupShareClient.Organization.GetByTag(tag);
 
@@ -112,7 +106,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    var resources = await grClient.Organization.GetAllOrganizationResources(organizartionId);
         //    var addedResource = resources.FirstOrDefault(r => r.Id.ToString() == "fe611664-c7c2-4074-8840-e350208ffaf9");
         //    Assert.True(addedResource != null);
-
         //}
 
 
@@ -129,9 +122,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //        Description = null,
         //        Path = null,
         //        ParentOrganizationId = new Guid("5bdb10b8-e3a9-41ae-9e66-c154347b8d17"),
-        //        ChildOrganizations = null
-
-
+        //        ChildOrganizations = null        
         //    };
         //    var organizationId = await groupShareClient.Organization.Create(organization);
         //    var resourceRequest =
@@ -150,6 +141,5 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         //    await groupShareClient.Organization.DeleteOrganization(organizationId);
         //}
-
     }
 }

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Clients;
+﻿using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
@@ -25,7 +20,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [InlineData("a3b1fd22-e3cd-4931-9e2a-91f6c6c246c0", "en-en")]
-        public async Task CreateLanguageResourceForTemplate(string templateId,string language)
+        public async Task CreateLanguageResourceForTemplate(string templateId, string language)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
 
@@ -39,9 +34,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
             var id = await groupShareClient.TranslationMemories.CreateLanguageResourceForTemplate(templateId, resource);
 
-            Assert.True(id!=string.Empty);
+            Assert.True(id != string.Empty);
             await groupShareClient.TranslationMemories.DeleteLanguageResourceForTemplate(templateId, id);
-
         }
 
         [Theory]
@@ -53,8 +47,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var resource = await groupShareClient.TranslationMemories.GetDefaultsType(request);
 
-            Assert.True(resource!=null);
-
+            Assert.True(resource != null);
         }
 
         //[Theory]
@@ -87,7 +80,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    Assert.Equal(updatedResource.CultureName, "de-de");
         //}
 
-
         //[Theory]
         //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
         //public async Task ImportFileForLanguageResource(string templateId, string languageResourceId)
@@ -105,9 +97,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //public async Task ExportFileForLanguageResource(string templateId, string languageResourceId)
         //{
         //    var groupShareClient = await Helper.GetGroupShareClient();
-
-          
-
         //    var document =await
         //        groupShareClient.TranslationMemories.ExportFileForLanguageResource(templateId, languageResourceId);
 
@@ -122,7 +111,5 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    await groupShareClient.TranslationMemories.ResetToDefaultLanguageResource(templateId, languageResourceId);
 
         //}
-
-
     }
 }

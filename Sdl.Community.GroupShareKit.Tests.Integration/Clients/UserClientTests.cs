@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Clients;
+﻿using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
@@ -15,12 +13,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetAllUsers()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-
-            var userRequest = new UsersRequest(1,2,7);
-
+            var userRequest = new UsersRequest(1, 2, 7);
             var users = await groupShareClient.User.GetAllUsers(userRequest);
 
-            Assert.True(users.Count>0);
+            Assert.True(users.Count > 0);
         }
 
         [Theory]
@@ -30,7 +26,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var response = await groupShareClient.User.Get(new UserRequest(userName));
 
-            Assert.Equal(userName,response.Name);
+            Assert.Equal(userName, response.Name);
         }
 
         [Theory]
@@ -38,10 +34,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetUserById(string userId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-
             var user = await groupShareClient.User.GetUserById(userId);
 
-            Assert.Equal(user.UniqueId.ToString(),userId);
+            Assert.Equal(user.UniqueId.ToString(), userId);
         }
 
         [Theory]
@@ -50,18 +45,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = await Helper.GetGroupShareClient();
             var response = await groupShareClient.User.Get(new UserRequest(userName));
-
             response.Description = "Updated Description";
 
             var user = await groupShareClient.User.Update(response);
-
             Assert.True(user != string.Empty);
 
             var userUpdated = await groupShareClient.User.Get(new UserRequest(userName));
             Assert.Equal("Updated Description", userUpdated.Description);
-
         }
-        
+
         [Fact]
         public async Task UpdateUserLanguageDirections()
         {
@@ -86,8 +78,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                     new Role
                     {
                          OrganizationId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
-                          RoleId = "793f3f38-3899-49e5-b793-99a53cd1d24d",//power user
-                           UserId = uniqueId
+                         RoleId = "793f3f38-3899-49e5-b793-99a53cd1d24d",//power user
+                         UserId = uniqueId
                     }
                 }
             };
@@ -109,7 +101,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             }
             finally
             {
-
                 await groupShareClient.User.Delete(userId);
             }
         }
@@ -136,8 +127,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                     new Role
                     {
                          OrganizationId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
-                          RoleId = "793f3f38-3899-49e5-b793-99a53cd1d24d",//power user
-                           UserId = uniqueId
+                         RoleId = "793f3f38-3899-49e5-b793-99a53cd1d24d",//power user
+                         UserId = uniqueId
                     }
                 }
             };
