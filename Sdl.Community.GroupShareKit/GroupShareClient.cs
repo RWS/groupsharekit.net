@@ -59,7 +59,7 @@ namespace Sdl.Community.GroupShareKit
             License = new LicenseClient(apiConnection);
             TranslationMemories = new TranslationMemoriesClient(apiConnection);
             Terminology = new TerminologyClient(apiConnection);
-
+            TranslateAndAnalysis = new TranslateAndAnalysisClient(apiConnection);
         }
 
         /// <summary>
@@ -113,6 +113,7 @@ namespace Sdl.Community.GroupShareKit
         public IPermissionClient Permission { get; set; }
         public ILicense License { get; set; }
         public ITerminology Terminology { get; set; }
+        public ITranslateAndAnalysis TranslateAndAnalysis { get; set; }
 
         /// <summary>
         /// Convenience property for getting and setting credentials.
