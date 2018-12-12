@@ -46,14 +46,7 @@ namespace Sdl.Community.GroupShareKit.Http
 
             if (response.ContentType == null ||
                 !response.ContentType.Equals("application/json", StringComparison.Ordinal))
-            {
-                if (response.ContentType.Equals("application/octet+stream", StringComparison.Ordinal))
-                {
-                    Stream stream = new MemoryStream((byte[])response.Body);
-                    return new ApiResponse<T>(response, stream);
-                }
                 return new ApiResponse<T>(response);
-            }
             var body = response.Body as string;
             if (IsNullOrEmpty(body) || body == "{}") return new ApiResponse<T>(response);
             var typeIsDictionary = typeof(IDictionary).IsAssignableFrom(typeof(T));

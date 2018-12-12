@@ -745,5 +745,12 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/translation/download/{1}".FormatUri(TranslateAndAnalysisServiceUrl, translationJob);
         }
         
+        /// <summary>
+        ///  Returns the <see cref="Uri"/> analysis document identifier
+        /// </summary>
+        public static Uri AnalysisJob(string jobId)
+        {
+            return "{0}/analysis/{1}".FormatUri(TranslateAndAnalysisServiceUrl, jobId);
+        }
     }
 }

@@ -55,8 +55,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task DownloadTranslationDocument(string translationJob)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
+            var downloadedTranslationDocument = await groupShareClient.TranslateAndAnalysis.DownloadTranslationDocument(translationJob);
+            Assert.True(downloadedTranslationDocument.GetType() == typeof(byte[]) && downloadedTranslationDocument.Length != 0);
+        }
 
-            var donwloadedTranslationDocument = await groupShareClient.TranslateAndAnalysis.DownloadTranslationDocument(translationJob);
+        [Theory]
+        [InlineData("9")]
+        public async Task GetTAnalysisDocumentId(string jobId)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var analysisJob = await groupShareClient.TranslateAndAnalysis.GetAnalysisJob(jobId);
+            Assert.True(analysisJob > 0);
         }
 
         [Theory]
@@ -78,6 +87,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 translationJobStatus = await groupShareClient.TranslateAndAnalysis.GetTranslationStatus(translationJob.ToString());
             }
             var downloadedTranslationDocument = await groupShareClient.TranslateAndAnalysis.DownloadTranslationDocument(translationJob.ToString());
+            var analysisJob = await groupShareClient.TranslateAndAnalysis.GetAnalysisJob(jobId.ToString());
         }
     }
 }

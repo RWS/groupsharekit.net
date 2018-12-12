@@ -32,6 +32,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Downloads the translated document.
         /// </summary>
         /// <returns><see cref="int"/></returns>
-        Task<Stream> DownloadTranslationDocument(string translateJob);
+        Task<byte[]> DownloadTranslationDocument(string translateJob);
+
+        ///// <summary>
+        ///// Gets a new translation job specified translate and analysis job.
+        ///// </summary>
+        ///// <returns><see cref="int"/></returns>
+        //Task<int> GetAnalysisJob(string jobId);
+        Task<int> GetAnalysisJob(string jobId);
     }
 }

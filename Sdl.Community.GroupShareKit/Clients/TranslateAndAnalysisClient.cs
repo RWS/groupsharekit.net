@@ -58,9 +58,22 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <response code="200">The download was successful</response>
         /// <response code="400">When the translation was not completed successfully. Use the status call to know the status of the translation.</response>
         /// <response code="404">If there is no document with the given identifier</response>
-        public Task<Stream> DownloadTranslationDocument(string translateJob)
+        public Task<byte[]> DownloadTranslationDocument(string translateJob)
         {
-            return ApiConnection.Get<Stream>(ApiUrls.DownloadTranslationDocument(translateJob),null);
+            return ApiConnection.Get<byte[]>(ApiUrls.DownloadTranslationDocument(translateJob),null);
+        }
+
+        /// <summary>
+        /// Triggers the analysis.
+        /// This should be called after all the translations are complete.
+        /// </summary>
+        /// <param name="jobId">The job identifier.</param>
+        /// <returns>The analysis identifier</returns>
+        /// <response code="200">The translated document identifier</response>
+        /// <response code="400">When the given document or translation information is incorrect</response>
+        public Task<int> GetAnalysisJob(string jobId)
+        {
+            return ApiConnection.Post<int>(ApiUrls.AnalysisJob(jobId), "", "application/json");
         }
     }
 }
