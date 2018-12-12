@@ -69,6 +69,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
+        [InlineData("9")]
+        public async Task GetAnalysisStatus(string analysisJob)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+
+            var analysisJobStatus = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatus(analysisJob);
+            Assert.IsType<AnalysisStatus>(analysisJobStatus.Status);
+            Assert.IsType<bool>(analysisJobStatus.IsFinal);
+        }
+
+        [Theory]
         [InlineData("C:\\Users\\rionescu\\Desktop\\fuzzybands.txt", "C:\\Users\\rionescu\\Desktop\\forTM.txt.sdlxliff", "C:\\Users\\rionescu\\Desktop\\optionsJson.txt")]
         public async Task FullFlow(string fuzzyBand, string filePath, string optionsJson)
         {
@@ -88,6 +99,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             }
             var downloadedTranslationDocument = await groupShareClient.TranslateAndAnalysis.DownloadTranslationDocument(translationJob.ToString());
             var analysisJob = await groupShareClient.TranslateAndAnalysis.GetAnalysisJob(jobId.ToString());
+            var analysisJobStatus = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatus(analysisJob.ToString());
         }
     }
 }

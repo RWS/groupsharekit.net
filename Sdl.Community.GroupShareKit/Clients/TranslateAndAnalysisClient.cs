@@ -75,5 +75,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             return ApiConnection.Post<int>(ApiUrls.AnalysisJob(jobId), "", "application/json");
         }
+
+        /// <summary>
+        /// Exposes the status of the given analysis job.
+        /// </summary>
+        /// <param name="analysisId">The analysis identifier.</param>
+        /// <response code="200">The status was returned.</response>
+        /// <response code="404">If there is no analysis with the given identifier</response>
+        public Task<Analysis> GetAnalysisStatus(string analysisJob)
+        {
+            return ApiConnection.Get<Analysis>(ApiUrls.AnalysisJobStatus(analysisJob), null);
+        }
     }
 }

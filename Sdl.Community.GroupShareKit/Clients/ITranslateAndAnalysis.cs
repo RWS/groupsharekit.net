@@ -40,5 +40,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///// <returns><see cref="int"/></returns>
         //Task<int> GetAnalysisJob(string jobId);
         Task<int> GetAnalysisJob(string jobId);
+
+        /// <summary>
+        /// Gets the status for a analysis job.
+        /// </summary>
+        /// <returns><see cref="int"/></returns>
+        Task<Analysis> GetAnalysisStatus(string analysisJob);
     }
 }
