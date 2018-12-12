@@ -6,16 +6,16 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// <summary>
         /// Gets or sets the translation status
         /// </summary>
-        public TranslationStatus Status { get; }
+        public TranslationStatus Status { get; set; }
 
         /// <summary>
         /// Checks to see if the translation is done
         /// </summary>
-        public bool Final { get; }
+        public bool IsFinal { get; set; }
 
         /// <summary>
         /// Gets the last error message
         /// </summary>
-        public string Error { get; }
+        public string ErrorMessage { get; set; }
     }
 }

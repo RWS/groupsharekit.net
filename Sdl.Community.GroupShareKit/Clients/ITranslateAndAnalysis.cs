@@ -1,4 +1,5 @@
 ﻿using Sdl.Community.GroupShareKit.Models.Response;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -25,6 +26,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Gets the status for a translation job.
         /// </summary>
         /// <returns><see cref="int"/></returns>
-        Task<Translation> GetTranslationStatus(string translationJob);
+        Task<Translation> GetTranslationStatus(string translateJob);
+
+        /// <summary>
+        /// Downloads the translated document.
+        /// </summary>
+        /// <returns><see cref="int"/></returns>
+        Task<Stream> DownloadTranslationDocument(string translateJob);
     }
 }

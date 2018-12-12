@@ -1,6 +1,7 @@
 ﻿using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -47,6 +48,19 @@ namespace Sdl.Community.GroupShareKit.Clients
         public Task<Translation> GetTranslationStatus(string translateJob)
         {
             return ApiConnection.Get<Translation>(ApiUrls.TranslationJobStatus(translateJob), null);
+        }
+
+        /// <summary>
+        /// Downloads the translated document.
+        /// </summary>
+        /// <param name="documentId">The document identifier.</param>
+        /// <returns>The document content</returns>
+        /// <response code="200">The download was successful</response>
+        /// <response code="400">When the translation was not completed successfully. Use the status call to know the status of the translation.</response>
+        /// <response code="404">If there is no document with the given identifier</response>
+        public Task<Stream> DownloadTranslationDocument(string translateJob)
+        {
+            return ApiConnection.Get<Stream>(ApiUrls.DownloadTranslationDocument(translateJob),null);
         }
     }
 }

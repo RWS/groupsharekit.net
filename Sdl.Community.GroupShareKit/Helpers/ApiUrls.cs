@@ -736,5 +736,14 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/translation/status/{1}".FormatUri(TranslateAndAnalysisServiceUrl, translationJob);
         }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> translatable document
+        /// </summary>
+        public static Uri DownloadTranslationDocument(string translationJob)
+        {
+            return "{0}/translation/download/{1}".FormatUri(TranslateAndAnalysisServiceUrl, translationJob);
+        }
+        
     }
 }

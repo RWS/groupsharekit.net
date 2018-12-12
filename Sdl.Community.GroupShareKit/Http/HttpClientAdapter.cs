@@ -64,13 +64,16 @@ namespace Sdl.Community.GroupShareKit.Http
 
                     if (contentType != null && (contentType.StartsWith("image/")
                                             ||
-                                            contentType.Equals("application/zip", StringComparison.OrdinalIgnoreCase)
+                                                contentType.Equals("application/zip",
+                                                    StringComparison.OrdinalIgnoreCase)
                                             ||
-                                            contentType.Equals("application/x-gzip",
-                                                StringComparison.OrdinalIgnoreCase)
-                                                ||
-                                                 contentType.Equals("application/xml",
-                                                StringComparison.OrdinalIgnoreCase)
+                                                contentType.Equals("application/x-gzip",
+                                                    StringComparison.OrdinalIgnoreCase)
+                                            ||
+                                                contentType.Equals("application/xml",
+                                                    StringComparison.OrdinalIgnoreCase)
+                                            ||
+                                                contentType.Equals("application/octet+stream")
                                                 ))
                     {
                         responseBody = await responseMessage.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
