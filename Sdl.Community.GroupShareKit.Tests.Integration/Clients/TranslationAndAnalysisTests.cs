@@ -73,10 +73,18 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetAnalysisStatus(string analysisJob)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-
             var analysisJobStatus = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatus(analysisJob);
             Assert.IsType<AnalysisStatus>(analysisJobStatus.Status);
             Assert.IsType<bool>(analysisJobStatus.IsFinal);
+        }
+
+        [Theory]
+        [InlineData("9")]
+        public async Task GetAnalysisStatistics(string analysisJob)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var analysisStatistics = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatistics(analysisJob);
+            Assert.True(analysisStatistics != null);
         }
 
         [Theory]
@@ -100,6 +108,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var downloadedTranslationDocument = await groupShareClient.TranslateAndAnalysis.DownloadTranslationDocument(translationJob.ToString());
             var analysisJob = await groupShareClient.TranslateAndAnalysis.GetAnalysisJob(jobId.ToString());
             var analysisJobStatus = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatus(analysisJob.ToString());
+            while (analysisJobStatus.IsFinal != true)
+            {
+                analysisJobStatus = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatus(analysisJob.ToString());
+            }
+            var analysisStatistics = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatistics(analysisJob.ToString());
+
         }
     }
 }

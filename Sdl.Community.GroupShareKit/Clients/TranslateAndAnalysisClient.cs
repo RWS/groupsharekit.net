@@ -86,5 +86,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             return ApiConnection.Get<Analysis>(ApiUrls.AnalysisJobStatus(analysisJob), null);
         }
+
+        /// <summary>
+        /// Gets the specified analysis statistics.
+        /// </summary>
+        /// <param name="analysisId">The analysis identifier.</param>
+        /// <returns>The analysis statistics</returns>
+        public Task<AnalysisStatistics> GetAnalysisStatistics(string analysisJob)
+        {
+            return ApiConnection.Get<AnalysisStatistics>(ApiUrls.AnalysisStatistics(analysisJob), null);
+        }
     }
 }

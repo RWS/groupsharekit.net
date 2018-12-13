@@ -46,5 +46,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <returns><see cref="int"/></returns>
         Task<Analysis> GetAnalysisStatus(string analysisJob);
+
+        /// <summary>
+        /// Gets the specified analysis statistics.
+        /// </summary>
+        /// <param name="analysisId">The analysis identifier.</param>
+        /// <returns>The analysis statistics</returns>
+        Task<AnalysisStatistics> GetAnalysisStatistics(string analysisJob);
+        
     }
 }
