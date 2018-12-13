@@ -101,32 +101,43 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("C:\\Users\\rionescu\\Desktop\\fuzzybands.txt", "C:\\Users\\rionescu\\Desktop\\forTM.txt.sdlxliff", "C:\\Users\\rionescu\\Desktop\\optionsJson.txt")]
-        public async Task FullFlow(string fuzzyBand, string filePath, string optionsJson)
+        [InlineData("[{\"minimumMatchValue\":50,\"maximumMatchValue\":84},{\"minimumMatchValue\":85,\"maximumMatchValue\":100}]")]
+        public async Task CorrectFlow(string fuzzyBand)
         {
+            // For the whole batch task to work properly the must be a specific order of the call made to GroupShare, this test respects that order.
+
             var groupShareClient = await Helper.GetGroupShareClient();
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\forTM.txt.sdlxliff");
+            var optionJsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\optionsJson.txt");
             var request = new TranslationAndAnalysisJobRequest(fuzzyBand);
-            var jobId = await groupShareClient.TranslateAndAnalysis.GetTranslateAndAnalysisJob(request);//got jobId
+            var jobId = await groupShareClient.TranslateAndAnalysis.GetTranslateAndAnalysisJob(request);
+
             MultipartFormDataContent content = new MultipartFormDataContent($"---{Guid.NewGuid()}---");
             var fileContent = new FileStream(filePath, FileMode.Open);
-            var optionsContent = JsonConvert.DeserializeObject(System.IO.File.ReadAllText(optionsJson)).ToString();
+            var optionsContent = JsonConvert.DeserializeObject(System.IO.File.ReadAllText(optionJsonPath)).ToString();
             content.Add(new StreamContent(fileContent), "file", Path.GetFileName(filePath));
             content.Add(new StringContent(optionsContent, Encoding.UTF8, "application/json"), "info");
             var translationJob = await groupShareClient.TranslateAndAnalysis.GetTranslationJob(jobId.ToString(), content);
+
             var translationJobStatus = await groupShareClient.TranslateAndAnalysis.GetTranslationStatus(translationJob.ToString());
             while (translationJobStatus.IsFinal != true)
             {
                 translationJobStatus = await groupShareClient.TranslateAndAnalysis.GetTranslationStatus(translationJob.ToString());
             }
+
             var downloadedTranslationDocument = await groupShareClient.TranslateAndAnalysis.DownloadTranslationDocument(translationJob.ToString());
+
             var analysisJob = await groupShareClient.TranslateAndAnalysis.GetAnalysisJob(jobId.ToString());
+
             var analysisJobStatus = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatus(analysisJob.ToString());
             while (analysisJobStatus.IsFinal != true)
             {
                 analysisJobStatus = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatus(analysisJob.ToString());
             }
+
             var analysisStatistics = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatistics(analysisJob.ToString());
-            groupShareClient.TranslateAndAnalysis.DeleteJob(jobId.ToString()).Wait();
+
+            await groupShareClient.TranslateAndAnalysis.DeleteJob(jobId.ToString());
         }
     }
 }
