@@ -154,7 +154,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Update="Resources\forTM.txt.sdlxliff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Grammar.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\optionsJson.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\ProjectPackage.sdlppx">
