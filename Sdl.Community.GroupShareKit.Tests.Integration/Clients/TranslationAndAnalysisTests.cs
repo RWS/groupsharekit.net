@@ -88,6 +88,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
+        [InlineData("9")]
+        public async Task DeleteJob(string jobId)
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            await groupShareClient.TranslateAndAnalysis.DeleteJob(jobId);
+        }
+
+        [Theory]
         [InlineData("C:\\Users\\rionescu\\Desktop\\fuzzybands.txt", "C:\\Users\\rionescu\\Desktop\\forTM.txt.sdlxliff", "C:\\Users\\rionescu\\Desktop\\optionsJson.txt")]
         public async Task FullFlow(string fuzzyBand, string filePath, string optionsJson)
         {
@@ -113,7 +121,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 analysisJobStatus = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatus(analysisJob.ToString());
             }
             var analysisStatistics = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatistics(analysisJob.ToString());
-
+            groupShareClient.TranslateAndAnalysis.DeleteJob(jobId.ToString()).Wait();
         }
     }
 }

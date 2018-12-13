@@ -768,5 +768,14 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/analysis/{1}".FormatUri(TranslateAndAnalysisServiceUrl, analysisJob);
         }
+
+        /// <summary>
+        /// Deletes the job for translate and analysis
+        /// </summary>
+        public static Uri DeleteJob(string jobId)
+        {
+            return "{0}/job/{1}".FormatUri(TranslateAndAnalysisServiceUrl, jobId);
+        }
+        
     }
 }

@@ -96,5 +96,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             return ApiConnection.Get<AnalysisStatistics>(ApiUrls.AnalysisStatistics(analysisJob), null);
         }
+
+        /// <summary>
+        /// Completes a translate and analysis task.
+        /// All the resources associated with the given job will be deleted.
+        /// </summary>
+        /// <param name="jobId">The job identifier.</param>
+        public Task DeleteJob(string jobId)
+        {
+            return ApiConnection.Delete(ApiUrls.DeleteJob(jobId));
+        }
     }
 }

@@ -53,6 +53,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <param name="analysisId">The analysis identifier.</param>
         /// <returns>The analysis statistics</returns>
         Task<AnalysisStatistics> GetAnalysisStatistics(string analysisJob);
-        
+
+        /// <summary>
+        /// Completes a translate and analysis task.
+        /// All the resources associated with the given job will be deleted.
+        /// </summary>
+        /// <param name="jobId">The job identifier.</param>
+        Task DeleteJob(string jobId);
     }
 }
