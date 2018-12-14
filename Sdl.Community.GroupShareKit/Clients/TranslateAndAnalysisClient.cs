@@ -16,7 +16,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Initiates a new translate and analysis job
         /// </summary>
-        /// <param name="analysisOptions">The analysis options.</param>
+        /// <param name="request">The analysis options.</param>
         /// <returns>The job identifier</returns>
         /// <response code="200">The job was registered.</response>
         /// <response code="401">The authorization provided was denied. Populate the Authorization header with a valid token.</response>
@@ -29,6 +29,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Gets a new translation job for the specified translate and analysis job.
         /// </summary>
         /// <param name="jobId">The job identifier.</param>
+        /// <param name="request">The document and the tm's options</param>
         /// <returns>The translatable document identifier</returns>
         /// <response code="200">Translation triggered successfully.</response>
         /// <response code="400">When the given document or translation information not correct</response>
@@ -41,7 +42,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Exposes the translation status
         /// </summary>
-        /// <param name="documentId">The document identifier.</param>
+        /// <param name="translateJobNo">The document identifier.</param>
         /// <returns>The translation status and errors</returns>
         /// <response code="200">The status was returned.</response>
         /// <response code="404">If there is no document with the given identifier</response>
@@ -53,14 +54,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Downloads the translated document.
         /// </summary>
-        /// <param name="documentId">The document identifier.</param>
+        /// <param name="translateJobNo">The document identifier.</param>
         /// <returns>The document content</returns>
         /// <response code="200">The download was successful</response>
         /// <response code="400">When the translation was not completed successfully. Use the status call to know the status of the translation.</response>
         /// <response code="404">If there is no document with the given identifier</response>
         public Task<byte[]> DownloadTranslationDocument(string translateJobNo)
         {
-            return ApiConnection.Get<byte[]>(ApiUrls.DownloadTranslationDocument(translateJobNo),null);
+            return ApiConnection.Get<byte[]>(ApiUrls.DownloadTranslationDocument(translateJobNo), null);
         }
 
         /// <summary>
@@ -73,13 +74,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <response code="400">When the given document or translation information is incorrect</response>
         public Task<int> GetAnalysisJob(string jobId)
         {
-            return ApiConnection.Post<int>(ApiUrls.AnalysisJob(jobId), "", "application/json");
+            return ApiConnection.Post<int>(ApiUrls.AnalysisJob(jobId), string.Empty, "application/json");
         }
 
         /// <summary>
         /// Exposes the status of the given analysis job.
         /// </summary>
-        /// <param name="analysisId">The analysis identifier.</param>
+        /// <param name="analysisJobNo">The analysis identifier.</param>
         /// <response code="200">The status was returned.</response>
         /// <response code="404">If there is no analysis with the given identifier</response>
         public Task<Analysis> GetAnalysisStatus(string analysisJobNo)
@@ -90,7 +91,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Gets the specified analysis statistics.
         /// </summary>
-        /// <param name="analysisId">The analysis identifier.</param>
+        /// <param name="analysisJobNo">The analysis identifier.</param>
         /// <returns>The analysis statistics</returns>
         public Task<AnalysisStatistics> GetAnalysisStatistics(string analysisJobNo)
         {

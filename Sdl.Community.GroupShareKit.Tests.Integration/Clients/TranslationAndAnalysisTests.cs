@@ -28,12 +28,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetTranslatableDocumentId(string jobId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\forTM.txt.sdlxliff");
-            var optionJsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\optionsJson.txt");
-            var fileContent = new FileStream(filePath,FileMode.Open);
+            var fileToTranslatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\FileToTranslate.txt.sdlxliff");
+            var tmOptionsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\TMOptions.Json");
+            var fileContent = new FileStream(fileToTranslatePath,FileMode.Open);
             var content = new MultipartFormDataContent($"---{Guid.NewGuid()}---");
-            var optionsContent = JsonConvert.DeserializeObject(System.IO.File.ReadAllText(optionJsonPath)).ToString();
-            content.Add(new StreamContent(fileContent), "file", Path.GetFileName(filePath));
+            var optionsContent = JsonConvert.DeserializeObject(System.IO.File.ReadAllText(tmOptionsPath)).ToString();
+            content.Add(new StreamContent(fileContent), "file", Path.GetFileName(fileToTranslatePath));
             content.Add(new StringContent(optionsContent, Encoding.UTF8, "application/json"), "info");
             var translationJobNo = await groupShareClient.TranslateAndAnalysis.GetTranslationJob(jobId, content);
 
@@ -63,12 +63,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [InlineData("9")]
-        public async Task GetTAnalysisDocumentId(string jobId)
+        public async Task GetAnalysisDocumentId(string jobId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var analysisJob = await groupShareClient.TranslateAndAnalysis.GetAnalysisJob(jobId);
+            var analysisJobNo = await groupShareClient.TranslateAndAnalysis.GetAnalysisJob(jobId);
 
-            Assert.True(analysisJob > 0);
+            Assert.True(analysisJobNo > 0);
         }
 
         [Theory]
@@ -102,20 +102,20 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [InlineData("[{\"minimumMatchValue\":50,\"maximumMatchValue\":84},{\"minimumMatchValue\":85,\"maximumMatchValue\":100}]")]
-        public async Task CorrectFlow(string fuzzyBand)
+        public async Task TranslateAndAnalysisFlow(string fuzzyBand)
         {
-            // For the whole batch task to work properly the must be a specific order of the call made to GroupShare, this test respects that order.
+            // For the Translate and Analysis flow a specific order must be followed. Below it's and example.
 
             var groupShareClient = await Helper.GetGroupShareClient();
-            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\forTM.txt.sdlxliff");
-            var optionJsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\optionsJson.txt");
+            var fileToTranslatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\FileToTranslate.txt.sdlxliff");
+            var tmOptionsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\TMOptions.Json");
             var request = new TranslationAndAnalysisJobRequest(fuzzyBand);
             var jobId = await groupShareClient.TranslateAndAnalysis.GetTranslateAndAnalysisJob(request);
 
             MultipartFormDataContent content = new MultipartFormDataContent($"---{Guid.NewGuid()}---");
-            var fileContent = new FileStream(filePath, FileMode.Open);
-            var optionsContent = JsonConvert.DeserializeObject(System.IO.File.ReadAllText(optionJsonPath)).ToString();
-            content.Add(new StreamContent(fileContent), "file", Path.GetFileName(filePath));
+            var fileContent = new FileStream(fileToTranslatePath, FileMode.Open);
+            var optionsContent = JsonConvert.DeserializeObject(System.IO.File.ReadAllText(tmOptionsPath)).ToString();
+            content.Add(new StreamContent(fileContent), "file", Path.GetFileName(fileToTranslatePath));
             content.Add(new StringContent(optionsContent, Encoding.UTF8, "application/json"), "info");
             var translationJob = await groupShareClient.TranslateAndAnalysis.GetTranslationJob(jobId.ToString(), content);
 

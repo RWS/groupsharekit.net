@@ -29,7 +29,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Gets the status for a translation job.
         /// </summary>
         /// <param name="translateJobNo">The translation identifier</param>
-        /// <returns><see cref="Translation"/>The translation status and errors</returns>
+        /// <returns><see cref="Translation"/>The translation status and errors messages</returns>
         Task<Translation> GetTranslationStatus(string translateJobNo);
 
         /// <summary>
@@ -49,14 +49,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Gets the status for a analysis job.
         /// </summary>
-        /// <param name="analysisId">The analysis identifier.</param>
-        /// <returns><see cref="Analysis"/>The analysis status and errors</returns>
+        /// <param name="analysisJobNo">The analysis identifier.</param>
+        /// <returns><see cref="Analysis"/>The analysis status and errors messages</returns>
         Task<Analysis> GetAnalysisStatus(string analysisJobNo);
 
         /// <summary>
         /// Gets the specified analysis statistics.
         /// </summary>
-        /// <param name="analysisId">The analysis identifier.</param>
+        /// <param name="analysisJobNo">The analysis identifier.</param>
         /// <returns><see cref="AnalysisStatistics"/>The analysis statistics</returns>
         Task<AnalysisStatistics> GetAnalysisStatistics(string analysisJobNo);
 
