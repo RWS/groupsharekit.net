@@ -73,7 +73,7 @@ namespace Sdl.Community.GroupShareKit.Http
                                                 contentType.Equals("application/xml",
                                                     StringComparison.OrdinalIgnoreCase)
                                             ||
-                                                contentType.Equals("application/octet+stream")
+                                                contentType.Equals("application/octet-stream")
                                                 ))
                     {
                         responseBody = await responseMessage.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
