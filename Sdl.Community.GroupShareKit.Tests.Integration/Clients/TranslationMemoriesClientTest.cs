@@ -164,7 +164,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var health = await groupShareClient.TranslationMemories.Health();
 
-            Assert.Equal("DOWN", health.Status);
+            Assert.Equal("UP", health.Status);
         }
 
         [Theory]

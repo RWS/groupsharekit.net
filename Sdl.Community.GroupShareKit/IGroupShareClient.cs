@@ -101,5 +101,10 @@ namespace Sdl.Community.GroupShareKit
         /// Refer to the API docmentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
         /// </remarks>
         ITerminology Terminology { get; set; }
+
+        /// <summary>
+        /// Access GroupShare's TranslateAndAnalysis API.
+        /// </summary>
+        ITranslateAndAnalysis TranslateAndAnalysis { get; set; }
     }
 }

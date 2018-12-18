@@ -12,6 +12,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static readonly Uri CurrentFieldServiceUrl = new Uri("api/fieldservice", UriKind.Relative);
         public static readonly Uri CurrentMultitermUrl = new Uri("multiterm/api/1.0", UriKind.Relative);
         public static readonly Uri CurrentLanguageResourceServiceUrl = new Uri("api/language-resource-service", UriKind.Relative);
+        public static readonly Uri TranslateAndAnalysisServiceUrl = new Uri("ta/api", UriKind.Relative);
 
         public static Uri Modules()
         {
@@ -712,5 +713,69 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/tms/{1}/search/concordance".FormatUri(CurrentTranslationMemoriesUrl, tmId);
         }
 
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that initiate a new translate and analysis job
+        /// </summary>
+        public static Uri InitiateTranslateAndAnalysisJob()
+        {
+            return "{0}/job".FormatUri(TranslateAndAnalysisServiceUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> translatable document identifier
+        /// </summary>
+        public static Uri TranslationJob(string jobId)
+        {
+            return "{0}/translation/{1}".FormatUri(TranslateAndAnalysisServiceUrl, jobId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> translatable document status
+        /// </summary>
+        public static Uri TranslationJobStatus(string translationJob)
+        {
+            return "{0}/translation/status/{1}".FormatUri(TranslateAndAnalysisServiceUrl, translationJob);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> translatable document
+        /// </summary>
+        public static Uri DownloadTranslationDocument(string translationJob)
+        {
+            return "{0}/translation/download/{1}".FormatUri(TranslateAndAnalysisServiceUrl, translationJob);
+        }
+        
+        /// <summary>
+        ///  Returns the <see cref="Uri"/> analysis document identifier
+        /// </summary>
+        public static Uri AnalysisJob(string jobId)
+        {
+            return "{0}/analysis/{1}".FormatUri(TranslateAndAnalysisServiceUrl, jobId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> translatable document analysis status
+        /// </summary>
+        public static Uri AnalysisJobStatus(string analysisJob)
+        {
+            return "{0}/analysis/status/{1}".FormatUri(TranslateAndAnalysisServiceUrl, analysisJob);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> translatable document analysis statistics
+        /// </summary>
+        public static Uri AnalysisStatistics(string analysisJob)
+        {
+            return "{0}/analysis/{1}".FormatUri(TranslateAndAnalysisServiceUrl, analysisJob);
+        }
+
+        /// <summary>
+        /// Deletes the job for translate and analysis
+        /// </summary>
+        public static Uri DeleteJob(string jobId)
+        {
+            return "{0}/job/{1}".FormatUri(TranslateAndAnalysisServiceUrl, jobId);
+        }
+        
     }
 }
