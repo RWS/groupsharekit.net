@@ -730,6 +730,51 @@ namespace Sdl.Community.GroupShareKit.Clients
 		    return projectSettings;
 	    }
 
-		#endregion
+	    /// <summary>
+	    /// Validates that the user can open the file in universal editor
+	    /// </summary>
+	    /// <param name="projectId">The id of the project</param>
+	    /// <param name="languageFileId">The if of the language file</param>
+	    /// <remarks>
+	    /// This method requires authentication.
+	    /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+	    /// </remarks>
+	    /// <exception cref="AuthorizationException">
+	    /// Thrown when the current user does not have permission to make the request.
+	    /// </exception>
+	    /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		public async Task<string> IsUserAuthorizedToOpenFile(string projectId, string languageFileId)
+	    {
+			Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+		    Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");
+		    var response = await ApiConnection.Get<string>(ApiUrls.IsAuthorizedToOpenInEditor(projectId, languageFileId),null);
+
+			return response;
+	    }
+
+	    /// <summary>
+	    ///Rreturns user permissions in editor
+	    /// </summary>
+	    /// <param name="projectId">The id of the project</param>
+	    /// <param name="languageFileId">The if of the language file</param>
+	    /// <remarks>
+	    /// This method requires authentication.
+	    /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+	    /// </remarks>
+	    /// <exception cref="AuthorizationException">
+	    /// Thrown when the current user does not have permission to make the request.
+	    /// </exception>
+	    /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+	    /// <returns><see cref="EditorProfile"/></returns>
+		public async Task<EditorProfile> EditorProfile(string projectId, string languageFileId)
+	    {
+		    Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+		    Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");
+		    var editorProfile = await ApiConnection.Get<EditorProfile>(ApiUrls.EditorProfile(projectId, languageFileId),null);
+
+		    return editorProfile;
+	    }
+
+	    #endregion
 	}
 }

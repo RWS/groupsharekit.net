@@ -90,6 +90,27 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 			Assert.True(projectSettings!=null);
 	    }
 
+	    [Theory]
+	    [InlineData("0366519e-7317-4268-9e9a-4b94eba43ca2", "d6b9b6c8-50b7-4527-8662-1881284ed062")]
+		//Returns 204 (No content) when the user is allowed to open the file in the editor
+		public async Task IsUserAuthorizedToOpenTheFile(string projectId, string languageFileId)
+	    {
+		    var groupShareClient = await Helper.GetGroupShareClient();
+		    var response = await groupShareClient.Project.IsUserAuthorizedToOpenFile(projectId, languageFileId);
+
+		    Assert.True(string.IsNullOrEmpty(response));
+	    }
+
+	    [Theory]
+	    [InlineData("0366519e-7317-4268-9e9a-4b94eba43ca2", "d6b9b6c8-50b7-4527-8662-1881284ed062")]
+	    public async Task EditorProfile(string projectId, string languageFileId)
+	    {
+		    var groupShareClient = await Helper.GetGroupShareClient();
+		    var editorProfile = await groupShareClient.Project.EditorProfile(projectId, languageFileId);
+
+		    Assert.True(editorProfile!=null);
+	    }
+
 		[Fact]
         public async Task GetProjectById()
         {

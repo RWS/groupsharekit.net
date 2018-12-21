@@ -678,10 +678,26 @@ namespace Sdl.Community.GroupShareKit.Helpers
 		    return "{0}/projects/{1}/files/{2}/settings".FormatUri(CurrentProjectServerUrl, projectId,languageFileId);
 	    }
 
-        /// <summary>
-        /// Returns the <see cref="Uri"/> that returns the output of a background task
-        /// </summary>
-        public static Uri TaskOutput(string taskId)
+	    /// <summary>
+	    /// Returns the <see cref="Uri"/> that checks if the user can open the file in universal editor 
+	    /// </summary>
+		public static Uri IsAuthorizedToOpenInEditor(string projectId, string languageFileId)
+	    {
+			return "{0}/projects/{1}/files/{2}/isauthorized".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);		   
+		}
+
+		/// <summary>
+		/// Returns the <see cref="Uri"/> that returns the permissions in editor for the user	 
+		/// </summary>
+		public static Uri EditorProfile(string projectId, string languageFileId)
+	    {
+		    return "{0}/projects/{1}/files/{2}/editorprofile".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+	    }
+
+		/// <summary>
+		/// Returns the <see cref="Uri"/> that returns the output of a background task
+		/// </summary>
+		public static Uri TaskOutput(string taskId)
         {
             return "{0}/tasks/{1}/output".FormatUri(CurrentTranslationMemoriesUrl, taskId);
         }
