@@ -80,20 +80,33 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(report != null);
         }
 
-        [Fact]
+	    [Theory]
+	    [InlineData("0366519e-7317-4268-9e9a-4b94eba43ca2", "d6b9b6c8-50b7-4527-8662-1881284ed062")]
+	    public async Task GetProjectSettings(string projectId, string languageFileId)
+	    {
+		    var groupShareClient = await Helper.GetGroupShareClient();
+		    var projectSettings = await groupShareClient.Project.GetProjectSettings(projectId, languageFileId);
+
+			Assert.True(projectSettings!=null);
+	    }
+
+		[Fact]
         public async Task GetProjectById()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
 
             var projects = await groupShareClient.Project.GetAllProjects();
-            var project = projects.Items.FirstOrDefault();
+            var project = projects.Items.FirstOrDefault();		  
 
+	        if (project != null)
+	        {
+		        var actualProject = await groupShareClient.Project.Get(project.ProjectId);
 
-            var actualProject = await groupShareClient.Project.Get(project.ProjectId);
-
-            Assert.Equal(actualProject.ProjectId, project.ProjectId);
+		        Assert.Equal(actualProject.ProjectId, project.ProjectId);
+	        }
         }
 
+		
         // test fails because of a bug that has to be fixed in the REST API
         //[Fact]
         //public async Task GetProjectLanguageStatistics()

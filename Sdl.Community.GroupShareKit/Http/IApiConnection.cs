@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
 
 namespace Sdl.Community.GroupShareKit.Http
 {
-    /// <summary>
-    /// A connection for making API requests against URI endpoints.
-    /// Provides type-friendly convenience methods that wrap <see cref="IConnection"/> methods.
-    /// </summary>
-    public interface IApiConnection
+	/// <summary>
+	/// A connection for making API requests against URI endpoints.
+	/// Provides type-friendly convenience methods that wrap <see cref="IConnection"/> methods.
+	/// </summary>
+	public interface IApiConnection
     {
         /// <summary>
         /// The underlying connection.

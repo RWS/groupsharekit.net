@@ -670,6 +670,14 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/projects/{1}/analysisreports/{2}".FormatUri(CurrentProjectServerUrl, projectId, languageCode);
         }
 
+		/// <summary>
+		/// Returns the <see cref="Uri"/> that returns the progest settings for a language file
+		/// </summary>
+		public static Uri GetProjectSettings(string projectId, string languageFileId)
+	    {
+		    return "{0}/projects/{1}/files/{2}/settings".FormatUri(CurrentProjectServerUrl, projectId,languageFileId);
+	    }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns the output of a background task
         /// </summary>
