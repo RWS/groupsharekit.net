@@ -126,8 +126,8 @@ namespace Sdl.Community.GroupShareKit
         /// </remarks>
         public Credentials Credentials
         {
-            get { return Connection.Credentials; }
-            set
+            get => Connection.Credentials;
+	        set
             {
                 Ensure.ArgumentNotNull(value, "value");
                 Connection.Credentials = value;
