@@ -19,7 +19,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //}
 
         [Theory]
-        [InlineData("a3b1fd22-e3cd-4931-9e2a-91f6c6c246c0", "en-en")]
+        [InlineData("a3b1fd22-e3cd-4931-9e2a-91f6c6c246c0", "en-de")]
         public async Task CreateLanguageResourceForTemplate(string templateId, string language)
         {
             var groupShareClient = await Helper.GetGroupShareClient();

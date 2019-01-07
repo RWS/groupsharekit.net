@@ -90,6 +90,43 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 			Assert.True(projectSettings!=null);
 	    }
 
+	    [Theory]
+	    [InlineData("0366519e-7317-4268-9e9a-4b94eba43ca2", "d6b9b6c8-50b7-4527-8662-1881284ed062")]
+		//Returns 204 (No content) when the user is allowed to open the file in the editor
+		public async Task IsUserAuthorizedToOpenTheFile(string projectId, string languageFileId)
+	    {
+		    var groupShareClient = await Helper.GetGroupShareClient();
+		    var response = await groupShareClient.Project.IsUserAuthorizedToOpenFile(projectId, languageFileId);
+
+		    Assert.True(string.IsNullOrEmpty(response));
+	    }
+
+	    [Theory]
+	    [InlineData("0366519e-7317-4268-9e9a-4b94eba43ca2", "d6b9b6c8-50b7-4527-8662-1881284ed062")]
+	    public async Task EditorProfile(string projectId, string languageFileId)
+	    {
+		    var groupShareClient = await Helper.GetGroupShareClient();
+		    var editorProfile = await groupShareClient.Project.EditorProfile(projectId, languageFileId);
+
+		    Assert.True(editorProfile!=null);
+	    }
+
+	    [Theory]
+	    [InlineData("c0d5a088-ad5e-4e7f-aef5-a9c979232624")]
+	    public async Task IsCheckOutToSomeoneElse(string languageFileId)
+	    {
+		    var groupShareClient = await Helper.GetGroupShareClient();
+		    var isCheckOut = await groupShareClient.Project.IsCheckoutToSomeoneElse(languageFileId);  
+	    }
+
+	    [Fact]
+	    public async Task OnlineCheckoutHealthCheck()
+	    {
+			var groupShareClient = await Helper.GetGroupShareClient();
+		    var response = await groupShareClient.Project.OnlineCheckoutHealthCheck();
+		    Assert.True(response != null);
+	    }
+
 		[Fact]
         public async Task GetProjectById()
         {
@@ -263,7 +300,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
             var id = Guid.NewGuid().ToString();
-            var templateRequest = new ProjectTemplates(id, "kit", "", "5bdb10b8-e3a9-41ae-9e66-c154347b8d17");
+			var templateName = Guid.NewGuid().ToString();
+            var templateRequest = new ProjectTemplates(id, templateName, "", "5bdb10b8-e3a9-41ae-9e66-c154347b8d17");
             var templateId = await groupShareClient.Project.CreateTemplate(templateRequest, rawData);
 
             Assert.True(templateId != string.Empty);

@@ -145,14 +145,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("253988f6-0bd3-4aaa-85f6-5e99e8e32a8f", "Name")]
-        public async Task DeleteFieldForTemplate(string fieldTemplateId, string fieldName)
+        [InlineData("253988f6-0bd3-4aaa-85f6-5e99e8e32a8f")]
+        public async Task DeleteFieldForTemplate(string fieldTemplateId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
             var field = new FieldRequest
             {
                 FieldId = Guid.NewGuid().ToString(),
-                Name = fieldName,
+                Name = Guid.NewGuid().ToString(),
                 Type = FieldRequest.TypeEnum.MultiplePicklist,
                 Values = new List<string>()
             };
