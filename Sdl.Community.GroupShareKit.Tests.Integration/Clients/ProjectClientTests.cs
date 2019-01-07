@@ -111,6 +111,22 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 		    Assert.True(editorProfile!=null);
 	    }
 
+	    [Theory]
+	    [InlineData("c0d5a088-ad5e-4e7f-aef5-a9c979232624")]
+	    public async Task IsCheckOutToSomeoneElse(string languageFileId)
+	    {
+		    var groupShareClient = await Helper.GetGroupShareClient();
+		    var isCheckOut = await groupShareClient.Project.IsCheckoutToSomeoneElse(languageFileId);  
+	    }
+
+	    [Fact]
+	    public async Task OnlineCheckoutHealthCheck()
+	    {
+			var groupShareClient = await Helper.GetGroupShareClient();
+		    var response = await groupShareClient.Project.OnlineCheckoutHealthCheck();
+		    Assert.True(response != null);
+	    }
+
 		[Fact]
         public async Task GetProjectById()
         {

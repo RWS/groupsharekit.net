@@ -679,8 +679,40 @@ namespace Sdl.Community.GroupShareKit.Helpers
 	    }
 
 	    /// <summary>
-	    /// Returns the <see cref="Uri"/> that checks if the user can open the file in universal editor 
+	    /// Returns the <see cref="Uri"/> that checks in a file edited in the Online Editor
 	    /// </summary>
+	    public static Uri OnlineCheckIn(string projectId, string languageFileId)
+	    {
+		    return "{0}/projects/{1}/files/{2}/onlinecheckin".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+	    }	
+
+		/// <summary>
+		/// Returns the <see cref="Uri"/> for health check call used to keep the OE license seat taken
+		/// </summary>
+		public static Uri OnlineCheckoutHealthCheck()
+	    {
+			return "{0}/onlinecheckout".FormatUri(CurrentProjectServerUrl);	
+		}
+
+		/// <summary>
+		/// Returns the <see cref="Uri"/> rthat checks if the given language file is check-out to someone other than the user making this call
+		/// </summary>
+		public static Uri IsCheckoutToSomeoneElse(string languageFileId)
+	    {
+			return "{0}/onlinecheckout/isCheckOutToSomeoneElse/{1}".FormatUri(CurrentProjectServerUrl, languageFileId);
+		}
+
+	    /// <summary>
+	    /// Returns the <see cref="Uri"/> that checks out a file for editing in the Universal Editor
+	    /// </summary>
+		public static Uri OnlineCheckout(string projectId, string languageFileId)
+	    {
+		    return "{0}/projects/{1}/files/{2}/onlinecheckout".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);	   
+		}
+
+		/// <summary>
+		/// Returns the <see cref="Uri"/> that checks if the user can open the file in universal editor 
+		/// </summary>
 		public static Uri IsAuthorizedToOpenInEditor(string projectId, string languageFileId)
 	    {
 			return "{0}/projects/{1}/files/{2}/isauthorized".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);		   
