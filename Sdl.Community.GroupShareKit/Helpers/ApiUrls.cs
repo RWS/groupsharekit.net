@@ -684,7 +684,15 @@ namespace Sdl.Community.GroupShareKit.Helpers
 	    public static Uri OnlineCheckIn(string projectId, string languageFileId)
 	    {
 		    return "{0}/projects/{1}/files/{2}/onlinecheckin".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
-	    }	
+	    }
+
+		/// <summary>
+		/// Returns the <see cref="Uri"/> that Undoes an online checkout
+		/// </summary>
+		public static Uri UndoCheckout(string projectId, string languageFileId)
+	    {
+		    return "{0}/projects/{1}/files/{2}/undoCheckout".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+		}
 
 		/// <summary>
 		/// Returns the <see cref="Uri"/> for health check call used to keep the OE license seat taken
@@ -831,7 +839,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri DeleteJob(string jobId)
         {
             return "{0}/job/{1}".FormatUri(TranslateAndAnalysisServiceUrl, jobId);
-        }
-        
+        } 
     }
 }

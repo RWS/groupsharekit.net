@@ -119,7 +119,30 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 		    var isCheckOut = await groupShareClient.Project.IsCheckoutToSomeoneElse(languageFileId);  
 	    }
 
-	    [Fact]
+		[Theory]
+		[InlineData("9a39ed92-2655-43a3-bbd9-efd70eeb8e36", "c0d5a088-ad5e-4e7f-aef5-a9c979232624")]
+		public async Task OnlineCheckIn(string projectId, string languageFileId)
+		{
+			var groupShareClient = await Helper.GetGroupShareClient();	 
+
+			var response =await groupShareClient.Project.OnlineCheckin(projectId, languageFileId);
+			Assert.True(response!=null);
+		}
+
+	    [Theory]
+	    [InlineData("9a39ed92-2655-43a3-bbd9-efd70eeb8e36", "c0d5a088-ad5e-4e7f-aef5-a9c979232624")]
+	    public async Task OnlineCheckout(string projectId, string languageFileId)
+	    {
+		    var groupShareClient = await Helper.GetGroupShareClient();
+
+		    var checkoutResponse = await groupShareClient.Project.OnlineCheckout(projectId, languageFileId);
+
+			Assert.True(checkoutResponse!=null);
+		    await groupShareClient.Project.UndoCheckout(projectId, languageFileId);	 
+		}
+
+
+		[Fact]
 	    public async Task OnlineCheckoutHealthCheck()
 	    {
 			var groupShareClient = await Helper.GetGroupShareClient();
