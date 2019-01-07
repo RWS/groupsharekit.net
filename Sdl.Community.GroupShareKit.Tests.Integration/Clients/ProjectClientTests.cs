@@ -300,7 +300,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = await Helper.GetGroupShareClient();
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
             var id = Guid.NewGuid().ToString();
-            var templateRequest = new ProjectTemplates(id, "kit", "", "5bdb10b8-e3a9-41ae-9e66-c154347b8d17");
+			var templateName = Guid.NewGuid().ToString();
+            var templateRequest = new ProjectTemplates(id, templateName, "", "5bdb10b8-e3a9-41ae-9e66-c154347b8d17");
             var templateId = await groupShareClient.Project.CreateTemplate(templateRequest, rawData);
 
             Assert.True(templateId != string.Empty);
