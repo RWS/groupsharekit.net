@@ -877,6 +877,81 @@ namespace Sdl.Community.GroupShareKit.Clients
 		    return await ApiConnection.Get<bool>(ApiUrls.IsCheckoutToSomeoneElse(languageFileId), null);
 	    }
 
-	    #endregion
+		///  <summary>
+		/// Checks in a file for editing
+		///  </summary>
+		/// <param name="projectId">The id of the project</param>
+		/// <param name="languageFileId">The if of the language file</param>
+		/// <param name="comment">Comment</param>	 
+		/// <remarks>
+		///  This method requires authentication.
+		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+		///  </remarks>
+		///  <exception cref="AuthorizationException">
+		///  Thrown when the current user does not have permission to make the request.
+		///  </exception>
+		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		public async Task<string> ExternalCheckin(string projectId, string languageFileId, string comment)
+	    {
+		    Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
+		    Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
+		    await ExternalCheckout(projectId, languageFileId).ConfigureAwait(true);
+
+			return await ApiConnection.Post<string>(ApiUrls.ExternalCheckin(projectId, languageFileId),comment, "application/json");
+	    }
+
+	    ///  <summary>
+	    /// Checks out a file for editing
+	    ///  </summary>
+	    /// <param name="projectId">The id of the project</param>
+	    /// <param name="languageFileId">The if of the language file</param>
+	    /// <remarks>
+	    ///  This method requires authentication.
+	    ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+	    ///  </remarks>
+	    ///  <exception cref="AuthorizationException">
+	    ///  Thrown when the current user does not have permission to make the request.
+	    ///  </exception>
+	    ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		public async Task<string> ExternalCheckout(string projectId, string languageFileId)
+	    {
+		    Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
+		    Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
+
+		    return await ApiConnection.Post<string>(ApiUrls.ExternalCheckout(projectId, languageFileId), "application/json");
+	    }
+
+	    ///  <summary>
+	    /// Gets the dashboard data
+	    ///  </summary>
+	    ///  This method requires authentication.
+	    ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+	    ///  <exception cref="AuthorizationException">
+	    ///  Thrown when the current user does not have permission to make the request.
+	    ///  </exception>
+	    ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		public async Task<Dashboard> Dashboard()
+	    {
+		    return await ApiConnection.Get<Dashboard>(ApiUrls.Dashboard(), null);
+	    }
+
+	    ///  <summary>
+	    /// Retries the audit trail for all the language files in the given project
+	    ///  </summary>
+	    ///  This method requires authentication.
+	    /// <param name="projectId">The id of the project</param>
+	    ///  This method requires authentication.
+	    ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+	    ///  <exception cref="AuthorizationException">
+	    ///  Thrown when the current user does not have permission to make the request.
+	    ///  </exception>
+	    ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		public Task<IReadOnlyList<AuditTrial>> AuditTrial(string projectId)
+	    {
+			Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
+		    return ApiConnection.GetAll<AuditTrial>(ApiUrls.AuditTrial(projectId), null);
+		}
+
+		#endregion
 	}
 }

@@ -609,5 +609,59 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
 		Task<bool> IsCheckoutToSomeoneElse(string languageFileId);
 
+		///  <summary>
+		/// Checks in a file for editing
+		///  </summary>
+		/// <param name="projectId">The id of the project</param>
+		/// <param name="languageFileId">The if of the language file</param>
+		/// <param name="comment">Comment</param>	 
+		/// <remarks>
+		///  This method requires authentication.
+		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+		///  </remarks>
+		///  <exception cref="AuthorizationException">
+		///  Thrown when the current user does not have permission to make the request.
+		///  </exception>
+		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		Task<string> ExternalCheckin(string projectId, string languageFileId,string comment);
+
+		///  <summary>
+		/// Checks out a file for editing
+		///  </summary>
+		/// <param name="projectId">The id of the project</param>
+		/// <param name="languageFileId">The if of the language file</param>
+		/// <remarks>
+		///  This method requires authentication.
+		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+		///  </remarks>
+		///  <exception cref="AuthorizationException">
+		///  Thrown when the current user does not have permission to make the request.
+		///  </exception>
+		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		Task<string> ExternalCheckout(string projectId, string languageFileId);
+
+		///  <summary>
+		/// Gets the dashboard data
+		///  </summary>
+		///  This method requires authentication.
+		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+		///  <exception cref="AuthorizationException">
+		///  Thrown when the current user does not have permission to make the request.
+		///  </exception>
+		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		Task<Dashboard> Dashboard();
+
+		///  <summary>
+		/// Retries the audit trail for all the language files in the given project
+		///  </summary>
+		///  This method requires authentication.
+		/// <param name="projectId">The id of the project</param>
+		///  This method requires authentication.
+		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+		///  <exception cref="AuthorizationException">
+		///  Thrown when the current user does not have permission to make the request.
+		///  </exception>
+		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		Task<IReadOnlyList<AuditTrial>> AuditTrial(string projectId);
 	}
 }
