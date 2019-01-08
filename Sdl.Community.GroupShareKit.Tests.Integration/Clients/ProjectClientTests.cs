@@ -116,10 +116,59 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 	    public async Task IsCheckOutToSomeoneElse(string languageFileId)
 	    {
 		    var groupShareClient = await Helper.GetGroupShareClient();
-		    var isCheckOut = await groupShareClient.Project.IsCheckoutToSomeoneElse(languageFileId);  
+		    await groupShareClient.Project.IsCheckoutToSomeoneElse(languageFileId);  
+	    }
+
+
+		[Fact(Skip = "")]
+		public async Task OnlineCheckIn()
+		{
+			var groupShareClient = await Helper.GetGroupShareClient();	 
+
+			var response =await groupShareClient.Project.OnlineCheckin("9a39ed92-2655-43a3-bbd9-efd70eeb8e36", "c0d5a088-ad5e-4e7f-aef5-a9c979232624");
+			Assert.True(response!=null);
+		}
+
+	    [Theory]
+	    [InlineData("9a39ed92-2655-43a3-bbd9-efd70eeb8e36", "c0d5a088-ad5e-4e7f-aef5-a9c979232624")]
+	    public async Task OnlineCheckout(string projectId, string languageFileId)
+	    {
+		    var groupShareClient = await Helper.GetGroupShareClient();
+
+		    var checkoutResponse = await groupShareClient.Project.OnlineCheckout(projectId, languageFileId);
+
+			Assert.True(checkoutResponse!=null);
+		    await groupShareClient.Project.UndoCheckout(projectId, languageFileId);	 
+		}
+
+	    [Fact(Skip = "")]
+		public async Task ExternalCheckIn()
+	    {
+		    var groupShareClient = await Helper.GetGroupShareClient();
+		    var response = await groupShareClient.Project.ExternalCheckin("9a39ed92-2655-43a3-bbd9-efd70eeb8e36", "c0d5a088-ad5e-4e7f-aef5-a9c979232624", "comment");
+
+			Assert.True(response!=null);
 	    }
 
 	    [Fact]
+	    public async Task Dashboard()
+	    {
+			var groupShareClient = await Helper.GetGroupShareClient();
+		    var dashboard = await groupShareClient.Project.Dashboard();
+			Assert.True(dashboard!=null);
+	    }
+
+	    [Theory]
+	    [InlineData("9a39ed92-2655-43a3-bbd9-efd70eeb8e36")]
+	    public async Task AuditTrial(string projectId)
+	    {
+			var groupShareClient = await Helper.GetGroupShareClient();
+		    var auditTrial = await groupShareClient.Project.AuditTrial(projectId);
+
+			Assert.True(auditTrial?.Count>0);  
+	    }
+
+		[Fact]
 	    public async Task OnlineCheckoutHealthCheck()
 	    {
 			var groupShareClient = await Helper.GetGroupShareClient();

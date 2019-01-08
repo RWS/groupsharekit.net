@@ -49,7 +49,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var requestExportRequest = new ExportRequest();
 
-            var tm = await groupShareClient.TranslationMemories.ExportTm("613e77ce-e838-4b80-a1a9-0afee3704632", requestExportRequest, languageParam);
+            var tm = await groupShareClient.TranslationMemories.ExportTm("613e77ce-e838-4b80-a1a9-0afee3704632", requestExportRequest, languageParam).ConfigureAwait(true);
 
             Assert.True(tm.Length > 0);
 

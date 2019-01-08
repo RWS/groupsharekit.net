@@ -684,7 +684,15 @@ namespace Sdl.Community.GroupShareKit.Helpers
 	    public static Uri OnlineCheckIn(string projectId, string languageFileId)
 	    {
 		    return "{0}/projects/{1}/files/{2}/onlinecheckin".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
-	    }	
+	    }
+
+		/// <summary>
+		/// Returns the <see cref="Uri"/> that Undoes an online checkout
+		/// </summary>
+		public static Uri UndoCheckout(string projectId, string languageFileId)
+	    {
+		    return "{0}/projects/{1}/files/{2}/undoCheckout".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+		}
 
 		/// <summary>
 		/// Returns the <see cref="Uri"/> for health check call used to keep the OE license seat taken
@@ -709,7 +717,38 @@ namespace Sdl.Community.GroupShareKit.Helpers
 	    {
 		    return "{0}/projects/{1}/files/{2}/onlinecheckout".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);	   
 		}
+		
+	    /// <summary>
+	    /// Returns the <see cref="Uri"/> that checks out a file for editing
+	    /// </summary>
+	    public static Uri ExternalCheckout(string projectId, string languageFileId)
+	    {
+		    return "{0}/projects/{1}/files/{2}/externalcheckout".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+	    }
 
+	    /// <summary>
+	    /// Returns the <see cref="Uri"/> that checks in a file for editing
+	    /// </summary>
+	    public static Uri ExternalCheckin(string projectId, string languageFileId)
+	    {
+		    return "{0}/projects/{1}/files/{2}/externalcheckin".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+	    }
+
+	    /// <summary>
+	    /// Returns the <see cref="Uri"/> that returns dashboard data
+	    /// </summary>
+	    public static Uri Dashboard()
+	    {
+		    return "{0}/dashboard".FormatUri(CurrentProjectServerUrl);
+	    }
+
+	    /// <summary>
+	    /// Returns the <see cref="Uri"/> that retries the audit trail for all the language files in the given project
+	    /// </summary>
+	    public static Uri AuditTrial(string projectId)
+	    {
+		    return "{0}/auditTrail/languageFiles/{1}".FormatUri(CurrentProjectServerUrl, projectId);
+	    }
 		/// <summary>
 		/// Returns the <see cref="Uri"/> that checks if the user can open the file in universal editor 
 		/// </summary>
@@ -831,7 +870,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri DeleteJob(string jobId)
         {
             return "{0}/job/{1}".FormatUri(TranslateAndAnalysisServiceUrl, jobId);
-        }
-        
+        } 
     }
 }
