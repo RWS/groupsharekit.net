@@ -24,10 +24,13 @@ namespace Sdl.Community.GroupShareKit.Authentication
             Ensure.ArgumentNotNull(credentials.Token, "credentials.Token");
 
             var token = credentials.GetToken();
+            var bearerId = credentials.BearerId;
 
             if (token != null)
             {
                 request.Headers["Authorization"] = string.Format(CultureInfo.InvariantCulture, "Bearer {0}", token);
+                if (!string.IsNullOrWhiteSpace(bearerId))
+                    request.Headers["BearerId"] = string.Format(CultureInfo.InvariantCulture, "{0}", bearerId);
             }
         }
     }

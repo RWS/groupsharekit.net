@@ -30,6 +30,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
                 token,
                 groupShareUser,
                 groupSharePassword,
+                string.Empty,
                 BaseUri,
                 GroupShareClient.AllScopes);
 
