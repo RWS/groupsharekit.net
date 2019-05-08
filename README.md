@@ -86,6 +86,7 @@ owned by that account. Then set the following environment variables:
 `GROUPSHAREKIT_PASSWORD` (set this to the test account's password)
 `GROUPSHAREKIT_TESTORGANIZATION` (set this to the test account's organization)
 `GROUPSHAREKIT_BASEURI` (set this to the url of your GroupShare instance)
+`GROUPSHAREKIT_BEARERID` (optional, set to additional BearerId added to requests. If not provided, default connection is used)
 
 Once these are set, the integration tests will be executed both when 
 running the IntegrationTests MSBuild target, and when running the 
