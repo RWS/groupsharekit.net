@@ -87,7 +87,7 @@ namespace Sdl.Community.GroupShareKit
             IEnumerable<string> scopes)
         {
             string token = await GetRequestToken(user, password, baseAddress, scopes);
-            return await AuthenticateClient(token, user, password, baseAddress, scopes);
+            return await AuthenticateClient(token, user, password, string.Empty, baseAddress, scopes);
         }
         public static async Task<GroupShareClient> AuthenticateClient(string token,string user, string password, Uri baseAddress,
             IEnumerable<string> scopes)
@@ -100,6 +100,19 @@ namespace Sdl.Community.GroupShareKit
 
             return groupShareClient;
         }
+
+        public static async Task<GroupShareClient> AuthenticateClient(string token, string user, string password, string bearerId, Uri baseAddress,
+            IEnumerable<string> scopes)
+        {
+            var credentials = new Credentials(token, user, password, bearerId);
+
+            var inMemoryCredentials = new InMemoryCredentialStore(credentials);
+
+            var groupShareClient = new GroupShareClient(inMemoryCredentials, baseAddress);
+
+            return groupShareClient;
+        }
+
         public IProjectClient Project { get; }
         public ITranslationMemoriesClient TranslationMemories { get; set; }
 
