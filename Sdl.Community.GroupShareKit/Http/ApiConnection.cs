@@ -139,6 +139,20 @@ namespace Sdl.Community.GroupShareKit.Http
 
         }
 
+        /// <summary>
+        /// Performs an asynchronous HTTP POST request.
+        /// Attempts to map the response body to an object of type <typeparamref name="T"/>
+        /// </summary>
+        /// <typeparam name="T">The type to map the response to</typeparam>
+        /// <param name="uri">URI endpoint to send request to</param>
+        /// <returns><seealso cref="IResponse"/> representing the received HTTP response</returns>
+        public async Task<T> Post<T>(Uri uri)
+        {
+            Ensure.ArgumentNotNull(uri, "uri");
+            var response = await Connection.Post<T>(uri).ConfigureAwait(false);
+            return response.Body;
+        }
+
         public async Task<T> GetWithContent<T>(Uri uri, string contentType)
         {
             Ensure.ArgumentNotNull(uri, "uri");
