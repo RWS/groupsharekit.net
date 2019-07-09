@@ -27,6 +27,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = await Helper.GetGroupShareClient();
 
+            Assert.True(Helper.BaseUri != null);
+
             var file = await groupShareClient.Project.DownloadNative("c1f47d9c-a9dd-4069-b636-3405d4fb98a8");
 
             Assert.True(file != null);
