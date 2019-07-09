@@ -5,7 +5,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
 {
     public static class Helper
     {
-        public static Uri BaseUri => new Uri(Helper.GetVariable("GROUPSHAREKIT_BASEURI");
+        public static Uri BaseUri => new Uri(Helper.GetVariable("GROUPSHAREKIT_BASEURI"));
         public static string TestOrganization => Helper.GetVariable("GROUPSHAREKIT_TESTORGANIZATION");
 
         public static string GetVariable(string key)
