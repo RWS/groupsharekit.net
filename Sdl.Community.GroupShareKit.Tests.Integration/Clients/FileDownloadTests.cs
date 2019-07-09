@@ -37,7 +37,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Finalize(string projectId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var languageFilesId = new List<string> { "c6ece69e-baec-46ed-8275-53d848ae3b70" };
+            var languageFilesId = new List<string> { "23ddbfcf-a015-47ff-9e05-f62a3bfb783a" };
 
             var files = await groupShareClient.Project.Finalize(projectId, languageFilesId);
 
