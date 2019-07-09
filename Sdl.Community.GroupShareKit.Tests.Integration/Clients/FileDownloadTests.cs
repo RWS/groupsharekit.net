@@ -27,17 +27,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = await Helper.GetGroupShareClient();
 
-            var file = await groupShareClient.Project.DownloadNative("ff139f77-ebf4-41a5-85cd-fa1da47f958f");
+            var file = await groupShareClient.Project.DownloadNative("c1f47d9c-a9dd-4069-b636-3405d4fb98a8");
 
             Assert.True(file != null);
         }
 
         [Theory]
-        [InlineData("488e50d3-7098-43c9-a582-bda94ccf25bd")]
+        [InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8")]
         public async Task Finalize(string projectId)
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var languageFilesId = new List<string> { "273134d3-3230-4d9f-8669-b30fe9c417ef" };
+            var languageFilesId = new List<string> { "c6ece69e-baec-46ed-8275-53d848ae3b70" };
 
             var files = await groupShareClient.Project.Finalize(projectId, languageFilesId);
 
