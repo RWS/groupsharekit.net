@@ -41,29 +41,29 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(languageDirection.LanguageDirectionId, languageDirectionId);
         }
 
-        [Fact]
-        public async Task ExportTm()
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var languageParam = new LanguageParameters("en-us", "es-es");
+        //[Fact]
+        //public async Task ExportTm()
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var languageParam = new LanguageParameters("en-us", "es-es");
 
-            var requestExportRequest = new ExportRequest();
+        //    var requestExportRequest = new ExportRequest();
 
-            var tm = await groupShareClient.TranslationMemories.ExportTm("613e77ce-e838-4b80-a1a9-0afee3704632", requestExportRequest, languageParam).ConfigureAwait(true);
+        //    var tm = await groupShareClient.TranslationMemories.ExportTm("613e77ce-e838-4b80-a1a9-0afee3704632", requestExportRequest, languageParam).ConfigureAwait(true);
 
-            Assert.True(tm.Length > 0);
+        //    Assert.True(tm.Length > 0);
 
-            //Example of how the byte[] should be decompressed and how to write the tm to disk
+        //    //Example of how the byte[] should be decompressed and how to write the tm to disk
 
-            //using (var compressedStream = new MemoryStream(tm))
-            //using (var zipStream = new GZipStream(compressedStream, CompressionMode.Decompress))
-            //using (var resultStream = new MemoryStream())
-            //{
-            //    zipStream.CopyTo(resultStream);
-            //    var test = resultStream.ToArray();
-            //    File.WriteAllBytes(@"C:\Users\aghisa\Desktop\testTm.tmx", test);
-            //}                    
-        }
+        //    //using (var compressedStream = new MemoryStream(tm))
+        //    //using (var zipStream = new GZipStream(compressedStream, CompressionMode.Decompress))
+        //    //using (var resultStream = new MemoryStream())
+        //    //{
+        //    //    zipStream.CopyTo(resultStream);
+        //    //    var test = resultStream.ToArray();
+        //    //    File.WriteAllBytes(@"C:\Users\aghisa\Desktop\testTm.tmx", test);
+        //    //}                    
+        //}
 
         [Fact]
         public async Task HealthVersion()
