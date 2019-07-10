@@ -116,23 +116,23 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                     RoleId = roleId
                 }
             };
-            await groupShareClient.Role.AddUserToRole(roleList);
+            await groupShareClient.Role.AddUserToRole(roleList).ConfigureAwait(true);
 
-            var roles = await groupShareClient.Role.GetUsersForRole(roleId);
+            var roles = await groupShareClient.Role.GetUsersForRole(roleId).ConfigureAwait(true);
 
             var addedRole = roles.FirstOrDefault(u => u.UniqueId.ToString() == "6d4e85a2-163b-4574-8c56-60d96e2296f3");
 
             Assert.True(addedRole != null);
 
-            await groupShareClient.Role.RemoveUserFromRole(roleList, roleId);
+            await groupShareClient.Role.RemoveUserFromRole(roleList, roleId).ConfigureAwait(true);
 
-            roles = await groupShareClient.Role.GetUsersForRole(roleId);
+            roles = await groupShareClient.Role.GetUsersForRole(roleId).ConfigureAwait(true);
 
             var removedRole = roles.FirstOrDefault(u => u.UniqueId.ToString() == "6d4e85a2-163b-4574-8c56-60d96e2296f3");
 
             Assert.True(removedRole == null);
 
-            await groupShareClient.Role.DeleteRole(roleId);
+            await groupShareClient.Role.DeleteRole(roleId).ConfigureAwait(true);
         }
 
 
