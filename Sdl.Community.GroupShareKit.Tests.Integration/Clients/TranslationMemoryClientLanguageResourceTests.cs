@@ -8,47 +8,47 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class TranslationMemoryClientLanguageResourceTests
     {
-        [Theory]
-        [InlineData("fe611664-c7c2-4074-8840-e350208ffaf9")]
-        public async Task GetLanguageResourcesForTemplate(string templateId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var resources = await groupShareClient.TranslationMemories.GetLanguageResourcesForTemplate(templateId);
+        //[Theory]
+        //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9")]
+        //public async Task GetLanguageResourcesForTemplate(string templateId)
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var resources = await groupShareClient.TranslationMemories.GetLanguageResourcesForTemplate(templateId);
 
-            Assert.True(resources.Count > 0);
-        }
+        //    Assert.True(resources.Count > 0);
+        //}
 
-        [Theory]
-        [InlineData("a3b1fd22-e3cd-4931-9e2a-91f6c6c246c0", "en-de")]
-        public async Task CreateLanguageResourceForTemplate(string templateId, string language)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
+        //[Theory]
+        //[InlineData("a3b1fd22-e3cd-4931-9e2a-91f6c6c246c0", "en-de")]
+        //public async Task CreateLanguageResourceForTemplate(string templateId, string language)
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
 
-            var resource = new Resource
-            {
-                Type = "OrdinalFollowers",
-                LanguageResourceTemplateId = Guid.NewGuid().ToString(),
-                LanguageResourceId = Guid.NewGuid().ToString(),
-                CultureName = language,
-                Data = "test data"
-            };
-            var id = await groupShareClient.TranslationMemories.CreateLanguageResourceForTemplate(templateId, resource);
+        //    var resource = new Resource
+        //    {
+        //        Type = "OrdinalFollowers",
+        //        LanguageResourceTemplateId = Guid.NewGuid().ToString(),
+        //        LanguageResourceId = Guid.NewGuid().ToString(),
+        //        CultureName = language,
+        //        Data = "test data"
+        //    };
+        //    var id = await groupShareClient.TranslationMemories.CreateLanguageResourceForTemplate(templateId, resource);
 
-            Assert.True(id != string.Empty);
-            await groupShareClient.TranslationMemories.DeleteLanguageResourceForTemplate(templateId, id);
-        }
+        //    Assert.True(id != string.Empty);
+        //    await groupShareClient.TranslationMemories.DeleteLanguageResourceForTemplate(templateId, id);
+        //}
 
-        [Theory]
-        [InlineData("ro-ro")]
-        public async Task GetDefaultResource(string language)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var request = new ResourceServiceDefaultsRequest(ResourceServiceDefaultsRequest.ResourceType.Variables, language);
+        //[Theory]
+        //[InlineData("ro-ro")]
+        //public async Task GetDefaultResource(string language)
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var request = new ResourceServiceDefaultsRequest(ResourceServiceDefaultsRequest.ResourceType.Variables, language);
 
-            var resource = await groupShareClient.TranslationMemories.GetDefaultsType(request);
+        //    var resource = await groupShareClient.TranslationMemories.GetDefaultsType(request);
 
-            Assert.True(resource != null);
-        }
+        //    Assert.True(resource != null);
+        //}
 
         //[Theory]
         //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
