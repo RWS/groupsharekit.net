@@ -22,6 +22,28 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(request != null);
         }
 
+        //[Fact]
+        //public async Task DownloadNative()
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
+        
+        //    var file = await groupShareClient.Project.DownloadNative("c1f47d9c-a9dd-4069-b636-3405d4fb98a8");
+
+        //    Assert.True(file != null);
+        //}
+
+        //[Theory]
+        //[InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8")]
+        //public async Task Finalize(string projectId)
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var languageFilesId = new List<string> { "23ddbfcf-a015-47ff-9e05-f62a3bfb783a" };
+
+        //    var files = await groupShareClient.Project.Finalize(projectId, languageFilesId);
+
+        //    Assert.True(files != null);
+        //}
+
         [Theory]
         [InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8")]
         public async Task DownloadFiles(string projectId)
