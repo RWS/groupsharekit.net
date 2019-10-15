@@ -582,6 +582,23 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        ///Deletes a template 
+        /// </summary>
+        /// <param name="templateId">string</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        public async Task DeleteV3(string templateId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
+            await ApiConnection.Delete(ApiUrls.ProjectTemplatesV3(templateId));
+        }
+
+        /// <summary>
         ///Creates a template
         /// </summary>
         /// <param name="templateRequest"><see cref="ProjectTemplateV3"/></param>
@@ -599,6 +616,27 @@ namespace Sdl.Community.GroupShareKit.Clients
             var templateId = await ApiConnection.Post<string>(ApiUrls.ProjectTemplatesV3(), templateRequest, "application/json");
             //await UploadProjectTemplate(templateId, templateRequest.Name);
             return templateId;
+        }
+
+        /// <summary>
+        ///Creates a template
+        /// </summary>
+        /// <param name="templateRequest"><see cref="ProjectTemplateV3"/></param>
+        /// <param name="templateId"><see cref="string"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Id of created template/></returns>
+        public async Task<string> UpdateTemplateV3(string templateId, ProjectTemplateV3 templateRequest)
+        {
+            var templateGuid = await ApiConnection.Put<string>(ApiUrls.ProjectTemplatesV3(templateId), templateRequest);
+            //await UploadProjectTemplate(templateId, templateRequest.Name);
+            return templateGuid;
         }
 
         /// <summary>

@@ -230,6 +230,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> that returns a template
+        /// </summary>
+        /// <param name="templateId">The template id</param>
+        public static Uri ProjectTemplatesV3(string templateId)
+        {
+            return "{0}/projects/templates/{1}".
+                FormatUri(CurrentProjectServerV3Url, templateId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns all phases associated with the specified project
         /// </summary>
         /// <param name="projectId">The project id</param>

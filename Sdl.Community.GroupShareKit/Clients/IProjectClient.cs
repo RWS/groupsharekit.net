@@ -374,10 +374,11 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// <returns>Id of created template/></returns>
 		Task<string> CreateTemplate(ProjectTemplates projectRequest, byte[] rawData);
 
-		/// <summary>
-		///Get a template by id
+
+        /// <summary>
+		///Creates a template
 		/// </summary>
-		/// <param name="templateId">string</param>
+		/// <param name="projectRequest"><see cref="ProjectTemplateV3"/></param>
 		/// <remarks>
 		/// This method requires authentication.
 		/// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -386,8 +387,39 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// Thrown when the current user does not have permission to make the request.
 		/// </exception>
 		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		/// <returns>Te contend of template in a string/></returns>
-		Task<string> GetTemplateById(string templateId);
+		/// <returns>Id of created template/></returns>
+		Task<string> CreateTemplateV3(ProjectTemplateV3 projectRequest);
+
+        /// <summary>
+		///Creates a template
+		/// </summary>
+		/// <param name="projectRequest"><see cref="ProjectTemplateV3"/></param>
+		/// <remarks>
+		/// This method requires authentication.
+		/// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+		/// </remarks>
+		/// <exception cref="AuthorizationException">
+		/// Thrown when the current user does not have permission to make the request.
+		/// </exception>
+		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		/// <returns>Id of created template/></returns>
+		Task<string> UpdateTemplateV3(string templateId, ProjectTemplateV3 projectRequest);
+
+
+        /// <summary>
+        ///Get a template by id
+        /// </summary>
+        /// <param name="templateId">string</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Te contend of template in a string/></returns>
+        Task<string> GetTemplateById(string templateId);
 
 		/// <summary>
 		///Deletes a template 
@@ -403,13 +435,10 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
 		Task Delete(string id);
 
-		/// <summary>
-		///Uploades a template to a newly created project 
-		/// This method shoulg be called after you create a project in order to add the template
+        /// <summary>
+		///Deletes a template 
 		/// </summary>
-		/// <param name="templateId">string</param>
-		/// <param name="projectTemplate">byte[]</param>
-		/// <param name="templateName">string</param>
+		/// <param name="id">string</param>
 		/// <remarks>
 		/// This method requires authentication.
 		/// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -418,7 +447,24 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// Thrown when the current user does not have permission to make the request.
 		/// </exception>
 		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		Task<string> UploadProjectTemplate(string templateId, byte[] projectTemplate, string templateName);
+		Task DeleteV3(string id);
+
+        /// <summary>
+        ///Uploades a template to a newly created project 
+        /// This method shoulg be called after you create a project in order to add the template
+        /// </summary>
+        /// <param name="templateId">string</param>
+        /// <param name="projectTemplate">byte[]</param>
+        /// <param name="templateName">string</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        Task<string> UploadProjectTemplate(string templateId, byte[] projectTemplate, string templateName);
 
 		#endregion
 

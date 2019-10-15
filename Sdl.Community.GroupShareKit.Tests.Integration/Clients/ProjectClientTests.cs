@@ -357,6 +357,76 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             await groupShareClient.Project.Delete(templateId);
         }
+
+        [Fact]
+        public async Task CreateTemplateV3()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var id = Guid.NewGuid().ToString();
+            var organizationId = Guid.NewGuid().ToString();
+            var templateName = Guid.NewGuid().ToString();
+            var templateRequest = new ProjectTemplateV3()
+            {
+                Name = templateName,
+                Description = string.Empty,
+                OrganizationId = "b23d7c86-a7e8-49a1-8049-12fe4202d513",
+                Number = 0,
+                Settings = new Models.ProjectTemplateSettings()
+                {
+                    SourceLanguageCode = "en-us",
+                    TargetLanguageCodes = new List<string>()
+                    {
+                        "de-de",
+                        "fr-fr"
+                    },
+                    Termbases = new List<TermbaseDetailsV3>(),
+                    TranslationMemories = new List<TranslationMemoryDetailsV3>()
+                }
+            };
+            var templateId = await groupShareClient.Project.CreateTemplateV3(templateRequest);
+
+            Assert.True(templateId != string.Empty);
+
+            await groupShareClient.Project.DeleteV3(templateId);
+        }
+
+        [Fact]
+        public async Task UpdateTemplateV3()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var id = Guid.NewGuid().ToString();
+            var organizationId = Guid.NewGuid().ToString();
+            var templateName = Guid.NewGuid().ToString();
+            var templateRequest = new ProjectTemplateV3()
+            {
+                Name = templateName,
+                Description = string.Empty,
+                OrganizationId = "b23d7c86-a7e8-49a1-8049-12fe4202d513",
+                Number = 0,
+                Settings = new Models.ProjectTemplateSettings()
+                {
+                    SourceLanguageCode = "en-us",
+                    TargetLanguageCodes = new List<string>()
+                    {
+                        "de-de",
+                        "fr-fr"
+                    },
+                    Termbases = new List<TermbaseDetailsV3>(),
+                    TranslationMemories = new List<TranslationMemoryDetailsV3>()
+                }
+            };
+            var templateId = await groupShareClient.Project.CreateTemplateV3(templateRequest);
+
+            templateRequest.Name = string.Concat("[Updated]", templateId.ToString());
+
+            var updatedTemplateId = await groupShareClient.Project.UpdateTemplateV3(templateId, templateRequest);
+
+            Assert.True(updatedTemplateId != string.Empty);
+
+            await groupShareClient.Project.DeleteV3(templateId);
+            await groupShareClient.Project.DeleteV3(updatedTemplateId);
+        }
+
         #endregion
 
         #region File version tests
