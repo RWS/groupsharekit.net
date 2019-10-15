@@ -582,6 +582,26 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        ///Creates a template
+        /// </summary>
+        /// <param name="templateRequest"><see cref="ProjectTemplateV3"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Id of created template/></returns>
+        public async Task<string> CreateTemplateV3(ProjectTemplateV3 templateRequest)
+        {
+            var templateId = await ApiConnection.Post<string>(ApiUrls.ProjectTemplatesV3(), templateRequest, "application/json");
+            //await UploadProjectTemplate(templateId, templateRequest.Name);
+            return templateId;
+        }
+
+        /// <summary>
         ///Uploades a template to a newly created project 
         /// This method should be called after you create a project in order to add the template
         /// </summary>
