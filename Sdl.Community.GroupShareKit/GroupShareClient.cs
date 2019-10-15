@@ -18,6 +18,7 @@ namespace Sdl.Community.GroupShareKit
         public const string ProjectApi = "ProjectServerRestApi";
         public const string MultiTermApi = "MultiTermRestApi";
         public const string TmServerApi = "TMServerRestApi";
+	
 
         public static IEnumerable<string> AllScopes =
             new[]
