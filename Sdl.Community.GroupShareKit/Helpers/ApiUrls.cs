@@ -183,6 +183,24 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> that represents downloaded native files
+        /// </summary>
+        public static Uri DownloadNative(string projectId)
+        {
+            return "{0}/projects/{1}/download/targetnativefiles".
+                FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that represents the finalization of a project
+        /// </summary>
+        public static Uri Finalize(string projectId, string languageFileIdsQuery)
+        {
+            return "{0}/projects/{1}/finalize/?{2}".
+                FormatUri(CurrentProjectServerUrl, projectId, languageFileIdsQuery);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that  publish project package associated with the specified organziation
         /// </summary>
         public static Uri PublishProjectPackage(string projectId)
