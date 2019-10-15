@@ -358,7 +358,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.Project.Delete(templateId);
         }
 
-        [Fact]
+
+        [Fact(Skip = "Endpoint not present in CU10")]
         public async Task CreateTemplateV3()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
@@ -390,7 +391,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.Project.DeleteV3(templateId);
         }
 
-        [Fact]
+        [Fact(Skip = "Endpoint not present in CU10")]
         public async Task UpdateTemplateV3()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
