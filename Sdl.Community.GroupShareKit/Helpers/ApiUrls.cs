@@ -935,5 +935,35 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/job/{1}".FormatUri(TranslateAndAnalysisServiceUrl, jobId);
         }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for projects report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetProjectPredefinedReportData(string options)
+        {
+            return "{0}/projectPredefinedReports?filter={1}".FormatUri(CurrentProjectServerUrl, options);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for tasks Report report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetTasksReportData(string options)
+        {
+            return "{0}/tasksReport?filter={1}".FormatUri(CurrentProjectServerUrl, options);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for TM Leverage report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetTmLeverageData(string options)
+        {
+            return "{0}/tmLeverageReport?filter={1}".FormatUri(CurrentProjectServerUrl, options);
+        }
     }
 }

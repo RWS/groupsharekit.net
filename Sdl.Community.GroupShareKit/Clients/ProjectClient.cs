@@ -1081,5 +1081,61 @@ namespace Sdl.Community.GroupShareKit.Clients
 		}
 
         #endregion
+
+        #region Reporting
+        /// <summary>
+        /// Returns the projects report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <remarks>
+        ///  This method requires authentication.
+        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        ///  </remarks>
+        ///  <exception cref="AuthorizationException">
+        ///  Thrown when the current user does not have permission to make the request.
+        ///  </exception>
+        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public Task<IReadOnlyList<ProjectReport>> ReportingProjectPredefinedReportData(ReportingOptions options)
+        {
+            var jsonOptions = options.Stringify();
+            return ApiConnection.GetAll<ProjectReport>(ApiUrls.GetProjectPredefinedReportData(jsonOptions));
+        }
+
+        /// <summary>
+        /// Returns the tasks Report report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <remarks>
+		///  This method requires authentication.
+		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+		///  </remarks>
+		///  <exception cref="AuthorizationException">
+		///  Thrown when the current user does not have permission to make the request.
+		///  </exception>
+		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public Task<IReadOnlyList<TaskReport>> ReportingTasksReportData(ReportingOptions options)
+        {
+            var jsonOptions = options.Stringify();
+            return ApiConnection.GetAll<TaskReport>(ApiUrls.GetTasksReportData(jsonOptions));
+        }
+
+        /// <summary>
+        /// Returns the TM Leverage report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <remarks>
+		///  This method requires authentication.
+		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+		///  </remarks>
+		///  <exception cref="AuthorizationException">
+		///  Thrown when the current user does not have permission to make the request.
+		///  </exception>
+		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public Task<TmLeverageReport> ReportingTmLeverageData(ReportingOptions options)
+        {
+            var jsonOptions = options.Stringify();
+            return ApiConnection.Get<TmLeverageReport>(ApiUrls.GetTmLeverageData(jsonOptions), null);
+        }
+        #endregion
     }
 }

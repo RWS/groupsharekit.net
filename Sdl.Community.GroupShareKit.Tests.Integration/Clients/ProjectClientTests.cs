@@ -424,5 +424,43 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(statistics != null);
         }
         #endregion
+
+        #region Reporting
+        [Fact]
+        public async Task ReportingProjectPredefinedReportData()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var options = new ReportingOptions
+            {
+                Status = 7
+            };
+            var reportingData = await groupShareClient.Project.ReportingProjectPredefinedReportData(options);
+            Assert.True(reportingData != null);
+        }
+
+        [Fact]
+        public async Task ReportingTasksReportData()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var options = new ReportingOptions
+            {
+                Status = 7
+            };
+            var reportingData = await groupShareClient.Project.ReportingTasksReportData(options);
+            Assert.True(reportingData != null);
+        }
+
+        [Fact]
+        public async Task ReportingTmLeverageData()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var options = new ReportingOptions
+            {
+                Status = 7
+            };
+            var reportingData = await groupShareClient.Project.ReportingTmLeverageData(options);
+            Assert.True(reportingData != null);
+        }
+        #endregion Reporting
     }
 }
