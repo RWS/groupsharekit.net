@@ -964,37 +964,122 @@ namespace Sdl.Community.GroupShareKit.Clients
 		    return await ApiConnection.Post<string>(ApiUrls.ExternalCheckout(projectId, languageFileId), "application/json");
 	    }
 
-	    ///  <summary>
-	    /// Gets the dashboard data
-	    ///  </summary>
-	    ///  This method requires authentication.
-	    ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-	    ///  <exception cref="AuthorizationException">
-	    ///  Thrown when the current user does not have permission to make the request.
-	    ///  </exception>
-	    ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		public async Task<Dashboard> Dashboard()
+        ///  <summary>
+        /// Gets the dashboard data
+        ///  </summary>
+        ///  This method requires authentication.
+        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        ///  <exception cref="AuthorizationException">
+        ///  Thrown when the current user does not have permission to make the request.
+        ///  </exception>
+        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete("The dashboard function is obsolete in Groupshare 2020. " + 
+            "Use the new functions DataboardProjectsPerMonth, DashboardTopLanguagePairs, " +
+            "DashboardWordsPerMonth, DashboardWordsPerOrganization, DashboardStatistics instead for Groupshare 2020.")]
+        public async Task<Dashboard> Dashboard()
 	    {
 		    return await ApiConnection.Get<Dashboard>(ApiUrls.Dashboard(), null);
 	    }
 
-	    ///  <summary>
-	    /// Retries the audit trail for all the language files in the given project
-	    ///  </summary>
-	    ///  This method requires authentication.
-	    /// <param name="projectId">The id of the project</param>
-	    ///  This method requires authentication.
-	    ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-	    ///  <exception cref="AuthorizationException">
-	    ///  Thrown when the current user does not have permission to make the request.
-	    ///  </exception>
-	    ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		public Task<IReadOnlyList<AuditTrial>> AuditTrial(string projectId)
+        /// <summary>
+        /// Gets the dashboard projects per month data
+        /// </summary>
+        /// <remarks>
+		///  This method requires authentication.
+		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+		///  </remarks>
+		///  <exception cref="AuthorizationException">
+		///  Thrown when the current user does not have permission to make the request.
+		///  </exception>
+		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task<IReadOnlyList<DashboardCount>> DataboardProjectsPerMonth()
+        {
+            return await ApiConnection.GetAll<DashboardCount>(ApiUrls.DashboardProjectsPerMonth());
+        }
+
+        /// <summary>
+        /// Gets the dashboard top language pairs
+        /// </summary>
+        /// <param name="noOfTopLanguagePairs"></param>
+        /// <returns></returns>
+        /// <remarks>
+        ///  This method requires authentication.
+        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        ///  </remarks>
+        ///  <exception cref="AuthorizationException">
+        ///  Thrown when the current user does not have permission to make the request.
+        ///  </exception>
+        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task<IReadOnlyList<LanguagePairsInProject>> DashboardTopLanguagePairs(int? noOfTopLanguagePairs)
+        {
+            return await ApiConnection.GetAll<LanguagePairsInProject>(ApiUrls.DashboardTopLanguagePairs(noOfTopLanguagePairs));
+        }
+
+        /// <summary>
+        /// Gets the dashboard words per month
+        /// </summary>
+        /// <remarks>
+        ///  This method requires authentication.
+        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        ///  </remarks>
+        ///  <exception cref="AuthorizationException">
+        ///  Thrown when the current user does not have permission to make the request.
+        ///  </exception>
+        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task<IReadOnlyList<DashboardCount>> DashboardWordsPerMonth()
+        {
+            return await ApiConnection.GetAll<DashboardCount>(ApiUrls.DashboardWordsPerMonth());
+        }
+
+        /// <summary>
+        /// Gets the dashboard words per organization
+        /// </summary>
+        /// <remarks>
+        ///  This method requires authentication.
+        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        ///  </remarks>
+        ///  <exception cref="AuthorizationException">
+        ///  Thrown when the current user does not have permission to make the request.
+        ///  </exception>
+        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task<IReadOnlyList<WordsInOrganization>> DashboardWordsPerOrganization()
+        {
+            return await ApiConnection.GetAll<WordsInOrganization>(ApiUrls.DashboardWordsPerOrganization());
+        }
+
+        /// <summary>
+        /// Gets the dashboard statistics data
+        /// </summary>
+        /// <remarks>
+        ///  This method requires authentication.
+        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        ///  </remarks>
+        ///  <exception cref="AuthorizationException">
+        ///  Thrown when the current user does not have permission to make the request.
+        ///  </exception>
+        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task<DashboardStatistics> DashboardStatistics()
+        {
+            return await ApiConnection.Get<DashboardStatistics>(ApiUrls.DashboardStatistics(), null);
+        }
+
+        ///  <summary>
+        /// Retries the audit trail for all the language files in the given project
+        ///  </summary>
+        ///  This method requires authentication.
+        /// <param name="projectId">The id of the project</param>
+        ///  This method requires authentication.
+        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        ///  <exception cref="AuthorizationException">
+        ///  Thrown when the current user does not have permission to make the request.
+        ///  </exception>
+        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public Task<IReadOnlyList<AuditTrial>> AuditTrial(string projectId)
 	    {
 			Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
 		    return ApiConnection.GetAll<AuditTrial>(ApiUrls.AuditTrial(projectId), null);
 		}
 
-		#endregion
-	}
+        #endregion
+    }
 }

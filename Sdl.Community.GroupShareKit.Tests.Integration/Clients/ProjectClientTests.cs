@@ -150,14 +150,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(response != null);
         }
 
-        [Fact]
-	    public async Task Dashboard()
-	    {
-			var groupShareClient = await Helper.GetGroupShareClient();
-		    var dashboard = await groupShareClient.Project.Dashboard();
-			Assert.True(dashboard!=null);
-	    }
-
 	    [Theory]
 	    [InlineData("9a39ed92-2655-43a3-bbd9-efd70eeb8e36")]
 	    public async Task AuditTrial(string projectId)
@@ -378,6 +370,58 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var downloadedFile = await groupShareClient.Project.DownloadFileVersion(projectId, languageFileId, version);
 
             Assert.True(downloadedFile.Length != 0);
+        }
+        #endregion
+
+        #region Dashboard
+
+        [Fact]
+        [Trait("GSVersion", "2017 only")]
+        public async Task Dashboard()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var dashboard = await groupShareClient.Project.Dashboard();
+            Assert.True(dashboard != null);
+        }
+
+        [Fact]
+        public async Task DashboardProjectsPerMonth()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var projectCounts = await groupShareClient.Project.DataboardProjectsPerMonth();
+            Assert.True(projectCounts != null);
+        }
+
+        [Fact]
+        public async Task DashboardTopLanguagePairs()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var languagePairs = await groupShareClient.Project.DashboardTopLanguagePairs(5);
+            Assert.True(languagePairs != null);
+        }
+
+        [Fact]
+        public async Task DashboardWordsPerMonth()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var wordCounts = await groupShareClient.Project.DashboardWordsPerMonth();
+            Assert.True(wordCounts != null);
+        }
+
+        [Fact]
+        public async Task DashboardWordsPerOrganization()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var wordCounts = await groupShareClient.Project.DashboardWordsPerOrganization();
+            Assert.True(wordCounts != null);
+        }
+
+        [Fact]
+        public async Task DashboardStatistics()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var statistics = await groupShareClient.Project.DashboardStatistics();
+            Assert.True(statistics != null);
         }
         #endregion
     }
