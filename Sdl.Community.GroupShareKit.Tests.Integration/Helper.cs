@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Models.Response;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration
 {
@@ -22,6 +24,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
         public static string Organization => "integration_tests"; //Helper.GetVariable("GROUPSHAREKIT_TESTORGANIZATION");
 
         public static string OrganizationId { get; }
+
+        public static string OrganizationTag { get; }
 
         public static string PowerUserRoleId { get; }
 
@@ -45,7 +49,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
 
             var organization = GsClient.Organization.GetAll(new OrganizationRequest(true)).Result.FirstOrDefault(o => o.Name == Organization);
             if (organization != null) OrganizationId = organization.UniqueId.ToString();
-
+            if (organization != null) OrganizationTag = organization.Tags.FirstOrDefault();
             var role = GsClient.Role.GetAllRoles().Result.FirstOrDefault(r => r.Name == "Power User");
             if (role != null) PowerUserRoleId = role.UniqueId.ToString();
         }
@@ -78,6 +82,33 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
             return
                 Environment.GetEnvironmentVariable(key) ??
                 Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.User);
+        }
+
+        public static async Task<string> CreateOrganizationAsync()
+        {
+            var gsClient = await GetGroupShareClient();
+            var uniqueId = Guid.NewGuid();
+            var organization = new Organization()
+            {
+                UniqueId = uniqueId,
+                Name = $"automated organization {uniqueId}",
+                IsLibrary = false,
+                Description = null,
+                Path = null,
+                ParentOrganizationId = new Guid(OrganizationId),
+                ChildOrganizations = null
+            };
+           return await gsClient.Organization.Create(organization);
+        }
+
+        public static async Task<string> CreateTemplateResourceAsync(string orgId)
+        {
+            var gsClient = await GetGroupShareClient();
+            var id = Guid.NewGuid().ToString();
+            var templateRequest = new ProjectTemplates(id, $"automated template {id}", "", orgId);
+            var rawData = System.IO.File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
+            var templateId = await gsClient.Project.CreateTemplate(templateRequest, rawData);
+            return templateId;
         }
     }
 }
