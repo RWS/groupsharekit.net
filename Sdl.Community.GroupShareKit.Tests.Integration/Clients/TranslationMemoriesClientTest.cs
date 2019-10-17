@@ -61,7 +61,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             //{
             //    zipStream.CopyTo(resultStream);
             //    var test = resultStream.ToArray();
-            //    File.WriteAllBytes(@"C:\Users\aghisa\Desktop\testTm.tmx", test);
+            //    File.WriteAllBytes(@"C:\UserData\aghisa\Desktop\testTm.tmx", test);
             //}                    
         }
 

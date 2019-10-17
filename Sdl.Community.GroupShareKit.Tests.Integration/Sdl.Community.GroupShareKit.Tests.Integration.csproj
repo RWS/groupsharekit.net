@@ -189,6 +189,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Setup\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 
