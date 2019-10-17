@@ -12,13 +12,36 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class ProjectClientTests
     {
+        private readonly string ProjectId;
+        private readonly string LanguageFileId;
+        private readonly string ProjectTemplateId;
+
+        public ProjectClientTests()
+        {
+            var groupShareClient = Helper.GetGroupShareClient().Result;
+
+            var projectRequest = new ProjectsRequest("/", true, 7) { Page = "0", Limit = "1" };
+            var project = groupShareClient.Project.GetProject(projectRequest).Result.Items.FirstOrDefault();
+
+            ProjectId = project != null ? project.ProjectId : string.Empty;
+
+            var languageFile = groupShareClient.Project.GetAllFilesForProject(ProjectId).Result.FirstOrDefault(f => f.FileRole == "Translatable");
+            LanguageFileId = languageFile != null ? languageFile.UniqueId.ToString() : string.Empty;
+
+            var projectTemplate = groupShareClient.Project.GetAllTemplates().Result.ToList().FirstOrDefault();
+            ProjectTemplateId = projectTemplate != null ? projectTemplate.Id : string.Empty;
+        }
+
         #region Project tests
         [Fact]
-        public async Task GetProjectByName()
+        public async Task Projects_GetProjectByName_Succeeds()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
             var projects = await groupShareClient.Project.GetAllProjects();
             var project = projects.Items.FirstOrDefault();
+
+            if (project == null)
+                return;
 
             var projectRequest = new ProjectsRequest("/", true, 7) { Filter = { ProjectName = project.Name } };
             var result = await groupShareClient.Project.GetProject(projectRequest);
@@ -27,23 +50,33 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task SortProjectsByName()
+        public async Task Projects_SortProjectsByName_Succeeds()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var sortParameters = new SortParameters()
+            var sortParameters = new SortParameters
             {
                 Property = SortParameters.PropertyOption.ProjectName,
-                Direction = SortParameters.DirectionOption.DESC
+                Direction = SortParameters.DirectionOption.ASC
             };
             var projectRequest = new ProjectsRequest(sortParameters);
 
             var sortedProjects = await groupShareClient.Project.GetProject(projectRequest);
             var projects = await groupShareClient.Project.GetAllProjects();
+
             Assert.True(sortedProjects.Items.Count == projects.Items.Count);
+
+            var projectsNames = projects.Items.Select(p => p.Name).ToList();
+            projectsNames.Sort();
+
+            int i = 0;
+            foreach (var proj in sortedProjects.Items)
+            {
+                Assert.True(string.Compare(proj.Name, projectsNames[i++], StringComparison.CurrentCultureIgnoreCase) == 0);
+            }
         }
 
         [Fact]
-        public async Task GetProjectFiles()
+        public async Task Projects_GetProjectFiles_Succeeds()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
             var projects = await groupShareClient.Project.GetAllProjects();
@@ -55,100 +88,92 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task GetAllProjects()
+        public async Task Projects_GetAllProjects_Succeeds()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-
             var projects = await groupShareClient.Project.GetAllProjects();
-
             Assert.True(projects.Count > 0);
         }
 
         [Fact]
-        public async Task AnalysisReports()
+        public async Task Projects_AnalysisReports_Succeeds()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var report = await groupShareClient.Project.GetAnalysisReports("522dde85-7f5b-4aa5-a4d9-af97d78798f2", null);
+            var report = await groupShareClient.Project.GetAnalysisReports(ProjectId, null);
             Assert.True(report.Count > 0);
         }
 
         [Fact]
-        public async Task AnalysisReportsAsHtml()
+        public async Task Projects_AnalysisReportsAsHtml_Succeeds()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var report = await groupShareClient.Project.GetAnalysisReportsAsHtml("522dde85-7f5b-4aa5-a4d9-af97d78798f2", null);
+            var report = await groupShareClient.Project.GetAnalysisReportsAsHtml(ProjectId, null);
             Assert.True(report != null);
         }
 
-	    [Theory]
-	    [InlineData("0366519e-7317-4268-9e9a-4b94eba43ca2", "d6b9b6c8-50b7-4527-8662-1881284ed062")]
-	    public async Task GetProjectSettings(string projectId, string languageFileId)
+	    [Fact]
+	    public async Task Projects_GetProjectSettings_Succeeds()
 	    {
 		    var groupShareClient = await Helper.GetGroupShareClient();
-		    var projectSettings = await groupShareClient.Project.GetProjectSettings(projectId, languageFileId);
+		    var projectSettings = await groupShareClient.Project.GetProjectSettings(ProjectId, LanguageFileId);
 
 			Assert.True(projectSettings!=null);
 	    }
 
-	    [Theory]
-	    [InlineData("0366519e-7317-4268-9e9a-4b94eba43ca2", "d6b9b6c8-50b7-4527-8662-1881284ed062")]
-		//Returns 204 (No content) when the user is allowed to open the file in the editor
-		public async Task IsUserAuthorizedToOpenTheFile(string projectId, string languageFileId)
+        [Fact]
+		public async Task Projects_IsUserAuthorizedToOpenTheFile_Succeeds()
 	    {
 		    var groupShareClient = await Helper.GetGroupShareClient();
-		    var response = await groupShareClient.Project.IsUserAuthorizedToOpenFile(projectId, languageFileId);
+		    var response = await groupShareClient.Project.IsUserAuthorizedToOpenFile(ProjectId, LanguageFileId);
 
 		    Assert.True(string.IsNullOrEmpty(response));
 	    }
 
-	    [Theory]
-	    [InlineData("0366519e-7317-4268-9e9a-4b94eba43ca2", "d6b9b6c8-50b7-4527-8662-1881284ed062")]
-	    public async Task EditorProfile(string projectId, string languageFileId)
+        [Fact]
+	    public async Task Projects_EditorProfile_Succeeds()
 	    {
 		    var groupShareClient = await Helper.GetGroupShareClient();
-		    var editorProfile = await groupShareClient.Project.EditorProfile(projectId, languageFileId);
+		    var editorProfile = await groupShareClient.Project.EditorProfile(ProjectId, LanguageFileId);
 
 		    Assert.True(editorProfile!=null);
 	    }
 
-	    [Theory]
-	    [InlineData("c0d5a088-ad5e-4e7f-aef5-a9c979232624")]
-	    public async Task IsCheckOutToSomeoneElse(string languageFileId)
+        [Fact]
+	    public async Task Projects_IsCheckOutToSomeoneElse_Succeeds()
 	    {
 		    var groupShareClient = await Helper.GetGroupShareClient();
-		    await groupShareClient.Project.IsCheckoutToSomeoneElse(languageFileId);  
+		    await groupShareClient.Project.IsCheckoutToSomeoneElse(LanguageFileId);  
 	    }
 
+		//[Fact(Skip = "")]
+		//public async Task Projects_OnlineCheckIn_Succeeds()
+		//{
+		//	var groupShareClient = await Helper.GetGroupShareClient();	 
 
-		[Fact(Skip = "")]
-		public async Task OnlineCheckIn()
-		{
-			var groupShareClient = await Helper.GetGroupShareClient();	 
+		//	var response =await groupShareClient.Project.OnlineCheckin(ProjectId, LanguageFileId).ConfigureAwait(true);
+		//	Assert.True(response!=null);
+		//}
 
-			var response =await groupShareClient.Project.OnlineCheckin("9a39ed92-2655-43a3-bbd9-efd70eeb8e36", "c0d5a088-ad5e-4e7f-aef5-a9c979232624").ConfigureAwait(true);
-			Assert.True(response!=null);
-		}
+        //[Fact]
+        //public async Task OnlineCheckout()
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
 
-        [Theory]
-        [InlineData("9a39ed92-2655-43a3-bbd9-efd70eeb8e36", "c0d5a088-ad5e-4e7f-aef5-a9c979232624")]
-        public async Task OnlineCheckout(string projectId, string languageFileId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
+        //    var checkoutResponse = await groupShareClient.Project.OnlineCheckout(ProjectId, LanguageFileId);
+        //    Assert.True(checkoutResponse != null);
 
-            var checkoutResponse = await groupShareClient.Project.OnlineCheckout(projectId, languageFileId);
+        //    await groupShareClient.Project.UndoCheckout(ProjectId, LanguageFileId);
+        //}
 
-            Assert.True(checkoutResponse != null);
-            await groupShareClient.Project.UndoCheckout(projectId, languageFileId);
-        }
+        //[Fact(Skip = "")]
+        //public async Task ExternalCheckIn()
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
 
-        [Fact(Skip = "")]
-        public async Task ExternalCheckIn()
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var response = await groupShareClient.Project.ExternalCheckin("9a39ed92-2655-43a3-bbd9-efd70eeb8e36", "c0d5a088-ad5e-4e7f-aef5-a9c979232624", "comment");
-
-            Assert.True(response != null);
-        }
+        //    var response = await groupShareClient.Project.ExternalCheckout(ProjectId, LanguageFileId);
+        //    Assert.True(response != null);
+        //    await groupShareClient.Project.ExternalCheckin(ProjectId, LanguageFileId, "comment");
+        //}
 
         [Fact]
 	    public async Task Dashboard()
@@ -158,12 +183,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 			Assert.True(dashboard!=null);
 	    }
 
-	    [Theory]
-	    [InlineData("9a39ed92-2655-43a3-bbd9-efd70eeb8e36")]
-	    public async Task AuditTrial(string projectId)
+        [Fact]
+	    public async Task AuditTrial()
 	    {
 			var groupShareClient = await Helper.GetGroupShareClient();
-		    var auditTrial = await groupShareClient.Project.AuditTrial(projectId);
+		    var auditTrial = await groupShareClient.Project.AuditTrial(ProjectId);
 
 			Assert.True(auditTrial?.Count>0);  
 	    }
@@ -244,13 +268,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             if (result.Items.Count == 0)
             {
                 var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
-                var projectName = Guid.NewGuid().ToString();
+                var projectName = $"Project - {Guid.NewGuid()}";
+
                 var projectId = await groupShareClient.Project.CreateProject(new CreateProjectRequest(
                     projectName,
-                    "ee72759d-917e-4c60-ba30-1ed595699c4d",
+                    Helper.OrganizationId,
                     null,
                     DateTime.Now.AddDays(2),
-                    "7bf6410d-58a7-4817-a559-7aa8a3a99aa9",
+                    ProjectTemplateId,
                     rawData));
 
                 Assert.True(!string.IsNullOrEmpty(projectId));
@@ -267,7 +292,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\ProjectPackage.sdlppx"));
             var createProjectRequest = new CreateProjectRequest(
                 "ProjectForPublish",
-                "ee72759d-917e-4c60-ba30-1ed595699c4d",
+                Helper.OrganizationId,
                 null,
                 DateTime.Today,
                 "7bf6410d-58a7-4817-a559-7aa8a3a99aa9",
@@ -285,14 +310,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(projects.Count > 0);
         }
 
-        [Theory]
-        [InlineData("a885af0c-d476-4265-97b3-9ecc8a2b4dc5")]
-        public async Task GetProjectAssignmentsById(string projectId)
+        [Fact]
+        public async Task GetProjectAssignmentsById()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var fileIds = new List<string>() { "675a1fc6-d7c1-4011-8080-9623ed1e4dec", "f07ed07f-6864-45a0-979e-afcc0fd250a1" };
+            var fileIds = new List<string> { LanguageFileId };
 
-            var assignments = await groupShareClient.Project.GetProjectAssignmentById(projectId, fileIds);
+            var assignments = await groupShareClient.Project.GetProjectAssignmentById(ProjectId, fileIds);
 
             Assert.True(assignments.Count > 0);
         }
@@ -301,27 +325,38 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task ChangeProjectStatus()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var projectStatusRequest = new ChangeStatusRequest("c1f47d9c-a9dd-4069-b636-3405d4fb98a8", ChangeStatusRequest.ProjectStatus.Completed);
 
+            var projectStatusRequest = new ChangeStatusRequest(ProjectId, ChangeStatusRequest.ProjectStatus.Completed);
             await groupShareClient.Project.ChangeProjectStatus(projectStatusRequest);
 
-            var project = await groupShareClient.Project.Get("c1f47d9c-a9dd-4069-b636-3405d4fb98a8");
+            var project = await groupShareClient.Project.Get(ProjectId);
             Assert.Equal(4, project.Status);
+
+            projectStatusRequest = new ChangeStatusRequest(ProjectId, ChangeStatusRequest.ProjectStatus.Started);
+            await groupShareClient.Project.ChangeProjectStatus(projectStatusRequest);
+
+            project = await groupShareClient.Project.Get(ProjectId);
+            Assert.Equal(2, project.Status);
         }
 
         [Fact]
         public async Task ChangeProjectStatusDetach()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var projectStatusRequest = new ChangeStatusRequest("5afaf0b5-05c8-4401-920c-d3366096cfc6", ChangeStatusRequest.ProjectStatus.Completed);
+
+            var projectStatusRequest = new ChangeStatusRequest(ProjectId, ChangeStatusRequest.ProjectStatus.Completed);
             await groupShareClient.Project.ChangeProjectStatusDetach(projectStatusRequest);
 
-            var project = await groupShareClient.Project.Get("5afaf0b5-05c8-4401-920c-d3366096cfc6");
+            var project = await groupShareClient.Project.Get(ProjectId);
             Assert.Equal(4, project.Status);
+
+            projectStatusRequest = new ChangeStatusRequest(ProjectId, ChangeStatusRequest.ProjectStatus.Started);
+            await groupShareClient.Project.ChangeProjectStatus(projectStatusRequest);
         }
         #endregion
 
         #region Project template tests
+
         [Fact]
         public async Task GetAllProjectsTemplates()
         {
@@ -331,13 +366,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(templates.Count > 0);
         }
 
-        [Theory]
-        [InlineData("7bf6410d-58a7-4817-a559-7aa8a3a99aa9")]
-        public async Task<string> GetTemplateById(string templateId)
+        [Fact]
+        public async Task<string> GetTemplateById()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
 
-            var template = await groupShareClient.Project.GetTemplateById(templateId);
+            var template = await groupShareClient.Project.GetTemplateById(ProjectTemplateId);
 
             Assert.True(template != string.Empty);
             return template;
@@ -348,9 +382,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = await Helper.GetGroupShareClient();
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
+
             var id = Guid.NewGuid().ToString();
 			var templateName = Guid.NewGuid().ToString();
-            var templateRequest = new ProjectTemplates(id, templateName, "", "5bdb10b8-e3a9-41ae-9e66-c154347b8d17");
+            var templateRequest = new ProjectTemplates(id, templateName, "", Helper.OrganizationId);
             var templateId = await groupShareClient.Project.CreateTemplate(templateRequest, rawData);
 
             Assert.True(templateId != string.Empty);
@@ -360,22 +395,20 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         #endregion
 
         #region File version tests
-        [Theory]
-        [InlineData("c6ece69e-baec-46ed-8275-53d848ae3b70")]
-        public async Task GetFileVersions(string languageFileId)
+        [Fact]
+        public async Task GetFileVersions()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var fileVersion = await groupShareClient.Project.GetFileVersions(languageFileId);
+            var fileVersion = await groupShareClient.Project.GetFileVersions(LanguageFileId);
 
             Assert.True(fileVersion.Count > 0);
         }
 
-        [Theory]
-        [InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8", "c6ece69e-baec-46ed-8275-53d848ae3b70", 0)]
-        public async Task DownloadFileVersion(string projectId, string languageFileId, int version)
+        [Fact]
+        public async Task DownloadFileVersion()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
-            var downloadedFile = await groupShareClient.Project.DownloadFileVersion(projectId, languageFileId, version);
+            var downloadedFile = await groupShareClient.Project.DownloadFileVersion(ProjectId, LanguageFileId, 2);
 
             Assert.True(downloadedFile.Length != 0);
         }

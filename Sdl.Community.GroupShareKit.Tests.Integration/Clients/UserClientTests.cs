@@ -11,7 +11,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
     public class UserClientTests
     {
         [Fact]
-        public async Task GetAllUsers()
+        public async Task Users_GetAllUsers_ReturnsUsers()
         {
             var groupShareClient = Helper.GsClient;
             var userRequest = new UsersRequest(1, 2, 7);
@@ -22,7 +22,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [MemberData(nameof(UserData.Username), MemberType = typeof(UserData))]
-        public async Task GetUser(string userName)
+        public async Task Users_GetUserByUsername_ReturnsUser(string userName)
         {
             var groupShareClient = Helper.GsClient;
             var response = await groupShareClient.User.Get(new UserRequest(userName));
@@ -32,7 +32,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [MemberData(nameof(UserData.UserId), MemberType = typeof(UserData))]
-        public async Task GetUserById(string userId)
+        public async Task Users_GetUserById_ReturnsUser(string userId)
         {
             var groupShareClient = Helper.GsClient;
             var user = await groupShareClient.User.GetUserById(userId);
@@ -42,7 +42,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [MemberData(nameof(UserData.Username), MemberType = typeof(UserData))]
-        public async Task Update(string userName)
+        public async Task Users_UpdateByUsername_Succeeds(string userName)
         {
             var description = $"Updated description at {DateTime.Now.ToLongDateString()}";
 
@@ -58,7 +58,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task UpdateUserLanguageDirections()
+        public async Task Users_UpdateUserLanguageDirections_Succeeds()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
 
@@ -109,7 +109,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task Create()
+        public async Task Users_CreateUser_Succeeds()
         {
             var groupShareClient = await Helper.GetGroupShareClient();
             var uniqueId = Guid.NewGuid().ToString();

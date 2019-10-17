@@ -50,8 +50,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
             if (role != null) PowerUserRoleId = role.UniqueId.ToString();
         }
 
+        private static GroupShareClient gsClient = null;
         public static async Task<IGroupShareClient> GetGroupShareClient()
         {
+            if (gsClient != null)
+            { return gsClient; }
+
             var groupShareUser = "gskit";
             var groupSharePassword = "Pass@word1";
 
@@ -61,7 +65,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
                 BaseUri,
                 GroupShareClient.AllScopes);
 
-            var gsClient = await GroupShareClient.AuthenticateClient(
+            gsClient = await GroupShareClient.AuthenticateClient(
                 token,
                 groupShareUser,
                 groupSharePassword,
