@@ -11,17 +11,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
     {
         public static GroupShareClient GsClient { get; }
 
-        public static Uri BaseUri => new Uri("http://cljvmzbalazs02"); //new Uri(Helper.GetVariable("GROUPSHAREKIT_BASEURI"));
+        public static Uri BaseUri => new Uri(GetVariable("GROUPSHAREKIT_BASEURI"));
 
-        public static string GsUser => "gskit"; // Helper.GetVariable("GROUPSHAREKIT_USERNAME");
+        public static string GsUser => GetVariable("GROUPSHAREKIT_USERNAME");
 
         public static Guid GsUserId { get; }
 
-        public static string GsPassword => "Pass@word1"; //Helper.GetVariable("GROUPSHAREKIT_PASSWORD");
+        public static string GsPassword => GetVariable("GROUPSHAREKIT_PASSWORD");
 
         public static string GsBearerId = GetVariable("GROUPSHAREKIT_BEARERID");
 
-        public static string Organization => "integration_tests"; //Helper.GetVariable("GROUPSHAREKIT_TESTORGANIZATION");
+        public static string Organization => GetVariable("GROUPSHAREKIT_TESTORGANIZATION");
 
         public static string OrganizationId { get; }
 
@@ -54,25 +54,22 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
             if (role != null) PowerUserRoleId = role.UniqueId.ToString();
         }
 
-        private static GroupShareClient gsClient = null;
+        private static GroupShareClient gsClient;
         public static async Task<IGroupShareClient> GetGroupShareClient()
         {
             if (gsClient != null)
             { return gsClient; }
 
-            var groupShareUser = "gskit";
-            var groupSharePassword = "Pass@word1";
-
             var token = await GroupShareClient.GetRequestToken(
-                groupShareUser,
-                groupSharePassword,
+                GsUser,
+                GsPassword,
                 BaseUri,
                 GroupShareClient.AllScopes);
 
             gsClient = await GroupShareClient.AuthenticateClient(
                 token,
-                groupShareUser,
-                groupSharePassword,
+                GsUser,
+                GsPassword,
                 "",
                 BaseUri,
                 GroupShareClient.AllScopes);
@@ -90,7 +87,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
 
         public static async Task<string> CreateOrganizationAsync()
         {
-            var gsClient = await GetGroupShareClient();
             var uniqueId = Guid.NewGuid();
             var organization = new Organization()
             {
@@ -102,12 +98,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
                 ParentOrganizationId = new Guid(OrganizationId),
                 ChildOrganizations = null
             };
-           return await gsClient.Organization.Create(organization);
+
+            return await gsClient.Organization.Create(organization);
         }
 
         public static async Task<string> CreateTemplateResourceAsync(string orgId)
         {
-            var gsClient = await GetGroupShareClient();
             var id = Guid.NewGuid().ToString();
             var templateRequest = new ProjectTemplates(id, $"automated template {id}", "", orgId);
             var rawData = System.IO.File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
