@@ -15,5 +15,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
             {
                 new object[] { Helper.GsUserId.ToString() }
             };
+
+        public static IEnumerable<object[]> UserRole =>
+            new List<object[]>
+            {
+                new object[] { Helper.PowerUserRoleId }
+            };
     }
 }
