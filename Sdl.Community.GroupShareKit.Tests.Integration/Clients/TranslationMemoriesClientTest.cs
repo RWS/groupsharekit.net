@@ -96,7 +96,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
 
-        public async Task<string> CreateTm(string tmName)
+        private async Task<string> CreateTm(string tmName)
         {
             var groupShareClient = Helper.GsClient;
             var tmRequest = new CreateTmRequest

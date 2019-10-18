@@ -1,26 +1,50 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Sdl.Community.GroupShareKit.Models.Response;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class PhasesTests
     {
-        [Theory]
-        [InlineData("6472c9e1-b082-4af9-9d1a-361609141974")]
-        public async Task GetProjectPhases(string projectId)
+        private readonly string ProjectId;
+        private readonly List<string> LanguageFileIds;
+        private readonly List<Phase> Phases;
+
+        public PhasesTests()
         {
             var groupShareClient = Helper.GsClient;
-            var projectPhases = await groupShareClient.Project.GetAllPhasesForProject(projectId);
+
+            var projectRequest = new ProjectsRequest("/", true, 7) { Page = "0", Limit = "1" };
+            var project = groupShareClient.Project.GetProject(projectRequest).Result.Items.FirstOrDefault();
+
+            ProjectId = project != null ? project.ProjectId : string.Empty;
+
+            LanguageFileIds = groupShareClient
+                .Project
+                .GetAllFilesForProject(ProjectId).Result.Where(f => f.FileRole == "Translatable")
+                .Select(lf => lf.UniqueId.ToString()).ToList();
+
+            Phases = groupShareClient
+                .Project
+                .GetAllPhasesForProject(ProjectId)
+                .Result.ToList();
+        }
+
+        [Fact]
+        public async Task GetProjectPhases()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectPhases = await groupShareClient.Project.GetAllPhasesForProject(ProjectId);
 
             Assert.True(projectPhases.Count != 0);
         }
 
-        [Theory]
-        [InlineData("a885af0c-d476-4265-97b3-9ecc8a2b4dc5")]
-        public async Task ChangeProjectPhases(string projectId)
+        [Fact]
+        public async Task ChangeProjectPhases()
         {
             var groupShareClient = Helper.GsClient;
 
@@ -28,44 +52,44 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             {
                 new ChangePhaseRequest.File()
                 {
-                    LanguageFileId = "f07ed07f-6864-45a0-979e-afcc0fd250a1",
-                    PhaseId = 38
+                    LanguageFileId = LanguageFileIds.First(),
+                    PhaseId = Phases[1].ProjectPhaseId
                 },
             };
-            await groupShareClient.Project.ChangePhases(projectId, new ChangePhaseRequest("Changed phase ", request));
+            await groupShareClient.Project.ChangePhases(ProjectId, new ChangePhaseRequest("Changed phase ", request));
         }
 
-
-        [Theory]
-        [InlineData("a885af0c-d476-4265-97b3-9ecc8a2b4dc5", 37)]
-        public async Task GetPhasesWithAssignees(string projectId, int phaseId)
+        [Fact]
+        public async Task GetPhasesWithAssignees()
         {
             var groupShareClient = Helper.GsClient;
-            var phases = await groupShareClient.Project.GetPhasesWithAssignees(projectId, phaseId);
+
+            var phaseId = Phases[3].ProjectPhaseId;
+            var phases = await groupShareClient.Project.GetPhasesWithAssignees(ProjectId, phaseId);
 
             foreach (var projectPhase in phases.SelectMany(phase => phase.Phases))
             {
-                Assert.Equal(37, projectPhase.ProjectPhaseId);
+                Assert.Equal(phaseId, projectPhase.ProjectPhaseId);
             }
         }
 
-        [Theory]
-        [InlineData("a885af0c-d476-4265-97b3-9ecc8a2b4dc5", "f07ed07f-6864-45a0-979e-afcc0fd250a1")]
-        public async Task ChangeProjectAssignments(string projectId, string fileId)
+        [Fact]
+        public async Task ChangeProjectAssignments()
         {
             var groupShareClient = Helper.GsClient;
 
             var request = new[]
             {
-                new ChangeAssignmentRequest.File()
+                new ChangeAssignmentRequest.File
                 {
-                    LanguageFileId =fileId,
+                    LanguageFileId = LanguageFileIds.First(),
                     DueDate =  DateTime.Now.AddDays(1),
-                    PhaseId = 37,
-                    AssignedUsers = new[] { "sdlcommunity" }
+                    PhaseId = Phases[2].ProjectPhaseId,
+                    AssignedUsers = new[] { Helper.GsUser }
                 }
             };
-            await groupShareClient.Project.ChangeAssignments(projectId, new ChangeAssignmentRequest("test assignement", request));
+
+            await groupShareClient.Project.ChangeAssignments(ProjectId, new ChangeAssignmentRequest("test assignment", request));
         }
     }
 }
