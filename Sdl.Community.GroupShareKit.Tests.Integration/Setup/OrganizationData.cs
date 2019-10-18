@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
 {
@@ -14,8 +13,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
         public static IEnumerable<object[]> OrganizationId =>
             new List<object[]>
             {
-                new object[] { Helper.OrganizationId.ToString() }
+                new object[] { Helper.OrganizationId }
             };
+
         public static IEnumerable<object[]> OrganizationTag =>
             new List<object[]>
             {

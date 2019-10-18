@@ -12,7 +12,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9")]
         //public async Task GetLanguageResourcesForTemplate(string templateId)
         //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var groupShareClient = Helper.GsClient;
         //    var resources = await groupShareClient.TranslationMemories.GetLanguageResourcesForTemplate(templateId);
 
         //    Assert.True(resources.Count > 0);
@@ -22,7 +22,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //[InlineData("a3b1fd22-e3cd-4931-9e2a-91f6c6c246c0", "en-de")]
         //public async Task CreateLanguageResourceForTemplate(string templateId, string language)
         //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var groupShareClient = Helper.GsClient;
 
         //    var resource = new Resource
         //    {
@@ -42,7 +42,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //[InlineData("ro-ro")]
         //public async Task GetDefaultResource(string language)
         //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var groupShareClient = Helper.GsClient;
         //    var request = new ResourceServiceDefaultsRequest(ResourceServiceDefaultsRequest.ResourceType.Variables, language);
 
         //    var resource = await groupShareClient.TranslationMemories.GetDefaultsType(request);
@@ -54,7 +54,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
         //public async Task GetLanguageResourceForTemplate(string templateId, string languageResourceId)
         //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var groupShareClient = Helper.GsClient;
         //    var resource =
         //        await groupShareClient.TranslationMemories.GetLanguageResourceForTemplate(templateId, languageResourceId);
 
@@ -65,7 +65,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
         //public async Task UpdateLanguageResourceForTemplate(string templateId, string languageResourceId)
         //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var groupShareClient = Helper.GsClient;
         //    var resource =
         //        await groupShareClient.TranslationMemories.GetLanguageResourceForTemplate(templateId, languageResourceId);
         //    resource.CultureName = "de-de";
@@ -84,7 +84,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
         //public async Task ImportFileForLanguageResource(string templateId, string languageResourceId)
         //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var groupShareClient = Helper.GsClient;
 
         //    var rawData =
         //       File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\test.txt"));
@@ -96,7 +96,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
         //public async Task ExportFileForLanguageResource(string templateId, string languageResourceId)
         //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var groupShareClient = Helper.GsClient;
         //    var document =await
         //        groupShareClient.TranslationMemories.ExportFileForLanguageResource(templateId, languageResourceId);
 
@@ -107,7 +107,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
         //public async Task ResetToDefaultLanguageResource(string templateId, string languageResourceId)
         //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var groupShareClient = Helper.GsClient;
         //    await groupShareClient.TranslationMemories.ResetToDefaultLanguageResource(templateId, languageResourceId);
 
         //}

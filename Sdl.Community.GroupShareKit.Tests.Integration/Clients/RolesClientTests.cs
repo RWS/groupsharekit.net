@@ -13,7 +13,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetAllRoles()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var response = await groupShareClient.Role.GetAllRoles();
 
             Assert.True(response.Count > 0);
@@ -23,7 +23,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("793f3f38-3899-49e5-b793-99a53cd1d24d")]
         public async Task GetRole(string roleId)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var response = await groupShareClient.Role.GetRole(roleId);
 
             Assert.Equal(response.UniqueId.ToString(), roleId);
@@ -32,7 +32,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //[Fact]
         //public async Task RoleMembership()
         //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var groupShareClient = Helper.GsClient;
 
         //    var newRoleMembership = new List<Role>
         //    {
@@ -68,7 +68,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task CreateRole()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var id = Guid.NewGuid();
             var name = $"testRole-{id}";
             var roleId = await groupShareClient.Role.CreateRole(new RoleRequest(
@@ -91,7 +91,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task AddRemoveUsersToRole()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var id = Guid.NewGuid();
             var name = $"testRole-{id}";
             var roleId = await groupShareClient.Role.CreateRole(new RoleRequest(
@@ -140,7 +140,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("793f3f38-3899-49e5-b793-99a53cd1d24d")]
         public async Task GetUsersForSpecificRole(string roleId)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var users = await groupShareClient.Role.GetUsersForRole(roleId);
 
             Assert.True(users.Count != 0);

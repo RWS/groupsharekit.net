@@ -12,7 +12,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetAllLanguageResourceTemplates()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var templatesResponse = await groupShareClient.TranslationMemories.GetAllLanguageResourceTemplates();
 
             Assert.True(templatesResponse.Items.Count > 0);
@@ -22,7 +22,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("78df3807-06ac-438e-b2c8-5e233df1a6a2")]
         public async Task GetLanguageResourceTemplateById(string templateId)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var template = await groupShareClient.TranslationMemories.GetTemplateById(templateId);
 
             Assert.Equal(template.LanguageResourceTemplateId, templateId);
@@ -32,7 +32,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("78df3807-06ac-438e-b2c8-5e233df1a6a2")]
         public async Task UpdateLanguageResourceTemplate(string templateId)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var request = new FieldTemplateRequest
             {
                 Name = "UpdatedName",
@@ -50,7 +50,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("Kit2")]
         public async Task CreateTemplate(string templateName)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var request = new ResourceServiceDefaultsRequest(ResourceServiceDefaultsRequest.ResourceType.Variables,
                 "ro-ro");
 
@@ -85,7 +85,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("Template to be deleted")]
         public async Task DeleteTemplate(string templateName)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var template = new LanguageResourceTemplate
             {
                 LanguageResourceTemplateId = Guid.NewGuid().ToString(),

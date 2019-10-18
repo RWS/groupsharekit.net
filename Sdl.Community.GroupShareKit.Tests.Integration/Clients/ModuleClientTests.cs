@@ -8,7 +8,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetModules()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var modules = await groupShareClient.ModuleClient.GetModules();
 
             Assert.True(modules != null);

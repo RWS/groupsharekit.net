@@ -8,7 +8,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetAll()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var response = await groupShareClient.Permission.GetAll();
 
             Assert.True(response.Count > 0);
@@ -17,7 +17,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetAllPermissionsName()
         {
-            var grClient = await Helper.GetGroupShareClient();
+            var grClient = Helper.GsClient;
             var response = await grClient.Permission.GetUsersPermisions();
 
             Assert.True(response.Count > 0);

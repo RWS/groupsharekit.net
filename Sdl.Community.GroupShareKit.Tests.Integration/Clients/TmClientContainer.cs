@@ -10,7 +10,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetContainers()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
 
             var response = await groupShareClient.TranslationMemories.GetContainers();
             Assert.True(response.Items.Count > 0);
@@ -19,7 +19,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task CreateContainer()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var request = new ContainerRequest
             {
                 OwnerId = "10356fd8-a087-4676-a320-d72c8f1fa0bd",
@@ -41,7 +41,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("ee2871af-a5a5-46ca-9b05-0f216744e8fe")]
         public async Task GetContainerById(string containerId)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var container = await groupShareClient.TranslationMemories.GetContainerById(containerId);
 
             Assert.Equal(container.ContainerId, containerId);
@@ -50,7 +50,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task DeleteContainer()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var request = new ContainerRequest
             {
                 OwnerId = "10356fd8-a087-4676-a320-d72c8f1fa0bd",
@@ -71,7 +71,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task UpdateContainer()
         {
             //Creates a new container
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var request = new ContainerRequest
             {
                 OwnerId = "10356fd8-a087-4676-a320-d72c8f1fa0bd",
