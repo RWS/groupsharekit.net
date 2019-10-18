@@ -10,7 +10,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetDbServers()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
 
             var response = await groupShareClient.TranslationMemories.GetDbServers();
 
@@ -20,7 +20,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task CreateDbServer()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var dbServerRequest = new DatabaseServerRequest
             {
                 DatabaseServerId = Guid.NewGuid().ToString(),
@@ -44,7 +44,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("6c32b2ed-77b3-41fa-87f3-02cce2db72e4")]
         public async Task GetDbServer(string serverId)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
 
             var server = await groupShareClient.TranslationMemories.GetDbServerById(serverId);
 
@@ -54,7 +54,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task UpdateDbServer()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
 
             var dbServerRequest = new DatabaseServerRequest
             {
@@ -85,7 +85,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task DeleteDbServer()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var dbServerRequest = new DatabaseServerRequest
             {
                 DatabaseServerId = Guid.NewGuid().ToString(),

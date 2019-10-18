@@ -3,7 +3,6 @@ using Sdl.Community.GroupShareKit.Models.Response;
 using Sdl.Community.GroupShareKit.Tests.Integration.Setup;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -51,47 +50,37 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task Create()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var uniqueId = Guid.NewGuid();
+
             var organization = new Organization()
             {
                 UniqueId = uniqueId,
-                Name = $"automated organization {uniqueId}",
+                Name = $"test_ {uniqueId}",
                 IsLibrary = true,
                 Description = null,
-                Path = null,
+                Path = "/",
                 ParentOrganizationId = new Guid(Helper.OrganizationId),
                 ChildOrganizations = null,
                 Tags = new List<string>() { "tagTest" }
-
-
             };
+
             var organizationId = await groupShareClient.Organization.Create(organization);
 
             Assert.True(organizationId != string.Empty);
 
-            await GetOrganizationsByTag(organization.Tags[0]);
+            var response = await groupShareClient.Organization.GetByTag("tagTest");
+            Assert.True(response.Count > 0);
 
             await Update(organizationId);
-
             await groupShareClient.Organization.DeleteOrganization(organizationId);
-        }
-
-        [Theory]
-        [MemberData(nameof(OrganizationData.OrganizationTag), MemberType = typeof(OrganizationData))]
-        public async Task GetOrganizationsByTag(string tag)
-        {
-            var groupShareClient = Helper.GsClient;
-            var response = await groupShareClient.Organization.GetByTag(tag);
-
-            Assert.True(response.Count > 0);
         }
 
         [Theory]
         [MemberData(nameof(OrganizationData.OrganizationId), MemberType = typeof(OrganizationData))]
         public async Task GetOrganizationResources(string organizationId)
         {
-            var grClient = await Helper.GetGroupShareClient();
+            var grClient = Helper.GsClient;
             var orgResources = await grClient.Organization.GetAllOrganizationResources(organizationId);
 
             Assert.True(orgResources.Count > 0);
@@ -101,7 +90,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [MemberData(nameof(OrganizationData.OrganizationId), MemberType = typeof(OrganizationData))]
         public async Task MoveResourceToOrganization(string organizationId)
         {
-            var grClient = await Helper.GetGroupShareClient();
+            var grClient = Helper.GsClient;
             var newOrganizationId = await Helper.CreateOrganizationAsync();
             var templateId = await Helper.CreateTemplateResourceAsync(newOrganizationId);
 
@@ -123,7 +112,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [MemberData(nameof(OrganizationData.OrganizationId), MemberType = typeof(OrganizationData))]
         public async Task LinkResourceToOrganization(string organizationId)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
            
             var newOrganizationId = await Helper.CreateOrganizationAsync();
             var firstResource = await Helper.CreateTemplateResourceAsync(organizationId);

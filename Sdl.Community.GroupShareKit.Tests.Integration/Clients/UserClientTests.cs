@@ -46,7 +46,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var description = $"Updated description at {DateTime.Now.ToLongDateString()}";
 
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var response = await groupShareClient.User.Get(new UserRequest(userName));
             response.Description = description;
 
@@ -60,7 +60,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task Users_UpdateUserLanguageDirections_Succeeds()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
 
             var uniqueId = Guid.NewGuid().ToString();
             var name = $"automated user {uniqueId}";
@@ -111,7 +111,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task Users_CreateUser_Succeeds()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var uniqueId = Guid.NewGuid().ToString();
 
             var newUser = new CreateUserRequest

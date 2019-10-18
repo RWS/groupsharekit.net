@@ -41,40 +41,32 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
                 token,
                 GsUser,
                 GsPassword,
-                GsBearerId,
+                "",
                 BaseUri,
                 GroupShareClient.AllScopes).Result;
 
             GsUserId = GsClient.User.Get(new UserRequest(GsUser)).Result.UniqueId;
 
-            var organization = GsClient.Organization.GetAll(new OrganizationRequest(true)).Result.FirstOrDefault(o => o.Name == Organization);
-            if (organization != null) OrganizationId = organization.UniqueId.ToString();
-            if (organization != null) OrganizationTag = organization.Tags.FirstOrDefault();
-            var role = GsClient.Role.GetAllRoles().Result.FirstOrDefault(r => r.Name == "Power User");
-            if (role != null) PowerUserRoleId = role.UniqueId.ToString();
-        }
+            var sanitizedOrganizationName = Organization.Trim('/');
+            var organization = GsClient
+                .Organization
+                .GetAll(new OrganizationRequest(true)).Result
+                .FirstOrDefault(o => o.Name == sanitizedOrganizationName);
 
-        private static GroupShareClient gsClient;
-        public static async Task<IGroupShareClient> GetGroupShareClient()
-        {
-            if (gsClient != null)
-            { return gsClient; }
+            if (organization != null)
+            {
+                OrganizationId = organization.UniqueId.ToString();
+                OrganizationTag = organization.Tags.FirstOrDefault();
+            }
 
-            var token = await GroupShareClient.GetRequestToken(
-                GsUser,
-                GsPassword,
-                BaseUri,
-                GroupShareClient.AllScopes);
-
-            gsClient = await GroupShareClient.AuthenticateClient(
-                token,
-                GsUser,
-                GsPassword,
-                "",
-                BaseUri,
-                GroupShareClient.AllScopes);
-
-            return gsClient;
+            var role = GsClient
+                .Role
+                .GetAllRoles().Result
+                .FirstOrDefault(r => r.Name == "Power User");
+            if (role != null)
+            {
+                PowerUserRoleId = role.UniqueId.ToString();
+            }
         }
 
         public static string GetVariable(string key)
@@ -99,7 +91,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
                 ChildOrganizations = null
             };
 
-            return await gsClient.Organization.Create(organization);
+            return await GsClient.Organization.Create(organization);
         }
 
         public static async Task<string> CreateTemplateResourceAsync(string orgId)
@@ -107,7 +99,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
             var id = Guid.NewGuid().ToString();
             var templateRequest = new ProjectTemplates(id, $"automated template {id}", "", orgId);
             var rawData = System.IO.File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
-            var templateId = await gsClient.Project.CreateTemplate(templateRequest, rawData);
+            var templateId = await GsClient.Project.CreateTemplate(templateRequest, rawData);
             return templateId;
         }
     }

@@ -18,7 +18,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         public ProjectClientTests()
         {
-            var groupShareClient = Helper.GetGroupShareClient().Result;
+            var groupShareClient = Helper.GsClient;
 
             var projectRequest = new ProjectsRequest("/", true, 7) { Page = "0", Limit = "1" };
             var project = groupShareClient.Project.GetProject(projectRequest).Result.Items.FirstOrDefault();
@@ -36,7 +36,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task Projects_GetProjectByName_Succeeds()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var projects = await groupShareClient.Project.GetAllProjects();
             var project = projects.Items.FirstOrDefault();
 
@@ -52,7 +52,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task Projects_SortProjectsByName_Succeeds()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var sortParameters = new SortParameters
             {
                 Property = SortParameters.PropertyOption.ProjectName,
@@ -78,7 +78,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task Projects_GetProjectFiles_Succeeds()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var projects = await groupShareClient.Project.GetAllProjects();
             var project = projects.Items.FirstOrDefault();
 
@@ -90,7 +90,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task Projects_GetAllProjects_Succeeds()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var projects = await groupShareClient.Project.GetAllProjects();
             Assert.True(projects.Count > 0);
         }
@@ -98,7 +98,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task Projects_AnalysisReports_Succeeds()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var report = await groupShareClient.Project.GetAnalysisReports(ProjectId, null);
             Assert.True(report.Count > 0);
         }
@@ -106,7 +106,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task Projects_AnalysisReportsAsHtml_Succeeds()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var report = await groupShareClient.Project.GetAnalysisReportsAsHtml(ProjectId, null);
             Assert.True(report != null);
         }
@@ -114,7 +114,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 	    [Fact]
 	    public async Task Projects_GetProjectSettings_Succeeds()
 	    {
-		    var groupShareClient = await Helper.GetGroupShareClient();
+		    var groupShareClient = Helper.GsClient;
 		    var projectSettings = await groupShareClient.Project.GetProjectSettings(ProjectId, LanguageFileId);
 
 			Assert.True(projectSettings!=null);
@@ -123,7 +123,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
 		public async Task Projects_IsUserAuthorizedToOpenTheFile_Succeeds()
 	    {
-		    var groupShareClient = await Helper.GetGroupShareClient();
+		    var groupShareClient = Helper.GsClient;
 		    var response = await groupShareClient.Project.IsUserAuthorizedToOpenFile(ProjectId, LanguageFileId);
 
 		    Assert.True(string.IsNullOrEmpty(response));
@@ -132,7 +132,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
 	    public async Task Projects_EditorProfile_Succeeds()
 	    {
-		    var groupShareClient = await Helper.GetGroupShareClient();
+		    var groupShareClient = Helper.GsClient;
 		    var editorProfile = await groupShareClient.Project.EditorProfile(ProjectId, LanguageFileId);
 
 		    Assert.True(editorProfile!=null);
@@ -141,14 +141,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
 	    public async Task Projects_IsCheckOutToSomeoneElse_Succeeds()
 	    {
-		    var groupShareClient = await Helper.GetGroupShareClient();
+		    var groupShareClient = Helper.GsClient;
 		    await groupShareClient.Project.IsCheckoutToSomeoneElse(LanguageFileId);  
 	    }
 
 		//[Fact(Skip = "")]
 		//public async Task Projects_OnlineCheckIn_Succeeds()
 		//{
-		//	var groupShareClient = await Helper.GetGroupShareClient();	 
+		//	var groupShareClient = Helper.GsClient;	 
 
 		//	var response =await groupShareClient.Project.OnlineCheckin(ProjectId, LanguageFileId).ConfigureAwait(true);
 		//	Assert.True(response!=null);
@@ -157,7 +157,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //[Fact]
         //public async Task OnlineCheckout()
         //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var groupShareClient = Helper.GsClient;
 
         //    var checkoutResponse = await groupShareClient.Project.OnlineCheckout(ProjectId, LanguageFileId);
         //    Assert.True(checkoutResponse != null);
@@ -168,7 +168,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //[Fact(Skip = "")]
         //public async Task ExternalCheckIn()
         //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var groupShareClient = Helper.GsClient;
 
         //    var response = await groupShareClient.Project.ExternalCheckout(ProjectId, LanguageFileId);
         //    Assert.True(response != null);
@@ -178,7 +178,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
 	    public async Task Dashboard()
 	    {
-			var groupShareClient = await Helper.GetGroupShareClient();
+			var groupShareClient = Helper.GsClient;
 		    var dashboard = await groupShareClient.Project.Dashboard();
 			Assert.True(dashboard!=null);
 	    }
@@ -186,7 +186,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
 	    public async Task AuditTrial()
 	    {
-			var groupShareClient = await Helper.GetGroupShareClient();
+			var groupShareClient = Helper.GsClient;
 		    var auditTrial = await groupShareClient.Project.AuditTrial(ProjectId);
 
 			Assert.True(auditTrial?.Count>0);  
@@ -195,7 +195,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 		[Fact]
 	    public async Task OnlineCheckoutHealthCheck()
 	    {
-			var groupShareClient = await Helper.GetGroupShareClient();
+			var groupShareClient = Helper.GsClient;
 		    var response = await groupShareClient.Project.OnlineCheckoutHealthCheck();
 		    Assert.True(response != null);
 	    }
@@ -203,7 +203,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 		[Fact]
         public async Task GetProjectById()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
 
             var projects = await groupShareClient.Project.GetAllProjects();
             var project = projects.Items.FirstOrDefault();		  
@@ -221,7 +221,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //[Fact]
         //public async Task GetProjectLanguageStatistics()
         //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var groupShareClient = Helper.GsClient;
 
         //    var projects = await groupShareClient.Project.GetAllProjects();
         //    var project = projects.Items.FirstOrDefault();
@@ -234,7 +234,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetProjectFileStatistics()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
 
             var projects = await groupShareClient.Project.GetAllProjects();
             var project = projects.Items.FirstOrDefault();
@@ -246,9 +246,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [InlineData("SDL Community Developers")]
-        public async Task GetProjectsForOrganization(string organizationName)
+        public void GetProjectsForOrganization(string organizationName)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var projects = groupShareClient.Project.GetProjectsForOrganization(organizationName);
 
             foreach (var project in projects)
@@ -260,7 +260,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task<string> CreateProject()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
 
             var projectRequest = new ProjectsRequest("/", true, 7) { Filter = { ProjectName = "today" } };
             var result = await groupShareClient.Project.GetProject(projectRequest);
@@ -288,7 +288,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact(Skip = "Used to work until GroupShare 2017 CU7")]
         public async Task PublishPackage()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\ProjectPackage.sdlppx"));
             var createProjectRequest = new CreateProjectRequest(
                 "ProjectForPublish",
@@ -304,7 +304,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetProjectsAssignments()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var projects = await groupShareClient.Project.GetUserAssignments();
 
             Assert.True(projects.Count > 0);
@@ -313,7 +313,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetProjectAssignmentsById()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var fileIds = new List<string> { LanguageFileId };
 
             var assignments = await groupShareClient.Project.GetProjectAssignmentById(ProjectId, fileIds);
@@ -324,7 +324,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task ChangeProjectStatus()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
 
             var projectStatusRequest = new ChangeStatusRequest(ProjectId, ChangeStatusRequest.ProjectStatus.Completed);
             await groupShareClient.Project.ChangeProjectStatus(projectStatusRequest);
@@ -342,7 +342,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task ChangeProjectStatusDetach()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
 
             var projectStatusRequest = new ChangeStatusRequest(ProjectId, ChangeStatusRequest.ProjectStatus.Completed);
             await groupShareClient.Project.ChangeProjectStatusDetach(projectStatusRequest);
@@ -360,7 +360,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetAllProjectsTemplates()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var templates = await groupShareClient.Project.GetAllTemplates();
 
             Assert.True(templates.Count > 0);
@@ -369,7 +369,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task<string> GetTemplateById()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
 
             var template = await groupShareClient.Project.GetTemplateById(ProjectTemplateId);
 
@@ -380,7 +380,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task CreateTemplate()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
 
             var id = Guid.NewGuid().ToString();
@@ -398,7 +398,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetFileVersions()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var fileVersion = await groupShareClient.Project.GetFileVersions(LanguageFileId);
 
             Assert.True(fileVersion.Count > 0);
@@ -407,7 +407,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task DownloadFileVersion()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var downloadedFile = await groupShareClient.Project.DownloadFileVersion(ProjectId, LanguageFileId, 2);
 
             Assert.True(downloadedFile.Length != 0);
