@@ -1,19 +1,22 @@
-﻿using System.Threading.Tasks;
+﻿using Sdl.Community.GroupShareKit.Clients;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class PublishingStatusClientTests
     {
-        [Theory]
-        [InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8")]
-        public async Task PublishingStatusProject(string projectId)
+        [Fact]
+        public async Task PublishingStatusProject()
         {
             var groupShareClient = Helper.GsClient;
+            var projectRequest = new ProjectsRequest("/", true, 7) { Page = "0", Limit = "1" };
+            var project = groupShareClient.Project.GetProject(projectRequest).Result.Items.FirstOrDefault();
+            var projectId = project != null ? project.ProjectId : string.Empty;
+            var publishingStatus = await groupShareClient.Project.PublishingStatus(projectId);
 
-            var project = await groupShareClient.Project.PublishingStatus(projectId);
-
-            Assert.True(project != null);
+            Assert.True(publishingStatus != null);
         }
     }
 }
