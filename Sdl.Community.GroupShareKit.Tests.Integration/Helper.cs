@@ -19,8 +19,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
 
         public static string GsPassword => GetVariable("GROUPSHAREKIT_PASSWORD");
 
-        public static string GsBearerId = GetVariable("GROUPSHAREKIT_BEARERID");
-
         public static string Organization => GetVariable("GROUPSHAREKIT_TESTORGANIZATION");
 
         public static string OrganizationId { get; }
@@ -97,9 +95,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
         public static async Task<string> CreateTemplateResourceAsync(string orgId)
         {
             var id = Guid.NewGuid().ToString();
-            var templateRequest = new ProjectTemplates(id, $"automated template {id}", "", orgId);
+
+            var templateRequest = new ProjectTemplates(id, $"project template {id}", "", orgId);
             var rawData = System.IO.File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
             var templateId = await GsClient.Project.CreateTemplate(templateRequest, rawData);
+
             return templateId;
         }
     }
