@@ -14,7 +14,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var response = await groupShareClient.TranslationMemories.GetDbServers();
 
-            Assert.True(response.Items.Count>0);
+            Assert.True(response.Items.Count > 0);
         }
 
         [Fact]
@@ -24,13 +24,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var dbServerRequest = new DatabaseServerRequest
             {
                 DatabaseServerId = Guid.NewGuid().ToString(),
-                Name = "Added server",
+                Name = "Test Server",
                 Description = "Added from kit",
-                OwnerId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
-                Location = "/SDL Community Developers",
-                Password = "Commun1tyRocks",
-                UserName = "SDLCommunity",
-                Host = "Added server"
+                OwnerId = Helper.OrganizationId,
+                Location = Helper.Organization,
+                Host = Helper.GsServerName
             };
 
             var serverId = await groupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
@@ -40,15 +38,24 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.TranslationMemories.DeleteDbServer(serverId);
         }
 
-        [Theory]
-        [InlineData("6c32b2ed-77b3-41fa-87f3-02cce2db72e4")]
-        public async Task GetDbServer(string serverId)
+        [Fact]
+        public async Task GetDbServer()
         {
             var groupShareClient = Helper.GsClient;
+            var dbServerRequest = new DatabaseServerRequest
+            {
+                DatabaseServerId = Guid.NewGuid().ToString(),
+                Name = "Test Server",
+                Description = "Added from kit",
+                OwnerId = Helper.OrganizationId,
+                Location = Helper.Organization,
+                Host = Helper.GsServerName
+            };
 
+            var serverId = await groupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
             var server = await groupShareClient.TranslationMemories.GetDbServerById(serverId);
 
-            Assert.Equal(server.DatabaseServerId,serverId);
+            Assert.Equal(server.DatabaseServerId, serverId);
         }
 
         [Fact]
@@ -56,23 +63,21 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
 
-            var dbServerRequest = new DatabaseServerRequest
+             var dbServerRequest = new DatabaseServerRequest
             {
                 DatabaseServerId = Guid.NewGuid().ToString(),
-                Name = "Added server",
+                Name = "Test Server",
                 Description = "Added from kit",
-                OwnerId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
-                Location = "/SDL Community Developers",
-                Password = "Commun1tyRocks",
-                UserName = "SDLCommunity",
-                Host = "Added server"
+                OwnerId = Helper.OrganizationId,
+                Location = Helper.Organization,
+                Host = Helper.GsServerName
             };
 
             var serverId = await groupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
 
             Assert.True(serverId != string.Empty);
 
-            var request = new RequestDbServer("Updated server name", "", "SDLCommunity", "Commun1tyRocks");
+            var request = new RequestDbServer("Updated server name", "", "", "");
 
             await groupShareClient.TranslationMemories.UpdateDbServer(serverId, request);
             var updatedServer = await groupShareClient.TranslationMemories.GetDbServerById(serverId);
@@ -89,18 +94,22 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var dbServerRequest = new DatabaseServerRequest
             {
                 DatabaseServerId = Guid.NewGuid().ToString(),
-                Name = "server",
+                Name = "Test Server",
                 Description = "Added from kit",
-                OwnerId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
-                Location = "/SDL Community Developers",
-                Password = "Commun1tyRocks",
-                UserName = "SDLCommunity",
-                Host = "server"
+                OwnerId = Helper.OrganizationId,
+                Location = Helper.Organization,
+                Host = Helper.GsServerName
             };
 
             var serverId = await groupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
-
+            var dbServersBefore = await groupShareClient.TranslationMemories.GetDbServers();
+            var dbServersBeforeCount = dbServersBefore.Items.Count;
+           
             await groupShareClient.TranslationMemories.DeleteDbServer(serverId);
+            var dbServers = await groupShareClient.TranslationMemories.GetDbServers();
+            var dbServersCount = dbServers.Items.Count;
+
+            Assert.True(dbServersCount < dbServersBeforeCount);
         }        
     }
 }
