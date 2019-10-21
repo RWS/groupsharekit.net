@@ -1,5 +1,6 @@
 ﻿using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -7,6 +8,21 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class TmClientContainer
     {
+        private readonly DatabaseServerRequest DbServerRequest;
+        public TmClientContainer()
+        {
+           var groupShareClient = Helper.GsClient;
+           DbServerRequest = new DatabaseServerRequest
+           {
+               DatabaseServerId = Guid.NewGuid().ToString(),
+               Name = "Test Server",
+               Description = "Added from kit",
+               OwnerId = Helper.OrganizationId,
+               Location =Helper.Organization,
+               Host = Helper.GsServerName
+           };
+        }
+
         [Fact]
         public async Task GetContainers()
         {
@@ -20,14 +36,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task CreateContainer()
         {
             var groupShareClient = Helper.GsClient;
+            var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(DbServerRequest);
+            var containerGuid = Guid.NewGuid().ToString();
             var request = new ContainerRequest
             {
-                OwnerId = "10356fd8-a087-4676-a320-d72c8f1fa0bd",
-                Location = "/SDL Community Developers/Project Resources",
-                ContainerId = Guid.NewGuid().ToString(),
-                DatabaseServerId = "8294e2e4-30dd-4dec-9bd9-7cb10bcf70b0",
-                DatabaseName = "containerName1",
-                DisplayName = " Container",
+                OwnerId = Helper.OrganizationId,
+                Location = Helper.Organization,
+                ContainerId = containerGuid,
+                DatabaseServerId = dbServerId,
+                DatabaseName = "TestContainer",
+                DisplayName = "TestContainer",
                 IsShared = false
             };
 
@@ -35,36 +53,58 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(containerId != string.Empty);
 
             await groupShareClient.TranslationMemories.DeleteContainer(containerId);
+            await groupShareClient.TranslationMemories.DeleteDbServer(dbServerId);
         }
 
-        [Theory]
-        [InlineData("ee2871af-a5a5-46ca-9b05-0f216744e8fe")]
-        public async Task GetContainerById(string containerId)
+        [Fact]
+        public async Task GetContainerById()
         {
             var groupShareClient = Helper.GsClient;
+            var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(DbServerRequest);
+            var containerGuid = Guid.NewGuid().ToString();
+            var request = new ContainerRequest
+            {
+                OwnerId = Helper.OrganizationId,
+                Location = Helper.Organization,
+                ContainerId = containerGuid,
+                DatabaseServerId = dbServerId,
+                DatabaseName = "TestContainer",
+                DisplayName = "TestContainer",
+                IsShared = false
+            };
+            var containerId = await groupShareClient.TranslationMemories.CreateContainer(request);
             var container = await groupShareClient.TranslationMemories.GetContainerById(containerId);
-
             Assert.Equal(container.ContainerId, containerId);
+
+            await groupShareClient.TranslationMemories.DeleteContainer(containerId);
+            await groupShareClient.TranslationMemories.DeleteDbServer(dbServerId);
         }
 
         [Fact]
         public async Task DeleteContainer()
         {
             var groupShareClient = Helper.GsClient;
+            var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(DbServerRequest);
+            var containerGuid = Guid.NewGuid().ToString();
             var request = new ContainerRequest
             {
-                OwnerId = "10356fd8-a087-4676-a320-d72c8f1fa0bd",
-                Location = "/SDL Community Developers/Project Resources",
-                ContainerId = Guid.NewGuid().ToString(),
-                DatabaseServerId = "8294e2e4-30dd-4dec-9bd9-7cb10bcf70b0",
-                DatabaseName = "Testcontainer1",
-                DisplayName = " Testcontainer1",
+                OwnerId = Helper.OrganizationId,
+                Location = Helper.Organization,
+                ContainerId = containerGuid,
+                DatabaseServerId = dbServerId,
+                DatabaseName = "TestContainer",
+                DisplayName = "TestContainer",
                 IsShared = false
             };
 
             var containerId = await groupShareClient.TranslationMemories.CreateContainer(request);
-
+            var containersBefore= await groupShareClient.TranslationMemories.GetContainers();
+            var containersBeforeCount = containersBefore.Items.Count;
             await groupShareClient.TranslationMemories.DeleteContainer(containerId);
+            var containers = await groupShareClient.TranslationMemories.GetContainers();
+            var containersCount = containers.Items.Count;
+
+            Assert.True(containersCount < containersBeforeCount);
         }
 
         [Fact]
@@ -72,14 +112,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             //Creates a new container
             var groupShareClient = Helper.GsClient;
+            var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(DbServerRequest);
+            var containerGuid = Guid.NewGuid().ToString();
             var request = new ContainerRequest
             {
-                OwnerId = "10356fd8-a087-4676-a320-d72c8f1fa0bd",
-                Location = "/SDL Community Developers/Project Resources",
-                ContainerId = Guid.NewGuid().ToString(),
-                DatabaseServerId = "8294e2e4-30dd-4dec-9bd9-7cb10bcf70b0",
-                DatabaseName = "Testcontainer1",
-                DisplayName = " Testcontainer1",
+                OwnerId = Helper.OrganizationId,
+                Location = Helper.Organization,
+                ContainerId = containerGuid,
+                DatabaseServerId = dbServerId,
+                DatabaseName = "TestContainer",
+                DisplayName = "TestContainer",
                 IsShared = false
             };
 
@@ -99,8 +141,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.Equal("Updated Name", container.DisplayName);
 
-            //Deletes created container
+            //Deletes created container and db server
             await groupShareClient.TranslationMemories.DeleteContainer(containerId);
+            await groupShareClient.TranslationMemories.DeleteDbServer(dbServerId);
         }
     }
 }

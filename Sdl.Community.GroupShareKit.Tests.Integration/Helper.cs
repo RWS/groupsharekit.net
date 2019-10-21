@@ -21,6 +21,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
 
         public static string Organization => GetVariable("GROUPSHAREKIT_TESTORGANIZATION");
 
+        public static string GsServerName = GetVariable("GROUPSHAREKIT_SERVERNAME");
+
         public static string OrganizationId { get; }
 
         public static string OrganizationTag { get; }
