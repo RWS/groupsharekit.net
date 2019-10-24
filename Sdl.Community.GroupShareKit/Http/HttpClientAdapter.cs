@@ -19,7 +19,7 @@ namespace Sdl.Community.GroupShareKit.Http
     /// </remarks>
     public class HttpClientAdapter: IHttpClient
     {
-        private readonly HttpClient _httpClient;
+        private static readonly HttpClient _httpClient = new HttpClient();
 
         /// <summary>
         /// Constructor for the Http adapter
@@ -28,10 +28,7 @@ namespace Sdl.Community.GroupShareKit.Http
         public HttpClientAdapter(Func<HttpMessageHandler> getHandler)
         {
             Ensure.ArgumentNotNull(getHandler,"getHandler");
-
-            _httpClient = new HttpClient(new RedirectHandler {InnerHandler = getHandler()});
         }
-
 
         public async Task<IResponse> Send(IRequest request, CancellationToken cancellationToken)
         {

@@ -1,6 +1,7 @@
 ﻿using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using System;
 using System.Threading.Tasks;
+using Sdl.Community.GroupShareKit.Exceptions;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
@@ -91,25 +92,23 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task DeleteDbServer()
         {
             var groupShareClient = Helper.GsClient;
+
+            var databaseServerId = Guid.NewGuid().ToString();
             var dbServerRequest = new DatabaseServerRequest
             {
-                DatabaseServerId = Guid.NewGuid().ToString(),
-                Name = "Test Server",
-                Description = "Added from kit",
+                DatabaseServerId = databaseServerId,
+                Name = $"Database server {databaseServerId}",
+                Description = "added from integration test",
                 OwnerId = Helper.OrganizationId,
                 Location = Helper.Organization,
                 Host = Helper.GsServerName
             };
 
-            var serverId = await groupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
-            var dbServersBefore = await groupShareClient.TranslationMemories.GetDbServers();
-            var dbServersBeforeCount = dbServersBefore.Items.Count;
-           
-            await groupShareClient.TranslationMemories.DeleteDbServer(serverId);
-            var dbServers = await groupShareClient.TranslationMemories.GetDbServers();
-            var dbServersCount = dbServers.Items.Count;
+            var serverId = await groupShareClient.TranslationMemories.CreateDbServer(dbServerRequest).ConfigureAwait(false);
+            await groupShareClient.TranslationMemories.DeleteDbServer(serverId).ConfigureAwait(false);
 
-            Assert.True(dbServersCount < dbServersBeforeCount);
-        }        
+            Task result() => groupShareClient.TranslationMemories.GetDbServerById(serverId);
+            await Assert.ThrowsAsync<ForbiddenException>(result);
+        }
     }
 }

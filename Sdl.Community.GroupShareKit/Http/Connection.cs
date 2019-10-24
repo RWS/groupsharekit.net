@@ -241,7 +241,7 @@ namespace Sdl.Community.GroupShareKit.Http
 
         private async Task<IResponse> RunRequest(Request request, CancellationToken cancellationToken)
         {
-          request.Headers.Add("User-Agent", UserAgent);
+            request.Headers.Add("User-Agent", UserAgent);
 
             await _authenticator.Apply(request).ConfigureAwait(false);
 
