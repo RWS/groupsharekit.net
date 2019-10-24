@@ -3,7 +3,6 @@ using Sdl.Community.GroupShareKit.Models.Response;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -22,14 +21,59 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task GetTmById()
+        public async void GetTmById()
         {
             var groupShareClient = Helper.GsClient;
-            var tmId = CreateTm();
-            var tm = await groupShareClient.TranslationMemories.GetTmById(tmId);
+            
+            var dbServerAndContainerId = await CreateContainer().ConfigureAwait(false);
+            var fieldTemplateId = await CreateFieldTemplate().ConfigureAwait(false);
+            var lrTemplateId = await CreateLanguageResourceTemplate().ConfigureAwait(false);
 
+            var tmRequest = new CreateTmRequest
+            {
+                TranslationMemoryId = Guid.NewGuid().ToString(),
+                Name = $"Test_TM {Guid.NewGuid()}",
+                LanguageDirections = new List<LanguageDirection>
+                {
+                    new LanguageDirection
+                    {
+                        LanguageDirectionId = Guid.NewGuid().ToString(),
+                        Source = "en-us",
+                        Target = "de-de",
+                        LastReIndexSize = null,
+                        LastReIndexDate = null,
+                        LastRecomputeDate = null,
+                        LastRecomputeSize = null
+                    }
+                },
+                FieldTemplateId = fieldTemplateId,
+                LanguageResourceTemplateId = lrTemplateId,
+                Recognizers = "RecognizeAll",
+                FuzzyIndexes = "SourceWordBased,TargetWordBased",
+                Location = Helper.Organization,
+                WordCountFlags = "DefaultFlags",
+                OwnerId = Helper.OrganizationId,
+                FuzzyIndexTuningSettings = new FuzzyIndexTuningSettings
+                {
+                    MinScoreIncrease = 20,
+                    MinSearchVectorLengthSourceCharIndex = 5,
+                    MinSearchVectorLengthSourceWordIndex = 3,
+                    MinSearchVectorLengthTargetCharIndex = 5,
+                    MinSearchVectorLengthTargetWordIndex = 3
+
+                },
+                ContainerId = dbServerAndContainerId.Value
+            };
+
+            var tmId = await groupShareClient.TranslationMemories.CreateTm(tmRequest).ConfigureAwait(false);
+            Assert.True(tmId != string.Empty);
+
+            var tm = await groupShareClient.TranslationMemories.GetTmById(tmId).ConfigureAwait(false);
             Assert.Equal(tmId, tm.TranslationMemoryId);
-            await groupShareClient.TranslationMemories.DeleteTm(tmId);
+
+            await groupShareClient.TranslationMemories.DeleteTm(tmId).ConfigureAwait(false);
+            await groupShareClient.TranslationMemories.DeleteContainer(dbServerAndContainerId.Value).ConfigureAwait(false);
+            await groupShareClient.TranslationMemories.DeleteDbServer(dbServerAndContainerId.Key).ConfigureAwait(false);
         }
 
         [Theory]
@@ -98,68 +142,22 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
 
-        private string CreateTm()
-        {
-            var groupShareClient = Helper.GsClient;           
-            var containerId = CreateContainer().Result;
-            var fieldtemplateId = CreateFieldTemplate().Result;
-            var lrTemplateId = CreateLanguageResourceTemplate().Result;
-            var tmRequest = new CreateTmRequest
-            {
-                TranslationMemoryId = Guid.NewGuid().ToString(),
-                Name = $"Test_TM {Guid.NewGuid()}",
-                LanguageDirections = new List<LanguageDirection>
-                {
-                    new LanguageDirection
-                    {
-                        LanguageDirectionId = Guid.NewGuid().ToString(),
-                        Source = "en-us",
-                        Target = "de-de",
-                        LastReIndexSize = null,
-                        LastReIndexDate = null,
-                        LastRecomputeDate = null,
-                        LastRecomputeSize = null
-                    }
-                },
-                FieldTemplateId = fieldtemplateId,
-                LanguageResourceTemplateId = lrTemplateId,
-                Recognizers = "RecognizeAll",
-                FuzzyIndexes = "SourceWordBased,TargetWordBased",
-                Location = Helper.Organization,
-                WordCountFlags = "DefaultFlags",
-                OwnerId = Helper.OrganizationId,
-                FuzzyIndexTuningSettings = new FuzzyIndexTuningSettings
-                {
-                    MinScoreIncrease = 20,
-                    MinSearchVectorLengthSourceCharIndex = 5,
-                    MinSearchVectorLengthSourceWordIndex = 3,
-                    MinSearchVectorLengthTargetCharIndex = 5,
-                    MinSearchVectorLengthTargetWordIndex = 3
-
-                },
-                ContainerId = containerId
-            };
-            Thread.Sleep(3000);
-            var tmId = groupShareClient.TranslationMemories.CreateTm(tmRequest).Result;
-
-            Assert.True(tmId != string.Empty);
-            return tmId;
-        }
-
-        private async Task<string> CreateContainer()
+        private static async Task<KeyValuePair<string, string>> CreateContainer()
         {
             var groupShareClient = Helper.GsClient;
+
             var dbServerGuid = Guid.NewGuid().ToString();
             var dbServerRequest = new DatabaseServerRequest
             {
                 DatabaseServerId = dbServerGuid,
-                Name = $"Test_Server {dbServerGuid}",
-                Description = "Added from kit",
+                Name = $"DB server {dbServerGuid}",
+                Description = "added from gskit",
                 OwnerId = Helper.OrganizationId,
                 Location = Helper.Organization,
                 Host = Helper.GsServerName
             };
             var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
+
             var containerGuid = Guid.NewGuid().ToString();
             var request = new ContainerRequest
             {
@@ -167,37 +165,41 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Location = Helper.Organization,
                 ContainerId = containerGuid,
                 DatabaseServerId = dbServerId,
-                DatabaseName = "TestContainer",
-                DisplayName = "TestContainer",
+                DatabaseName = $"TM_Container_{DateTime.Now.Ticks}",
+                DisplayName = $"DB_container_{containerGuid}",
                 IsShared = false
             };
             var containerId = await groupShareClient.TranslationMemories.CreateContainer(request);
-            return containerId;
+
+            return new KeyValuePair<string, string>(dbServerId, containerId);
         }
 
-        private async Task<string> CreateFieldTemplate()
+        private static async Task<string> CreateFieldTemplate()
         {
-            var tplId = Guid.NewGuid();
             var groupShareClient = Helper.GsClient;
+
+            var tplId = Guid.NewGuid();
             var fieldTemplate = new FieldTemplate
             {
-                Name = $"{tplId}",
+                Name = $"field template {tplId}",
                 Description = "test field template",
                 FieldTemplateId = tplId.ToString(),
                 IsTmSpecific = false,
                 Location = Helper.Organization,
                 OwnerId = Helper.OrganizationId
             };
-            var fieldtemplateId = await groupShareClient.TranslationMemories.CreateFieldTemplate(fieldTemplate);
-            return fieldtemplateId;
+
+            var fieldTemplateId = await groupShareClient.TranslationMemories.CreateFieldTemplate(fieldTemplate);
+            return fieldTemplateId;
         }
 
-        private async Task<string> CreateLanguageResourceTemplate()
+        private static async Task<string> CreateLanguageResourceTemplate()
         {
             var groupShareClient = Helper.GsClient;
-            var request = new ResourceServiceDefaultsRequest(ResourceServiceDefaultsRequest.ResourceType.Variables,
-               "ro-ro");
+
+            var request = new ResourceServiceDefaultsRequest(ResourceServiceDefaultsRequest.ResourceType.Variables, "ro-ro");
             var resource = await groupShareClient.TranslationMemories.GetDefaultsType(request);
+
             var lrTemplate = new LanguageResourceTemplate
             {
                 LanguageResourceTemplateId = Guid.NewGuid().ToString(),
@@ -218,7 +220,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 }
             };
 
-            var lrTemplateId = await groupShareClient.TranslationMemories.CreateTemplate(lrTemplate);
+            var lrTemplateId = await groupShareClient.TranslationMemories.CreateTemplate(lrTemplate).ConfigureAwait(false);
             return lrTemplateId;
         }
 

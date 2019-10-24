@@ -235,7 +235,7 @@ namespace Sdl.Community.GroupShareKit.Http
         private async Task<IApiResponse<T>> Run<T>(Request request, CancellationToken cancellationToken)
         {
             _jsonPipeline.SerializeRequest(request);
-            var response = await RunRequest(request, CancellationToken.None);
+            var response = await RunRequest(request, CancellationToken.None).ConfigureAwait(false);
             return _jsonPipeline.DeserializeResponse<T>(response);
         }
 

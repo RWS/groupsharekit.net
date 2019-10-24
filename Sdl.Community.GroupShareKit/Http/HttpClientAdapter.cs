@@ -37,20 +37,17 @@ namespace Sdl.Community.GroupShareKit.Http
         {
             Ensure.ArgumentNotNull(request,"request");
 
-            var cancellationTokenForRequest = GetCancellationForRequest(request, cancellationToken);
-
             using (var requestMessage = BuildRequestMessage(request))
             {
-                var responseMessage =
-                    await
-                        _httpClient.SendAsync(requestMessage, HttpCompletionOption.ResponseContentRead,
-                            cancellationToken)
-                            .ConfigureAwait(false);
+                var responseMessage = await _httpClient
+                    .SendAsync(requestMessage, HttpCompletionOption.ResponseContentRead, cancellationToken)
+                    .ConfigureAwait(false);
+
                 return await BuildRespose(responseMessage).ConfigureAwait(false);
             }
         }
 
-        protected async virtual  Task<IResponse> BuildRespose(HttpResponseMessage responseMessage)
+        protected virtual async Task<IResponse> BuildRespose(HttpResponseMessage responseMessage)
         {
             Ensure.ArgumentNotNull(responseMessage,"responseMessage");
 
@@ -188,7 +185,7 @@ namespace Sdl.Community.GroupShareKit.Http
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var response = await base.SendAsync(request, cancellationToken);
+            var response = await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
 
             // Can't redirect without somewhere to redirect too.  Throw?
             if (response.Headers.Location == null) return response;
