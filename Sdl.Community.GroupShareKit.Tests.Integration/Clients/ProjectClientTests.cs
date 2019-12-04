@@ -175,7 +175,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    await groupShareClient.Project.ExternalCheckin(ProjectId, LanguageFileId, "comment");
         //}
 
-        [Fact]
+      [Fact]
 	    public async Task Dashboard()
 	    {
 			var groupShareClient = Helper.GsClient;
@@ -413,5 +413,95 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(downloadedFile.Length != 0);
         }
         #endregion
+
+        #region Dashboard
+
+        [Fact]
+        [Trait("GSVersion", "2017")]
+        public async Task Dashboard()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var dashboard = await groupShareClient.Project.Dashboard();
+            Assert.True(dashboard != null);
+        }
+
+        [Fact(Skip = "Endpoint not present in CU10")]
+        public async Task DashboardProjectsPerMonth()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var projectCounts = await groupShareClient.Project.DataboardProjectsPerMonth();
+            Assert.True(projectCounts != null);
+        }
+
+        [Fact(Skip = "Endpoint not present in CU10")]
+        public async Task DashboardTopLanguagePairs()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var languagePairs = await groupShareClient.Project.DashboardTopLanguagePairs(5);
+            Assert.True(languagePairs != null);
+        }
+
+        [Fact(Skip = "Endpoint not present in CU10")]
+        public async Task DashboardWordsPerMonth()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var wordCounts = await groupShareClient.Project.DashboardWordsPerMonth();
+            Assert.True(wordCounts != null);
+        }
+
+        [Fact(Skip = "Endpoint not present in CU10")]
+        public async Task DashboardWordsPerOrganization()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var wordCounts = await groupShareClient.Project.DashboardWordsPerOrganization();
+            Assert.True(wordCounts != null);
+        }
+
+        [Fact(Skip = "Endpoint not present in CU10")]
+        public async Task DashboardStatistics()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var statistics = await groupShareClient.Project.DashboardStatistics();
+            Assert.True(statistics != null);
+        }
+        #endregion
+
+        #region Reporting
+        [Fact(Skip = "Endpoint not present in CU10")]
+        public async Task ReportingProjectPredefinedReportData()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var options = new ReportingOptions
+            {
+                Status = 7
+            };
+            var reportingData = await groupShareClient.Project.ReportingProjectPredefinedReportData(options);
+            Assert.True(reportingData != null);
+        }
+
+        [Fact(Skip = "Endpoint not present in CU10")]
+        public async Task ReportingTasksReportData()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var options = new ReportingOptions
+            {
+                Status = 7
+            };
+            var reportingData = await groupShareClient.Project.ReportingTasksReportData(options);
+            Assert.True(reportingData != null);
+        }
+
+        [Fact(Skip = "Endpoint not present in CU10")]
+        public async Task ReportingTmLeverageData()
+        {
+            var groupShareClient = await Helper.GetGroupShareClient();
+            var options = new ReportingOptions
+            {
+                Status = 7
+            };
+            var reportingData = await groupShareClient.Project.ReportingTmLeverageData(options);
+            Assert.True(reportingData != null);
+        }
+        #endregion Reporting
     }
 }

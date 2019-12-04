@@ -772,10 +772,56 @@ namespace Sdl.Community.GroupShareKit.Helpers
 		    return "{0}/dashboard".FormatUri(CurrentProjectServerUrl);
 	    }
 
-	    /// <summary>
-	    /// Returns the <see cref="Uri"/> that retries the audit trail for all the language files in the given project
-	    /// </summary>
-	    public static Uri AuditTrial(string projectId)
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for dashboard projects per month
+        /// </summary>
+        /// <returns></returns>
+        public static Uri DashboardProjectsPerMonth()
+        {
+            return "{0}/dashboard/projectsPerMonth".FormatUri(CurrentProjectServerUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for dashboard top language pairs
+        /// </summary>
+        /// <param name="noOfTopLanguagePairs"></param>
+        /// <returns></returns>
+        public static Uri DashboardTopLanguagePairs(int? noOfTopLanguagePairs = null)
+        {
+            return "{0}/dashboard/topLanguagePairs/{1}".FormatUri(CurrentProjectServerUrl, noOfTopLanguagePairs);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for dashboard words per month
+        /// </summary>
+        /// <returns></returns>
+        public static Uri DashboardWordsPerMonth()
+        {
+            return "{0}/dashboard/wordsPerMonth".FormatUri(CurrentProjectServerUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for dashboard words per month
+        /// </summary>
+        /// <returns></returns>
+        public static Uri DashboardWordsPerOrganization()
+        {
+            return "{0}/dashboard/wordsPerOrganization".FormatUri(CurrentProjectServerUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for dashboard statistics
+        /// </summary>
+        /// <returns></returns>
+        public static Uri DashboardStatistics()
+        {
+            return "{0}/dashboard/statistics".FormatUri(CurrentProjectServerUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that retries the audit trail for all the language files in the given project
+        /// </summary>
+        public static Uri AuditTrial(string projectId)
 	    {
 		    return "{0}/auditTrail/languageFiles/{1}".FormatUri(CurrentProjectServerUrl, projectId);
 	    }
@@ -900,6 +946,36 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri DeleteJob(string jobId)
         {
             return "{0}/job/{1}".FormatUri(TranslateAndAnalysisServiceUrl, jobId);
-        } 
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for projects report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetProjectPredefinedReportData(string options)
+        {
+            return "{0}/projectPredefinedReports?filter={1}".FormatUri(CurrentProjectServerUrl, options);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for tasks Report report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetTasksReportData(string options)
+        {
+            return "{0}/tasksReport?filter={1}".FormatUri(CurrentProjectServerUrl, options);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for TM Leverage report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetTmLeverageData(string options)
+        {
+            return "{0}/tmLeverageReport?filter={1}".FormatUri(CurrentProjectServerUrl, options);
+        }
     }
 }
