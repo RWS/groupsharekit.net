@@ -44,8 +44,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<TranslationMemoryDetails> GetTmById(string tmId);
 
         /// <summary>
-        /// Before you create a TM please make sure you HAVE CREATED A TEMPLATE FIELD and a LANGUAGE RESOURCE TEMPLATE
-        /// USE thoes id in the create request 
+        /// Before you create a TM please make sure you HAVE CREATED A TEMPLATE FIELD and a LANGUAGE RESOURCE TEMPLATE.
+        /// USE these ids in the create request 
         /// Creates a Translation Memory/>.
         /// </summary>
         /// <remarks>
