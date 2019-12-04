@@ -84,6 +84,7 @@ owned by that account. Then set the following environment variables:
 `GROUPSHAREKIT_USERNAME` (set this to the test account's username)
 `GROUPSHAREKIT_PASSWORD` (set this to the test account's password)
 `GROUPSHAREKIT_TESTORGANIZATION` (set this to the test account's organization)
+`GROUPSHAREKIT_SERVERNAME` (set this to your sql server name)
 `GROUPSHAREKIT_BASEURI` (set this to the url of your GroupShare instance)
 `GROUPSHAREKIT_BEARERID` (optional, set to additional BearerId added to requests. If not provided, default connection is used)
 

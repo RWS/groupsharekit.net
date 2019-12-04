@@ -1,4 +1,5 @@
-﻿using Sdl.Community.GroupShareKit.Models.Response;
+﻿using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Models.Response;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using System;
 using System.Collections.Generic;
@@ -7,107 +8,120 @@ using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
-    public class TranslationMemoriesClientTest
+    public class TranslationMemoriesClientTest : IDisposable
     {
-        [Fact]
-        public async Task GetTms()
+        private static readonly GroupShareClient gsClient = Helper.GsClient;
+
+        private string dbServerId;
+        private string containerId;
+        private string fieldTemplateId;
+        private string lrTemplateId;
+        private string languageDirectionId;
+        private string tmId;
+
+        public TranslationMemoriesClientTest()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
-
-            var tmsResponse = await groupShareClient.TranslationMemories.GetTms();
-
-            Assert.True(tmsResponse.Items.Count > 0);
+            dbServerId = CreateDbServer().Result;
+            containerId = CreateContainer().Result;
+            fieldTemplateId = CreateFieldTemplate().Result;
+            lrTemplateId = CreateLanguageResourceTemplate().Result;
+            tmId = CreateTM().Result;
         }
 
-        [Fact]
-        public async Task GetTmById()
+        private async Task<string> CreateDbServer()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var tmId = await CreateTm("NewTm");
-            var tm = await groupShareClient.TranslationMemories.GetTmById(tmId);
+            var dbServerGuid = Guid.NewGuid().ToString();
+            var dbServerRequest = new DatabaseServerRequest
+            {
+                DatabaseServerId = dbServerGuid,
+                Name = $"DB server {dbServerGuid}",
+                Description = "added from gskit",
+                OwnerId = Helper.OrganizationId,
+                Location = Helper.Organization,
+                Host = Helper.GsServerName
+            };
 
-            Assert.Equal("NewTm", tm.Name);
-            await groupShareClient.TranslationMemories.DeleteTm(tmId);
+            dbServerId = await gsClient.TranslationMemories.CreateDbServer(dbServerRequest);
+            return dbServerId;
         }
 
-        [Theory]
-        [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638", "6e9c3b55-1cec-4439-96c6-7e3c1af590d1")]
-        public async Task GetLanguageDirectionForTm(string tmId, string languageDirectionId)
+        private async Task<string> CreateContainer()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var languageDirection =
-                await groupShareClient.TranslationMemories.GetLanguageDirectionForTm(tmId, languageDirectionId);
+            var containerGuid = Guid.NewGuid().ToString();
+            var request = new ContainerRequest
+            {
+                OwnerId = Helper.OrganizationId,
+                Location = Helper.Organization,
+                ContainerId = containerGuid,
+                DatabaseServerId = dbServerId,
+                DatabaseName = $"TM_Container_{DateTime.Now.Ticks}",
+                DisplayName = $"DB_container_{containerGuid}",
+                IsShared = false
+            };
 
-            Assert.Equal(languageDirection.LanguageDirectionId, languageDirectionId);
+            containerId = await gsClient.TranslationMemories.CreateContainer(request);
+            return containerId;
         }
 
-        [Fact]
-        public async Task ExportTm()
+        private async Task<string> CreateFieldTemplate()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var languageParam = new LanguageParameters("en-us", "es-es");
+            var tplId = Guid.NewGuid();
+            var fieldTemplate = new FieldTemplate
+            {
+                Name = $"field template {tplId}",
+                Description = "test field template",
+                FieldTemplateId = tplId.ToString(),
+                IsTmSpecific = false,
+                Location = Helper.Organization,
+                OwnerId = Helper.OrganizationId
+            };
 
-            var requestExportRequest = new ExportRequest();
-
-            var tm = await groupShareClient.TranslationMemories.ExportTm("613e77ce-e838-4b80-a1a9-0afee3704632", requestExportRequest, languageParam).ConfigureAwait(true);
-
-            Assert.True(tm.Length > 0);
-
-            //Example of how the byte[] should be decompressed and how to write the tm to disk
-
-            //using (var compressedStream = new MemoryStream(tm))
-            //using (var zipStream = new GZipStream(compressedStream, CompressionMode.Decompress))
-            //using (var resultStream = new MemoryStream())
-            //{
-            //    zipStream.CopyTo(resultStream);
-            //    var test = resultStream.ToArray();
-            //    File.WriteAllBytes(@"C:\Users\aghisa\Desktop\testTm.tmx", test);
-            //}                    
+            fieldTemplateId = await gsClient.TranslationMemories.CreateFieldTemplate(fieldTemplate);
+            return fieldTemplateId;
         }
 
-        [Fact]
-        public async Task HealthVersion()
+        private async Task<string> CreateLanguageResourceTemplate()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var request = new ResourceServiceDefaultsRequest(ResourceServiceDefaultsRequest.ResourceType.Variables, "de-de");
+            var resource = await gsClient.TranslationMemories.GetDefaultsType(request);
 
-            var healthVersion = await groupShareClient.TranslationMemories.TmServiceInfo();
+            var lrTemplate = new LanguageResourceTemplate
+            {
+                LanguageResourceTemplateId = Guid.NewGuid().ToString(),
+                Name = $"lr template {Guid.NewGuid()}",
+                Description = "test language resource template",
+                OwnerId = Helper.OrganizationId,
+                Location = Helper.Organization,
+                IsTmSpecific = false,
+                LanguageResources = new List<Resource>
+                {
+                    new Resource
+                    {
+                        Type = "Variables",
+                        LanguageResourceTemplateId = resource.LanguageResourceTemplateId,
+                        Data = "test",
+                        CultureName = "de-de"
+                    }
+                }
+            };
 
-            Assert.True(healthVersion != null);
+            lrTemplateId = await gsClient.TranslationMemories.CreateTemplate(lrTemplate).ConfigureAwait(false);
+            return lrTemplateId;
         }
 
-        [Theory]
-        [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
-        public async Task GetTmsNumberByLanguageResourceTemplateId(string id)
+        private async Task<string> CreateTM()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var tmNumber = await groupShareClient.TranslationMemories.GetTmsNumberByLanguageResourceTemplateId(id);
+            languageDirectionId = Guid.NewGuid().ToString();
 
-            Assert.Equal(0, tmNumber);
-        }
-
-        [Theory]
-        [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
-        public async Task GetTmsNumberByFieldTemplateId(string id)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var tmNumber = await groupShareClient.TranslationMemories.GetTmsNumberByFieldTemplateId(id);
-
-            Assert.Equal(0, tmNumber);
-        }
-
-
-        public async Task<string> CreateTm(string tmName)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
             var tmRequest = new CreateTmRequest
             {
                 TranslationMemoryId = Guid.NewGuid().ToString(),
-                Name = tmName,
+                Name = $"tm_integration_test_{Guid.NewGuid()}",
                 LanguageDirections = new List<LanguageDirection>
                 {
                     new LanguageDirection
                     {
-                        LanguageDirectionId = Guid.NewGuid().ToString(),
+                        LanguageDirectionId = languageDirectionId,
                         Source = "en-us",
                         Target = "de-de",
                         LastReIndexSize = null,
@@ -116,13 +130,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                         LastRecomputeSize = null
                     }
                 },
-                FieldTemplateId = "ec6acfc3-e166-486f-9823-3220499dc95b",
-                LanguageResourceTemplateId = "78df3807-06ac-438e-b2c8-5e233df1a6a2",
+                FieldTemplateId = fieldTemplateId,
+                LanguageResourceTemplateId = lrTemplateId,
                 Recognizers = "RecognizeAll",
                 FuzzyIndexes = "SourceWordBased,TargetWordBased",
-                Location = "/SDL Community Developers",
                 WordCountFlags = "DefaultFlags",
-                OwnerId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
+                Location = Helper.Organization,
+                OwnerId = Helper.OrganizationId,
                 FuzzyIndexTuningSettings = new FuzzyIndexTuningSettings
                 {
                     MinScoreIncrease = 20,
@@ -132,121 +146,174 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                     MinSearchVectorLengthTargetWordIndex = 3
 
                 },
-                ContainerId = "ee2871af-a5a5-46ca-9b05-0f216744e8fe"
+                ContainerId = containerId
             };
 
-            var tmId = await groupShareClient.TranslationMemories.CreateTm(tmRequest);
-
+            tmId = await gsClient.TranslationMemories.CreateTm(tmRequest).ConfigureAwait(false);
             Assert.True(tmId != string.Empty);
+
             return tmId;
         }
 
-        [Theory]
-        [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
-        public async Task UpdateTm(string tmId)
+        // test cleanup
+        public void Dispose()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            gsClient.TranslationMemories.DeleteTm(tmId).Wait();
+            gsClient.TranslationMemories.DeleteContainer(containerId).Wait();
+            gsClient.TranslationMemories.DeleteDbServer(dbServerId).Wait();
+        }
 
-            var tm = await groupShareClient.TranslationMemories.GetTmById(tmId);
+        [Fact]
+        public async Task GetTms()
+        {
+            var tmsResponse = await gsClient.TranslationMemories.GetTms();
+            Assert.True(tmsResponse.Items.Count > 0);
+        }
+
+        [Fact]
+        public async void GetTmById()
+        {
+            var tm = await gsClient.TranslationMemories.GetTmById(tmId).ConfigureAwait(false);
+            Assert.Equal(tmId, tm.TranslationMemoryId);
+        }
+
+        //[Fact]
+        //public async Task GetLanguageDirectionForTm()
+        //{
+        //    var languageDirection = await gsClient.TranslationMemories.GetLanguageDirectionForTm(tmId, languageDirectionId);
+        //    Assert.Equal(languageDirection.LanguageDirectionId, languageDirectionId);
+        //}
+
+        //[Fact]
+        //public async Task ExportTm()
+        //{
+        //    var languageParam = new LanguageParameters("en-us", "de-de");
+        //    var requestExportRequest = new ExportRequest();
+
+        //    var tm = await gsClient.TranslationMemories.ExportTm(tmId, requestExportRequest, languageParam).ConfigureAwait(true);
+
+        //    Assert.True(tm.Length > 0);
+
+        //    //Example of how the byte[] should be decompressed and how to write the tm to disk
+
+        //    //using (var compressedStream = new MemoryStream(tm))
+        //    //using (var zipStream = new GZipStream(compressedStream, CompressionMode.Decompress))
+        //    //using (var resultStream = new MemoryStream())
+        //    //{
+        //    //    zipStream.CopyTo(resultStream);
+        //    //    var test = resultStream.ToArray();
+        //    //    File.WriteAllBytes(@"C:\UserData\aghisa\Desktop\testTm.tmx", test);
+        //    //}                    
+        //}
+
+        [Fact]
+        public async Task HealthVersion()
+        {
+            var healthVersion = await gsClient.TranslationMemories.TmServiceInfo();
+            Assert.True(healthVersion != null);
+        }
+
+        [Fact]
+        public async Task GetTmsNumberByLanguageResourceTemplateId()
+        {
+            var tmNumber = await gsClient.TranslationMemories.GetTmsNumberByLanguageResourceTemplateId(lrTemplateId);
+            Assert.Equal(1, tmNumber);
+        }
+
+        [Fact]
+        public async Task GetTmsNumberByFieldTemplateId()
+        {
+            var tmNumber = await gsClient.TranslationMemories.GetTmsNumberByFieldTemplateId(fieldTemplateId);
+            Assert.Equal(1, tmNumber);
+        }
+
+        [Fact]
+        public async Task UpdateTm()
+        {
+            var tm = await gsClient.TranslationMemories.GetTmById(tmId);
 
             tm.Description = "Updated tm";
+            await gsClient.TranslationMemories.Update(tmId, tm);
 
-            await groupShareClient.TranslationMemories.Update(tmId, tm);
-
-            var updatedTm = await groupShareClient.TranslationMemories.GetTmById(tmId);
-
+            var updatedTm = await gsClient.TranslationMemories.GetTmById(tmId);
             Assert.Equal("Updated tm", updatedTm.Description);
         }
 
         [Fact]
         public async Task GetTmServiceHealth()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var health = await groupShareClient.TranslationMemories.Health();
 
             Assert.Equal("UP", health.Status);
         }
 
-        [Theory]
-        [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
-        public async Task GetTusForTm(string tmId)
+        [Fact]
+        public async Task GetTusForTm()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var translationUnitRequest = new TranslationUnitDetailsRequest("de-de", "ro-ro", 0, 50);
+            var translationUnitRequest = new TranslationUnitDetailsRequest("en-us", "de-de", 0, 50);
+            var tus = await gsClient.TranslationMemories.GetTranslationUnitForTm(tmId, translationUnitRequest);
 
-            var tus = await groupShareClient.TranslationMemories.GetTranslationUnitForTm(tmId, translationUnitRequest);
+            // there are no TUs in the empty TM
+            Assert.True(tus == null);
+        }
 
-            Assert.True(tus != null);
+        //[Fact]
+        //public async Task RecomputeStatistics()
+        //{
+        //    var groupShareClient = Helper.GsClient;
+        //    var tmId = await CreateTm();
+        //    var request = new FuzzyRequest();
+
+        //    var response = await groupShareClient.TranslationMemories.RecomputeStatistics(tmId, request);
+
+        //    Assert.True(response != null);
+        //    await groupShareClient.TranslationMemories.DeleteTm(tmId);
+        //}
+
+      //  [Fact]
+        //public async Task Reindex()
+        //{
+        //    var groupShareClient = Helper.GsClient;
+        //    var tmId = await CreateTm();
+        //    var request = new FuzzyRequest();
+
+        //    var response = await groupShareClient.TranslationMemories.Reindex(tmId, request);
+
+        //    Assert.True(response != null);
+        //    await groupShareClient.TranslationMemories.DeleteTm(tmId);
+
+        //}
+
+        [Fact]
+        public async Task GetTusNumberForTm()
+        {
+            var languageParameters = new LanguageParameters("en-us", "de-de");
+            var tusNumber = await gsClient.TranslationMemories.GetNumberOfTus(tmId, languageParameters);
+
+            Assert.True(tusNumber == 0);
         }
 
         [Fact]
-        public async Task RecomputeStatistics()
+        public async Task GetTusNumberForPostDatedTm()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var tmId = await CreateTm("TM");
-            var request = new FuzzyRequest();
+            var groupShareClient = Helper.GsClient;
+            var languageParameters = new LanguageParameters("en-us", "de-de");
 
-            var response = await groupShareClient.TranslationMemories.RecomputeStatistics(tmId, request);
 
-            Assert.True(response != null);
-            await groupShareClient.TranslationMemories.DeleteTm(tmId);
+            var preDatedTUs = await groupShareClient.TranslationMemories.GetNumberOfPreDatedTus(tmId, languageParameters);
+            Assert.Equal(0, preDatedTUs);
+
+            var postDatedTUs = await groupShareClient.TranslationMemories.GetNumberOfPostDatedTus(tmId, languageParameters);
+            Assert.Equal(0, postDatedTUs);
         }
 
-        [Fact]
-        public async Task Reindex()
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var tmId = await CreateTm("TM");
-            var request = new FuzzyRequest();
-
-            var response = await groupShareClient.TranslationMemories.Reindex(tmId, request);
-
-            Assert.True(response != null);
-            await groupShareClient.TranslationMemories.DeleteTm(tmId);
-
-        }
-
-        [Theory]
-        [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
-        public async Task GetTusNumberForTm(string tmId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var languageParameters = new LanguageParameters("de-de", "ro-ro");
-
-            var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfTus(tmId, languageParameters);
-
-            Assert.True(tusNumber > 0);
-        }
-
-        [Theory]
-        [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
-        public async Task GetTusNumberForPostDatedTm(string tmId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var languageParameters = new LanguageParameters("de-de", "ro-ro");
-
-            var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfPostDatedTus(tmId, languageParameters);
-
-            Assert.Equal(0, tusNumber);
-        }
-
-        [Theory]
-        [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
-        public async Task GetTusNumberForPreDatedTm(string tmId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var languageParameters = new LanguageParameters("de-de", "ro-ro");
-
-            var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfPreDatedTus(tmId, languageParameters);
-
-            Assert.Equal(0, tusNumber);
-        }
 
         //[Theory]
         //[InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
         //public async Task GetTusNumberForUnalignedTm(string tmId)
         //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var groupShareClient = Helper.GsClient;
         //    var languageParameters = new LanguageParameters("de-de", "ro-ro");
 
         //    var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfUnalignedTus(tmId, languageParameters);
@@ -254,28 +321,30 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    Assert.Equal(tusNumber, 0);
         //}
 
-        [Fact]
-        public async Task Filter()
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            //      var languageDetails = new LanguageDetailsRequest("Europäischen", "de-de", "Acord ", "ro-ro");
-            var languageDetails = new LanguageDetailsRequest("", "de-de", "Informare", "ro-ro");
-            var tmDetails = new TranslationMemoryDetailsRequest(new Guid("27782e18-a0df-4266-ac9f-29965d3a3638"), 0, 50);
+        //[Fact]
+        //public async Task Filter()
+        //{
+        //    var groupShareClient = Helper.GsClient;
+        //    //      var languageDetails = new LanguageDetailsRequest("Europäischen", "de-de", "Acord ", "ro-ro");
+        //    var languageDetails = new LanguageDetailsRequest("", "de-de", "Informare", "ro-ro");
+        //    var tmDetails = new TranslationMemoryDetailsRequest(new Guid("27782e18-a0df-4266-ac9f-29965d3a3638"), 0, 50);
 
-            var filter = await groupShareClient.TranslationMemories.FilterAsPlainText(languageDetails, tmDetails, true, true);
+        //    var filter = await groupShareClient.TranslationMemories.FilterAsPlainText(languageDetails, tmDetails, true, true);
 
-            foreach (var segment in filter)
-            {
-                Assert.Contains("Informare", segment.Target);
-            }
-        }
+        //    foreach (var segment in filter)
+        //    {
+        //        Assert.Contains("Informare", segment.Target);
+        //    }
+        //}
 
         #region Text Search
+
+        /* search examples
 
         [Fact]
         public async Task SimpleSearch()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var searchRequest = new SearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "Blu", "en-us", "ca-es");
 
             var searchResponse = await groupShareClient.TranslationMemories.SearchText(searchRequest);
@@ -290,7 +359,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", "\"Andrea\" = (\"AndreaField\")", "TestFilterName", "blue")]
         public async Task SearchWithFilterExpression(string tmId, string simpleExpression, string filterName, string searchText)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             // simple expression 
             var fieldFilter = new List<FieldFilter>
             {
@@ -324,11 +393,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(searchResponse.Count == 0);
         }
-
+        
         [Fact]
         public async Task TextSearchMinAndMaxResultSet()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             //set Min score
             var settingsMin = new SearchTextSettings
             {
@@ -354,7 +423,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task TextSearchPenalties()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
 
             var settings = new SearchTextSettings
             {
@@ -379,7 +448,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task ConcordanceSimpleSearch()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "blue", "en-us", "ca-es");
 
             var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
@@ -394,7 +463,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task ConcordanceSearchWithCustomSettings()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
 
             // the score for this search is 85
             var concordanceSearchSettings = new ConcordanceSearchSettings
@@ -422,7 +491,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", "\"Andrea\" = (\"AndreaField\")", "TestFilterName")]
         public async Task ConcordanceSearchWithCustomFilter(string tmId, string expression, string filterName)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var fieldFilter = new List<FieldFilter>
             {
                 new FieldFilter
@@ -467,7 +536,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", "\"Andrea\" = (\"AndreaField\")", "TestFilterName")]
         public async Task ConcordanceSearchWithPenalties(string tmId, string expression, string filterName)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var fieldFilter = new List<FieldFilter>
             {
                 new FieldFilter
@@ -520,7 +589,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task TargetConcordanceSearch()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var concordanceSearchSettings = new ConcordanceSearchSettings();
             var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "blue", "en-us", "ca-es", concordanceSearchSettings);
             var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
@@ -532,7 +601,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638", " \"andrea\" = \"TestValue\"")]
         public async Task CustomFilterExpression(string tmId, string simpleExpression)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             // simple expression 
             var filedsList = new List<FieldFilter>
             {
@@ -555,5 +624,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Assert.Equal("TRADUCERE", item.Target);
             }
         }
+        */
+
+        #endregion
     }
 }

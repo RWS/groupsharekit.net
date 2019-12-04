@@ -3,6 +3,7 @@ using Sdl.Community.GroupShareKit.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Sdl.Community.GroupShareKit.Tests.Integration.Setup;
 using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
@@ -10,9 +11,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
     public class UserClientTests
     {
         [Fact]
-        public async Task GetAllUsers()
+        public async Task Users_GetAllUsers_ReturnsUsers()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var userRequest = new UsersRequest(1, 2, 7);
             var users = await groupShareClient.User.GetAllUsers(userRequest);
 
@@ -20,44 +21,46 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("rcrisan")]
-        public async Task GetUser(string userName)
+        [MemberData(nameof(UserData.Username), MemberType = typeof(UserData))]
+        public async Task Users_GetUserByUsername_ReturnsUser(string userName)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var response = await groupShareClient.User.Get(new UserRequest(userName));
 
             Assert.Equal(userName, response.Name);
         }
 
         [Theory]
-        [InlineData("83551d37-2568-4bc6-9342-2fce68ed6b0a")]
-        public async Task GetUserById(string userId)
+        [MemberData(nameof(UserData.UserId), MemberType = typeof(UserData))]
+        public async Task Users_GetUserById_ReturnsUser(string userId)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var user = await groupShareClient.User.GetUserById(userId);
 
             Assert.Equal(user.UniqueId.ToString(), userId);
         }
 
         [Theory]
-        [InlineData("aghisa")]
-        public async Task Update(string userName)
+        [MemberData(nameof(UserData.Username), MemberType = typeof(UserData))]
+        public async Task Users_UpdateByUsername_Succeeds(string userName)
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var description = $"Updated description at {DateTime.Now.ToLongDateString()}";
+
+            var groupShareClient = Helper.GsClient;
             var response = await groupShareClient.User.Get(new UserRequest(userName));
-            response.Description = "Updated Description";
+            response.Description = description;
 
             var user = await groupShareClient.User.Update(response);
             Assert.True(user != string.Empty);
 
             var userUpdated = await groupShareClient.User.Get(new UserRequest(userName));
-            Assert.Equal("Updated Description", userUpdated.Description);
+            Assert.Equal(description, userUpdated.Description);
         }
 
         [Fact]
-        public async Task UpdateUserLanguageDirections()
+        public async Task Users_UpdateUserLanguageDirections_Succeeds()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
 
             var uniqueId = Guid.NewGuid().ToString();
             var name = $"automated user {uniqueId}";
@@ -67,18 +70,18 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 UniqueId = uniqueId,
                 Name = name,
                 Password = "Password1",
-                DisplayName = "test",
+                DisplayName = name,
                 Description = null,
                 PhoneNumber = null,
                 Locale = "en-US",
-                OrganizationId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
+                OrganizationId = Helper.OrganizationId,
                 UserType = "SDLUser",
                 Roles = new List<Role>
                 {
                     new Role
                     {
-                         OrganizationId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
-                         RoleId = "793f3f38-3899-49e5-b793-99a53cd1d24d",//power user
+                         OrganizationId = Helper.OrganizationId,
+                         RoleId = Helper.PowerUserRoleId,
                          UserId = uniqueId
                     }
                 }
@@ -106,28 +109,28 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task Create()
+        public async Task Users_CreateUser_Succeeds()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var uniqueId = Guid.NewGuid().ToString();
 
             var newUser = new CreateUserRequest
             {
                 UniqueId = uniqueId,
-                Name = "User test",
+                Name = $"automated user {uniqueId}",
                 Password = "Password1",
                 DisplayName = "test",
                 Description = null,
                 PhoneNumber = null,
                 Locale = "en-US",
-                OrganizationId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
+                OrganizationId = Helper.OrganizationId,
                 UserType = "SDLUser",
                 Roles = new List<Role>
                 {
                     new Role
                     {
-                         OrganizationId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
-                         RoleId = "793f3f38-3899-49e5-b793-99a53cd1d24d",//power user
+                         OrganizationId = Helper.OrganizationId,
+                         RoleId = Helper.PowerUserRoleId,
                          UserId = uniqueId
                     }
                 }
