@@ -416,19 +416,19 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         #region Dashboard
 
-        [Fact]
-        [Trait("GSVersion", "2017")]
-        public async Task Dashboard()
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var dashboard = await groupShareClient.Project.Dashboard();
-            Assert.True(dashboard != null);
-        }
+        //[Fact]
+        //[Trait("GSVersion", "2017")]
+        //public async Task Dashboard()
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var dashboard = await groupShareClient.Project.Dashboard();
+        //    Assert.True(dashboard != null);
+        //}
 
         [Fact(Skip = "Endpoint not present in CU10")]
         public async Task DashboardProjectsPerMonth()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var projectCounts = await groupShareClient.Project.DataboardProjectsPerMonth();
             Assert.True(projectCounts != null);
         }
@@ -436,7 +436,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact(Skip = "Endpoint not present in CU10")]
         public async Task DashboardTopLanguagePairs()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var languagePairs = await groupShareClient.Project.DashboardTopLanguagePairs(5);
             Assert.True(languagePairs != null);
         }
@@ -444,7 +444,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact(Skip = "Endpoint not present in CU10")]
         public async Task DashboardWordsPerMonth()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var wordCounts = await groupShareClient.Project.DashboardWordsPerMonth();
             Assert.True(wordCounts != null);
         }
@@ -452,7 +452,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact(Skip = "Endpoint not present in CU10")]
         public async Task DashboardWordsPerOrganization()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var wordCounts = await groupShareClient.Project.DashboardWordsPerOrganization();
             Assert.True(wordCounts != null);
         }
@@ -460,7 +460,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact(Skip = "Endpoint not present in CU10")]
         public async Task DashboardStatistics()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var statistics = await groupShareClient.Project.DashboardStatistics();
             Assert.True(statistics != null);
         }
@@ -470,7 +470,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact(Skip = "Endpoint not present in CU10")]
         public async Task ReportingProjectPredefinedReportData()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var options = new ReportingOptions
             {
                 Status = 7
@@ -482,7 +482,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact(Skip = "Endpoint not present in CU10")]
         public async Task ReportingTasksReportData()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var options = new ReportingOptions
             {
                 Status = 7
@@ -494,7 +494,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact(Skip = "Endpoint not present in CU10")]
         public async Task ReportingTmLeverageData()
         {
-            var groupShareClient = await Helper.GetGroupShareClient();
+            var groupShareClient = Helper.GsClient;
             var options = new ReportingOptions
             {
                 Status = 7
