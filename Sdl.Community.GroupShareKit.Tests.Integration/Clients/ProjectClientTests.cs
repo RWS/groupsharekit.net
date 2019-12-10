@@ -425,7 +425,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    Assert.True(dashboard != null);
         //}
 
-        [Fact(Skip = "Endpoint not present in CU10")]
         public async Task DashboardProjectsPerMonth()
         {
             var groupShareClient = Helper.GsClient;
@@ -433,7 +432,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(projectCounts != null);
         }
 
-        [Fact(Skip = "Endpoint not present in CU10")]
         public async Task DashboardTopLanguagePairs()
         {
             var groupShareClient = Helper.GsClient;
@@ -441,7 +439,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(languagePairs != null);
         }
 
-        [Fact(Skip = "Endpoint not present in CU10")]
         public async Task DashboardWordsPerMonth()
         {
             var groupShareClient = Helper.GsClient;
@@ -449,7 +446,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(wordCounts != null);
         }
 
-        [Fact(Skip = "Endpoint not present in CU10")]
         public async Task DashboardWordsPerOrganization()
         {
             var groupShareClient = Helper.GsClient;
@@ -457,7 +453,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(wordCounts != null);
         }
 
-        [Fact(Skip = "Endpoint not present in CU10")]
         public async Task DashboardStatistics()
         {
             var groupShareClient = Helper.GsClient;
@@ -467,7 +462,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         #endregion
 
         #region Reporting
-        [Fact(Skip = "Endpoint not present in CU10")]
         public async Task ReportingProjectPredefinedReportData()
         {
             var groupShareClient = Helper.GsClient;
@@ -479,7 +473,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(reportingData != null);
         }
 
-        [Fact(Skip = "Endpoint not present in CU10")]
         public async Task ReportingTasksReportData()
         {
             var groupShareClient = Helper.GsClient;
@@ -491,7 +484,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(reportingData != null);
         }
 
-        [Fact(Skip = "Endpoint not present in CU10")]
         public async Task ReportingTmLeverageData()
         {
             var groupShareClient = Helper.GsClient;
