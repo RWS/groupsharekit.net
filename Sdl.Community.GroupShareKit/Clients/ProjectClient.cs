@@ -280,43 +280,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///Downloads the native files of a project.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of byte[] wich represents downloaded files.</returns>></param>
-        /// <returns></returns>
-        public async Task<byte[]> DownloadNative(string projectId)
-        {
-            return await ApiConnection.Get<byte[]>(ApiUrls.DownloadNative(projectId), null);
-        }
-
-        /// <summary>
-		/// Finalizez the files of a project.
-		/// </summary>
-		/// <remarks>
-		/// This method requires authentication.
-		/// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-		/// </remarks>
-		/// <exception cref="AuthorizationException">
-		/// Thrown when the current user does not have permission to make the request.
-		/// </exception>
-		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		/// <returns>A list of byte[] wich represents downloaded files.</returns>
-        public async Task<byte[]> Finalize(string projectId, List<string> languageFileIds)
-        {
-            Ensure.ArgumentNotEmpty(languageFileIds, "languageFileIds");
-
-            return await ApiConnection.Post<byte[]>(ApiUrls.Finalize(projectId, LanguageIdQuery(languageFileIds)));
-        }
-
-        /// <summary>
         /// Helper method to create  query.
         /// </summary>
         /// <param name="languageFileIds"></param>
