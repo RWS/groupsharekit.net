@@ -228,8 +228,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of byte[] wich represents downloaded files.</returns>></param>
         /// <returns></returns>
         Task<byte[]> DownloadNative(string projectId);
-
-
+        
         /// <summary>
 		/// Finalizez the files of a project.
 		/// </summary>
