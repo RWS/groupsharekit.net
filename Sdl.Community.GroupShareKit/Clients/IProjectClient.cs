@@ -229,6 +229,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns></returns>
         Task<byte[]> DownloadNative(string projectId);
 
+
         /// <summary>
 		/// Finalizez the files of a project.
 		/// </summary>
