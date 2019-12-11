@@ -64,25 +64,25 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal("Updated name", updatedTemplate.Name);
         }
 
-        [Theory]
-        [InlineData("253988f6-0bd3-4aaa-85f6-5e99e8e32a8f")]
-        public async Task AddOperations(string templateId)
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
-            var request = new FieldTemplatePatchRequest
-            {
-                Operations = new List<Operation>
-                {
-                    new Operation
-                    {
-                        From = "andrea"
-                    }
-                }
-            };
-            await groupShareClient.TranslationMemories.AddOperationsForFieldTemplate(templateId, request);
+        //[Theory]
+        //[InlineData("253988f6-0bd3-4aaa-85f6-5e99e8e32a8f")]
+        //public async Task AddOperations(string templateId)
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
+        //    var request = new FieldTemplatePatchRequest
+        //    {
+        //        Operations = new List<Operation>
+        //        {
+        //            new Operation
+        //            {
+        //                From = "andrea"
+        //            }
+        //        }
+        //    };
+        //    await groupShareClient.TranslationMemories.AddOperationsForFieldTemplate(templateId, request);
 
-            var template = await groupShareClient.TranslationMemories.GetFieldTemplateById(templateId);
-        }
+        //    var template = await groupShareClient.TranslationMemories.GetFieldTemplateById(templateId);
+        //}
 
         [Theory]
         [InlineData("ec6acfc3-e166-486f-9823-3220499dc95b")]
