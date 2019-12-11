@@ -120,14 +120,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 	    //}
 
 
-		[Fact(Skip = "")]
-		public async Task OnlineCheckIn()
-		{
-			var groupShareClient = await Helper.GetGroupShareClient();	 
+		//[Fact(Skip = "")]
+		//public async Task OnlineCheckIn()
+		//{
+		//	var groupShareClient = await Helper.GetGroupShareClient();	 
 
-			var response =await groupShareClient.Project.OnlineCheckin("9a39ed92-2655-43a3-bbd9-efd70eeb8e36", "c0d5a088-ad5e-4e7f-aef5-a9c979232624").ConfigureAwait(true);
-			Assert.True(response!=null);
-		}
+		//	var response =await groupShareClient.Project.OnlineCheckin("9a39ed92-2655-43a3-bbd9-efd70eeb8e36", "c0d5a088-ad5e-4e7f-aef5-a9c979232624").ConfigureAwait(true);
+		//	Assert.True(response!=null);
+		//}
 
         //[Theory]
         //[InlineData("9a39ed92-2655-43a3-bbd9-efd70eeb8e36", "c0d5a088-ad5e-4e7f-aef5-a9c979232624")]
