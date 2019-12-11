@@ -207,18 +207,18 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    Assert.Equal(response.Keys.First(), "en-US");
         //}
 
-        [Fact]
-        public async Task GetProjectFileStatistics()
-        {
-            var groupShareClient = await Helper.GetGroupShareClient();
+        //[Fact]
+        //public async Task GetProjectFileStatistics()
+        //{
+        //    var groupShareClient = await Helper.GetGroupShareClient();
 
-            var projects = await groupShareClient.Project.GetAllProjects();
-            var project = projects.Items.FirstOrDefault();
+        //    var projects = await groupShareClient.Project.GetAllProjects();
+        //    var project = projects.Items.FirstOrDefault();
 
-            var response = await groupShareClient.Project.GetAllProjectFileStatistics(project.ProjectId);
+        //    var response = await groupShareClient.Project.GetAllProjectFileStatistics(project.ProjectId);
 
-            Assert.True(response.Count > 0);
-        }
+        //    Assert.True(response.Count > 0);
+        //}
 
         [Theory]
         [InlineData("SDL Community Developers")]
