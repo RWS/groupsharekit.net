@@ -25,8 +25,7 @@ namespace Sdl.Community.GroupShareKit
                 ManagementApi,
                 ProjectApi,
                 MultiTermApi,
-                TmServerApi
-		
+                TmServerApi		
             };
 
         /// <summary>
