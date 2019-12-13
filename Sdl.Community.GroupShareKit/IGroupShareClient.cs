@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Clients.TranslationMemory;
 using Sdl.Community.GroupShareKit.Http;
@@ -25,6 +23,7 @@ namespace Sdl.Community.GroupShareKit
         /// </remarks>
         IProjectClient Project { get; }
 
+	
         /// <summary>
         /// The base address of the GroupShare API.
         /// </summary>
