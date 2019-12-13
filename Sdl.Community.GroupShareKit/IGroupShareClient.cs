@@ -23,6 +23,7 @@ namespace Sdl.Community.GroupShareKit
         /// </remarks>
         IProjectClient Project { get; }
 
+	
         /// <summary>
         /// The base address of the GroupShare API.
         /// </summary>
