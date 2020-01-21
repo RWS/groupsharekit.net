@@ -32,6 +32,13 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
+- task: NuGetCommand@2
+  displayName: 'NuGet push'
+  inputs:
+    command: push
+    publishVstsFeed: 'https://pkgs.dev.azure.com/sdl/_packaging/SDLNuget/nuget/v3/index.json'
+    allowPackageConflicts: false
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
