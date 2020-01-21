@@ -19,8 +19,9 @@ steps:
     displayName: Install NBGV tool
     condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
-- script: dotnet tool install --tool-path . nbgv .\nbgv cloud -p src -a
-  displayName: Set build number
+- script: nbgv cloud
+  displayName: Set Version
+  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
 - task: NuGetToolInstaller@0
   displayName: Use NuGet 4.7.0
