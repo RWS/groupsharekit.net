@@ -9,6 +9,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  name : 'GSKit2017'
 
 steps:
 - task: DotNetCoreCLI@2  
@@ -42,7 +43,7 @@ steps:
     mkdir $(Build.ArtifactStagingDirectory)\Package     
     $version = (.\nbgv get-version -f json | ConvertFrom-Json)
     $version
-    ls *.nuspec | %{ nuget pack $_.FullName -version "$($version.NuGetPackageVersion)" -NoPackageAnalysis -OutputDirectory $(Build.ArtifactStagingDirectory)\Packages -Properties "RepositoryType=git;RepositoryCommit=$($version.GitCommitId);RepositoryUrl=https://github.com/sdl/groupsharekit.net"}
+    ls *.nuspec | %{ nuget pack $_.FullName -version "$($version.NuGetPackageVersion) + $(name)" -NoPackageAnalysis -OutputDirectory $(Build.ArtifactStagingDirectory)\Packages -Properties "RepositoryType=git;RepositoryCommit=$($version.GitCommitId);RepositoryUrl=https://github.com/sdl/groupsharekit.net"}
   displayName: Create package
   condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
@@ -65,4 +66,4 @@ steps:
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
     artifactName: 'drop'
-    publisLocation: 'Azure Pipelines/TFS'
+    publishLocation: 'Azure Pipelines/TFS'
