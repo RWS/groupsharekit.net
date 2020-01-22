@@ -38,11 +38,13 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: NuGetCommand@2
-  inputs:
-    command: 'pack'
-    packagesToPack: '**/*.csproj'
-    versioningScheme: '$(BranchName)'
+- powershell: |
+    mkdir $(Build.ArtifactStagingDirectory)\Package     
+    $version = .\nbgv get-version -f json | ConvertFrom-Json
+    $version
+    ls *.nuspec | %{ nuget pack $_.FullName -version "'GS2020'" -NoPackageAnalysis -OutputDirectory $(Build.ArtifactStagingDirectory)\Packages -Properties "RepositoryType=git;RepositoryCommit=$($version.GitCommitId);RepositoryUrl=https://github.com/sdl/groupsharekit.net"}
+  displayName: Create package
+  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
 - task: NuGetCommand@2
   displayName: 'NuGet push'
