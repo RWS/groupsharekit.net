@@ -41,8 +41,7 @@ steps:
 - powershell: |
     mkdir $(Build.ArtifactStagingDirectory)\Package     
     $version = .\nbgv get-version -f json | ConvertFrom-Json
-    $version 
-    $version =  '2020'
+    $version   
     ls *.nuspec | %{ nuget pack $_.FullName -version "$($version.NuGetPackageVersion)" -NoPackageAnalysis -OutputDirectory $(Build.ArtifactStagingDirectory)\Packages -Properties "RepositoryType=git;RepositoryCommit=$($version.GitCommitId);RepositoryUrl=https://github.com/sdl/groupsharekit.net"}
   displayName: Create package
   condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
