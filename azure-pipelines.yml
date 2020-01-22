@@ -42,7 +42,7 @@ steps:
     mkdir $(Build.ArtifactStagingDirectory)\Package     
     $version = .\nbgv get-version -f json | ConvertFrom-Json
     $version
-    ls *.nuspec | %{ nuget pack $_.FullName -version "'GS2020'" -NoPackageAnalysis -OutputDirectory $(Build.ArtifactStagingDirectory)\Packages -Properties "RepositoryType=git;RepositoryCommit=$($version.GitCommitId);RepositoryUrl=https://github.com/sdl/groupsharekit.net"}
+    ls *.nuspec | %{ nuget pack $_.FullName -version "$($version.SimpleVersion)" -NoPackageAnalysis -OutputDirectory $(Build.ArtifactStagingDirectory)\Packages -Properties "RepositoryType=git;RepositoryCommit=$($version.GitCommitId);RepositoryUrl=https://github.com/sdl/groupsharekit.net"}
   displayName: Create package
   condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
