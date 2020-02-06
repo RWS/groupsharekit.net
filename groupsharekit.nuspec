@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata minClientVersion="2.12">
-    <id>GroupShareKit</id>
+    <id>GroupShareKit-2017</id>
     <version>$version$</version>
     <authors>Sdl Community</authors>
     <owners>SDL</owners>
