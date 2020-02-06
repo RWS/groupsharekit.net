@@ -11,7 +11,7 @@ namespace Sdl.Community.GroupShareKit
     /// <summary>
     /// A Client for the GroupShare API v1. 
     /// </summary>
-    public class GroupShareClient: IGroupShareClient
+    public class GroupShareClient : IGroupShareClient
     {
 
         public const string ManagementApi = "ManagementRestApi";
@@ -25,8 +25,8 @@ namespace Sdl.Community.GroupShareKit
                 ManagementApi,
                 ProjectApi,
                 MultiTermApi,
-                TmServerApi
-            }; 
+                TmServerApi		
+            };
 
         /// <summary>
         /// Create a new instance of the GroupShare API v1 client pointing to the specified baseAddress.
@@ -83,23 +83,6 @@ namespace Sdl.Community.GroupShareKit
             var authorization = await tokenGroupShareClient.Authenticate.Post(scopes);
             return authorization.Token;
         }
-        public static async Task<GroupShareClient> AuthenticateClient(string user, string password, Uri baseAddress,
-            IEnumerable<string> scopes)
-        {
-            string token = await GetRequestToken(user, password, baseAddress, scopes);
-            return await AuthenticateClient(token, user, password, string.Empty, baseAddress, scopes);
-        }
-        public static async Task<GroupShareClient> AuthenticateClient(string token,string user, string password, Uri baseAddress,
-            IEnumerable<string> scopes)
-        {
-            var credentials = new Credentials(token, user, password);
-
-            var inMemoryCredentials = new InMemoryCredentialStore(credentials);
-
-            var groupShareClient = new GroupShareClient(inMemoryCredentials, baseAddress);
-
-            return groupShareClient;
-        }
 
         public static async Task<GroupShareClient> AuthenticateClient(string token, string user, string password, string bearerId, Uri baseAddress,
             IEnumerable<string> scopes)
@@ -140,7 +123,7 @@ namespace Sdl.Community.GroupShareKit
         public Credentials Credentials
         {
             get => Connection.Credentials;
-	        set
+            set
             {
                 Ensure.ArgumentNotNull(value, "value");
                 Connection.Credentials = value;
@@ -156,6 +139,6 @@ namespace Sdl.Community.GroupShareKit
         /// Provides a client connection to make rest requests to HTTP endpoints.
         /// </summary>
         public IConnection Connection { get; }
-        
+
     }
 }

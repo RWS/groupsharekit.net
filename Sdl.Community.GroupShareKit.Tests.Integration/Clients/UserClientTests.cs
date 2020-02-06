@@ -1,143 +1,146 @@
-﻿//using Sdl.Community.GroupShareKit.Clients;
-//using Sdl.Community.GroupShareKit.Models.Response;
-//using System;
-//using System.Collections.Generic;
-//using System.Threading.Tasks;
-//using Xunit;
+﻿using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Models.Response;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Sdl.Community.GroupShareKit.Tests.Integration.Setup;
+using Xunit;
 
-//namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
-//{
-//    public class UserClientTests
-//    {
-//        [Fact]
-//        public async Task GetAllUsers()
-//        {
-//            var groupShareClient = await Helper.GetGroupShareClient();
-//            var userRequest = new UsersRequest(1, 2, 7);
-//            var users = await groupShareClient.User.GetAllUsers(userRequest);
+namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
+{
+    public class UserClientTests
+    {
+        [Fact]
+        public async Task Users_GetAllUsers_ReturnsUsers()
+        {
+            var groupShareClient = Helper.GsClient;
+            var userRequest = new UsersRequest(1, 2, 7);
+            var users = await groupShareClient.User.GetAllUsers(userRequest);
 
-//            Assert.True(users.Count > 0);
-//        }
+            Assert.True(users.Count > 0);
+        }
 
-//        [Theory]
-//        [InlineData("rcrisan")]
-//        public async Task GetUser(string userName)
-//        {
-//            var groupShareClient = await Helper.GetGroupShareClient();
-//            var response = await groupShareClient.User.Get(new UserRequest(userName));
+        [Theory]
+        [MemberData(nameof(UserData.Username), MemberType = typeof(UserData))]
+        public async Task Users_GetUserByUsername_ReturnsUser(string userName)
+        {
+            var groupShareClient = Helper.GsClient;
+            var response = await groupShareClient.User.Get(new UserRequest(userName));
 
-//            Assert.Equal(userName, response.Name);
-//        }
+            Assert.Equal(userName, response.Name);
+        }
 
-//        [Theory]
-//        [InlineData("83551d37-2568-4bc6-9342-2fce68ed6b0a")]
-//        public async Task GetUserById(string userId)
-//        {
-//            var groupShareClient = await Helper.GetGroupShareClient();
-//            var user = await groupShareClient.User.GetUserById(userId);
+        [Theory]
+        [MemberData(nameof(UserData.UserId), MemberType = typeof(UserData))]
+        public async Task Users_GetUserById_ReturnsUser(string userId)
+        {
+            var groupShareClient = Helper.GsClient;
+            var user = await groupShareClient.User.GetUserById(userId);
 
-//            Assert.Equal(user.UniqueId.ToString(), userId);
-//        }
+            Assert.Equal(user.UniqueId.ToString(), userId);
+        }
 
-//        //[Theory]
-//        //[InlineData("aghisa")]
-//        //public async Task Update(string userName)
-//        //{
-//        //    var groupShareClient = await Helper.GetGroupShareClient();
-//        //    var response = await groupShareClient.User.Get(new UserRequest(userName));
-//        //    response.Description = "Updated Description";
+        [Theory]
+        [MemberData(nameof(UserData.Username), MemberType = typeof(UserData))]
+        public async Task Users_UpdateByUsername_Succeeds(string userName)
+        {
+            var description = $"Updated description at {DateTime.Now.ToLongDateString()}";
 
-//        //    var user = await groupShareClient.User.Update(response);
-//        //    Assert.True(user != string.Empty);
+            var groupShareClient = Helper.GsClient;
+            var response = await groupShareClient.User.Get(new UserRequest(userName));
+            response.Description = description;
 
-//        //    var userUpdated = await groupShareClient.User.Get(new UserRequest(userName));
-//        //    Assert.Equal("Updated Description", userUpdated.Description);
-//        //}
+            var user = await groupShareClient.User.Update(response);
+            Assert.True(user != string.Empty);
 
-//        [Fact]
-//        public async Task UpdateUserLanguageDirections()
-//        {
-//            var groupShareClient = await Helper.GetGroupShareClient();
+            var userUpdated = await groupShareClient.User.Get(new UserRequest(userName));
+            Assert.Equal(description, userUpdated.Description);
+        }
 
-//            var uniqueId = Guid.NewGuid().ToString();
-//            var name = $"automated user {uniqueId}";
+        [Fact]
+        public async Task Users_UpdateUserLanguageDirections_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
 
-//            var newUser = new CreateUserRequest
-//            {
-//                UniqueId = uniqueId,
-//                Name = name,
-//                Password = "Password1",
-//                DisplayName = "test",
-//                Description = null,
-//                PhoneNumber = null,
-//                Locale = "en-US",
-//                OrganizationId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
-//                UserType = "SDLUser",
-//                Roles = new List<Role>
-//                {
-//                    new Role
-//                    {
-//                         OrganizationId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
-//                         RoleId = "793f3f38-3899-49e5-b793-99a53cd1d24d",//power user
-//                         UserId = uniqueId
-//                    }
-//                }
-//            };
+            var uniqueId = Guid.NewGuid().ToString();
+            var name = $"automated user {uniqueId}";
 
-//            var userId = await groupShareClient.User.Create(newUser);
-//            try
-//            {
-//                Assert.True(userId != string.Empty);
+            var newUser = new CreateUserRequest
+            {
+                UniqueId = uniqueId,
+                Name = name,
+                Password = "Password1",
+                DisplayName = name,
+                Description = null,
+                PhoneNumber = null,
+                Locale = "en-US",
+                OrganizationId = Helper.OrganizationId,
+                UserType = "SDLUser",
+                Roles = new List<Role>
+                {
+                    new Role
+                    {
+                         OrganizationId = Helper.OrganizationId,
+                         RoleId = Helper.PowerUserRoleId,
+                         UserId = uniqueId
+                    }
+                }
+            };
 
-//                var expectedUser = await groupShareClient.User.GetUserById(userId);
-//                Assert.Equal(name, expectedUser.Name);
+            var userId = await groupShareClient.User.Create(newUser);
+            try
+            {
+                Assert.True(userId != string.Empty);
 
-//                expectedUser.Locale = "de-DE";
-//                await groupShareClient.User.Update(expectedUser);
+                var expectedUser = await groupShareClient.User.GetUserById(userId);
+                Assert.Equal(name, expectedUser.Name);
 
-//                var actualUser = await groupShareClient.User.GetUserById(userId);
+                expectedUser.Locale = "de-DE";
+                await groupShareClient.User.Update(expectedUser);
 
-//                Assert.Equal("de-DE", actualUser.Locale);
-//            }
-//            finally
-//            {
-//                await groupShareClient.User.Delete(userId);
-//            }
-//        }
+                var actualUser = await groupShareClient.User.GetUserById(userId);
 
-//        [Fact]
-//        public async Task Create()
-//        {
-//            var groupShareClient = await Helper.GetGroupShareClient();
-//            var uniqueId = Guid.NewGuid().ToString();
+                Assert.Equal("de-DE", actualUser.Locale);
+            }
+            finally
+            {
+                await groupShareClient.User.Delete(userId);
+            }
+        }
 
-//            var newUser = new CreateUserRequest
-//            {
-//                UniqueId = uniqueId,
-//                Name = "User test",
-//                Password = "Password1",
-//                DisplayName = "test",
-//                Description = null,
-//                PhoneNumber = null,
-//                Locale = "en-US",
-//                OrganizationId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
-//                UserType = "SDLUser",
-//                Roles = new List<Role>
-//                {
-//                    new Role
-//                    {
-//                         OrganizationId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
-//                         RoleId = "793f3f38-3899-49e5-b793-99a53cd1d24d",//power user
-//                         UserId = uniqueId
-//                    }
-//                }
-//            };
+        [Fact]
+        public async Task Users_CreateUser_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var uniqueId = Guid.NewGuid().ToString();
 
-//            var userId = await groupShareClient.User.Create(newUser);
+            var newUser = new CreateUserRequest
+            {
+                UniqueId = uniqueId,
+                Name = $"automated user {uniqueId}",
+                Password = "Password1",
+                DisplayName = "test",
+                Description = null,
+                PhoneNumber = null,
+                Locale = "en-US",
+                OrganizationId = Helper.OrganizationId,
+                UserType = "SDLUser",
+                Roles = new List<Role>
+                {
+                    new Role
+                    {
+                         OrganizationId = Helper.OrganizationId,
+                         RoleId = Helper.PowerUserRoleId,
+                         UserId = uniqueId
+                    }
+                }
+            };
 
-//            Assert.True(userId != string.Empty);
+            var userId = await groupShareClient.User.Create(newUser);
 
-//            await groupShareClient.User.Delete(userId);
-//        }
-//    }
-//}
+            Assert.True(userId != string.Empty);
+
+            await groupShareClient.User.Delete(userId);
+        }
+    }
+}

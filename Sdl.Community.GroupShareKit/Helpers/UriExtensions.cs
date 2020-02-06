@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Helpers
 {
@@ -52,8 +50,9 @@ namespace Sdl.Community.GroupShareKit.Helpers
 
             Func<string, string, string> mapValueFunc = (key, value) => key == "q" ? value : Uri.EscapeDataString(value);
 
-            var query = string.Join("&",
-                tempDictionary.Select(kvp => kvp.Key + "=" + mapValueFunc(kvp.Key, kvp.Value)));
+            var query = string.Join("&", tempDictionary
+                .Where(kvp => !string.IsNullOrEmpty(kvp.Value))
+                .Select(kvp => kvp.Key + "=" + mapValueFunc(kvp.Key, kvp.Value)));
 
             if (uri.IsAbsoluteUri)
             {

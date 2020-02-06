@@ -1,106 +1,114 @@
-﻿//using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
-//using System;
-//using System.Threading.Tasks;
-//using Xunit;
+﻿using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
+using System;
+using System.Threading.Tasks;
+using Sdl.Community.GroupShareKit.Exceptions;
+using Xunit;
 
-//namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
-//{
-//    public class TranslationMemoryClientDatabaseServerTest
-//    {
-//        [Fact]
-//        public async Task GetDbServers()
-//        {
-//            var groupShareClient = await Helper.GetGroupShareClient();
+namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
+{
+    public class TranslationMemoryClientDatabaseServerTest
+    {
+        [Fact]
+        public async Task GetDbServers()
+        {
+            var groupShareClient = Helper.GsClient;
 
-//            var response = await groupShareClient.TranslationMemories.GetDbServers();
+            var response = await groupShareClient.TranslationMemories.GetDbServers();
 
-//            Assert.True(response.Items.Count>0);
-//        }
+            Assert.True(response.Items.Count > 0);
+        }
 
-//        [Fact]
-//        public async Task CreateDbServer()
-//        {
-//            var groupShareClient = await Helper.GetGroupShareClient();
-//            var dbServerRequest = new DatabaseServerRequest
-//            {
-//                DatabaseServerId = Guid.NewGuid().ToString(),
-//                Name = "Added server",
-//                Description = "Added from kit",
-//                OwnerId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
-//                Location = "/SDL Community Developers",
-//                Password = "Commun1tyRocks",
-//                UserName = "SDLCommunity",
-//                Host = "Added server"
-//            };
+        [Fact]
+        public async Task CreateDbServer()
+        {
+            var groupShareClient = Helper.GsClient;
+            var dbServerRequest = new DatabaseServerRequest
+            {
+                DatabaseServerId = Guid.NewGuid().ToString(),
+                Name = "Test Server",
+                Description = "Added from kit",
+                OwnerId = Helper.OrganizationId,
+                Location = Helper.Organization,
+                Host = Helper.GsServerName
+            };
 
-//            var serverId = await groupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
+            var serverId = await groupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
 
-//            Assert.True(serverId != string.Empty);
+            Assert.True(serverId != string.Empty);
 
-//            await groupShareClient.TranslationMemories.DeleteDbServer(serverId);
-//        }
+            await groupShareClient.TranslationMemories.DeleteDbServer(serverId);
+        }
 
-//        [Theory]
-//        [InlineData("6c32b2ed-77b3-41fa-87f3-02cce2db72e4")]
-//        public async Task GetDbServer(string serverId)
-//        {
-//            var groupShareClient = await Helper.GetGroupShareClient();
+        [Fact]
+        public async Task GetDbServer()
+        {
+            var groupShareClient = Helper.GsClient;
+            var dbServerRequest = new DatabaseServerRequest
+            {
+                DatabaseServerId = Guid.NewGuid().ToString(),
+                Name = "Test Server",
+                Description = "Added from kit",
+                OwnerId = Helper.OrganizationId,
+                Location = Helper.Organization,
+                Host = Helper.GsServerName
+            };
 
-//            var server = await groupShareClient.TranslationMemories.GetDbServerById(serverId);
+            var serverId = await groupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
+            var server = await groupShareClient.TranslationMemories.GetDbServerById(serverId);
 
-//            Assert.Equal(server.DatabaseServerId,serverId);
-//        }
+            Assert.Equal(server.DatabaseServerId, serverId);
+        }
 
-//        [Fact]
-//        public async Task UpdateDbServer()
-//        {
-//            var groupShareClient = await Helper.GetGroupShareClient();
+        [Fact]
+        public async Task UpdateDbServer()
+        {
+            var groupShareClient = Helper.GsClient;
 
-//            var dbServerRequest = new DatabaseServerRequest
-//            {
-//                DatabaseServerId = Guid.NewGuid().ToString(),
-//                Name = "Added server",
-//                Description = "Added from kit",
-//                OwnerId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
-//                Location = "/SDL Community Developers",
-//                Password = "Commun1tyRocks",
-//                UserName = "SDLCommunity",
-//                Host = "Added server"
-//            };
+             var dbServerRequest = new DatabaseServerRequest
+            {
+                DatabaseServerId = Guid.NewGuid().ToString(),
+                Name = "Test Server",
+                Description = "Added from kit",
+                OwnerId = Helper.OrganizationId,
+                Location = Helper.Organization,
+                Host = Helper.GsServerName
+            };
 
-//            var serverId = await groupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
+            var serverId = await groupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
 
-//            Assert.True(serverId != string.Empty);
+            Assert.True(serverId != string.Empty);
 
-//            var request = new RequestDbServer("Updated server name", "", "SDLCommunity", "Commun1tyRocks");
+            var request = new RequestDbServer("Updated server name", "", "", "");
 
-//            await groupShareClient.TranslationMemories.UpdateDbServer(serverId, request);
-//            var updatedServer = await groupShareClient.TranslationMemories.GetDbServerById(serverId);
+            await groupShareClient.TranslationMemories.UpdateDbServer(serverId, request);
+            var updatedServer = await groupShareClient.TranslationMemories.GetDbServerById(serverId);
 
-//            Assert.Equal("Updated server name", updatedServer.Name);
+            Assert.Equal("Updated server name", updatedServer.Name);
 
-//            await groupShareClient.TranslationMemories.DeleteDbServer(serverId);
-//        }
+            await groupShareClient.TranslationMemories.DeleteDbServer(serverId);
+        }
 
-//        [Fact]
-//        public async Task DeleteDbServer()
-//        {
-//            var groupShareClient = await Helper.GetGroupShareClient();
-//            var dbServerRequest = new DatabaseServerRequest
-//            {
-//                DatabaseServerId = Guid.NewGuid().ToString(),
-//                Name = "server",
-//                Description = "Added from kit",
-//                OwnerId = "5bdb10b8-e3a9-41ae-9e66-c154347b8d17",
-//                Location = "/SDL Community Developers",
-//                Password = "Commun1tyRocks",
-//                UserName = "SDLCommunity",
-//                Host = "server"
-//            };
+        [Fact]
+        public async Task DeleteDbServer()
+        {
+            var groupShareClient = Helper.GsClient;
 
-//            var serverId = await groupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
+            var databaseServerId = Guid.NewGuid().ToString();
+            var dbServerRequest = new DatabaseServerRequest
+            {
+                DatabaseServerId = databaseServerId,
+                Name = $"Database server {databaseServerId}",
+                Description = "added from integration test",
+                OwnerId = Helper.OrganizationId,
+                Location = Helper.Organization,
+                Host = Helper.GsServerName
+            };
 
-//            await groupShareClient.TranslationMemories.DeleteDbServer(serverId);
-//        }        
-//    }
-//}
+            var serverId = await groupShareClient.TranslationMemories.CreateDbServer(dbServerRequest).ConfigureAwait(false);
+            await groupShareClient.TranslationMemories.DeleteDbServer(serverId).ConfigureAwait(false);
+
+            Task result() => groupShareClient.TranslationMemories.GetDbServerById(serverId);
+            await Assert.ThrowsAsync<ForbiddenException>(result);
+        }
+    }
+}

@@ -19,13 +19,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
         {
             var groupShareUser = Helper.GetVariable("GROUPSHAREKIT_USERNAME");
             var groupSharePassword = Helper.GetVariable("GROUPSHAREKIT_PASSWORD");
-            var groupShareBearerId = Helper.GetVariable("GROUPSHAREKIT_BEARERID"); 
+            var groupShareBearerId = Helper.GetVariable("GROUPSHAREKIT_BEARERID");
 
             var token = await GroupShareClient.GetRequestToken(
                 groupShareUser,
                 groupSharePassword,
                 BaseUri,
                 GroupShareClient.AllScopes);
+		
 
             var gsClient = await GroupShareClient.AuthenticateClient(
                 token,

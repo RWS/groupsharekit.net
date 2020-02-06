@@ -129,8 +129,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Before you create a TM please make sure you HAVE CREATED A TEMPLATE FIELD and a LANGUAGE RESOURCE TEMPLATE
-        /// USE thoes id in the create request 
+        /// Before you create a TM please make sure you HAVE CREATED A TEMPLATE FIELD and a LANGUAGE RESOURCE TEMPLATE.
+        /// USE these ids in the create request 
         /// Creates a Translation Memory/>.
         /// </summary>
         /// <remarks>
@@ -146,7 +146,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task<string> CreateTm(CreateTmRequest tm)
         {
             Ensure.ArgumentNotNull(tm, "Translation memory");
-            return await ApiConnection.Post<string>(ApiUrls.GetTms(), tm, "application/json");
+            return await ApiConnection.Post<string>(ApiUrls.GetTms(), tm, "application/json").ConfigureAwait(false);
         }
 
         /// <summary>
@@ -931,7 +931,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNull(request, "container request");
 
-            return await ApiConnection.Post<string>(ApiUrls.Containers(), request, "application/json");
+            return await ApiConnection.Post<string>(ApiUrls.Containers(), request, "application/json").ConfigureAwait(false); ;
         }
 
         /// <summary>
@@ -1045,7 +1045,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNull(request, "request");
 
-            return await ApiConnection.Post<string>(ApiUrls.DbServers(), request, "application/json");
+            return await ApiConnection.Post<string>(ApiUrls.DbServers(), request, "application/json").ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1630,9 +1630,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                 resource.Data = encoded;
             }
 
-            var responseUrl =
-                await
-                    ApiConnection.Post<string>(ApiUrls.LanguageResourceServiceTemplates(), templateRequest, "application/json");
+            var responseUrl = await ApiConnection
+                .Post<string>(ApiUrls.LanguageResourceServiceTemplates(), templateRequest, "application/json")
+                .ConfigureAwait(false);
 
             var id = responseUrl.Split('/').Last();
             return id;

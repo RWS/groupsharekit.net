@@ -1,5 +1,5 @@
 trigger:
-- master
+- GS2020
 - rel/*
 
 pool:
