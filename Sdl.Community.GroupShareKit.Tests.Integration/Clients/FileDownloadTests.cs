@@ -1,59 +1,68 @@
-﻿//using Sdl.Community.GroupShareKit.Clients;
-//using System.Collections.Generic;
-//using System.Threading.Tasks;
-//using Xunit;
+﻿using Sdl.Community.GroupShareKit.Clients;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
 
-//namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
-//{
-//    public class FileDownloadTests
-//    {
-//        [Fact]
-//        public async Task DownloadFile()
-//        {
-//            var groupShareClient = await Helper.GetGroupShareClient();
+namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
+{
+    public class FileDownloadTests
+    {
+        private readonly string ProjectId;
+        private readonly List<string> LanguageFileIds;
 
-//            //project id, type
-//            var file = await groupShareClient.Project.DownloadFile(new FileDownloadRequest("c1f47d9c-a9dd-4069-b636-3405d4fb98a8", null, FileDownloadRequest.Types.All));
-//            Assert.True(file != null);
+        public FileDownloadTests()
+        {
+            var groupShareClient = Helper.GsClient;
 
-//            //project id, language code
-//            var request = await groupShareClient.Project.DownloadFile(new FileDownloadRequest("c1f47d9c-a9dd-4069-b636-3405d4fb98a8", "en-US", null));
+            var projectRequest = new ProjectsRequest("/", true, 7) { Page = "0", Limit = "1" };
+            var project = groupShareClient.Project.GetProject(projectRequest).Result.Items.FirstOrDefault();
 
-//            Assert.True(request != null);
-//        }
+            ProjectId = project != null ? project.ProjectId : string.Empty;
 
-//        //[Fact]
-//        //public async Task DownloadNative()
-//        //{
-//        //    var groupShareClient = await Helper.GetGroupShareClient();
-        
-//        //    var file = await groupShareClient.Project.DownloadNative("c1f47d9c-a9dd-4069-b636-3405d4fb98a8");
+            LanguageFileIds = groupShareClient
+                .Project
+                .GetAllFilesForProject(ProjectId).Result.Where(f => f.FileRole == "Translatable")
+                .Select(lf => lf.UniqueId.ToString()).ToList();
+        }
 
-//        //    Assert.True(file != null);
-//        //}
+        [Fact]
+        public async Task DownloadFile()
+        {
+            var groupShareClient = Helper.GsClient;
 
-//        //[Theory]
-//        //[InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8")]
-//        //public async Task Finalize(string projectId)
-//        //{
-//        //    var groupShareClient = await Helper.GetGroupShareClient();
-//        //    var languageFilesId = new List<string> { "23ddbfcf-a015-47ff-9e05-f62a3bfb783a" };
+            var file = await groupShareClient.Project.DownloadFile(new FileDownloadRequest(ProjectId, null, FileDownloadRequest.Types.All));
+            Assert.True(file != null);
+        }
 
-//        //    var files = await groupShareClient.Project.Finalize(projectId, languageFilesId);
+        [Fact]
+        public async Task DownloadNative()
+        {
+            var groupShareClient = Helper.GsClient;
+            var file = await groupShareClient.Project.DownloadNative(ProjectId);
 
-//        //    Assert.True(files != null);
-//        //}
+            Assert.True(file != null);
+        }
 
-//        [Theory]
-//        [InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8")]
-//        public async Task DownloadFiles(string projectId)
-//        {
-//            var groupShareClient = await Helper.GetGroupShareClient();
-//            var languageFilesId = new List<string> { "c6ece69e-baec-46ed-8275-53d848ae3b70", "23ddbfcf-a015-47ff-9e05-f62a3bfb783a" };
+        //[Theory]
+        //[InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8")]
+        //public async Task Finalize(string projectId)
+        //{
+        //    var groupShareClient = Helper.GsClient;
+        //    var languageFilesId = new List<string> { "23ddbfcf-a015-47ff-9e05-f62a3bfb783a" };
 
-//            var files = await groupShareClient.Project.DownloadFiles(projectId, languageFilesId);
+        //    var files = await groupShareClient.Project.Finalize(projectId, languageFilesId);
 
-//            Assert.True(files != null);
-//        }
-//    }
-//}
+        //    Assert.True(files != null);
+        //}
+
+        [Fact]
+        public async Task DownloadFiles()
+        {
+            var groupShareClient = Helper.GsClient;
+            var files = await groupShareClient.Project.DownloadFiles(ProjectId, LanguageFileIds);
+
+            Assert.True(files != null);
+        }
+    }
+}
