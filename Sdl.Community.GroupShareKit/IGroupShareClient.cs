@@ -14,6 +14,7 @@ namespace Sdl.Community.GroupShareKit
         /// Provides a client connection to make rest requests to HTTP endpoints.
         /// </summary>
         IConnection Connection { get; }
+	
 
         /// <summary>
         /// Access GroupShare's Project API.
