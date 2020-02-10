@@ -19,6 +19,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(users.Count > 0);
         }
 
+
         [Theory]
         [InlineData("rcrisan")]
         public async Task GetUser(string userName)
