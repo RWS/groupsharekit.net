@@ -16,6 +16,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
         }
 
+
         /// <summary>
         /// Gets <see cref="Authorization"/> token required for all API requests.
         /// </summary>
