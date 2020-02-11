@@ -16,6 +16,7 @@ var groupShareClient = await GroupShareClient.AuthenticateClient(userName,
 
 var users = await groupShareClient.User.GetAllUsers();
 
+
 foreach (var user in users)
 {
     Console.WriteLine(user.DisplayName +" loves Groupshare!");
