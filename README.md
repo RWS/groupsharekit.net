@@ -4,6 +4,10 @@
 
 GroupShareKit is a client library targeting .NET 4.6 and above that provides an easy way to interact with [GroupShare Rest API](http://gs2017dev.sdl.com:41234/documentation/api/index#/)
 
+There are, currently, 2 versions:
+ * GroupShareKit
+ * GroupShareKit-2017
+
 ## Usage examples
 
 Get all users available in Groupshare.
@@ -30,13 +34,17 @@ foreach (var user in users)
 * Xamarin.iOS 10 
 * Xamarin.Android 7
 * GroupShare 2017
+* GroupShare 2020
 
 ## Getting started
 
-GroupShareKit is available on [NuGet](https://www.nuget.org/packages/GroupShareKit/).
+GroupShareKit is available on NuGet: 
+* GroupShareKit (https://www.nuget.org/packages/GroupShareKit/).
+* GroupShareKit-2017 (https://www.nuget.org/packages/GroupShareKit-2017/).
 
 ```
 Install-Package GroupShareKit
+Install-Package GroupShareKit-2017
 ```
 
 ## Documentation
@@ -48,8 +56,8 @@ Please see http://gs2017dev.sdl.com:41235/docs/ui/index#/ for details about the 
 
 GroupShareKit is a single assembly designed to be easy to deploy anywhere. If you prefer to compile it yourself, you'll need:
 
-*Visual Studio 2015
-*Windows 8.1 or higher to build and test windows store projects
+*Visual Studio 2017
+*Windows 10 to build and test windows store projects
 
 To clone it locally click the "Clone in Desktop" button above or run the following git commands:
 
@@ -111,6 +119,6 @@ problem.
 
 ## Copyright and License
 
-Copyright 2018 SDL plc.
+Copyright 2020 SDL plc.
 
 Licensed under the [MIT License](https://github.com/sdl/groupsharekit.net/blob/master/LICENSE)
