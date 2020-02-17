@@ -142,7 +142,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 	    public async Task Projects_IsCheckOutToSomeoneElseBasicOnlineEditorMode_Succeeds()
 	    {
 		    var groupShareClient = Helper.GsClient;
-            var editorProfileMode = "basic";
+            var editorProfileMode = OnlineCheckout.EditorProfileMode.Basic.ToString();
             await groupShareClient.Project.IsCheckoutToSomeoneElse(LanguageFileId, editorProfileMode);  
 	    }
 
@@ -150,7 +150,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Projects_IsCheckOutToSomeoneElseAdvancedOnlineEditorMode_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var editorProfileMode = "advanced";
+            var editorProfileMode = OnlineCheckout.EditorProfileMode.Advanced.ToString();
             await groupShareClient.Project.IsCheckoutToSomeoneElse(LanguageFileId, editorProfileMode);
         }
 
@@ -205,7 +205,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 	    public async Task OnlineCheckoutHealthCheckBasicOnlineEditorMode()
 	    {
 			var groupShareClient = Helper.GsClient;
-            var editorProfileMode = "basic";
+            var editorProfileMode = OnlineCheckout.EditorProfileMode.Basic.ToString();
 		    var response = await groupShareClient.Project.OnlineCheckoutHealthCheck(editorProfileMode);
 		    Assert.True(response != null);
 	    }
@@ -214,7 +214,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task OnlineCheckoutHealthCheckAdvancedOnlineEditorMode()
         {
             var groupShareClient = Helper.GsClient;
-            var editorProfileMode = "advanced";
+            var editorProfileMode = OnlineCheckout.EditorProfileMode.Advanced.ToString();
             var response = await groupShareClient.Project.OnlineCheckoutHealthCheck(editorProfileMode);
             Assert.True(response != null);
         }
