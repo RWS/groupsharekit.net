@@ -937,9 +937,9 @@ namespace Sdl.Community.GroupShareKit.Clients
 	    ///  Thrown when the current user does not have permission to make the request.
 	    ///  </exception>
 	    ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		public async Task<string> OnlineCheckoutHealthCheck()
+		public async Task<string> OnlineCheckoutHealthCheck(string editorProfileMode)
 	    {
-		    var response = await ApiConnection.Get<string>(ApiUrls.OnlineCheckoutHealthCheck(), null);
+		    var response = await ApiConnection.Get<string>(ApiUrls.OnlineCheckoutHealthCheck(editorProfileMode), null);
 		    return response;
 	    }
 
@@ -955,10 +955,10 @@ namespace Sdl.Community.GroupShareKit.Clients
 	    ///  Thrown when the current user does not have permission to make the request.
 	    ///  </exception>
 	    ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		public async Task<bool> IsCheckoutToSomeoneElse(string languageFileId)
+		public async Task<bool> IsCheckoutToSomeoneElse(string languageFileId, string editorProfileMode)
 	    {
 			Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
-		    return await ApiConnection.Get<bool>(ApiUrls.IsCheckoutToSomeoneElse(languageFileId), null);
+		    return await ApiConnection.Get<bool>(ApiUrls.IsCheckoutToSomeoneElse(languageFileId, editorProfileMode), null);
 	    }
 
 		///  <summary>

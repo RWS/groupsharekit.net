@@ -727,17 +727,17 @@ namespace Sdl.Community.GroupShareKit.Helpers
 		/// <summary>
 		/// Returns the <see cref="Uri"/> for health check call used to keep the OE license seat taken
 		/// </summary>
-		public static Uri OnlineCheckoutHealthCheck()
+		public static Uri OnlineCheckoutHealthCheck(string editorProfileMode)
 	    {
-			return "{0}/onlinecheckout".FormatUri(CurrentProjectServerUrl);	
+			return "{0}/onlinecheckout/{1}".FormatUri(CurrentProjectServerUrl, editorProfileMode);	
 		}
 
 		/// <summary>
 		/// Returns the <see cref="Uri"/> rthat checks if the given language file is check-out to someone other than the user making this call
 		/// </summary>
-		public static Uri IsCheckoutToSomeoneElse(string languageFileId)
+		public static Uri IsCheckoutToSomeoneElse(string languageFileId, string editorProfileMode)
 	    {
-			return "{0}/onlinecheckout/isCheckOutToSomeoneElse/{1}".FormatUri(CurrentProjectServerUrl, languageFileId);
+			return "{0}/onlinecheckout/isCheckOutToSomeoneElse/{1}/{2}".FormatUri(CurrentProjectServerUrl, languageFileId, editorProfileMode);
 		}
 
 	    /// <summary>
