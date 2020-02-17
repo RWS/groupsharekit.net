@@ -139,20 +139,29 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 	    }
 
         [Fact]
-	    public async Task Projects_IsCheckOutToSomeoneElse_Succeeds()
+	    public async Task Projects_IsCheckOutToSomeoneElseBasicOnlineEditorMode_Succeeds()
 	    {
 		    var groupShareClient = Helper.GsClient;
-		    await groupShareClient.Project.IsCheckoutToSomeoneElse(LanguageFileId);  
+            var editorProfileMode = "basic";
+            await groupShareClient.Project.IsCheckoutToSomeoneElse(LanguageFileId, editorProfileMode);  
 	    }
 
-		//[Fact(Skip = "")]
-		//public async Task Projects_OnlineCheckIn_Succeeds()
-		//{
-		//	var groupShareClient = Helper.GsClient;	 
+        [Fact]
+        public async Task Projects_IsCheckOutToSomeoneElseAdvancedOnlineEditorMode_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var editorProfileMode = "advanced";
+            await groupShareClient.Project.IsCheckoutToSomeoneElse(LanguageFileId, editorProfileMode);
+        }
 
-		//	var response =await groupShareClient.Project.OnlineCheckin(ProjectId, LanguageFileId).ConfigureAwait(true);
-		//	Assert.True(response!=null);
-		//}
+        //[Fact(Skip = "")]
+        //public async Task Projects_OnlineCheckIn_Succeeds()
+        //{
+        //	var groupShareClient = Helper.GsClient;	 
+
+        //	var response =await groupShareClient.Project.OnlineCheckin(ProjectId, LanguageFileId).ConfigureAwait(true);
+        //	Assert.True(response!=null);
+        //}
 
         //[Fact]
         //public async Task OnlineCheckout()
@@ -175,7 +184,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    await groupShareClient.Project.ExternalCheckin(ProjectId, LanguageFileId, "comment");
         //}
 
-      [Fact]
+        [Fact]
 	    public async Task Dashboard()
 	    {
 			var groupShareClient = Helper.GsClient;
@@ -193,14 +202,24 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 	    }
 
 		[Fact]
-	    public async Task OnlineCheckoutHealthCheck()
+	    public async Task OnlineCheckoutHealthCheckBasicOnlineEditorMode()
 	    {
 			var groupShareClient = Helper.GsClient;
-		    var response = await groupShareClient.Project.OnlineCheckoutHealthCheck();
+            var editorProfileMode = "basic";
+		    var response = await groupShareClient.Project.OnlineCheckoutHealthCheck(editorProfileMode);
 		    Assert.True(response != null);
 	    }
 
-		[Fact]
+        [Fact]
+        public async Task OnlineCheckoutHealthCheckAdvancedOnlineEditorMode()
+        {
+            var groupShareClient = Helper.GsClient;
+            var editorProfileMode = "advanced";
+            var response = await groupShareClient.Project.OnlineCheckoutHealthCheck(editorProfileMode);
+            Assert.True(response != null);
+        }
+
+        [Fact]
         public async Task GetProjectById()
         {
             var groupShareClient = Helper.GsClient;

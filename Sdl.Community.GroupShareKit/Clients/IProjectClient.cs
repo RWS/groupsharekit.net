@@ -613,7 +613,8 @@ namespace Sdl.Community.GroupShareKit.Clients
 		Task UndoCheckout(string projectId, string languageFileId);
 
 		///  <summary>
-		/// Health check call used to keep the OE license seat taken
+		/// Health check call used to keep the OE license advanced/basic seat taken
+        /// By default, if no parameter advanced/basic is passed in api route, advanced mode is checkout.
 		///  </summary>
 		///  This method requires authentication.
 		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -621,7 +622,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  Thrown when the current user does not have permission to make the request.
 		///  </exception>
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		Task<string> OnlineCheckoutHealthCheck();
+		Task<string> OnlineCheckoutHealthCheck(string editorProfileMode);
 
 		///  <summary>
 		/// Checks if the given language file is check-out to someone other than the user making this call
@@ -635,7 +636,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  Thrown when the current user does not have permission to make the request.
 		///  </exception>
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		Task<bool> IsCheckoutToSomeoneElse(string languageFileId);
+		Task<bool> IsCheckoutToSomeoneElse(string languageFileId, string editorProfileMode);
 
 		///  <summary>
 		/// Checks in a file for editing
