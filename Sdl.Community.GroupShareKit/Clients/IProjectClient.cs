@@ -660,6 +660,6 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  Thrown when the current user does not have permission to make the request.
 		///  </exception>
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		Task<IReadOnlyList<AuditTrial>> AuditTrial(string projectId);
+		Task<IReadOnlyList<AuditTrail>> AuditTrail(string projectId);
 	}
 }
