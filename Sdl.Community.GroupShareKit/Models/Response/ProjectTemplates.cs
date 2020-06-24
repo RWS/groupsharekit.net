@@ -26,6 +26,9 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// </summary>
        // public byte[] RawData { get; set; }
 
+        public ProjectTemplates()
+        {
+        }
         public ProjectTemplates( string id,string name, string description, string organizationId)
         {
             Id = id;

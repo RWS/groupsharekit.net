@@ -372,6 +372,109 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             projectStatusRequest = new ChangeStatusRequest(ProjectId, ChangeStatusRequest.ProjectStatus.Started);
             await groupShareClient.Project.ChangeProjectStatus(projectStatusRequest);
         }
+
+        [Fact]
+        public async Task PerfectMatchWithZip()
+        {
+            var baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\PerfectMatch");
+            var projectTemplateId = await CreateProjectTemplateForPerfectMatch(Path.Combine(baseDir, "project-template.sdltpl"));
+
+            var basicProjectCreateRequest = CreateBasicCreateProjectRequest(projectTemplateId);
+            var projectId = await Helper.GsClient.Project.CreateProject(basicProjectCreateRequest, Path.Combine(baseDir, "PerfectMatch.zip"));
+            var created = await WaitForProjectCreated(projectId);
+
+            Assert.True(created);
+            var analysisReports = await Helper.GsClient.Project.GetAnalysisReports(projectId.ToString(), "fr-fr");
+            Assert.True(analysisReports[0].Report.Task.File.Count == 4);
+            Assert.True(analysisReports[0].Report.Task.File[0].Analyse.Total.Segments == "3");
+            Assert.True(analysisReports[0].Report.Task.File[0].Analyse.Perfect.Segments == "0");
+            Assert.True(analysisReports[0].Report.Task.File[1].Analyse.Perfect.Segments == "1");
+            Assert.True(analysisReports[0].Report.Task.File[2].Analyse.Perfect.Segments == "2");
+            Assert.True(analysisReports[0].Report.Task.File[3].Analyse.Perfect.Segments == "3");
+
+            await Helper.GsClient.Project.DeleteProject(projectId.ToString());
+            await Helper.GsClient.Project.Delete(projectTemplateId.ToString());
+        }
+
+
+
+        [Fact]
+        public async Task PerfectMatchWithFiles()
+        {
+            var baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\PerfectMatch");
+            var projectTemplateId = await CreateProjectTemplateForPerfectMatch(Path.Combine(baseDir, "project-template.sdltpl"));
+
+            var basicProjectCreateRequest = CreateBasicCreateProjectRequest(projectTemplateId);
+            var projectId = await Helper.GsClient.Project.CreateProject(
+                basicProjectCreateRequest, Path.Combine(baseDir, "project-files"), null,
+                new string[] { Path.Combine(baseDir, "previous-translations")});
+            var created = await WaitForProjectCreated(projectId);
+            Assert.True(created);
+
+            var analysisReports = await Helper.GsClient.Project.GetAnalysisReports(projectId.ToString(), "fr-fr");
+            Assert.True(analysisReports[0].Report.Task.File.Count == 4);
+            Assert.True(analysisReports[0].Report.Task.File[0].Analyse.Total.Segments == "3");
+            Assert.True(analysisReports[0].Report.Task.File[0].Analyse.Perfect.Segments == "0");
+            Assert.True(analysisReports[0].Report.Task.File[1].Analyse.Perfect.Segments == "1");
+            Assert.True(analysisReports[0].Report.Task.File[2].Analyse.Perfect.Segments == "2");
+            Assert.True(analysisReports[0].Report.Task.File[3].Analyse.Perfect.Segments == "3");
+
+            await Helper.GsClient.Project.DeleteProject(projectId);
+            await Helper.GsClient.Project.Delete(projectTemplateId);
+        }
+
+        private async Task<string> CreateProjectTemplateForPerfectMatch(string projectTemplateFilePath)
+        {
+            var projectTemplateData = File.ReadAllBytes(projectTemplateFilePath);
+            var projectTemplateRequest = new ProjectTemplates
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "PerfectMatchProjectTemplate_" + Guid.NewGuid().ToString(),
+                Description = "",
+                OrganizationId = Helper.OrganizationId
+            };
+            var projectTemplateId = await Helper.GsClient.Project.CreateTemplate(projectTemplateRequest, projectTemplateData);
+            return projectTemplateId;
+        }
+
+        private static BasicCreateProjectRequest CreateBasicCreateProjectRequest(string projectTemplateId)
+        {
+            return new BasicCreateProjectRequest
+            {
+                Name = "PerfectMatch_" + Guid.NewGuid().ToString(),
+                Description = "Perfect match from zip file",
+                OrganizationId = Helper.OrganizationId,
+                ProjectTemplateId = projectTemplateId,
+                DueDate = null,
+                ReferenceProjects = null,
+                SuppressEmail = false,
+                IsSecure = false
+            };
+        }
+
+        private async Task<bool> WaitForProjectCreated(string projectId, int retryInterval = 30, int maxTryCount = 20)
+        {
+            for (var i = 0; i < maxTryCount; i++)
+            {
+                var statusInfo = await Helper.GsClient.Project.PublishingStatus(projectId);
+                switch (statusInfo.Status)
+                {
+                    case PublishProjectStatus.Uploading:
+                    case PublishProjectStatus.Scheduled:
+                    case PublishProjectStatus.Publishing:
+                        break;
+                    case PublishProjectStatus.Completed:
+                        return true;
+                    case PublishProjectStatus.Error:
+                        throw new Exception(statusInfo.Description);
+                }
+                await Task.Delay(retryInterval * 1000);
+                
+            }
+            return false;
+        }
+
+
         #endregion
 
         #region Project template tests
