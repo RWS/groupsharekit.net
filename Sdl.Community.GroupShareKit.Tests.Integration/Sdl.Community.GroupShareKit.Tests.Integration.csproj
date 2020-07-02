@@ -160,6 +160,33 @@
     <None Update="Resources\Grammar.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\PerfectMatch\PerfectMatch.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\PerfectMatch\previous-translations\fr-fr\perfectmatch\test-1segment.docx.sdlxliff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\PerfectMatch\previous-translations\fr-fr\perfectmatch\test-2segments.docx.sdlxliff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\PerfectMatch\previous-translations\fr-fr\perfectmatch\test-3segments.docx.sdlxliff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\PerfectMatch\project-files\no-perfectmatch\test.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\PerfectMatch\project-files\perfectmatch\test-1segment.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\PerfectMatch\project-files\perfectmatch\test-2segments.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\PerfectMatch\project-files\perfectmatch\test-3segments.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\PerfectMatch\project-template.sdltpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\TMOptions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -189,6 +216,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Resources\PerfectMatch\" />
     <Folder Include="Setup\" />
     <Folder Include="Properties\" />
   </ItemGroup>

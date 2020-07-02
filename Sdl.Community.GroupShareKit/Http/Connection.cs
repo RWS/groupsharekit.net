@@ -108,6 +108,13 @@ namespace Sdl.Community.GroupShareKit.Http
             return SendData<T>(uri, HttpMethod.Post, body, contentType, CancellationToken.None);
         }
 
+        public Task<IApiResponse<T>> Post<T>(string uri, object body, string contentType)
+        {
+            Ensure.ArgumentNotNull(uri, "uri");
+
+            return SendData<T>(uri, HttpMethod.Post, body, contentType, CancellationToken.None);
+        }
+
         public Task<IApiResponse<T>> Post<T>(Uri uri, object body, string contentType, TimeSpan timeout)
         {
             Ensure.ArgumentNotNull(uri, "uri");
@@ -217,6 +224,22 @@ namespace Sdl.Community.GroupShareKit.Http
                 Method = method,
                 BaseAddress = baseAddress ?? BaseAddress,
                 Endpoint = uri,
+                ContentType = contentType
+            };
+
+            return SendDataInternal<T>(body, contentType, cancellationToken, request);
+        }
+
+        private Task<IApiResponse<T>> SendData<T>(string uri, HttpMethod method, object body, string contentType,
+            CancellationToken cancellationToken, Uri baseAddress = null)
+        {
+            Ensure.ArgumentNotNull(uri, "uri");
+            baseAddress = baseAddress ?? BaseAddress;            
+            var request = new Request
+            {
+                Method = method,
+                BaseAddress = baseAddress,
+                Endpoint = baseAddress == null ? new Uri(uri) : new Uri(baseAddress, uri),
                 ContentType = contentType
             };
 

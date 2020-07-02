@@ -204,6 +204,143 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// Create project
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <param name="request">The basic project parameters</param>
+        /// <param name="filesPath">The path pointing to the files for the project. The path can be a zip file, a single file, or a directory. 
+        /// If it is a zip file path, the zip should have a folder SourceFiles, an optional folder ReferenceFiles, and an optional folder PerfectMatchFiles.
+        /// If it is a file, the project will be created as a single file project. If it is a directory, all the files under the directory will be the project files. 
+        /// </param>
+        /// <param name="referenceFilesPath">If filesPath parameter is not a zip file, this optional parameter points to a reference file or a directory containing reference files.</param>
+        /// <param name="perfectMatchFilesPaths">If filesPath parameter is not a zip file, this optional parameter points to a directories containing the perfect match files.
+        /// </param>
+        /// <returns>The project Id</returns>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task<string> CreateProject(BasicCreateProjectRequest request, 
+            string filesPath, string referenceFilesPath = null, string[] perfectMatchFilesPaths = null)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(filesPath, "filesPath");
+
+            // register the project creation
+            var projectCreateResponse = await ApiConnection.Post<string>(ApiUrls.GetAllProjects(), request, "application/json");
+            var projectId = projectCreateResponse.Split('/').Last();
+
+            var started = await UploadFilesForProject(projectId, filesPath);
+            if (started)
+            {
+                return projectId;
+            }
+
+            if (!string.IsNullOrEmpty(referenceFilesPath))
+            {
+                await UploadReferenceFilesForProject(projectId, referenceFilesPath);
+            }
+
+            if (perfectMatchFilesPaths != null && perfectMatchFilesPaths.Length > 0)
+            {
+                for (var i = 0; i < perfectMatchFilesPaths.Length; i ++)
+                {
+                    var uri = ApiUrls.GetPerfectMatchFiles(projectId, i);
+                    await UploadPerfectMatchFilesForProject(uri.ToString(), perfectMatchFilesPaths[i]);
+                }
+            }
+
+            await ApiConnection.Post<string>(ApiUrls.StartProjectCreationUri(projectId));
+            return projectId;
+        }
+
+        private async Task<bool> UploadFilesForProject(string projectId, string filesPath)
+        {
+            if (System.IO.File.Exists(filesPath))
+            {
+                if (filesPath.EndsWith(".zip", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var uri = ApiUrls.UploadFilesForProject(projectId.ToString(), false, true);
+                    await UploadFilesForProject(uri.ToString(), new string[] { filesPath} );
+                    return true;
+                }
+                else
+                {
+                    var uri = ApiUrls.UploadFilesForProject(projectId.ToString(), false, false);
+                    System.Diagnostics.Debug.WriteLine($"Upload files: {filesPath}" );
+                    await UploadFilesForProject(uri.ToString(), new string[] { filesPath });
+                    return false;
+                }
+            }
+            else
+            {
+                var uri = ApiUrls.UploadFilesForProject(projectId.ToString(), false, false);
+                System.Diagnostics.Debug.WriteLine($"Upload folder: {filesPath}");
+                await UploadDirectoryForProject(uri.ToString(), filesPath);
+                return false;
+            }            
+        }
+
+        private async Task UploadReferenceFilesForProject(string projectId, string referenceFilesPath)
+        {
+            var uri = ApiUrls.UploadFilesForProject(projectId.ToString(), true, false);
+            if (System.IO.File.Exists(referenceFilesPath))
+            {
+                await UploadFilesForProject(uri.ToString(), new string[] { referenceFilesPath });
+            }
+            else
+            {
+                await UploadDirectoryForProject(uri.ToString(), referenceFilesPath);
+            }
+        }
+
+        private async Task UploadPerfectMatchFilesForProject(string uri, string directory)
+        {
+            // first level are langugage folders
+            foreach (var languageDir in new System.IO.DirectoryInfo(directory).GetDirectories())
+            {
+                //var languageCode = languageDir.Name;
+                await UploadDirectoryForProject(uri, languageDir.FullName);
+            }
+        }
+
+        private async Task UploadDirectoryForProject(string uri, string directory)
+        {            
+            var files = System.IO.Directory.GetFiles(directory);
+            if (files.Length > 0)
+            {
+                System.Diagnostics.Debug.WriteLine("Upload files: " + string.Join(System.Environment.NewLine, files));
+                await UploadFilesForProject(uri, files);  
+            }
+
+            foreach (var subDir in new System.IO.DirectoryInfo(directory).GetDirectories())
+            {
+                var name = subDir.Name;
+                var folderUri = uri + name + "\\";
+                System.Diagnostics.Debug.WriteLine(folderUri);
+                System.Diagnostics.Debug.WriteLine($"Upload folder: {subDir.FullName}");
+                await UploadDirectoryForProject(folderUri, subDir.FullName);
+            }
+        }
+
+        private async Task UploadFilesForProject(string uri, string[] filesPaths)
+        {
+            using (var content = new MultipartFormDataContent())
+            {
+                foreach (var file in filesPaths)
+                {
+                    var stream = new System.IO.FileStream(file, System.IO.FileMode.Open);
+                    var streamContent = new StreamContent(stream);
+                    streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                    content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
+                }
+            await ApiConnection.Post<string>(uri, content, null);
+            }
+        }
+
+        /// <summary>
         /// Delete project
         /// </summary>
         /// <remarks>
@@ -444,6 +581,8 @@ namespace Sdl.Community.GroupShareKit.Clients
             };
             return await ApiConnection.Post<string>(ApiUrls.UploadFilesForProject(projectId), multipartContent, "application/zip");
         }
+
+        
 
         /// <summary>
         ///Change project status
