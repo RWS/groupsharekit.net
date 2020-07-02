@@ -7,6 +7,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
     {
         public static readonly Uri CurrentProjectServerUrl = new Uri("api/projectserver/v2", UriKind.Relative);
         public static readonly Uri CurrentProjectServerV3Url = new Uri("api/projectserver/v3", UriKind.Relative);
+        public static readonly Uri CurrentProjectServerV4Url = new Uri("api/projectserver/v4", UriKind.Relative);
         public static readonly Uri CurrentManagementUrl = new Uri("api/management/v2", UriKind.Relative);
         public static readonly Uri CurrentAuthenticationUrl = new Uri("authentication/api/1.0", UriKind.Relative);
         public static readonly Uri CurrentTranslationMemoriesUrl = new Uri("api/tmservice", UriKind.Relative);
@@ -127,6 +128,12 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/projects".
                 FormatUri(CurrentProjectServerUrl);
+        }
+
+        public static Uri GetPerfectMatchFiles(string projectId, int matchOrderIndex)
+        {
+            return "{0}/projects/{1}/files/upload/perfectmatch/{2}?relativePath="
+                .FormatUri(CurrentProjectServerV4Url, projectId, matchOrderIndex);
         }
 
         /// <summary>
@@ -355,6 +362,28 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/projects/{1}/files/upload".FormatUri(CurrentProjectServerUrl, projectId);
         }
 
+        /// <summary>
+        ///  Returns the uri string that adds files for project
+        /// </summary>
+        /// <param name="projectId">Project id</param>
+        /// <param name="isReferenceFile">The flag to indicate if the files to upload are rerference files</param>
+        /// <param name="createProjectAfterUpload">The flag to indicate if the project should be started creating after the upload immediately</param>
+        public static string UploadFilesForProject(string projectId, bool isReferenceFile, bool createProjectAfterUpload)
+        {
+            // use string instead of Uri is to avoid the format errors. In some case we might append the path for this uri.
+            return string.Format("{0}/projects/{1}/files/upload?&reference={2}&create={3}&relativePath=", 
+                CurrentProjectServerUrl, projectId, isReferenceFile, createProjectAfterUpload); 
+        }        
+
+        /// <summary>
+        ///  Returns the <see cref="Uri"/> that starts the project creation
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri StartProjectCreationUri(string projectId)
+        {
+            return "{0}/projects/{1}/create".FormatUri(CurrentProjectServerUrl, projectId);
+        }
         /// <summary>
         /// Returns the <see cref="Uri"/> that changes the project status
         /// </summary>

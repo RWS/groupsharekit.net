@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<ProjectTemplate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Guid="b2fd4b1c-9bdc-43aa-b3aa-95ec7b3a6257" SettingsBundleGuid="2ce43a45-d6e5-420e-ad17-068ef9b9d6ac" Version="4.0.0.0">
+  <LanguageDirections>
+    <LanguageDirection Guid="627182b0-a16e-4edc-9a30-448188e75383" SettingsBundleGuid="03b1568b-1f14-4db0-8413-db41cb0796b3" TargetLanguageCode="fr-FR" SourceLanguageCode="en-us">
+      <AutoSuggestDictionaries />
+      <CascadeItem OverrideParent="false" StopSearchingWhenResultsFound="false" />
+    </LanguageDirection>
+  </LanguageDirections>
+  <TermbaseConfiguration>
+    <RecognitionOptions>
+      <ShowWithNoAvailableTranslation>false</ShowWithNoAvailableTranslation>
+      <MinimumMatchValue>70</MinimumMatchValue>
+      <SearchDepth>200</SearchDepth>
+      <SearchOrder>Parallel</SearchOrder>
+    </RecognitionOptions>
+  </TermbaseConfiguration>
+  <SettingsBundles>
+    <SettingsBundle Guid="2ce43a45-d6e5-420e-ad17-068ef9b9d6ac">
+      <SettingsBundle>
+        <SettingsGroup Id="TerminologyProviderSettings">
+          <Setting Id="TermbasesOrder">
+            <ArrayOfstring xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+            </ArrayOfstring>
+          </Setting>
+          <Setting Id="Termbases">
+            <ArrayOfTermbase xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.ProjectApi.Implementation.Xml">
+            </ArrayOfTermbase>
+          </Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="FileViewServiceSettings">
+          <Setting Id="SelectedTargetLanguageCode">fr-FR</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="Plugin.AnyTM.SourceLanguages">
+          <Setting Id="HasMixedSourceLanguages">False</Setting>
+          <Setting Id="AutoDetectSourceLanguage">True</Setting>
+          <Setting Id="SourceLanguages">en-us</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="ProjectTemplateSettings">
+          <Setting Id="ProjectLocation">C:\Code\Repos-gs\groupsharekit.net\Sdl.Community.GroupShareKit.Tests.Integration\Resources\PerfectMatch</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="GeneralProjectInfoSettings">
+          <Setting Id="CreatedAt">
+            <dateTime xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2020-06-09T11:11:07.8961427Z</dateTime>
+          </Setting>
+          <Setting Id="CreatedBy">GLOBAL\xliu</Setting>
+          <Setting Id="CustomerId" />
+          <Setting Id="Description" />
+          <Setting Id="DueDate">
+            <dateTime xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9999-12-31T22:59:59.9999999Z</dateTime>
+          </Setting>
+        </SettingsGroup>
+      </SettingsBundle>
+    </SettingsBundle>
+  </SettingsBundles>
+  <AnalysisBands>
+    <AnalysisBand MinimumMatchValue="50" />
+    <AnalysisBand MinimumMatchValue="75" />
+    <AnalysisBand MinimumMatchValue="85" />
+    <AnalysisBand MinimumMatchValue="95" />
+  </AnalysisBands>
+  <ManualTaskTemplates />
+  <Users>
+    <User UserId="GLOBAL\xliu" FullName="Xingzeng Liu" Description="" Email="test@hotmail.com" PhoneNumber="" EmailType="Smtp" />
+  </Users>
+  <CascadeItem OverrideParent="true" StopSearchingWhenResultsFound="false" />
+  <GeneralProjectTemplateInfo Description="" CreatedAt="2020-06-09T11:11:07.8831422Z" CreatedBy="GLOBAL\xliu" />
+</ProjectTemplate>
