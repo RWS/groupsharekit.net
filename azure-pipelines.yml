@@ -24,9 +24,9 @@ steps:
   condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
 - task: NuGetToolInstaller@0
-  displayName: Use NuGet 4.7.0
+  displayName: Use NuGet 5.3.0
   inputs:
-    versionSpec: 4.7.0
+    versionSpec: 5.3.0
 
 - task: NuGetCommand@2
   inputs:
