@@ -60,6 +60,7 @@ namespace Sdl.Community.GroupShareKit
             TranslationMemories = new TranslationMemoriesClient(apiConnection);
             Terminology = new TerminologyClient(apiConnection);
             TranslateAndAnalysis = new TranslateAndAnalysisClient(apiConnection);
+            Reporting = new ReportingClient(apiConnection);
         }
 
         /// <summary>
@@ -97,6 +98,7 @@ namespace Sdl.Community.GroupShareKit
         }
 
         public IProjectClient Project { get; }
+        public IReportingClient Reporting { get; }
         public ITranslationMemoriesClient TranslationMemories { get; set; }
 
         public IUserClient User { get; }

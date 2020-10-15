@@ -15,6 +15,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static readonly Uri CurrentMultitermUrl = new Uri("multiterm/api/1.0", UriKind.Relative);
         public static readonly Uri CurrentLanguageResourceServiceUrl = new Uri("api/language-resource-service", UriKind.Relative);
         public static readonly Uri TranslateAndAnalysisServiceUrl = new Uri("ta/api", UriKind.Relative);
+        public static readonly Uri ReportingServiceUrl = new Uri("api/reports", UriKind.Relative);
 
         public static Uri Modules()
         {
@@ -1005,6 +1006,37 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri GetTmLeverageData(string options)
         {
             return "{0}/tmLeverageReport?filter={1}".FormatUri(CurrentProjectServerUrl, options);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for predefined projects report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetPredefinedProjectsData()
+        {
+
+            return "{0}/predefined/projects".FormatUri(ReportingServiceUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for predefined tasks report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetPredefinedTasksData()
+        {
+            return "{0}/predefined/tasks".FormatUri(ReportingServiceUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for predefined tmleverage report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetPredefinedTmLeverageData()
+        {
+            return "{0}/predefined/tmleverage".FormatUri(ReportingServiceUrl);
         }
     }
 }
