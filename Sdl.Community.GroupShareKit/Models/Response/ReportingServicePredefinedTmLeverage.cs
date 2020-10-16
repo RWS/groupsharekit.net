@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Models.Response
 {
-    public class ReportingServiceTmLeverage
+    public class ReportingServicePredefinedTmLeverage
     {
         public int PerfectlyMatchedWords { get; set; }
 

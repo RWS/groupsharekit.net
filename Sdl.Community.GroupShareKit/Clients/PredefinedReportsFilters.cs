@@ -10,7 +10,6 @@ namespace Sdl.Community.GroupShareKit.Clients
 {
     public class PredefinedReportsFilters
     {
-        public string UserName { get; set; }
         public string OrganizationPath { get; set; }
         public bool ShowAll { get; set; }
         public DateTime PublishStart { get; set; }

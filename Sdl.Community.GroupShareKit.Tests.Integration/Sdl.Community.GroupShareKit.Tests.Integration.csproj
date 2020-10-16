@@ -217,7 +217,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\PerfectMatch\" />
-    <Folder Include="Setup\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 
