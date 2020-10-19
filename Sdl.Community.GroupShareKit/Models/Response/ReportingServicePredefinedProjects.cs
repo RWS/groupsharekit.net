@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Models.Response
 {
-    public class ReportingServiceProjects
+    public class ReportingServicePredefinedProjects
     {
         public string ProjectName { get; set; }
 

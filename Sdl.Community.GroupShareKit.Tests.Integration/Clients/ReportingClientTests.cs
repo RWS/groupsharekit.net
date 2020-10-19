@@ -1,19 +1,13 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
-using Sdl.Community.GroupShareKit.Models.Response;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+using Sdl.Community.GroupShareKit.Tests.Integration.Setup;
 using System.Threading.Tasks;
 using Xunit;
-using File = System.IO.File;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
 
-    public class ReportingClientTests
-    {
+    public class ReportingClientTests : IClassFixture<ReportingData>
+    {      
         [Fact]
         public async Task PredefinedProjectsData()
         {
@@ -24,27 +18,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Status = 7
             };
 
-            var projectTemplate = groupShareClient.Project.GetAllTemplates().Result.ToList().FirstOrDefault();
-            var ProjectTemplateId = projectTemplate != null ? projectTemplate.Id : string.Empty;
-
-            var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
-            var projectName = $"Project - {Guid.NewGuid()}";
-            var projectId = await groupShareClient.Project.CreateProject(new CreateProjectRequest(
-                 projectName,
-                 Helper.OrganizationId,
-                 null,
-                 DateTime.Now.AddDays(2),
-                 ProjectTemplateId,
-                 rawData));
-
-            var statusInfo = await WaitForProjectCreated(projectId);
-            Assert.True(statusInfo);
-
             var reportingData = await groupShareClient.Reporting.PredefinedProjects(filters);
             Assert.True(reportingData.Count > 0);
-
-            await Helper.GsClient.Project.DeleteProject(projectId.ToString());
-
         }
 
         [Fact]
@@ -57,27 +32,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Status = 7
             };
 
-            var projectTemplate = groupShareClient.Project.GetAllTemplates().Result.ToList().FirstOrDefault();
-            var ProjectTemplateId = projectTemplate != null ? projectTemplate.Id : string.Empty;
-
-            var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
-            var projectName = $"Project - {Guid.NewGuid()}";
-            var projectId = await groupShareClient.Project.CreateProject(new CreateProjectRequest(
-                 projectName,
-                 Helper.OrganizationId,
-                 null,
-                 DateTime.Now.AddDays(2),
-                 ProjectTemplateId,
-                 rawData));
-
-            var statusInfo = await WaitForProjectCreated(projectId);
-            Assert.True(statusInfo);
-
             var reportingData = await groupShareClient.Reporting.PredefinedTasks(filters);
             Assert.True(reportingData.Count > 0);
-
-            await Helper.GsClient.Project.DeleteProject(projectId.ToString());
-
         }
 
         [Fact]
@@ -90,49 +46,73 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Status = 7
             };
 
-            var projectTemplate = groupShareClient.Project.GetAllTemplates().Result.ToList().FirstOrDefault();
-            var ProjectTemplateId = projectTemplate != null ? projectTemplate.Id : string.Empty;
-
-            var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
-            var projectName = $"Project - {Guid.NewGuid()}";
-            var projectId = await groupShareClient.Project.CreateProject(new CreateProjectRequest(
-                 projectName,
-                 Helper.OrganizationId,
-                 null,
-                 DateTime.Now.AddDays(2),
-                 ProjectTemplateId,
-                 rawData));
-
-            var statusInfo = await WaitForProjectCreated(projectId);
-            Assert.True(statusInfo);
-
             var reportingData = await groupShareClient.Reporting.PredefinedTmLeverage(filters);
             Assert.True(reportingData.Count > 0);
-
-            await Helper.GsClient.Project.DeleteProject(projectId.ToString());
-
         }
 
-        private async Task<bool> WaitForProjectCreated(string projectId, int retryInterval = 30, int maxTryCount = 20)
+        [Fact]
+        public async Task DeliveriesDueSoonData()
         {
-            for (var i = 0; i < maxTryCount; i++)
+            var groupShareClient = Helper.GsClient;
+            var sortParameters = new ReportingServiceSortingParameters
             {
-                var statusInfo = await Helper.GsClient.Project.PublishingStatus(projectId);
-                switch (statusInfo.Status)
-                {
-                    case PublishProjectStatus.Uploading:
-                    case PublishProjectStatus.Scheduled:
-                    case PublishProjectStatus.Publishing:
-                        break;
-                    case PublishProjectStatus.Completed:
-                        return true;
-                    case PublishProjectStatus.Error:
-                        throw new Exception(statusInfo.Description);
-                }
-                await Task.Delay(retryInterval * 1000);
-            }
-            return false;
+                OrderBy = "DueDate",
+                OrderDirection = "DESC"
+            };
+
+            var reportingData = await groupShareClient.Reporting.DeliveriesDueSoon(sortParameters);
+            Assert.True(reportingData.items.Count > 0);
+            Assert.True(reportingData.count > 0);
         }
 
+        [Fact]
+        public async Task YourTasksData()
+        {
+            var groupShareClient = Helper.GsClient;
+            var sortParameters = new ReportingServiceSortingParameters
+            {
+                OrderBy = "DueDate",
+                OrderDirection = "DESC"
+            };
+
+            var reportingData = await groupShareClient.Reporting.YourTasks(sortParameters);
+            Assert.True(reportingData.Count > 0);
+        }
+
+        [Fact]
+        public async Task ProjectsPerMonthData()
+        {
+            var groupShareClient = Helper.GsClient;
+
+            var reportingData = await groupShareClient.Reporting.ProjectsPerMonth();
+            Assert.True(reportingData.Count > 0);
+        }
+
+        [Fact]
+        public async Task WordsPerMonthData()
+        {
+            var groupShareClient = Helper.GsClient;
+
+            var reportingData = await groupShareClient.Reporting.WordsPerMonth();
+            Assert.True(reportingData.Count > 0);
+        }
+
+        [Fact]
+        public async Task TopLanguagePairsData()
+        {
+            var groupShareClient = Helper.GsClient;
+
+            var reportingData = await groupShareClient.Reporting.TopLanguagePairs();
+            Assert.True(reportingData.Count > 0);
+        }
+
+        [Fact]
+        public async Task WordsPerOrganizationData()
+        {
+            var groupShareClient = Helper.GsClient;
+
+            var reportingData = await groupShareClient.Reporting.WordsPerOrganization();
+            Assert.True(reportingData.Count > 0);
+        }
     }
 }

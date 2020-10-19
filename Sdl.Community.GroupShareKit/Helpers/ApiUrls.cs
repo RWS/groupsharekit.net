@@ -1038,5 +1038,65 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/predefined/tmleverage".FormatUri(ReportingServiceUrl);
         }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for dashboard Deliveries Due Soon report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetDeliveriesDueSoonData()
+        {
+            return "{0}/dashboard/DeliveriesDueSoon".FormatUri(ReportingServiceUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for dashboard Your Tasks report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetYourTasksData()
+        {
+            return "{0}/dashboard/YourTasks".FormatUri(ReportingServiceUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for dashboard Projects Per Month report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetProjectsPerMonthData()
+        {
+            return "{0}/dashboard/ProjectsPerMonth".FormatUri(ReportingServiceUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for dashboard Words Per Month report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetWordsPerMonthData()
+        {
+            return "{0}/dashboard/WordsPerMonth".FormatUri(ReportingServiceUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for dashboard Words Per Organization report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetWordsPerOrganizationData()
+        {
+            return "{0}/dashboard/WordsPerOrganization".FormatUri(ReportingServiceUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for dashboard Top Language Pairs report data
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetTopLanguagePairsData()
+        {
+            return "{0}/dashboard/TopLanguagePairs".FormatUri(ReportingServiceUrl);
+        }
     }
 }
