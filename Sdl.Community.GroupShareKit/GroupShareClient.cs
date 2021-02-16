@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Clients.Logging;
 using Sdl.Community.GroupShareKit.Clients.TranslationMemory;
 using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
@@ -61,6 +62,8 @@ namespace Sdl.Community.GroupShareKit
             Terminology = new TerminologyClient(apiConnection);
             TranslateAndAnalysis = new TranslateAndAnalysisClient(apiConnection);
             Reporting = new ReportingClient(apiConnection);
+            PasswordComplexityRules = new PasswordComplexityRulesClient(apiConnection);
+            Logs = new LogsClient(apiConnection);
         }
 
         /// <summary>
@@ -112,6 +115,8 @@ namespace Sdl.Community.GroupShareKit
         public ILicense License { get; set; }
         public ITerminology Terminology { get; set; }
         public ITranslateAndAnalysis TranslateAndAnalysis { get; set; }
+        public IPasswordComplexityRulesClient PasswordComplexityRules { get; set; }
+        public ILogsClient Logs { get; set; }
 
         /// <summary>
         /// Convenience property for getting and setting credentials.

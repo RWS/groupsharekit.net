@@ -16,6 +16,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static readonly Uri CurrentLanguageResourceServiceUrl = new Uri("api/language-resource-service", UriKind.Relative);
         public static readonly Uri TranslateAndAnalysisServiceUrl = new Uri("ta/api", UriKind.Relative);
         public static readonly Uri ReportingServiceUrl = new Uri("api/reports", UriKind.Relative);
+        public static readonly Uri LogServiceUri = new Uri("api/log", UriKind.Relative);
 
         public static Uri Modules()
         {
@@ -1097,6 +1098,35 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri GetTopLanguagePairsData()
         {
             return "{0}/dashboard/TopLanguagePairs".FormatUri(ReportingServiceUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for password complexity rules 
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetPasswordComplexityRules()
+        {
+            return "{0}/passwordcomplexityrules".FormatUri(CurrentManagementUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for GroupShare logs data 
+        /// </summary>
+        /// <returns></returns>
+        public static Uri GetLogs()
+        {
+            return "{0}".FormatUri(LogServiceUri);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for GroupShare logs data 
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static Uri GetLogsFilterd(string options)
+        {
+            return "{0}?filter={1}".FormatUri(LogServiceUri, options);
         }
     }
 }
