@@ -47,18 +47,8 @@ namespace Sdl.Community.GroupShareKit.Clients.Logging
         /// <returns>A list of all logs filtered and their count.</returns>
         public Task<PagedLogEntriesWithTotalCount> GetFilteredLogs(LogsFilter filter)
         {
-
             var jsonOptions = filter.Stringify();
-            //var filterParameters = new Dictionary<string, string>()
-            //{
-            //    { "FromDate" , filter.FromDate.ToString()},
-            //    { "ToDate", filter.ToDate.ToString()},
-            //    { "ProcessName", filter.ProcessName.ToString()},
-            //    { "Level", filter.Level.ToString()},
-            //};
-            //   var logsUrl = ApiUrls.GetLogsFilterd(filterParameters);
             return ApiConnection.Get<PagedLogEntriesWithTotalCount>(ApiUrls.GetLogsFilterd(jsonOptions), null);
-           // return ApiConnection.Get<PagedLogEntriesWithTotalCount>(logsUrl, filterParameters);
         }
     }
 }

@@ -17,8 +17,8 @@ namespace Sdl.Community.GroupShareKit.Clients
                  Formatting.Indented,
                  new JsonSerializerSettings
                  {
-                     NullValueHandling = NullValueHandling.Ignore,
-                     ContractResolver = new CamelCasePropertyNamesContractResolver()
+                    NullValueHandling = NullValueHandling.Ignore,
+                    DateTimeZoneHandling = DateTimeZoneHandling.Utc
                  });
         }
     }
