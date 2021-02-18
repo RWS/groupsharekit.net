@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Sdl.Community.GroupShareKit.Clients
+namespace Sdl.Community.GroupShareKit.Clients.Logging
 {
     public class LogsFilter : IJsonRequest
     {
