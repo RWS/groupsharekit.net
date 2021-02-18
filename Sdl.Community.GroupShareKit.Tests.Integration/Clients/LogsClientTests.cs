@@ -1,5 +1,7 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Clients.Logging;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -33,5 +35,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(logsData.Items[0].Level == "Warn");
             Assert.True(logsData.Items[0].ProcessName == "ApplicationService");
         }
+
+        [Fact]
+        public async Task Logs_Paged()
+        {
+            var groupShareClient = Helper.GsClient;
+            var logsRequest = new LogsRequest() {Page = "0", Limit = "7"};
+
+            var logs = await groupShareClient.Logs.GetLogs(logsRequest);
+            Assert.True(logs.Count > 0);
+            Assert.True(logs.Items.Count() == 7);
+        }
+
     }
 }
