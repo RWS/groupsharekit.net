@@ -1128,5 +1128,14 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}?filter={1}".FormatUri(LogServiceUri, options);
         }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for querying whether a project name is in use 
+        /// </summary>
+        /// <returns></returns>
+        public static Uri IsProjectNameInUse()
+        {
+            return "{0}/projects/isProjectNameInUse".FormatUri(CurrentProjectServerUrl);
+        }
     }
 }
