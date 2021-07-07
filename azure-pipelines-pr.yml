@@ -1,3 +1,12 @@
+trigger: none
+
+pr:
+  branches:
+   include:
+     - master
+     - rel/*
+  drafts: false
+
 pool:
   vmImage: 'VS2017-Win2016'
 
@@ -19,7 +28,7 @@ steps:
 
 - task: SonarCloudPrepare@1
   inputs:
-    SonarCloud: 'SonarCloud-GsKit'
+    SonarCloud: 'SonarCloudFOrGSKit2'
     organization: 'sdl'
     scannerMode: 'MSBuild'
     projectKey: 'groupsharekit'
