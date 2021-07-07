@@ -25,6 +25,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
 
         public static string OrganizationId { get; }
 
+        public static string OrganizationPath { get; }
+
         public static string OrganizationTag { get; }
 
         public static string PowerUserRoleId { get; }
@@ -56,6 +58,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
             if (organization != null)
             {
                 OrganizationId = organization.UniqueId.ToString();
+                OrganizationPath = organization.Path;
                 OrganizationTag = organization.Tags.FirstOrDefault();
             }
 

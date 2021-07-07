@@ -135,5 +135,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.Project.Delete(firstResource);
             await groupShareClient.Project.Delete(secondResource);
         }
+
+        [Fact]
+        public async Task GetOrganizationId()
+        {
+            var groupShareClient = Helper.GsClient;
+
+            var orgGuid = await groupShareClient.Organization.GetOrganizationId(Helper.OrganizationPath);
+
+            Assert.Equal(new Guid(Helper.OrganizationId), orgGuid);
+        }
     }
 }
