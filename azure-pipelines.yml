@@ -34,7 +34,7 @@ steps:
 
 - task: SonarCloudPrepare@1
   inputs:
-    SonarCloud: 'SonarCloud-GsKit'
+    SonarCloud: 'SonarCloudFOrGSKit2'
     organization: 'sdl'
     scannerMode: 'MSBuild'
     projectKey: 'groupsharekit'
