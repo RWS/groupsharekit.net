@@ -393,6 +393,8 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// <returns>A dictionary with the key represneting the language code and the value as project statistics </returns>
 		Task<Dictionary<string, ProjectStatistics>> GetProjectLanguageStatistics(string projectId);
 
+		Task<bool> IsProjectNameInUse(IsProjectNameInUseRequest request);
+
 		#endregion
 
 		#region Project template client

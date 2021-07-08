@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
@@ -176,7 +177,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Unlink a resource from a organization .
+        /// Unlink a resource from a organization.
         /// </summary>
         /// <remarks>
         /// <param name="resource"><see cref="OrganizationResourcesRequest"/></param>
@@ -191,6 +192,26 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotNull(resource, "resource");
             await ApiConnection.Delete(ApiUrls.LinkResourceToOrganization(), resource, "application/json");
+        }
+
+        /// <summary>
+        /// Returns the guid of an organization identified by a given path.
+        /// </summary>
+        /// <remarks>
+        /// <param name="path">Path of the organization.</param>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task<Guid> GetOrganizationId(string resourceGroupPath)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(resourceGroupPath, nameof(resourceGroupPath));
+
+            var requestParameters = new Dictionary<string, string> { ["resourceGroupPath"] = resourceGroupPath } ;
+            return await ApiConnection.Get<Guid>(ApiUrls.GetOrganizationByPath(), requestParameters);
         }
     }
 }

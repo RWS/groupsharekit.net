@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
@@ -147,5 +148,19 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <param name="resource"><see cref="OrganizationResourcesRequest"/></param> 
         Task UnlinkResourceToOrganization(OrganizationResourcesRequest resource);
+
+        /// <summary>
+        /// Returns the guid of an organization identified by a given path.
+        /// </summary>
+        /// <remarks>
+        /// <param name="path">Path of the organization.</param>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        Task<Guid> GetOrganizationId(string path);
     }
 }

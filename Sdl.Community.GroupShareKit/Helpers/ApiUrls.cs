@@ -8,7 +8,8 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static readonly Uri CurrentProjectServerUrl = new Uri("api/projectserver/v2", UriKind.Relative);
         public static readonly Uri CurrentProjectServerV3Url = new Uri("api/projectserver/v3", UriKind.Relative);
         public static readonly Uri CurrentProjectServerV4Url = new Uri("api/projectserver/v4", UriKind.Relative);
-        public static readonly Uri CurrentManagementUrl = new Uri("api/management/v2", UriKind.Relative);
+        public static readonly Uri CurrentManagementV2Url = new Uri("api/management/v2", UriKind.Relative);
+        public static readonly Uri CurrentManagementV3Url = new Uri("api/management/v3", UriKind.Relative);
         public static readonly Uri CurrentAuthenticationUrl = new Uri("authentication/api/1.0", UriKind.Relative);
         public static readonly Uri CurrentTranslationMemoriesUrl = new Uri("api/tmservice", UriKind.Relative);
         public static readonly Uri CurrentFieldServiceUrl = new Uri("api/fieldservice", UriKind.Relative);
@@ -20,7 +21,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
 
         public static Uri Modules()
         {
-            return "{0}/modules".FormatUri(CurrentManagementUrl);
+            return "{0}/modules".FormatUri(CurrentManagementV2Url);
         }
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns a single user for the user name
@@ -35,7 +36,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri User()
         {
-            return "{0}/users".FormatUri(CurrentManagementUrl);
+            return "{0}/users".FormatUri(CurrentManagementV2Url);
         }
 
         /// <summary>
@@ -44,7 +45,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri User(string userId)
         {
             return "{0}/users/{1}".
-                FormatUri(CurrentManagementUrl,userId);
+                FormatUri(CurrentManagementV2Url,userId);
         }
 
 
@@ -54,7 +55,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri Roles()
         {
             return "{0}/roles".
-                FormatUri(CurrentManagementUrl);
+                FormatUri(CurrentManagementV2Url);
         }
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
 
             return "{0}/roles/{1}".
-                FormatUri(CurrentManagementUrl, roleId);
+                FormatUri(CurrentManagementV2Url, roleId);
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri RoleMembership()
         {
-            return "{0}/roles/membership".FormatUri(CurrentManagementUrl);
+            return "{0}/roles/membership".FormatUri(CurrentManagementV2Url);
         }
 
         /// <summary>
@@ -81,7 +82,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri Organization(string organizationId)
         {
             return "{0}/organizations/{1}".
-                FormatUri(CurrentManagementUrl, organizationId);
+                FormatUri(CurrentManagementV2Url, organizationId);
         }
 
         /// <summary>
@@ -90,7 +91,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri Organizations()
         {
             return "{0}/organizations".
-                FormatUri(CurrentManagementUrl);
+                FormatUri(CurrentManagementV2Url);
         }
 
         /// <summary>
@@ -99,10 +100,17 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri GetOrganizationsByTag(string tag)
         {
             return "{0}/organizations?tag={1}".
-                FormatUri(CurrentManagementUrl, tag);
+                FormatUri(CurrentManagementV2Url, tag);
         }
 
-
+        /// <summary>
+        /// Returns the <see cref="Uri"/> to retrieve an organization id by path.
+        /// </summary>
+        public static Uri GetOrganizationByPath()
+        {
+            return "{0}/organizations/path".
+                FormatUri(CurrentManagementV3Url);
+        }
 
         /// <summary>
         ///  Returns the <see cref="Uri"/> that gets all organization resources
@@ -111,7 +119,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri OrganizationResources(string organizationId)
         {
             return "{0}/organizationresources/{1}".
-                FormatUri(CurrentManagementUrl,organizationId);
+                FormatUri(CurrentManagementV2Url,organizationId);
         }
 
         /// <summary>
@@ -120,7 +128,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri MoveOrganizationsResources()
         {
             return "{0}/organizationresources".
-                FormatUri(CurrentManagementUrl);
+                FormatUri(CurrentManagementV2Url);
         }
 
         /// <summary>
@@ -144,7 +152,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri Permissions()
         {
             return "{0}/permissions".
-                FormatUri(CurrentManagementUrl);
+                FormatUri(CurrentManagementV2Url);
         }
 
         /// <summary>
@@ -153,7 +161,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri PermissionUsers()
         {
             return "{0}/permissions/user".
-                FormatUri(CurrentManagementUrl);
+                FormatUri(CurrentManagementV2Url);
         }
         /// <summary>
         /// Returns the <see cref="Uri"/> that represents the project
@@ -325,7 +333,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri GetLicenseInformations()
         {
-            return "{0}/license".FormatUri(CurrentManagementUrl);
+            return "{0}/license".FormatUri(CurrentManagementV2Url);
         }
 
         /// <summary>
@@ -421,7 +429,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri LinkResourceToOrganization()
         {
-            return "{0}/resourcelink ".FormatUri(CurrentManagementUrl);
+            return "{0}/resourcelink ".FormatUri(CurrentManagementV2Url);
         }
 
         /// <summary>
@@ -430,7 +438,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <param name="roleId">The role id</param>
         public static Uri GetUsersForRole(string roleId)
         {
-            return "{0}/roles/{1}/membership".FormatUri(CurrentManagementUrl, roleId);
+            return "{0}/roles/{1}/membership".FormatUri(CurrentManagementV2Url, roleId);
         }
 
         /// <summary>
@@ -439,7 +447,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <param name="roleId">The role id</param>
         public static Uri DeleteUserFromRole(string roleId)
         {
-            return "{0}/roles/{1}/users".FormatUri(CurrentManagementUrl, roleId);
+            return "{0}/roles/{1}/users".FormatUri(CurrentManagementV2Url, roleId);
         }
 
         /// <summary>
@@ -1107,7 +1115,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <returns></returns>
         public static Uri GetPasswordComplexityRules()
         {
-            return "{0}/passwordcomplexityrules".FormatUri(CurrentManagementUrl);
+            return "{0}/passwordcomplexityrules".FormatUri(CurrentManagementV2Url);
         }
 
         /// <summary>
@@ -1127,6 +1135,15 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri GetLogsFilterd(string options)
         {
             return "{0}?filter={1}".FormatUri(LogServiceUri, options);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for querying whether a project name is in use 
+        /// </summary>
+        /// <returns></returns>
+        public static Uri IsProjectNameInUse()
+        {
+            return "{0}/projects/isProjectNameInUse".FormatUri(CurrentProjectServerUrl);
         }
     }
 }

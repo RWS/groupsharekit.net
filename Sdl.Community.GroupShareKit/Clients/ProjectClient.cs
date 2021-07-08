@@ -686,6 +686,13 @@ namespace Sdl.Community.GroupShareKit.Clients
 
             return ApiConnection.Get<Dictionary<string, ProjectStatistics>>(ApiUrls.ProjectLanguageStatistics(projectId), null);
         }
+
+        public async Task<bool> IsProjectNameInUse(IsProjectNameInUseRequest request)
+        {
+            Ensure.ArgumentNotNull(request, nameof(request));
+
+            return await ApiConnection.Get<bool>(ApiUrls.IsProjectNameInUse(), request.ToParametersDictionary()).ConfigureAwait(false);
+        } 
         #endregion
 
 

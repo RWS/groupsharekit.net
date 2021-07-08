@@ -423,6 +423,18 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await Helper.GsClient.Project.Delete(projectTemplateId);
         }
 
+        [Fact]
+        public async Task IsProjectNameInUse()
+        {
+            var groupShareClient = Helper.GsClient;
+            var orgGuid = (await groupShareClient.Organization.GetAll(new OrganizationRequest(true))).First().UniqueId;
+            var isInUse = await groupShareClient.Project.IsProjectNameInUse(new IsProjectNameInUseRequest(orgGuid, new Guid().ToString()));
+            
+            // Random Guid name will not exist
+            Assert.False(isInUse);
+
+        }
+
         private async Task<string> CreateProjectTemplateForPerfectMatch(string projectTemplateFilePath)
         {
             var projectTemplateData = File.ReadAllBytes(projectTemplateFilePath);
