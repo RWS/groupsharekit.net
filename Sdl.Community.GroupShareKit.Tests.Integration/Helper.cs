@@ -49,12 +49,24 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
 
             GsUserId = GsClient.User.Get(new UserRequest(GsUser)).Result.UniqueId;
 
-            var sanitizedOrganizationName = Organization.Trim('/');
-            var organization = GsClient
-                .Organization
-                .GetAll(new OrganizationRequest(true)).Result
-                .FirstOrDefault(o => o.Name == sanitizedOrganizationName);
+            var organization = new Organization();
+            if (Organization == "/")
+            {
+                organization = GsClient
+                    .Organization
+                    .GetAll(new OrganizationRequest(true)).Result
+                    .FirstOrDefault(o => o.Path == "/");
+            }
 
+            else
+            {
+                var sanitizedOrganizationName = Organization.Trim('/');
+                organization = GsClient
+                    .Organization
+                    .GetAll(new OrganizationRequest(true)).Result
+                    .FirstOrDefault(o => o.Name == sanitizedOrganizationName);
+            }
+            
             if (organization != null)
             {
                 OrganizationId = organization.UniqueId.ToString();

@@ -37,7 +37,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Name = $"DB server {dbServerGuid}",
                 Description = "added from gskit",
                 OwnerId = Helper.OrganizationId,
-                Location = Helper.Organization,
+                Location = Helper.OrganizationPath,
                 Host = Helper.GsServerName
             };
 
@@ -51,7 +51,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var request = new ContainerRequest
             {
                 OwnerId = Helper.OrganizationId,
-                Location = Helper.Organization,
+                Location = Helper.OrganizationPath,
                 ContainerId = containerGuid,
                 DatabaseServerId = dbServerId,
                 DatabaseName = $"TM_Container_{DateTime.Now.Ticks}",
@@ -72,7 +72,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Description = "test field template",
                 FieldTemplateId = tplId.ToString(),
                 IsTmSpecific = false,
-                Location = Helper.Organization,
+                Location = Helper.OrganizationPath,
                 OwnerId = Helper.OrganizationId
             };
 
@@ -91,7 +91,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Name = $"lr template {Guid.NewGuid()}",
                 Description = "test language resource template",
                 OwnerId = Helper.OrganizationId,
-                Location = Helper.Organization,
+                Location = Helper.OrganizationPath,
                 IsTmSpecific = false,
                 LanguageResources = new List<Resource>
                 {
@@ -135,7 +135,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Recognizers = "RecognizeAll",
                 FuzzyIndexes = "SourceWordBased,TargetWordBased",
                 WordCountFlags = "DefaultFlags",
-                Location = Helper.Organization,
+                Location = Helper.OrganizationPath,
                 OwnerId = Helper.OrganizationId,
                 FuzzyIndexTuningSettings = new FuzzyIndexTuningSettings
                 {
