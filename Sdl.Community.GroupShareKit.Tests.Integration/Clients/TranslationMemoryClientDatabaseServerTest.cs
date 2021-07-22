@@ -28,7 +28,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Name = "Test Server",
                 Description = "Added from kit",
                 OwnerId = Helper.OrganizationId,
-                Location = Helper.Organization,
+                Location = Helper.OrganizationPath,
                 Host = Helper.GsServerName
             };
 
@@ -49,7 +49,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Name = "Test Server",
                 Description = "Added from kit",
                 OwnerId = Helper.OrganizationId,
-                Location = Helper.Organization,
+                Location = Helper.OrganizationPath,
                 Host = Helper.GsServerName
             };
 
@@ -70,7 +70,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Name = "Test Server",
                 Description = "Added from kit",
                 OwnerId = Helper.OrganizationId,
-                Location = Helper.Organization,
+                Location = Helper.OrganizationPath,
                 Host = Helper.GsServerName
             };
 
@@ -100,7 +100,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Name = $"Database server {databaseServerId}",
                 Description = "added from integration test",
                 OwnerId = Helper.OrganizationId,
-                Location = Helper.Organization,
+                Location = Helper.OrganizationPath,
                 Host = Helper.GsServerName
             };
 

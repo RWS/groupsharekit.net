@@ -20,7 +20,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Description = "test field template",
                 FieldTemplateId = tplId.ToString(),
                 IsTmSpecific = false,
-                Location = Helper.Organization,
+                Location = Helper.OrganizationPath,
                 OwnerId = Helper.OrganizationId
             };
 
@@ -42,7 +42,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Description = "test field template",
                 FieldTemplateId = tplId.ToString(),
                 IsTmSpecific = false,
-                Location = Helper.Organization,
+                Location = Helper.OrganizationPath,
                 OwnerId = Helper.OrganizationId
             };
 
@@ -68,7 +68,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Description = "test field template",
                 FieldTemplateId = tplId.ToString(),
                 IsTmSpecific = false,
-                Location = Helper.Organization,
+                Location = Helper.OrganizationPath,
                 OwnerId = Helper.OrganizationId
             };
 
@@ -98,7 +98,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Description = "test field template",
                 FieldTemplateId = tplId.ToString(),
                 IsTmSpecific = false,
-                Location = Helper.Organization,
+                Location = Helper.OrganizationPath,
                 OwnerId = Helper.OrganizationId
             };
 
@@ -134,7 +134,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Name = $"field template - {templateGuid}",
                 Description = "test field template",
                 IsTmSpecific = false,
-                Location = Helper.Organization,
+                Location = Helper.OrganizationPath,
                 OwnerId = Helper.OrganizationId
             };
 
@@ -169,7 +169,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Name = $"field template - {templateGuid}",
                 Description = "test field template",
                 IsTmSpecific = false,
-                Location = Helper.Organization,
+                Location = Helper.OrganizationPath,
                 OwnerId = Helper.OrganizationId
             };
 
