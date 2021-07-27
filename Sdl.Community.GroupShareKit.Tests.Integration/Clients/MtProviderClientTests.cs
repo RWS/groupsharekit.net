@@ -9,7 +9,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
     public class MtProviderClientTests
     {
         [Fact]
-        public async Task GetMtProviderToken()
+        public async Task GetMtProviderToken_Throws_APIException_ForInvalidCredentials()
         {
             var groupShareClient = Helper.GsClient;
 
@@ -24,7 +24,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task GetMtProviderCredentials()
+        public async Task GetMtProviderCredentials_Returns_Null_When_NoCredentials_Are_Set()
         {
             var groupShareClient = Helper.GsClient;
 
@@ -36,7 +36,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task AddMtProviderCredentials()
+        public async Task AddMtProviderCredentials_ThrowsApiException_When_AddingInvalidCredentials()
         {
             var groupShareClient = Helper.GsClient;
 
@@ -53,13 +53,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task UpdateMtProviderCredentials()
+        public async Task UpdateMtProviderCredentials_ThrowsApiException_When_UpdatingWithInvalidCredentials()
         {
             var groupShareClient = Helper.GsClient;
 
             var userId = await groupShareClient.User.Get(new UserRequest(groupShareClient.Credentials.Login));
 
-            //this will provide a lis of MtProviderSettings, from which you need to select the ProviderSettingId used for the translation provider you want to update
+            //this will provide a list of MtProviderSettings, from which you need to select the ProviderSettingId used for the translation provider you want to update
             var mtProviderCredentialsData = await groupShareClient.MtProviderClient.GetMtProviderCredentials(userId.UniqueId);
 
             var bodyParameters = new MtProviderSettings()
@@ -74,13 +74,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task DeleteMtProviderCredentials()
+        public async Task DeleteMtProviderCredentials_ThrowsApiException_WhenNoCredentialsExistToDelete()
         {
             var groupShareClient = Helper.GsClient;
 
             var userId = await groupShareClient.User.Get(new UserRequest(groupShareClient.Credentials.Login));
 
-            //this will provide a lis of MtProviderSettings, from which you need to select the ProviderSettingId used for the translation provider you want to update
+            //this will provide a list of MtProviderSettings, from which you need to select the ProviderSettingId used for the translation provider you want to update
             var mtProviderCredentialsData = await groupShareClient.MtProviderClient.GetMtProviderCredentials(userId.UniqueId);
 
             var providerSettingsId = 1;

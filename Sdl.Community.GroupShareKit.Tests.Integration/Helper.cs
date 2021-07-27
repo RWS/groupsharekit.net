@@ -11,17 +11,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
     {
         public static GroupShareClient GsClient { get; }
 
-        public static Uri BaseUri => new Uri("http://cljvmmhara01");
+        public static Uri BaseUri => new Uri(GetVariable("GROUPSHAREKIT_BASEURI"));
 
-        public static string GsUser => "sa";
+        public static string GsUser => GetVariable("GROUPSHAREKIT_USERNAME");
 
         public static Guid GsUserId { get; }
 
-        public static string GsPassword => "sa";
+        public static string GsPassword => GetVariable("GROUPSHAREKIT_PASSWORD");
 
-        public static string Organization => "/";
+        public static string Organization => GetVariable("GROUPSHAREKIT_TESTORGANIZATION");
 
-        public static string GsServerName = "http://cljvmmhara01";
+        public static string GsServerName = GetVariable("GROUPSHAREKIT_SERVERNAME");
 
         public static string OrganizationId { get; }
 
