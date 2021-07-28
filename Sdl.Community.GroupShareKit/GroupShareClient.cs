@@ -26,7 +26,7 @@ namespace Sdl.Community.GroupShareKit
                 ManagementApi,
                 ProjectApi,
                 MultiTermApi,
-                TmServerApi		
+                TmServerApi
             };
 
         /// <summary>
@@ -64,6 +64,7 @@ namespace Sdl.Community.GroupShareKit
             Reporting = new ReportingClient(apiConnection);
             PasswordComplexityRules = new PasswordComplexityRulesClient(apiConnection);
             Logs = new LogsClient(apiConnection);
+            MtProviderClient = new MtProviderClient(apiConnection);
         }
 
         /// <summary>
@@ -99,6 +100,8 @@ namespace Sdl.Community.GroupShareKit
 
             return groupShareClient;
         }
+
+        public IMtProviderClient MtProviderClient{ get; }
 
         public IProjectClient Project { get; }
         public IReportingClient Reporting { get; }
