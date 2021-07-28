@@ -1145,5 +1145,50 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/projects/isProjectNameInUse".FormatUri(CurrentProjectServerUrl);
         }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for MtCloud access token
+        /// </summary>
+        /// <returns></returns>
+        public static Uri MtProviderCredentials()
+        {
+            return "{0}/authenticate/TranslationProvider".FormatUri(CurrentProjectServerV4Url);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for adding translation provider credentials for given user
+        /// </summary>
+        /// <returns></returns>
+        public static Uri AddMtProviderCredentials(Guid userId)
+        {
+            return "{0}/translationProvider/{1}".FormatUri(CurrentProjectServerV4Url, userId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for updating translation provider credentials for given user
+        /// </summary>
+        /// <returns></returns>
+        public static Uri UpdateMtProviderCredentials(Guid userId)
+        {
+            return "{0}/translationProvider/{1}".FormatUri(CurrentProjectServerV4Url, userId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for deleting translation provider credentials for given user
+        /// </summary>
+        /// <returns></returns>
+        public static Uri DeleteMtProviderCredentials(Guid userId, int providerSettingId)
+        {
+            return "{0}/translationProvider/{1}?providerSettingId={2}".FormatUri(CurrentProjectServerV4Url, userId, providerSettingId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for retrieving the translation provider credentials for given user
+        /// </summary>
+        /// <returns></returns>
+        public static Uri GetMtProviderCredentials(Guid userId)
+        {
+            return "{0}/translationProvider/{1}".FormatUri(CurrentProjectServerV4Url, userId);
+        }
     }
 }
