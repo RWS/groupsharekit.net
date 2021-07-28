@@ -6,6 +6,6 @@
     "^refs/heads/rel/v\\d+\\.\\d+" // we also release branches starting with rel/vN.N
   ],
   "nugetPackageVersion":{
-    "semVer": 3
+    "semVer": 4
   }
 }
