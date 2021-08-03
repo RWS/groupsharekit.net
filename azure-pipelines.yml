@@ -67,15 +67,15 @@ steps:
   condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
 - task: NuGetCommand@2
-   displayName: 'NuGet push 1'
-   inputs:
-       command: 'push'   
-       packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-       nuGetFeedType: 'internal'
-       publishVstsFeed: 'af66e256-9c46-4fba-ad75-09bf110ec1cc' 
+  displayName: 'NuGet push 1'
+  inputs:
+     command: 'push'   
+     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+     nuGetFeedType: 'internal'
+     publishVstsFeed: 'af66e256-9c46-4fba-ad75-09bf110ec1cc' 
        
 # Package
- - task: NuGetCommand@2
+- task: NuGetCommand@2
   displayName: 'NuGet pack 1'
   inputs: 
     command: 'pack'
