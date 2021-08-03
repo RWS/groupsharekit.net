@@ -78,7 +78,7 @@ steps:
  - task: NuGetCommand@2
   displayName: 'NuGet pack 1'
   inputs: 
-    command: pack
+    command: 'pack'
     packagesToPack: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     packDestination: '$(Build.ArtifactStagingDirectory)\packages'
     versioningScheme: byEnvVar
