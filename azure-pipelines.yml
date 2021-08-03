@@ -59,9 +59,8 @@ steps:
     pollingTimeoutSec: '300'
     
 - powershell: |
-     mkdir $(Build.ArtifactStagingDirectory)\Package     
-   
-     ls *.nuspec | %{ nuget pack $_.FullName -version "$(variables.name)" -NoPackageAnalysis -OutputDirectory $(Build.ArtifactStagingDirectory)\Packages -Properties "RepositoryType=git;RepositoryUrl=https://github.com/sdl/groupsharekit.net"}
+   mkdir $(Build.ArtifactStagingDirectory)\Package     
+   ls *.nuspec | %{ nuget pack $_.FullName -version "$(variables.name)" -NoPackageAnalysis -OutputDirectory $(Build.ArtifactStagingDirectory)\Packages -Properties "RepositoryType=git;RepositoryUrl=https://github.com/sdl/groupsharekit.net"}
    displayName: Create package
    condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
 
