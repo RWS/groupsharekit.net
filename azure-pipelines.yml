@@ -23,9 +23,7 @@ name: $(majorMinorPatchVersion).$(buildVersion)
 steps:
 
 - task: NuGetToolInstaller@0
-  displayName: Use NuGet 5.3.0
-  inputs:
-    versionSpec: 5.3.0
+  displayName: Use Latest NuGet
 
 - task: NuGetCommand@2
   inputs:
