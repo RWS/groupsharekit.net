@@ -14,12 +14,14 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>GroupShareKit.snk</AssemblyOriginatorKeyFile>
-    <PackageIcon>GroupShareKit.png</PackageIcon>
-    <PackageIconUrl />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net46|AnyCPU'">
     <DocumentationFile>C:\Work\Git\groupsharekit.net\Sdl.Community.GroupShareKit\Sdl.Community.GroupShareKit.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Package">
+    <PackageIcon>GroupShareKit.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,8 +45,8 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-
-  <ItemGroup>
+  
+  <ItemGroup Label="Files">
     <None Include="..\GroupShareKit.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
