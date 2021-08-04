@@ -20,6 +20,10 @@
     <DocumentationFile>C:\Work\Git\groupsharekit.net\Sdl.Community.GroupShareKit\Sdl.Community.GroupShareKit.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Label="Package">
+    <PackageIcon>GroupShareKit.png</PackageIcon>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning" Version="2.2.13">
       <PrivateAssets>all</PrivateAssets>
@@ -40,6 +44,13 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  
+  <ItemGroup Label="Files">
+    <None Include="..\GroupShareKit.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
