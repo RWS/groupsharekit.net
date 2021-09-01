@@ -63,6 +63,7 @@ namespace Sdl.Community.GroupShareKit
             TranslateAndAnalysis = new TranslateAndAnalysisClient(apiConnection);
             Reporting = new ReportingClient(apiConnection);
             PasswordComplexityRules = new PasswordComplexityRulesClient(apiConnection);
+            IdpUserSettingsClient = new IdpUserSettingsClient(apiConnection);
             Logs = new LogsClient(apiConnection);
             MtProviderClient = new MtProviderClient(apiConnection);
         }
@@ -119,6 +120,7 @@ namespace Sdl.Community.GroupShareKit
         public ITerminology Terminology { get; set; }
         public ITranslateAndAnalysis TranslateAndAnalysis { get; set; }
         public IPasswordComplexityRulesClient PasswordComplexityRules { get; set; }
+        public IIdpUserSettingsClient IdpUserSettingsClient { get; set; }
         public ILogsClient Logs { get; set; }
 
         /// <summary>
