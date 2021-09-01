@@ -1190,5 +1190,14 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/translationProvider/{1}".FormatUri(CurrentProjectServerV4Url, userId);
         }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for retrieving the IDP user settings
+        /// </summary>
+        /// <returns></returns>
+        public static Uri GetIdpUserSettings()
+        {
+            return "{0}/idpusersettings".FormatUri(CurrentManagementV2Url);
+        }
     }
 }
