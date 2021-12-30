@@ -14,10 +14,11 @@ using Sdl.TmService.Sdk.Model;
 using FilterResponse = Sdl.Community.GroupShareKit.Models.Response.TranslationMemory.FilterResponse;
 using Sdl.TmService.Sdk.Model.Search.Settings;
 using Sdl.TmService.Sdk.Model.Search;
+using Newtonsoft.Json;
 
 namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 {
-    public class TranslationMemoriesClient: ApiClient,ITranslationMemoriesClient
+    public class TranslationMemoriesClient : ApiClient, ITranslationMemoriesClient
     {
         private TmServiceRestClient _client;
         public TranslationMemoriesClient(IApiConnection apiConnection) : base(apiConnection)
@@ -267,9 +268,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNullOrEmptyString(tmId, "tm is");
             Ensure.ArgumentNotNull(request, "request");
             Ensure.ArgumentNotNull(language, "language parameters");
-            
-            var response=await
-                
+
+            var response = await
+
                      ApiConnection.Post<ExportResponse>(ApiUrls.Export(tmId, language.Source, language.Target), request,
                         "application/json");
 
@@ -278,10 +279,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             {
                 backgroundTask = await ApiConnection.Get<BackgroundTask>(ApiUrls.GetTaskById(response.Id), null);
             } while (backgroundTask.Status != "Done");
-             
-         
-          
-            var fileContent =  await ApiConnection.Get<byte[]>(ApiUrls.TaskOutput(backgroundTask.Id), null);
+
+
+
+            var fileContent = await ApiConnection.Get<byte[]>(ApiUrls.TaskOutput(backgroundTask.Id), null);
 
             return fileContent;
         }
@@ -319,6 +320,30 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             var multipartContent = new MultipartFormDataContent
             {
                 {byteContent,"file",fileName}
+            };
+
+            return
+                await
+                    ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target),
+                        multipartContent, "application/json");
+        }
+
+        public async Task<ImportResponse> ImportTmWithSettings(string tmId, LanguageParameters language, byte[] rawFile, string fileName, ImportSettings jsonSettings)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "tm id");
+            Ensure.ArgumentNotNull(language, "language parameters");
+            Ensure.ArgumentNotNull(rawFile, "file");
+            Ensure.ArgumentNotNullOrEmptyString(fileName, "file name");
+
+            var byteContent = new ByteArrayContent(rawFile);
+            byteContent.Headers.Add("Content-Type", "application/json");
+
+            var json = JsonConvert.SerializeObject(jsonSettings);
+
+            var multipartContent = new MultipartFormDataContent
+            {
+                {byteContent,"file",fileName},
+                { new StringContent(json, Encoding.Unicode, "application/json"), "settings" }
             };
 
             return
@@ -577,7 +602,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             Ensure.ArgumentNotNull(tmRequest.TmId, "translation memory id");
 
-            var expression = FilterExpression.CreateFilter(languageRequest,caseSensitive, allowWildCards);
+            var expression = FilterExpression.CreateFilter(languageRequest, caseSensitive, allowWildCards);
 
             var restFilterExpression = FilterExpression.GetRestFilterExpression(expression, languageRequest);
 
@@ -586,8 +611,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                     _client.GetTranslationUnitsAsync(tmRequest.TmId, languageRequest.SourceLanguageCode,
                         languageRequest.TargetLanguageCode, tmRequest.StartTuId, tmRequest.Count, restFilterExpression);
 
-           
-            var searchResult = FilterResults.GetFilterResultForDocument(document,null);
+
+            var searchResult = FilterResults.GetFilterResultForDocument(document, null);
 
             return searchResult;
         }
@@ -628,12 +653,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                 restTextSearch.Settings = CreateRestTextSearchSettings(searchRequest.Settings);
                 restTextSearch.SearchText = searchRequest.SearchText;
             }
-            
+
             var restSearchResult = await _client.TextSearchAsync(searchRequest.TmId, searchRequest.SourceLanguageCode, searchRequest.TargetLanguageCode, restTextSearch);
 
             foreach (var result in restSearchResult.Results)
             {
-                var searchResult = FilterResults.GetFilterResultForDocument(result.MemoryTranslationUnit,null);
+                var searchResult = FilterResults.GetFilterResultForDocument(result.MemoryTranslationUnit, null);
 
                 searchResults.AddRange(searchResult);
             }
@@ -672,7 +697,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                 Settings = new RestConcordanceSearchSettings(),
                 SearchText = searchRequest.SearchText
             };
-        
+
             var searchResults = new List<FilterResponse>();
 
             if (searchRequest.Settings != null)
@@ -680,12 +705,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                 restConcordanceSearch = CreateRestConcordanceSearch(searchRequest.Settings);
                 restConcordanceSearch.SearchText = searchRequest.SearchText;
             }
-               
+
 
             var concordanceSearchResult = await _client.ConcordanceSearchAsync(searchRequest.TmId, searchRequest.SourceLanguageCode, searchRequest.TargetLanguageCode, restConcordanceSearch);
             foreach (var result in concordanceSearchResult.Results)
             {
-                var searchResult = FilterResults.GetFilterResultForDocument(result.MemoryTranslationUnit,result.ScoringResult);
+                var searchResult = FilterResults.GetFilterResultForDocument(result.MemoryTranslationUnit, result.ScoringResult);
 
                 searchResults.AddRange(searchResult);
             }
@@ -696,9 +721,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         private RestSearchSettings CreateRestTextSearchSettings(SearchTextSettings searchSettings)
         {
             var restSearchSettings = new RestSearchSettings();
-            var restFilterList =new List<RestFilter>();
+            var restFilterList = new List<RestFilter>();
 
-            if(searchSettings.MinScore>=30&& searchSettings.MinScore <= 100)
+            if (searchSettings.MinScore >= 30 && searchSettings.MinScore <= 100)
             {
                 restSearchSettings.MinScore = searchSettings.MinScore;
             }
@@ -711,7 +736,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             if (searchSettings.Filters != null)
             {
                 if (searchSettings.Filters.Count > 0)
-                {                   
+                {
                     restSearchSettings.Filters = CreateSearchTextRestFilter(searchSettings);
                 }
             }
@@ -721,7 +746,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                 {
                     restSearchSettings.Penalties = CreateSearchTextPenaltiesRestFilter(searchSettings.Penalties);
                 }
-            }  
+            }
 
             return restSearchSettings;
 
@@ -775,10 +800,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
         private RestConcordanceSearch CreateRestConcordanceSearch(ConcordanceSearchSettings searchSettings)
         {
-            var restSearch = new RestConcordanceSearch{
+            var restSearch = new RestConcordanceSearch
+            {
 
-                Settings= new RestConcordanceSearchSettings(),
-                 };
+                Settings = new RestConcordanceSearchSettings(),
+            };
 
             //By default is 70
             if (searchSettings.MinScore >= 30 && searchSettings.MinScore <= 100)
@@ -804,15 +830,15 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                     restSearch.Settings.Penalties = CreatePenaltiesFilterList(searchSettings.Penalties);
                 }
             }
-            
-            
+
+
             return restSearch;
         }
 
         private List<RestPenalty> CreatePenaltiesFilterList(List<Penalty> penalties)
         {
             var restPenaltyTypes = new List<RestPenalty>();
-            foreach(var penalty in penalties)
+            foreach (var penalty in penalties)
             {
                 var restPenalty = new RestPenalty
                 {
@@ -834,8 +860,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
                 foreach (var field in filter.Expression.Fields)
                 {
-                     var restField = new RequestField
-                     {
+                    var restField = new RequestField
+                    {
                         Name = field.Name,
                         Type = field.Type.ToString(),
                         Values = field.Values
@@ -873,12 +899,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns>Alist of <see cref="FilterResponse"/> which represent filter data</returns>
         public async Task<IReadOnlyList<FilterResponse>> RawFilter(RawFilterRequest request)
         {
-            Ensure.ArgumentNotNull(request,"filter request");
-            Ensure.ArgumentNotNull(request.TmId,"tm id");
+            Ensure.ArgumentNotNull(request, "filter request");
+            Ensure.ArgumentNotNull(request.TmId, "tm id");
             Ensure.ArgumentNotNullOrEmptyString(request.SourceLanguageCode, "source language code");
             Ensure.ArgumentNotNullOrEmptyString(request.TargetLanguageCode, "target language code");
-            Ensure.ArgumentNotNullOrEmptyString(request.Filter.Expression,"filter expression");
-            Ensure.ArgumentNotNull(request.Filter.Fields,"filter fields");
+            Ensure.ArgumentNotNullOrEmptyString(request.Filter.Expression, "filter expression");
+            Ensure.ArgumentNotNull(request.Filter.Fields, "filter fields");
 
             var customFilterExpressionRequest = FilterExpression.GetCustomRestFilterExpression(request.Filter);
 
@@ -887,7 +913,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                    _client.GetTranslationUnitsAsync(request.TmId, request.SourceLanguageCode,
                        request.TargetLanguageCode, request.StartTuId, request.Count, customFilterExpressionRequest);
 
-            var searchResult = FilterResults.GetFilterResultForDocument(document,null);
+            var searchResult = FilterResults.GetFilterResultForDocument(document, null);
 
             return searchResult;
         }
@@ -895,7 +921,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         #endregion
 
         #region Container methods
-       
+
 
         /// <summary>
         ///Returns a list of all available containers

@@ -134,7 +134,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<byte[]> ExportTm(string tmId, ExportRequest request, LanguageParameters language);
 
         Task<BackgroundTask> GetBackgroundTask(string taskId);
- 
+
         /// <summary>
         /// Imports TUs into a Translation Memory
         /// The file should be a TMX type.
@@ -153,6 +153,26 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="ImportResponse"/></returns>
         Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile, string fileName);
+
+        /// <summary>
+        /// Imports TUs into a Translation Memory
+        /// The file should be a TMX type.
+        /// <param name="tmId">Translation memory id</param>
+        /// <param name="language"><see cref="LanguageParameters"/></param>
+        /// <param name="rawFile">byte[] which represents the file</param>
+        /// <param name="fileName">file name</param>
+        /// <param name="settings">import settings</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ImportResponse"/></returns>
+        Task<ImportResponse> ImportTmWithSettings(string tmId, LanguageParameters language, byte[] rawFile, string fileName, ImportSettings settings);
 
         /// <summary>
         /// Gets the  tms number by language resource template.
@@ -404,7 +424,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Alist of <see cref="Models.Response.TranslationMemory.FilterResponse"/> which represent filter data</returns>
-        Task<IReadOnlyList<Models.Response.TranslationMemory.FilterResponse>> FilterAsPlainText(LanguageDetailsRequest languageRequest,TranslationMemoryDetailsRequest tmRequest,bool caseSensitive,bool allowWildCards);
+        Task<IReadOnlyList<Models.Response.TranslationMemory.FilterResponse>> FilterAsPlainText(LanguageDetailsRequest languageRequest, TranslationMemoryDetailsRequest tmRequest, bool caseSensitive, bool allowWildCards);
 
         /// <summary>
         /// Performs a text search, retrives a string maching the expression
