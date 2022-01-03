@@ -22,7 +22,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// <summary>
         /// Gets or sets confirmation levels
         /// </summary>
- 
+
         public List<string> ConfirmationLevels { get; set; }
 
 
@@ -57,11 +57,16 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 
         public enum ProccesingMode
         {
-            ProcessCleanedTUOnly
+            ProcessRawTUOnly,
+            ProcessCleanedTUOnly,
+            ProcessBothTUs
         }
         public enum FieldsBehaviour
         {
-            AddToSetup
+            AddToSetup,
+            Ignore,
+            SkipTranslationUnit,
+            Error
         }
         public enum ExistingFieldsMode
         {

@@ -74,11 +74,16 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 
         public enum ProccesingMode
         {
-            ProcessCleanedTUOnly
+            ProcessRawTUOnly,
+            ProcessCleanedTUOnly,
+            ProcessBothTUs
         }
         public enum FieldsBehaviour
         {
-            AddToSetup
+            AddToSetup,
+            Ignore,
+            SkipTranslationUnit,
+            Error
         }
         public enum ExistingFieldsMode
         {
