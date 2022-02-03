@@ -145,9 +145,44 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetUsersForSpecificRole(string roleId)
         {
             var groupShareClient = Helper.GsClient;
+            var userId = await CreatePowerUser(groupShareClient);
+
+            
             var users = await groupShareClient.Role.GetUsersForRole(roleId);
 
+
             Assert.True(users.Count != 0);
+
+
+            await groupShareClient.User.Delete(userId);
+        }
+
+        private static async Task<String> CreatePowerUser(GroupShareClient groupShareClient)
+        {
+            var uniqueId = Guid.NewGuid().ToString();
+
+            var newUser = new CreateUserRequest
+            {
+                Name = $"automated user {uniqueId}",
+                Password = "Password1",
+                DisplayName = "test",
+                Description = null,
+                PhoneNumber = null,
+                Locale = "en-US",
+                OrganizationId = Helper.OrganizationId,
+                UserType = "SDLUser",
+                Roles = new List<Role>
+                {
+                    new Role
+                    {
+                         OrganizationId = Helper.OrganizationId,
+                         RoleId = Helper.PowerUserRoleId,
+                         UserId = uniqueId
+                    }
+                }
+            };
+
+            return await groupShareClient.User.Create(newUser);
         }
     }
 }
