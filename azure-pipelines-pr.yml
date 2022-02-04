@@ -47,6 +47,6 @@ steps:
   # timeoutInMinutes: 120
 # - task: SonarCloudAnalyze@1
 # - task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
+  # inputs:
+  #   pollingTimeoutSec: '300'
 
