@@ -26,7 +26,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// Gets or sets creation date
         /// </summary>
         // GroupShare (MultiTerm) RestAPI returns termbase creation date format depending on server settings (LTGS-9908)
-        [JsonConverter(typeof(CustomizedDateTimeConverter))]
+        [JsonConverter(typeof(TwelveHourDateTimeConverter))]
         public DateTime? CreationDate { get; set; }
         /// <summary>
         /// Gets or sets copyright
