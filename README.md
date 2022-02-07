@@ -2,7 +2,7 @@
 [![NuGet Stats](https://img.shields.io/nuget/v/groupsharekit.svg)](https://www.nuget.org/packages/GroupShareKit)
 [![Build Status](https://dev.azure.com/sdl/GroupShareKit/_apis/build/status/sdl.groupsharekit.net)](https://dev.azure.com/sdl/GroupShareKit/_build/latest?definitionId=808)
 
-GroupShareKit is a client library targeting .NET 4.6 and above that provides an easy way to interact with [GroupShare Rest API](http://gs2017dev.sdl.com:41234/documentation/api/index#/)
+GroupShareKit is a client library targeting .NET Standard 2.0 and .NET Framework 4.6 that provides an easy way to interact with [GroupShare Rest API](http://gs2017dev.sdl.com:41234/documentation/api/index#/)
 
 There are, currently, 2 versions:
  * GroupShareKit
@@ -49,8 +49,16 @@ Install-Package GroupShareKit-2017
 
 ## Documentation
 
+### RestAPIs
+
 Please see http://gs2017dev.sdl.com:41234/documentation/api/index#/ for details about the GroupShare Rest API.
 Please see http://gs2017dev.sdl.com:41235/docs/ui/index#/ for details about the Translation Memory Service.
+
+### Configuration
+
+Due to a problem in the GroupShare (MultiTerm) RestAPI (LTGS-9908: Multiterm RestAPI returns non-ISO datetime format), you may encounter issues with creationDate of termbases being parse incorrectly.
+As a workaround, set environment variable multiterm.dateFormatStr according to https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings.
+Reference: LTGS-9908 - Multiterm RestAPI returns non-ISO datetime format.)
 
 ## Build
 
