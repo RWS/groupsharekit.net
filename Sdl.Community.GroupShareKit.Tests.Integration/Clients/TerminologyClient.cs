@@ -22,7 +22,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("TestFromMultiterm")]
+        [InlineData("testTB")]
         public async Task GetTermbaseById(string termbaseId)
         {
             var groupShareClient = Helper.GsClient;
@@ -33,7 +33,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("TestFromMultiterm")]
+        [InlineData("testTB")]
         public async Task GetFilters(string termbaseId)
         {
             var groupShareClient = Helper.GsClient;
@@ -56,7 +56,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [InlineData("testTB", "window", "German")]
-        public async Task SearrchNotFoundTerm(string termbaseId, string query, string language)
+        public async Task SearchNotFoundTerm(string termbaseId, string query, string language)
         {
             var groupShareClient = Helper.GsClient;
             var request = new SearchTermRequest(termbaseId, language, query);
@@ -67,17 +67,28 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("testTB", "16")]
-        public async Task GetConcept(string termbaseId, string conceptId)
+        [InlineData("testTB")]
+        public async Task GetConcept(string termbaseId)
         {
             var groupShareClient = Helper.GsClient;
-            var conceptRequest = new ConceptResponse(termbaseId, conceptId);
 
+            var conceptId = await CreateConcept(termbaseId, "NewEntry");
+
+
+            var conceptRequest = new ConceptResponse(termbaseId, conceptId);
             var conceptResponse = await groupShareClient.Terminology.GetConcept(conceptRequest);
+
+
             Assert.Equal(conceptResponse.Concept.Id, conceptId);
 
+
             var conceptResponse1 = await groupShareClient.Terminology.GetConcept(termbaseId, conceptId);
+            
+            
             Assert.Equal(conceptResponse1.Concept.Id, conceptId);
+
+
+            await DeleteConcept(termbaseId, conceptId);
         }
 
         [Theory]
@@ -191,6 +202,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task DeleteConcept(string termbaseId, string conceptId)
         {
             var groupShareClient = Helper.GsClient;
+            // conceptId may not exist, but neither RestAPI nor Kit return an error in this case
             await groupShareClient.Terminology.DeleteConcept(termbaseId, conceptId);
         }
 
@@ -500,17 +512,23 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("testTB", "18")]
-        public async Task UpdateNewCreatedConcept(string termbaseId, string conceptId)
+        [InlineData("testTB")]
+        public async Task UpdateNewCreatedConcept(string termbaseId)
         {
             var groupShareClient = Helper.GsClient;
+
+            var conceptId = await CreateConcept(termbaseId, "NewEntry");
 
             var conceptRequest = new ConceptResponse(termbaseId, conceptId);
             var conceptResponse = await groupShareClient.Terminology.GetConcept(conceptRequest);
 
             conceptResponse.Concept.Languages[0].Terms[0].Text = "json";
 
-            var updatedResponse = await groupShareClient.Terminology.EditConcept(termbaseId, conceptResponse);
+
+            await groupShareClient.Terminology.EditConcept(termbaseId, conceptResponse);
+
+
+            await DeleteConcept(termbaseId, conceptId);
         }
     }
 }

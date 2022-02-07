@@ -2,7 +2,7 @@
 [![NuGet Stats](https://img.shields.io/nuget/v/groupsharekit.svg)](https://www.nuget.org/packages/GroupShareKit)
 [![Build Status](https://dev.azure.com/sdl/GroupShareKit/_apis/build/status/sdl.groupsharekit.net)](https://dev.azure.com/sdl/GroupShareKit/_build/latest?definitionId=808)
 
-GroupShareKit is a client library targeting .NET 4.6 and above that provides an easy way to interact with [GroupShare Rest API](http://gs2017dev.sdl.com:41234/documentation/api/index#/)
+GroupShareKit is a client library targeting .NET Standard 2.0 and .NET Framework 4.6 that provides an easy way to interact with [GroupShare Rest API](http://gs2017dev.sdl.com:41234/documentation/api/index#/)
 
 There are, currently, 2 versions:
  * GroupShareKit
@@ -49,8 +49,16 @@ Install-Package GroupShareKit-2017
 
 ## Documentation
 
+### RestAPIs
+
 Please see http://gs2017dev.sdl.com:41234/documentation/api/index#/ for details about the GroupShare Rest API.
 Please see http://gs2017dev.sdl.com:41235/docs/ui/index#/ for details about the Translation Memory Service.
+
+### GS kit configuration
+
+Due to a problem in the GroupShare (MultiTerm) RestAPI, you may encounter issues with creationDate of termbases being parsed incorrectly.
+As a workaround, set environment variable multiterm.dateFormatStr according to https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings.
+(Reference: LTGS-9908 - Multiterm RestAPI returns non-ISO datetime format.)
 
 ## Build
 
@@ -82,6 +90,8 @@ to ensure all the tests pass.
 
 ### Running integration tests
 
+#### General setup
+
 GroupShareKit has integration tests that access the GroupShare Rest API, but they must be 
 configured before they will be executed.
 
@@ -99,6 +109,15 @@ owned by that account. Then set the following environment variables:
 Once these are set, the integration tests will be executed both when 
 running the IntegrationTests MSBuild target, and when running the 
 Sdl.Community.GroupShareKit.Tests.Integration assembly through an xUnit.net-friendly test runner.
+
+#### Additional TerminologyClient tests setup
+
+Since the GroupShare (MultiTerm) RestAPI has no support for creating termbases, some more manual setup is required to successfully run the TerminologyClient tests:
+In MultiTerm Desktop, create a termbase:
+* In "Termbase Definition" step use the option "Use a predefined termbase template": "Bilingual glossary"
+* (Friendly) Name: "testTB"
+* Organization: the organization created for these tests
+* rest: use defaults, do not change anything
 
 ## Problems?
 
