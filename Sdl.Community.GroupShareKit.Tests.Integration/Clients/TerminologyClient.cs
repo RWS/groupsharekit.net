@@ -67,16 +67,24 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Theory]
-        [InlineData("testTB", "16")]
-        public async Task GetConcept(string termbaseId, string conceptId)
+        [InlineData("testTB")]
+        public async Task GetConcept(string termbaseId)
         {
             var groupShareClient = Helper.GsClient;
-            var conceptRequest = new ConceptResponse(termbaseId, conceptId);
 
+            var conceptId = await CreateConcept(termbaseId, "NewEntry");
+
+
+            var conceptRequest = new ConceptResponse(termbaseId, conceptId);
             var conceptResponse = await groupShareClient.Terminology.GetConcept(conceptRequest);
+
+
             Assert.Equal(conceptResponse.Concept.Id, conceptId);
 
+
             var conceptResponse1 = await groupShareClient.Terminology.GetConcept(termbaseId, conceptId);
+            
+            
             Assert.Equal(conceptResponse1.Concept.Id, conceptId);
         }
 
