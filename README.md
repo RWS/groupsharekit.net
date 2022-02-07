@@ -90,6 +90,8 @@ to ensure all the tests pass.
 
 ### Running integration tests
 
+#### General setup
+
 GroupShareKit has integration tests that access the GroupShare Rest API, but they must be 
 configured before they will be executed.
 
@@ -107,6 +109,15 @@ owned by that account. Then set the following environment variables:
 Once these are set, the integration tests will be executed both when 
 running the IntegrationTests MSBuild target, and when running the 
 Sdl.Community.GroupShareKit.Tests.Integration assembly through an xUnit.net-friendly test runner.
+
+#### Additional TerminologyClient tests setup
+
+Since the GroupShare (MultiTerm) RestAPI has no support for creating termbases, some more manual setup is required to successfully run the TerminologyClient tests:
+In MultiTerm Desktop, create a termbase:
+* In "Termbase Definition" step use the option "Use a predefined termbase template": "Bilingual glossary"
+* (Friendly) Name: "testTB"
+* Organization: the organization created for these tests
+* rest: use defaults, do not change anything
 
 ## Problems?
 
