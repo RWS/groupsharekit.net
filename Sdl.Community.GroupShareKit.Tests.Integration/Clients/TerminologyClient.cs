@@ -191,6 +191,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task DeleteConcept(string termbaseId, string conceptId)
         {
             var groupShareClient = Helper.GsClient;
+            // conceptId may not exist, but neither RestAPI nor Kit return error in this case
             await groupShareClient.Terminology.DeleteConcept(termbaseId, conceptId);
         }
 
