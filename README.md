@@ -54,11 +54,11 @@ Install-Package GroupShareKit-2017
 Please see http://gs2017dev.sdl.com:41234/documentation/api/index#/ for details about the GroupShare Rest API.
 Please see http://gs2017dev.sdl.com:41235/docs/ui/index#/ for details about the Translation Memory Service.
 
-### Configuration
+### GS kit configuration
 
-Due to a problem in the GroupShare (MultiTerm) RestAPI (LTGS-9908: Multiterm RestAPI returns non-ISO datetime format), you may encounter issues with creationDate of termbases being parse incorrectly.
+Due to a problem in the GroupShare (MultiTerm) RestAPI, you may encounter issues with creationDate of termbases being parsed incorrectly.
 As a workaround, set environment variable multiterm.dateFormatStr according to https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings.
-Reference: LTGS-9908 - Multiterm RestAPI returns non-ISO datetime format.)
+(Reference: LTGS-9908 - Multiterm RestAPI returns non-ISO datetime format.)
 
 ## Build
 
