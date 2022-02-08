@@ -110,7 +110,11 @@ Once these are set, the integration tests will be executed both when
 running the IntegrationTests MSBuild target, and when running the 
 Sdl.Community.GroupShareKit.Tests.Integration assembly through an xUnit.net-friendly test runner.
 
-#### Additional TerminologyClient tests setup
+#### Additional test setup
+
+1. Login into the GroupShare website with the test account
+2. Create any one project template
+3. Create a project with any file
 
 Since the GroupShare (MultiTerm) RestAPI has no support for creating termbases, some more manual setup is required to successfully run the TerminologyClient tests:
 In MultiTerm Desktop, create a termbase:
