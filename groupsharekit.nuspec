@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/sdl/groupsharekit.net</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A GroupShare API client library for .NET</description>
-    <copyright>Copyright Sdl Community 2018</copyright>
+    <copyright>Copyright Sdl Community 2022</copyright>
     <tags>Trados GroupShare</tags>
     <icon>GroupShareKit.png</icon>
     <repository type="$RepositoryType$" url="$RepositoryUrl$" commit="$RepositoryCommit$" />
