@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Models;
 using Sdl.Community.GroupShareKit.Models.Response;
 using Xunit;
 using File = System.IO.File;
@@ -381,6 +382,54 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
         }
 
+        [Fact]
+        public async Task Projects_UpdateTranslatableFileBySelection_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
+            var projectId = await CreateTestProject(groupShareClient, projectTemplateId, "TwoTranslatable_twoReference.zip");
+            var projectFiles = await groupShareClient.Project.GetAllFilesForProject(projectId);
+            var translatableFileId = projectFiles.FirstOrDefault(f => f.FileRole == "Translatable").UniqueId;
+
+            var fileIds = new MidProjectFileIdsModel
+            {
+                FileIds = new[] { translatableFileId }
+            };
+
+            var result = await groupShareClient.Project.UpdateSelectedProjectFiles(projectId, @"Resources\TwoTranslatable_twoReference.zip", fileIds);
+            var expectedResponseText = "The following files will be skipped: FourWords.txt. These files are not part of this project or are not available for update. All other files will be uploaded.";
+
+            Assert.True(result.CreateBackgroundTask);
+            Assert.Equal(expectedResponseText, result.ResponseText);
+
+            await DeleteTestProject(groupShareClient, projectId);
+            await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
+        }
+
+        [Fact]
+        public async Task Projects_UpdateReferenceFileBySelection_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
+            var projectId = await CreateTestProject(groupShareClient, projectTemplateId, "TwoTranslatable_twoReference.zip");
+            var projectFiles = await groupShareClient.Project.GetAllFilesForProject(projectId);
+            var referenceFileId = projectFiles.FirstOrDefault(f => f.FileRole == "Reference").UniqueId;
+
+            var fileIds = new MidProjectFileIdsModel
+            {
+                FileIds = new[] { referenceFileId }
+            };
+
+            var result = await groupShareClient.Project.UpdateSelectedProjectFiles(projectId, @"Resources\TwoTranslatable_twoReference.zip", fileIds, true);
+            var expectedResponseText = "The following files will be skipped: Second.txt. These files are not part of this project or are not available for update. All other files will be uploaded.";
+            
+            Assert.True(result.CreateBackgroundTask);
+            Assert.Equal(expectedResponseText, result.ResponseText);
+
+            await DeleteTestProject(groupShareClient, projectId);
+            await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
+        }
+
         [Fact(Skip = "Used to work until GroupShare 2017 CU7")]
         public async Task PublishPackage()
         {
@@ -538,9 +587,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
         }
 
-        private async Task<string> CreateTestProject(GroupShareClient groupShareClient, string projectTemplateId)
+        private async Task<string> CreateTestProject(GroupShareClient groupShareClient, string projectTemplateId, string fileName = "")
         {
-            var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
+            var rawData = fileName == "" ? 
+                File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip")) :
+                File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\" + fileName));
             var projectName = $"Project - { Guid.NewGuid() }";
 
             var projectId = await groupShareClient.Project.CreateProject(new CreateProjectRequest(

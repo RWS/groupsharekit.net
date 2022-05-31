@@ -293,6 +293,11 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await UpdateProjectFiles(projectId, new string[] { filesPath }, reference);
         }
 
+        public async Task<MidProjectUpdateResponse> UpdateSelectedProjectFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false)
+        {
+            return await UpdateProjectFiles(projectId, new string[] { filesPath }, fileIds, reference);
+        }
+
         private async Task UploadReferenceFilesForProject(string projectId, string referenceFilesPath)
         {
             var uri = ApiUrls.UploadFilesForProject(projectId.ToString(), true, false);
@@ -385,6 +390,27 @@ namespace Sdl.Community.GroupShareKit.Clients
                     streamContent.Headers.Add("Content-Type", "application/octet-stream");
                     content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
                 }
+
+                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
+            }
+        }
+
+        public async Task<MidProjectUpdateResponse> UpdateProjectFiles(string projectId, string[] filesPaths, MidProjectFileIdsModel fileIds, bool reference)
+        {
+            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                foreach (var file in filesPaths)
+                {
+                    var stream = new System.IO.FileStream(file, System.IO.FileMode.Open);
+                    var streamContent = new StreamContent(stream);
+                    streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                    content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
+                }
+
+                var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds).ToString();
+                content.Add(new StringContent(fileIdsString), "FileIds");
 
                 return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
             }
