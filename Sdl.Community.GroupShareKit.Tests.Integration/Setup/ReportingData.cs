@@ -1,17 +1,15 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Models.Response;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using File = System.IO.File;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
 {
-    public class ReportingData : IDisposable
+    public class ReportingData /*: IDisposable*/
     {
         private static readonly GroupShareClient gsClient = Helper.GsClient;
         private string projectId;
@@ -35,8 +33,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
                     case PublishProjectStatus.Error:
                         throw new Exception(statusInfo.Description);
                 }
+
                 await Task.Delay(retryInterval * 1000);
             }
+
             return false;
         }
 
@@ -58,11 +58,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
             var statusInfo = await WaitForProjectCreated(projectId);
             Assert.True(statusInfo);
             await Task.Delay(60000);
+
             return projectId;
         }
-        public void Dispose()
+
+        public async Task Dispose()
         {
-            gsClient.Project.DeleteProject(projectId).Wait();
+            await gsClient.Project.DeleteProject(projectId);
         }
     }
 }

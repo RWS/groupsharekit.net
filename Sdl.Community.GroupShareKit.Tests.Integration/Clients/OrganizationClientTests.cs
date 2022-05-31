@@ -103,7 +103,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var addedResource = resources.FirstOrDefault(r => r.Id.ToString() == templateId);
             Assert.True(addedResource != null);
 
-            await grClient.Project.Delete(templateId);
+            await grClient.Project.DeleteProjectTemplate(templateId);
             await grClient.Organization.DeleteOrganization(newOrganizationId);
         }
 
@@ -132,8 +132,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(0, resources.Count);
 
             await groupShareClient.Organization.DeleteOrganization(newOrganizationId);
-            await groupShareClient.Project.Delete(firstResource);
-            await groupShareClient.Project.Delete(secondResource);
+            await groupShareClient.Project.DeleteProjectTemplate(firstResource);
+            await groupShareClient.Project.DeleteProjectTemplate(secondResource);
         }
 
         [Fact]

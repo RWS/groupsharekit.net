@@ -386,6 +386,23 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }        
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="reference"></param>
+        /// <returns></returns>
+        public static string AddProjectFiles(string projectId, bool reference = false)
+        {
+            return string.Format("{0}/projects/{1}/update?&reference={2}",
+                CurrentProjectServerV4Url, projectId, reference);
+        }
+
+        public static Uri UpdateProjectFiles(string projectId, bool reference = false)
+        {
+            return "{0}/projects/{1}/update?&reference={2}".FormatUri(CurrentProjectServerV4Url, projectId, reference);
+        }
+
+        /// <summary>
         ///  Returns the <see cref="Uri"/> that starts the project creation
         /// </summary>
         /// <param name="projectId"></param>
