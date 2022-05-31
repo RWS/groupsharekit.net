@@ -277,32 +277,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task<string> CreateProject()
+        public async Task CreateProject()
         {
             var groupShareClient = Helper.GsClient;
+            var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
+            var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
 
-            var projectRequest = new ProjectsRequest("/", true, 7) { Filter = { ProjectName = "today" } };
-            var result = await groupShareClient.Project.GetProject(projectRequest);
+            Assert.True(!string.IsNullOrEmpty(projectId));
 
-            if (result.Items.Count == 0)
-            {
-                var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
-                var projectName = $"Project - {Guid.NewGuid()}";
-
-                var projectId = await groupShareClient.Project.CreateProject(new CreateProjectRequest(
-                    projectName,
-                    Helper.OrganizationId,
-                    null,
-                    DateTime.Now.AddDays(2),
-                    ProjectTemplateId,
-                    rawData));
-
-                Assert.True(!string.IsNullOrEmpty(projectId));
-
-                return projectId;
-            }
-
-            return null;
+            await DeleteTestProject(groupShareClient, projectId);
+            await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
         }
 
         [Fact]
@@ -388,12 +372,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
-            var result = await groupShareClient.Project.AddFilesToProject(projectId, @"Resources\test.docx");
 
-            Assert.True(result.CreateBackgroundTask);
-            Assert.Empty(result.ResponseText);
-
-            result = await groupShareClient.Project.UpdateProjectFiles(projectId, @"Resources\test.docx");
+            var result = await groupShareClient.Project.UpdateProjectFiles(projectId, @"Resources\Grammar.zip");
             Assert.True(result.CreateBackgroundTask);
             Assert.Empty(result.ResponseText);
 
@@ -696,6 +676,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    Assert.True(dashboard != null);
         //}
 
+
+        [Fact]
         public async Task DashboardProjectsPerMonth()
         {
             var groupShareClient = Helper.GsClient;
@@ -703,6 +685,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(projectCounts != null);
         }
 
+        [Fact]
         public async Task DashboardTopLanguagePairs()
         {
             var groupShareClient = Helper.GsClient;
@@ -710,6 +693,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(languagePairs != null);
         }
 
+        [Fact]
         public async Task DashboardWordsPerMonth()
         {
             var groupShareClient = Helper.GsClient;
@@ -717,6 +701,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(wordCounts != null);
         }
 
+        [Fact]
         public async Task DashboardWordsPerOrganization()
         {
             var groupShareClient = Helper.GsClient;
@@ -724,6 +709,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(wordCounts != null);
         }
 
+        [Fact]
         public async Task DashboardStatistics()
         {
             var groupShareClient = Helper.GsClient;
@@ -733,6 +719,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         #endregion
 
         #region Reporting
+        [Fact]
         public async Task ReportingProjectPredefinedReportData()
         {
             var groupShareClient = Helper.GsClient;
@@ -740,10 +727,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             {
                 Status = 7
             };
+
             var reportingData = await groupShareClient.Project.ReportingProjectPredefinedReportData(options);
             Assert.True(reportingData != null);
         }
 
+        [Fact]
         public async Task ReportingTasksReportData()
         {
             var groupShareClient = Helper.GsClient;
@@ -755,6 +744,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(reportingData != null);
         }
 
+        [Fact]
         public async Task ReportingTmLeverageData()
         {
             var groupShareClient = Helper.GsClient;

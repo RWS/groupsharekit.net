@@ -1,14 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
@@ -881,7 +880,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             var templateByteArray = new ByteArrayContent(projectTemplate);
             var multipartContent = new MultipartFormDataContent
             {
-                {templateByteArray, "file", templateName}
+                { templateByteArray, "file", templateName }
             };
 
             return await ApiConnection.Post<string>(ApiUrls.UploadProjectTemplate(templateId), multipartContent, "application/json");
