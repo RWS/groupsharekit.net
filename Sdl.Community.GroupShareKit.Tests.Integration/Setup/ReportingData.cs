@@ -9,13 +9,13 @@ using File = System.IO.File;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
 {
-    public class ReportingData /*: IDisposable*/
+    public class ReportingData : IDisposable
     {
-        private static readonly GroupShareClient gsClient = Helper.GsClient;
-        private string projectId;
+        private static readonly GroupShareClient GroupShareClient = Helper.GsClient;
+        private string _projectId;
         public ReportingData()
         {
-            projectId = CreateTestProject(gsClient).Result;
+            _projectId = CreateTestProject(GroupShareClient).Result;
         }
         private async Task<bool> WaitForProjectCreated(string projectId, int retryInterval = 30, int maxTryCount = 20)
         {
@@ -43,7 +43,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
         private async Task<string> CreateTestProject(GroupShareClient groupShareClient)
         {
             var projectTemplate = groupShareClient.Project.GetAllTemplates().Result.ToList().FirstOrDefault();
-            var ProjectTemplateId = projectTemplate != null ? projectTemplate.Id : string.Empty;
+            var projectTemplateId = projectTemplate != null ? projectTemplate.Id : string.Empty;
 
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
             var projectName = $"Project - {Guid.NewGuid()}";
@@ -52,7 +52,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
                 Helper.OrganizationId,
                 null,
                 DateTime.Now.AddDays(2),
-                ProjectTemplateId,
+                projectTemplateId,
                 rawData));
 
             var statusInfo = await WaitForProjectCreated(projectId);
@@ -62,9 +62,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
             return projectId;
         }
 
-        public async Task Dispose()
+        public void Dispose()
         {
-            await gsClient.Project.DeleteProject(projectId);
+            GroupShareClient.Project.DeleteProject(_projectId).Wait();
         }
     }
 }

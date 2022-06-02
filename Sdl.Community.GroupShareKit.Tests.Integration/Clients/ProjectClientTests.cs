@@ -42,7 +42,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var project = projects.Items.FirstOrDefault();
 
             if (project == null)
+            {
                 return;
+            }
 
             var projectRequest = new ProjectsRequest("/", true, 7) { Filter = { ProjectName = project.Name } };
             var result = await groupShareClient.Project.GetProject(projectRequest);
@@ -236,7 +238,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             }
         }
 
-
         // test fails because of a bug that has to be fixed in the REST API
         //[Fact]
         //public async Task GetProjectLanguageStatistics()
@@ -422,7 +423,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var result = await groupShareClient.Project.UpdateSelectedProjectFiles(projectId, @"Resources\TwoTranslatable_twoReference.zip", fileIds, true);
             var expectedResponseText = "The following files will be skipped: Second.txt. These files are not part of this project or are not available for update. All other files will be uploaded.";
-            
+
             Assert.True(result.CreateBackgroundTask);
             Assert.Equal(expectedResponseText, result.ResponseText);
 
@@ -645,7 +646,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         private async Task<string> CreateTestProject(GroupShareClient groupShareClient, string projectTemplateId, string fileName = "")
         {
-            var rawData = fileName == "" ? 
+            var rawData = fileName == "" ?
                 File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip")) :
                 File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\" + fileName));
             var projectName = $"Project - { Guid.NewGuid() }";

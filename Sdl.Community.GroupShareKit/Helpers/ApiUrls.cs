@@ -386,7 +386,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }        
 
         /// <summary>
-        /// 
+        /// Returns the uri string that adds files to an existing project
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="reference"></param>
@@ -398,7 +398,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// 
+        /// Returns the uri that updates files of an existing project
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="reference"></param>
@@ -409,10 +409,9 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// 
+        /// Returns the uri that cancels files of an existing project
         /// </summary>
         /// <param name="projectId"></param>
-        /// <param name="reference"></param>
         /// <returns></returns>
         public static Uri CancelProjectFiles(string projectId)
         {

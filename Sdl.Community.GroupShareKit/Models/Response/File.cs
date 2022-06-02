@@ -10,6 +10,10 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// </summary>
         public Guid UniqueId { get; set; }
         /// <summary>
+        /// Gets or sets the file relative path
+        /// </summary>
+        public string FileRelativePath { get; set; }
+        /// <summary>
         /// Gets or sets the file name
         /// </summary>
         public string FileName { get; set; }
