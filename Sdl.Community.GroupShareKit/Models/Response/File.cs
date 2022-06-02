@@ -50,6 +50,10 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// </summary>
         public DateTime? LastCheckIn { get; set; }
         /// <summary>
+        /// Gets or sets the IsCanceled status
+        /// </summary>
+        public bool IsCanceled { get; set; }
+        /// <summary>
         /// Gets or sets the statistics <see cref="Statistics"/>
         /// </summary>
         public Statistics Statistics { get; set; }

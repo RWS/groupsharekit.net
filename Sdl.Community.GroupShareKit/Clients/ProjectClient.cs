@@ -416,6 +416,14 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
+        public async Task<string> CancelProjectFiles(string projectId, MidProjectFileIdsModel fileIds)
+        {
+            var uri = ApiUrls.CancelProjectFiles(projectId);
+            var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds).ToString();
+
+            return await ApiConnection.Put<string>(uri, fileIdsString);
+        }
+
         /// <summary>
         /// Delete project
         /// </summary>

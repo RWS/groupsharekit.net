@@ -338,6 +338,15 @@ namespace Sdl.Community.GroupShareKit.Clients
 		Task<MidProjectUpdateResponse> UpdateSelectedProjectFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false);
 
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="projectId"></param>
+		/// <param name="fileIds"></param>
+		/// <param name="reference"></param>
+		/// <returns></returns>
+		Task<string> CancelProjectFiles(string projectId, MidProjectFileIdsModel fileIds);
+
+		/// <summary>
 		///Change project status
 		/// <param name="statusRequest"><see cref="ChangeStatusRequest"/></param>
 		/// </summary>

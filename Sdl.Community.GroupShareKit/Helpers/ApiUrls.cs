@@ -397,9 +397,26 @@ namespace Sdl.Community.GroupShareKit.Helpers
                 CurrentProjectServerV4Url, projectId, reference);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="reference"></param>
+        /// <returns></returns>
         public static Uri UpdateProjectFiles(string projectId, bool reference = false)
         {
             return "{0}/projects/{1}/update?&reference={2}".FormatUri(CurrentProjectServerV4Url, projectId, reference);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="reference"></param>
+        /// <returns></returns>
+        public static Uri CancelProjectFiles(string projectId)
+        {
+            return "{0}/projects/{1}/setFileCancelStatus".FormatUri(CurrentProjectServerV4Url, projectId);
         }
 
         /// <summary>

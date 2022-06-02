@@ -430,6 +430,62 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
         }
 
+        [Fact]
+        public async Task Projects_CancelTranslatableFile_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
+            var projectId = await CreateTestProject(groupShareClient, projectTemplateId, "TwoTranslatable_twoReference.zip");
+            var projectFiles = await groupShareClient.Project.GetAllFilesForProject(projectId);
+            var translatableFileId = projectFiles.FirstOrDefault(f => f.FileRole == "Translatable").UniqueId;
+
+            var fileIds = new MidProjectFileIdsModel
+            {
+                FileIds = new[] { translatableFileId }
+            };
+
+            await groupShareClient.Project.CancelProjectFiles(projectId, fileIds);
+
+            projectFiles = await groupShareClient.Project.GetAllFilesForProject(projectId);
+
+            var translatableFiles = projectFiles.Where(f => f.FileRole.Equals("Translatable", StringComparison.OrdinalIgnoreCase));
+            var referenceFiles = projectFiles.Where(f => f.FileRole.Equals("Reference", StringComparison.OrdinalIgnoreCase));
+
+            Assert.True(translatableFiles.First().IsCanceled);
+            Assert.False(translatableFiles.Last().IsCanceled);
+            Assert.All(referenceFiles, f => Assert.False(f.IsCanceled));
+
+            await DeleteTestProject(groupShareClient, projectId);
+            await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
+        }
+
+        [Fact]
+        public async Task Projects_CancelReferenceFiles_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
+            var projectId = await CreateTestProject(groupShareClient, projectTemplateId, "TwoTranslatable_twoReference.zip");
+            var projectFiles = await groupShareClient.Project.GetAllFilesForProject(projectId);
+            var referenceFilesIds = projectFiles.Where(f => f.FileRole == "Reference").Select(f => f.UniqueId).ToArray();
+
+            var fileIds = new MidProjectFileIdsModel
+            {
+                FileIds = referenceFilesIds
+            };
+
+            await groupShareClient.Project.CancelProjectFiles(projectId, fileIds);
+
+            projectFiles = await groupShareClient.Project.GetAllFilesForProject(projectId);
+            var referenceFiles = projectFiles.Where(f => f.FileRole.Equals("Reference", StringComparison.OrdinalIgnoreCase));
+            var translatableFiles = projectFiles.Where(f => f.FileRole.Equals("Translatable", StringComparison.OrdinalIgnoreCase));
+
+            Assert.All(referenceFiles, f => Assert.True(f.IsCanceled));
+            Assert.All(translatableFiles, f => Assert.False(f.IsCanceled));
+
+            await DeleteTestProject(groupShareClient, projectId);
+            await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
+        }
+
         [Fact(Skip = "Used to work until GroupShare 2017 CU7")]
         public async Task PublishPackage()
         {
