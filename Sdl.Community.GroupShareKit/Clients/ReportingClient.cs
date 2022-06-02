@@ -19,7 +19,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             var predefinedProjectsUrl = ApiUrls.GetPredefinedProjectsData();
 
-            var filterParameters = new Dictionary<string, string>()
+            var filterParameters = new Dictionary<string, string>
             {
                 { "showAll" , predefinedFilters.ShowAll.ToString()},
                 { "publishStart", predefinedFilters.PublishStart.ToString()},
@@ -40,7 +40,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             var predefinedTasksUrl = ApiUrls.GetPredefinedTasksData();
 
-            var filterParameters = new Dictionary<string, string>()
+            var filterParameters = new Dictionary<string, string>
             {
                 { "showAll" , predefinedFilters.ShowAll.ToString()},
                 { "publishStart", predefinedFilters.PublishStart.ToString()},
@@ -60,7 +60,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             var predefinedTmLeverageUrl = ApiUrls.GetPredefinedTmLeverageData();
 
-            var filterParameters = new Dictionary<string, string>()
+            var filterParameters = new Dictionary<string, string>
             {
                 { "showAll" , predefinedFilters.ShowAll.ToString()},
                 { "publishStart", predefinedFilters.PublishStart.ToString()},
@@ -80,10 +80,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             var deliveriesDueSoonUrl = ApiUrls.GetDeliveriesDueSoonData();
 
-            var requestSortParameters = new Dictionary<string, string>()
+            var requestSortParameters = new Dictionary<string, string>
             {
-                { "OrderBy" , sortParameters.OrderBy.ToString()},
-                { "OrderDirection", sortParameters.OrderDirection.ToString()},
+                { "OrderBy" , sortParameters.OrderBy},
+                { "OrderDirection", sortParameters.OrderDirection},
    
             };
             return ApiConnection.Get<ReportingServiceDeliveriesDueSoonProjects>(deliveriesDueSoonUrl, requestSortParameters);
@@ -93,10 +93,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             var yourTasksUrl = ApiUrls.GetYourTasksData();
 
-            var requestSortParameters = new Dictionary<string, string>()
+            var requestSortParameters = new Dictionary<string, string>
             {
-                { "OrderBy" , sortParameters.OrderBy.ToString()},
-                { "OrderDirection", sortParameters.OrderDirection.ToString()},
+                { "OrderBy" , sortParameters.OrderBy},
+                { "OrderDirection", sortParameters.OrderDirection},
 
             };
             return ApiConnection.Get<List<ReportingServiceYourTasks>>(yourTasksUrl, requestSortParameters);

@@ -248,18 +248,18 @@ namespace Sdl.Community.GroupShareKit.Http
 
         private static HttpRequestMessage CopyRequest(HttpRequestMessage oldRequest)
         {
-            var newrequest = new HttpRequestMessage(oldRequest.Method, oldRequest.RequestUri);
+            var newRequest = new HttpRequestMessage(oldRequest.Method, oldRequest.RequestUri);
 
             foreach (var header in oldRequest.Headers)
             {
-                newrequest.Headers.TryAddWithoutValidation(header.Key, header.Value);
+                newRequest.Headers.TryAddWithoutValidation(header.Key, header.Value);
             }
             foreach (var property in oldRequest.Properties)
             {
-                newrequest.Properties.Add(property);
+                newRequest.Properties.Add(property);
             }
 
-            return newrequest;
+            return newRequest;
         }
     }
 }

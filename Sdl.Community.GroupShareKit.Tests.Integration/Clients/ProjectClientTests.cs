@@ -567,7 +567,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var created = await WaitForProjectCreated(projectId);
 
             Assert.True(created);
-            var analysisReports = await Helper.GsClient.Project.GetAnalysisReports(projectId.ToString(), "fr-fr");
+            var analysisReports = await Helper.GsClient.Project.GetAnalysisReports(projectId, "fr-fr");
             Assert.True(analysisReports[0].Report.Task.File.Count == 4);
             Assert.True(analysisReports[0].Report.Task.File[0].Analyse.Total.Segments == "3");
             Assert.True(analysisReports[0].Report.Task.File[0].Analyse.Perfect.Segments == "0");
@@ -575,8 +575,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(analysisReports[0].Report.Task.File[2].Analyse.Perfect.Segments == "2");
             Assert.True(analysisReports[0].Report.Task.File[3].Analyse.Perfect.Segments == "3");
 
-            await Helper.GsClient.Project.DeleteProject(projectId.ToString());
-            await Helper.GsClient.Project.DeleteProjectTemplate(projectTemplateId.ToString());
+            await Helper.GsClient.Project.DeleteProject(projectId);
+            await Helper.GsClient.Project.DeleteProjectTemplate(projectTemplateId);
         }
 
         [Fact]
@@ -592,7 +592,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var created = await WaitForProjectCreated(projectId);
             Assert.True(created);
 
-            var analysisReports = await Helper.GsClient.Project.GetAnalysisReports(projectId.ToString(), "fr-fr");
+            var analysisReports = await Helper.GsClient.Project.GetAnalysisReports(projectId, "fr-fr");
             Assert.True(analysisReports[0].Report.Task.File.Count == 4);
             Assert.True(analysisReports[0].Report.Task.File[0].Analyse.Total.Segments == "3");
             Assert.True(analysisReports[0].Report.Task.File[0].Analyse.Perfect.Segments == "0");
@@ -621,7 +621,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectTemplateRequest = new ProjectTemplates
             {
                 Id = Guid.NewGuid().ToString(),
-                Name = "PerfectMatchProjectTemplate_" + Guid.NewGuid().ToString(),
+                Name = "PerfectMatchProjectTemplate_" + Guid.NewGuid(),
                 Description = "",
                 OrganizationId = Helper.OrganizationId
             };
@@ -633,7 +633,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             return new BasicCreateProjectRequest
             {
-                Name = "PerfectMatch_" + Guid.NewGuid().ToString(),
+                Name = "PerfectMatch_" + Guid.NewGuid(),
                 Description = "Perfect match from zip file",
                 OrganizationId = Helper.OrganizationId,
                 ProjectTemplateId = projectTemplateId,

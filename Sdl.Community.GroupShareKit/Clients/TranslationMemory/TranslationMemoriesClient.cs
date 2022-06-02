@@ -781,6 +781,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                         Values = filterField.Values,
                         Type = filterField.Type.ToString()
                     };
+
                     restFilterFields.Add(restField);
                 }
 
@@ -794,8 +795,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                         Fields = restFilterFields
                     }
                 };
+
                 restFilterList.Add(restFilter);
             }
+
             return restFilterList;
         }
         private RestConcordanceSearch CreateRestConcordanceSearch(ConcordanceSearchSettings searchSettings)
@@ -831,7 +834,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                 }
             }
 
-
             return restSearch;
         }
 
@@ -845,8 +847,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                     Malus = penalty.Malus,
                     PenaltyType = penalty.PenaltyType.ToString()
                 };
+
                 restPenaltyTypes.Add(restPenalty);
             }
+
             return restPenaltyTypes;
         }
 

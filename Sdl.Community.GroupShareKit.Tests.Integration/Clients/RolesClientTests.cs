@@ -157,7 +157,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.User.Delete(userId);
         }
 
-        private static async Task<String> CreatePowerUser(GroupShareClient groupShareClient)
+        private static async Task<string> CreatePowerUser(GroupShareClient groupShareClient)
         {
             var uniqueId = Guid.NewGuid().ToString();
 

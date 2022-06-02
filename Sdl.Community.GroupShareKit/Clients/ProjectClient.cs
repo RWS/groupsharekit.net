@@ -262,52 +262,52 @@ namespace Sdl.Community.GroupShareKit.Clients
             {
                 if (filesPath.EndsWith(".zip", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    var uri = ApiUrls.UploadFilesForProject(projectId.ToString(), false, true);
-                    await UploadFilesForProject(uri.ToString(), new string[] { filesPath });
+                    var uri = ApiUrls.UploadFilesForProject(projectId, false, true);
+                    await UploadFilesForProject(uri, new[] { filesPath });
                     return true;
                 }
                 else
                 {
-                    var uri = ApiUrls.UploadFilesForProject(projectId.ToString(), false, false);
+                    var uri = ApiUrls.UploadFilesForProject(projectId, false, false);
                     System.Diagnostics.Debug.WriteLine($"Upload files: {filesPath}");
-                    await UploadFilesForProject(uri.ToString(), new string[] { filesPath });
+                    await UploadFilesForProject(uri, new[] { filesPath });
                     return false;
                 }
             }
             else
             {
-                var uri = ApiUrls.UploadFilesForProject(projectId.ToString(), false, false);
+                var uri = ApiUrls.UploadFilesForProject(projectId, false, false);
                 System.Diagnostics.Debug.WriteLine($"Upload folder: {filesPath}");
-                await UploadDirectoryForProject(uri.ToString(), filesPath);
+                await UploadDirectoryForProject(uri, filesPath);
                 return false;
             }
         }
 
         public async Task<MidProjectUpdateResponse> AddFilesToProject(string projectId, string filesPath, bool reference = false)
         {
-            return await AddFilesToProject(projectId, new string[] { filesPath }, reference);
+            return await AddFilesToProject(projectId, new[] { filesPath }, reference);
         }
 
         public async Task<MidProjectUpdateResponse> UpdateProjectFiles(string projectId, string filesPath, bool reference = false)
         {
-            return await UpdateProjectFiles(projectId, new string[] { filesPath }, reference);
+            return await UpdateProjectFiles(projectId, new[] { filesPath }, reference);
         }
 
         public async Task<MidProjectUpdateResponse> UpdateSelectedProjectFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false)
         {
-            return await UpdateProjectFiles(projectId, new string[] { filesPath }, fileIds, reference);
+            return await UpdateProjectFiles(projectId, new[] { filesPath }, fileIds, reference);
         }
 
         private async Task UploadReferenceFilesForProject(string projectId, string referenceFilesPath)
         {
-            var uri = ApiUrls.UploadFilesForProject(projectId.ToString(), true, false);
+            var uri = ApiUrls.UploadFilesForProject(projectId, true, false);
             if (System.IO.File.Exists(referenceFilesPath))
             {
-                await UploadFilesForProject(uri.ToString(), new string[] { referenceFilesPath });
+                await UploadFilesForProject(uri, new[] { referenceFilesPath });
             }
             else
             {
-                await UploadDirectoryForProject(uri.ToString(), referenceFilesPath);
+                await UploadDirectoryForProject(uri, referenceFilesPath);
             }
         }
 
@@ -409,7 +409,7 @@ namespace Sdl.Community.GroupShareKit.Clients
                     content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
                 }
 
-                var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds).ToString();
+                var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
                 content.Add(new StringContent(fileIdsString), "FileIds");
 
                 return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
@@ -419,7 +419,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         public async Task<string> CancelProjectFiles(string projectId, MidProjectFileIdsModel fileIds)
         {
             var uri = ApiUrls.CancelProjectFiles(projectId);
-            var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds).ToString();
+            var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
 
             return await ApiConnection.Put<string>(uri, fileIdsString);
         }

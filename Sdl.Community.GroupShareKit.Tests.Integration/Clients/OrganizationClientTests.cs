@@ -95,7 +95,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var templateId = await Helper.CreateTemplateResourceAsync(newOrganizationId);
 
             var resourceRequest =
-                new OrganizationResourcesRequest(new List<string>() { templateId },
+                new OrganizationResourcesRequest(new List<string> { templateId },
                     organizationId);
             await grClient.Organization.MoveResourceToOrganization(resourceRequest);
 
@@ -118,7 +118,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var firstResource = await Helper.CreateTemplateResourceAsync(organizationId);
             var secondResource = await Helper.CreateTemplateResourceAsync(organizationId);
             var resourceRequest =
-                new OrganizationResourcesRequest(new List<string>() { firstResource, secondResource },
+                new OrganizationResourcesRequest(new List<string> { firstResource, secondResource },
                     newOrganizationId);
 
             await groupShareClient.Organization.LinkResourceToOrganization(resourceRequest);
