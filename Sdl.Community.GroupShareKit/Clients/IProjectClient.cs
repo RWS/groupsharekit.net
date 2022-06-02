@@ -310,7 +310,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		Task<string> UploadFilesForProject(string projectId, byte[] rawData, string projectName);
 
 		/// <summary>
-		/// 
+		/// Adds files to an existing project
 		/// </summary>
 		/// <param name="projectId"></param>
 		/// <param name="filesPath"></param>
@@ -319,7 +319,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		Task<MidProjectUpdateResponse> AddFilesToProject(string projectId, string filesPath, bool reference = false);
 
 		/// <summary>
-		/// 
+		/// Updates files of an existing project without any file selection
 		/// </summary>
 		/// <param name="projectId"></param>
 		/// <param name="filesPath"></param>
@@ -328,7 +328,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		Task<MidProjectUpdateResponse> UpdateProjectFiles(string projectId, string filesPath, bool reference = false);
 
 		/// <summary>
-		/// 
+		/// Updates selected files of an existing project
 		/// </summary>
 		/// <param name="projectId"></param>
 		/// <param name="filesPath"></param>
@@ -338,12 +338,11 @@ namespace Sdl.Community.GroupShareKit.Clients
 		Task<MidProjectUpdateResponse> UpdateSelectedProjectFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false);
 
 		/// <summary>
-		/// 
+		/// Cancels selected files of an existing project
 		/// </summary>
 		/// <param name="projectId"></param>
 		/// <param name="fileIds"></param>
-		/// <param name="reference"></param>
-		/// <returns></returns>
+        /// <returns></returns>
 		Task<string> CancelProjectFiles(string projectId, MidProjectFileIdsModel fileIds);
 
 		/// <summary>
