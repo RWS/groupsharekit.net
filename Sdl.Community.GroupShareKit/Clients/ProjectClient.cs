@@ -283,21 +283,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string filesPath, bool reference = false)
-        {
-            return await AddFilesToProject(projectId, new[] { filesPath }, reference);
-        }
-
-        public async Task<MidProjectUpdateResponse> UpdateFiles(string projectId, string filesPath, bool reference = false)
-        {
-            return await UpdateProjectFiles(projectId, new[] { filesPath }, reference);
-        }
-
-        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false)
-        {
-            return await UpdateProjectFiles(projectId, new[] { filesPath }, fileIds, reference);
-        }
-
         private async Task UploadReferenceFilesForProject(string projectId, string referenceFilesPath)
         {
             var uri = ApiUrls.UploadFilesForProject(projectId, true, false);
@@ -313,7 +298,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         private async Task UploadPerfectMatchFilesForProject(string uri, string directory)
         {
-            // first level are langugage folders
+            // first level are language folders
             foreach (var languageDir in new System.IO.DirectoryInfo(directory).GetDirectories())
             {
                 //var languageCode = languageDir.Name;
@@ -356,7 +341,22 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        public async Task<MidProjectUpdateResponse> AddFilesToProject(string projectId, string[] filesPaths, bool reference)
+        public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string filesPath, bool reference)
+        {
+            var uri = ApiUrls.AddProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                var stream = new System.IO.FileStream(filesPath, System.IO.FileMode.Open);
+                var streamContent = new StreamContent(stream);
+                streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
+
+                return await ApiConnection.Post<MidProjectUpdateResponse>(uri, content, null);
+            }
+        }
+
+        public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string[] filesPaths, bool reference)
         {
             var uri = ApiUrls.AddProjectFiles(projectId, reference);
 
@@ -374,7 +374,22 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        public async Task<MidProjectUpdateResponse> UpdateProjectFiles(string projectId, string[] filesPaths, bool reference)
+        public async Task<MidProjectUpdateResponse> UpdateFiles(string projectId, string filesPath, bool reference)
+        {
+            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                var stream = new System.IO.FileStream(filesPath, System.IO.FileMode.Open);
+                var streamContent = new StreamContent(stream);
+                streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
+
+                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
+            }
+        }
+
+        public async Task<MidProjectUpdateResponse> UpdateFiles(string projectId, string[] filesPaths, bool reference)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
 
@@ -392,7 +407,25 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        public async Task<MidProjectUpdateResponse> UpdateProjectFiles(string projectId, string[] filesPaths, MidProjectFileIdsModel fileIds, bool reference)
+        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference)
+        {
+            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                var stream = new System.IO.FileStream(filesPath, System.IO.FileMode.Open);
+                var streamContent = new StreamContent(stream);
+                streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
+
+                var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
+                content.Add(new StringContent(fileIdsString), "FileIds");
+
+                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
+            }
+        }
+
+        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string[] filesPaths, MidProjectFileIdsModel fileIds, bool reference)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
 
