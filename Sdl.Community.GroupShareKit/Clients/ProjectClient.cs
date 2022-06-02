@@ -283,17 +283,17 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        public async Task<MidProjectUpdateResponse> AddFilesToProject(string projectId, string filesPath, bool reference = false)
+        public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string filesPath, bool reference = false)
         {
             return await AddFilesToProject(projectId, new[] { filesPath }, reference);
         }
 
-        public async Task<MidProjectUpdateResponse> UpdateProjectFiles(string projectId, string filesPath, bool reference = false)
+        public async Task<MidProjectUpdateResponse> UpdateFiles(string projectId, string filesPath, bool reference = false)
         {
             return await UpdateProjectFiles(projectId, new[] { filesPath }, reference);
         }
 
-        public async Task<MidProjectUpdateResponse> UpdateSelectedProjectFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false)
+        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false)
         {
             return await UpdateProjectFiles(projectId, new[] { filesPath }, fileIds, reference);
         }
@@ -356,9 +356,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public async Task<MidProjectUpdateResponse> AddFilesToProject(string projectId, string[] filesPaths, bool reference)
         {
             var uri = ApiUrls.AddProjectFiles(projectId, reference);
@@ -1242,7 +1239,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         [Obsolete("The dashboard function is obsolete in Groupshare 2020. " +
-            "Use the new functions DataboardProjectsPerMonth, DashboardTopLanguagePairs, " +
+            "Use the new functions DashboardProjectsPerMonth, DashboardTopLanguagePairs, " +
             "DashboardWordsPerMonth, DashboardWordsPerOrganization, DashboardStatistics instead for Groupshare 2020.")]
         public async Task<Dashboard> Dashboard()
         {
@@ -1260,7 +1257,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  Thrown when the current user does not have permission to make the request.
 		///  </exception>
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task<IReadOnlyList<DashboardCount>> DataboardProjectsPerMonth()
+        public async Task<IReadOnlyList<DashboardCount>> DashboardProjectsPerMonth()
         {
             return await ApiConnection.GetAll<DashboardCount>(ApiUrls.DashboardProjectsPerMonth());
         }

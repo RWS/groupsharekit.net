@@ -297,7 +297,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
-            var result = await groupShareClient.Project.AddFilesToProject(projectId, @"Resources\TwoFiles.zip");
+            var result = await groupShareClient.Project.AddFiles(projectId, @"Resources\TwoFiles.zip");
 
             Assert.True(result.CreateBackgroundTask);
             Assert.Empty(result.ResponseText);
@@ -312,7 +312,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
-            var result = await groupShareClient.Project.AddFilesToProject(projectId, @"Resources\test.docx");
+            var result = await groupShareClient.Project.AddFiles(projectId, @"Resources\test.docx");
 
             Assert.True(result.CreateBackgroundTask);
             Assert.Empty(result.ResponseText);
@@ -327,7 +327,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
-            var result = await groupShareClient.Project.AddFilesToProject(projectId, @"Resources\TwoFiles.zip", true);
+            var result = await groupShareClient.Project.AddFiles(projectId, @"Resources\TwoFiles.zip", true);
 
             Assert.True(result.CreateBackgroundTask);
             Assert.Empty(result.ResponseText);
@@ -342,7 +342,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
-            var result = await groupShareClient.Project.AddFilesToProject(projectId, @"Resources\test.txt", true);
+            var result = await groupShareClient.Project.AddFiles(projectId, @"Resources\test.txt", true);
 
             Assert.True(result.CreateBackgroundTask);
             Assert.Empty(result.ResponseText);
@@ -358,7 +358,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
 
-            var result = await groupShareClient.Project.AddFilesToProject(projectId, @"Resources\Grammar.zip", true);
+            var result = await groupShareClient.Project.AddFiles(projectId, @"Resources\Grammar.zip", true);
             var expectedResponseText = "All specified files already exist in this project. If you want to create new versions for them, use the Update Files option instead.";
 
             Assert.False(result.CreateBackgroundTask);
@@ -375,7 +375,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
 
-            var result = await groupShareClient.Project.UpdateProjectFiles(projectId, @"Resources\Grammar.zip");
+            var result = await groupShareClient.Project.UpdateFiles(projectId, @"Resources\Grammar.zip");
             Assert.True(result.CreateBackgroundTask);
             Assert.Empty(result.ResponseText);
 
@@ -397,7 +397,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 FileIds = new[] { translatableFileId }
             };
 
-            var result = await groupShareClient.Project.UpdateSelectedProjectFiles(projectId, @"Resources\TwoTranslatable_twoReference.zip", fileIds);
+            var result = await groupShareClient.Project.UpdateSelectedFiles(projectId, @"Resources\TwoTranslatable_twoReference.zip", fileIds);
             var expectedResponseText = "The following files will be skipped: FourWords.txt. These files are not part of this project or are not available for update. All other files will be uploaded.";
 
             Assert.True(result.CreateBackgroundTask);
@@ -421,7 +421,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 FileIds = new[] { referenceFileId }
             };
 
-            var result = await groupShareClient.Project.UpdateSelectedProjectFiles(projectId, @"Resources\TwoTranslatable_twoReference.zip", fileIds, true);
+            var result = await groupShareClient.Project.UpdateSelectedFiles(projectId, @"Resources\TwoTranslatable_twoReference.zip", fileIds, true);
             var expectedResponseText = "The following files will be skipped: Second.txt. These files are not part of this project or are not available for update. All other files will be uploaded.";
 
             Assert.True(result.CreateBackgroundTask);
@@ -789,7 +789,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task DashboardProjectsPerMonth()
         {
             var groupShareClient = Helper.GsClient;
-            var projectCounts = await groupShareClient.Project.DataboardProjectsPerMonth();
+            var projectCounts = await groupShareClient.Project.DashboardProjectsPerMonth();
             Assert.True(projectCounts != null);
         }
 

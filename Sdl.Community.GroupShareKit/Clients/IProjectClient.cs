@@ -316,34 +316,22 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// <param name="filesPath"></param>
 		/// <param name="reference"></param>
 		/// <returns></returns>
-		Task<MidProjectUpdateResponse> AddFilesToProject(string projectId, string filesPath, bool reference = false);
+		Task<MidProjectUpdateResponse> AddFiles(string projectId, string filesPath, bool reference = false);
 
 		/// <summary>
 		/// Updates files of an existing project without any file selection
 		/// </summary>
-		/// <param name="projectId"></param>
-		/// <param name="filesPath"></param>
-		/// <param name="reference"></param>
-		/// <returns></returns>
-		Task<MidProjectUpdateResponse> UpdateProjectFiles(string projectId, string filesPath, bool reference = false);
+        Task<MidProjectUpdateResponse> UpdateFiles(string projectId, string filesPath, bool reference = false);
 
 		/// <summary>
 		/// Updates selected files of an existing project
 		/// </summary>
-		/// <param name="projectId"></param>
-		/// <param name="filesPath"></param>
-		/// <param name="fileIds"></param>
-		/// <param name="reference"></param>
-		/// <returns></returns>
-		Task<MidProjectUpdateResponse> UpdateSelectedProjectFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false);
+        Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false);
 
 		/// <summary>
 		/// Cancels selected files of an existing project
 		/// </summary>
-		/// <param name="projectId"></param>
-		/// <param name="fileIds"></param>
-        /// <returns></returns>
-		Task<string> CancelProjectFiles(string projectId, MidProjectFileIdsModel fileIds);
+        Task<string> CancelProjectFiles(string projectId, MidProjectFileIdsModel fileIds);
 
 		/// <summary>
 		///Change project status
@@ -494,8 +482,8 @@ namespace Sdl.Community.GroupShareKit.Clients
 		Task DeleteProjectTemplate(string id);
 
 		/// <summary>
-		///Uploades a template to a newly created project 
-		/// This method shoulg be called after you create a project in order to add the template
+		///Uploads a template to a newly created project 
+		/// This method should be called after you create a project in order to add the template
 		/// </summary>
 		/// <param name="templateId">string</param>
 		/// <param name="projectTemplate">byte[]</param>
@@ -515,7 +503,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		#region file version methods
 
 		/// <summary>
-		/// Gets file versions informations<see cref="FileVersion"/>.
+		/// Gets file versions information<see cref="FileVersion"/>.
 		/// </summary>
 		///  <param name="languageFileId">Language file id></param>
 		/// <remarks>
@@ -543,7 +531,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// Thrown when the current user does not have permission to make the request.
 		/// </exception>
 		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		/// <returns> Donwloaded file in bytes[].</returns>
+		/// <returns> Downloaded file in bytes[].</returns>
 		Task<byte[]> DownloadFileVersion(string projectId, string languageFileId, int version);
 
 		#endregion
@@ -614,7 +602,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		Task<string> IsUserAuthorizedToOpenFile(string projectId, string languageFileId);
 
 		/// <summary>
-		///Rreturns user permissions in editor
+		///Returns user permissions in editor
 		/// </summary>
 		/// <param name="projectId">The id of the project</param>
 		/// <param name="languageFileId">The if of the language file</param>
@@ -753,7 +741,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  Thrown when the current user does not have permission to make the request.
 		///  </exception>
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task<IReadOnlyList<DashboardCount>> DataboardProjectsPerMonth();
+        Task<IReadOnlyList<DashboardCount>> DashboardProjectsPerMonth();
 
         /// <summary>
         /// Gets the dashboard top language pairs
