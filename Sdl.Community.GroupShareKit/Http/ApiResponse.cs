@@ -20,8 +20,8 @@ namespace Sdl.Community.GroupShareKit.Http
         private static T GetBodyAsObject(IResponse response)
         {
             var body = response.Body;
-            if (body is T t) return t;
-            return default;
+            if (body is T) return (T)body;
+            return default(T);
         }
 
         public T Body { get; }
