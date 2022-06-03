@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
-    public class SortParameters:IJsonRequest
+    public class SortParameters : IJsonRequest
     {
         /// <summary>
         /// Gets or sets the property option
@@ -30,7 +25,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <value>ASC</value>
         /// <value>DESC</value>
         [JsonConverter(typeof(StringEnumConverter))]
-        public DirectionOption Direction{ get; set; }
+        public DirectionOption Direction { get; set; }
 
         public enum PropertyOption
         {
@@ -42,8 +37,8 @@ namespace Sdl.Community.GroupShareKit.Clients
             SourceLanguage,
             OrganizationPath
         }
-        
-        public  enum DirectionOption
+
+        public enum DirectionOption
         {
             ASC,
             DESC
@@ -56,11 +51,10 @@ namespace Sdl.Community.GroupShareKit.Clients
                 Property = Property,
                 Direction = Direction
             };
-           
+
             return JsonConvert.SerializeObject(sort,
                     Formatting.Indented,
                     new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, ContractResolver = new CamelCasePropertyNamesContractResolver() });
-           
         }
     }
 }

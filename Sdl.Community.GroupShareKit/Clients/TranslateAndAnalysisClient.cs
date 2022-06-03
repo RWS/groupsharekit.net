@@ -1,7 +1,6 @@
 ﻿using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response;
-using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 

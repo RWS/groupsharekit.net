@@ -297,7 +297,7 @@
             <exception cref="T:Sdl.Community.GroupShareKit.Models.Response.Authorization">Thrown when a general API error occurs.</exception>
             <returns>A list of <see cref="T:Sdl.Community.GroupShareKit.Exceptions.ApiException"/>s.</returns>
         </member>
-        <member name="M:Sdl.Community.GroupShareKit.Clients.ILicense.GetLicenseInformations">
+        <member name="M:Sdl.Community.GroupShareKit.Clients.ILicense.GetLicenseInformation">
             <summary>
             Gets license  informations<see cref="T:Sdl.Community.GroupShareKit.Models.Response.License"/>.
             </summary>
@@ -470,7 +470,7 @@
             <exception cref="T:Sdl.Community.GroupShareKit.Exceptions.ApiException">Thrown when a general API error occurs.</exception>
             <returns>A list of <see cref="T:Sdl.Community.GroupShareKit.Models.Response.Permission"/>s.</returns>
         </member>
-        <member name="M:Sdl.Community.GroupShareKit.Clients.IPermissionClient.GetUsersPermisions">
+        <member name="M:Sdl.Community.GroupShareKit.Clients.IPermissionClient.GetUsersPermissions">
             <summary>
             Gets all permissions name for users <see cref="T:Sdl.Community.GroupShareKit.Models.Response.PermissionsName"/>s.
             </summary>
@@ -1303,7 +1303,7 @@
             <param name="user"><see cref="T:Sdl.Community.GroupShareKit.Clients.CreateUserRequest"/></param>
             <returns>Created user Id</returns>
         </member>
-        <member name="M:Sdl.Community.GroupShareKit.Clients.LicenseClient.GetLicenseInformations">
+        <member name="M:Sdl.Community.GroupShareKit.Clients.LicenseClient.GetLicenseInformation">
             <summary>
             Gets license  informations<see cref="T:Sdl.Community.GroupShareKit.Models.Response.License"/>.
             </summary>
@@ -1493,7 +1493,7 @@
             <exception cref="T:Sdl.Community.GroupShareKit.Exceptions.ApiException">Thrown when a general API error occurs.</exception>
             <returns>A list of <see cref="T:Sdl.Community.GroupShareKit.Models.Response.Permission"/>s.</returns>
         </member>
-        <member name="M:Sdl.Community.GroupShareKit.Clients.PermissionClient.GetUsersPermisions">
+        <member name="M:Sdl.Community.GroupShareKit.Clients.PermissionClient.GetUsersPermissions">
             <summary>
             Gets all permissions name for users <see cref="T:Sdl.Community.GroupShareKit.Models.Response.PermissionsName"/>s.
             </summary>
@@ -4704,7 +4704,7 @@
             <param name="languageFileId"> Language file id</param>
             <param name="version"> File version</param>
         </member>
-        <member name="M:Sdl.Community.GroupShareKit.Helpers.ApiUrls.GetLicenseInformations">
+        <member name="M:Sdl.Community.GroupShareKit.Helpers.ApiUrls.GetLicenseInformation">
             <summary>
             Returns the <see cref="T:System.Uri"/> for license informations
             </summary>

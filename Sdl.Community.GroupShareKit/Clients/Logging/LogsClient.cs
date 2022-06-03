@@ -48,7 +48,7 @@ namespace Sdl.Community.GroupShareKit.Clients.Logging
         public Task<PagedLogEntriesWithTotalCount> GetFilteredLogs(LogsFilter filter)
         {
             var jsonOptions = filter.Stringify();
-            return ApiConnection.Get<PagedLogEntriesWithTotalCount>(ApiUrls.GetLogsFilterd(jsonOptions), null);
+            return ApiConnection.Get<PagedLogEntriesWithTotalCount>(ApiUrls.GetLogsFiltered(jsonOptions), null);
         }
 
         /// <summary>

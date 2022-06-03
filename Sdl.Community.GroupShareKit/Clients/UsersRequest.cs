@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sdl.Community.GroupShareKit.Clients
+﻿namespace Sdl.Community.GroupShareKit.Clients
 {
-    public class UsersRequest :RequestParameters
+    public class UsersRequest : RequestParameters
     {
         /// <summary>
         /// Gets or sets number of pages to be displayed
@@ -20,9 +13,9 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Gets or sets max number of users per page
         /// </summary>
-        public int  Limit { get; set; }
+        public int Limit { get; set; }
 
-        public UsersRequest(int page,int start, int limit)
+        public UsersRequest(int page, int start, int limit)
         {
             Page = page;
             Start = start;

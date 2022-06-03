@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
-    public class OrganizationResourcesRequest 
+    public class OrganizationResourcesRequest
     {
         /// <summary>
         /// Gets or sets the resource id
@@ -17,9 +13,9 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         public string OrganizationId { get; set; }
 
-        public OrganizationResourcesRequest(List<string> resurceIds, string organizatonId)
+        public OrganizationResourcesRequest(List<string> resourceIds, string organizatonId)
         {
-            ResourceIds = resurceIds;
+            ResourceIds = resourceIds;
             OrganizationId = organizatonId;
         }
     }

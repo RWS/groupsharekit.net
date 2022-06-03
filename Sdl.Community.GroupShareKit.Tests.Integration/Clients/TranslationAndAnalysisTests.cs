@@ -1,14 +1,4 @@
-﻿using Newtonsoft.Json;
-using Sdl.Community.GroupShareKit.Clients;
-using Sdl.Community.GroupShareKit.Models.Response;
-using System;
-using System.IO;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
+﻿namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class TranslationAndAnalysisTests
     {

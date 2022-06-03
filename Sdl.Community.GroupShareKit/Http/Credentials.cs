@@ -5,7 +5,6 @@ namespace Sdl.Community.GroupShareKit.Http
 {
     public class Credentials
     {
-  
         public Credentials(string token, string login, string password, string bearerId = "")
         {
             Ensure.ArgumentNotNullOrEmptyString(token, "token");

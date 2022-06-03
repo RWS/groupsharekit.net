@@ -17,9 +17,9 @@ namespace Sdl.Community.GroupShareKit.Http
     /// <remarks>
     /// Most folks won't ever need to swap this out. But if you're trying to run this on Windows Phone, you might.
     /// </remarks>
-    public class HttpClientAdapter: IHttpClient
+    public class HttpClientAdapter : IHttpClient
     {
-        private static readonly HttpClient _httpClient = new HttpClient();
+        private static readonly HttpClient HttpClient = new HttpClient();
 
         /// <summary>
         /// Constructor for the Http adapter
@@ -27,26 +27,26 @@ namespace Sdl.Community.GroupShareKit.Http
         /// <param name="getHandler"></param>
         public HttpClientAdapter(Func<HttpMessageHandler> getHandler)
         {
-            Ensure.ArgumentNotNull(getHandler,"getHandler");
+            Ensure.ArgumentNotNull(getHandler, "getHandler");
         }
 
         public async Task<IResponse> Send(IRequest request, CancellationToken cancellationToken)
         {
-            Ensure.ArgumentNotNull(request,"request");
+            Ensure.ArgumentNotNull(request, "request");
 
             using (var requestMessage = BuildRequestMessage(request))
             {
-                var responseMessage = await _httpClient
+                var responseMessage = await HttpClient
                     .SendAsync(requestMessage, HttpCompletionOption.ResponseContentRead, cancellationToken)
                     .ConfigureAwait(false);
 
-                return await BuildRespose(responseMessage).ConfigureAwait(false);
+                return await BuildResponse(responseMessage).ConfigureAwait(false);
             }
         }
 
-        protected virtual async Task<IResponse> BuildRespose(HttpResponseMessage responseMessage)
+        protected virtual async Task<IResponse> BuildResponse(HttpResponseMessage responseMessage)
         {
-            Ensure.ArgumentNotNull(responseMessage,"responseMessage");
+            Ensure.ArgumentNotNull(responseMessage, "responseMessage");
 
             object responseBody = null;
             string contentType = null;
@@ -91,12 +91,13 @@ namespace Sdl.Community.GroupShareKit.Http
             {
                 return content.Headers.ContentType.MediaType;
             }
+
             return null;
         }
 
         private HttpRequestMessage BuildRequestMessage(IRequest request)
         {
-            Ensure.ArgumentNotNull(request,"request");
+            Ensure.ArgumentNotNull(request, "request");
             HttpRequestMessage requestMessage = null;
             try
             {
@@ -118,19 +119,19 @@ namespace Sdl.Community.GroupShareKit.Http
                     requestMessage.Content = new StringContent(body, Encoding.UTF8, request.ContentType);
                 }
                 else
-                { 
+                {
                     // for Get methods to set accept header for analyse report as html
                     if (!string.IsNullOrEmpty(request.ContentType))
                     {
                         requestMessage.Headers.Add("Accept", request.ContentType);
                     }
-                    
+
                 }
 
                 var bodyStream = request.Body as Stream;
                 if (bodyStream != null)
                 {
-                    requestMessage.Content= new StreamContent(bodyStream);
+                    requestMessage.Content = new StreamContent(bodyStream);
                     requestMessage.Content.Headers.ContentType = new MediaTypeHeaderValue(request.ContentType);
                 }
             }
@@ -169,7 +170,7 @@ namespace Sdl.Community.GroupShareKit.Http
         {
             if (disposing)
             {
-                _httpClient?.Dispose();
+                HttpClient?.Dispose();
             }
         }
 
@@ -231,7 +232,7 @@ namespace Sdl.Community.GroupShareKit.Http
                     }
                 }
                 newRequest.RequestUri = response.Headers.Location;
-                if (String.Compare(newRequest.RequestUri.Host, request.RequestUri.Host, StringComparison.OrdinalIgnoreCase) != 0)
+                if (string.Compare(newRequest.RequestUri.Host, request.RequestUri.Host, StringComparison.OrdinalIgnoreCase) != 0)
                 {
                     newRequest.Headers.Authorization = null;
                 }

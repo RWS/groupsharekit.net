@@ -1,5 +1,4 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
-using Sdl.Community.GroupShareKit.Models.Response;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using System;
 using System.Collections.Generic;
@@ -10,7 +9,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class TranslationMemoriesClientTest : IDisposable
     {
-        private static readonly GroupShareClient gsClient = Helper.GsClient;
+        private static readonly GroupShareClient GroupShareClient = Helper.GsClient;
 
         private string dbServerId;
         private string containerId;
@@ -41,7 +40,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Host = Helper.GsServerName
             };
 
-            dbServerId = await gsClient.TranslationMemories.CreateDbServer(dbServerRequest);
+            dbServerId = await GroupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
             return dbServerId;
         }
 
@@ -59,7 +58,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 IsShared = false
             };
 
-            containerId = await gsClient.TranslationMemories.CreateContainer(request);
+            containerId = await GroupShareClient.TranslationMemories.CreateContainer(request);
             return containerId;
         }
 
@@ -76,14 +75,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 OwnerId = Helper.OrganizationId
             };
 
-            fieldTemplateId = await gsClient.TranslationMemories.CreateFieldTemplate(fieldTemplate);
+            fieldTemplateId = await GroupShareClient.TranslationMemories.CreateFieldTemplate(fieldTemplate);
             return fieldTemplateId;
         }
 
         private async Task<string> CreateLanguageResourceTemplate()
         {
             var request = new ResourceServiceDefaultsRequest(ResourceServiceDefaultsRequest.ResourceType.Variables, "de-de");
-            var resource = await gsClient.TranslationMemories.GetDefaultsType(request);
+            var resource = await GroupShareClient.TranslationMemories.GetDefaultsType(request);
 
             var lrTemplate = new LanguageResourceTemplate
             {
@@ -105,7 +104,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 }
             };
 
-            lrTemplateId = await gsClient.TranslationMemories.CreateTemplate(lrTemplate).ConfigureAwait(false);
+            lrTemplateId = await GroupShareClient.TranslationMemories.CreateTemplate(lrTemplate).ConfigureAwait(false);
             return lrTemplateId;
         }
 
@@ -149,7 +148,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 ContainerId = containerId
             };
 
-            tmId = await gsClient.TranslationMemories.CreateTm(tmRequest).ConfigureAwait(false);
+            tmId = await GroupShareClient.TranslationMemories.CreateTm(tmRequest).ConfigureAwait(false);
             Assert.True(tmId != string.Empty);
 
             return tmId;
@@ -158,29 +157,29 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         // test cleanup
         public void Dispose()
         {
-            gsClient.TranslationMemories.DeleteTm(tmId).Wait();
-            gsClient.TranslationMemories.DeleteContainer(containerId).Wait();
-            gsClient.TranslationMemories.DeleteDbServer(dbServerId).Wait();
+            GroupShareClient.TranslationMemories.DeleteTm(tmId).Wait();
+            GroupShareClient.TranslationMemories.DeleteContainer(containerId).Wait();
+            GroupShareClient.TranslationMemories.DeleteDbServer(dbServerId).Wait();
         }
 
         [Fact]
         public async Task GetTms()
         {
-            var tmsResponse = await gsClient.TranslationMemories.GetTms();
+            var tmsResponse = await GroupShareClient.TranslationMemories.GetTms();
             Assert.True(tmsResponse.Items.Count > 0);
         }
 
         [Fact]
         public async void GetTmById()
         {
-            var tm = await gsClient.TranslationMemories.GetTmById(tmId).ConfigureAwait(false);
+            var tm = await GroupShareClient.TranslationMemories.GetTmById(tmId).ConfigureAwait(false);
             Assert.Equal(tmId, tm.TranslationMemoryId);
         }
 
         //[Fact]
         //public async Task GetLanguageDirectionForTm()
         //{
-        //    var languageDirection = await gsClient.TranslationMemories.GetLanguageDirectionForTm(tmId, languageDirectionId);
+        //    var languageDirection = await GroupShareClient.TranslationMemories.GetLanguageDirectionForTm(tmId, languageDirectionId);
         //    Assert.Equal(languageDirection.LanguageDirectionId, languageDirectionId);
         //}
 
@@ -190,7 +189,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    var languageParam = new LanguageParameters("en-us", "de-de");
         //    var requestExportRequest = new ExportRequest();
 
-        //    var tm = await gsClient.TranslationMemories.ExportTm(tmId, requestExportRequest, languageParam).ConfigureAwait(true);
+        //    var tm = await GroupShareClient.TranslationMemories.ExportTm(tmId, requestExportRequest, languageParam).ConfigureAwait(true);
 
         //    Assert.True(tm.Length > 0);
 
@@ -209,33 +208,33 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task HealthVersion()
         {
-            var healthVersion = await gsClient.TranslationMemories.TmServiceInfo();
+            var healthVersion = await GroupShareClient.TranslationMemories.TmServiceInfo();
             Assert.True(healthVersion != null);
         }
 
         [Fact]
         public async Task GetTmsNumberByLanguageResourceTemplateId()
         {
-            var tmNumber = await gsClient.TranslationMemories.GetTmsNumberByLanguageResourceTemplateId(lrTemplateId);
+            var tmNumber = await GroupShareClient.TranslationMemories.GetTmsNumberByLanguageResourceTemplateId(lrTemplateId);
             Assert.Equal(1, tmNumber);
         }
 
         [Fact]
         public async Task GetTmsNumberByFieldTemplateId()
         {
-            var tmNumber = await gsClient.TranslationMemories.GetTmsNumberByFieldTemplateId(fieldTemplateId);
+            var tmNumber = await GroupShareClient.TranslationMemories.GetTmsNumberByFieldTemplateId(fieldTemplateId);
             Assert.Equal(1, tmNumber);
         }
 
         [Fact]
         public async Task UpdateTm()
         {
-            var tm = await gsClient.TranslationMemories.GetTmById(tmId);
+            var tm = await GroupShareClient.TranslationMemories.GetTmById(tmId);
 
             tm.Description = "Updated tm";
-            await gsClient.TranslationMemories.Update(tmId, tm);
+            await GroupShareClient.TranslationMemories.Update(tmId, tm);
 
-            var updatedTm = await gsClient.TranslationMemories.GetTmById(tmId);
+            var updatedTm = await GroupShareClient.TranslationMemories.GetTmById(tmId);
             Assert.Equal("Updated tm", updatedTm.Description);
         }
 
@@ -252,7 +251,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetTusForTm()
         {
             var translationUnitRequest = new TranslationUnitDetailsRequest("en-us", "de-de", 0, 50);
-            var tus = await gsClient.TranslationMemories.GetTranslationUnitForTm(tmId, translationUnitRequest);
+            var tus = await GroupShareClient.TranslationMemories.GetTranslationUnitForTm(tmId, translationUnitRequest);
 
             // there are no TUs in the empty TM
             Assert.True(tus == null);
@@ -271,7 +270,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    await groupShareClient.TranslationMemories.DeleteTm(tmId);
         //}
 
-      //  [Fact]
+        //  [Fact]
         //public async Task Reindex()
         //{
         //    var groupShareClient = Helper.GsClient;
@@ -289,7 +288,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetTusNumberForTm()
         {
             var languageParameters = new LanguageParameters("en-us", "de-de");
-            var tusNumber = await gsClient.TranslationMemories.GetNumberOfTus(tmId, languageParameters);
+            var tusNumber = await GroupShareClient.TranslationMemories.GetNumberOfTus(tmId, languageParameters);
 
             Assert.True(tusNumber == 0);
         }

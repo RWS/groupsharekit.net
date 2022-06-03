@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Exceptions;
+﻿using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Models.Response;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
-using Sdl.TmService.Sdk.Model;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 {

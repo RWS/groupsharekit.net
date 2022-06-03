@@ -1,10 +1,7 @@
 ﻿using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
@@ -30,7 +27,7 @@ namespace Sdl.Community.GroupShareKit.Clients
                 { "OrganizationPath", predefinedFilters.OrganizationPath},
                 { "SourceLanguages", predefinedFilters.SourceLanguages},
                 { "TargetLanguages", predefinedFilters.TargetLanguages},
-                { "AssignedUserIds", predefinedFilters.AssignedUsersIds}          
+                { "AssignedUserIds", predefinedFilters.AssignedUsersIds}
             };
 
             return ApiConnection.Get<List<ReportingServicePredefinedProjects>>(predefinedProjectsUrl, filterParameters);
@@ -84,7 +81,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             {
                 { "OrderBy" , sortParameters.OrderBy},
                 { "OrderDirection", sortParameters.OrderDirection},
-   
+
             };
             return ApiConnection.Get<ReportingServiceDeliveriesDueSoonProjects>(deliveriesDueSoonUrl, requestSortParameters);
         }

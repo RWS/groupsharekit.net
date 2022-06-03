@@ -1,6 +1,5 @@
 ﻿using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -12,15 +11,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         private readonly DatabaseServerRequest DbServerRequest;
         public TmClientContainer()
         {
-           DbServerRequest = new DatabaseServerRequest
-           {
-               DatabaseServerId = Guid.NewGuid().ToString(),
-               Name = "Test Server",
-               Description = "Added from kit",
-               OwnerId = Helper.OrganizationId,
-               Location =Helper.OrganizationPath,
-               Host = Helper.GsServerName
-           };
+            DbServerRequest = new DatabaseServerRequest
+            {
+                DatabaseServerId = Guid.NewGuid().ToString(),
+                Name = "Test Server",
+                Description = "Added from kit",
+                OwnerId = Helper.OrganizationId,
+                Location = Helper.OrganizationPath,
+                Host = Helper.GsServerName
+            };
         }
 
         [Fact]
@@ -51,7 +50,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetContainerById()
         {
-           
+
             var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(DbServerRequest);
             var containerId = await CreateNewTmContainer(dbServerId);
             var container = await groupShareClient.TranslationMemories.GetContainerById(containerId);
@@ -68,7 +67,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(DbServerRequest);
             var containerId = await CreateNewTmContainer(dbServerId);
 
-            var containersBefore= await groupShareClient.TranslationMemories.GetContainers();
+            var containersBefore = await groupShareClient.TranslationMemories.GetContainers();
             var containersBeforeCount = containersBefore.Items.Count;
 
             await groupShareClient.TranslationMemories.DeleteContainer(containerId);

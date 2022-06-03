@@ -35,7 +35,7 @@ namespace Sdl.Community.GroupShareKit.Clients.Logging
 
         public string Stringify()
         {
-            var sort = new LogsSortParameters()
+            var sort = new LogsSortParameters
             {
                 Property = Property,
                 Direction = Direction
@@ -44,7 +44,6 @@ namespace Sdl.Community.GroupShareKit.Clients.Logging
             return JsonConvert.SerializeObject(sort,
                     Formatting.Indented,
                     new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, ContractResolver = new CamelCasePropertyNamesContractResolver() });
-
         }
     }
 }

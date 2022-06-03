@@ -198,7 +198,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Returns the guid of an organization identified by a given path.
         /// </summary>
         /// <remarks>
-        /// <param name="path">Path of the organization.</param>
+        /// <param name="resourceGroupPath">Path of the organization.</param>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>

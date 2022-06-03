@@ -39,7 +39,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             /// Gets or sets assigned users
             /// </summary>
             public string[] AssignedUsers { get; set; }
-           
         }
     }
 }

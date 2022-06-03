@@ -7,7 +7,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
 
     public class ReportingClientTests : IClassFixture<ReportingData>
-    {      
+    {
         [Fact]
         public async Task PredefinedProjectsData()
         {

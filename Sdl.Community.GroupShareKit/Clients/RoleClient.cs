@@ -7,7 +7,7 @@ using Sdl.Community.GroupShareKit.Models.Response;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
-    public class RoleClient : ApiClient ,IRoleClient
+    public class RoleClient : ApiClient, IRoleClient
     {
         public RoleClient(IApiConnection apiConnection) : base(apiConnection)
         {
@@ -65,7 +65,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>Role id</returns>
         public Task<string> Update(RoleRequest role)
         {
-            return ApiConnection.Put<string>(ApiUrls.Roles(),role);
+            return ApiConnection.Put<string>(ApiUrls.Roles(), role);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(roleId, "roleId");
 
-            return ApiConnection.Get<RoleRequest>(ApiUrls.Role(roleId),null);
+            return ApiConnection.Get<RoleRequest>(ApiUrls.Role(roleId), null);
         }
 
         /// <summary>
@@ -100,10 +100,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public Task DeleteRole(string roleId)
         {
-            Ensure.ArgumentNotNullOrEmptyString(roleId,"roleId");
+            Ensure.ArgumentNotNullOrEmptyString(roleId, "roleId");
 
             return ApiConnection.Delete(ApiUrls.Role(roleId));
         }
+
         /// <summary>
         /// Add a user to a role for a specific organization.<see cref="Role"/>s.
         /// </summary>
@@ -134,7 +135,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public Task DeleteRoleMembership(List<Role> role)
         {
-            return ApiConnection.Delete(ApiUrls.RoleMembership(),role, "application/json");
+            return ApiConnection.Delete(ApiUrls.RoleMembership(), role, "application/json");
         }
 
         /// <summary>
@@ -151,7 +152,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="User"/>'s</returns>
         public Task<IReadOnlyList<User>> GetUsersForRole(string roleId)
         {
-            Ensure.ArgumentNotNullOrEmptyString(roleId,"roleId");
+            Ensure.ArgumentNotNullOrEmptyString(roleId, "roleId");
             return ApiConnection.GetAll<User>(ApiUrls.GetUsersForRole(roleId));
         }
 
@@ -169,7 +170,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task AddUserToRole(List<Role> roles)
         {
-             await ApiConnection.Put<string>(ApiUrls.RoleMembership(), roles);
+            await ApiConnection.Put<string>(ApiUrls.RoleMembership(), roles);
         }
 
         /// <summary>

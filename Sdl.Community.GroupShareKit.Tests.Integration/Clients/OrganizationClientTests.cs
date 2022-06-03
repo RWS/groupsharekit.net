@@ -113,7 +113,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task LinkResourceToOrganization(string organizationId)
         {
             var groupShareClient = Helper.GsClient;
-           
+
             var newOrganizationId = await Helper.CreateOrganizationAsync();
             var firstResource = await Helper.CreateTemplateResourceAsync(organizationId);
             var secondResource = await Helper.CreateTemplateResourceAsync(organizationId);

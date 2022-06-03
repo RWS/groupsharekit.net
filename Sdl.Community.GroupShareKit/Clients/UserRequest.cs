@@ -6,7 +6,7 @@ namespace Sdl.Community.GroupShareKit.Clients
     /// <remarks>
     /// API docs: http://gs2017dev.sdl.com:41234/documentation/api/index#/
     /// </remarks>
-    public class UserRequest:RequestParameters
+    public class UserRequest : RequestParameters
     {
         /// <summary>
         /// Gets or sets the user domain for which all details will be returned
@@ -29,13 +29,10 @@ namespace Sdl.Community.GroupShareKit.Clients
             Name = userName;
         }
 
-
-        public UserRequest(string domain,string userName)
+        public UserRequest(string domain, string userName)
         {
             Domain = domain;
             Name = userName;
         }
-
-        
     }
 }

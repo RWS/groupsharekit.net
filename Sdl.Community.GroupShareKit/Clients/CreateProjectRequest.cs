@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
@@ -36,7 +31,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Gets or sets the description
         /// </summary>
-        public string  Description   { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Gets or sets the due date
@@ -50,7 +45,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 
 
         public CreateProjectRequest(string fileName, string organizationId,
-            string description, DateTime dueDate, string projectTemplateId,byte[] rawData)
+            string description, DateTime dueDate, string projectTemplateId, byte[] rawData)
         {
             Name = fileName;
             OrganizationId = organizationId;

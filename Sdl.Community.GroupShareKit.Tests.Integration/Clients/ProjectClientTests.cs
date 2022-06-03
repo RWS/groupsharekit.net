@@ -860,6 +860,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             {
                 Status = 7
             };
+
             var reportingData = await groupShareClient.Project.ReportingTmLeverageData(options);
             Assert.True(reportingData != null);
         }

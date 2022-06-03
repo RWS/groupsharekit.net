@@ -50,7 +50,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var request = new[]
             {
-                new ChangePhaseRequest.File()
+                new ChangePhaseRequest.File
                 {
                     LanguageFileId = LanguageFileIds.First(),
                     PhaseId = Phases[1].ProjectPhaseId
