@@ -1,10 +1,8 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Models.Response;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using File = System.IO.File;
@@ -13,11 +11,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
 {
     public class ReportingData : IDisposable
     {
-        private static readonly GroupShareClient gsClient = Helper.GsClient;
-        private string projectId;
+        private static readonly GroupShareClient GroupShareClient = Helper.GsClient;
+        private string _projectId;
         public ReportingData()
         {
-            projectId = CreateTestProject(gsClient).Result;
+            _projectId = CreateTestProject(GroupShareClient).Result;
         }
         private async Task<bool> WaitForProjectCreated(string projectId, int retryInterval = 30, int maxTryCount = 20)
         {
@@ -35,15 +33,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
                     case PublishProjectStatus.Error:
                         throw new Exception(statusInfo.Description);
                 }
+
                 await Task.Delay(retryInterval * 1000);
             }
+
             return false;
         }
 
         private async Task<string> CreateTestProject(GroupShareClient groupShareClient)
         {
             var projectTemplate = groupShareClient.Project.GetAllTemplates().Result.ToList().FirstOrDefault();
-            var ProjectTemplateId = projectTemplate != null ? projectTemplate.Id : string.Empty;
+            var projectTemplateId = projectTemplate != null ? projectTemplate.Id : string.Empty;
 
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
             var projectName = $"Project - {Guid.NewGuid()}";
@@ -52,17 +52,19 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
                 Helper.OrganizationId,
                 null,
                 DateTime.Now.AddDays(2),
-                ProjectTemplateId,
+                projectTemplateId,
                 rawData));
 
             var statusInfo = await WaitForProjectCreated(projectId);
             Assert.True(statusInfo);
             await Task.Delay(60000);
+
             return projectId;
         }
+
         public void Dispose()
         {
-            gsClient.Project.DeleteProject(projectId).Wait();
+            GroupShareClient.Project.DeleteProject(_projectId).Wait();
         }
     }
 }

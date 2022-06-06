@@ -9,7 +9,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetLicenseInformation()
         {
             var groupShareClient = Helper.GsClient;
-            var license = await groupShareClient.License.GetLicenseInformations();
+            var license = await groupShareClient.License.GetLicenseInformation();
 
             Assert.True(license != null);
         }

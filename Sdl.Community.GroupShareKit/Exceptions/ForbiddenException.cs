@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Sdl.Community.GroupShareKit.Http;
+using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Http;
 
 namespace Sdl.Community.GroupShareKit.Exceptions
 {
     /// <summary>
     /// Represents a HTTP 403 - Forbidden response returned from the API.
     /// </summary>
-    public class ForbiddenException: ApiException
+    public class ForbiddenException : ApiException
     {
         /// <summary>
         /// Constructs an instance of ForbiddenException

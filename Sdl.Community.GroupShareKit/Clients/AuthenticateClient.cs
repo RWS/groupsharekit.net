@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Exceptions;
+﻿using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
-    public class AuthenticateClient: ApiClient, IAuthenticateClient
+    public class AuthenticateClient : ApiClient, IAuthenticateClient
     {
         public AuthenticateClient(IApiConnection apiConnection) : base(apiConnection)
         {

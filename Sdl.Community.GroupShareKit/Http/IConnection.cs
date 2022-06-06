@@ -50,7 +50,7 @@ namespace Sdl.Community.GroupShareKit.Http
         /// <returns><seealso cref="IResponse"/> representing the received HTTP response</returns>
         Task<IApiResponse<T>> Post<T>(Uri uri, object body, string contentType);
 
-        Task<IApiResponse<T>> Post<T>(string uri, object body, string contentType);        
+        Task<IApiResponse<T>> Post<T>(string uri, object body, string contentType);
 
         /// <summary>
         /// Performs an asynchronous HTTP POST request.
@@ -94,7 +94,7 @@ namespace Sdl.Community.GroupShareKit.Http
 
         Task<HttpStatusCode> Patch(Uri uri, object body, string contentType);
 
-            /// <summary>
+        /// <summary>
         /// Performs an asynchronous HTTP DELETE request that expects an empty response.
         /// </summary>
         /// <param name="uri">URI endpoint to send request to</param>
@@ -115,7 +115,7 @@ namespace Sdl.Community.GroupShareKit.Http
         /// <param name="uri">URI endpoint to send request to</param>
         /// <param name="data">The object to serialize as the body of the request</param>
         /// <returns>The returned <seealso cref="HttpStatusCode"/></returns>
-        Task<HttpStatusCode> Delete(Uri uri, object data,string contentType);
+        Task<HttpStatusCode> Delete(Uri uri, object data, string contentType);
 
         /// <summary>
         /// Base address for the connection.

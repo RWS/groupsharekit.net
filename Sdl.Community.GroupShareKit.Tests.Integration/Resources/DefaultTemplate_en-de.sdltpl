@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<ProjectTemplate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Guid="b1982606-6ef0-4c31-bd44-75bdeb695f2e" SettingsBundleGuid="75a81915-1b1f-4a40-8c24-b8728d9e6357" Version="4.0.0.0">
+  <LanguageDirections>
+    <LanguageDirection Guid="dfd57a32-a445-4b2f-aee3-aad343dbb192" SettingsBundleGuid="2024ca4a-3b48-4ba5-b501-6ca57d5248b2" TargetLanguageCode="de-DE" SourceLanguageCode="en-US">
+      <AutoSuggestDictionaries />
+      <CascadeItem OverrideParent="false" StopSearchingWhenResultsFound="false" />
+    </LanguageDirection>
+  </LanguageDirections>
+  <TermbaseConfiguration>
+    <LanguageIndexMappings>
+      <Language>en-US</Language>
+    </LanguageIndexMappings>
+    <LanguageIndexMappings>
+      <Language>de-DE</Language>
+    </LanguageIndexMappings>
+    <RecognitionOptions>
+      <ShowWithNoAvailableTranslation>false</ShowWithNoAvailableTranslation>
+      <MinimumMatchValue>70</MinimumMatchValue>
+      <SearchDepth>200</SearchDepth>
+      <SearchOrder>Parallel</SearchOrder>
+    </RecognitionOptions>
+  </TermbaseConfiguration>
+  <SettingsBundles>
+    <SettingsBundle Guid="75a81915-1b1f-4a40-8c24-b8728d9e6357">
+      <SettingsBundle>
+        <SettingsGroup Id="FileTypeManagerConfigurationSettingsGroup">
+          <Setting Id="FileTypeManagerSubContentConfigurationSettings">
+            <FileTypeManagerConfigurationList xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sdl.com/projectapi">
+              <FileTypeManagerConfigurationItem>
+                <Enabled>true</Enabled>
+                <FileTypeDefinitionId>Embedded Content Plain Text v 1.0.0.0</FileTypeDefinitionId>
+                <Removed>false</Removed>
+              </FileTypeManagerConfigurationItem>
+              <FileTypeManagerConfigurationItem>
+                <FileTypeDefinitionId>Embedded Content SpreadsheetML v. 1</FileTypeDefinitionId>
+                <Removed>false</Removed>
+              </FileTypeManagerConfigurationItem>
+              <FileTypeManagerConfigurationItem>
+                <Enabled>true</Enabled>
+                <FileTypeDefinitionId>Html Embedded Content 5 2.0.0.0</FileTypeDefinitionId>
+                <Removed>false</Removed>
+              </FileTypeManagerConfigurationItem>
+              <FileTypeManagerConfigurationItem>
+                <Enabled>true</Enabled>
+                <FileTypeDefinitionId>Html Embedded Content 4 2.0.0.0</FileTypeDefinitionId>
+                <Removed>false</Removed>
+              </FileTypeManagerConfigurationItem>
+            </FileTypeManagerConfigurationList>
+          </Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="QAVerificationSettings">
+          <Setting Id="Enabled">True</Setting>
+          <Setting Id="ExcludeLocked">False</Setting>
+          <Setting Id="ElementContextExclusionValue">True</Setting>
+          <Setting Id="ExclusionStringValue">True</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="SettingsTagVerifier">
+          <Setting Id="Enabled">True</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="SettingsTermVerifier">
+          <Setting Id="Enabled">True</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="TranslationMemorySettings">
+          <Setting Id="TranslationMinimumMatchValue">71</Setting>
+          <Setting Id="EnablePartialSubsegmentMatching">True</Setting>
+          <Setting Id="DTAMinimumMatchLengthWords">9</Setting>
+          <Setting Id="MissingFormattingPenalty">2</Setting>
+          <Setting Id="HardFilter" />
+          <Setting Id="TranslationFullSearch">True</Setting>
+          <Setting Id="TranslationSearchMainTranslationMemories">True</Setting>
+          <Setting Id="LookupMtEvenIfTmHasMatch">True</Setting>
+          <Setting Id="DifferentFormattingPenalty">2</Setting>
+          <Setting Id="MultipleTranslationsPenalty">2</Setting>
+          <Setting Id="AutoLocalizationPenalty">2</Setting>
+          <Setting Id="TextReplacementPenalty">2</Setting>
+          <Setting Id="AlignmentPenalty">3</Setting>
+          <Setting Id="DTAMinimumSignificantWordsInMatch">7</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="TerminologyProviderSettings">
+          <Setting Id="Termbases">
+            <ArrayOfTermbase xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.ProjectApi.Implementation.Xml">
+            </ArrayOfTermbase>
+          </Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="TranslationQualityAssessmentSettings">
+          <Setting Id="FailCriteriaUnit">Words</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="SourceContentSettings">
+          <Setting Id="AllowSourceEditing">False</Setting>
+          <Setting Id="AllowMergeAcrossParagraphs">False</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="ReturningPackageSettings">
+          <Setting Id="RunVerificationBeforeReturningPackage">False</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="ProjectPlanningSettings">
+          <Setting Id="OrganizationPath" />
+          <Setting Id="Assignments">
+            <ArrayOfProjectAssignmentSettings xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/Sdl.ProjectApi.Implementation.Server">
+            </ArrayOfProjectAssignmentSettings>
+          </Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="PerfectMatchTaskSettings">
+          <Setting Id="MarkAsPerfectMatchAndLock">True</Setting>
+        </SettingsGroup>
+        <SettingsGroup Id="ProjectTemplateSettings">
+          <Setting Id="ProjectLocation" />
+        </SettingsGroup>
+        <SettingsGroup Id="ProjectTranslationMemoryTaskSettings">
+          <Setting Id="ServerConnectionUri" />
+          <Setting Id="ParentResourceGroupPath" />
+          <Setting Id="TranslationMemoryContainerPath" />
+        </SettingsGroup>
+      </SettingsBundle>
+    </SettingsBundle>
+    <SettingsBundle Guid="2024ca4a-3b48-4ba5-b501-6ca57d5248b2">
+      <SettingsBundle>
+        <SettingsGroup Id="PerfectMatchTaskSettings">
+          <Setting Id="IgnoreFormatting">False</Setting>
+        </SettingsGroup>
+      </SettingsBundle>
+    </SettingsBundle>
+  </SettingsBundles>
+  <InitialTaskTemplate Description="ComplexTask_Prepare_NoProjectTM_Description" Name="ComplexTask_Prepare_NoProjectTM_Name" Id="Sdl.ProjectApi.AutomaticTask.Prepare.NoProjectTM">
+    <SubTaskTemplates>
+      <SubTaskTemplate TaskTemplateId="Sdl.ProjectApi.AutomaticTasks.Conversion" />
+      <SubTaskTemplate TaskTemplateId="Sdl.ProjectApi.AutomaticTasks.Split" />
+      <SubTaskTemplate TaskTemplateId="Sdl.ProjectApi.AutomaticTasks.PerfectMatch" />
+      <SubTaskTemplate TaskTemplateId="Sdl.ProjectApi.AutomaticTasks.Translate" />
+      <SubTaskTemplate TaskTemplateId="Sdl.ProjectApi.AutomaticTasks.Analysis" />
+    </SubTaskTemplates>
+  </InitialTaskTemplate>
+  <AnalysisBands>
+    <AnalysisBand MinimumMatchValue="50" />
+    <AnalysisBand MinimumMatchValue="75" />
+    <AnalysisBand MinimumMatchValue="85" />
+    <AnalysisBand MinimumMatchValue="95" />
+  </AnalysisBands>
+  <ManualTaskTemplates />
+  <Users>
+    <User UserId="SDL" FullName="SDL" EmailType="None" />
+  </Users>
+  <CascadeItem OverrideParent="true" StopSearchingWhenResultsFound="false" />
+  <GeneralProjectTemplateInfo Description="Default project template for new users" CreatedAt="2009-01-14T22:32:57.271375Z" CreatedBy="SDL" />
+</ProjectTemplate>

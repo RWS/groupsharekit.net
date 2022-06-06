@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace Sdl.Community.GroupShareKit.Helpers
 {
@@ -33,12 +29,14 @@ namespace Sdl.Community.GroupShareKit.Helpers
                     }
                     stringBuilder.Append(chr);
                 }
+
                 str = stringBuilder.ToString();
             }
             else
             {
                 str = expression;
             }
+
             return str;
         }
     }

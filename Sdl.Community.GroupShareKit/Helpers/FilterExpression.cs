@@ -15,13 +15,12 @@ namespace Sdl.Community.GroupShareKit.Helpers
             visitor.VisitSegment(segment);
             var result = visitor.Result;
             return result;
-
         }
 
         public static string CreateFilter(LanguageDetailsRequest languageRequest, bool caseSensitive, bool useWildCards)
         {
-            var sourceFieldExpression=string.Empty;
-            var targetFieldExpression=string.Empty;
+            var sourceFieldExpression = string.Empty;
+            var targetFieldExpression = string.Empty;
             var expression = string.Empty;
 
             //Create source expression
@@ -34,6 +33,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
                     Operator = "~",
                     Value = sourceExpr
                 };
+
                 sourceFieldExpression = sourceFieldValue.ToString();
             }
 
@@ -47,6 +47,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
                     Operator = "~",
                     Value = targetExpr
                 };
+
                 targetFieldExpression = targetFieldValue.ToString();
             }
 
@@ -58,11 +59,12 @@ namespace Sdl.Community.GroupShareKit.Helpers
             else if (sourceFieldExpression != string.Empty)
             {
                 expression = sourceFieldExpression;
-            }else if (targetFieldExpression != string.Empty)
+            }
+            else if (targetFieldExpression != string.Empty)
             {
                 expression = targetFieldExpression;
             }
- 
+
             return expression;
         }
 
@@ -80,14 +82,15 @@ namespace Sdl.Community.GroupShareKit.Helpers
                 //make the entire expression case insensitive
                 regexPattern = "(?i:" + regexPattern + ")";
             }
-           return regexPattern;
+
+            return regexPattern;
         }
 
-        public static RestFilterExpression GetRestFilterExpression(string expression, LanguageDetailsRequest langage)
+        public static RestFilterExpression GetRestFilterExpression(string expression, LanguageDetailsRequest language)
         {
             var restFilterExpression = new RestFilterExpression();
 
-            if (!string.IsNullOrEmpty(langage.SourceText) && !string.IsNullOrEmpty(langage.TargetText))
+            if (!string.IsNullOrEmpty(language.SourceText) && !string.IsNullOrEmpty(language.TargetText))
             {
                 restFilterExpression.Expression = expression;
                 restFilterExpression.Fields = new List<RequestField>
@@ -105,7 +108,8 @@ namespace Sdl.Community.GroupShareKit.Helpers
                         Values = null
                     }
                 };
-            }else if (!string.IsNullOrEmpty(langage.SourceText))
+            }
+            else if (!string.IsNullOrEmpty(language.SourceText))
             {
                 restFilterExpression.Expression = expression;
                 restFilterExpression.Fields = new List<RequestField>
@@ -117,8 +121,9 @@ namespace Sdl.Community.GroupShareKit.Helpers
                         Values = null
                     }
                 };
-            }else   //Create target expression
-            if (!string.IsNullOrEmpty(langage.TargetText))
+            }
+            else   //Create target expression
+           if (!string.IsNullOrEmpty(language.TargetText))
             {
                 restFilterExpression.Expression = expression;
                 restFilterExpression.Fields = new List<RequestField>
@@ -131,13 +136,13 @@ namespace Sdl.Community.GroupShareKit.Helpers
                     }
                 };
             }
+
             return restFilterExpression;
         }
 
-
         public static RestFilterExpression GetCustomRestFilterExpression(FieldFilterRequest filterRequest)
         {
-            var customField = new List<Sdl.TmService.Sdk.Model.RequestField>();
+            var customField = new List<RequestField>();
 
             foreach (var field in filterRequest.Fields)
             {
@@ -154,8 +159,8 @@ namespace Sdl.Community.GroupShareKit.Helpers
                 Expression = filterRequest.Expression,
                 Fields = customField
             };
-            return restFilterExpression;
 
+            return restFilterExpression;
         }
     }
 }

@@ -77,7 +77,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             await groupShareClient.TranslationMemories.UpdateFieldTemplate(
                 templateId,
-                new FieldTemplateRequest {Name = "updated field template"});
+                new FieldTemplateRequest { Name = "updated field template" });
 
             var updatedTemplate = await groupShareClient.TranslationMemories.GetFieldTemplateById(templateId);
             Assert.Equal("updated field template", updatedTemplate.Name);

@@ -12,7 +12,7 @@ namespace Sdl.Community.GroupShareKit.Http
     /// A connection for making API requests against URI endpoints.
     /// Provides type-friendly convenience methods that wrap <see cref="IConnection"/> methods.
     /// </summary>
-    public class ApiConnection:IApiConnection
+    public class ApiConnection : IApiConnection
     {
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace Sdl.Community.GroupShareKit.Http
             Ensure.ArgumentNotNull(uri, "uri");
             Ensure.ArgumentNotNull(body, "body");
 
-            var response = await Connection.Post<T>(uri, body, contentType,timeout).ConfigureAwait(false);
+            var response = await Connection.Post<T>(uri, body, contentType, timeout).ConfigureAwait(false);
             return response.Body;
         }
 
@@ -268,7 +268,7 @@ namespace Sdl.Community.GroupShareKit.Http
             Ensure.ArgumentNotNull(uri, "uri");
             Ensure.ArgumentNotNull(data, "data"); ;
 
-            return Connection.Delete(uri, data,contentType);
+            return Connection.Delete(uri, data, contentType);
         }
 
         public Task Patch(Uri uri, object data, string contentType)
@@ -278,7 +278,5 @@ namespace Sdl.Community.GroupShareKit.Http
 
             return Connection.Patch(uri, data, contentType);
         }
-
-        
     }
 }

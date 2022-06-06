@@ -18,7 +18,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetAllPermissionsName()
         {
             var grClient = Helper.GsClient;
-            var response = await grClient.Permission.GetUsersPermisions();
+            var response = await grClient.Permission.GetUsersPermissions();
 
             Assert.True(response.Count > 0);
         }

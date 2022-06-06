@@ -77,7 +77,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                         id,
                         name,
                         false,
-                        new List<Permission>() {new Permission()
+                        new List<Permission> {new Permission
                         {
                             UniqueId = permissions.First().UniqueId,
                             DisplayName = permissions.First().DisplayName,
@@ -102,7 +102,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                        id,
                        name,
                        false,
-                      new List<Permission>() {new Permission()
+                      new List<Permission> {new Permission
                         {
                             UniqueId = permissions.First().UniqueId,
                             DisplayName = permissions.First().DisplayName,
@@ -139,7 +139,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.Role.DeleteRole(roleId);
         }
 
-
         [Theory]
         [MemberData(nameof(UserData.UserRole), MemberType = typeof(UserData))]
         public async Task GetUsersForSpecificRole(string roleId)
@@ -147,17 +146,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var userId = await CreatePowerUser(groupShareClient);
 
-            
             var users = await groupShareClient.Role.GetUsersForRole(roleId);
 
-
             Assert.True(users.Count != 0);
-
 
             await groupShareClient.User.Delete(userId);
         }
 
-        private static async Task<String> CreatePowerUser(GroupShareClient groupShareClient)
+        private static async Task<string> CreatePowerUser(GroupShareClient groupShareClient)
         {
             var uniqueId = Guid.NewGuid().ToString();
 

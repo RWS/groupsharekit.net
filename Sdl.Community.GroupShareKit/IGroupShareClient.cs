@@ -14,17 +14,15 @@ namespace Sdl.Community.GroupShareKit
         /// Provides a client connection to make rest requests to HTTP endpoints.
         /// </summary>
         IConnection Connection { get; }
-	
 
         /// <summary>
         /// Access GroupShare's Project API.
         /// </summary>
         /// <remarks>
-        /// Refer to the API docmentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
+        /// Refer to the API documentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
         /// </remarks>
         IProjectClient Project { get; }
 
-	
         /// <summary>
         /// The base address of the GroupShare API.
         /// </summary>
@@ -34,7 +32,7 @@ namespace Sdl.Community.GroupShareKit
         /// Access GroupShare's TM API.
         /// </summary>
         /// <remarks>
-        /// Refer to the API docmentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
+        /// Refer to the API documentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
         /// </remarks>
         ITranslationMemoriesClient TranslationMemories { get; set; }
 
@@ -42,7 +40,7 @@ namespace Sdl.Community.GroupShareKit
         /// Access GroupShare's User API.
         /// </summary>
         /// <remarks>
-        /// Refer to the API docmentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
+        /// Refer to the API documentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
         /// </remarks>
         IUserClient User { get; }
 
@@ -50,7 +48,7 @@ namespace Sdl.Community.GroupShareKit
         /// Access GroupShare's ModuleClient API.
         /// </summary>
         /// <remarks>
-        /// Refer to the API docmentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
+        /// Refer to the API documentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
         /// </remarks>
         IModuleClient ModuleClient { get; set; }
 
@@ -58,7 +56,7 @@ namespace Sdl.Community.GroupShareKit
         /// Access GroupShare's Organizations API.
         /// </summary>
         /// <remarks>
-        /// Refer to the API docmentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
+        /// Refer to the API documentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
         /// </remarks>
         IOrganizationClient Organization { get; set; }
 
@@ -66,7 +64,7 @@ namespace Sdl.Community.GroupShareKit
         /// Access GroupShare's Authentication API.
         /// </summary>
         /// <remarks>
-        /// Refer to the API docmentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
+        /// Refer to the API documentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
         /// </remarks>
         IAuthenticateClient Authenticate { get; set; }
 
@@ -74,7 +72,7 @@ namespace Sdl.Community.GroupShareKit
         /// Access GroupShare's Role API.
         /// </summary>
         /// <remarks>
-        /// Refer to the API docmentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
+        /// Refer to the API documentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
         /// </remarks>
         IRoleClient Role { get; set; }
 
@@ -82,7 +80,7 @@ namespace Sdl.Community.GroupShareKit
         /// Access GroupShare's Permission API.
         /// </summary>
         /// <remarks>
-        /// Refer to the API docmentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
+        /// Refer to the API documentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
         /// </remarks>
         IPermissionClient Permission { get; set; }
 
@@ -90,7 +88,7 @@ namespace Sdl.Community.GroupShareKit
         /// Access GroupShare's License API.
         /// </summary>
         /// <remarks>
-        /// Refer to the API docmentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
+        /// Refer to the API documentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
         /// </remarks>
         ILicense License { get; set; }
 
@@ -98,7 +96,7 @@ namespace Sdl.Community.GroupShareKit
         /// Access GroupShare's Terminology API.
         /// </summary>
         /// <remarks>
-        /// Refer to the API docmentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
+        /// Refer to the API documentation for more information: http://gs2017dev.sdl.com:41234/documentation/api/index#/
         /// </remarks>
         ITerminology Terminology { get; set; }
 

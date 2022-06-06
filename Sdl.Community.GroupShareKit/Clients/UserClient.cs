@@ -1,9 +1,8 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
@@ -105,7 +104,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         public Task Delete(string userId)
         {
-            Ensure.ArgumentNotNullOrEmptyString(userId,"userId");
+            Ensure.ArgumentNotNullOrEmptyString(userId, "userId");
 
             return ApiConnection.Delete(ApiUrls.User(userId));
         }
@@ -123,7 +122,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>Created user Id</returns>
         public async Task<string> Create(CreateUserRequest user)
         {
-            Ensure.ArgumentNotNull(user,"user");
+            Ensure.ArgumentNotNull(user, "user");
 
             return await ApiConnection.Post<string>(ApiUrls.User(), user, "application/json");
         }

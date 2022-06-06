@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Sdl.Community.GroupShareKit.Models.Response;
 using System.Collections.Generic;
-using Sdl.Community.GroupShareKit.Models.Response;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {

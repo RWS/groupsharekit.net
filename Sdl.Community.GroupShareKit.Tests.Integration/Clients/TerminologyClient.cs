@@ -81,12 +81,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.Equal(conceptResponse.Concept.Id, conceptId);
 
-
             var conceptResponse1 = await groupShareClient.Terminology.GetConcept(termbaseId, conceptId);
-            
-            
-            Assert.Equal(conceptResponse1.Concept.Id, conceptId);
 
+            Assert.Equal(conceptResponse1.Concept.Id, conceptId);
 
             await DeleteConcept(termbaseId, conceptId);
         }
@@ -524,10 +521,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             conceptResponse.Concept.Languages[0].Terms[0].Text = "json";
 
-
             await groupShareClient.Terminology.EditConcept(termbaseId, conceptResponse);
-
-
             await DeleteConcept(termbaseId, conceptId);
         }
     }

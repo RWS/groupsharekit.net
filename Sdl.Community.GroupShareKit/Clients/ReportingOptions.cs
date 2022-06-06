@@ -66,7 +66,5 @@ namespace Sdl.Community.GroupShareKit.Clients
                         ContractResolver = new CamelCasePropertyNamesContractResolver()
                     });
         }
-
-
     }
 }

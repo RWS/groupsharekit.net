@@ -8,16 +8,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class TranslationMemoryClientDatabaseServerTest
     {
-        private static readonly GroupShareClient gsClient = Helper.GsClient;
+        private static readonly GroupShareClient GroupShareClient = Helper.GsClient;
 
         [Fact]
         public async Task GetDbServers()
         {
             var serverId = await CreateNewDbServer();
-            var response = await gsClient.TranslationMemories.GetDbServers();
+            var response = await GroupShareClient.TranslationMemories.GetDbServers();
 
             Assert.True(response.Items.Count > 0);
-            await gsClient.TranslationMemories.DeleteDbServer(serverId);
+            await GroupShareClient.TranslationMemories.DeleteDbServer(serverId);
         }
 
         [Fact]
@@ -26,17 +26,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var serverId = await CreateNewDbServer();
 
             Assert.True(serverId != string.Empty);
-            await gsClient.TranslationMemories.DeleteDbServer(serverId);
+            await GroupShareClient.TranslationMemories.DeleteDbServer(serverId);
         }
 
         [Fact]
         public async Task GetDbServer()
         {
             var serverId = await CreateNewDbServer();
-            var server = await gsClient.TranslationMemories.GetDbServerById(serverId);
+            var server = await GroupShareClient.TranslationMemories.GetDbServerById(serverId);
 
             Assert.Equal(server.DatabaseServerId, serverId);
-            await gsClient.TranslationMemories.DeleteDbServer(serverId);
+            await GroupShareClient.TranslationMemories.DeleteDbServer(serverId);
         }
 
         [Fact]
@@ -48,21 +48,21 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var request = new RequestDbServer("Updated server name", "", "", "");
 
-            await gsClient.TranslationMemories.UpdateDbServer(serverId, request);
-            var updatedServer = await gsClient.TranslationMemories.GetDbServerById(serverId);
+            await GroupShareClient.TranslationMemories.UpdateDbServer(serverId, request);
+            var updatedServer = await GroupShareClient.TranslationMemories.GetDbServerById(serverId);
 
             Assert.Equal("Updated server name", updatedServer.Name);
 
-            await gsClient.TranslationMemories.DeleteDbServer(serverId);
+            await GroupShareClient.TranslationMemories.DeleteDbServer(serverId);
         }
 
         [Fact]
         public async Task DeleteDbServer()
         {
             var serverId = await CreateNewDbServer();
-            await gsClient.TranslationMemories.DeleteDbServer(serverId).ConfigureAwait(false);
+            await GroupShareClient.TranslationMemories.DeleteDbServer(serverId).ConfigureAwait(false);
 
-            Task result() => gsClient.TranslationMemories.GetDbServerById(serverId);
+            Task result() => GroupShareClient.TranslationMemories.GetDbServerById(serverId);
             await Assert.ThrowsAsync<ForbiddenException>(result);
         }
 
@@ -78,7 +78,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Host = Helper.GsServerName
             };
 
-            var serverId = await gsClient.TranslationMemories.CreateDbServer(dbServerRequest);
+            var serverId = await GroupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
             return serverId;
         }
     }

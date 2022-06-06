@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Helpers;
+﻿using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System;
+using System.Net;
 
 namespace Sdl.Community.GroupShareKit.Exceptions
 {
-    public class ApiException: Exception
+    public class ApiException : Exception
     {
         private static readonly IJsonSerializer JsonSerializer = new SimpleJsonSerializer();
 
         /// <summary>
         /// Constructs an instance of ApiException
         /// </summary>
-        public ApiException(): this(new Response())
+        public ApiException() : this(new Response())
         {
-            
+
         }
 
         /// <summary>
@@ -119,7 +114,7 @@ namespace Sdl.Community.GroupShareKit.Exceptions
         {
             try
             {
-                if (!String.IsNullOrEmpty(responseContent))
+                if (!string.IsNullOrEmpty(responseContent))
                 {
                     return JsonSerializer.Deserialize<ApiError>(responseContent) ?? new ApiError(responseContent);
                 }

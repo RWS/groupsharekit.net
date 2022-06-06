@@ -1,13 +1,13 @@
+using Sdl.Community.GroupShareKit.Exceptions;
+using Sdl.Community.GroupShareKit.Helpers;
+using Sdl.Community.GroupShareKit.Http;
+using Sdl.Community.GroupShareKit.Models;
+using Sdl.Community.GroupShareKit.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Exceptions;
-using Sdl.Community.GroupShareKit.Helpers;
-using Sdl.Community.GroupShareKit.Http;
-using Sdl.Community.GroupShareKit.Models.Response;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
@@ -223,7 +223,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task<string> CreateProject(BasicCreateProjectRequest request, 
+        public async Task<string> CreateProject(BasicCreateProjectRequest request,
             string filesPath, string referenceFilesPath = null, string[] perfectMatchFilesPaths = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(filesPath, "filesPath");
@@ -245,7 +245,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 
             if (perfectMatchFilesPaths != null && perfectMatchFilesPaths.Length > 0)
             {
-                for (var i = 0; i < perfectMatchFilesPaths.Length; i ++)
+                for (var i = 0; i < perfectMatchFilesPaths.Length; i++)
                 {
                     var uri = ApiUrls.GetPerfectMatchFiles(projectId, i);
                     await UploadPerfectMatchFilesForProject(uri.ToString(), perfectMatchFilesPaths[i]);
@@ -262,43 +262,43 @@ namespace Sdl.Community.GroupShareKit.Clients
             {
                 if (filesPath.EndsWith(".zip", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    var uri = ApiUrls.UploadFilesForProject(projectId.ToString(), false, true);
-                    await UploadFilesForProject(uri.ToString(), new string[] { filesPath} );
+                    var uri = ApiUrls.UploadFilesForProject(projectId, false, true);
+                    await UploadFilesForProject(uri, new[] { filesPath });
                     return true;
                 }
                 else
                 {
-                    var uri = ApiUrls.UploadFilesForProject(projectId.ToString(), false, false);
-                    System.Diagnostics.Debug.WriteLine($"Upload files: {filesPath}" );
-                    await UploadFilesForProject(uri.ToString(), new string[] { filesPath });
+                    var uri = ApiUrls.UploadFilesForProject(projectId, false, false);
+                    System.Diagnostics.Debug.WriteLine($"Upload files: {filesPath}");
+                    await UploadFilesForProject(uri, new[] { filesPath });
                     return false;
                 }
             }
             else
             {
-                var uri = ApiUrls.UploadFilesForProject(projectId.ToString(), false, false);
+                var uri = ApiUrls.UploadFilesForProject(projectId, false, false);
                 System.Diagnostics.Debug.WriteLine($"Upload folder: {filesPath}");
-                await UploadDirectoryForProject(uri.ToString(), filesPath);
+                await UploadDirectoryForProject(uri, filesPath);
                 return false;
-            }            
+            }
         }
 
         private async Task UploadReferenceFilesForProject(string projectId, string referenceFilesPath)
         {
-            var uri = ApiUrls.UploadFilesForProject(projectId.ToString(), true, false);
+            var uri = ApiUrls.UploadFilesForProject(projectId, true, false);
             if (System.IO.File.Exists(referenceFilesPath))
             {
-                await UploadFilesForProject(uri.ToString(), new string[] { referenceFilesPath });
+                await UploadFilesForProject(uri, new[] { referenceFilesPath });
             }
             else
             {
-                await UploadDirectoryForProject(uri.ToString(), referenceFilesPath);
+                await UploadDirectoryForProject(uri, referenceFilesPath);
             }
         }
 
         private async Task UploadPerfectMatchFilesForProject(string uri, string directory)
         {
-            // first level are langugage folders
+            // first level are language folders
             foreach (var languageDir in new System.IO.DirectoryInfo(directory).GetDirectories())
             {
                 //var languageCode = languageDir.Name;
@@ -307,12 +307,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         private async Task UploadDirectoryForProject(string uri, string directory)
-        {            
+        {
             var files = System.IO.Directory.GetFiles(directory);
             if (files.Length > 0)
             {
-                System.Diagnostics.Debug.WriteLine("Upload files: " + string.Join(System.Environment.NewLine, files));
-                await UploadFilesForProject(uri, files);  
+                System.Diagnostics.Debug.WriteLine("Upload files: " + string.Join(Environment.NewLine, files));
+                await UploadFilesForProject(uri, files);
             }
 
             foreach (var subDir in new System.IO.DirectoryInfo(directory).GetDirectories())
@@ -336,8 +336,122 @@ namespace Sdl.Community.GroupShareKit.Clients
                     streamContent.Headers.Add("Content-Type", "application/octet-stream");
                     content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
                 }
-            await ApiConnection.Post<string>(uri, content, null);
+
+                await ApiConnection.Post<string>(uri, content, null);
             }
+        }
+
+        public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string filesPath, bool reference)
+        {
+            var uri = ApiUrls.AddProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                var stream = new System.IO.FileStream(filesPath, System.IO.FileMode.Open);
+                var streamContent = new StreamContent(stream);
+                streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
+
+                return await ApiConnection.Post<MidProjectUpdateResponse>(uri, content, null);
+            }
+        }
+
+        public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string[] filesPaths, bool reference)
+        {
+            var uri = ApiUrls.AddProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                foreach (var file in filesPaths)
+                {
+                    var stream = new System.IO.FileStream(file, System.IO.FileMode.Open);
+                    var streamContent = new StreamContent(stream);
+                    streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                    content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
+                }
+
+                return await ApiConnection.Post<MidProjectUpdateResponse>(uri, content, null);
+            }
+        }
+
+        public async Task<MidProjectUpdateResponse> UpdateFiles(string projectId, string filesPath, bool reference)
+        {
+            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                var stream = new System.IO.FileStream(filesPath, System.IO.FileMode.Open);
+                var streamContent = new StreamContent(stream);
+                streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
+
+                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
+            }
+        }
+
+        public async Task<MidProjectUpdateResponse> UpdateFiles(string projectId, string[] filesPaths, bool reference)
+        {
+            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                foreach (var file in filesPaths)
+                {
+                    var stream = new System.IO.FileStream(file, System.IO.FileMode.Open);
+                    var streamContent = new StreamContent(stream);
+                    streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                    content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
+                }
+
+                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
+            }
+        }
+
+        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference)
+        {
+            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                var stream = new System.IO.FileStream(filesPath, System.IO.FileMode.Open);
+                var streamContent = new StreamContent(stream);
+                streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
+
+                var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
+                content.Add(new StringContent(fileIdsString), "FileIds");
+
+                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
+            }
+        }
+
+        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string[] filesPaths, MidProjectFileIdsModel fileIds, bool reference)
+        {
+            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                foreach (var file in filesPaths)
+                {
+                    var stream = new System.IO.FileStream(file, System.IO.FileMode.Open);
+                    var streamContent = new StreamContent(stream);
+                    streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                    content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
+                }
+
+                var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
+                content.Add(new StringContent(fileIdsString), "FileIds");
+
+                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
+            }
+        }
+
+        public async Task<string> CancelProjectFiles(string projectId, MidProjectFileIdsModel fileIds)
+        {
+            var uri = ApiUrls.CancelProjectFiles(projectId);
+            var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
+
+            return await ApiConnection.Put<string>(uri, fileIdsString);
         }
 
         /// <summary>
@@ -394,8 +508,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             return await ApiConnection.Get<PublishingStatus>(ApiUrls.PublishingStatus(projectId), null);
         }
-
-
 
         /// <summary>
         ///Downloads the files with the specific language ids.
@@ -575,14 +687,14 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             var byteContent = new ByteArrayContent(rawData);
             byteContent.Headers.Add("Content-Type", "application/zip");
+
             var multipartContent = new MultipartFormDataContent
             {
-                {byteContent,"file", name + ".zip"}
+                { byteContent, "file", name + ".zip" }
             };
+
             return await ApiConnection.Post<string>(ApiUrls.UploadFilesForProject(projectId), multipartContent, "application/zip");
         }
-
-        
 
         /// <summary>
         ///Change project status
@@ -692,7 +804,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(request, nameof(request));
 
             return await ApiConnection.Get<bool>(ApiUrls.IsProjectNameInUse(), request.ToParametersDictionary()).ConfigureAwait(false);
-        } 
+        }
         #endregion
 
 
@@ -805,7 +917,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
-        public async Task Delete(string templateId)
+        public async Task DeleteProjectTemplate(string templateId)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             await ApiConnection.Delete(ApiUrls.ProjectTemplates(templateId));
@@ -832,11 +944,10 @@ namespace Sdl.Community.GroupShareKit.Clients
             var templateByteArray = new ByteArrayContent(projectTemplate);
             var multipartContent = new MultipartFormDataContent
             {
-                {templateByteArray,"file", templateName}
+                { templateByteArray, "file", templateName }
             };
 
             return await ApiConnection.Post<string>(ApiUrls.UploadProjectTemplate(templateId), multipartContent, "application/json");
-
         }
         #endregion
 
@@ -908,7 +1019,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
 
-            var reportResult = await ApiConnection.GetAll<AnalysisReports>(ApiUrls.AnalysisReports(projectId, languageCode),null);
+            var reportResult = await ApiConnection.GetAll<AnalysisReports>(ApiUrls.AnalysisReports(projectId, languageCode), null);
             return reportResult;
         }
 
@@ -936,220 +1047,220 @@ namespace Sdl.Community.GroupShareKit.Clients
             return reportResult;
         }
 
-	    /// <summary>
-	    ///  Get project settings for a language file
-	    /// </summary>
-	    /// <param name="projectId">The id of the project</param>
-	    /// <param name="languageFileId">The if of the language file</param>
-	    /// <remarks>
-	    /// This method requires authentication.
-	    /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-	    /// </remarks>
-	    /// <exception cref="AuthorizationException">
-	    /// Thrown when the current user does not have permission to make the request.
-	    /// </exception>
-	    /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-	    /// <returns><see cref="ProjectSettings"/></returns>
-		public async Task<ProjectSettings> GetProjectSettings(string projectId, string languageFileId)
-	    {
-			Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-		    Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");
+        /// <summary>
+        ///  Get project settings for a language file
+        /// </summary>
+        /// <param name="projectId">The id of the project</param>
+        /// <param name="languageFileId">The if of the language file</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ProjectSettings"/></returns>
+        public async Task<ProjectSettings> GetProjectSettings(string projectId, string languageFileId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");
 
-		    var projectSettings =
-			    await ApiConnection.Get<ProjectSettings>(ApiUrls.GetProjectSettings(projectId, languageFileId),null);
-		    return projectSettings;
-	    }
+            var projectSettings =
+                await ApiConnection.Get<ProjectSettings>(ApiUrls.GetProjectSettings(projectId, languageFileId), null);
+            return projectSettings;
+        }
 
-	    /// <summary>
-	    /// Validates that the user can open the file in universal editor
-	    /// </summary>
-	    /// <param name="projectId">The id of the project</param>
-	    /// <param name="languageFileId">The if of the language file</param>
-	    /// <remarks>
-	    /// This method requires authentication.
-	    /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-	    /// </remarks>
-	    /// <exception cref="AuthorizationException">
-	    /// Thrown when the current user does not have permission to make the request.
-	    /// </exception>
-	    /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		public async Task<string> IsUserAuthorizedToOpenFile(string projectId, string languageFileId)
-	    {
-			Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-		    Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");
-		    var response = await ApiConnection.Get<string>(ApiUrls.IsAuthorizedToOpenInEditor(projectId, languageFileId),null);
+        /// <summary>
+        /// Validates that the user can open the file in universal editor
+        /// </summary>
+        /// <param name="projectId">The id of the project</param>
+        /// <param name="languageFileId">The if of the language file</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task<string> IsUserAuthorizedToOpenFile(string projectId, string languageFileId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");
+            var response = await ApiConnection.Get<string>(ApiUrls.IsAuthorizedToOpenInEditor(projectId, languageFileId), null);
 
-			return response;
-	    }
+            return response;
+        }
 
-	    /// <summary>
-	    ///Rreturns user permissions in editor
-	    /// </summary>
-	    /// <param name="projectId">The id of the project</param>
-	    /// <param name="languageFileId">The if of the language file</param>
-	    /// <remarks>
-	    /// This method requires authentication.
-	    /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-	    /// </remarks>
-	    /// <exception cref="AuthorizationException">
-	    /// Thrown when the current user does not have permission to make the request.
-	    /// </exception>
-	    /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-	    /// <returns><see cref="EditorProfile"/></returns>
-		public async Task<EditorProfile> EditorProfile(string projectId, string languageFileId)
-	    {
-		    Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-		    Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");
-		    var editorProfile = await ApiConnection.Get<EditorProfile>(ApiUrls.EditorProfile(projectId, languageFileId),null);
+        /// <summary>
+        ///Rreturns user permissions in editor
+        /// </summary>
+        /// <param name="projectId">The id of the project</param>
+        /// <param name="languageFileId">The if of the language file</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="EditorProfile"/></returns>
+        public async Task<EditorProfile> EditorProfile(string projectId, string languageFileId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");
+            var editorProfile = await ApiConnection.Get<EditorProfile>(ApiUrls.EditorProfile(projectId, languageFileId), null);
 
-		    return editorProfile;
-	    }
+            return editorProfile;
+        }
 
-	    ///  <summary>
-	    /// Checks in a file edited in the Universal Editor
-	    ///  </summary>
-	    /// <param name="projectId">The id of the project</param>
-	    /// <param name="languageFileId">The if of the language file</param>
-	    /// <remarks>
-	    ///  This method requires authentication.
-	    ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-	    ///  </remarks>
-	    ///  <exception cref="AuthorizationException">
-	    ///  Thrown when the current user does not have permission to make the request.
-	    ///  </exception>
-	    ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-	    public async Task<OnlineCheckInRequest> OnlineCheckin(string projectId, string languageFileId)
-	    {
-		    Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
-		    Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
+        ///  <summary>
+        /// Checks in a file edited in the Universal Editor
+        ///  </summary>
+        /// <param name="projectId">The id of the project</param>
+        /// <param name="languageFileId">The if of the language file</param>
+        /// <remarks>
+        ///  This method requires authentication.
+        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        ///  </remarks>
+        ///  <exception cref="AuthorizationException">
+        ///  Thrown when the current user does not have permission to make the request.
+        ///  </exception>
+        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task<OnlineCheckInRequest> OnlineCheckin(string projectId, string languageFileId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
+            Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
 
-			//checkout file first
-		    var checkoutResponse = await OnlineCheckout(projectId, languageFileId).ConfigureAwait(true);
+            //checkout file first
+            var checkoutResponse = await OnlineCheckout(projectId, languageFileId).ConfigureAwait(true);
 
-			return await ApiConnection.Post<OnlineCheckInRequest>(
-				ApiUrls.OnlineCheckIn(projectId, languageFileId), checkoutResponse,
-				"application/json");  
-	    }
+            return await ApiConnection.Post<OnlineCheckInRequest>(
+                ApiUrls.OnlineCheckIn(projectId, languageFileId), checkoutResponse,
+                "application/json");
+        }
 
-	    ///  <summary>
-	    /// Checks out a file for editing in the Universal Editor
-	    ///  </summary>
-	    /// <param name="projectId">The id of the project</param>
-	    /// <param name="languageFileId">The if of the language file</param>
-	    /// <remarks>
-	    ///  This method requires authentication.
-	    ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-	    ///  </remarks>
-	    ///  <exception cref="AuthorizationException">
-	    ///  Thrown when the current user does not have permission to make the request.
-	    ///  </exception>
-	    ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		public async Task<OnlineCheckInRequest> OnlineCheckout(string projectId, string languageFileId)
-	    {
-			Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
-		    Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
-		    return
-			    await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckout(projectId, languageFileId),
-				    "application/json");
-	    }
+        ///  <summary>
+        /// Checks out a file for editing in the Universal Editor
+        ///  </summary>
+        /// <param name="projectId">The id of the project</param>
+        /// <param name="languageFileId">The if of the language file</param>
+        /// <remarks>
+        ///  This method requires authentication.
+        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        ///  </remarks>
+        ///  <exception cref="AuthorizationException">
+        ///  Thrown when the current user does not have permission to make the request.
+        ///  </exception>
+        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task<OnlineCheckInRequest> OnlineCheckout(string projectId, string languageFileId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
+            Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
+            return
+                await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckout(projectId, languageFileId),
+                    "application/json");
+        }
 
-	    ///  <summary>
-	    /// Undoes an online checkout, note that you will loose all the changes done inside the OnlineEditor. To make a proper checkin use the OnlineCheckOutController.
-	    ///  </summary>
-	    /// <param name="projectId">The id of the project</param>
-	    /// <param name="languageFileId">The if of the language file</param>
-	    /// <remarks>
-	    ///  This method requires authentication.
-	    ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-	    ///  </remarks>
-	    ///  <exception cref="AuthorizationException">
-	    ///  Thrown when the current user does not have permission to make the request.
-	    ///  </exception>
-	    ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		public async Task UndoCheckout(string projectId, string languageFileId)
-	    {
-			Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
-		    Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
+        ///  <summary>
+        /// Undoes an online checkout, note that you will loose all the changes done inside the OnlineEditor. To make a proper checkin use the OnlineCheckOutController.
+        ///  </summary>
+        /// <param name="projectId">The id of the project</param>
+        /// <param name="languageFileId">The if of the language file</param>
+        /// <remarks>
+        ///  This method requires authentication.
+        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        ///  </remarks>
+        ///  <exception cref="AuthorizationException">
+        ///  Thrown when the current user does not have permission to make the request.
+        ///  </exception>
+        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task UndoCheckout(string projectId, string languageFileId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
+            Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
 
-		    await ApiConnection.Delete(ApiUrls.UndoCheckout(projectId, languageFileId));
-	    }
+            await ApiConnection.Delete(ApiUrls.UndoCheckout(projectId, languageFileId));
+        }
 
-	    ///  <summary>
-	    /// Health check call used to keep the OE license seat taken
-	    ///  </summary>
-	    ///  This method requires authentication.
-	    ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-	    ///  <exception cref="AuthorizationException">
-	    ///  Thrown when the current user does not have permission to make the request.
-	    ///  </exception>
-	    ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		public async Task<string> OnlineCheckoutHealthCheck(string editorProfileMode)
-	    {
-		    var response = await ApiConnection.Get<string>(ApiUrls.OnlineCheckoutHealthCheck(editorProfileMode), null);
-		    return response;
-	    }
+        ///  <summary>
+        /// Health check call used to keep the OE license seat taken
+        ///  </summary>
+        ///  This method requires authentication.
+        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        ///  <exception cref="AuthorizationException">
+        ///  Thrown when the current user does not have permission to make the request.
+        ///  </exception>
+        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task<string> OnlineCheckoutHealthCheck(string editorProfileMode)
+        {
+            var response = await ApiConnection.Get<string>(ApiUrls.OnlineCheckoutHealthCheck(editorProfileMode), null);
+            return response;
+        }
 
-	    ///  <summary>
-	    /// Checks if the given language file is check-out to someone other than the user making this call
-	    ///  </summary>
-	    /// <param name="languageFileId">The if of the language file</param>
-	    /// <remarks>
-	    ///  This method requires authentication.
-	    ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-	    ///  </remarks>
-	    ///  <exception cref="AuthorizationException">
-	    ///  Thrown when the current user does not have permission to make the request.
-	    ///  </exception>
-	    ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		public async Task<bool> IsCheckoutToSomeoneElse(string languageFileId, string editorProfileMode)
-	    {
-			Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
-		    return await ApiConnection.Get<bool>(ApiUrls.IsCheckoutToSomeoneElse(languageFileId, editorProfileMode), null);
-	    }
+        ///  <summary>
+        /// Checks if the given language file is check-out to someone other than the user making this call
+        ///  </summary>
+        /// <param name="languageFileId">The if of the language file</param>
+        /// <remarks>
+        ///  This method requires authentication.
+        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        ///  </remarks>
+        ///  <exception cref="AuthorizationException">
+        ///  Thrown when the current user does not have permission to make the request.
+        ///  </exception>
+        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task<bool> IsCheckoutToSomeoneElse(string languageFileId, string editorProfileMode)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
+            return await ApiConnection.Get<bool>(ApiUrls.IsCheckoutToSomeoneElse(languageFileId, editorProfileMode), null);
+        }
 
-		///  <summary>
-		/// Checks in a file for editing
-		///  </summary>
-		/// <param name="projectId">The id of the project</param>
-		/// <param name="languageFileId">The if of the language file</param>
-		/// <param name="comment">Comment</param>	 
-		/// <remarks>
-		///  This method requires authentication.
-		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-		///  </remarks>
-		///  <exception cref="AuthorizationException">
-		///  Thrown when the current user does not have permission to make the request.
-		///  </exception>
-		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		public async Task<string> ExternalCheckin(string projectId, string languageFileId, string comment)
-	    {
-		    Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
-		    Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
-		    await ExternalCheckout(projectId, languageFileId).ConfigureAwait(true);
+        ///  <summary>
+        /// Checks in a file for editing
+        ///  </summary>
+        /// <param name="projectId">The id of the project</param>
+        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="comment">Comment</param>	 
+        /// <remarks>
+        ///  This method requires authentication.
+        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        ///  </remarks>
+        ///  <exception cref="AuthorizationException">
+        ///  Thrown when the current user does not have permission to make the request.
+        ///  </exception>
+        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task<string> ExternalCheckin(string projectId, string languageFileId, string comment)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
+            Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
+            await ExternalCheckout(projectId, languageFileId).ConfigureAwait(true);
 
-			return await ApiConnection.Post<string>(ApiUrls.ExternalCheckin(projectId, languageFileId),comment, "application/json");
-	    }
+            return await ApiConnection.Post<string>(ApiUrls.ExternalCheckin(projectId, languageFileId), comment, "application/json");
+        }
 
-	    ///  <summary>
-	    /// Checks out a file for editing
-	    ///  </summary>
-	    /// <param name="projectId">The id of the project</param>
-	    /// <param name="languageFileId">The if of the language file</param>
-	    /// <remarks>
-	    ///  This method requires authentication.
-	    ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-	    ///  </remarks>
-	    ///  <exception cref="AuthorizationException">
-	    ///  Thrown when the current user does not have permission to make the request.
-	    ///  </exception>
-	    ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		public async Task<string> ExternalCheckout(string projectId, string languageFileId)
-	    {
-		    Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
-		    Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
+        ///  <summary>
+        /// Checks out a file for editing
+        ///  </summary>
+        /// <param name="projectId">The id of the project</param>
+        /// <param name="languageFileId">The if of the language file</param>
+        /// <remarks>
+        ///  This method requires authentication.
+        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        ///  </remarks>
+        ///  <exception cref="AuthorizationException">
+        ///  Thrown when the current user does not have permission to make the request.
+        ///  </exception>
+        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task<string> ExternalCheckout(string projectId, string languageFileId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
+            Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
 
-		    return await ApiConnection.Post<string>(ApiUrls.ExternalCheckout(projectId, languageFileId), "application/json");
-	    }
+            return await ApiConnection.Post<string>(ApiUrls.ExternalCheckout(projectId, languageFileId), "application/json");
+        }
 
         ///  <summary>
         /// Gets the dashboard data
@@ -1160,13 +1271,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        [Obsolete("The dashboard function is obsolete in Groupshare 2020. " + 
-            "Use the new functions DataboardProjectsPerMonth, DashboardTopLanguagePairs, " +
+        [Obsolete("The dashboard function is obsolete in Groupshare 2020. " +
+            "Use the new functions DashboardProjectsPerMonth, DashboardTopLanguagePairs, " +
             "DashboardWordsPerMonth, DashboardWordsPerOrganization, DashboardStatistics instead for Groupshare 2020.")]
         public async Task<Dashboard> Dashboard()
-	    {
-		    return await ApiConnection.Get<Dashboard>(ApiUrls.Dashboard(), null);
-	    }
+        {
+            return await ApiConnection.Get<Dashboard>(ApiUrls.Dashboard(), null);
+        }
 
         /// <summary>
         /// Gets the dashboard projects per month data
@@ -1179,7 +1290,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  Thrown when the current user does not have permission to make the request.
 		///  </exception>
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task<IReadOnlyList<DashboardCount>> DataboardProjectsPerMonth()
+        public async Task<IReadOnlyList<DashboardCount>> DashboardProjectsPerMonth()
         {
             return await ApiConnection.GetAll<DashboardCount>(ApiUrls.DashboardProjectsPerMonth());
         }
@@ -1262,10 +1373,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public Task<IReadOnlyList<AuditTrial>> AuditTrial(string projectId)
-	    {
-			Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
-		    return ApiConnection.GetAll<AuditTrial>(ApiUrls.AuditTrial(projectId), null);
-		}
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectid");
+            return ApiConnection.GetAll<AuditTrial>(ApiUrls.AuditTrial(projectId), null);
+        }
 
         #endregion
 

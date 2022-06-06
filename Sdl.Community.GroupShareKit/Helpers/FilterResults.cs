@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
+﻿using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using Sdl.Core.Bcm.BcmModel;
-using Sdl.TmService.Sdk.Model;
 using Sdl.TmService.Sdk.Model.Search;
+using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Helpers
 {
@@ -40,12 +35,10 @@ namespace Sdl.Community.GroupShareKit.Helpers
                             };
                             searchResult.Add(result);
                         }
-
-
                     }
                 }
-
             }
+
             return searchResult;
         }
     }

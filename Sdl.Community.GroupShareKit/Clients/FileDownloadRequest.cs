@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Sdl.Community.GroupShareKit.Clients
+﻿namespace Sdl.Community.GroupShareKit.Clients
 {
     public class FileDownloadRequest : RequestParameters
     {
@@ -18,10 +16,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Possile values: All, TargetFiles
         public Types? Type { get; set; }
 
-        public enum Types { All, Targetfiles }
+        public enum Types { All, TargetFiles }
 
 
-        public FileDownloadRequest(string projectId,string languageCode,Types? type)
+        public FileDownloadRequest(string projectId, string languageCode, Types? type)
         {
             ProjectId = projectId;
             LanguageCode = languageCode;
