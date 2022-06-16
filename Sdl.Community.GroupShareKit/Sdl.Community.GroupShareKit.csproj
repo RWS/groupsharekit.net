@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net48;netstandard2.0</TargetFrameworks>
     <Product>GroupShareKit ($(TargetFramework))</Product>
     <PackageId>GroupShareKit</PackageId>
     <Description>A GroupShare API client library for .NET</Description>
@@ -21,20 +21,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nerdbank.GitVersioning" Version="2.2.13">
+    <Compile Remove="3rd party\**" />
+    <EmbeddedResource Remove="3rd party\**" />
+    <None Remove="3rd party\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.5.107">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="System.Net.Http" Version="4.3.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Sdl.Core.Bcm.BcmModel">
-      <HintPath>3rd party\Sdl.Core.Bcm.BcmModel.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Trados\Trados Studio\Studio17\Sdl.Core.Bcm.BcmModel.dll</HintPath>
     </Reference>
     <Reference Include="Sdl.TmService.Sdk">
-      <HintPath>3rd party\Sdl.TmService.Sdk.dll</HintPath>
+      <HintPath>..\..\..\Program Files (x86)\Trados\Trados Studio\Studio17\Sdl.TmService.Sdk.dll</HintPath>
     </Reference>
   </ItemGroup>
 
