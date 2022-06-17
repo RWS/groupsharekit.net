@@ -221,10 +221,10 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Sdl.Core.Bcm.BcmModel">
-      <HintPath>..\..\..\Program Files (x86)\Trados\Trados Studio\Studio17\Sdl.Core.Bcm.BcmModel.dll</HintPath>
+      <HintPath>3rd party\Sdl.Core.Bcm.BcmModel.dll</HintPath>
     </Reference>
     <Reference Include="Sdl.TmService.Sdk">
-      <HintPath>..\..\..\Program Files (x86)\Trados\Trados Studio\Studio17\Sdl.TmService.Sdk.dll</HintPath>
+      <HintPath>3rd party\Sdl.TmService.Sdk.dll</HintPath>
     </Reference>
   </ItemGroup>
 

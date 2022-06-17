@@ -21,9 +21,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="3rd party\**" />
-    <EmbeddedResource Remove="3rd party\**" />
-    <None Remove="3rd party\**" />
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,15 +37,11 @@
 
   <ItemGroup>
     <Reference Include="Sdl.Core.Bcm.BcmModel">
-      <HintPath>$(MSBuildProgramFiles32)\Trados\Trados Studio\Studio17\Sdl.Core.Bcm.BcmModel.dll</HintPath>
+      <HintPath>3rd party\Sdl.Core.Bcm.BcmModel.dll</HintPath>
     </Reference>
     <Reference Include="Sdl.TmService.Sdk">
-      <HintPath>$(MSBuildProgramFiles32)\Trados\Trados Studio\Studio17\Sdl.TmService.Sdk.dll</HintPath>
+      <HintPath>3rd party\Sdl.TmService.Sdk.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>
