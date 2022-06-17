@@ -43,7 +43,8 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
         private void VisitChildren(MarkupDataContainer container)
         {
-            container.ForEach(markup => markup.AcceptVisitor(this));
+            foreach (var markup in container)
+                markup.AcceptVisitor(this);
         }
 
         public override void VisitCommentContainer(CommentContainer commentContainer)
