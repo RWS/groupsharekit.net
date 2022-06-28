@@ -5,19 +5,27 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Tests.Integration.Setup;
 using Xunit;
+using System.Linq;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class UserClientTests
     {
         [Fact]
-        public async Task Users_GetAllUsers_ReturnsUsers()
+        public async Task Users_GetAllUsers_WithoutRoles_ReturnsUsers()
         {
             var groupShareClient = Helper.GsClient;
             var userRequest = new UsersRequest(1, 2, 7);
             var users = await groupShareClient.User.GetAllUsers(userRequest);
 
+            var currentUser = users.Items.First(user => user.Name == Helper.GsUser);
+
             Assert.True(users.Count > 0);
+            Assert.True(users.Items.Count > 0);
+            Assert.NotNull(currentUser.Name);
+            Assert.NotNull(currentUser.OrganizationId);
+            Assert.NotNull(currentUser.UniqueId);
+            Assert.Equal(currentUser.Name, Helper.GsUser);
         }
 
         [Theory]
