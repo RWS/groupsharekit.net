@@ -5,10 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Models.Response;
 using Xunit;
+using Sdl.Community.GroupShareKit.Tests.Integration.Setup;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
-    public class PhasesTests
+    public class PhasesTests : IClassFixture<IntegrationTestsProjectData>
     {
         private readonly string ProjectId;
         private readonly List<string> LanguageFileIds;

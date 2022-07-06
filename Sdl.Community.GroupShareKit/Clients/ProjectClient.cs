@@ -1411,10 +1411,10 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  Thrown when the current user does not have permission to make the request.
 		///  </exception>
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public Task<IReadOnlyList<TaskReport>> ReportingTasksReportData(ReportingOptions options)
+        public Task<IReadOnlyList<TasksReport>> ReportingTasksReportData(ReportingOptions options)
         {
             var jsonOptions = options.Stringify();
-            return ApiConnection.GetAll<TaskReport>(ApiUrls.GetTasksReportData(jsonOptions));
+            return ApiConnection.GetAll<TasksReport>(ApiUrls.GetTasksReportData(jsonOptions));
         }
 
         /// <summary>
