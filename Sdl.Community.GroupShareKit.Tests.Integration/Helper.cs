@@ -11,17 +11,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
     {
         public static GroupShareClient GsClient { get; }
 
-        public static Uri BaseUri => new Uri("http://cljvmmhara01.development.sheffield.sdl.corp/");
+        public static Uri BaseUri => new Uri(GetVariable("GROUPSHAREKIT_BASEURI"));
 
-        public static string GsUser => "user2";
+        public static string GsUser => GetVariable("GROUPSHAREKIT_USERNAME");
 
         public static Guid GsUserId { get; }
 
-        public static string GsPassword => "User2";
+        public static string GsPassword => GetVariable("GROUPSHAREKIT_PASSWORD");
 
-        public static string Organization =>"/";
+        public static string Organization => GetVariable("GROUPSHAREKIT_TESTORGANIZATION");
 
-        public static string GsServerName = "cljvmmhara01";
+        public static string GsServerName = GetVariable("GROUPSHAREKIT_SERVERNAME");
 
         public static string OrganizationId { get; }
 
@@ -43,7 +43,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
                 token,
                 GsUser,
                 GsPassword,
-                "3CC2C841-4128-4E29-8A44-EA95F34886DA",
+                "",
                 BaseUri,
                 GroupShareClient.AllScopes).Result;
 
