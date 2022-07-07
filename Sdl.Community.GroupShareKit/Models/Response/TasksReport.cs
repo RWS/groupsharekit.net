@@ -41,7 +41,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
 
         public string ResourceGroupPath { get; set; }
 
-        public Phase Phase { get; set; }
+        public FilePhase Phase { get; set; }
 
         public int Progress { get; set; }
 

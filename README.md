@@ -97,7 +97,9 @@ configured before they will be executed.
 
 **Note:** To run the tests, we highly recommend you create a test GroupShare
 account (i.e., don't use your real GroupShare account) and a test organization
-owned by that account. Then set the following environment variables:
+owned by that account. The test account needs the same permissions an 
+administrator role has(this is easier to be done by just setting the administrator 
+role to the newly created user). Then set the following environment variables:
 
 `GROUPSHAREKIT_USERNAME` (set this to the test account's username)
 `GROUPSHAREKIT_PASSWORD` (set this to the test account's password)
@@ -111,10 +113,6 @@ running the IntegrationTests MSBuild target, and when running the
 Sdl.Community.GroupShareKit.Tests.Integration assembly through an xUnit.net-friendly test runner.
 
 #### Additional test setup
-
-1. Login into the GroupShare website with the test account
-2. Create any one project template
-3. Create a project with any file
 
 Since the GroupShare (MultiTerm) RestAPI has no support for creating termbases, some more manual setup is required to successfully run the TerminologyClient tests:
 In MultiTerm Desktop, create a termbase:

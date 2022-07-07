@@ -836,7 +836,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  Thrown when the current user does not have permission to make the request.
 		///  </exception>
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task<IReadOnlyList<TaskReport>> ReportingTasksReportData(ReportingOptions options);
+        Task<IReadOnlyList<TasksReport>> ReportingTasksReportData(ReportingOptions options);
 
         /// <summary>
         /// Returns the TM Leverage report data
