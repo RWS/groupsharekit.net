@@ -570,6 +570,11 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// <returns> List <see cref="AnalyseResponseHtml"/>s.</returns>
 		Task<IReadOnlyList<AnalyseResponseHtml>> GetAnalysisReportsAsHtml(string projectId, string languageCode);
 
+		///
+		/// 
+		///
+		Task<IReadOnlyList<AnalysisReports>> GetAnalysisReportsV3(string projectId, string languageCode = null, int? reportId = null);
+
 		/// <summary>
 		///  Get project settings for a language file
 		/// </summary>

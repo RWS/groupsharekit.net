@@ -478,6 +478,44 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
         }
 
+        [Fact]
+        public async Task Projects_GetAnalysisReportsForProjectCreation_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
+            var projectId = await CreateTestProject(groupShareClient, projectTemplateId, "TwoTranslatable_twoReference.zip");
+            var report = await groupShareClient.Project.GetAnalysisReportsV3(projectId);
+            var projectCreationReport = report.FirstOrDefault(r => r.TriggeredBy == "ProjectCreation");
+
+            Assert.Equal(1, report.Count);
+            Assert.NotNull(projectCreationReport);
+
+            await DeleteTestProject(groupShareClient, projectId);
+            await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
+        }
+
+        [Fact]
+        public async Task Projects_GetAnalysisReportsForProjectAddFile_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
+            var projectId = await CreateTestProject(groupShareClient, projectTemplateId, "TwoTranslatable_twoReference.zip");
+            await groupShareClient.Project.AddFiles(projectId, @"Resources\test.docx");
+
+            //wait for the background task to be completed
+
+            var report = await groupShareClient.Project.GetAnalysisReportsV3(projectId);
+            var projectCreationReport = report.FirstOrDefault(r => r.TriggeredBy == "ProjectCreation");
+            var addFileReport = report.FirstOrDefault(r => r.TriggeredBy == "ProjectAddFile");
+
+            Assert.Equal(3, report.Count);
+            Assert.NotNull(projectCreationReport);
+            Assert.NotNull(addFileReport);
+
+            await DeleteTestProject(groupShareClient, projectId);
+            await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
+        }
+
         [Fact(Skip = "Used to work until GroupShare 2017 CU7")]
         public async Task PublishPackage()
         {
