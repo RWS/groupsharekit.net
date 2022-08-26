@@ -936,21 +936,37 @@ namespace Sdl.Community.GroupShareKit.Clients
             return reportResult;
         }
 
-	    /// <summary>
-	    ///  Get project settings for a language file
-	    /// </summary>
-	    /// <param name="projectId">The id of the project</param>
-	    /// <param name="languageFileId">The if of the language file</param>
-	    /// <remarks>
-	    /// This method requires authentication.
-	    /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-	    /// </remarks>
-	    /// <exception cref="AuthorizationException">
-	    /// Thrown when the current user does not have permission to make the request.
-	    /// </exception>
-	    /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-	    /// <returns><see cref="ProjectSettings"/></returns>
-		public async Task<ProjectSettings> GetProjectSettings(string projectId, string languageFileId)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <param name="reportId"></param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<AnalysisReports>> GetAnalysisReportsV3(string projectId, string languageCode = null, int? reportId = null)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetAll<AnalysisReports>(ApiUrls.AnalysisReportsV3(projectId, languageCode, reportId));
+
+            return reportResult;
+        }
+
+        /// <summary>
+        ///  Get project settings for a language file
+        /// </summary>
+        /// <param name="projectId">The id of the project</param>
+        /// <param name="languageFileId">The if of the language file</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ProjectSettings"/></returns>
+        public async Task<ProjectSettings> GetProjectSettings(string projectId, string languageFileId)
 	    {
 			Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
 		    Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");

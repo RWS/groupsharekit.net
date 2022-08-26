@@ -45,7 +45,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri User(string userId)
         {
             return "{0}/users/{1}".
-                FormatUri(CurrentManagementV2Url,userId);
+                FormatUri(CurrentManagementV2Url, userId);
         }
 
 
@@ -119,7 +119,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri OrganizationResources(string organizationId)
         {
             return "{0}/organizationresources/{1}".
-                FormatUri(CurrentManagementV2Url,organizationId);
+                FormatUri(CurrentManagementV2Url, organizationId);
         }
 
         /// <summary>
@@ -193,10 +193,10 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> that represents downloaded files with the specific languageCode ids
         /// </summary>
-        public static Uri DownloadFiles(string projectId,string languageFileIdsQuery)
+        public static Uri DownloadFiles(string projectId, string languageFileIdsQuery)
         {
             return "{0}/projects/{1}/download/?{2}archive=true".
-                FormatUri(CurrentProjectServerUrl, projectId,languageFileIdsQuery);
+                FormatUri(CurrentProjectServerUrl, projectId, languageFileIdsQuery);
         }
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri PublishProjectPackage(string projectId)
         {
             return "{0}/projects/{1}/publishpackage".
-                FormatUri(CurrentProjectServerUrl,projectId);
+                FormatUri(CurrentProjectServerUrl, projectId);
         }
 
         /// <summary>
@@ -252,7 +252,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri ProjectTemplates(string templateId)
         {
             return "{0}/projects/templates/{1}".
-                FormatUri(CurrentProjectServerUrl,templateId);
+                FormatUri(CurrentProjectServerUrl, templateId);
         }
 
 
@@ -280,17 +280,17 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         /// <param name="projectId">Project id</param>
         /// <param name="phaseId">Phase id</param>
-        public static Uri ProjectPhasesWithAssignees(string projectId,int phaseId)
+        public static Uri ProjectPhasesWithAssignees(string projectId, int phaseId)
         {
             return "{0}/projects/{1}/phaseswithassignees/{2}".
-                FormatUri(CurrentProjectServerUrl, projectId,phaseId);
+                FormatUri(CurrentProjectServerUrl, projectId, phaseId);
         }
 
         /// <summary>
         /// Returns the <see cref="Uri"/> that change the project phases
         /// </summary>
         /// <param name="projectId">The project id</param>
-          public static Uri ChangePhases(string projectId)
+        public static Uri ChangePhases(string projectId)
         {
             return "{0}/projects/{1}/changephase".
                FormatUri(CurrentProjectServerUrl, projectId);
@@ -381,9 +381,9 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static string UploadFilesForProject(string projectId, bool isReferenceFile, bool createProjectAfterUpload)
         {
             // use string instead of Uri is to avoid the format errors. In some case we might append the path for this uri.
-            return string.Format("{0}/projects/{1}/files/upload?&reference={2}&create={3}&relativePath=", 
-                CurrentProjectServerUrl, projectId, isReferenceFile, createProjectAfterUpload); 
-        }        
+            return string.Format("{0}/projects/{1}/files/upload?&reference={2}&create={3}&relativePath=",
+                CurrentProjectServerUrl, projectId, isReferenceFile, createProjectAfterUpload);
+        }
 
         /// <summary>
         ///  Returns the <see cref="Uri"/> that starts the project creation
@@ -401,7 +401,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <param name="status">Status</param>
         public static Uri ChangeProjectStatus(string projectId, string status)
         {
-            return "{0}/projects/{1}/changestatus/{2}".FormatUri(CurrentProjectServerUrl,projectId, status);
+            return "{0}/projects/{1}/changestatus/{2}".FormatUri(CurrentProjectServerUrl, projectId, status);
         }
 
         /// <summary>
@@ -410,8 +410,8 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <param name="statusRequest">Status request</param>
         public static Uri ChangeProjectStatus(ChangeStatusRequest statusRequest)
         {
-            var status = Enum.GetName(typeof (ChangeStatusRequest.ProjectStatus), statusRequest.Status);
-            return "{0}/projects/{1}/detach?status={2}".FormatUri(CurrentProjectServerUrl, statusRequest.ProjectId,status);
+            var status = Enum.GetName(typeof(ChangeStatusRequest.ProjectStatus), statusRequest.Status);
+            return "{0}/projects/{1}/detach?status={2}".FormatUri(CurrentProjectServerUrl, statusRequest.ProjectId, status);
         }
 
         /// <summary>
@@ -463,7 +463,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri GetTmById(string tmId)
         {
-            return "{0}/tms/{1}".FormatUri(CurrentTranslationMemoriesUrl,tmId);
+            return "{0}/tms/{1}".FormatUri(CurrentTranslationMemoriesUrl, tmId);
         }
         /// <summary>
         /// Returns the <see cref="Uri"/> that gives the language direction information for a specified tm
@@ -472,7 +472,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <param name="languageDirectionId"></param>
         public static Uri GetLanguageDirectionForTm(string tmId, string languageDirectionId)
         {
-            return "{0}/tms/{1}/language-directions/{2}".FormatUri(CurrentTranslationMemoriesUrl, tmId,languageDirectionId);
+            return "{0}/tms/{1}/language-directions/{2}".FormatUri(CurrentTranslationMemoriesUrl, tmId, languageDirectionId);
         }
 
         /// <summary>
@@ -504,7 +504,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri GetTermbaseById(string termbaseId)
         {
-            return "{0}/termbases/{1}".FormatUri(CurrentMultitermUrl,termbaseId);
+            return "{0}/termbases/{1}".FormatUri(CurrentMultitermUrl, termbaseId);
         }
 
         /// <summary>
@@ -519,7 +519,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri GetFieldTemplateById(string id)
         {
-            return "{0}/templates/{1}".FormatUri(CurrentFieldServiceUrl,id);
+            return "{0}/templates/{1}".FormatUri(CurrentFieldServiceUrl, id);
         }
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns the health status of tm service
@@ -557,12 +557,12 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri GetConcepts(ConceptResponse response)
         {
-            return "{0}/termbases/{1}/concepts?conceptId={2}".FormatUri(CurrentMultitermUrl,response.TermbaseId,response.ConceptId);
+            return "{0}/termbases/{1}/concepts?conceptId={2}".FormatUri(CurrentMultitermUrl, response.TermbaseId, response.ConceptId);
         }
         /// <summary>
         /// Returns the <see cref="Uri"/> that gets a concept
         /// </summary>
-        public static Uri GetConcepts(string termbaseId )
+        public static Uri GetConcepts(string termbaseId)
         {
             return "{0}/termbases/{1}/concepts".FormatUri(CurrentMultitermUrl, termbaseId);
         }
@@ -640,7 +640,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> that adds a new translation unit to the translation memory
         /// </summary>
-        public static Uri TranslationUnits( string tmId,string action)
+        public static Uri TranslationUnits(string tmId, string action)
         {
             return "{0}/tms/{1}/tus/{2}".FormatUri(CurrentTranslationMemoriesUrl, tmId, action);
         }
@@ -649,7 +649,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri Tus(string tmId)
         {
-            return "{0}/tms/{1}/tus".FormatUri(CurrentTranslationMemoriesUrl,tmId);
+            return "{0}/tms/{1}/tus".FormatUri(CurrentTranslationMemoriesUrl, tmId);
         }
         /// <summary>
         /// Returns the <see cref="Uri"/> that retrieves the number of translation units from the Translation memory
@@ -662,9 +662,9 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> that retrieves the number of translation units from the Translation memory
         /// </summary>
-        public static Uri TusByType(string tmId,string type)
+        public static Uri TusByType(string tmId, string type)
         {
-            return "{0}/tms/{1}/tus/{2}/count".FormatUri(CurrentTranslationMemoriesUrl, tmId,type);
+            return "{0}/tms/{1}/tus/{2}/count".FormatUri(CurrentTranslationMemoriesUrl, tmId, type);
         }
         /// <summary>
         /// Returns the <see cref="Uri"/> that retrieves the Duplicate Translation Units in a specific TM
@@ -688,7 +688,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri DbServers(string serverId)
         {
-            return "{0}/dbservers/{1}".FormatUri(CurrentTranslationMemoriesUrl,serverId);
+            return "{0}/dbservers/{1}".FormatUri(CurrentTranslationMemoriesUrl, serverId);
         }
 
         /// <summary>
@@ -704,7 +704,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri Export(string tmId, string source, string target)
         {
-            return "{0}/tms/{1}/export?source={2}&target={3}".FormatUri(CurrentTranslationMemoriesUrl, tmId,source,target);
+            return "{0}/tms/{1}/export?source={2}&target={3}".FormatUri(CurrentTranslationMemoriesUrl, tmId, source, target);
         }
 
         /// <summary>
@@ -728,88 +728,96 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri Containers(string containerid)
         {
-            return "{0}/containers/{1}".FormatUri(CurrentTranslationMemoriesUrl,containerid);
+            return "{0}/containers/{1}".FormatUri(CurrentTranslationMemoriesUrl, containerid);
         }
 
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns the analysis report for a project
         /// </summary>
-        public static Uri AnalysisReports(string projectId,string languageCode)
+        public static Uri AnalysisReports(string projectId, string languageCode)
         {
             return "{0}/projects/{1}/analysisreports/{2}".FormatUri(CurrentProjectServerUrl, projectId, languageCode);
         }
 
-		/// <summary>
-		/// Returns the <see cref="Uri"/> that returns the progest settings for a language file
-		/// </summary>
-		public static Uri GetProjectSettings(string projectId, string languageFileId)
-	    {
-		    return "{0}/projects/{1}/files/{2}/settings".FormatUri(CurrentProjectServerUrl, projectId,languageFileId);
-	    }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns the analysis report v3 for a project
+        /// </summary>
+        public static Uri AnalysisReportsV3(string projectId, string languageCode, int? reportId = null)
+        {
+            return "{0}/projects/{1}/analysisreports/{2}".FormatUri(CurrentProjectServerV3Url, projectId, languageCode, reportId);
+        }
 
-	    /// <summary>
-	    /// Returns the <see cref="Uri"/> that checks in a file edited in the Online Editor
-	    /// </summary>
-	    public static Uri OnlineCheckIn(string projectId, string languageFileId)
-	    {
-		    return "{0}/projects/{1}/files/{2}/onlinecheckin".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
-	    }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns the progest settings for a language file
+        /// </summary>
+        public static Uri GetProjectSettings(string projectId, string languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/settings".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
 
-		/// <summary>
-		/// Returns the <see cref="Uri"/> that Undoes an online checkout
-		/// </summary>
-		public static Uri UndoCheckout(string projectId, string languageFileId)
-	    {
-		    return "{0}/projects/{1}/files/{2}/undoCheckout".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
-		}
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that checks in a file edited in the Online Editor
+        /// </summary>
+        public static Uri OnlineCheckIn(string projectId, string languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/onlinecheckin".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
 
-		/// <summary>
-		/// Returns the <see cref="Uri"/> for health check call used to keep the OE license seat taken
-		/// </summary>
-		public static Uri OnlineCheckoutHealthCheck(string editorProfileMode)
-	    {
-			return "{0}/onlinecheckout/{1}".FormatUri(CurrentProjectServerUrl, editorProfileMode);	
-		}
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that Undoes an online checkout
+        /// </summary>
+        public static Uri UndoCheckout(string projectId, string languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/undoCheckout".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
 
-		/// <summary>
-		/// Returns the <see cref="Uri"/> rthat checks if the given language file is check-out to someone other than the user making this call
-		/// </summary>
-		public static Uri IsCheckoutToSomeoneElse(string languageFileId, string editorProfileMode)
-	    {
-			return "{0}/onlinecheckout/isCheckOutToSomeoneElse/{1}/{2}".FormatUri(CurrentProjectServerUrl, languageFileId, editorProfileMode);
-		}
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for health check call used to keep the OE license seat taken
+        /// </summary>
+        public static Uri OnlineCheckoutHealthCheck(string editorProfileMode)
+        {
+            return "{0}/onlinecheckout/{1}".FormatUri(CurrentProjectServerUrl, editorProfileMode);
+        }
 
-	    /// <summary>
-	    /// Returns the <see cref="Uri"/> that checks out a file for editing in the Universal Editor
-	    /// </summary>
-		public static Uri OnlineCheckout(string projectId, string languageFileId)
-	    {
-		    return "{0}/projects/{1}/files/{2}/onlinecheckout".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);	   
-		}
-		
-	    /// <summary>
-	    /// Returns the <see cref="Uri"/> that checks out a file for editing
-	    /// </summary>
-	    public static Uri ExternalCheckout(string projectId, string languageFileId)
-	    {
-		    return "{0}/projects/{1}/files/{2}/externalcheckout".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
-	    }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> rthat checks if the given language file is check-out to someone other than the user making this call
+        /// </summary>
+        public static Uri IsCheckoutToSomeoneElse(string languageFileId, string editorProfileMode)
+        {
+            return "{0}/onlinecheckout/isCheckOutToSomeoneElse/{1}/{2}".FormatUri(CurrentProjectServerUrl, languageFileId, editorProfileMode);
+        }
 
-	    /// <summary>
-	    /// Returns the <see cref="Uri"/> that checks in a file for editing
-	    /// </summary>
-	    public static Uri ExternalCheckin(string projectId, string languageFileId)
-	    {
-		    return "{0}/projects/{1}/files/{2}/externalcheckin".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
-	    }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that checks out a file for editing in the Universal Editor
+        /// </summary>
+        public static Uri OnlineCheckout(string projectId, string languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/onlinecheckout".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
 
-	    /// <summary>
-	    /// Returns the <see cref="Uri"/> that returns dashboard data
-	    /// </summary>
-	    public static Uri Dashboard()
-	    {
-		    return "{0}/dashboard".FormatUri(CurrentProjectServerUrl);
-	    }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that checks out a file for editing
+        /// </summary>
+        public static Uri ExternalCheckout(string projectId, string languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/externalcheckout".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that checks in a file for editing
+        /// </summary>
+        public static Uri ExternalCheckin(string projectId, string languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/externalcheckin".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns dashboard data
+        /// </summary>
+        public static Uri Dashboard()
+        {
+            return "{0}/dashboard".FormatUri(CurrentProjectServerUrl);
+        }
 
         /// <summary>
         /// Returns the <see cref="Uri"/> for dashboard projects per month
@@ -861,29 +869,29 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> that retries the audit trail for all the language files in the given project
         /// </summary>
         public static Uri AuditTrial(string projectId)
-	    {
-		    return "{0}/auditTrail/languageFiles/{1}".FormatUri(CurrentProjectServerUrl, projectId);
-	    }
-		/// <summary>
-		/// Returns the <see cref="Uri"/> that checks if the user can open the file in universal editor 
-		/// </summary>
-		public static Uri IsAuthorizedToOpenInEditor(string projectId, string languageFileId)
-	    {
-			return "{0}/projects/{1}/files/{2}/isauthorized".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);		   
-		}
+        {
+            return "{0}/auditTrail/languageFiles/{1}".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that checks if the user can open the file in universal editor 
+        /// </summary>
+        public static Uri IsAuthorizedToOpenInEditor(string projectId, string languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/isauthorized".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
 
-		/// <summary>
-		/// Returns the <see cref="Uri"/> that returns the permissions in editor for the user	 
-		/// </summary>
-		public static Uri EditorProfile(string projectId, string languageFileId)
-	    {
-		    return "{0}/projects/{1}/files/{2}/editorprofile".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
-	    }
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns the permissions in editor for the user	 
+        /// </summary>
+        public static Uri EditorProfile(string projectId, string languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/editorprofile".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
 
-		/// <summary>
-		/// Returns the <see cref="Uri"/> that returns the output of a background task
-		/// </summary>
-		public static Uri TaskOutput(string taskId)
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns the output of a background task
+        /// </summary>
+        public static Uri TaskOutput(string taskId)
         {
             return "{0}/tasks/{1}/output".FormatUri(CurrentTranslationMemoriesUrl, taskId);
         }
@@ -954,7 +962,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/translation/download/{1}".FormatUri(TranslateAndAnalysisServiceUrl, translationJob);
         }
-        
+
         /// <summary>
         ///  Returns the <see cref="Uri"/> analysis document identifier
         /// </summary>
