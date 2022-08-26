@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Helpers;
+﻿using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
-    public class ModuleClient: ApiClient, IModuleClient
+    public class ModuleClient : ApiClient, IModuleClient
     {
 
         /// <summary>
@@ -18,7 +14,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns><see cref="Modules"/> </returns>
         public async Task<Modules> GetModules()
         {
-            return await ApiConnection.Get<Modules>(ApiUrls.Modules(),null);
+            return await ApiConnection.Get<Modules>(ApiUrls.Modules(), null);
         }
 
         public ModuleClient(IApiConnection apiConnection) : base(apiConnection)

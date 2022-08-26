@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Helpers;
+﻿using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
+using System.Globalization;
 
 namespace Sdl.Community.GroupShareKit.Authentication
 {
-    class TokenAuthenticator: IAuthenticationHandler
+    class TokenAuthenticator : IAuthenticationHandler
     {
         ///<summary>
         ///Authenticate a request using the OAuth2 Token (sent in a header) authentication scheme

@@ -1,14 +1,13 @@
+using Sdl.Community.GroupShareKit.Authentication;
+using Sdl.Community.GroupShareKit.Exceptions;
+using Sdl.Community.GroupShareKit.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Authentication;
-using Sdl.Community.GroupShareKit.Exceptions;
-using Sdl.Community.GroupShareKit.Helpers;
 
 namespace Sdl.Community.GroupShareKit.Http
 {
@@ -66,14 +65,14 @@ namespace Sdl.Community.GroupShareKit.Http
         private string FormatUserAgent()
         {
             return string.Format(CultureInfo.InvariantCulture,
-                "({0} {1}; {2}; {3}; GroupShare kit)","WindowsRT",
+                "({0} {1}; {2}; {3}; GroupShare kit)", "WindowsRT",
                 "8+",
                 "unknown", CultureInfo.CurrentCulture.Name);
         }
 
         public Task<IApiResponse<T>> Get<T>(Uri uri, IDictionary<string, string> parameters)
         {
-            Ensure.ArgumentNotNull(uri,"uri");
+            Ensure.ArgumentNotNull(uri, "uri");
 
             return SendData<T>(uri.ApplyParameters(parameters), HttpMethod.Get, null, null, CancellationToken.None);
         }
@@ -87,15 +86,14 @@ namespace Sdl.Community.GroupShareKit.Http
 
         public Task<IApiResponse<T>> Get<T>(Uri uri, TimeSpan timeout)
         {
-            Ensure.ArgumentNotNull(uri,"uri");
+            Ensure.ArgumentNotNull(uri, "uri");
 
-            return SendData<T>(uri, HttpMethod.Get, null, null,timeout, CancellationToken.None);
-
+            return SendData<T>(uri, HttpMethod.Get, null, null, timeout, CancellationToken.None);
         }
 
         public async Task<HttpStatusCode> Post(Uri uri)
         {
-            Ensure.ArgumentNotNull(uri,"uri");
+            Ensure.ArgumentNotNull(uri, "uri");
 
             var response = await SendData<object>(uri, HttpMethod.Post, null, null, CancellationToken.None);
             return response.HttpResponse.StatusCode;
@@ -119,7 +117,7 @@ namespace Sdl.Community.GroupShareKit.Http
         {
             Ensure.ArgumentNotNull(uri, "uri");
 
-            return SendData<T>(uri, HttpMethod.Post, body, contentType,timeout, CancellationToken.None);
+            return SendData<T>(uri, HttpMethod.Post, body, contentType, timeout, CancellationToken.None);
         }
 
         public Task<IApiResponse<T>> Post<T>(Uri uri)
@@ -148,7 +146,7 @@ namespace Sdl.Community.GroupShareKit.Http
             Ensure.ArgumentNotNull(uri, "uri");
             var method = new HttpMethod("PATCH");
             var response = await SendData<object>(uri, method, body, null, CancellationToken.None);
-            return  response.HttpResponse.StatusCode;
+            return response.HttpResponse.StatusCode;
         }
 
         public async Task<HttpStatusCode> Delete(Uri uri)
@@ -161,6 +159,7 @@ namespace Sdl.Community.GroupShareKit.Http
                 BaseAddress = BaseAddress,
                 Endpoint = uri
             };
+
             var response = await Run<object>(request, CancellationToken.None);
             return response.HttpResponse.StatusCode;
         }
@@ -177,6 +176,7 @@ namespace Sdl.Community.GroupShareKit.Http
                 BaseAddress = BaseAddress,
                 Endpoint = uri
             };
+
             var response = await Run<object>(request, CancellationToken.None);
             return response.HttpResponse.StatusCode;
         }
@@ -194,6 +194,7 @@ namespace Sdl.Community.GroupShareKit.Http
                 Endpoint = uri,
                 ContentType = contentType
             };
+
             var response = await Run<object>(request, CancellationToken.None);
             return response.HttpResponse.StatusCode;
         }
@@ -234,7 +235,7 @@ namespace Sdl.Community.GroupShareKit.Http
             CancellationToken cancellationToken, Uri baseAddress = null)
         {
             Ensure.ArgumentNotNull(uri, "uri");
-            baseAddress = baseAddress ?? BaseAddress;            
+            baseAddress = baseAddress ?? BaseAddress;
             var request = new Request
             {
                 Method = method,
@@ -296,8 +297,6 @@ namespace Sdl.Community.GroupShareKit.Http
             }
         }
 
-       
-
         public Uri BaseAddress { get; }
         public ICredentialStore CredentialStore { get; }
 
@@ -310,7 +309,7 @@ namespace Sdl.Community.GroupShareKit.Http
             }
             set
             {
-                Ensure.ArgumentNotNull(value,"value");
+                Ensure.ArgumentNotNull(value, "value");
 
                 _authenticator.CredentialStore = new InMemoryCredentialStore(value);
             }

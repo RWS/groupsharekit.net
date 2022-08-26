@@ -1,24 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sdl.Community.GroupShareKit.Clients
+﻿namespace Sdl.Community.GroupShareKit.Clients
 {
     /// <remarks>
     /// This class appears to be misnamed. It actaully represents a request (parameter), not a response.
     /// </remarks>
     public class ConceptResponse : RequestParameters
     {
-       public string TermbaseId { get; set; }
-       public string ConceptId { get; set; }
+        public string TermbaseId { get; set; }
+        public string ConceptId { get; set; }
 
-       public ConceptResponse(string termbaseId,string conceptId)
-       {
-           TermbaseId = termbaseId;
-           ConceptId = conceptId;
-
-       }
+        public ConceptResponse(string termbaseId, string conceptId)
+        {
+            TermbaseId = termbaseId;
+            ConceptId = conceptId;
+        }
     }
 }

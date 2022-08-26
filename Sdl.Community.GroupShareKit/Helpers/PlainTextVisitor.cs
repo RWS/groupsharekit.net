@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sdl.Core.Bcm.BcmModel;
+﻿using Sdl.Core.Bcm.BcmModel;
 using Sdl.Core.Bcm.BcmModel.Annotations;
 using Sdl.Core.Bcm.BcmModel.Common;
+using System.Text;
 
 namespace Sdl.Community.GroupShareKit.Helpers
 {
-    public class PlainTextVisitor: BcmVisitor
+    public class PlainTextVisitor : BcmVisitor
     {
         public ConfirmationLevel ConfirmationLevel { get; set; }
         private readonly StringBuilder _textBuilder = new StringBuilder();
@@ -47,7 +43,8 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
         private void VisitChildren(MarkupDataContainer container)
         {
-            container.ForEach(markup => markup.AcceptVisitor(this));
+            foreach (var markup in container)
+                markup.AcceptVisitor(this);
         }
 
         public override void VisitCommentContainer(CommentContainer commentContainer)

@@ -95,7 +95,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var templateId = await Helper.CreateTemplateResourceAsync(newOrganizationId);
 
             var resourceRequest =
-                new OrganizationResourcesRequest(new List<string>() { templateId },
+                new OrganizationResourcesRequest(new List<string> { templateId },
                     organizationId);
             await grClient.Organization.MoveResourceToOrganization(resourceRequest);
 
@@ -103,7 +103,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var addedResource = resources.FirstOrDefault(r => r.Id.ToString() == templateId);
             Assert.True(addedResource != null);
 
-            await grClient.Project.Delete(templateId);
+            await grClient.Project.DeleteProjectTemplate(templateId);
             await grClient.Organization.DeleteOrganization(newOrganizationId);
         }
 
@@ -113,12 +113,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task LinkResourceToOrganization(string organizationId)
         {
             var groupShareClient = Helper.GsClient;
-           
+
             var newOrganizationId = await Helper.CreateOrganizationAsync();
             var firstResource = await Helper.CreateTemplateResourceAsync(organizationId);
             var secondResource = await Helper.CreateTemplateResourceAsync(organizationId);
             var resourceRequest =
-                new OrganizationResourcesRequest(new List<string>() { firstResource, secondResource },
+                new OrganizationResourcesRequest(new List<string> { firstResource, secondResource },
                     newOrganizationId);
 
             await groupShareClient.Organization.LinkResourceToOrganization(resourceRequest);
@@ -132,8 +132,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(0, resources.Count);
 
             await groupShareClient.Organization.DeleteOrganization(newOrganizationId);
-            await groupShareClient.Project.Delete(firstResource);
-            await groupShareClient.Project.Delete(secondResource);
+            await groupShareClient.Project.DeleteProjectTemplate(firstResource);
+            await groupShareClient.Project.DeleteProjectTemplate(secondResource);
         }
 
         [Fact]

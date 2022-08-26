@@ -23,10 +23,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             var map = PropertiesMap.GetOrAdd(GetType(), GetPropertyParametersForType);
             return (from property in map
-                let value = property.GetValue(this)
-                let key = property.Key
-                where value != null
-                select new {key, value}).ToDictionary(kvp => kvp.key, kvp => kvp.value);
+                    let value = property.GetValue(this)
+                    let key = property.Key
+                    where value != null
+                    select new { key, value }).ToDictionary(kvp => kvp.key, kvp => kvp.value);
         }
 
         private static List<PropertyParameter> GetPropertyParametersForType(Type type)
@@ -47,7 +47,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return baseType == null ? properties : properties.Concat(GetAllProperties(baseType));
         }
 
-
         static Func<PropertyInfo, object, string> GetValueFunc(Type propertyType)
         {
             if (typeof(IEnumerable<string>).IsAssignableFrom(propertyType))
@@ -62,45 +61,42 @@ namespace Sdl.Community.GroupShareKit.Clients
             if (propertyType == typeof(DateTimeOffset) ||
                 propertyType == typeof(DateTimeOffset?))
             {
-                return (prop, value) => ((DateTimeOffset?) value)?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ",
+                return (prop, value) => ((DateTimeOffset?)value)?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ",
                     CultureInfo.InvariantCulture);
             }
-
-          
 
             if (typeof(bool).IsAssignableFrom(propertyType))
             {
                 return (prop, value) => value?.ToString().ToLowerInvariant();
             }
-            if (typeof (IJsonRequest).IsAssignableFrom(propertyType))
+            if (typeof(IJsonRequest).IsAssignableFrom(propertyType))
             {
-               
+
                 return (prop, value) =>
                 {
                     var name = prop.Name;
                     var json = string.Empty;
                     if (name.Equals("Filter", StringComparison.OrdinalIgnoreCase))
                     {
-                        if ((FilterOptions) value != null)
+                        if ((FilterOptions)value != null)
                         {
                             json = ((FilterOptions)value).Stringify();
                         }
-                        
-                        
                     }
+
                     if (name.Equals("Sort", StringComparison.OrdinalIgnoreCase))
                     {
                         var sortParameters = (SortParameters)value;
                         if (sortParameters != null) json = sortParameters.Stringify();
                     }
-                    return json;
 
+                    return json;
                 };
             }
 
             return (prop, value) => value?.ToString();
         }
-       
+
         private class PropertyParameter
         {
             readonly Func<PropertyInfo, object, string> _valueFunc;
@@ -118,9 +114,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             {
                 return _valueFunc(_property, _property.GetValue(instance, null));
             }
-
         }
     }
-
-
 }

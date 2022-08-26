@@ -1,10 +1,4 @@
-﻿using Sdl.Community.GroupShareKit.Clients;
-using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
-using System;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
+﻿namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class TranslationMemoryClientLanguageResourceTests
     {

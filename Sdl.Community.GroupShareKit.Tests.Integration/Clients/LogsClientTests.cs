@@ -1,5 +1,4 @@
-﻿using Sdl.Community.GroupShareKit.Clients;
-using Sdl.Community.GroupShareKit.Clients.Logging;
+﻿using Sdl.Community.GroupShareKit.Clients.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,7 +24,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             {
                 FromDate = DateTime.Now.AddDays(-15),
                 ToDate = DateTime.Now,
-                Level = new string[] { "Warn"},
+                Level = new string[] { "Warn" },
                 ProcessName = new string[] { "ApplicationService" }
 
             };
@@ -40,7 +39,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Logs_Paged()
         {
             var groupShareClient = Helper.GsClient;
-            var logsRequest = new LogsRequest() {Page = "0", Limit = "7"};
+            var logsRequest = new LogsRequest() { Page = "0", Limit = "7" };
 
             var logs = await groupShareClient.Logs.GetLogs(logsRequest);
             Assert.True(logs.Count > 0);

@@ -5,12 +5,12 @@ using Sdl.Community.GroupShareKit.Helpers;
 
 namespace Sdl.Community.GroupShareKit.Http
 {
-    public class Response:IResponse
+    public class Response : IResponse
     {
 
-        public Response():this(new Dictionary<string, string>())
+        public Response() : this(new Dictionary<string, string>())
         {
-            
+
         }
 
         public Response(IDictionary<string, string> headers)

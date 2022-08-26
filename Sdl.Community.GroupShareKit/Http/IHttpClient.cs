@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,7 +10,7 @@ namespace Sdl.Community.GroupShareKit.Http
     /// <remarks>
     /// Most folks won't ever need to swap this out. But if you're trying to run this on Windows Phone, you might.
     /// </remarks>
-    public interface IHttpClient: IDisposable
+    public interface IHttpClient : IDisposable
     {
         /// <summary>
         /// Sends the specified request and returns a response.

@@ -17,7 +17,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <returns>Updated request Uri</returns>
         public static Uri ApplyParameters(this Uri uri, IDictionary<string, string> parameters)
         {
-            Ensure.ArgumentNotNull(uri,"uri");
+            Ensure.ArgumentNotNull(uri, "uri");
 
             if (parameters == null || !parameters.Any()) return uri;
 
@@ -37,7 +37,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
             }
 
             var values = queryString.Replace("?", "")
-                .Split(new[] {'&'}, StringSplitOptions.RemoveEmptyEntries);
+                .Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
 
             var existingParameters = values.ToDictionary(
                 key => key.Substring(0, key.IndexOf('=')),
@@ -60,6 +60,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
                 {
                     Query = query
                 };
+
                 return uriBuilder.Uri;
             }
 

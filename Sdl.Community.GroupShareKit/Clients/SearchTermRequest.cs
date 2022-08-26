@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sdl.Community.GroupShareKit.Clients
+﻿namespace Sdl.Community.GroupShareKit.Clients
 {
-    public class SearchTermRequest:RequestParameters
+    public class SearchTermRequest : RequestParameters
     {
         /// <summary>
         /// Gets or sets termbase id
@@ -40,7 +34,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         public SearchTermRequest(string termbaseId, string srcLang, string query, string trgLang, string pageSize,
             string from
-            , string filterId):this(termbaseId,srcLang,trgLang,query)
+            , string filterId) : this(termbaseId, srcLang, trgLang, query)
         {
             PageSize = pageSize;
             From = from;
@@ -48,7 +42,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
         public SearchTermRequest(string termbaseId, string srcLang, string trgLang, string query)
         {
-
             Tid = termbaseId;
             SrcLangId = srcLang;
             Query = query;
@@ -62,7 +55,5 @@ namespace Sdl.Community.GroupShareKit.Clients
             SrcLangId = language;
             Query = query;
         }
-
-      
     }
 }

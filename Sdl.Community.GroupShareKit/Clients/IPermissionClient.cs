@@ -33,6 +33,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="PermissionsName"/>s.</returns>
-        Task<IReadOnlyList<PermissionsName>> GetUsersPermisions();
+        Task<IReadOnlyList<PermissionsName>> GetUsersPermissions();
     }
 }

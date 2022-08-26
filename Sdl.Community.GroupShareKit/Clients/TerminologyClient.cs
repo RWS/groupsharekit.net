@@ -47,7 +47,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Get<TermbaseResponse>(ApiUrls.GetTermbaseById(termbaseId), null);
         }
 
-
         /// <summary>
         /// Gets  <see cref="Filter"/>s.
         /// </summary>
@@ -68,7 +67,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Serch for a term in a termbase  
+        /// Search for a term in a termbase  
         /// </summary>
         /// <param name="request"><see cref="SearchTermRequest"/></param>
         /// <remarks>
@@ -87,7 +86,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Gets <see cref="Models.Response.ConceptDetails"/> 
+        /// Gets <see cref="ConceptDetails"/> 
         /// </summary>
         /// <param name="response"><see cref="ConceptResponse"/></param>
         /// <remarks>
@@ -99,7 +98,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="Models.Response.ConceptDetails"/></returns>
-        public async Task<Models.Response.ConceptDetails> GetConcept(ConceptResponse response)
+        public async Task<ConceptDetails> GetConcept(ConceptResponse response)
         {
             Ensure.ArgumentNotNull(response,"request");
             return await ApiConnection.Get<Models.Response.ConceptDetails>(ApiUrls.GetConcepts(response), null);
@@ -136,15 +135,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> Updated<see cref="Models.Response.ConceptDetails"/> </returns>
-        public async Task<Models.Response.ConceptDetails> EditConcept(string termbaseId, Models.Response.ConceptDetails concept)
+        public async Task<ConceptDetails> EditConcept(string termbaseId, Models.Response.ConceptDetails concept)
         {
             Ensure.ArgumentNotNullOrEmptyString(termbaseId, "termbaseId");
             Ensure.ArgumentNotNull(concept,"concept");
 
             return await ApiConnection.Put<Models.Response.ConceptDetails>(ApiUrls.GetConcepts(termbaseId), concept);
         }
-
-
 
         /// <summary>
         /// Creates termbase concept <see cref="Concept"/> with the default entry class Id
@@ -177,7 +174,8 @@ namespace Sdl.Community.GroupShareKit.Clients
                     Transactions = conceptRequest.Transactions
                 }
             };
-             return await ApiConnection.Post<Models.Response.ConceptDetails>(ApiUrls.GetConcepts(termbase.Termbase.Id), concept, "application/json");
+
+             return await ApiConnection.Post<ConceptDetails>(ApiUrls.GetConcepts(termbase.Termbase.Id), concept, "application/json");
         }
 
         /// <summary>
@@ -213,8 +211,8 @@ namespace Sdl.Community.GroupShareKit.Clients
                     Transactions = conceptRequest.Transactions
                 }
             };
-            return await ApiConnection.Post<ConceptDetails>(ApiUrls.GetConcepts(termbaseId), concept, "application/json");
 
+            return await ApiConnection.Post<ConceptDetails>(ApiUrls.GetConcepts(termbaseId), concept, "application/json");
         }
 
         /// <summary>
@@ -236,7 +234,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNullOrEmptyString(conceptId, "conceptId");
 
             await ApiConnection.Delete(ApiUrls.GetConcepts(termbaseId, conceptId));
-
         }
     }
 }

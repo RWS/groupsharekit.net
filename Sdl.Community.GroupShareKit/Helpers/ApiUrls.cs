@@ -48,7 +48,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
                 FormatUri(CurrentManagementV2Url, userId);
         }
 
-
         /// <summary>
         ///  Returns the <see cref="Uri"/> that returns all roles
         /// </summary>
@@ -132,7 +131,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returs the <see cref="Uri" /> that gets all projects
+        /// Returns the <see cref="Uri" /> that gets all projects
         /// </summary>
         public static Uri GetAllProjects()
         {
@@ -218,7 +217,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> that  publish project package associated with the specified organziation
+        /// Returns the <see cref="Uri"/> that  publish project package associated with the specified organization
         /// </summary>
         public static Uri PublishProjectPackage(string projectId)
         {
@@ -307,7 +306,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> that gets  file versions informations
+        /// Returns the <see cref="Uri"/> that gets  file versions information
         /// </summary>
         /// <param name="languageFileId">Language file id</param>
         public static Uri GetFileVersion(string languageFileId)
@@ -329,9 +328,9 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> for license informations
+        /// Returns the <see cref="Uri"/> for license information
         /// </summary>
-        public static Uri GetLicenseInformations()
+        public static Uri GetLicenseInformation()
         {
             return "{0}/license".FormatUri(CurrentManagementV2Url);
         }
@@ -345,7 +344,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> thet gets a list of assignements for a project
+        /// Returns the <see cref="Uri"/> thet gets a list of assignments for a project
         /// </summary>
         /// <param name="projectId">Project Id</param>
         /// <param name="fileIdQuery"></param>
@@ -383,6 +382,39 @@ namespace Sdl.Community.GroupShareKit.Helpers
             // use string instead of Uri is to avoid the format errors. In some case we might append the path for this uri.
             return string.Format("{0}/projects/{1}/files/upload?&reference={2}&create={3}&relativePath=",
                 CurrentProjectServerUrl, projectId, isReferenceFile, createProjectAfterUpload);
+        }
+
+        /// <summary>
+        /// Returns the uri string that adds files to an existing project
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="reference"></param>
+        /// <returns></returns>
+        public static string AddProjectFiles(string projectId, bool reference = false)
+        {
+            return string.Format("{0}/projects/{1}/update?&reference={2}",
+                CurrentProjectServerV4Url, projectId, reference);
+        }
+
+        /// <summary>
+        /// Returns the uri that updates files of an existing project
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="reference"></param>
+        /// <returns></returns>
+        public static Uri UpdateProjectFiles(string projectId, bool reference = false)
+        {
+            return "{0}/projects/{1}/update?&reference={2}".FormatUri(CurrentProjectServerV4Url, projectId, reference);
+        }
+
+        /// <summary>
+        /// Returns the uri that cancels files of an existing project
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri CancelProjectFiles(string projectId)
+        {
+            return "{0}/projects/{1}/setFileCancelStatus".FormatUri(CurrentProjectServerV4Url, projectId);
         }
 
         /// <summary>
@@ -999,7 +1031,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> for projects report data
         /// </summary>
         /// <param name="options"></param>
-        /// <returns></returns>
         public static Uri GetProjectPredefinedReportData(string options)
         {
             return "{0}/projectPredefinedReports?filter={1}".FormatUri(CurrentProjectServerUrl, options);
@@ -1009,7 +1040,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> for tasks Report report data
         /// </summary>
         /// <param name="options"></param>
-        /// <returns></returns>
         public static Uri GetTasksReportData(string options)
         {
             return "{0}/tasksReport?filter={1}".FormatUri(CurrentProjectServerUrl, options);
@@ -1019,7 +1049,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> for TM Leverage report data
         /// </summary>
         /// <param name="options"></param>
-        /// <returns></returns>
         public static Uri GetTmLeverageData(string options)
         {
             return "{0}/tmLeverageReport?filter={1}".FormatUri(CurrentProjectServerUrl, options);
@@ -1028,8 +1057,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for predefined projects report data
         /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
         public static Uri GetPredefinedProjectsData()
         {
 
@@ -1040,7 +1067,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> for predefined tasks report data
         /// </summary>
         /// <param name="options"></param>
-        /// <returns></returns>
         public static Uri GetPredefinedTasksData()
         {
             return "{0}/predefined/tasks".FormatUri(ReportingServiceUrl);
@@ -1049,8 +1075,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for predefined tmleverage report data
         /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
         public static Uri GetPredefinedTmLeverageData()
         {
             return "{0}/predefined/tmleverage".FormatUri(ReportingServiceUrl);
@@ -1059,8 +1083,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for dashboard Deliveries Due Soon report data
         /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
         public static Uri GetDeliveriesDueSoonData()
         {
             return "{0}/dashboard/DeliveriesDueSoon".FormatUri(ReportingServiceUrl);
@@ -1069,8 +1091,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for dashboard Your Tasks report data
         /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
         public static Uri GetYourTasksData()
         {
             return "{0}/dashboard/YourTasks".FormatUri(ReportingServiceUrl);
@@ -1079,8 +1099,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for dashboard Projects Per Month report data
         /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
         public static Uri GetProjectsPerMonthData()
         {
             return "{0}/dashboard/ProjectsPerMonth".FormatUri(ReportingServiceUrl);
@@ -1089,8 +1107,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for dashboard Words Per Month report data
         /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
         public static Uri GetWordsPerMonthData()
         {
             return "{0}/dashboard/WordsPerMonth".FormatUri(ReportingServiceUrl);
@@ -1099,8 +1115,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for dashboard Words Per Organization report data
         /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
         public static Uri GetWordsPerOrganizationData()
         {
             return "{0}/dashboard/WordsPerOrganization".FormatUri(ReportingServiceUrl);
@@ -1109,8 +1123,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for dashboard Top Language Pairs report data
         /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
         public static Uri GetTopLanguagePairsData()
         {
             return "{0}/dashboard/TopLanguagePairs".FormatUri(ReportingServiceUrl);
@@ -1119,8 +1131,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for password complexity rules 
         /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
         public static Uri GetPasswordComplexityRules()
         {
             return "{0}/passwordcomplexityrules".FormatUri(CurrentManagementV2Url);
@@ -1129,7 +1139,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for GroupShare logs data 
         /// </summary>
-        /// <returns></returns>
         public static Uri GetLogs()
         {
             return "{0}".FormatUri(LogServiceUri);
@@ -1139,8 +1148,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> for GroupShare logs data 
         /// </summary>
         /// <param name="options"></param>
-        /// <returns></returns>
-        public static Uri GetLogsFilterd(string options)
+        public static Uri GetLogsFiltered(string options)
         {
             return "{0}?filter={1}".FormatUri(LogServiceUri, options);
         }
@@ -1148,7 +1156,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for querying whether a project name is in use 
         /// </summary>
-        /// <returns></returns>
         public static Uri IsProjectNameInUse()
         {
             return "{0}/projects/isProjectNameInUse".FormatUri(CurrentProjectServerUrl);
@@ -1157,7 +1164,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for MtCloud access token
         /// </summary>
-        /// <returns></returns>
         public static Uri MtProviderCredentials()
         {
             return "{0}/authenticate/TranslationProvider".FormatUri(CurrentProjectServerV4Url);
@@ -1166,7 +1172,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for adding translation provider credentials for given user
         /// </summary>
-        /// <returns></returns>
         public static Uri AddMtProviderCredentials(Guid userId)
         {
             return "{0}/translationProvider/{1}".FormatUri(CurrentProjectServerV4Url, userId);
@@ -1175,7 +1180,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for updating translation provider credentials for given user
         /// </summary>
-        /// <returns></returns>
         public static Uri UpdateMtProviderCredentials(Guid userId)
         {
             return "{0}/translationProvider/{1}".FormatUri(CurrentProjectServerV4Url, userId);
@@ -1184,7 +1188,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for deleting translation provider credentials for given user
         /// </summary>
-        /// <returns></returns>
         public static Uri DeleteMtProviderCredentials(Guid userId, int providerSettingId)
         {
             return "{0}/translationProvider/{1}?providerSettingId={2}".FormatUri(CurrentProjectServerV4Url, userId, providerSettingId);
@@ -1193,7 +1196,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for retrieving the translation provider credentials for given user
         /// </summary>
-        /// <returns></returns>
         public static Uri GetMtProviderCredentials(Guid userId)
         {
             return "{0}/translationProvider/{1}".FormatUri(CurrentProjectServerV4Url, userId);
@@ -1202,7 +1204,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for retrieving the IDP user settings
         /// </summary>
-        /// <returns></returns>
         public static Uri GetIdpUserSettings()
         {
             return "{0}/idpusersettings".FormatUri(CurrentManagementV2Url);

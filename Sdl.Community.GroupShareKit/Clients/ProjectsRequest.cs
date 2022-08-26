@@ -1,6 +1,3 @@
-using System;
-using Newtonsoft.Json;
-
 namespace Sdl.Community.GroupShareKit.Clients
 {
     /// <summary>
@@ -9,12 +6,12 @@ namespace Sdl.Community.GroupShareKit.Clients
     /// <remarks>
     /// API docs: http://gs2017dev.sdl.com:41234/documentation/api/index#/
     /// </remarks>
-    public class ProjectsRequest:RequestParameters
+    public class ProjectsRequest : RequestParameters
     {
 
-        public ProjectsRequest(string organizationPath,bool includeSubOrgs, int status)
+        public ProjectsRequest(string organizationPath, bool includeSubOrgs, int status)
         {
-            Filter= new FilterOptions(organizationPath, includeSubOrgs, status);
+            Filter = new FilterOptions(organizationPath, includeSubOrgs, status);
         }
 
         public ProjectsRequest(SortParameters sortParam)
@@ -22,7 +19,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             Sort = sortParam;
         }
 
-        public ProjectsRequest(string page,string limit)
+        public ProjectsRequest(string page, string limit)
         {
             Page = page;
             Limit = limit;
@@ -32,6 +29,5 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         public FilterOptions Filter { get; set; }
         public SortParameters Sort { get; set; }
-
     }
 }

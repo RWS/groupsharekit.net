@@ -6,8 +6,8 @@ using Xunit;
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
 
-    public class ReportingClientTests : IClassFixture<ReportingData>
-    {      
+    public class ReportingClientTests : IClassFixture<IntegrationTestsProjectData>
+    {
         [Fact]
         public async Task PredefinedProjectsData()
         {

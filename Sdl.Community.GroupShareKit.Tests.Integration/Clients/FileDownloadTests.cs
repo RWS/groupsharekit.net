@@ -1,4 +1,5 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Tests.Integration.Setup;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,7 +7,7 @@ using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
-    public class FileDownloadTests
+    public class FileDownloadTests : IClassFixture<IntegrationTestsProjectData>
     {
         private readonly string ProjectId;
         private readonly List<string> LanguageFileIds;

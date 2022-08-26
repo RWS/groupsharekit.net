@@ -3,8 +3,6 @@ using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
@@ -17,14 +15,14 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         public Task<MtCloudToken> GetMtProviderToken(MtProviderSettings mtProviderSettings)
         {
-            var mtCloudAccessTokenUrl = ApiUrls.MtProviderCredentials();         
+            var mtCloudAccessTokenUrl = ApiUrls.MtProviderCredentials();
 
             return ApiConnection.Post<MtCloudToken>(mtCloudAccessTokenUrl, mtProviderSettings, "application/json");
         }
 
         public Task<List<MtProviderSettings>> GetMtProviderCredentials(Guid userId)
         {
-            var mtCloudAccessTokenUrl = ApiUrls.GetMtProviderCredentials(userId);          
+            var mtCloudAccessTokenUrl = ApiUrls.GetMtProviderCredentials(userId);
 
             return ApiConnection.Get<List<MtProviderSettings>>(mtCloudAccessTokenUrl, new TimeSpan(0, 0, 30));
         }

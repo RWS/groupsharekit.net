@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sdl.Community.GroupShareKit.Models.Response
+﻿namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class UserDetails
     {
         /// <summary>
         /// Gets or sets the user id
         /// </summary>
-        public string UserId { get; set; }
+        public string UniqueId { get; set; }
         /// <summary>
         /// Gets or sets the user name
         /// </summary>
-        public string UserName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Gets or sets the display name
         /// </summary>
@@ -23,11 +17,22 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// <summary>
         /// Gets or sets the email
         /// </summary>
-        public string Email { get; set; }
+        public string EmailAddress { get; set; }
         /// <summary>
-        /// Gets or sets the role
+        /// Gets or sets the phone number
         /// </summary>
-        public string Role { get; set; }
-
+        public string PhoneNumber { get; set; }
+        /// <summary>
+        /// Gets or sets the organziation id
+        /// </summary>
+        public string OrganizationId { get; set; }
+        /// <summary>
+        /// Gets or sets the user type
+        /// </summary>
+        public string UserType { get; set; }
+        /// <summary>
+        /// Gets or sets the isProtected parameter
+        /// </summary>
+        public string IsProtected { get; set; }
     }
 }

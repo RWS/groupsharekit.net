@@ -7,7 +7,7 @@ using Sdl.Community.GroupShareKit.Models.Response;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
-    public class PermissionClient: ApiClient,IPermissionClient
+    public class PermissionClient : ApiClient, IPermissionClient
     {
         public PermissionClient(IApiConnection apiConnection) : base(apiConnection)
         {
@@ -30,7 +30,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.GetAll<Permission>(ApiUrls.Permissions());
         }
 
-
         /// <summary>
         /// Gets all permissions name for users <see cref="PermissionsName"/>s.
         /// </summary>
@@ -43,7 +42,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="PermissionsName"/>s.</returns>
-        public Task<IReadOnlyList<PermissionsName>> GetUsersPermisions()
+        public Task<IReadOnlyList<PermissionsName>> GetUsersPermissions()
         {
             return ApiConnection.GetAll<PermissionsName>(ApiUrls.PermissionUsers());
         }

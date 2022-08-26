@@ -20,7 +20,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 TranslationProviderType = "MTCloud"
             };
 
-           await Assert.ThrowsAsync<ApiException>(() =>groupShareClient.MtProviderClient.GetMtProviderToken(bodyParameters));
+            await Assert.ThrowsAsync<ApiException>(() => groupShareClient.MtProviderClient.GetMtProviderToken(bodyParameters));
         }
 
         [Fact]
@@ -49,7 +49,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 TranslationProviderType = "MTCloud"
             };
 
-           await Assert.ThrowsAsync<ApiException>(() => groupShareClient.MtProviderClient.AddMtProviderCredentials(userId.UniqueId, bodyParameters));
+            await Assert.ThrowsAsync<ApiException>(() => groupShareClient.MtProviderClient.AddMtProviderCredentials(userId.UniqueId, bodyParameters));
         }
 
         [Fact]

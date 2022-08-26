@@ -22,6 +22,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>  <see cref="License"/></returns>
-        Task<License> GetLicenseInformations();
+        Task<License> GetLicenseInformation();
     }
 }

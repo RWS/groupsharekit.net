@@ -392,7 +392,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Put<TranslationUnitResponse>(ApiUrls.TranslationUnits(tmId, "text"), unitRequest);
         }
 
-
         /// <summary>
         /// Add all  translation units from a field template to a specified TM .
         /// Confirmation levels possible values: Unspecified, Draft, Translated, RejectedTranslation
@@ -416,6 +415,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(fieldTemplate, "field template");
 
             var fieldValues = new List<FieldValue>();
+
             foreach (var template in fieldTemplate.Fields)
             {
                 var field = new FieldValue { FieldName = template.Name };
@@ -424,8 +424,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                 {
                     field.Values = fieldValue;
                 }
+
                 fieldValues.Add(field);
             }
+
             unitRequest.Settings.FieldValues = fieldValues;
 
             return
@@ -706,8 +708,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                 restConcordanceSearch.SearchText = searchRequest.SearchText;
             }
 
-
             var concordanceSearchResult = await _client.ConcordanceSearchAsync(searchRequest.TmId, searchRequest.SourceLanguageCode, searchRequest.TargetLanguageCode, restConcordanceSearch);
+
             foreach (var result in concordanceSearchResult.Results)
             {
                 var searchResult = FilterResults.GetFilterResultForDocument(result.MemoryTranslationUnit, result.ScoringResult);
@@ -721,7 +723,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         private RestSearchSettings CreateRestTextSearchSettings(SearchTextSettings searchSettings)
         {
             var restSearchSettings = new RestSearchSettings();
-            var restFilterList = new List<RestFilter>();
 
             if (searchSettings.MinScore >= 30 && searchSettings.MinScore <= 100)
             {
@@ -740,6 +741,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                     restSearchSettings.Filters = CreateSearchTextRestFilter(searchSettings);
                 }
             }
+
             if (searchSettings.Penalties != null)
             {
                 if (searchSettings.Penalties.Count > 0)
@@ -749,12 +751,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             }
 
             return restSearchSettings;
-
         }
 
         private List<RestPenalty> CreateSearchTextPenaltiesRestFilter(List<Penalty> penalties)
         {
-            var pentalyRest = new List<RestPenalty>();
+            var penaltyRest = new List<RestPenalty>();
+
             foreach (var penalty in penalties)
             {
                 var restPenalty = new RestPenalty
@@ -762,15 +764,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                     Malus = penalty.Malus,
                     PenaltyType = penalty.PenaltyType.ToString()
                 };
-                pentalyRest.Add(restPenalty);
+
+                penaltyRest.Add(restPenalty);
             }
-            return pentalyRest;
+
+            return penaltyRest;
         }
 
         private List<RestFilter> CreateSearchTextRestFilter(SearchTextSettings searchSettings)
         {
             var restFilterList = new List<RestFilter>();
             var restFilterFields = new List<RequestField>();
+
             foreach (var filter in searchSettings.Filters)
             {
                 foreach (var filterField in filter.Expression.Fields)
@@ -781,6 +786,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                         Values = filterField.Values,
                         Type = filterField.Type.ToString()
                     };
+
                     restFilterFields.Add(restField);
                 }
 
@@ -794,8 +800,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                         Fields = restFilterFields
                     }
                 };
+
                 restFilterList.Add(restFilter);
             }
+
             return restFilterList;
         }
         private RestConcordanceSearch CreateRestConcordanceSearch(ConcordanceSearchSettings searchSettings)
@@ -831,13 +839,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                 }
             }
 
-
             return restSearch;
         }
 
         private List<RestPenalty> CreatePenaltiesFilterList(List<Penalty> penalties)
         {
             var restPenaltyTypes = new List<RestPenalty>();
+
             foreach (var penalty in penalties)
             {
                 var restPenalty = new RestPenalty
@@ -845,8 +853,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                     Malus = penalty.Malus,
                     PenaltyType = penalty.PenaltyType.ToString()
                 };
+
                 restPenaltyTypes.Add(restPenalty);
             }
+
             return restPenaltyTypes;
         }
 
@@ -867,7 +877,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                         Values = field.Values
                     };
                     restFilterFields.Add(restField);
-                };
+                }
+
                 var restFilter = new RestFilter
                 {
                     Expression = new RestFilterExpression
@@ -878,8 +889,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                     Name = filter.Name,
                     Penalty = filter.Penalty,
                 };
+
                 serviceFilters.Add(restFilter);
             }
+
             return serviceFilters;
         }
         /// <summary>
@@ -896,7 +909,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Alist of <see cref="FilterResponse"/> which represent filter data</returns>
+        /// <returns>A list of <see cref="FilterResponse"/> which represent filter data</returns>
         public async Task<IReadOnlyList<FilterResponse>> RawFilter(RawFilterRequest request)
         {
             Ensure.ArgumentNotNull(request, "filter request");

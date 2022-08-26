@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Helpers;
+﻿using Sdl.Community.GroupShareKit.Helpers;
 
 namespace Sdl.Community.GroupShareKit.Http
 {
-    public class ApiResponse<T>: IApiResponse<T>
+    public class ApiResponse<T> : IApiResponse<T>
     {
-        public ApiResponse(IResponse response):this(response,GetBodyAsObject(response))
+        public ApiResponse(IResponse response) : this(response, GetBodyAsObject(response))
         {
-            
+
         }
 
         public ApiResponse(IResponse response, T bodyAsObject)
         {
-            Ensure.ArgumentNotNull(response,"response");
+            Ensure.ArgumentNotNull(response, "response");
 
             HttpResponse = response;
             Body = bodyAsObject;
@@ -25,7 +20,7 @@ namespace Sdl.Community.GroupShareKit.Http
         private static T GetBodyAsObject(IResponse response)
         {
             var body = response.Body;
-            if (body is T) return (T) body;
+            if (body is T) return (T)body;
             return default(T);
         }
 

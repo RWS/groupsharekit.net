@@ -10,6 +10,10 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// </summary>
         public Guid UniqueId { get; set; }
         /// <summary>
+        /// Gets or sets the file relative path
+        /// </summary>
+        public string FileRelativePath { get; set; }
+        /// <summary>
         /// Gets or sets the file name
         /// </summary>
         public string FileName { get; set; }
@@ -49,6 +53,10 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// Gets or sets the last checkin date
         /// </summary>
         public DateTime? LastCheckIn { get; set; }
+        /// <summary>
+        /// Gets or sets the IsCanceled status
+        /// </summary>
+        public bool IsCanceled { get; set; }
         /// <summary>
         /// Gets or sets the statistics <see cref="Statistics"/>
         /// </summary>
