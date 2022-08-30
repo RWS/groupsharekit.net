@@ -57,7 +57,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
 
             var statusInfo = await WaitForProjectCreated(projectId);
             Assert.True(statusInfo);
-            await Task.Delay(60000);
 
             return projectId;
         }

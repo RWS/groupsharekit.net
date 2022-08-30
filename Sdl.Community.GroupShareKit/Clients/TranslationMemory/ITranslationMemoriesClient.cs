@@ -3,6 +3,7 @@ using Sdl.Community.GroupShareKit.Models.Response;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BackgroundTask = Sdl.Community.GroupShareKit.Models.Response.TranslationMemory.BackgroundTask;
 
 namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 {

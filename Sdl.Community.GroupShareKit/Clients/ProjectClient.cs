@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
@@ -452,6 +453,23 @@ namespace Sdl.Community.GroupShareKit.Clients
             var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
 
             return await ApiConnection.Put<string>(uri, fileIdsString);
+        }
+
+        //
+        /// <summary>
+        /// Get background tasks list with filter and default sort options
+        /// </summary>
+        public async Task<JsonCollection<BackgroundTask>> GetBackgroundTasks(string filter, int limit = 50)
+        {
+            var sort = new SortOptions
+            {
+                Property = "CreatedAt",
+                Direction = "DESC"
+            };
+
+            var serializedSortOptions = JsonConvert.SerializeObject(sort);
+
+            return await ApiConnection.Get<JsonCollection<BackgroundTask>>(ApiUrls.GetBackgroundTasks(serializedSortOptions, filter), null);
         }
 
         /// <summary>
@@ -1037,28 +1055,136 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> List <see cref="AnalyseResponseHtml"/>s.</returns>
-        public async Task<IReadOnlyList<AnalyseResponseHtml>> GetAnalysisReportsAsHtml(string projectId, string languageCode)
+        /// <returns> List <see cref="AnalysisReportWithMimeType"/>s.</returns>
+        public async Task<IReadOnlyList<AnalysisReportWithMimeType>> GetAnalysisReportsAsHtml(string projectId, string languageCode)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
 
-            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalyseResponseHtml>>(ApiUrls.AnalysisReports(projectId, languageCode), "text/html");
+            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeType>>(ApiUrls.AnalysisReports(projectId, languageCode), "text/html");
 
             return reportResult;
         }
 
         /// <summary>
-        /// 
+        /// Get the project analysis report for a given project, in html format.
+        /// The project must be created in GroupShare, not in Studio and published in GS
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="languageCode"></param>
-        /// <param name="reportId"></param>
-        /// <returns></returns>
+        /// <param name="projectId">The project id</param>
+        /// <param name="languageCode"> language code. Eg: en-US</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> List <see cref="AnalysisReportWithMimeType"/>s.</returns>
+        public async Task<IReadOnlyList<AnalysisReportWithMimeType>> GetAnalysisReportsAsXml(string projectId, string languageCode)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeType>>(ApiUrls.AnalysisReports(projectId, languageCode), "text/xml");
+
+            return reportResult;
+        }
+
+        /// <summary>
+        /// Get the project analysis report v3 for a given project
+        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
+        /// </summary>
+        /// <param name="projectId">The project id</param>
+        /// <param name="languageCode"> Optional language code. Eg: en-US</param>
+        /// <param name="reportId"> Optional report id</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> List <see cref="AnalysisReports"/>s.</returns>
         public async Task<IReadOnlyList<AnalysisReports>> GetAnalysisReportsV3(string projectId, string languageCode = null, int? reportId = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
 
             var reportResult = await ApiConnection.GetAll<AnalysisReports>(ApiUrls.AnalysisReportsV3(projectId, languageCode, reportId));
+
+            return reportResult;
+        }
+
+        /// <summary>
+        /// Get the project analysis report v3 for a given project, in html format.
+        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
+        /// </summary>
+        /// <param name="projectId">The project id</param>
+        /// <param name="languageCode"> Optional language code. Eg: en-US</param>
+        /// <param name="reportId"> Optional report id</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
+        public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsHtml(string projectId, string languageCode = null, int? reportId = null)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.AnalysisReportsV3(projectId, languageCode, reportId), "text/html");
+
+            return reportResult;
+        }
+
+        /// <summary>
+        /// Get the project analysis report v3 for a given project, in xml format.
+        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
+        /// </summary>
+        /// <param name="projectId">The project id</param>
+        /// <param name="languageCode"> Optional language code. Eg: en-US</param>
+        /// <param name="reportId"> Optional report id</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
+        public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsXml(string projectId, string languageCode = null, int? reportId = null)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.AnalysisReportsV3(projectId, languageCode, reportId), "text/xml");
+
+            return reportResult;
+        }
+
+        /// <summary>
+        /// Get the project analysis report v3 for a given project, in json format.
+        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
+        /// </summary>
+        /// <param name="projectId">The project id</param>
+        /// <param name="languageCode"> Optional language code. Eg: en-US</param>
+        /// <param name="reportId"> Optional report id</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
+        public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsJson(string projectId, string languageCode = null, int? reportId = null)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.AnalysisReportsV3(projectId, languageCode, reportId), "text/json");
 
             return reportResult;
         }
