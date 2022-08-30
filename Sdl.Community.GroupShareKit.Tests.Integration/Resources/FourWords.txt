@@ -1,0 +1,4 @@
+flower
+light
+tree
+cake

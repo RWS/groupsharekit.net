@@ -1,8 +1,9 @@
 ﻿namespace Sdl.Community.GroupShareKit.Models.Response
 {
-    public class AnalyseResponseHtml
+    public class AnalysisReportWithMimeType
     {
         public string LanguageCode { get; set; }
+
         public string Report { get; set; }
     }
 }
