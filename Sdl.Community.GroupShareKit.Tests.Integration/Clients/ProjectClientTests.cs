@@ -103,8 +103,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Projects_AnalysisReports_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var report = await groupShareClient.Project.GetAnalysisReports(ProjectId, null);
-            Assert.True(report.Count > 0);
+            var reports = await groupShareClient.Project.GetAnalysisReports(ProjectId, null);
+            Assert.True(reports.Count > 0);
         }
 
         [Fact]
@@ -492,10 +492,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId, "TwoTranslatable_twoReference.zip");
-            var report = await groupShareClient.Project.GetAnalysisReportsV3(projectId);
-            var projectCreationReport = report.FirstOrDefault(r => r.TriggeredBy == "ProjectCreation");
+            var reports = await groupShareClient.Project.GetAnalysisReportsV3(projectId);
+            var projectCreationReport = reports.FirstOrDefault(r => r.TriggeredBy == "ProjectCreation");
 
-            Assert.Equal(1, report.Count);
+            Assert.Equal(1, reports.Count);
             Assert.NotNull(projectCreationReport);
 
             await DeleteTestProject(groupShareClient, projectId);
@@ -512,11 +512,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.Project.AddFiles(projectId, @"Resources\test.docx");
             await WaitForUpdateProjectBackgroundTaskToFinish(projectId);
 
-            var report = await groupShareClient.Project.GetAnalysisReportsV3(projectId);
-            var projectCreationReport = report.FirstOrDefault(r => r.TriggeredBy == "ProjectCreation");
-            var addFileReport = report.FirstOrDefault(r => r.TriggeredBy == "ProjectAddFile");
+            var reports = await groupShareClient.Project.GetAnalysisReportsV3(projectId);
+            var projectCreationReport = reports.FirstOrDefault(r => r.TriggeredBy == "ProjectCreation");
+            var addFileReport = reports.FirstOrDefault(r => r.TriggeredBy == "ProjectAddFile");
 
-            Assert.Equal(3, report.Count);
+            Assert.Equal(3, reports.Count);
             Assert.NotNull(projectCreationReport);
             Assert.NotNull(addFileReport);
 
@@ -534,11 +534,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.Project.UpdateFiles(projectId, @"Resources\FiveWords.txt");
             await WaitForUpdateProjectBackgroundTaskToFinish(projectId);
 
-            var report = await groupShareClient.Project.GetAnalysisReportsV3(projectId);
-            var projectCreationReport = report.FirstOrDefault(r => r.TriggeredBy == "ProjectCreation");
-            var updateFileReport = report.FirstOrDefault(r => r.TriggeredBy == "ProjectUpdateFile");
+            var reports = await groupShareClient.Project.GetAnalysisReportsV3(projectId);
+            var projectCreationReport = reports.FirstOrDefault(r => r.TriggeredBy == "ProjectCreation");
+            var updateFileReport = reports.FirstOrDefault(r => r.TriggeredBy == "ProjectUpdateFile");
 
-            Assert.Equal(3, report.Count);
+            Assert.Equal(3, reports.Count);
             Assert.NotNull(projectCreationReport);
             Assert.NotNull(updateFileReport);
 
@@ -597,12 +597,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.Project.UpdateFiles(projectId, @"Resources\FiveWords.txt");
             await WaitForUpdateProjectBackgroundTaskToFinish(projectId);
 
-            var report = await groupShareClient.Project.GetAnalysisReportsV3(projectId);
-            var projectCreationReport = report.FirstOrDefault(r => r.TriggeredBy == "ProjectCreation");
-            var addFileReport = report.FirstOrDefault(r => r.TriggeredBy == "ProjectAddFile");
-            var updateFileReport = report.FirstOrDefault(r => r.TriggeredBy == "ProjectUpdateFile");
+            var reports = await groupShareClient.Project.GetAnalysisReportsV3(projectId);
+            var projectCreationReport = reports.FirstOrDefault(r => r.TriggeredBy == "ProjectCreation");
+            var addFileReport = reports.FirstOrDefault(r => r.TriggeredBy == "ProjectAddFile");
+            var updateFileReport = reports.FirstOrDefault(r => r.TriggeredBy == "ProjectUpdateFile");
 
-            Assert.Equal(12, report.Count);
+            Assert.Equal(12, reports.Count);
             Assert.NotNull(projectCreationReport);
             Assert.NotNull(addFileReport);
             Assert.NotNull(updateFileReport);
@@ -857,6 +857,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             return false;
         }
 
+        // get only Update Project background tasks - type = 28
         private async Task WaitForUpdateProjectBackgroundTaskToFinish(string projectId)
         {
             var filter = new BackgroundTasksRequestFilter { Type = new[] { 28 } }.SerializeFilter();
@@ -869,7 +870,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             {
                 projectUpdateBackgroundTasks = (await Helper.GsClient.Project.GetBackgroundTasks(filter)).Items;
                 backgroundTask = projectUpdateBackgroundTasks.Single(b => b.Id == backgroundTaskId);
-            } while (backgroundTask.Status != 16);
+            } while (backgroundTask.Status != (int)BackgroundTaskStatus.Done);
         }
 
         #endregion
