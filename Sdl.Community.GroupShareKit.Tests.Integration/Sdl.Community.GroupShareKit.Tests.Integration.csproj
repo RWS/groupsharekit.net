@@ -149,7 +149,16 @@
     <None Update="Resources\DefaultTemplate_en-de.sdltpl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\default_en-de_fr_it.sdltpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\FileToTranslate.txt.sdlxliff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\FiveWords.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\FourWords.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Grammar.zip">
@@ -215,9 +224,6 @@
     <None Update="Resources\TwoTranslatable_twoReference.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\PerfectMatch\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Sdl.Core.Bcm.BcmModel">

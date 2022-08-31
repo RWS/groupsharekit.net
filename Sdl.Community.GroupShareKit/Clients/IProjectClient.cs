@@ -567,8 +567,97 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// Thrown when the current user does not have permission to make the request.
 		/// </exception>
 		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		/// <returns> List <see cref="AnalyseResponseHtml"/>s.</returns>
-		Task<IReadOnlyList<AnalyseResponseHtml>> GetAnalysisReportsAsHtml(string projectId, string languageCode);
+		/// <returns> List <see cref="AnalysisReportWithMimeType"/>s.</returns>
+		Task<IReadOnlyList<AnalysisReportWithMimeType>> GetAnalysisReportsAsHtml(string projectId, string languageCode);
+
+		/// <summary>
+		/// Get the project analysis report for a given project, in xml format.
+		/// The project must be created in GroupShare, not in Studio and published in GS
+		/// </summary>
+		/// <param name="projectId">The project id</param>
+		/// <param name="languageCode"> language code. Eg: en-US/param>
+		/// <remarks>
+		/// This method requires authentication.
+		/// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+		/// </remarks>
+		/// <exception cref="AuthorizationException">
+		/// Thrown when the current user does not have permission to make the request.
+		/// </exception>
+		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		/// <returns> List <see cref="AnalysisReportWithMimeType"/>s.</returns>
+		Task<IReadOnlyList<AnalysisReportWithMimeType>> GetAnalysisReportsAsXml(string projectId, string languageCode);
+
+		/// <summary>
+		/// Get the project analysis report v3 for a given project
+		/// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
+		/// </summary>
+		/// <param name="projectId">The project id</param>
+		/// <param name="languageCode"> Optional language code. Eg: en-US</param>
+		/// <param name="reportId"> Optional report id</param>
+		/// <remarks>
+		/// This method requires authentication.
+		/// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+		/// </remarks>
+		/// <exception cref="AuthorizationException">
+		/// Thrown when the current user does not have permission to make the request.
+		/// </exception>
+		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		/// <returns> List <see cref="AnalysisReports"/>s.</returns>
+		Task<IReadOnlyList<AnalysisReports>> GetAnalysisReportsV3(string projectId, string languageCode = null, int? reportId = null);
+
+		// <summary>
+		/// Get the project analysis report v3 for a given project, in html format.
+		/// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
+		/// </summary>
+		/// <param name="projectId">The project id</param>
+		/// <param name="languageCode"> Optional language code. Eg: en-US</param>
+		/// <param name="reportId"> Optional report id</param>
+		/// <remarks>
+		/// This method requires authentication.
+		/// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+		/// </remarks>
+		/// <exception cref="AuthorizationException">
+		/// Thrown when the current user does not have permission to make the request.
+		/// </exception>
+		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		/// <returns> List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
+		Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsHtml(string projectId, string languageCode = null, int? reportId = null);
+
+		/// <summary>
+		/// Get the project analysis report v3 for a given project, in json format.
+		/// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
+		/// </summary>
+		/// <param name="projectId">The project id</param>
+		/// <param name="languageCode"> Optional language code. Eg: en-US</param>
+		/// <param name="reportId"> Optional report id</param>
+		/// <remarks>
+		/// This method requires authentication.
+		/// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+		/// </remarks>
+		/// <exception cref="AuthorizationException">
+		/// Thrown when the current user does not have permission to make the request.
+		/// </exception>
+		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		/// <returns> List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
+		Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsJson(string projectId, string languageCode = null, int? reportId = null);
+
+		/// <summary>
+		/// Get the project analysis report v3 for a given project, in xml format.
+		/// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
+		/// </summary>
+		/// <param name="projectId">The project id</param>
+		/// <param name="languageCode"> Optional language code. Eg: en-US</param>
+		/// <param name="reportId"> Optional report id</param>
+		/// <remarks>
+		/// This method requires authentication.
+		/// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+		/// </remarks>
+		/// <exception cref="AuthorizationException">
+		/// Thrown when the current user does not have permission to make the request.
+		/// </exception>
+		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		/// <returns> List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
+		Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsXml(string projectId, string languageCode = null, int? reportId = null);
 
 		/// <summary>
 		///  Get project settings for a language file
@@ -851,5 +940,11 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  </exception>
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<TmLeverageReport> ReportingTmLeverageData(ReportingOptions options);
-    }
+
+		/// <summary>
+		/// Get background tasks list
+		/// </summary>
+		/// <returns></returns>
+		Task<JsonCollection<BackgroundTask>> GetBackgroundTasks(string filter = null, int limit = 50);
+	}
 }

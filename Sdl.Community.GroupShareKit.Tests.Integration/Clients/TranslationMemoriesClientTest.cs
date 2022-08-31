@@ -307,7 +307,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(0, postDatedTUs);
         }
 
-
         //[Theory]
         //[InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
         //public async Task GetTusNumberForUnalignedTm(string tmId)

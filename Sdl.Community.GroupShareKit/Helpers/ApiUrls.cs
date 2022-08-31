@@ -772,6 +772,14 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> that returns the analysis report v3 for a project
+        /// </summary>
+        public static Uri AnalysisReportsV3(string projectId, string languageCode, int? reportId = null)
+        {
+            return "{0}/projects/{1}/analysisreports/{2}/{3}".FormatUri(CurrentProjectServerV3Url, projectId, languageCode, reportId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns the progest settings for a language file
         /// </summary>
         public static Uri GetProjectSettings(string projectId, string languageFileId)
@@ -926,6 +934,14 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri GetTaskById(string taskId)
         {
             return "{0}/tasks/{1}".FormatUri(CurrentTranslationMemoriesUrl, taskId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns the background tasks
+        /// </summary>
+        public static Uri GetBackgroundTasks(string serializedSort, string filter = null, int limit = 50)
+        {
+            return "{0}/backgroundtasks?page=1&start=0&sort={1}&filter={2}&limit={3}".FormatUri(CurrentManagementV2Url, serializedSort, filter, limit);
         }
 
         /// <summary>

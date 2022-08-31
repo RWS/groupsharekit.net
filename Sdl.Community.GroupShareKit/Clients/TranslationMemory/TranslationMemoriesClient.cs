@@ -15,6 +15,7 @@ using FilterResponse = Sdl.Community.GroupShareKit.Models.Response.TranslationMe
 using Sdl.TmService.Sdk.Model.Search.Settings;
 using Sdl.TmService.Sdk.Model.Search;
 using Newtonsoft.Json;
+using BackgroundTask = Sdl.Community.GroupShareKit.Models.Response.TranslationMemory.BackgroundTask;
 
 namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 {
@@ -274,23 +275,23 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                      ApiConnection.Post<ExportResponse>(ApiUrls.Export(tmId, language.Source, language.Target), request,
                         "application/json");
 
-            BackgroundTask backgroundTask = new BackgroundTask();
+            BackgroundTask backgroundTask;
             do
             {
                 backgroundTask = await ApiConnection.Get<BackgroundTask>(ApiUrls.GetTaskById(response.Id), null);
             } while (backgroundTask.Status != "Done");
 
-
-
             var fileContent = await ApiConnection.Get<byte[]>(ApiUrls.TaskOutput(backgroundTask.Id), null);
 
             return fileContent;
         }
+
         public async Task<BackgroundTask> GetBackgroundTask(string taskId)
         {
             var backgroundTask = await ApiConnection.Get<BackgroundTask>(ApiUrls.GetTaskById(taskId), null);
             return backgroundTask;
         }
+
         /// <summary>
         /// Imports TUs into a Translation Memory
         /// The file should be a TMX type.
