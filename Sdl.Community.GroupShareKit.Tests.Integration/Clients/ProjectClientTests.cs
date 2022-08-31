@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Models;
+using Sdl.Community.GroupShareKit.Models.Response;
+using Sdl.Community.GroupShareKit.Tests.Integration.Setup;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Sdl.Community.GroupShareKit.Clients;
-using Sdl.Community.GroupShareKit.Models;
-using Sdl.Community.GroupShareKit.Models.Response;
-using Sdl.Community.GroupShareKit.Tests.Integration.Setup;
 using Xunit;
 using File = System.IO.File;
 

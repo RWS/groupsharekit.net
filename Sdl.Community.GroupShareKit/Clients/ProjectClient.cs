@@ -141,7 +141,6 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         }
 
-
         /// <summary>
         /// Changes the phases for files from a server project
         /// </summary>
