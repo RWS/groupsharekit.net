@@ -941,7 +941,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri GetBackgroundTasks(string serializedSort, string filter = null, int limit = 50)
         {
-            return "{0}/backgroundtasks?page=1&start=0&limit={3}&filter={2}&sort={1}".FormatUri(CurrentManagementV2Url, serializedSort, filter, limit);
+            return "{0}/backgroundtasks?page=1&start=0&sort={1}&filter={2}&limit={3}".FormatUri(CurrentManagementV2Url, serializedSort, filter, limit);
         }
 
         /// <summary>
