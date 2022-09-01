@@ -146,6 +146,14 @@
     <ProjectReference Include="..\Sdl.Community.GroupShareKit\Sdl.Community.GroupShareKit.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Sdl.Core.Bcm.BcmModel">
+      <HintPath>..\Sdl.Community.GroupShareKit\3rd party\Sdl.Core.Bcm.BcmModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Sdl.TmService.Sdk">
+      <HintPath>..\Sdl.Community.GroupShareKit\3rd party\Sdl.TmService.Sdk.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <None Update="Resources\DefaultTemplate_en-de.sdltpl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -224,14 +232,6 @@
     <None Update="Resources\TwoTranslatable_twoReference.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Sdl.Core.Bcm.BcmModel">
-      <HintPath>3rd party\Sdl.Core.Bcm.BcmModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Sdl.TmService.Sdk">
-      <HintPath>3rd party\Sdl.TmService.Sdk.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>
