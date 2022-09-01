@@ -17,6 +17,10 @@ variables:
 
 steps:
 
+- task: NuGetAuthenticate@1
+  inputs:
+    forceReinstallCredentialProvider: true
+
 - task: NuGetToolInstaller@0
   displayName: Use NuGet 4.7.0
   inputs:
