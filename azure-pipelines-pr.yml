@@ -28,10 +28,7 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
-    command: 'restore'
     restoreSolution: '$(solution)'
-    feedsToUse: 'select'
-    vstsFeed: 'af66e256-9c46-4fba-ad75-09bf110ec1cc'
 
 - task: SonarCloudPrepare@1
   inputs:
