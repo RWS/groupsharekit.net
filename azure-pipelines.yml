@@ -14,7 +14,7 @@ variables:
   solution: '**/*.sln' 
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  majorMinorPatchVersion: '15.1.6'
+  majorMinorPatchVersion: '15.1.7'
   buildVersion: $[counter(variables['majorMinorPatchVersion'], 0)]
   name: $(majorMinorPatchVersion).$(buildVersion)
   
