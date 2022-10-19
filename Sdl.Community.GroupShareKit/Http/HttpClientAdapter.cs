@@ -19,7 +19,7 @@ namespace Sdl.Community.GroupShareKit.Http
     /// </remarks>
     public class HttpClientAdapter : IHttpClient
     {
-        private static readonly HttpClient HttpClient = new HttpClient();
+        private static readonly HttpClient HttpClient = new HttpClient() { Timeout = TimeSpan.FromHours(2) };
 
         /// <summary>
         /// Constructor for the Http adapter
