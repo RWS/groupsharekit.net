@@ -53,7 +53,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
                  .Organization
                  .GetAll(new OrganizationRequest(true)).Result
                  .FirstOrDefault(o => o.Path == Organization);
-            
+
             if (organization != null)
             {
                 OrganizationId = organization.UniqueId.ToString();
@@ -105,6 +105,22 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
             var templateId = await GsClient.Project.CreateTemplate(templateRequest, rawData);
 
             return templateId;
+        }
+
+        public static async Task<string> CreateProjectAsync(string projectTemplateId)
+        {
+            var rawData = System.IO.File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
+            var projectName = $"Project - { Guid.NewGuid() }";
+
+            var projectId = await GsClient.Project.CreateProject(new CreateProjectRequest(
+                projectName,
+                OrganizationId,
+                null,
+                DateTime.Now.AddDays(2),
+                projectTemplateId,
+                rawData));
+
+            return projectId;
         }
     }
 }

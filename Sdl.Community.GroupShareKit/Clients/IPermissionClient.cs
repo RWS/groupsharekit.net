@@ -22,7 +22,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<Permission>> GetAll();
 
         /// <summary>
-        /// Gets all permissions name for users <see cref="PermissionsName"/>s.
+        /// Gets all permissions names for users <see cref="PermissionsName"/>s.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -34,5 +34,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="PermissionsName"/>s.</returns>
         Task<IReadOnlyList<PermissionsName>> GetUsersPermissions();
+
+        /// <summary>
+        /// Gets all the permissions granted per resource groups, hierarchically.
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <returns>An array of <see cref="OrganizationPermissions"/>s.</returns>
+        Task<IReadOnlyList<OrganizationPermissions>> GetUserPermissions(string username, bool hideImplicitLibs = false);
     }
 }
