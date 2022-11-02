@@ -44,6 +44,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectResourcesPermissions = firstOrganizationPermissions.ChildOrganizations.First(o => o.Name == "Project Resources");
             Assert.Contains(projectResourcesPermissions.ChildOrganizations, o => o.Name == "Project");
             Assert.Equal(projectResourcesPermissions.Permissions.Count, firstOrganizationPermissions.Permissions.Count);
+
+            await Helper.DeleteProjectAsync(projectId);
+            await Helper.DeleteProjectTemplateAsync(templateId);
         }
 
         [Fact]
@@ -63,6 +66,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var firstOrganizationPermissions = organizationPermissions.First();
             Assert.True(firstOrganizationPermissions.Permissions.Count() > 0);
             Assert.True(!firstOrganizationPermissions.ChildOrganizations.Any(o => o.Name == "Project Resources"));
+
+            await Helper.DeleteProjectAsync(projectId);
+            await Helper.DeleteProjectTemplateAsync(templateId);
         }
 
     }
