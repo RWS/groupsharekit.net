@@ -155,6 +155,17 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> that returns user permissions hierarchically.
+        /// </summary>
+        /// <param name="username">The username to retrieve permissions for.</param>
+        /// <param name="hideImplicitLibs">True/False to hide/not hide implicit libs (e.g.: Project Resources groups).</param>
+        public static Uri GetUserPermissions(string username, bool hideImplicitLibs = false)
+        {
+            return "{0}/permissions/organizationtree?username={1}&hideImplicitLibs={2}".
+                FormatUri(CurrentManagementV2Url, username, hideImplicitLibs);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns all permissions for users
         /// </summary>
         public static Uri PermissionUsers()

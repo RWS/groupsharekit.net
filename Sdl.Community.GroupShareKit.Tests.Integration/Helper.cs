@@ -53,7 +53,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
                  .Organization
                  .GetAll(new OrganizationRequest(true)).Result
                  .FirstOrDefault(o => o.Path == Organization);
-            
+
             if (organization != null)
             {
                 OrganizationId = organization.UniqueId.ToString();
@@ -100,11 +100,62 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
         {
             var id = Guid.NewGuid().ToString();
 
-            var templateRequest = new ProjectTemplates(id, $"project template {id}", "", orgId);
+            var templateRequest = new ProjectTemplates(id, $"Project template - {id}", "", orgId);
             var rawData = System.IO.File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
             var templateId = await GsClient.Project.CreateTemplate(templateRequest, rawData);
 
             return templateId;
+        }
+
+        public static async Task<string> CreateProjectAsync(string projectTemplateId)
+        {
+            var rawData = System.IO.File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
+            var projectName = $"Project - { Guid.NewGuid() }";
+
+            var projectId = await GsClient.Project.CreateProject(new CreateProjectRequest(
+                projectName,
+                OrganizationId,
+                null,
+                DateTime.Now.AddDays(2),
+                projectTemplateId,
+                rawData));
+
+            await WaitForProjectCreated(projectId);
+
+            return projectId;
+        }
+
+        public static async Task DeleteProjectAsync(string projectId)
+        {
+            await GsClient.Project.DeleteProject(projectId);
+        }
+
+        public static async Task DeleteProjectTemplateAsync(string projectTemplateId)
+        {
+            await GsClient.Project.DeleteProjectTemplate(projectTemplateId);
+        }
+
+        private static async Task<bool> WaitForProjectCreated(string projectId, int retryInterval = 3, int maxTryCount = 15)
+        {
+            for (var i = 0; i < maxTryCount; i++)
+            {
+                var statusInfo = await GsClient.Project.PublishingStatus(projectId);
+                switch (statusInfo.Status)
+                {
+                    case PublishProjectStatus.Uploading:
+                    case PublishProjectStatus.Scheduled:
+                    case PublishProjectStatus.Publishing:
+                        break;
+                    case PublishProjectStatus.Completed:
+                        return true;
+                    case PublishProjectStatus.Error:
+                        throw new Exception(statusInfo.Description);
+                }
+
+                await Task.Delay(retryInterval * 1000);
+            }
+
+            return false;
         }
     }
 }
