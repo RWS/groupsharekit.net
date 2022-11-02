@@ -39,7 +39,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var organizationPermissions = await groupShareClient.Permission.GetUserPermissions(currentUser.Name, hideImplicitLibs: false);
             var firstOrganizationPermissions = organizationPermissions.First();
             Assert.True(firstOrganizationPermissions.Permissions.Count > 0);
-            Assert.True(firstOrganizationPermissions.Permissions.Count() > 0);
+            Assert.True(firstOrganizationPermissions.Permissions.Any());
 
             var projectResourcesPermissions = firstOrganizationPermissions.ChildOrganizations.First(o => o.Name == "Project Resources");
             Assert.Contains(projectResourcesPermissions.ChildOrganizations, o => o.Name == "Project");
@@ -64,8 +64,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(organizationPermissions.Count > 0);
 
             var firstOrganizationPermissions = organizationPermissions.First();
-            Assert.True(firstOrganizationPermissions.Permissions.Count() > 0);
-            Assert.True(!firstOrganizationPermissions.ChildOrganizations.Any(o => o.Name == "Project Resources"));
+            Assert.True(firstOrganizationPermissions.Permissions.Any());
+            Assert.True(firstOrganizationPermissions.ChildOrganizations.All(o => o.Name != "Project Resources"));
 
             await Helper.DeleteProjectAsync(projectId);
             await Helper.DeleteProjectTemplateAsync(templateId);
