@@ -204,6 +204,20 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// Creates an empty project.
+        /// </summary>
+        /// <returns>The project id</returns>
+        public async Task<string> CreateProjectSkeleton(CreateProjectSkeletonRequest request)
+        {
+            Ensure.ArgumentNotNull(request, "request");
+
+            var projectUri = await ApiConnection.Post<string>(ApiUrls.GetAllProjects(), request, "application/json");
+            var projectId = projectUri.Split('/').Last();
+
+            return projectId;
+        }
+
+        /// <summary>
         /// Create project
         /// </summary>
         /// <remarks>
@@ -727,9 +741,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task<string> ChangeProjectStatus(ChangeStatusRequest statusRequest)
         {
-
             return await ApiConnection.Put<string>(ApiUrls.ChangeProjectStatus(statusRequest.ProjectId, Enum.GetName(typeof(ChangeStatusRequest.ProjectStatus), statusRequest.Status)), statusRequest);
-
         }
 
         /// <summary>
@@ -748,7 +760,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             return await ApiConnection.Put<string>(ApiUrls.ChangeProjectStatus(statusRequest), statusRequest);
         }
-
 
         /// <summary>
         ///Deletes detach to a project status
@@ -770,45 +781,44 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///Publish  project
-        /// <param name="projectRequest"><see cref="CreateProjectRequest"/></param>
+        /// Publishes a project package (.sdlppx)
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task<string> PublishPackage(CreateProjectRequest projectRequest)
+        public async Task PublishPackage(string projectId, byte[] rawData)
         {
-            Ensure.ArgumentNotNull(projectRequest, "request");
-            var projectId = await CreateProjectForPublishingPackage(projectRequest);
-
-            var byteContent = new ByteArrayContent(projectRequest.RawData);
+            var byteContent = new ByteArrayContent(rawData);
             byteContent.Headers.Add("Content-Type", "application/json");
+
+            var projectName = "Project";
+
             var multipartContent = new MultipartFormDataContent
             {
-                {byteContent,projectRequest.Name, projectRequest.Name}
+                { byteContent, projectName, projectName }
             };
+
             await ApiConnection.Post<string>(ApiUrls.PublishProjectPackage(projectId), multipartContent, "application/json");
-
-            return projectId;
         }
-        private async Task<string> CreateProjectForPublishingPackage(CreateProjectRequest request)
+
+        /// <summary>
+        /// Initiates a cancel for project package publishing
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        public async Task CancelPublishPackage(string projectId)
         {
-            Ensure.ArgumentNotNull(request, "request");
-
-            var projectUri = await ApiConnection.Post<string>(ApiUrls.GetAllProjects(), request, "application/json");
-            return projectUri.Split('/').Last();
+            await ApiConnection.Post(ApiUrls.CancelPublishProjectPackage(projectId));
         }
+
         public Task<IReadOnlyList<ProjectFileStatistics>> GetAllProjectFileStatistics(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
 
             return ApiConnection.GetAll<ProjectFileStatistics>(ApiUrls.ProjectFileStatistics(projectId), null);
         }
+
         public Task<Dictionary<string, ProjectStatistics>> GetProjectLanguageStatistics(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1203,9 +1213,9 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="ProjectSettings"/></returns>
         public async Task<ProjectSettings> GetProjectSettings(string projectId, string languageFileId)
-	    {
-			Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-		    Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");
 
             var projectSettings =
                 await ApiConnection.Get<ProjectSettings>(ApiUrls.GetProjectSettings(projectId, languageFileId), null);

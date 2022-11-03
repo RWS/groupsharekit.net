@@ -228,11 +228,20 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> that  publish project package associated with the specified organization
+        /// Returns the <see cref="Uri"/> that publishes project package associated with the specified organization
         /// </summary>
         public static Uri PublishProjectPackage(string projectId)
         {
             return "{0}/projects/{1}/publishpackage".
+                FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that initiates a cancel for project package publishing
+        /// </summary>
+        public static Uri CancelPublishProjectPackage(string projectId)
+        {
+            return "{0}/projects/{1}/cancelpublishpackage".
                 FormatUri(CurrentProjectServerUrl, projectId);
         }
 
