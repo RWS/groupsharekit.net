@@ -16,16 +16,26 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
     {
         private readonly string ProjectId;
         private readonly string LanguageFileId;
+        private readonly List<string> TranslatableFilesIds;
         private readonly string ProjectTemplateId;
 
         public ProjectClientTests()
         {
             var groupShareClient = Helper.GsClient;
 
-            var projectRequest = new ProjectsRequest("/", true, 7) { Page = "0", Limit = "1" };
+            var sortParameters = new SortParameters
+            {
+                Property = SortParameters.PropertyOption.CreatedAt,
+                Direction = SortParameters.DirectionOption.DESC
+            };
+
+            var projectRequest = new ProjectsRequest(sortParameters);
             var project = groupShareClient.Project.GetProject(projectRequest).Result.Items.FirstOrDefault();
 
             ProjectId = project != null ? project.ProjectId : string.Empty;
+
+            var translatableFiles = groupShareClient.Project.GetAllFilesForProject(ProjectId).Result;
+            TranslatableFilesIds = translatableFiles.Where(f => f.FileRole == "Translatable").Select(f => f.UniqueId.ToString()).ToList();
 
             var languageFile = groupShareClient.Project.GetAllFilesForProject(ProjectId).Result.FirstOrDefault(f => f.FileRole == "Translatable");
             LanguageFileId = languageFile != null ? languageFile.UniqueId.ToString() : string.Empty;
@@ -62,6 +72,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Property = SortParameters.PropertyOption.ProjectName,
                 Direction = SortParameters.DirectionOption.ASC
             };
+
             var projectRequest = new ProjectsRequest(sortParameters);
 
             var sortedProjects = await groupShareClient.Project.GetProject(projectRequest);
@@ -166,35 +177,57 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.Project.IsCheckoutToSomeoneElse(LanguageFileId, editorProfileMode);
         }
 
-        //[Fact(Skip = "")]
-        //public async Task Projects_OnlineCheckIn_Succeeds()
-        //{
-        //	var groupShareClient = Helper.GsClient;	 
+        [Fact]
+        public async Task Projects_OnlineCheckIn_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
 
-        //	var response =await groupShareClient.Project.OnlineCheckin(ProjectId, LanguageFileId).ConfigureAwait(true);
-        //	Assert.True(response!=null);
-        //}
+            var checkoutResponse = await groupShareClient.Project.OnlineCheckout(ProjectId, LanguageFileId);
+            var response = await groupShareClient.Project.OnlineCheckin(ProjectId, LanguageFileId, checkoutResponse);
+            Assert.True(response != null);
+        }
 
-        //[Fact]
-        //public async Task OnlineCheckout()
-        //{
-        //    var groupShareClient = Helper.GsClient;
+        [Fact]
+        public async Task Projects_OnlineCheckOut_and_UndoCheckOut_Succeed()
+        {
+            var groupShareClient = Helper.GsClient;
 
-        //    var checkoutResponse = await groupShareClient.Project.OnlineCheckout(ProjectId, LanguageFileId);
-        //    Assert.True(checkoutResponse != null);
+            var checkoutResponse = await groupShareClient.Project.OnlineCheckout(ProjectId, LanguageFileId);
+            Assert.True(checkoutResponse != null);
 
-        //    await groupShareClient.Project.UndoCheckout(ProjectId, LanguageFileId);
-        //}
+            await groupShareClient.Project.UndoCheckout(ProjectId, LanguageFileId);
+        }
 
-        //[Fact(Skip = "")]
-        //public async Task ExternalCheckIn()
-        //{
-        //    var groupShareClient = Helper.GsClient;
+        [Fact]
+        public async Task ExternalCheckOut_ExternalCheckIn_file()
+        {
+            var groupShareClient = Helper.GsClient;
 
-        //    var response = await groupShareClient.Project.ExternalCheckout(ProjectId, LanguageFileId);
-        //    Assert.True(response != null);
-        //    await groupShareClient.Project.ExternalCheckin(ProjectId, LanguageFileId, "comment");
-        //}
+            var response = await groupShareClient.Project.ExternalCheckout(ProjectId, LanguageFileId);
+            Assert.True(response != null);
+
+            await groupShareClient.Project.ExternalCheckin(ProjectId, LanguageFileId, "comment");
+        }
+
+        [Fact]
+        public async Task ExternalCheckOut_ExternalCheckIn_files()
+        {
+            var groupShareClient = Helper.GsClient;
+            var filesIds = new List<string> { TranslatableFilesIds[0], TranslatableFilesIds[1] };
+
+            await groupShareClient.Project.ExternalCheckOutFiles(ProjectId, filesIds);
+            await groupShareClient.Project.ExternalCheckInFiles(ProjectId, filesIds);
+        }
+
+        [Fact]
+        public async Task ExternalCheckOut_UndoExternalCheckOut_files()
+        {
+            var groupShareClient = Helper.GsClient;
+            var filesIds = new List<string> { TranslatableFilesIds[0], TranslatableFilesIds[1] };
+
+            await groupShareClient.Project.ExternalCheckOutFiles(ProjectId, filesIds);
+            await groupShareClient.Project.UndoExternalCheckOutForFiles(ProjectId, filesIds);
+        }
 
         [Fact]
         public async Task Dashboard()
@@ -829,7 +862,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         private async Task<string> CreateTestProjectTemplate(GroupShareClient groupShareClient, string fileName = "")
         {
-            var rawData = fileName == "" ? 
+            var rawData = fileName == "" ?
                 File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\DefaultTemplate_en-de.sdltpl")) :
                 File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\" + fileName));
 

@@ -740,7 +740,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  Thrown when the current user does not have permission to make the request.
 		///  </exception>
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		Task<OnlineCheckInRequest> OnlineCheckin(string projectId, string languageFileId);
+		Task<OnlineCheckInRequest> OnlineCheckin(string projectId, string languageFileId, OnlineCheckInRequest onlineCheckInRequest);
 
 		///  <summary>
 		/// Checks out a file for editing in the Universal Editor
@@ -812,7 +812,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  Thrown when the current user does not have permission to make the request.
 		///  </exception>
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		Task<string> ExternalCheckin(string projectId, string languageFileId,string comment);
+		Task<string> ExternalCheckin(string projectId, string languageFileId, string comment);
 
 		///  <summary>
 		/// Checks out a file for editing
@@ -828,6 +828,30 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  </exception>
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
 		Task<string> ExternalCheckout(string projectId, string languageFileId);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="projectId"></param>
+		/// <param name="filesIds"></param>
+		/// <returns></returns>
+		Task ExternalCheckOutFiles(string projectId, List<string> filesIds);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="projectId"></param>
+		/// <param name="filesIds"></param>
+		/// <returns></returns>
+		Task ExternalCheckInFiles(string projectId, List<string> filesIds);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="projectId"></param>
+		/// <param name="externalCheckInData"></param>
+		/// <returns></returns>
+		Task UndoExternalCheckOutForFiles(string projectId, List<string> filesIds);
 
 		///  <summary>
 		/// Gets the dashboard data

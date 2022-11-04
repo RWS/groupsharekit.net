@@ -16,6 +16,7 @@
             Comment = comment;
             Files = files;
         }
+
         public class File
         {
             /// <summary>

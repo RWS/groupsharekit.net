@@ -17,6 +17,7 @@ namespace Sdl.Community.GroupShareKit.Http
             BearerId = bearerId;
             AuthenticationType = AuthenticationType.Oauth;
         }
+
         internal Credentials(string login, string password)
         {
             Ensure.ArgumentNotNullOrEmptyString(login, "login");

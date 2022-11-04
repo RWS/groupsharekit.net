@@ -18,6 +18,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
         {
             _projectId = CreateTestProject(GroupShareClient).Result;
         }
+
         private async Task<bool> WaitForProjectCreated(string projectId, int retryInterval = 30, int maxTryCount = 20)
         {
             for (var i = 0; i < maxTryCount; i++)
