@@ -864,7 +864,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// 
+        /// Returns the <see cref="Uri"/> that checks-out multiple files for editing
         /// </summary>
         /// <returns></returns>
         public static Uri ExternalCheckOutFiles(string projectId)
@@ -873,7 +873,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// 
+        /// Returns the <see cref="Uri"/> that checks-in files previously checked-out
         /// </summary>
         /// <returns></returns>
         public static Uri ExternalCheckInFiles(string projectId)
@@ -882,7 +882,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// 
+        /// Returns the <see cref="Uri"/> that performs undo external check-out for multiple files
         /// </summary>
         /// <returns></returns>
         public static Uri UndoExternalCheckOutForFiles(string projectId)
