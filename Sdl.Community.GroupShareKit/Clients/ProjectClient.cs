@@ -1408,7 +1408,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Checks-out multiple files for editing
         /// </summary>
         /// <param name="projectId">The id of the project</param>
-        /// <param name="filesIds">Array of language files ids to check-out</param>
+        /// <param name="filesIdsList">Language files ids to check-out</param>
         /// <remarks>
         ///  This method requires authentication.
         /// </remarks>
@@ -1446,7 +1446,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Performs undo external check-out for multiple files
         /// </summary>
         /// <param name="projectId">The id of the project</param>
-        /// <param name="filesIds">Array of language files ids to undo external check-out for</param>
+        /// <param name="filesIdsList">Language files ids to undo external check-out for</param>
         /// <remarks>
         ///  This method requires authentication.
         /// </remarks>
