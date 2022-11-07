@@ -346,7 +346,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
-
             var result = await groupShareClient.Project.AddFiles(projectId, @"Resources\TwoFiles.zip");
 
             Assert.True(result.CreateBackgroundTask);
@@ -360,12 +359,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Projects_AddTranslatableFileToExistingProject_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var projects = await groupShareClient.Project.GetAllProjects();
-            var projectId = projects.Items.FirstOrDefault().ProjectId;
+            var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
+            var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
             var result = await groupShareClient.Project.AddFiles(projectId, @"Resources\test.docx");
 
             Assert.True(result.CreateBackgroundTask);
             Assert.Empty(result.ResponseText);
+
+            await DeleteTestProject(groupShareClient, projectId);
+            await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
         }
 
         [Fact]
@@ -387,12 +389,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Projects_AddReferenceFileToExistingProject_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var projects = await groupShareClient.Project.GetAllProjects();
-            var projectId = projects.Items.FirstOrDefault().ProjectId;
+            var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
+            var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
             var result = await groupShareClient.Project.AddFiles(projectId, @"Resources\test.txt", true);
 
             Assert.True(result.CreateBackgroundTask);
             Assert.Empty(result.ResponseText);
+
+            await DeleteTestProject(groupShareClient, projectId);
+            await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
         }
 
         [Fact]
@@ -413,12 +418,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Projects_UpdateTranslatableFileWithoutSelection_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var projects = await groupShareClient.Project.GetAllProjects();
-            var projectId = projects.Items.FirstOrDefault().ProjectId;
+            var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
+            var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
 
             var result = await groupShareClient.Project.UpdateFiles(projectId, @"Resources\Grammar.zip");
             Assert.True(result.CreateBackgroundTask);
             Assert.Empty(result.ResponseText);
+
+            await DeleteTestProject(groupShareClient, projectId);
+            await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
         }
 
         [Fact]
