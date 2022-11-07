@@ -146,10 +146,10 @@ namespace Sdl.Community.GroupShareKit.Clients
 		Task<string> CreateProject(CreateProjectRequest request);
 
 		/// <summary>
-		/// 
+		/// Creates an empty project.
 		/// </summary>
 		/// <param name="request"></param>
-		/// <returns></returns>
+		/// <returns>The project id</returns>
 		Task<string> CreateProjectSkeleton(CreateProjectSkeletonRequest request);
 
 		/// <summary>
