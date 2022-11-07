@@ -67,7 +67,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
 
             var id = Guid.NewGuid().ToString();
-            var templateName = Guid.NewGuid().ToString();
+            var templateName = $"Project template - { Guid.NewGuid() }";
             var templateRequest = new ProjectTemplates(id, templateName, "", Helper.OrganizationId);
             var templateId = await groupShareClient.Project.CreateTemplate(templateRequest, rawData);
             

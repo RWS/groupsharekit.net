@@ -830,27 +830,33 @@ namespace Sdl.Community.GroupShareKit.Clients
 		Task<string> ExternalCheckout(string projectId, string languageFileId);
 
 		/// <summary>
-		/// 
+		/// Checks-out multiple files for editing
 		/// </summary>
-		/// <param name="projectId"></param>
-		/// <param name="filesIds"></param>
-		/// <returns></returns>
+		/// <param name="projectId">The id of the project</param>
+		/// <param name="filesIds">Array of language files ids to check-out</param>
+		/// <remarks>
+		///  This method requires authentication.
+		/// </remarks>
 		Task ExternalCheckOutFiles(string projectId, List<string> filesIds);
 
 		/// <summary>
-		/// 
+		/// Checks-in files previously checked-out
 		/// </summary>
-		/// <param name="projectId"></param>
-		/// <param name="filesIds"></param>
-		/// <returns></returns>
-		Task ExternalCheckInFiles(string projectId, List<string> filesIds);
+		/// <param name="projectId">The id of the project</param>
+		/// <param name="externalCheckInData">Array of language files ids to check-in and optional comment</param>
+		/// <remarks>
+		///  This method requires authentication.
+		/// </remarks>
+		Task ExternalCheckInFiles(string projectId, ExternalCheckInData externalCheckInData);
 
 		/// <summary>
-		/// 
+		/// Performs undo external check-out for multiple files
 		/// </summary>
-		/// <param name="projectId"></param>
-		/// <param name="externalCheckInData"></param>
-		/// <returns></returns>
+		/// <param name="projectId">The id of the project</param>
+		/// <param name="filesIds">Array of language files ids to undo external check-out for</param>
+		/// <remarks>
+		///  This method requires authentication.
+		/// </remarks>
 		Task UndoExternalCheckOutForFiles(string projectId, List<string> filesIds);
 
 		///  <summary>

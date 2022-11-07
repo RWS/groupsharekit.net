@@ -1387,7 +1387,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Checks out a file for editing
         ///  </summary>
         /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="languageFileId">The id of the language file</param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1405,11 +1405,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Checks-out multiple files for editing
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="filesIds"></param>
-        /// <returns></returns>
+        /// <param name="projectId">The id of the project</param>
+        /// <param name="filesIds">Array of language files ids to check-out</param>
+        /// <remarks>
+        ///  This method requires authentication.
+        /// </remarks>
         public async Task ExternalCheckOutFiles(string projectId, List<string> filesIdsList)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1422,21 +1424,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Checks-in files previously checked-out
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="externalCheckInData"></param>
-        /// <returns></returns>
-        public async Task ExternalCheckInFiles(string projectId, List<string> filesIds)
+        /// <param name="projectId">The id of the project</param>
+        /// <param name="externalCheckInData">Array of language files ids to check-in and optional comment</param>
+        /// <remarks>
+        ///  This method requires authentication.
+        /// </remarks>
+        public async Task ExternalCheckInFiles(string projectId, ExternalCheckInData externalCheckInData)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotEmpty(filesIds, "filesIds");
-
-            var externalCheckInData = new ExternalCheckInData
-            {
-                LanguageFileIds = new[] { filesIds[0], filesIds[1] },
-                Comment = "GroupShare Kit external check-in"
-            };
+            Ensure.ArgumentNotNull(externalCheckInData, "externalCheckInData");
 
             var serialized = new SimpleJsonSerializer().Serialize(externalCheckInData);
             var content = new StringContent(serialized, Encoding.UTF8, "application/json");
@@ -1445,11 +1443,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Performs undo external check-out for multiple files
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="filesIds"></param>
-        /// <returns></returns>
+        /// <param name="projectId">The id of the project</param>
+        /// <param name="filesIds">Array of language files ids to undo external check-out for</param>
+        /// <remarks>
+        ///  This method requires authentication.
+        /// </remarks>
         public async Task UndoExternalCheckOutForFiles(string projectId, List<string> filesIdsList)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");

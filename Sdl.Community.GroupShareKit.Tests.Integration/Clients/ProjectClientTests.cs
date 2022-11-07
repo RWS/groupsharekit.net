@@ -216,7 +216,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var filesIds = new List<string> { TranslatableFilesIds[0], TranslatableFilesIds[1] };
 
             await groupShareClient.Project.ExternalCheckOutFiles(ProjectId, filesIds);
-            await groupShareClient.Project.ExternalCheckInFiles(ProjectId, filesIds);
+
+            var externalCheckInData = new ExternalCheckInData
+            {
+                LanguageFileIds = new[] { TranslatableFilesIds[0], TranslatableFilesIds[1] },
+                Comment = "GroupShare Kit external check-in"
+            };
+
+            await groupShareClient.Project.ExternalCheckInFiles(ProjectId, externalCheckInData);
         }
 
         [Fact]
@@ -820,6 +827,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Description = "",
                 OrganizationId = Helper.OrganizationId
             };
+
             var projectTemplateId = await Helper.GsClient.Project.CreateTemplate(projectTemplateRequest, projectTemplateData);
             return projectTemplateId;
         }
@@ -867,7 +875,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\" + fileName));
 
             var id = Guid.NewGuid().ToString();
-            var templateName = Guid.NewGuid().ToString();
+            var templateName = $"Project template - { Guid.NewGuid() }";
             var templateRequest = new ProjectTemplates(id, templateName, "", Helper.OrganizationId);
             var templateId = await groupShareClient.Project.CreateTemplate(templateRequest, rawData);
 
@@ -954,7 +962,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
 
             var id = Guid.NewGuid().ToString();
-            var templateName = Guid.NewGuid().ToString();
+            var templateName = $"Project template - { Guid.NewGuid() }";
             var templateRequest = new ProjectTemplates(id, templateName, "", Helper.OrganizationId);
             var templateId = await groupShareClient.Project.CreateTemplate(templateRequest, rawData);
 
