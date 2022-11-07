@@ -29,7 +29,6 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// </exception>
 		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
 		/// <returns><see cref="Project"/></returns>
-
 		Task<Project> GetProject(ProjectsRequest request);
 
 		/// <summary>
@@ -146,27 +145,34 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
 		Task<string> CreateProject(CreateProjectRequest request);
 
-        /// <summary>
-        /// Create project
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <param name="request">The basic project parameters</param>
-        /// <param name="filesPath">The path pointing to the files for the project. The path can be a zip file, a single file, or a directory. 
-        /// If it is a zip file path, the zip should have a folder SourceFiles, an optional folder ReferenceFiles, and an optional folder PerfectMatchFiles.
-        /// If it is a file, the project will be created as a single file project. If it is a directory, all the files under the directory will be the project files. 
-        /// </param>
-        /// <param name="referenceFilesPath">If filesPath parameter is not a zip file, this optional parameter points to a reference file or a directory containing reference files.</param>
-        /// <param name="perfectMatchFilesPaths">If filesPath parameter is not a zip file, this optional parameter points to a directories containing the perfect match files.
-        /// </param>
-        /// <returns>The project Id</returns>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task<string> CreateProject(BasicCreateProjectRequest request,
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
+		Task<string> CreateProjectSkeleton(CreateProjectSkeletonRequest request);
+
+		/// <summary>
+		/// Create project
+		/// </summary>
+		/// <remarks>
+		/// This method requires authentication.
+		/// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+		/// </remarks>
+		/// <param name="request">The basic project parameters</param>
+		/// <param name="filesPath">The path pointing to the files for the project. The path can be a zip file, a single file, or a directory. 
+		/// If it is a zip file path, the zip should have a folder SourceFiles, an optional folder ReferenceFiles, and an optional folder PerfectMatchFiles.
+		/// If it is a file, the project will be created as a single file project. If it is a directory, all the files under the directory will be the project files. 
+		/// </param>
+		/// <param name="referenceFilesPath">If filesPath parameter is not a zip file, this optional parameter points to a reference file or a directory containing reference files.</param>
+		/// <param name="perfectMatchFilesPaths">If filesPath parameter is not a zip file, this optional parameter points to a directories containing the perfect match files.
+		/// </param>
+		/// <returns>The project Id</returns>
+		/// <exception cref="AuthorizationException">
+		/// Thrown when the current user does not have permission to make the request.
+		/// </exception>
+		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		Task<string> CreateProject(BasicCreateProjectRequest request,
             string filesPath, string referenceFilesPath = null, string[] perfectMatchFilesPaths = null);
 
         /// <summary>
@@ -387,7 +393,22 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// Thrown when the current user does not have permission to make the request.
 		/// </exception>
 		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		Task<string> PublishPackage(CreateProjectRequest projectRequest);
+
+		/// <summary>
+		/// Publishes a project package (.sdlppx)
+		/// </summary>
+		/// <remarks>
+		/// This method requires authentication.
+		/// </remarks>
+		Task PublishPackage(string projectId, byte[] rawData);
+
+		/// <summary>
+		/// Initiates a cancel for project package publishing
+		/// </summary>
+		/// <remarks>
+		/// This method requires authentication.
+		/// </remarks>
+		Task CancelPublishPackage(string projectId);
 
 		/// <summary>
 		///Gets a list of file statistics for a project

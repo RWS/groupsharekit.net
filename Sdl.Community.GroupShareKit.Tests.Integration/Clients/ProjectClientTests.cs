@@ -632,20 +632,37 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
         }
 
-        [Fact(Skip = "Used to work until GroupShare 2017 CU7")]
-        public async Task PublishPackage()
+        [Fact]
+        public async Task PublishProjectPackage()
+        {
+            var groupShareClient = Helper.GsClient;
+            var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\ProjectPackage_1.sdlppx"));
+            var createProjectRequest = new CreateProjectSkeletonRequest("ProjectForPublish", Helper.OrganizationId);
+
+            var projectId = await groupShareClient.Project.CreateProjectSkeleton(createProjectRequest);
+            await groupShareClient.Project.PublishPackage(projectId, rawData);
+
+            var created = await WaitForProjectCreated(projectId);
+            Assert.True(created);
+
+            var project = await groupShareClient.Project.Get(projectId);
+            Assert.Equal("ProjectPackage_1", project.Name);
+            Assert.Equal("en-US", project.SourceLanguage, StringComparer.OrdinalIgnoreCase);
+            Assert.Equal("de-de,fr-FR", project.TargetLanguage, StringComparer.OrdinalIgnoreCase);
+
+            await groupShareClient.Project.DeleteProject(projectId);
+        }
+
+        [Fact]
+        public async Task CancelPublishProjectPackage()
         {
             var groupShareClient = Helper.GsClient;
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\ProjectPackage.sdlppx"));
-            var createProjectRequest = new CreateProjectRequest(
-                "ProjectForPublish",
-                Helper.OrganizationId,
-                null,
-                DateTime.Today,
-                "7bf6410d-58a7-4817-a559-7aa8a3a99aa9",
-                rawData);
+            var createProjectRequest = new CreateProjectSkeletonRequest("ProjectForPublish", Helper.OrganizationId);
 
-            await groupShareClient.Project.PublishPackage(createProjectRequest);
+            var projectId = await groupShareClient.Project.CreateProjectSkeleton(createProjectRequest);
+            await groupShareClient.Project.PublishPackage(projectId, rawData);
+            await groupShareClient.Project.CancelPublishPackage(projectId);
         }
 
         [Fact]
