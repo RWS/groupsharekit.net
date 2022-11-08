@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sdl.Community.GroupShareKit.Models.Response
+﻿namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class ProjectTemplates
     {
-        public string  Id { get; set; }
+        public string Id { get; set; }
         /// <summary>
         /// Gets or sets the template name
         /// </summary>
@@ -26,16 +20,15 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// </summary>
        // public byte[] RawData { get; set; }
 
-        public ProjectTemplates()
-        {
-        }
-        public ProjectTemplates( string id,string name, string description, string organizationId)
+        public ProjectTemplates() { }
+
+        public ProjectTemplates(string id, string name, string description, string organizationId)
         {
             Id = id;
             Name = name;
             Description = description;
             OrganizationId = organizationId;
-        //    RawData = rawData;
+            //    RawData = rawData;
         }
     }
 }

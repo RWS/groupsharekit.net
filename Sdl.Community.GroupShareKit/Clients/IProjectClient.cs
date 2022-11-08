@@ -146,10 +146,10 @@ namespace Sdl.Community.GroupShareKit.Clients
 		Task<string> CreateProject(CreateProjectRequest request);
 
 		/// <summary>
-		/// 
+		/// Creates an empty project.
 		/// </summary>
 		/// <param name="request"></param>
-		/// <returns></returns>
+		/// <returns>The project id</returns>
 		Task<string> CreateProjectSkeleton(CreateProjectSkeletonRequest request);
 
 		/// <summary>
@@ -740,7 +740,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  Thrown when the current user does not have permission to make the request.
 		///  </exception>
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		Task<OnlineCheckInRequest> OnlineCheckin(string projectId, string languageFileId);
+		Task<OnlineCheckInRequest> OnlineCheckin(string projectId, string languageFileId, OnlineCheckInRequest onlineCheckInRequest);
 
 		///  <summary>
 		/// Checks out a file for editing in the Universal Editor
@@ -812,7 +812,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  Thrown when the current user does not have permission to make the request.
 		///  </exception>
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		Task<string> ExternalCheckin(string projectId, string languageFileId,string comment);
+		Task<string> ExternalCheckin(string projectId, string languageFileId, string comment);
 
 		///  <summary>
 		/// Checks out a file for editing
@@ -828,6 +828,36 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  </exception>
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
 		Task<string> ExternalCheckout(string projectId, string languageFileId);
+
+		/// <summary>
+		/// Checks-out multiple files for editing
+		/// </summary>
+		/// <param name="projectId">The id of the project</param>
+		/// <param name="filesIds">Language files ids to check-out</param>
+		/// <remarks>
+		///  This method requires authentication.
+		/// </remarks>
+		Task ExternalCheckOutFiles(string projectId, List<string> filesIds);
+
+		/// <summary>
+		/// Checks-in files previously checked-out
+		/// </summary>
+		/// <param name="projectId">The id of the project</param>
+		/// <param name="externalCheckInData">Array of language files ids to check-in and optional comment</param>
+		/// <remarks>
+		///  This method requires authentication.
+		/// </remarks>
+		Task ExternalCheckInFiles(string projectId, ExternalCheckInData externalCheckInData);
+
+		/// <summary>
+		/// Performs undo external check-out for multiple files
+		/// </summary>
+		/// <param name="projectId">The id of the project</param>
+		/// <param name="filesIds">Language files ids to undo external check-out for</param>
+		/// <remarks>
+		///  This method requires authentication.
+		/// </remarks>
+		Task UndoExternalCheckOutForFiles(string projectId, List<string> filesIds);
 
 		///  <summary>
 		/// Gets the dashboard data

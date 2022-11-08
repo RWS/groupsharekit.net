@@ -24,6 +24,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             Page = page;
             Limit = limit;
         }
+
         public string Page { get; set; }
         public string Limit { get; set; }
 

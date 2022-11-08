@@ -1,5 +1,5 @@
-﻿using System;
-using Sdl.Community.GroupShareKit.Clients;
+﻿using Sdl.Community.GroupShareKit.Clients;
+using System;
 
 namespace Sdl.Community.GroupShareKit.Helpers
 {
@@ -861,6 +861,33 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri ExternalCheckin(string projectId, string languageFileId)
         {
             return "{0}/projects/{1}/files/{2}/externalcheckin".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that checks-out multiple files for editing
+        /// </summary>
+        /// <returns></returns>
+        public static Uri ExternalCheckOutFiles(string projectId)
+        {
+            return "{0}/projects/{1}/files/externalcheckout".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that checks-in files previously checked-out
+        /// </summary>
+        /// <returns></returns>
+        public static Uri ExternalCheckInFiles(string projectId)
+        {
+            return "{0}/projects/{1}/files/externalcheckin".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that performs undo external check-out for multiple files
+        /// </summary>
+        /// <returns></returns>
+        public static Uri UndoExternalCheckOutForFiles(string projectId)
+        {
+            return "{0}/projects/{1}/files/undoexternalcheckout".FormatUri(CurrentProjectServerUrl, projectId);
         }
 
         /// <summary>

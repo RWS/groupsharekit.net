@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
@@ -1276,17 +1277,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task<OnlineCheckInRequest> OnlineCheckin(string projectId, string languageFileId)
+        public async Task<OnlineCheckInRequest> OnlineCheckin(string projectId, string languageFileId, OnlineCheckInRequest checkoutResponse)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
 
-            //checkout file first
-            var checkoutResponse = await OnlineCheckout(projectId, languageFileId).ConfigureAwait(true);
-
-            return await ApiConnection.Post<OnlineCheckInRequest>(
-                ApiUrls.OnlineCheckIn(projectId, languageFileId), checkoutResponse,
-                "application/json");
+            return await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckIn(projectId, languageFileId), checkoutResponse, "application/json");
         }
 
         ///  <summary>
@@ -1383,7 +1379,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
-            await ExternalCheckout(projectId, languageFileId).ConfigureAwait(true);
 
             return await ApiConnection.Post<string>(ApiUrls.ExternalCheckin(projectId, languageFileId), comment, "application/json");
         }
@@ -1392,7 +1387,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Checks out a file for editing
         ///  </summary>
         /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="languageFileId">The id of the language file</param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1407,6 +1402,63 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
 
             return await ApiConnection.Post<string>(ApiUrls.ExternalCheckout(projectId, languageFileId), "application/json");
+        }
+
+        /// <summary>
+        /// Checks-out multiple files for editing
+        /// </summary>
+        /// <param name="projectId">The id of the project</param>
+        /// <param name="filesIdsList">Language files ids to check-out</param>
+        /// <remarks>
+        ///  This method requires authentication.
+        /// </remarks>
+        public async Task ExternalCheckOutFiles(string projectId, List<string> filesIdsList)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            Ensure.ArgumentNotEmpty(filesIdsList, "filesIds");
+
+            var filesIds = "[\"" + string.Join("\",\"", filesIdsList) + "\"]";
+            var content = new StringContent(filesIds, Encoding.UTF8, "application/json");
+
+            await ApiConnection.Post<string>(ApiUrls.ExternalCheckOutFiles(projectId), content);
+        }
+
+        /// <summary>
+        /// Checks-in files previously checked-out
+        /// </summary>
+        /// <param name="projectId">The id of the project</param>
+        /// <param name="externalCheckInData">Array of language files ids to check-in and optional comment</param>
+        /// <remarks>
+        ///  This method requires authentication.
+        /// </remarks>
+        public async Task ExternalCheckInFiles(string projectId, ExternalCheckInData externalCheckInData)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            Ensure.ArgumentNotNull(externalCheckInData, "externalCheckInData");
+
+            var serialized = new SimpleJsonSerializer().Serialize(externalCheckInData);
+            var content = new StringContent(serialized, Encoding.UTF8, "application/json");
+
+            await ApiConnection.Post<string>(ApiUrls.ExternalCheckInFiles(projectId), content);
+        }
+
+        /// <summary>
+        /// Performs undo external check-out for multiple files
+        /// </summary>
+        /// <param name="projectId">The id of the project</param>
+        /// <param name="filesIdsList">Language files ids to undo external check-out for</param>
+        /// <remarks>
+        ///  This method requires authentication.
+        /// </remarks>
+        public async Task UndoExternalCheckOutForFiles(string projectId, List<string> filesIdsList)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            Ensure.ArgumentNotEmpty(filesIdsList, "filesIds");
+
+            var filesIds = "[\"" + string.Join("\",\"", filesIdsList) + "\"]";
+            var content = new StringContent(filesIds, Encoding.UTF8, "application/json");
+
+            await ApiConnection.Post<string>(ApiUrls.UndoExternalCheckOutForFiles(projectId), content);
         }
 
         ///  <summary>
