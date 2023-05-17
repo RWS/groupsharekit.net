@@ -1,8 +1,10 @@
 using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Models;
 using Sdl.Community.GroupShareKit.Models.Response;
+using Sdl.Community.GroupShareKit.Models.Response.ProjectPublishingInformation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Project = Sdl.Community.GroupShareKit.Models.Response.Project;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
@@ -217,18 +219,25 @@ namespace Sdl.Community.GroupShareKit.Clients
 		Task<PublishingStatus> PublishingStatus(string projectId);
 
 		/// <summary>
-		///Downloads the files with the specific language ids.
+		/// 
 		/// </summary>
-		/// <remarks>
-		/// This method requires authentication.
-		/// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-		/// </remarks>
-		/// <exception cref="AuthorizationException">
-		/// Thrown when the current user does not have permission to make the request.
-		/// </exception>
-		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		/// <returns>A list of byte[] wich represents downloaded files.</returns>
-		Task<byte[]> DownloadFiles(string projectId, List<string> languageFileIds);
+		/// <param name="projectIds"></param>
+		/// <returns></returns>
+		Task<List<ProjectPublishingInformation>> GetProjectsPublishingInformation(string projectIds);
+
+        /// <summary>
+        ///Downloads the files with the specific language ids.
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of byte[] wich represents downloaded files.</returns>
+        Task<byte[]> DownloadFiles(string projectId, List<string> languageFileIds);
 
 		/// <summary>
 		///Downloads the files with the specific type and language code.
@@ -352,6 +361,14 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// </exception>
 		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
 		Task<string> ChangeProjectStatus(ChangeStatusRequest statusRequest);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="projectId"></param>
+		/// <param name="deleteProjectTMs"></param>
+		/// <returns></returns>
+		Task DetachProject(string projectId, bool deleteProjectTMs = false);
 
 		/// <summary>
 		///Change project status detach

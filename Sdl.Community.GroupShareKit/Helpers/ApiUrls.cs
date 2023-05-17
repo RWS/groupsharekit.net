@@ -192,6 +192,17 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectIds"></param>
+        /// <returns></returns>
+        public static Uri PublishingInformation(string projectIds)
+        {
+            return "{0}/projects/publishingInformation?projectIds={1}".
+                FormatUri(CurrentProjectServerUrl, projectIds);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that represents downloaded files with the specific languageCodeid and type
         /// </summary>
         public static Uri DownloadFile(string projectId, string type)
@@ -454,6 +465,17 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri ChangeProjectStatus(string projectId, string status)
         {
             return "{0}/projects/{1}/changestatus/{2}".FormatUri(CurrentProjectServerUrl, projectId, status);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="deleteProjectTMs"></param>
+        /// <returns></returns>
+        public static Uri DetachProject(string projectId, bool deleteProjectTMs = false)
+        {
+            return "{0}/projects/{1}/detach?deleteProjectTMs={2}".FormatUri(CurrentProjectServerUrl, projectId, deleteProjectTMs);
         }
 
         /// <summary>

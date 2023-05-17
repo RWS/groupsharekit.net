@@ -1,6 +1,7 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Models;
 using Sdl.Community.GroupShareKit.Models.Response;
+using Sdl.Community.GroupShareKit.Models.Response.ProjectPublishingInformation;
 using Sdl.Community.GroupShareKit.Tests.Integration.Setup;
 using System;
 using System.Collections.Generic;
@@ -823,6 +824,67 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             // Random Guid name will not exist
             Assert.False(isInUse);
+        }
+
+        [Fact]
+        public async Task Projects_GetPublishingInformationForOneProject()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
+            var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
+
+            var projectPublishingInformation = (await groupShareClient.Project.GetProjectsPublishingInformation(projectId)).Single();
+            var projectInformation = projectPublishingInformation.Project;
+
+            Assert.Equal(ProjectPublishValidity.Published, projectPublishingInformation.Validity);
+            Assert.Equal("en-US", projectInformation.SourceLanguageCode, ignoreCase: true);
+            Assert.Equal("de-DE", projectInformation.TargetLanguageCodes.Single(), ignoreCase: true);
+            Assert.Equal(ProjectStatus.Started, projectInformation.Status);
+            Assert.NotNull(projectInformation.CreatedAt);
+            Assert.Null(projectInformation.Customer);
+            Assert.Null(projectInformation.CompletedAt);
+            Assert.Null(projectPublishingInformation.PublishProjectInfo);
+
+            await DeleteTestProject(groupShareClient, projectId);
+            await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
+        }
+
+        [Fact]
+        public async Task Projects_GetPublishingInformationForDifferentProjectStatuses()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
+            var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
+
+            var projectStatusRequest = new ChangeStatusRequest(projectId, ChangeStatusRequest.ProjectStatus.Completed);
+            await groupShareClient.Project.ChangeProjectStatus(projectStatusRequest);
+
+            var projectPublishingInformation = (await groupShareClient.Project.GetProjectsPublishingInformation(projectId)).Single();
+            Assert.Equal(ProjectPublishValidity.Published, projectPublishingInformation.Validity);
+            Assert.Equal(ProjectStatus.Completed, projectPublishingInformation.Project.Status);
+            Assert.NotNull(projectPublishingInformation.Project);
+
+            projectStatusRequest = new ChangeStatusRequest(projectId, ChangeStatusRequest.ProjectStatus.Archived);
+            await groupShareClient.Project.ChangeProjectStatus(projectStatusRequest);
+            projectPublishingInformation = (await groupShareClient.Project.GetProjectsPublishingInformation(projectId)).Single();
+            Assert.Equal(ProjectPublishValidity.Archived, projectPublishingInformation.Validity);
+            Assert.Equal(ProjectStatus.Archived, projectPublishingInformation.Project.Status);
+            Assert.NotNull(projectPublishingInformation.Project);
+
+            await groupShareClient.Project.DetachProject(projectId);
+            projectPublishingInformation = (await groupShareClient.Project.GetProjectsPublishingInformation(projectId)).Single();
+            Assert.Equal(ProjectPublishValidity.Deleted, projectPublishingInformation.Validity);
+            Assert.Null(projectPublishingInformation.Project);
+
+            projectStatusRequest = new ChangeStatusRequest(projectId, ChangeStatusRequest.ProjectStatus.Completed);
+            await groupShareClient.Project.ChangeProjectStatus(projectStatusRequest);
+            projectPublishingInformation = (await groupShareClient.Project.GetProjectsPublishingInformation(projectId)).Single();
+            Assert.Equal(ProjectPublishValidity.Published, projectPublishingInformation.Validity);
+            Assert.Equal(ProjectStatus.Completed, projectPublishingInformation.Project.Status);
+            Assert.NotNull(projectPublishingInformation.Project);
+
+            await DeleteTestProject(groupShareClient, projectId);
+            await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
         }
 
         private async Task<string> CreateProjectTemplateForPerfectMatch(string projectTemplateFilePath)

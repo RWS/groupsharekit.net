@@ -4,12 +4,14 @@ using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models;
 using Sdl.Community.GroupShareKit.Models.Response;
+using Sdl.Community.GroupShareKit.Models.Response.ProjectPublishingInformation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Project = Sdl.Community.GroupShareKit.Models.Response.Project;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
@@ -541,6 +543,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectIds"></param>
+        /// <returns></returns>
+        public async Task<List<ProjectPublishingInformation>> GetProjectsPublishingInformation(string projectIds)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectIds, "projectIds");
+            return await ApiConnection.Get<List<ProjectPublishingInformation>>(ApiUrls.PublishingInformation(projectIds), null);
+        }
+
+        /// <summary>
         ///Downloads the files with the specific language ids.
         /// </summary>
         /// <remarks>
@@ -740,6 +753,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         public async Task<string> ChangeProjectStatus(ChangeStatusRequest statusRequest)
         {
             return await ApiConnection.Put<string>(ApiUrls.ChangeProjectStatus(statusRequest.ProjectId, Enum.GetName(typeof(ChangeStatusRequest.ProjectStatus), statusRequest.Status)), statusRequest);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="deleteProjectTMs"></param>
+        /// <returns></returns>
+        public async Task DetachProject(string projectId, bool deleteProjectTMs = false)
+        {
+            await ApiConnection.Delete(ApiUrls.DetachProject(projectId, deleteProjectTMs));
         }
 
         /// <summary>
