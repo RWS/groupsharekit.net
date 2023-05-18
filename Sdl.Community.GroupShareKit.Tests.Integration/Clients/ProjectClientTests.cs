@@ -923,7 +923,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await DeleteTestProjectTemplate(groupShareClient, secondProjectTemplateId);
         }
 
-        private async Task<string> CreateProjectTemplateForPerfectMatch(string projectTemplateFilePath)
+        private static async Task<string> CreateProjectTemplateForPerfectMatch(string projectTemplateFilePath)
         {
             var projectTemplateData = File.ReadAllBytes(projectTemplateFilePath);
             var projectTemplateRequest = new ProjectTemplates
@@ -953,7 +953,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
         }
 
-        private async Task<string> CreateTestProject(GroupShareClient groupShareClient, string projectTemplateId, string fileName = "")
+        private static async Task<string> CreateTestProject(GroupShareClient groupShareClient, string projectTemplateId, string fileName = "")
         {
             var basicProjectCreateRequest = CreateBasicCreateProjectRequest(projectTemplateId);
 
@@ -969,7 +969,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             return projectId;
         }
         
-        private async Task<string> CreateTestProjectTemplate(GroupShareClient groupShareClient, string fileName = "")
+        private static async Task<string> CreateTestProjectTemplate(GroupShareClient groupShareClient, string fileName = "")
         {
             var rawData = fileName == "" ?
                 File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\DefaultTemplate_en-de.sdltpl")) :
@@ -983,17 +983,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             return templateId;
         }
 
-        private async Task DeleteTestProject(GroupShareClient groupShareClient, string projectId)
+        private static async Task DeleteTestProject(GroupShareClient groupShareClient, string projectId)
         {
             await groupShareClient.Project.DeleteProject(projectId);
         }
 
-        private async Task DeleteTestProjectTemplate(GroupShareClient groupShareClient, string projectTemplateId)
+        private static async Task DeleteTestProjectTemplate(GroupShareClient groupShareClient, string projectTemplateId)
         {
             await groupShareClient.Project.DeleteProjectTemplate(projectTemplateId);
         }
 
-        private async Task<bool> WaitForProjectCreated(string projectId, int retryInterval = 3, int maxTryCount = 15)
+        private static async Task<bool> WaitForProjectCreated(string projectId, int retryInterval = 3, int maxTryCount = 15)
         {
             for (var i = 0; i < maxTryCount; i++)
             {
@@ -1017,7 +1017,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         // get only Update Project background tasks - type = 28
-        private async Task WaitForUpdateProjectBackgroundTaskToFinish(string projectId)
+        private static async Task WaitForUpdateProjectBackgroundTaskToFinish(string projectId)
         {
             var filter = new BackgroundTasksRequestFilter { Type = new[] { 28 } }.SerializeFilter();
 

@@ -192,7 +192,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// 
+        /// Returns the <see cref="Uri"/> that represents publishing information for one or multiple projects.
         /// </summary>
         /// <param name="projectIds"></param>
         /// <returns></returns>
@@ -406,7 +406,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         ///  Returns the uri string that adds files for project
         /// </summary>
         /// <param name="projectId">Project id</param>
-        /// <param name="isReferenceFile">The flag to indicate if the files to upload are rerference files</param>
+        /// <param name="isReferenceFile">The flag to indicate if the files to upload are reference files</param>
         /// <param name="createProjectAfterUpload">The flag to indicate if the project should be started creating after the upload immediately</param>
         public static string UploadFilesForProject(string projectId, bool isReferenceFile, bool createProjectAfterUpload)
         {
@@ -449,7 +449,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        ///  Returns the <see cref="Uri"/> that starts the project creation
+        /// Returns the <see cref="Uri"/> that starts the project creation
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
@@ -468,11 +468,10 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// 
+        /// Returns the <see cref="Uri"/> that detaches a project, with the possibility to delete project TMs.
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="deleteProjectTMs"></param>
-        /// <returns></returns>
+        /// <param name="projectId">The project id.</param>
+        /// <param name="deleteProjectTMs">If true, project TMs will be deleted after the project is detached.</param>
         public static Uri DetachProject(string projectId, bool deleteProjectTMs = false)
         {
             return "{0}/projects/{1}/detach?deleteProjectTMs={2}".FormatUri(CurrentProjectServerUrl, projectId, deleteProjectTMs);

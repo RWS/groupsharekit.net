@@ -543,10 +543,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Gets publishing information for one or multiple projects.
         /// </summary>
-        /// <param name="projectIds"></param>
-        /// <returns></returns>
+        /// <param name="projectIds">IDs of projects to get publishing information for, separated by comma.</param>
+        /// <returns><see cref="ProjectPublishingInformation"/></returns>
         public async Task<List<ProjectPublishingInformation>> GetProjectsPublishingInformation(string projectIds)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectIds, "projectIds");
@@ -554,7 +554,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///Downloads the files with the specific language ids.
+        /// Downloads the files with the specific language ids.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -564,7 +564,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of byte[] wich represents downloaded files.</returns>
+        /// <returns>A list of byte[] which represents downloaded files.</returns>
         public async Task<byte[]> DownloadFiles(string projectId, List<string> languageFileIds)
         {
             Ensure.ArgumentNotEmpty(languageFileIds, "languageFileIds");
@@ -573,7 +573,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///Downloads the native files of a project.
+        /// Downloads the native files of a project.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -583,7 +583,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of byte[] wich represents downloaded files.</returns>></param>
+        /// <returns>A list of byte[] which represents downloaded files.</returns>></param>
         /// <returns></returns>
         public async Task<byte[]> DownloadNative(string projectId)
         {
@@ -632,7 +632,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Helper method to create  query
+        /// Helper method to create query
         /// </summary>
         /// <param name="languageFileIds"></param>
         /// <returns></returns>
@@ -674,7 +674,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///Gets a list of user assignements
+        /// Gets a list of user assignments
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -691,7 +691,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///Gets a list of assignments for a project
+        /// Gets a list of assignments for a project
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -714,7 +714,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///Uploads file for a specific project
+        /// Uploads file for a specific project
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -739,7 +739,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///Change project status
+        /// Change project status
         /// <param name="statusRequest"><see cref="ChangeStatusRequest"/></param>
         /// </summary>
         /// <remarks>
@@ -756,18 +756,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Detaches a project, with the possibility to delete project TMs.
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="deleteProjectTMs"></param>
-        /// <returns></returns>
+        /// <param name="projectId">The project id.</param>
+        /// <param name="deleteProjectTMs">If true, project TMs will be deleted after the project is detached.</param>
         public async Task DetachProject(string projectId, bool deleteProjectTMs = false)
         {
             await ApiConnection.Delete(ApiUrls.DetachProject(projectId, deleteProjectTMs));
         }
 
         /// <summary>
-        ///Change project status detach
+        /// Change project status detach
         /// <param name="statusRequest"><see cref="ChangeStatusRequest"/></param>
         /// </summary>
         /// <remarks>
@@ -784,7 +783,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///Deletes detach to a project status
+        /// Deletes detach to a project status
         /// <param name="projectId deleteTms">></param>
         /// <param name="deleteTms"></param>
         /// </summary>
@@ -859,7 +858,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         #region Project template methods
         /// <summary>
-        ///Gets all templates
+        /// Gets all templates
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -876,7 +875,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///Creates a template
+        /// Creates a template
         /// </summary>
         /// <param name="templateRequest"><see cref="ProjectTemplates"/></param>
         /// <param name="rawData">The project template file as a byte array.</param>
@@ -897,7 +896,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///Creates a template
+        /// Creates a template
         /// </summary>
         /// <param name="templateRequest"><see cref="ProjectTemplateV3"/></param>
         /// <remarks>
@@ -937,7 +936,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         //}
 
         /// <summary>
-        ///Get a template by id
+        /// Get a template by id
         /// </summary>
         /// <param name="templateId">string</param>
         /// <remarks>
@@ -956,7 +955,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///Deletes a template 
+        /// Deletes a template 
         /// </summary>
         /// <param name="templateId">string</param>
         /// <remarks>
@@ -973,7 +972,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///Uploads a template to a newly created project 
+        /// Uploads a template to a newly created project 
         /// This method should be called after you create a project in order to add the template
         /// </summary>
         /// <param name="templateId">string</param>
