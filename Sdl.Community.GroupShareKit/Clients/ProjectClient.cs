@@ -195,7 +195,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task<string> CreateProject(CreateProjectRequest request)
-        {
+          {
             Ensure.ArgumentNotNull(request, "request");
 
             var projectUri = await ApiConnection.Post<string>(ApiUrls.GetAllProjects(), request, "application/json");
@@ -691,7 +691,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///Gets a list of assignements for a project
+        ///Gets a list of assignments for a project
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -879,7 +879,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///Creates a template
         /// </summary>
         /// <param name="templateRequest"><see cref="ProjectTemplates"/></param>
-        /// <param name="rawData">The project temaplate file as a byte array.</param>
+        /// <param name="rawData">The project template file as a byte array.</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.

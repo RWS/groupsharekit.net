@@ -887,6 +887,42 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
         }
 
+        [Fact]
+        public async Task Projects_GetPublishingInformationForMultipleProjects()
+        {
+            var groupShareClient = Helper.GsClient;
+            var firstProjectTemplateId = await CreateTestProjectTemplate(groupShareClient);
+            var secondProjectTemplateId = await CreateTestProjectTemplate(groupShareClient, "default_en-de_fr_it.sdltpl");
+            var firstProjectId = await CreateTestProject(groupShareClient, firstProjectTemplateId);
+            var secondProjectId = await CreateTestProject(groupShareClient, secondProjectTemplateId, "FourWords.txt");
+
+            var thirdProjectId = Guid.NewGuid();
+            var projectIds = firstProjectId + "," + secondProjectId + "," + thirdProjectId;
+
+            var projectPublishingInformation = await groupShareClient.Project.GetProjectsPublishingInformation(projectIds);
+            Assert.Equal(3, projectPublishingInformation.Count);
+
+            var nonExistentProjectInformation = projectPublishingInformation.Single(p => p.ProjectId == thirdProjectId);
+            Assert.Equal(ProjectPublishValidity.Deleted, nonExistentProjectInformation.Validity);
+            Assert.Null(nonExistentProjectInformation.Project);
+            Assert.Null(nonExistentProjectInformation.PublishProjectInfo);
+
+            var firstProjectInformation = projectPublishingInformation.Single(p => p.ProjectId == Guid.Parse(firstProjectId));
+            Assert.Null(firstProjectInformation.PublishProjectInfo);
+
+            var secondProjectInformation = projectPublishingInformation.Single(p => p.ProjectId == Guid.Parse(secondProjectId));
+            Assert.Null(secondProjectInformation.PublishProjectInfo);
+
+            var expectedTargetLanguageCodes = new[] { "de-de", "fr-fr", "it-it" };
+            Assert.True(expectedTargetLanguageCodes.SequenceEqual(secondProjectInformation.Project.TargetLanguageCodes, StringComparer.OrdinalIgnoreCase));
+            Assert.Equal("en-us", secondProjectInformation.Project.SourceLanguageCode, ignoreCase: true);
+
+            await DeleteTestProject(groupShareClient, firstProjectId);
+            await DeleteTestProject(groupShareClient, secondProjectId);
+            await DeleteTestProjectTemplate(groupShareClient, firstProjectTemplateId);
+            await DeleteTestProjectTemplate(groupShareClient, secondProjectTemplateId);
+        }
+
         private async Task<string> CreateProjectTemplateForPerfectMatch(string projectTemplateFilePath)
         {
             var projectTemplateData = File.ReadAllBytes(projectTemplateFilePath);
@@ -906,8 +942,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             return new BasicCreateProjectRequest
             {
-                Name = "PerfectMatch_" + Guid.NewGuid(),
-                Description = "Perfect match from zip file",
+                Name = "Project - " + Guid.NewGuid(),
+                Description = "",
                 OrganizationId = Helper.OrganizationId,
                 ProjectTemplateId = projectTemplateId,
                 DueDate = null,
@@ -919,25 +955,20 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         private async Task<string> CreateTestProject(GroupShareClient groupShareClient, string projectTemplateId, string fileName = "")
         {
-            var rawData = fileName == "" ?
-                File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip")) :
-                File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\" + fileName));
-            var projectName = $"Project - { Guid.NewGuid() }";
+            var basicProjectCreateRequest = CreateBasicCreateProjectRequest(projectTemplateId);
 
-            var projectId = await groupShareClient.Project.CreateProject(new CreateProjectRequest(
-                projectName,
-                Helper.OrganizationId,
-                null,
-                DateTime.Now.AddDays(2),
-                projectTemplateId,
-                rawData));
+            var filePath = fileName == ""
+                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip")
+                : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\" + fileName);
+
+            var projectId = await groupShareClient.Project.CreateProject(basicProjectCreateRequest, filePath);
 
             var statusInfo = await WaitForProjectCreated(projectId);
             Assert.True(statusInfo);
 
             return projectId;
         }
-
+        
         private async Task<string> CreateTestProjectTemplate(GroupShareClient groupShareClient, string fileName = "")
         {
             var rawData = fileName == "" ?
