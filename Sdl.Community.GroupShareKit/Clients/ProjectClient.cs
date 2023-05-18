@@ -470,7 +470,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Put<string>(uri, fileIdsString);
         }
 
-        //
         /// <summary>
         /// Get background tasks list with filter and default sort options
         /// </summary>
