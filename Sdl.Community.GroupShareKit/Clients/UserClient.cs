@@ -91,7 +91,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Put<string>(ApiUrls.User(), user);
         }
 
-
         /// <summary>
         /// Delete <see cref="User"/>.
         /// </summary>

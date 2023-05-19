@@ -1,4 +1,4 @@
-﻿namespace Sdl.Community.GroupShareKit.Models
+﻿namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class AnalysisReportWithMimeTypeV3
     {

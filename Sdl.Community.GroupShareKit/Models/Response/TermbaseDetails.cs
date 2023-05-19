@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 
 namespace Sdl.Community.GroupShareKit.Models.Response
@@ -13,7 +10,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// <summary>
         /// Gets or sets the id
         /// </summary>
-        public string  Id { get; set; }
+        public string Id { get; set; }
         /// <summary>
         /// Gets or sets name
         /// </summary>
@@ -46,7 +43,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// </summary>
         public List<Language> Languages { get; set; }
         /// <summary>
-        /// Gets or sets a list of atributes
+        /// Gets or sets a list of attributes
         /// </summary>
         public List<Atribute> Attributes { get; set; }
 

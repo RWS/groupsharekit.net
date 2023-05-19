@@ -22,11 +22,11 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// </summary>
         public string DisplayName { get; set; }
         /// <summary>
-        /// Gets or sets the discription
+        /// Gets or sets the description
         /// </summary>
         public string Description { get; set; }
         /// <summary>
-        /// Gets or sets the email adress
+        /// Gets or sets the email address
         /// </summary>
         public string EmailAddress { get; set; }
         /// <summary>

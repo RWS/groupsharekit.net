@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sdl.Community.GroupShareKit.Models.Response
+﻿namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class Statistics
     {
@@ -25,7 +19,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// </summary>
         public int DraftWords { get; set; }
         /// <summary>
-        /// Gets or sets the  trenslated words number
+        /// Gets or sets the  translated words number
         /// </summary>
         public int TranslatedWords { get; set; }
         /// <summary>

@@ -23,7 +23,7 @@
         /// </summary>
         public string PhoneNumber { get; set; }
         /// <summary>
-        /// Gets or sets the organziation id
+        /// Gets or sets the organization id
         /// </summary>
         public string OrganizationId { get; set; }
         /// <summary>

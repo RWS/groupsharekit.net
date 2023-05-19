@@ -10,7 +10,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 {
     public class OrganizationClient : ApiClient, IOrganizationClient
     {
-        public OrganizationClient(ApiConnection apiConnection):base(apiConnection)
+        public OrganizationClient(ApiConnection apiConnection) : base(apiConnection)
         {
         }
 
@@ -29,7 +29,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns> <see cref="Organization"/>s.</returns>
         public Task<Organization> Get(string organizationId)
         {
-            Ensure.ArgumentNotNullOrEmptyString(organizationId,"organizationId");
+            Ensure.ArgumentNotNullOrEmptyString(organizationId, "organizationId");
 
             return ApiConnection.Get<Organization>(ApiUrls.Organization(organizationId), null);
         }
@@ -88,7 +88,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public Task DeleteOrganization(string organizationId)
         {
-            Ensure.ArgumentNotNullOrEmptyString(organizationId,"organizationId");
+            Ensure.ArgumentNotNullOrEmptyString(organizationId, "organizationId");
 
             return ApiConnection.Delete(ApiUrls.Organization(organizationId));
         }
@@ -126,7 +126,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>Id of created organization.</returns>
         public async Task<string> Create(Organization organization)
         {
-            return await ApiConnection.Post<string>(ApiUrls.Organizations(), organization,"application/json");
+            return await ApiConnection.Post<string>(ApiUrls.Organizations(), organization, "application/json");
         }
 
         /// <summary>
@@ -146,7 +146,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             return await ApiConnection.GetAll<OrganizationResources>(ApiUrls.OrganizationResources(organizationId));
         }
-
 
         /// <summary>
         /// Moves a resource to a organization .
@@ -210,7 +209,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(resourceGroupPath, nameof(resourceGroupPath));
 
-            var requestParameters = new Dictionary<string, string> { ["resourceGroupPath"] = resourceGroupPath } ;
+            var requestParameters = new Dictionary<string, string> { ["resourceGroupPath"] = resourceGroupPath };
             return await ApiConnection.Get<Guid>(ApiUrls.GetOrganizationByPath(), requestParameters);
         }
     }

@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Models.Response
 {
-   public  class PhasesWithAssignees
+    public class PhasesWithAssignees
     {
         /// <summary>
         /// Gets or sets the file id
         /// </summary>
-        public string   FileUniqueId { get; set; }
+        public string FileUniqueId { get; set; }
         /// <summary>
         /// Gets or sets the file name
         /// </summary>
@@ -25,9 +22,9 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// </summary>
         public string StatusName { get; set; }
         /// <summary>
-        /// Gets or sets the completed procent number
+        /// Gets or sets the completed percent number
         /// </summary>
-        public int PrecetComplete { get; set; }
+        public int PercentComplete { get; set; }
         /// <summary>
         /// Gets or sets the language code
         /// </summary>

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Models.Response
 {
@@ -11,7 +8,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// <summary>
         /// Gets or sets the organization resource id
         /// </summary>
-        public Guid  Id { get; set; }
+        public Guid Id { get; set; }
         /// <summary>
         /// Gets or sets the name
         /// </summary>
@@ -27,10 +24,10 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// <summary>
         /// Gets or sets the parent organization id
         /// </summary>
-        public string ParentOragnizationId { get; set; }
+        public string ParentOrganizationId { get; set; }
         /// <summary>
         /// Gets or sets the linked organizations ids
         /// </summary>
-        public List<string> LinkedOragnizationIds { get; set; }
+        public List<string> LinkedOrganizationIds { get; set; }
     }
 }

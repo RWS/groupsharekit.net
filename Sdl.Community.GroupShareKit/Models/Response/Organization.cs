@@ -29,7 +29,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// <summary>
         /// Gets or sets if the organization is library
         /// </summary>
-        public bool IsLibrary  { get; set; }
+        public bool IsLibrary { get; set; }
         /// <summary>
         /// Gets or sets a list of child organizations <see cref="Organization"/>
         /// </summary>

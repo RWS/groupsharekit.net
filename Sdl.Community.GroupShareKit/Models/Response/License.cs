@@ -1,31 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sdl.Community.GroupShareKit.Models.Response
+﻿namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class License
     {
         /// <summary>
-        /// Gets or sets Project Server Calls
+        /// Gets or sets Project Server CALs
         /// </summary>
         public LicenseDetails ProjectServerCALs { get; set; }
         /// <summary>
-        /// Gets or sets Translation Memory Cals
+        /// Gets or sets Translation Memory CALs
         /// </summary>
         public LicenseDetails TranslationMemoryCALs { get; set; }
         /// <summary>
-        /// Gets or sets Tus
+        /// Gets or sets TUs
         /// </summary>
         public LicenseDetails TUs { get; set; }
         /// <summary>
-        /// Gets or sets Multi TermV iewer Cals
+        /// Gets or sets Multi TermViewer CALs
         /// </summary>
         public LicenseDetails MultiTermViewerCALs { get; set; }
         /// <summary>
-        /// Gets or sets Multi Term Editor Cals
+        /// Gets or sets Multi Term Editor CALs
         /// </summary>
         public LicenseDetails MultiTermEditorCALs { get; set; }
     }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Exceptions;
+﻿using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
@@ -56,7 +52,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 
 
         /// <summary>
-        /// Serch for a term in a termbase  
+        /// Search for a term in a termbase  
         /// </summary>
         /// <param name="request"><see cref="SearchTermRequest"/></param>
         /// <remarks>
@@ -71,7 +67,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<SearchResponse> SearchTerm(SearchTermRequest request);
 
         /// <summary>
-        /// Gets <see cref="Models.Response.ConceptDetails"/> 
+        /// Gets <see cref="ConceptDetails"/> 
         /// </summary>
         /// <param name="response"><see cref="ConceptResponse"/></param>
         /// <remarks>
@@ -83,10 +79,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="ConceptDetails"/></returns>
-        Task<Models.Response.ConceptDetails> GetConcept(ConceptResponse response);
+        Task<ConceptDetails> GetConcept(ConceptResponse response);
 
         /// <summary>
-        /// Gets <see cref="Models.Response.ConceptDetails"/> 
+        /// Gets <see cref="ConceptDetails"/> 
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -100,7 +96,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<ConceptDetails> GetConcept(string termbaseId, string conceptId);
 
         /// <summary>
-        /// Updates a entry in termbase<see cref="Models.Response.ConceptDetails"/> 
+        /// Updates a entry in termbase<see cref="ConceptDetails"/> 
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -111,7 +107,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> Updated<see cref="ConceptDetails"/> </returns>
-        Task<ConceptDetails> EditConcept(string termbaseId, Models.Response.ConceptDetails concept);
+        Task<ConceptDetails> EditConcept(string termbaseId, ConceptDetails concept);
 
         /// <summary>
         /// Creates termbase concept <see cref="Concept"/> with the default entry class Id
@@ -142,8 +138,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Created concept <see cref="ConceptDetails"/></returns>
-        Task<ConceptDetails> CreateConceptWithCustomEntryClass(string entryId, string termbaseId,
-            ConceptRequest conceptRequest);
+        Task<ConceptDetails> CreateConceptWithCustomEntryClass(string entryId, string termbaseId, ConceptRequest conceptRequest);
 
         /// <summary>
         /// Deletes termbase concept <see cref="Concept"/> 

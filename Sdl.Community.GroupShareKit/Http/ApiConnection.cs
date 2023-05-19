@@ -136,7 +136,6 @@ namespace Sdl.Community.GroupShareKit.Http
 
             var response = await Connection.Post<T>(uri, body, contentType).ConfigureAwait(false);
             return response.Body;
-
         }
 
         /// <summary>

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Sdl.Community.GroupShareKit.Models.Response
+﻿namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class Role
     {

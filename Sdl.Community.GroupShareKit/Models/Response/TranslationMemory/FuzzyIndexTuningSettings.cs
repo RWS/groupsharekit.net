@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
+﻿namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
     public class FuzzyIndexTuningSettings
     {
         /// <summary>
-        /// Gets or setsmin score increase number
+        /// Gets or sets min score increase number
         /// </summary>
         public int MinScoreIncrease { get; set; }
         /// <summary>
-        /// Gets or sets source min search verctor char lenght 
+        /// Gets or sets source min search vector char length 
         /// </summary>
         public int MinSearchVectorLengthSourceCharIndex { get; set; }
         /// <summary>
@@ -22,7 +16,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 
         public int MinSearchVectorLengthSourceWordIndex { get; set; }
         /// <summary>
-        /// Gets or sets target min search verctor char lenght 
+        /// Gets or sets target min search vector char length 
         /// </summary>
         public int MinSearchVectorLengthTargetCharIndex { get; set; }
         /// <summary>
