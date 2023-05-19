@@ -19,7 +19,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         public bool IsProtected { get; set; }
         /// <summary>
-        /// Gets or sets a list of premission <see cref="Permission"/>
+        /// Gets or sets a list of permission <see cref="Permission"/>
         /// </summary>
         public List<Permission> Permissions { get; set; }
 

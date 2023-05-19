@@ -84,7 +84,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return allProjects.Result.Items.Where(o => o.OrganizationName == organizationName).ToList();
         }
 
-
         /// <summary>
         /// Gets all <see cref="File"/>s for  project.
         /// </summary>
@@ -195,7 +194,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task<string> CreateProject(CreateProjectRequest request)
-          {
+        {
             Ensure.ArgumentNotNull(request, "request");
 
             var projectUri = await ApiConnection.Post<string>(ApiUrls.GetAllProjects(), request, "application/json");

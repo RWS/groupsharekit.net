@@ -8,9 +8,8 @@ namespace Sdl.Community.GroupShareKit.Clients
 {
     public interface IOrganizationClient
     {
-
         /// <summary>
-        /// Gets organizarion by Id<see cref="Organization"/>.
+        /// Gets organization by Id<see cref="Organization"/>.
         /// </summary>
         ///  <param name="organizationId">string></param>
         /// <remarks>
@@ -25,7 +24,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<Organization> Get(string organizationId);
 
         /// <summary>
-        /// Gets organizarion by Id<see cref="Organization"/>.
+        /// Gets organization by Id<see cref="Organization"/>.
         /// </summary>
         ///  <param name="tag">string></param>
         /// <remarks>
@@ -133,7 +132,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <param name="resource"><see cref="OrganizationResourcesRequest"/></param> 
         Task LinkResourceToOrganization(OrganizationResourcesRequest resource);
-
 
         /// <summary>
         /// Unlinks a resource from a specific organization

@@ -17,11 +17,11 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// </summary>
         public int Status { get; set; }
         /// <summary>
-        /// Gets or sets the sttus name
+        /// Gets or sets the status name
         /// </summary>
         public string StatusName { get; set; }
         /// <summary>
-        /// Gets or sets the procent complete number
+        /// Gets or sets the percent complete number
         /// </summary>
         public int PercentComplete { get; set; }
         /// <summary>

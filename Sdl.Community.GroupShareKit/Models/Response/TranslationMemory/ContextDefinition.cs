@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
+﻿namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
     public class ContextDefinition
     {
@@ -37,9 +31,9 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// </summary>
         public string Description { get; set; }
         /// <summary>
-        /// Gets or sets formating group id
+        /// Gets or sets formatting group id
         /// </summary>
-        public int FormatingGroupId { get; set; }
+        public int FormattingGroupId { get; set; }
         /// <summary>
         /// Gets or sets metadata
         /// </summary>

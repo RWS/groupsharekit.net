@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Models.Response
 {
@@ -10,7 +6,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
     {
         public ApiError()
         {
-            
+
         }
 
         public ApiError(string message)
@@ -24,7 +20,6 @@ namespace Sdl.Community.GroupShareKit.Models.Response
             DocumentationUrl = documentationUrl;
             Errors = errors;
         }
-
 
         /// <summary>
         /// The error message

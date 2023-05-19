@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sdl.Community.GroupShareKit.Models.Response
+﻿namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class Term
     {
@@ -13,11 +7,11 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// </summary>
         public string TermText { get; set; }
         /// <summary>
-        /// Gets or sets contept id
+        /// Gets or sets content id
         /// </summary>
         public string ConceptId { get; set; }
         /// <summary>
-        /// Gets or sets termbaseId (the name of the termsbase is the id)
+        /// Gets or sets termbaseId (the name of the termbase is the id)
         /// </summary>
         public string TermbaseId { get; set; }
     }

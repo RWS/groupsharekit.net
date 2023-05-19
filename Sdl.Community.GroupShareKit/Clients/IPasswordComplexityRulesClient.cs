@@ -1,4 +1,5 @@
-﻿using Sdl.Community.GroupShareKit.Models.Response;
+﻿using Sdl.Community.GroupShareKit.Exceptions;
+using Sdl.Community.GroupShareKit.Models.Response;
 using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients

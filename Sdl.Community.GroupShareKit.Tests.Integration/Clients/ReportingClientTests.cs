@@ -61,8 +61,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             var reportingData = await groupShareClient.Reporting.DeliveriesDueSoon(sortParameters);
-            Assert.True(reportingData.items.Count > 0);
-            Assert.True(reportingData.count > 0);
+            Assert.True(reportingData.Items.Count > 0);
+            Assert.True(reportingData.Count > 0);
         }
 
         [Fact]

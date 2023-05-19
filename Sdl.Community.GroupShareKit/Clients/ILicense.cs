@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Exceptions;
+﻿using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
     public interface ILicense
     {
         /// <summary>
-        /// Gets license  informations<see cref="License"/>.
+        /// Gets license information<see cref="License"/>.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.

@@ -1,7 +1,6 @@
-﻿using Sdl.Community.GroupShareKit.Models.Response;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Sdl.Community.GroupShareKit.Models
+namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class ProjectTemplateSettings
     {

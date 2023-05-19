@@ -113,7 +113,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <summary>
         /// Exports a translation memory as byte[]
         /// The encoding file format is a zip with the .gz extension
-        /// To save the Tm on disk the array should be decopressed using GZipStream()
+        /// To save the Tm on disk the array should be decompressed using GZipStream()
         /// <param name="request"><see cref="ExportRequest"/></param>
         /// <param name="tmId">Translation memory id</param>
         /// <param name="language"><see cref="LanguageParameters"/></param>
@@ -197,7 +197,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>  Tm number</returns>
         Task<int> GetTmsNumberByFieldTemplateId(string fieldTemplateId);
-
 
         /// <summary>
         /// Schedules a recompute statistics operation
@@ -405,7 +404,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             DuplicatesTusRequest duplicatesRequest);
 
         /// <summary>
-        /// Filters translation units, retrives a string maching the expression
+        /// Filters translation units, retrieves a string matching the expression
         /// <param name="languageRequest"><see cref="LanguageDetailsRequest"/></param>
         /// <param name="tmRequest"><see cref="TranslationMemoryDetailsRequest"/></param>
         /// <param name="allowWildCards"></param>
@@ -419,14 +418,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Alist of <see cref="Models.Response.TranslationMemory.FilterResponse"/> which represent filter data</returns>
+        /// <returns>A list of <see cref="Models.Response.TranslationMemory.FilterResponse"/> which represent filter data</returns>
         Task<IReadOnlyList<Models.Response.TranslationMemory.FilterResponse>> FilterAsPlainText(LanguageDetailsRequest languageRequest, TranslationMemoryDetailsRequest tmRequest, bool caseSensitive, bool allowWildCards);
 
         /// <summary>
-        /// Performs a text search, retrives a string maching the expression
+        /// Performs a text search, retrieves a string matching the expression
         /// Source and target language language code is required
         /// For example : German (Germany) - de-de , English (United States) - en-us
-        /// For a custom search Settings property should be set. If is not set the search will have the defailt values as follows:
+        /// For a custom search Settings property should be set. If is not set the search will have the default values as follows:
         /// It will perform a search in source . 
         /// MinScore default value is 70
         /// MaxResult default value is set to 30
@@ -444,12 +443,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<IReadOnlyList<Models.Response.TranslationMemory.FilterResponse>> SearchText(SearchRequest searchRequest);
 
-
         /// <summary>
-        /// Performs a concordance search, retrives a string maching the expression
+        /// Performs a concordance search, retrieves a string matching the expression
         /// Source and target language language code is required
         /// For example : German (Germany) - de-de , English (United States) - en-us
-        /// For a custom search Settings property should be set. If is not set the search will have the defailt values as follows:
+        /// For a custom search Settings property should be set. If is not set the search will have the default values as follows:
         /// It will perform a search in source . 
         /// MinScore default value is 70
         /// MaxResult default value is set to 30
@@ -468,7 +466,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<IReadOnlyList<Models.Response.TranslationMemory.FilterResponse>> ConcordanceSearchAsPlainText(ConcordanceSearchRequest concordanceSearchRequest);
 
         /// <summary>
-        /// Filters translation units, retrives a string maching the expression
+        /// Filters translation units, retrieves a string matching the expression
         /// For source and target language language code is required
         /// For example : German (Germany) - de-de , English (United States) - en-us
         /// <param name="request"><see cref="RawFilterRequest"/></param>
@@ -481,7 +479,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Alist of <see cref="Models.Response.TranslationMemory.FilterResponse"/> which represent filter data</returns>
+        /// <returns>A list of <see cref="Models.Response.TranslationMemory.FilterResponse"/> which represent filter data</returns>
         Task<IReadOnlyList<Models.Response.TranslationMemory.FilterResponse>> RawFilter(RawFilterRequest request);
 
         #endregion

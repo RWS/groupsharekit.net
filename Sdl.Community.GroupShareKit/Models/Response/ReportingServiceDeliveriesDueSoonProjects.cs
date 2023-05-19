@@ -4,7 +4,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class ReportingServiceDeliveriesDueSoonProjects
     {
-        public int count { get; set; }
-        public List<ReportingServiceDeliveriesDueSoon> items { get; set; }
+        public int Count { get; set; }
+        public List<ReportingServiceDeliveriesDueSoon> Items { get; set; }
     }
 }

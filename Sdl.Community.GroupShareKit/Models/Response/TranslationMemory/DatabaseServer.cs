@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
@@ -33,7 +29,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// </summary>
         public string Password { get; set; }
         /// <summary>
-        /// Gets or setsa list of containers
+        /// Gets or sets a list of containers
         /// </summary>
         public List<Container> Containers { get; set; }
     }

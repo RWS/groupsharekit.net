@@ -50,7 +50,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Post<string>(ApiUrls.Roles(), request, "application/json");
         }
 
-
         /// <summary>
         /// Update role <see cref="RoleRequest"/>s.
         /// </summary>

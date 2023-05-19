@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Sdl.Community.GroupShareKit.Models
+﻿namespace Sdl.Community.GroupShareKit.Models
 {
     public class ExternalCheckInData
     {

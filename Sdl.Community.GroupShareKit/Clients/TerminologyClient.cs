@@ -43,7 +43,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns> <see cref="TermbaseDetails"/></returns>
         public async Task<TermbaseResponse> GetTermbaseById(string termbaseId)
         {
-           Ensure.ArgumentNotNullOrEmptyString(termbaseId,"termbaseId");
+            Ensure.ArgumentNotNullOrEmptyString(termbaseId, "termbaseId");
             return await ApiConnection.Get<TermbaseResponse>(ApiUrls.GetTermbaseById(termbaseId), null);
         }
 
@@ -62,8 +62,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns> <see cref="Filter"/></returns>
         public async Task<FilterResponse> GetFilters(string termbaseId)
         {
-           Ensure.ArgumentNotNullOrEmptyString(termbaseId,"termbaseId");
-            return await ApiConnection.Get<FilterResponse>(ApiUrls.GetFilers(termbaseId),null);
+            Ensure.ArgumentNotNullOrEmptyString(termbaseId, "termbaseId");
+            return await ApiConnection.Get<FilterResponse>(ApiUrls.GetFilers(termbaseId), null);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns> <see cref="SearchResponse"/></returns>
         public async Task<SearchResponse> SearchTerm(SearchTermRequest request)
         {
-            Ensure.ArgumentNotNull(request,"request");
+            Ensure.ArgumentNotNull(request, "request");
             return await ApiConnection.Get<SearchResponse>(ApiUrls.Search(), request.ToParametersDictionary());
         }
 
@@ -97,15 +97,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> <see cref="Models.Response.ConceptDetails"/></returns>
+        /// <returns> <see cref="ConceptDetails"/></returns>
         public async Task<ConceptDetails> GetConcept(ConceptResponse response)
         {
-            Ensure.ArgumentNotNull(response,"request");
-            return await ApiConnection.Get<Models.Response.ConceptDetails>(ApiUrls.GetConcepts(response), null);
+            Ensure.ArgumentNotNull(response, "request");
+            return await ApiConnection.Get<ConceptDetails>(ApiUrls.GetConcepts(response), null);
         }
 
         /// <summary>
-        /// Gets <see cref="Models.Response.ConceptDetails"/> 
+        /// Gets <see cref="ConceptDetails"/> 
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -115,16 +115,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> <see cref="Models.Response.ConceptDetails"/></returns>
-        public async Task<Models.Response.ConceptDetails> GetConcept(string termbaseId, string conceptId)
+        /// <returns> <see cref="ConceptDetails"/></returns>
+        public async Task<ConceptDetails> GetConcept(string termbaseId, string conceptId)
         {
             Ensure.ArgumentNotNullOrEmptyString(termbaseId, "termbaseId");
             Ensure.ArgumentNotNullOrEmptyString(conceptId, "conceptId");
-            return await ApiConnection.Get<Models.Response.ConceptDetails>(ApiUrls.GetConcepts(termbaseId, conceptId), null);
+            return await ApiConnection.Get<ConceptDetails>(ApiUrls.GetConcepts(termbaseId, conceptId), null);
         }
 
         /// <summary>
-        /// Updates a entry in termbase<see cref="Models.Response.ConceptDetails"/> 
+        /// Updates a entry in termbase<see cref="ConceptDetails"/> 
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -134,13 +134,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> Updated<see cref="Models.Response.ConceptDetails"/> </returns>
-        public async Task<ConceptDetails> EditConcept(string termbaseId, Models.Response.ConceptDetails concept)
+        /// <returns> Updated<see cref="ConceptDetails"/> </returns>
+        public async Task<ConceptDetails> EditConcept(string termbaseId, ConceptDetails concept)
         {
             Ensure.ArgumentNotNullOrEmptyString(termbaseId, "termbaseId");
-            Ensure.ArgumentNotNull(concept,"concept");
+            Ensure.ArgumentNotNull(concept, "concept");
 
-            return await ApiConnection.Put<Models.Response.ConceptDetails>(ApiUrls.GetConcepts(termbaseId), concept);
+            return await ApiConnection.Put<ConceptDetails>(ApiUrls.GetConcepts(termbaseId), concept);
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>Created concept <see cref="ConceptDetails"/></returns>
         public async Task<ConceptDetails> CreateConcept(TermbaseResponse termbase, ConceptRequest conceptRequest)
         {
-            Ensure.ArgumentNotNull(termbase,"termbase");
+            Ensure.ArgumentNotNull(termbase, "termbase");
             Ensure.ArgumentNotNull(conceptRequest, "conceptRequest");
 
             var defaultEntryClass = termbase.Termbase.EntryClasses.FirstOrDefault(d => d.IsDefault);
@@ -175,7 +175,7 @@ namespace Sdl.Community.GroupShareKit.Clients
                 }
             };
 
-             return await ApiConnection.Post<ConceptDetails>(ApiUrls.GetConcepts(termbase.Termbase.Id), concept, "application/json");
+            return await ApiConnection.Post<ConceptDetails>(ApiUrls.GetConcepts(termbase.Termbase.Id), concept, "application/json");
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         public async Task<ConceptDetails> CreateConceptWithCustomEntryClass(string entryId, string termbaseId, ConceptRequest conceptRequest)
         {
             Ensure.ArgumentNotNull(conceptRequest, "conceptRequest");
-            Ensure.ArgumentNotNullOrEmptyString(entryId,"Entry class id");
+            Ensure.ArgumentNotNullOrEmptyString(entryId, "Entry class id");
 
             var concept = new ConceptDetails
             {

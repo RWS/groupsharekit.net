@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sdl.Community.GroupShareKit.Models.Response
+﻿namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public enum PublishProjectStatus
     {
@@ -28,7 +22,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// </summary>
         public string ErrorMessage { get; set; }
         /// <summary>
-        /// Gets or sets the number of completed precent
+        /// Gets or sets the number of completed percent
         /// </summary>
         public int PercentComplete { get; set; }
         /// <summary>

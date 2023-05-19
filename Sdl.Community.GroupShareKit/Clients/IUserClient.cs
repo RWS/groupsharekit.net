@@ -1,7 +1,6 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
@@ -13,7 +12,6 @@ namespace Sdl.Community.GroupShareKit.Clients
     /// </remarks>
     public interface IUserClient
     {
-
         /// <summary>
         /// Gets all <see cref="User"/>s.
         /// </summary>
@@ -71,7 +69,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A <see cref="User"/>.</returns>
         Task<string> Update(User user);
 
-
         /// <summary>
         /// Delete <see cref="User"/>.
         /// </summary>
@@ -99,5 +96,4 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>Created user Id</returns>
         Task<string> Create(CreateUserRequest user);
     }
-
 }
