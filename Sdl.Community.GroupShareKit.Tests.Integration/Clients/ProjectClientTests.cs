@@ -1,6 +1,7 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Models;
 using Sdl.Community.GroupShareKit.Models.Response;
+using Sdl.Community.GroupShareKit.Models.Response.ProjectPublishingInformation;
 using Sdl.Community.GroupShareKit.Tests.Integration.Setup;
 using System;
 using System.Collections.Generic;
@@ -825,7 +826,104 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.False(isInUse);
         }
 
-        private async Task<string> CreateProjectTemplateForPerfectMatch(string projectTemplateFilePath)
+        [Fact]
+        public async Task Projects_GetPublishingInformationForOneProject()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
+            var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
+
+            var projectPublishingInformation = (await groupShareClient.Project.GetProjectsPublishingInformation(projectId)).Single();
+            var projectInformation = projectPublishingInformation.Project;
+
+            Assert.Equal(ProjectPublishValidity.Published, projectPublishingInformation.Validity);
+            Assert.Equal("en-US", projectInformation.SourceLanguageCode, ignoreCase: true);
+            Assert.Equal("de-DE", projectInformation.TargetLanguageCodes.Single(), ignoreCase: true);
+            Assert.Equal(ProjectStatus.Started, projectInformation.Status);
+            Assert.NotNull(projectInformation.CreatedAt);
+            Assert.Null(projectInformation.Customer);
+            Assert.Null(projectInformation.CompletedAt);
+            Assert.Null(projectPublishingInformation.PublishProjectInfo);
+
+            await DeleteTestProject(groupShareClient, projectId);
+            await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
+        }
+
+        [Fact]
+        public async Task Projects_GetPublishingInformationForDifferentProjectStatuses()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
+            var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
+
+            var projectStatusRequest = new ChangeStatusRequest(projectId, ChangeStatusRequest.ProjectStatus.Completed);
+            await groupShareClient.Project.ChangeProjectStatus(projectStatusRequest);
+
+            var projectPublishingInformation = (await groupShareClient.Project.GetProjectsPublishingInformation(projectId)).Single();
+            Assert.Equal(ProjectPublishValidity.Published, projectPublishingInformation.Validity);
+            Assert.Equal(ProjectStatus.Completed, projectPublishingInformation.Project.Status);
+            Assert.NotNull(projectPublishingInformation.Project);
+
+            projectStatusRequest = new ChangeStatusRequest(projectId, ChangeStatusRequest.ProjectStatus.Archived);
+            await groupShareClient.Project.ChangeProjectStatus(projectStatusRequest);
+            projectPublishingInformation = (await groupShareClient.Project.GetProjectsPublishingInformation(projectId)).Single();
+            Assert.Equal(ProjectPublishValidity.Archived, projectPublishingInformation.Validity);
+            Assert.Equal(ProjectStatus.Archived, projectPublishingInformation.Project.Status);
+            Assert.NotNull(projectPublishingInformation.Project);
+
+            await groupShareClient.Project.DetachProject(projectId);
+            projectPublishingInformation = (await groupShareClient.Project.GetProjectsPublishingInformation(projectId)).Single();
+            Assert.Equal(ProjectPublishValidity.Deleted, projectPublishingInformation.Validity);
+            Assert.Null(projectPublishingInformation.Project);
+
+            projectStatusRequest = new ChangeStatusRequest(projectId, ChangeStatusRequest.ProjectStatus.Completed);
+            await groupShareClient.Project.ChangeProjectStatus(projectStatusRequest);
+            projectPublishingInformation = (await groupShareClient.Project.GetProjectsPublishingInformation(projectId)).Single();
+            Assert.Equal(ProjectPublishValidity.Published, projectPublishingInformation.Validity);
+            Assert.Equal(ProjectStatus.Completed, projectPublishingInformation.Project.Status);
+            Assert.NotNull(projectPublishingInformation.Project);
+
+            await DeleteTestProject(groupShareClient, projectId);
+            await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
+        }
+
+        [Fact]
+        public async Task Projects_GetPublishingInformationForMultipleProjects()
+        {
+            var groupShareClient = Helper.GsClient;
+            var firstProjectTemplateId = await CreateTestProjectTemplate(groupShareClient);
+            var secondProjectTemplateId = await CreateTestProjectTemplate(groupShareClient, "default_en-de_fr_it.sdltpl");
+            var firstProjectId = await CreateTestProject(groupShareClient, firstProjectTemplateId);
+            var secondProjectId = await CreateTestProject(groupShareClient, secondProjectTemplateId, "FourWords.txt");
+
+            var thirdProjectId = Guid.NewGuid();
+            var projectIds = firstProjectId + "," + secondProjectId + "," + thirdProjectId;
+
+            var projectPublishingInformation = await groupShareClient.Project.GetProjectsPublishingInformation(projectIds);
+            Assert.Equal(3, projectPublishingInformation.Count);
+
+            var nonExistentProjectInformation = projectPublishingInformation.Single(p => p.ProjectId == thirdProjectId);
+            Assert.Equal(ProjectPublishValidity.Deleted, nonExistentProjectInformation.Validity);
+            Assert.Null(nonExistentProjectInformation.Project);
+            Assert.Null(nonExistentProjectInformation.PublishProjectInfo);
+
+            var firstProjectInformation = projectPublishingInformation.Single(p => p.ProjectId == Guid.Parse(firstProjectId));
+            Assert.Null(firstProjectInformation.PublishProjectInfo);
+
+            var secondProjectInformation = projectPublishingInformation.Single(p => p.ProjectId == Guid.Parse(secondProjectId));
+            Assert.Null(secondProjectInformation.PublishProjectInfo);
+
+            var expectedTargetLanguageCodes = new[] { "de-de", "fr-fr", "it-it" };
+            Assert.True(expectedTargetLanguageCodes.SequenceEqual(secondProjectInformation.Project.TargetLanguageCodes, StringComparer.OrdinalIgnoreCase));
+            Assert.Equal("en-us", secondProjectInformation.Project.SourceLanguageCode, ignoreCase: true);
+
+            await DeleteTestProject(groupShareClient, firstProjectId);
+            await DeleteTestProject(groupShareClient, secondProjectId);
+            await DeleteTestProjectTemplate(groupShareClient, firstProjectTemplateId);
+            await DeleteTestProjectTemplate(groupShareClient, secondProjectTemplateId);
+        }
+
+        private static async Task<string> CreateProjectTemplateForPerfectMatch(string projectTemplateFilePath)
         {
             var projectTemplateData = File.ReadAllBytes(projectTemplateFilePath);
             var projectTemplateRequest = new ProjectTemplates
@@ -844,8 +942,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             return new BasicCreateProjectRequest
             {
-                Name = "PerfectMatch_" + Guid.NewGuid(),
-                Description = "Perfect match from zip file",
+                Name = "Project - " + Guid.NewGuid(),
+                Description = "",
                 OrganizationId = Helper.OrganizationId,
                 ProjectTemplateId = projectTemplateId,
                 DueDate = null,
@@ -855,28 +953,23 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
         }
 
-        private async Task<string> CreateTestProject(GroupShareClient groupShareClient, string projectTemplateId, string fileName = "")
+        private static async Task<string> CreateTestProject(GroupShareClient groupShareClient, string projectTemplateId, string fileName = "")
         {
-            var rawData = fileName == "" ?
-                File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip")) :
-                File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\" + fileName));
-            var projectName = $"Project - { Guid.NewGuid() }";
+            var basicProjectCreateRequest = CreateBasicCreateProjectRequest(projectTemplateId);
 
-            var projectId = await groupShareClient.Project.CreateProject(new CreateProjectRequest(
-                projectName,
-                Helper.OrganizationId,
-                null,
-                DateTime.Now.AddDays(2),
-                projectTemplateId,
-                rawData));
+            var filePath = fileName == ""
+                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip")
+                : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\" + fileName);
+
+            var projectId = await groupShareClient.Project.CreateProject(basicProjectCreateRequest, filePath);
 
             var statusInfo = await WaitForProjectCreated(projectId);
             Assert.True(statusInfo);
 
             return projectId;
         }
-
-        private async Task<string> CreateTestProjectTemplate(GroupShareClient groupShareClient, string fileName = "")
+        
+        private static async Task<string> CreateTestProjectTemplate(GroupShareClient groupShareClient, string fileName = "")
         {
             var rawData = fileName == "" ?
                 File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\DefaultTemplate_en-de.sdltpl")) :
@@ -890,17 +983,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             return templateId;
         }
 
-        private async Task DeleteTestProject(GroupShareClient groupShareClient, string projectId)
+        private static async Task DeleteTestProject(GroupShareClient groupShareClient, string projectId)
         {
             await groupShareClient.Project.DeleteProject(projectId);
         }
 
-        private async Task DeleteTestProjectTemplate(GroupShareClient groupShareClient, string projectTemplateId)
+        private static async Task DeleteTestProjectTemplate(GroupShareClient groupShareClient, string projectTemplateId)
         {
             await groupShareClient.Project.DeleteProjectTemplate(projectTemplateId);
         }
 
-        private async Task<bool> WaitForProjectCreated(string projectId, int retryInterval = 3, int maxTryCount = 15)
+        private static async Task<bool> WaitForProjectCreated(string projectId, int retryInterval = 3, int maxTryCount = 15)
         {
             for (var i = 0; i < maxTryCount; i++)
             {
@@ -924,7 +1017,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         // get only Update Project background tasks - type = 28
-        private async Task WaitForUpdateProjectBackgroundTaskToFinish(string projectId)
+        private static async Task WaitForUpdateProjectBackgroundTaskToFinish(string projectId)
         {
             var filter = new BackgroundTasksRequestFilter { Type = new[] { 28 } }.SerializeFilter();
 

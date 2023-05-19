@@ -1,8 +1,10 @@
 using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Models;
 using Sdl.Community.GroupShareKit.Models.Response;
+using Sdl.Community.GroupShareKit.Models.Response.ProjectPublishingInformation;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Project = Sdl.Community.GroupShareKit.Models.Response.Project;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
@@ -217,18 +219,25 @@ namespace Sdl.Community.GroupShareKit.Clients
 		Task<PublishingStatus> PublishingStatus(string projectId);
 
 		/// <summary>
-		///Downloads the files with the specific language ids.
+		/// 
 		/// </summary>
-		/// <remarks>
-		/// This method requires authentication.
-		/// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-		/// </remarks>
-		/// <exception cref="AuthorizationException">
-		/// Thrown when the current user does not have permission to make the request.
-		/// </exception>
-		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		/// <returns>A list of byte[] wich represents downloaded files.</returns>
-		Task<byte[]> DownloadFiles(string projectId, List<string> languageFileIds);
+		/// <param name="projectIds"></param>
+		/// <returns></returns>
+		Task<List<ProjectPublishingInformation>> GetProjectsPublishingInformation(string projectIds);
+
+        /// <summary>
+        ///Downloads the files with the specific language ids.
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of byte[] which represents downloaded files.</returns>
+        Task<byte[]> DownloadFiles(string projectId, List<string> languageFileIds);
 
 		/// <summary>
 		///Downloads the files with the specific type and language code.
@@ -241,11 +250,11 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// Thrown when the current user does not have permission to make the request.
 		/// </exception>
 		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		/// <returns>A list of byte[] wich represents downloaded files.</returns>
+		/// <returns>A list of byte[] which represents downloaded files.</returns>
 		Task<byte[]> DownloadFile(FileDownloadRequest downloadRequest);
 
         /// <summary>
-        ///Downloads the native files of a project.
+        /// Downloads the native files of a project.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -255,13 +264,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of byte[] wich represents downloaded files.</returns>></param>
-        /// <returns></returns>
+        /// <returns>A list of byte[] which represents downloaded files.</returns>>
         Task<byte[]> DownloadNative(string projectId);
 
-
         /// <summary>
-		/// Finalizez the files of a project.
+		/// Finalizes the files of a project.
 		/// </summary>
 		/// <remarks>
 		/// This method requires authentication.
@@ -271,11 +278,11 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// Thrown when the current user does not have permission to make the request.
 		/// </exception>
 		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		/// <returns>A list of byte[] wich represents downloaded files.</returns>
+		/// <returns>A list of byte[] which represents downloaded files.</returns>
         Task<byte[]> Finalize(string projectId, List<string> languageFileIds);
 
         /// <summary>
-        ///Gets a list of user assignements
+        ///Gets a list of user assignments
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -289,7 +296,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<UserAssignments>> GetUserAssignments();
 
 		/// <summary>
-		///Gets a list of assignements for a project
+		///Gets a list of assignments for a project
 		/// </summary>
 		/// <remarks>
 		/// This method requires authentication.
@@ -352,6 +359,14 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// </exception>
 		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
 		Task<string> ChangeProjectStatus(ChangeStatusRequest statusRequest);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="projectId"></param>
+		/// <param name="deleteProjectTMs"></param>
+		/// <returns></returns>
+		Task DetachProject(string projectId, bool deleteProjectTMs = false);
 
 		/// <summary>
 		///Change project status detach
@@ -435,7 +450,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// Thrown when the current user does not have permission to make the request.
 		/// </exception>
 		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		/// <returns>A dictionary with the key represneting the language code and the value as project statistics </returns>
+		/// <returns>A dictionary with the key representing the language code and the value as project statistics </returns>
 		Task<Dictionary<string, ProjectStatistics>> GetProjectLanguageStatistics(string projectId);
 
 		Task<bool> IsProjectNameInUse(IsProjectNameInUseRequest request);
@@ -579,7 +594,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// The project must be created in GroupShare, not in Studio and published in GS
 		/// </summary>
 		/// <param name="projectId">The project id</param>
-		/// <param name="languageCode"> language code. Eg: en-US/param>
+		/// <param name="languageCode"> language code. Eg: en-US</param>
 		/// <remarks>
 		/// This method requires authentication.
 		/// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -596,7 +611,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// The project must be created in GroupShare, not in Studio and published in GS
 		/// </summary>
 		/// <param name="projectId">The project id</param>
-		/// <param name="languageCode"> language code. Eg: en-US/param>
+		/// <param name="languageCode"> language code. Eg: en-US</param>
 		/// <remarks>
 		/// This method requires authentication.
 		/// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -626,23 +641,23 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// <returns> List <see cref="AnalysisReports"/>s.</returns>
 		Task<IReadOnlyList<AnalysisReports>> GetAnalysisReportsV3(string projectId, string languageCode = null, int? reportId = null);
 
-		// <summary>
-		/// Get the project analysis report v3 for a given project, in html format.
-		/// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
-		/// </summary>
-		/// <param name="projectId">The project id</param>
-		/// <param name="languageCode"> Optional language code. Eg: en-US</param>
-		/// <param name="reportId"> Optional report id</param>
-		/// <remarks>
-		/// This method requires authentication.
-		/// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-		/// </remarks>
-		/// <exception cref="AuthorizationException">
-		/// Thrown when the current user does not have permission to make the request.
-		/// </exception>
-		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		/// <returns> List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
-		Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsHtml(string projectId, string languageCode = null, int? reportId = null);
+        /// <summary>
+        /// Get the project analysis report v3 for a given project, in html format.
+        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
+        /// </summary>
+        /// <param name="projectId">The project id</param>
+        /// <param name="languageCode"> Optional language code. Eg: en-US</param>
+        /// <param name="reportId"> Optional report id</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns> List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
+        Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsHtml(string projectId, string languageCode = null, int? reportId = null);
 
 		/// <summary>
 		/// Get the project analysis report v3 for a given project, in json format.

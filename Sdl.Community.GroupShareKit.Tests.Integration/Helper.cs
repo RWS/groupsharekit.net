@@ -1,9 +1,9 @@
+using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Models.Response;
 using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Sdl.Community.GroupShareKit.Clients;
-using Sdl.Community.GroupShareKit.Models.Response;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration
 {
