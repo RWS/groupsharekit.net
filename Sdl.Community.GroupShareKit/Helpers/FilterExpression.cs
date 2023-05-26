@@ -122,9 +122,9 @@ namespace Sdl.Community.GroupShareKit.Helpers
                     }
                 };
             }
-            else   //Create target expression
-           if (!string.IsNullOrEmpty(language.TargetText))
+            else if (!string.IsNullOrEmpty(language.TargetText))
             {
+                //Create target expression
                 restFilterExpression.Expression = expression;
                 restFilterExpression.Fields = new List<RequestField>
                 {

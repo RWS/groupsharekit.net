@@ -14,7 +14,6 @@ namespace Sdl.Community.GroupShareKit
     /// </summary>
     public class GroupShareClient : IGroupShareClient
     {
-
         public const string ManagementApi = "ManagementRestApi";
         public const string ProjectApi = "ProjectServerRestApi";
         public const string MultiTermApi = "MultiTermRestApi";

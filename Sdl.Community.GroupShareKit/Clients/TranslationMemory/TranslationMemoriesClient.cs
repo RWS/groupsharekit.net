@@ -21,7 +21,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 {
     public class TranslationMemoriesClient : ApiClient, ITranslationMemoriesClient
     {
-        private TmServiceRestClient _client;
+        private readonly TmServiceRestClient _client;
         public TranslationMemoriesClient(IApiConnection apiConnection) : base(apiConnection)
         {
             var userName = ApiConnection.Connection.Credentials.Login;
@@ -250,7 +250,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <summary>
         /// Exports a translation memory as byte[]
         /// The encoding file format is a zip with the .gz extension
-        /// To save the Tm on disk the array should be decopressed using GZipStream()
+        /// To save the Tm on disk the array should be decompressed using GZipStream()
         /// <param name="request"><see cref="ExportRequest"/></param>
         /// <param name="tmId">Translation memory id</param>
         /// <param name="language"><see cref="LanguageParameters"/></param>
@@ -329,7 +329,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                         multipartContent, "application/json");
         }
 
-        public async Task<ImportResponse> ImportTmWithSettings(string tmId, LanguageParameters language, byte[] rawFile, string fileName, ImportSettings jsonSettings)
+        public async Task<ImportResponse> ImportTmWithSettings(string tmId, LanguageParameters language, byte[] rawFile, string fileName, ImportSettings settings)
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId, "tm id");
             Ensure.ArgumentNotNull(language, "language parameters");
@@ -339,7 +339,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             var byteContent = new ByteArrayContent(rawFile);
             byteContent.Headers.Add("Content-Type", "application/json");
 
-            var json = JsonConvert.SerializeObject(jsonSettings);
+            var json = JsonConvert.SerializeObject(settings);
 
             var multipartContent = new MultipartFormDataContent
             {
@@ -431,10 +431,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             unitRequest.Settings.FieldValues = fieldValues;
 
-            return
-                await
-                    ApiConnection.Post<TranslationUnitResponse>(ApiUrls.TranslationUnits(tmId, "text"), unitRequest,
-                        "application/json");
+            return await ApiConnection.Post<TranslationUnitResponse>(ApiUrls.TranslationUnits(tmId, "text"), unitRequest, "application/json");
         }
 
         /// <summary>
@@ -456,8 +453,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(request, "translation request params");
             Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
 
-            return
-                await ApiConnection.Get<TranslationUnitDetailsResponse>(ApiUrls.Tus(tmId), request.ToParametersDictionary());
+            return await ApiConnection.Get<TranslationUnitDetailsResponse>(ApiUrls.Tus(tmId), request.ToParametersDictionary());
         }
 
         /// <summary>
@@ -577,7 +573,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Filters translation units, retrives a string maching the expression
+        /// Filters translation units, retrieves a string matching the expression
         /// <param name="languageRequest"><see cref="LanguageDetailsRequest"/></param>
         /// <param name="tmRequest"><see cref="TranslationMemoryDetailsRequest"/></param>
         /// <param name="allowWildCards"></param>
@@ -591,7 +587,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Alist of <see cref="FilterResponse"/> which represent filter data</returns>
+        /// <returns>A list of <see cref="FilterResponse"/> which represent filter data</returns>
         public async Task<IReadOnlyList<FilterResponse>> FilterAsPlainText(
             LanguageDetailsRequest languageRequest, TranslationMemoryDetailsRequest tmRequest, bool caseSensitive,
             bool allowWildCards)
@@ -620,18 +616,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return searchResult;
         }
 
-
         /// <summary>
-        /// Performs a text search, retrives a string maching the expression
+        /// Performs a text search, retrieves a string matching the expression
         /// Source and target language language code is required
         /// For example : German (Germany) - de-de , English (United States) - en-us
-        /// For a custom search Settings property should be set. If is not set the search will have the defailt values as follows:
+        /// For a custom search Settings property should be set. If is not set the search will have the default values as follows:
         /// It will perform a search in source . 
         /// MinScore default value is 70
         /// MaxResult default value is set to 30
         /// Example of custom filter expression:   "\"Andrea\" = (\"AndreaField\")", "TestFilterName") 
         /// For more examples see https://github.com/sdl/groupsharekit.net/blob/master/Sdl.Community.GroupShareKit.Tests.Integration/Clients/TranslationMemoriesClientTest.cs
-        /// <param name="concordanceSearchRequest"><see cref="SearchRequest"/></param>
+        /// <param name="searchRequest"><see cref="SearchRequest"/></param>
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -669,18 +664,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return searchResults;
         }
 
-
         /// <summary>
-        /// Performs a concordance search, retrives a string maching the expression
+        /// Performs a concordance search, retrieves a string matching the expression
         /// Source and target language language code is required
         /// For example : German (Germany) - de-de , English (United States) - en-us
-        /// For a custom search Settings property should be set. If is not set the search will have the defailt values as follows:
+        /// For a custom search Settings property should be set. If is not set the search will have the default values as follows:
         /// It will perform a search in source . 
         /// MinScore default value is 70
         /// MaxResult default value is set to 30
         /// Example of custom filter expression:   "\"Andrea\" = (\"AndreaField\")", "TestFilterName") 
         /// For more examples see https://github.com/sdl/groupsharekit.net/blob/master/Sdl.Community.GroupShareKit.Tests.Integration/Clients/TranslationMemoriesClientTest.cs
-        /// <param name="concordanceSearchRequest"><see cref="ConcordanceSearchRequest"/></param>
+        /// <param name="searchRequest"><see cref="ConcordanceSearchRequest"/></param>
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -690,26 +684,26 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task<IReadOnlyList<FilterResponse>> ConcordanceSearchAsPlainText(ConcordanceSearchRequest searchRequest)
+        public async Task<IReadOnlyList<FilterResponse>> ConcordanceSearchAsPlainText(ConcordanceSearchRequest concordanceSearchRequest)
         {
-            Ensure.ArgumentNotNull(searchRequest, "Search request null");
+            Ensure.ArgumentNotNull(concordanceSearchRequest, "Search request null");
 
             var restConcordanceSearch = new RestConcordanceSearch
             {
 
                 Settings = new RestConcordanceSearchSettings(),
-                SearchText = searchRequest.SearchText
+                SearchText = concordanceSearchRequest.SearchText
             };
 
             var searchResults = new List<FilterResponse>();
 
-            if (searchRequest.Settings != null)
+            if (concordanceSearchRequest.Settings != null)
             {
-                restConcordanceSearch = CreateRestConcordanceSearch(searchRequest.Settings);
-                restConcordanceSearch.SearchText = searchRequest.SearchText;
+                restConcordanceSearch = CreateRestConcordanceSearch(concordanceSearchRequest.Settings);
+                restConcordanceSearch.SearchText = concordanceSearchRequest.SearchText;
             }
 
-            var concordanceSearchResult = await _client.ConcordanceSearchAsync(searchRequest.TmId, searchRequest.SourceLanguageCode, searchRequest.TargetLanguageCode, restConcordanceSearch);
+            var concordanceSearchResult = await _client.ConcordanceSearchAsync(concordanceSearchRequest.TmId, concordanceSearchRequest.SourceLanguageCode, concordanceSearchRequest.TargetLanguageCode, restConcordanceSearch);
 
             foreach (var result in concordanceSearchResult.Results)
             {
@@ -721,7 +715,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return searchResults;
         }
 
-        private RestSearchSettings CreateRestTextSearchSettings(SearchTextSettings searchSettings)
+        private static RestSearchSettings CreateRestTextSearchSettings(SearchTextSettings searchSettings)
         {
             var restSearchSettings = new RestSearchSettings();
 
@@ -735,26 +729,20 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                 restSearchSettings.MaxResults = searchSettings.MaxResults;
             }
 
-            if (searchSettings.Filters != null)
+            if (searchSettings.Filters != null && searchSettings.Filters.Count > 0)
             {
-                if (searchSettings.Filters.Count > 0)
-                {
-                    restSearchSettings.Filters = CreateSearchTextRestFilter(searchSettings);
-                }
+                restSearchSettings.Filters = CreateSearchTextRestFilter(searchSettings);
             }
 
-            if (searchSettings.Penalties != null)
+            if (searchSettings.Penalties != null && searchSettings.Penalties.Count > 0)
             {
-                if (searchSettings.Penalties.Count > 0)
-                {
-                    restSearchSettings.Penalties = CreateSearchTextPenaltiesRestFilter(searchSettings.Penalties);
-                }
+                restSearchSettings.Penalties = CreateSearchTextPenaltiesRestFilter(searchSettings.Penalties);
             }
 
             return restSearchSettings;
         }
 
-        private List<RestPenalty> CreateSearchTextPenaltiesRestFilter(List<Penalty> penalties)
+        private static List<RestPenalty> CreateSearchTextPenaltiesRestFilter(List<Penalty> penalties)
         {
             var penaltyRest = new List<RestPenalty>();
 
@@ -772,7 +760,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return penaltyRest;
         }
 
-        private List<RestFilter> CreateSearchTextRestFilter(SearchTextSettings searchSettings)
+        private static List<RestFilter> CreateSearchTextRestFilter(SearchTextSettings searchSettings)
         {
             var restFilterList = new List<RestFilter>();
             var restFilterFields = new List<RequestField>();
@@ -807,11 +795,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             return restFilterList;
         }
-        private RestConcordanceSearch CreateRestConcordanceSearch(ConcordanceSearchSettings searchSettings)
+
+        private static RestConcordanceSearch CreateRestConcordanceSearch(ConcordanceSearchSettings searchSettings)
         {
             var restSearch = new RestConcordanceSearch
             {
-
                 Settings = new RestConcordanceSearchSettings(),
             };
 
@@ -825,25 +813,21 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             {
                 restSearch.Settings.MaxResults = searchSettings.MaxResults;
             }
-            if (searchSettings.Filters != null)
+
+            if (searchSettings.Filters != null && searchSettings.Filters.Count > 0)
             {
-                if (searchSettings.Filters.Count > 0)
-                {
-                    restSearch.Settings.Filters = CreateRestFilterList(searchSettings.Filters);
-                }
+                restSearch.Settings.Filters = CreateRestFilterList(searchSettings.Filters);
             }
-            if (searchSettings.Penalties != null)
+
+            if (searchSettings.Penalties != null && searchSettings.Penalties.Count > 0)
             {
-                if (searchSettings.Penalties.Count > 0)
-                {
-                    restSearch.Settings.Penalties = CreatePenaltiesFilterList(searchSettings.Penalties);
-                }
+                restSearch.Settings.Penalties = CreatePenaltiesFilterList(searchSettings.Penalties);
             }
 
             return restSearch;
         }
 
-        private List<RestPenalty> CreatePenaltiesFilterList(List<Penalty> penalties)
+        private static List<RestPenalty> CreatePenaltiesFilterList(List<Penalty> penalties)
         {
             var restPenaltyTypes = new List<RestPenalty>();
 
@@ -861,7 +845,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return restPenaltyTypes;
         }
 
-        private List<RestFilter> CreateRestFilterList(List<ConcordanceSearchFilter> searchSettings)
+        private static List<RestFilter> CreateRestFilterList(List<ConcordanceSearchFilter> searchSettings)
         {
             var serviceFilters = new List<RestFilter>();
             foreach (var filter in searchSettings)
@@ -896,8 +880,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             return serviceFilters;
         }
+
         /// <summary>
-        /// Filters translation units, retrives a string maching the expression
+        /// Filters translation units, retrieves a string matching the expression
         /// For source and target language language code is required
         /// For example : German (Germany) - de-de , English (United States) - en-us
         /// <param name="request"><see cref="RawFilterRequest"/></param>
@@ -1065,7 +1050,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNullOrEmptyString(serverId, "serverId");
             return await ApiConnection.Get<DatabaseServer>(ApiUrls.DbServers(serverId), null);
-
         }
 
         /// <summary>
@@ -1105,6 +1089,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNullOrEmptyString(serverId, "server id");
             await ApiConnection.Delete(ApiUrls.DbServers(serverId));
         }
+
         /// <summary>
         ///Updates specified  database server
         /// </summary>
@@ -1148,7 +1133,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             var templateId = templateLocation.Split('/').Last();
             return templateId;
         }
-
 
         /// <summary>
         /// Gets <see cref="FieldTemplates"/>.
@@ -1203,7 +1187,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(templateRequest, "templateRequest");
 
             await ApiConnection.Put<string>(ApiUrls.GetFieldTemplateById(templateId), templateRequest);
-
         }
 
         /// <summary>
@@ -1278,7 +1261,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
             Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
             return await ApiConnection.Get<Field>(ApiUrls.GetField(fieldTemplateId, fieldId), null);
-
         }
         /// <summary>
         /// Creates a Field for a specific Field Template ID
@@ -1322,7 +1304,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <param name="valuesList"></param>
         /// <returns>A list of <see cref="Value"/>'s</returns>
-        private List<Value> GetValues(List<string> valuesList)
+        private static List<Value> GetValues(List<string> valuesList)
         {
             var multipleValuesList = new List<Value>();
             foreach (var value in valuesList)
@@ -1341,7 +1323,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Updates a Field for a specific Field Template ID
         /// </summary>
         /// <remarks>
-        /// <param name="fieldRequest"><see cref="FieldRequest"/></param>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
@@ -1396,7 +1377,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             return await ApiConnection.GetAll<Resource>(ApiUrls.LanguageResource(templateId), null);
         }
-
 
         /// <summary>
         /// Creates a  language resources  for specified template.
@@ -1468,8 +1448,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                 await
                     ApiConnection.Get<Resource>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId),
                         null);
-
         }
+
         /// <summary>
         /// Deletes   language resource <see cref="Resource"/> for specified template.
         /// </summary>
@@ -1562,6 +1542,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                 ApiConnection.Post<string>(ApiUrls.LanguageResourceActions(templateId, languageResourceId, "import"),
                     multipartContent);
         }
+
         /// <summary>
         /// Exports a file with data for a specific Language Resource Template 
         /// </summary>
@@ -1694,7 +1675,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNullOrEmptyString(languageResourceTemplateId, "languageResourceTemplateId");
             await ApiConnection.Delete(ApiUrls.GetLanguageResourceTemplateById(languageResourceTemplateId));
         }
-
 
         /// <summary>
         /// Gets<see cref="TmServiceDetails"/> of tm service .

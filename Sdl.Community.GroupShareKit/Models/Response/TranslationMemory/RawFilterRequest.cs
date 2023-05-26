@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
@@ -33,7 +29,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// </summary>
         public FieldFilterRequest Filter { get; set; }
 
-        public RawFilterRequest(Guid tmId,string sourceCode,string targetCode,int startTuId,int count, FieldFilterRequest filter )
+        public RawFilterRequest(Guid tmId, string sourceCode, string targetCode, int startTuId, int count, FieldFilterRequest filter)
         {
             TmId = tmId;
             SourceLanguageCode = sourceCode;

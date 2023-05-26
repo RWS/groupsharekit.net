@@ -1,6 +1,5 @@
-﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Sdl.Community.GroupShareKit.Clients.Logging
 {
@@ -17,8 +16,8 @@ namespace Sdl.Community.GroupShareKit.Clients.Logging
                  Formatting.Indented,
                  new JsonSerializerSettings
                  {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    DateTimeZoneHandling = DateTimeZoneHandling.Utc
+                     NullValueHandling = NullValueHandling.Ignore,
+                     DateTimeZoneHandling = DateTimeZoneHandling.Utc
                  });
         }
     }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
+﻿namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
     public class TranslationUnitDetails
     {
@@ -12,6 +6,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// Gets or sets the source language details
         /// </summary>
         public LanguageDetails Source { get; set; }
+
         /// <summary>
         /// Gets or sets target language details
         /// </summary>

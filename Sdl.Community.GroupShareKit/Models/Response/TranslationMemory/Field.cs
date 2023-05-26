@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
@@ -13,7 +9,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// </summary>
         public string FieldId { get; set; }
         /// <summary>
-        /// Gets or sets field templat eid
+        /// Gets or sets field template id
         /// </summary>
         public string FieldTemplateId { get; set; }
         /// <summary>

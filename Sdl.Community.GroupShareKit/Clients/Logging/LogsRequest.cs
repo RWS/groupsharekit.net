@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using Newtonsoft.Json;
-
-namespace Sdl.Community.GroupShareKit.Clients.Logging
+﻿namespace Sdl.Community.GroupShareKit.Clients.Logging
 {
     /// <summary>
     /// Used to request list of logs
