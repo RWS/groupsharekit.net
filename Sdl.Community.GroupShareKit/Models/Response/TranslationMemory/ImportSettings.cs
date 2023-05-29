@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
@@ -19,7 +15,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// </summary>
         public bool? ImportAsPlainText { get; set; }
         /// <summary>
-        /// Gets or sets if tm from  user id thoud be used
+        /// Gets or sets if TM from user id should be used
         /// </summary>
         public bool? UseTmUserIdFromBilingualFile { get; set; }
         /// <summary>
@@ -35,11 +31,11 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// </summary>
         public bool? AcronymsAutoSubstitution { get; set; }
         /// <summary>
-        /// Gets or sets  if maching sublanguages should be checked
+        /// Gets or sets if matching sublanguages should be checked
         /// </summary>
         public bool? CheckMatchingSublanguages { get; set; }
         /// <summary>
-        /// Gets or sets a list of comfirmation levels
+        /// Gets or sets a list of confirmation levels
         /// </summary>
         public List<string> ConfirmationLevels { get; set; }
 
@@ -65,19 +61,20 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// Gets or sets tu processing mode
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public Settings.ProccesingMode? TuProcessingMode { get; set; }
+        public Settings.ProcessingMode? TuProcessingMode { get; set; }
 
         /// <summary>
         /// Gets or sets field values
         /// </summary>
         public List<FieldValue> FieldValues { get; set; }
 
-        public enum ProccesingMode
+        public enum ProcessingMode
         {
             ProcessRawTUOnly,
             ProcessCleanedTUOnly,
             ProcessBothTUs
         }
+
         public enum FieldsBehaviour
         {
             AddToSetup,
@@ -85,12 +82,14 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
             SkipTranslationUnit,
             Error
         }
+
         public enum ExistingFieldsMode
         {
             Merge, //this is the default
             Overwrite,
             LeaveUnchanged
         }
+
         public enum UpdateMode
         {
             AddNew,
@@ -98,7 +97,6 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
             LeaveUnchanged,
             KeepMostRecent,
             OverwriteCurrent
-
         }
 
     }

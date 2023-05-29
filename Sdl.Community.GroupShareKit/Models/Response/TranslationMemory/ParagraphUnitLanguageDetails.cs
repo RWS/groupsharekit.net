@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
@@ -21,7 +17,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// </summary>
         public Metadata Metadata { get; set; }
         /// <summary>
-        /// Gets or sets children informations
+        /// Gets or sets children information
         /// </summary>
         public List<Children> Children { get; set; }
     }

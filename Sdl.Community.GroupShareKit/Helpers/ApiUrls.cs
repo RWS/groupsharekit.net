@@ -203,7 +203,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> that represents downloaded files with the specific languageCodeid and type
+        /// Returns the <see cref="Uri"/> that represents downloaded files with the specific languageCodeId and type
         /// </summary>
         public static Uri DownloadFile(string projectId, string type)
         {
@@ -375,7 +375,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> thet gets a list of assignments for a project
+        /// Returns the <see cref="Uri"/> that gets a list of assignments for a project
         /// </summary>
         /// <param name="projectId">Project Id</param>
         /// <param name="fileIdQuery"></param>
@@ -821,7 +821,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> that returns the progest settings for a language file
+        /// Returns the <see cref="Uri"/> that returns the project settings for a language file
         /// </summary>
         public static Uri GetProjectSettings(string projectId, string languageFileId)
         {
@@ -853,7 +853,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> rthat checks if the given language file is check-out to someone other than the user making this call
+        /// Returns the <see cref="Uri"/> that checks if the given language file is check-out to someone other than the user making this call
         /// </summary>
         public static Uri IsCheckoutToSomeoneElse(string languageFileId, string editorProfileMode)
         {
@@ -1149,7 +1149,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> for predefined tmleverage report data
+        /// Returns the <see cref="Uri"/> for predefined TM leverage report data
         /// </summary>
         public static Uri GetPredefinedTmLeverageData()
         {

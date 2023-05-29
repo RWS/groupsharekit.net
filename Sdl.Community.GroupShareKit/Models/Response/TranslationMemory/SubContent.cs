@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
+﻿namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
     public class SubContent
     {
@@ -12,10 +6,12 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// Gets or sets source tag content offset
         /// </summary>
         public int SourceTagContentOffset { get; set; }
+
         /// <summary>
         /// Gets or sets length
         /// </summary>
         public int Length { get; set; }
+
         /// <summary>
         /// Gets or sets paragraph unit id
         /// </summary>

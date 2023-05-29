@@ -173,7 +173,6 @@ namespace Sdl.Community.GroupShareKit.Http
                 HttpClient?.Dispose();
             }
         }
-
     }
 
     internal class RedirectHandler : DelegatingHandler

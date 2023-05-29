@@ -16,17 +16,17 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static string EscapeString(string expression)
         {
             string str;
-            var charactersToEscape = "\"\\";
-            if (!string.IsNullOrEmpty(expression) && !string.IsNullOrEmpty(charactersToEscape))
+            const string charactersToEscape = "\"\\";
+            if (!string.IsNullOrEmpty(expression))
             {
                 var stringBuilder = new StringBuilder();
-                for (int i = 0; i < expression.Length; i++)
+                foreach (var chr in expression)
                 {
-                    char chr = expression[i];
                     if (charactersToEscape.IndexOf(chr) >= 0)
                     {
                         stringBuilder.Append("\\");
                     }
+
                     stringBuilder.Append(chr);
                 }
 

@@ -167,7 +167,7 @@ namespace Sdl.Community.GroupShareKit.Clients
                 {
                     EntryClass = new Entry
                     {
-                        Id = defaultEntryClass.Id
+                        Id = defaultEntryClass?.Id
                     },
                     Attributes = conceptRequest.Attributes,
                     Languages = conceptRequest.Languages,

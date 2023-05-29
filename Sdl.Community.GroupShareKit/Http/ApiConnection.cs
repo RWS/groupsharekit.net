@@ -265,7 +265,7 @@ namespace Sdl.Community.GroupShareKit.Http
         public Task Delete(Uri uri, object data, string contentType)
         {
             Ensure.ArgumentNotNull(uri, "uri");
-            Ensure.ArgumentNotNull(data, "data"); ;
+            Ensure.ArgumentNotNull(data, "data");
 
             return Connection.Delete(uri, data, contentType);
         }
@@ -273,7 +273,7 @@ namespace Sdl.Community.GroupShareKit.Http
         public Task Patch(Uri uri, object data, string contentType)
         {
             Ensure.ArgumentNotNull(uri, "uri");
-            Ensure.ArgumentNotNull(data, "data"); ;
+            Ensure.ArgumentNotNull(data, "data");
 
             return Connection.Patch(uri, data, contentType);
         }

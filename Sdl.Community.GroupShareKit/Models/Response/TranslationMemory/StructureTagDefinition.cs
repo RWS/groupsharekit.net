@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
@@ -12,18 +8,22 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// Gets or sets the id
         /// </summary> 
         public int Id { get; set; }
+
         /// <summary>
         /// Gets or sets display text
         /// </summary>
         public string DisplayText { get; set; }
+
         /// <summary>
         /// Gets or sets  tag content
         /// </summary>
         public string TagContent { get; set; }
+
         /// <summary>
         /// Gets or sets  metadata
         /// </summary>
         public Metadata Metadata { get; set; }
+
         /// <summary>
         /// Gets or sets a list of subcontent
         /// </summary>

@@ -12,64 +12,66 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
         }
 
-        public Task<List<ReportingServicePredefinedProjects>> PredefinedProjects(PredefinedReportsFilters predefinedFilters)
+        public Task<List<ReportingServicePredefinedProjects>> PredefinedProjects(PredefinedReportsFilters filters)
         {
             var predefinedProjectsUrl = ApiUrls.GetPredefinedProjectsData();
 
             var filterParameters = new Dictionary<string, string>
             {
-                { "showAll" , predefinedFilters.ShowAll.ToString()},
-                { "publishStart", predefinedFilters.PublishStart.ToString()},
-                { "publishEnd", predefinedFilters.PublishEnd.ToString()},
-                { "dueStart", predefinedFilters.DueStart.ToString()},
-                { "dueEnd", predefinedFilters.DueEnd.ToString()},
-                { "status" , predefinedFilters.Status.ToString() },
-                { "OrganizationPath", predefinedFilters.OrganizationPath},
-                { "SourceLanguages", predefinedFilters.SourceLanguages},
-                { "TargetLanguages", predefinedFilters.TargetLanguages},
-                { "AssignedUserIds", predefinedFilters.AssignedUsersIds}
+                { "showAll" , filters.ShowAll.ToString()},
+                { "publishStart", filters.PublishStart.ToString()},
+                { "publishEnd", filters.PublishEnd.ToString()},
+                { "dueStart", filters.DueStart.ToString()},
+                { "dueEnd", filters.DueEnd.ToString()},
+                { "status" , filters.Status.ToString() },
+                { "OrganizationPath", filters.OrganizationPath},
+                { "SourceLanguages", filters.SourceLanguages},
+                { "TargetLanguages", filters.TargetLanguages},
+                { "AssignedUserIds", filters.AssignedUsersIds}
             };
 
             return ApiConnection.Get<List<ReportingServicePredefinedProjects>>(predefinedProjectsUrl, filterParameters);
         }
 
-        public Task<List<ReportingServicePredefinedTasks>> PredefinedTasks(PredefinedReportsFilters predefinedFilters)
+        public Task<List<ReportingServicePredefinedTasks>> PredefinedTasks(PredefinedReportsFilters filters)
         {
             var predefinedTasksUrl = ApiUrls.GetPredefinedTasksData();
 
             var filterParameters = new Dictionary<string, string>
             {
-                { "showAll" , predefinedFilters.ShowAll.ToString()},
-                { "publishStart", predefinedFilters.PublishStart.ToString()},
-                { "publishEnd", predefinedFilters.PublishEnd.ToString()},
-                { "dueStart", predefinedFilters.DueStart.ToString()},
-                { "dueEnd", predefinedFilters.DueEnd.ToString()},
-                { "status" , predefinedFilters.Status.ToString() },
-                { "OrganizationPath", predefinedFilters.OrganizationPath},
-                { "SourceLanguages", predefinedFilters.SourceLanguages},
-                { "TargetLanguages", predefinedFilters.TargetLanguages},
-                { "AssignedUserIds", predefinedFilters.AssignedUsersIds}
+                { "showAll" , filters.ShowAll.ToString()},
+                { "publishStart", filters.PublishStart.ToString()},
+                { "publishEnd", filters.PublishEnd.ToString()},
+                { "dueStart", filters.DueStart.ToString()},
+                { "dueEnd", filters.DueEnd.ToString()},
+                { "status" , filters.Status.ToString() },
+                { "OrganizationPath", filters.OrganizationPath},
+                { "SourceLanguages", filters.SourceLanguages},
+                { "TargetLanguages", filters.TargetLanguages},
+                { "AssignedUserIds", filters.AssignedUsersIds}
             };
+
             return ApiConnection.Get<List<ReportingServicePredefinedTasks>>(predefinedTasksUrl, filterParameters);
         }
 
-        public Task<List<ReportingServicePredefinedTmLeverage>> PredefinedTmLeverage(PredefinedReportsFilters predefinedFilters)
+        public Task<List<ReportingServicePredefinedTmLeverage>> PredefinedTmLeverage(PredefinedReportsFilters filters)
         {
             var predefinedTmLeverageUrl = ApiUrls.GetPredefinedTmLeverageData();
 
             var filterParameters = new Dictionary<string, string>
             {
-                { "showAll" , predefinedFilters.ShowAll.ToString()},
-                { "publishStart", predefinedFilters.PublishStart.ToString()},
-                { "publishEnd", predefinedFilters.PublishEnd.ToString()},
-                { "dueStart", predefinedFilters.DueStart.ToString()},
-                { "dueEnd", predefinedFilters.DueEnd.ToString()},
-                { "status" , predefinedFilters.Status.ToString() },
-                { "OrganizationPath", predefinedFilters.OrganizationPath},
-                { "SourceLanguages", predefinedFilters.SourceLanguages},
-                { "TargetLanguages", predefinedFilters.TargetLanguages},
-                { "AssignedUserIds", predefinedFilters.AssignedUsersIds}
+                { "showAll" , filters.ShowAll.ToString()},
+                { "publishStart", filters.PublishStart.ToString()},
+                { "publishEnd", filters.PublishEnd.ToString()},
+                { "dueStart", filters.DueStart.ToString()},
+                { "dueEnd", filters.DueEnd.ToString()},
+                { "status" , filters.Status.ToString() },
+                { "OrganizationPath", filters.OrganizationPath},
+                { "SourceLanguages", filters.SourceLanguages},
+                { "TargetLanguages", filters.TargetLanguages},
+                { "AssignedUserIds", filters.AssignedUsersIds}
             };
+
             return ApiConnection.Get<List<ReportingServicePredefinedTmLeverage>>(predefinedTmLeverageUrl, filterParameters);
         }
 
@@ -83,6 +85,7 @@ namespace Sdl.Community.GroupShareKit.Clients
                 { "OrderDirection", sortParameters.OrderDirection},
 
             };
+
             return ApiConnection.Get<ReportingServiceDeliveriesDueSoonProjects>(deliveriesDueSoonUrl, requestSortParameters);
         }
 
@@ -94,8 +97,8 @@ namespace Sdl.Community.GroupShareKit.Clients
             {
                 { "OrderBy" , sortParameters.OrderBy},
                 { "OrderDirection", sortParameters.OrderDirection},
-
             };
+
             return ApiConnection.Get<List<ReportingServiceYourTasks>>(yourTasksUrl, requestSortParameters);
         }
 

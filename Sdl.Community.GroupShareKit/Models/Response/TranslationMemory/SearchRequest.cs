@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
@@ -15,7 +11,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 
         public SearchTextSettings Settings { get; set; }
 
-        public SearchRequest(Guid tmId, string searchText,string sourceCode,string targetCode )
+        public SearchRequest(Guid tmId, string searchText, string sourceCode, string targetCode)
         {
             SourceLanguageCode = sourceCode;
             TargetLanguageCode = targetCode;

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
+﻿namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
     public class Resource
     {
@@ -22,7 +16,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         public string CultureName { get; set; }
         /// <summary>
         /// Gets or sets type 
-        /// Type possibble value: Variables, Abbreviations,OrdinalFollowers,SegmentationRules
+        /// Type possible value: Variables, Abbreviations, OrdinalFollowers, SegmentationRules
         /// </summary>
         public string Type { get; set; }
         /// <summary>

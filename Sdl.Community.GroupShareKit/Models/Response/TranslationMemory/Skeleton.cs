@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
@@ -31,9 +27,9 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// <summary>
         /// Gets or sets a list of structure tag definitions
         /// </summary>
-        public List<StructureTagDefinition> StructureTagDefinitions  { get; set; }
+        public List<StructureTagDefinition> StructureTagDefinitions { get; set; }
         /// <summary>
-        /// Gets or sets a list of tag pair definiitons
+        /// Gets or sets a list of tag pair definitions
         /// </summary>
         public List<TagPairDefinition> TagPairDefinitions { get; set; }
         /// <summary>

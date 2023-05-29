@@ -722,7 +722,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task<string> UploadFilesForProject(string projectId, byte[] rawData, string name)
+        public async Task<string> UploadFilesForProject(string projectId, byte[] rawData, string projectName)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             var byteContent = new ByteArrayContent(rawData);
@@ -730,7 +730,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 
             var multipartContent = new MultipartFormDataContent
             {
-                { byteContent, "file", name + ".zip" }
+                { byteContent, "file", projectName + ".zip" }
             };
 
             return await ApiConnection.Post<string>(ApiUrls.UploadFilesForProject(projectId), multipartContent, "application/zip");
