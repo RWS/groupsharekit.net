@@ -62,7 +62,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri Role(string roleId)
         {
-
             return "{0}/roles/{1}".
                 FormatUri(CurrentManagementV2Url, roleId);
         }
@@ -1135,7 +1134,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri GetPredefinedProjectsData()
         {
-
             return "{0}/predefined/projects".FormatUri(ReportingServiceUrl);
         }
 
@@ -1154,6 +1152,15 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri GetPredefinedTmLeverageData()
         {
             return "{0}/predefined/tmleverage".FormatUri(ReportingServiceUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for exporting Excel reports file
+        /// </summary>
+        /// <returns></returns>
+        public static Uri ExportPredefinedReports()
+        {
+            return "{0}/exportExcel".FormatUri(ReportingServiceUrl);
         }
 
         /// <summary>

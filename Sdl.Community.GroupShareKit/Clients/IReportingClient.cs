@@ -133,5 +133,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<List<ReportingServiceTopLanguagePairs>> TopLanguagePairs();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        Task<object> ExportPredefinedReports(PredefinedReportsFilters filters);
     }
 }

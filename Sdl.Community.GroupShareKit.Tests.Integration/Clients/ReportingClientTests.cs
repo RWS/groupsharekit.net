@@ -1,5 +1,7 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Tests.Integration.Setup;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -113,6 +115,29 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var reportingData = await groupShareClient.Reporting.WordsPerOrganization();
             Assert.True(reportingData.Count > 0);
+        }
+
+        [Fact]
+        public async Task ExportPredefinedReports()
+        {
+            var groupShareClient = Helper.GsClient;
+            var filters = new PredefinedReportsFilters
+            {
+                ShowAll = true,
+                Status = 31
+            };
+
+            var export = await groupShareClient.Reporting.ExportPredefinedReports(filters);
+
+            Assert.NotNull(export);
+
+            byte[] byteArray = Encoding.UTF8.GetBytes(export.ToString());
+            File.WriteAllBytes("C:\\Temp\\ExportGSKit.xlsx", byteArray);
+
+            using (FileStream fileStream = new FileStream("C:\\Temp\\ExportGSKit_1.xlsx", FileMode.Create, FileAccess.Write))
+            {
+                fileStream.Write(byteArray, 0, byteArray.Length);
+            }
         }
     }
 }
