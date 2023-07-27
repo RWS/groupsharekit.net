@@ -43,7 +43,6 @@ namespace Sdl.Community.GroupShareKit.Http
             return response.Body;
         }
 
-        
         /// <summary>
         /// Performs an asynchronous HTTP GET request.
         /// Attempts to map the response to an object of type <typeparamref name="T"/>
