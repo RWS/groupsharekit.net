@@ -1155,7 +1155,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> for exporting Excel reports file
+        /// Returns the <see cref="Uri"/> for exporting the Predefined Reports to Excel
         /// </summary>
         /// <returns></returns>
         public static Uri ExportPredefinedReports()
