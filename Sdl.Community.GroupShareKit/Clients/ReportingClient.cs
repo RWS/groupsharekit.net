@@ -1,7 +1,6 @@
 ﻿using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -130,7 +129,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Get<List<ReportingServiceTopLanguagePairs>>(topLanguagePairsUrl, null);
         }
 
-        public async Task<object> ExportPredefinedReports(PredefinedReportsFilters filters)
+        public async Task<byte[]> ExportPredefinedReports(PredefinedReportsFilters filters)
         {
             var filterParameters = new Dictionary<string, string>
             {
@@ -146,7 +145,7 @@ namespace Sdl.Community.GroupShareKit.Clients
                 { "AssignedUserIds", filters.AssignedUsersIds}
             };
 
-            return await ApiConnection.Get<object>(ApiUrls.ExportPredefinedReports(), filterParameters);
+            return await ApiConnection.Get<byte[]>(ApiUrls.ExportPredefinedReports(), filterParameters);
         }
     }
 }

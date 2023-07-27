@@ -119,7 +119,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="Phase"/>s.</returns>
         Task ChangePhases(string projectId, ChangePhaseRequest request);
 
-
         /// <summary>
         /// Changes the assignment for a specific phase for files from a server project,
         /// </summary>

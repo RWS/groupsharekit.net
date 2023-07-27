@@ -68,6 +68,9 @@ namespace Sdl.Community.GroupShareKit.Http
                                                     StringComparison.OrdinalIgnoreCase)
                                             ||
                                                 contentType.Equals("application/octet-stream")
+                                            ||
+                                                contentType.StartsWith("application/vnd.openxmlformats-officedocument", 
+                                                    StringComparison.OrdinalIgnoreCase)
                                                 ))
                     {
                         responseBody = await responseMessage.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
@@ -87,7 +90,7 @@ namespace Sdl.Community.GroupShareKit.Http
 
         private string GetContentMediaType(HttpContent content)
         {
-            if (content.Headers != null && content.Headers.ContentType != null)
+            if (content.Headers?.ContentType != null)
             {
                 return content.Headers.ContentType.MediaType;
             }

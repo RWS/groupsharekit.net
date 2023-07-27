@@ -134,9 +134,9 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<List<ReportingServiceTopLanguagePairs>> TopLanguagePairs();
 
         /// <summary>
-        /// 
+        /// Exports the Predefined Reports to Excel
         /// </summary>
-        /// <returns></returns>
-        Task<object> ExportPredefinedReports(PredefinedReportsFilters filters);
+        ///  This method requires authentication.
+        Task<byte[]> ExportPredefinedReports(PredefinedReportsFilters filters);
     }
 }

@@ -14,6 +14,5 @@
         /// Gets or sets the status
         /// </summary>
        public string Status { get; set; }
-
     }
 }

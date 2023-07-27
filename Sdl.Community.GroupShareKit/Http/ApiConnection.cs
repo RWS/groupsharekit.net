@@ -14,7 +14,6 @@ namespace Sdl.Community.GroupShareKit.Http
     /// </summary>
     public class ApiConnection : IApiConnection
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiConnection"/> class.
         /// </summary>
@@ -44,6 +43,7 @@ namespace Sdl.Community.GroupShareKit.Http
             return response.Body;
         }
 
+        
         /// <summary>
         /// Performs an asynchronous HTTP GET request.
         /// Attempts to map the response to an object of type <typeparamref name="T"/>
@@ -117,7 +117,6 @@ namespace Sdl.Community.GroupShareKit.Http
             Ensure.ArgumentNotNull(body, "body");
 
             return Post<T>(uri, body, null);
-
         }
 
         /// <summary>
@@ -154,7 +153,6 @@ namespace Sdl.Community.GroupShareKit.Http
 
             var response = await Connection.Post<T>(uri, body, contentType).ConfigureAwait(false);
             return response.Body;
-
         }
 
         /// <summary>
