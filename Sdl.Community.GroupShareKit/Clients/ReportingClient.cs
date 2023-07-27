@@ -83,7 +83,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             {
                 { "OrderBy" , sortParameters.OrderBy},
                 { "OrderDirection", sortParameters.OrderDirection},
-
             };
 
             return ApiConnection.Get<ReportingServiceDeliveriesDueSoonProjects>(deliveriesDueSoonUrl, requestSortParameters);
@@ -128,6 +127,25 @@ namespace Sdl.Community.GroupShareKit.Clients
             var topLanguagePairsUrl = ApiUrls.GetTopLanguagePairsData();
 
             return ApiConnection.Get<List<ReportingServiceTopLanguagePairs>>(topLanguagePairsUrl, null);
+        }
+
+        public async Task<byte[]> ExportPredefinedReports(PredefinedReportsFilters filters)
+        {
+            var filterParameters = new Dictionary<string, string>
+            {
+                { "showAll" , filters.ShowAll.ToString()},
+                { "publishStart", filters.PublishStart.ToString()},
+                { "publishEnd", filters.PublishEnd.ToString()},
+                { "dueStart", filters.DueStart.ToString()},
+                { "dueEnd", filters.DueEnd.ToString()},
+                { "status" , filters.Status.ToString() },
+                { "OrganizationPath", filters.OrganizationPath},
+                { "SourceLanguages", filters.SourceLanguages},
+                { "TargetLanguages", filters.TargetLanguages},
+                { "AssignedUserIds", filters.AssignedUsersIds}
+            };
+
+            return await ApiConnection.Get<byte[]>(ApiUrls.ExportPredefinedReports(), filterParameters);
         }
     }
 }

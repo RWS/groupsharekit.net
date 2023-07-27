@@ -14,7 +14,6 @@ namespace Sdl.Community.GroupShareKit.Http
     /// </summary>
     public class ApiConnection : IApiConnection
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiConnection"/> class.
         /// </summary>
@@ -117,7 +116,6 @@ namespace Sdl.Community.GroupShareKit.Http
             Ensure.ArgumentNotNull(body, "body");
 
             return Post<T>(uri, body, null);
-
         }
 
         /// <summary>
@@ -154,7 +152,6 @@ namespace Sdl.Community.GroupShareKit.Http
 
             var response = await Connection.Post<T>(uri, body, contentType).ConfigureAwait(false);
             return response.Body;
-
         }
 
         /// <summary>

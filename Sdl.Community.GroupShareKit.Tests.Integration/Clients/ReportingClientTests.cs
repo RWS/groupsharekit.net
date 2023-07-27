@@ -114,5 +114,19 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var reportingData = await groupShareClient.Reporting.WordsPerOrganization();
             Assert.True(reportingData.Count > 0);
         }
+
+        [Fact]
+        public async Task ExportPredefinedReports()
+        {
+            var groupShareClient = Helper.GsClient;
+            var filters = new PredefinedReportsFilters
+            {
+                ShowAll = true,
+                Status = 31
+            };
+
+            var export = await groupShareClient.Reporting.ExportPredefinedReports(filters);
+            Assert.NotNull(export);
+        }
     }
 }
