@@ -971,6 +971,13 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/auditTrail/languageFiles/{1}".FormatUri(CurrentProjectServerUrl, projectId);
         }
+
+        [Obsolete("AuditTrial is deprecated, please use AuditTrail instead.")]
+        public static Uri AuditTrial(string projectId)
+        {
+            return "{0}/auditTrail/languageFiles/{1}".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that checks if the user can open the file in universal editor 
         /// </summary>

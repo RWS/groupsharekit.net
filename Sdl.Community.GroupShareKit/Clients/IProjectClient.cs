@@ -2,6 +2,7 @@ using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Models;
 using Sdl.Community.GroupShareKit.Models.Response;
 using Sdl.Community.GroupShareKit.Models.Response.ProjectPublishingInformation;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Project = Sdl.Community.GroupShareKit.Models.Response.Project;
@@ -963,6 +964,9 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<IReadOnlyList<AuditTrail>> AuditTrail(string projectId);
+
+        [Obsolete("AuditTrial is deprecated, please use AuditTrail instead.")]
+        Task<IReadOnlyList<AuditTrial>> AuditTrial(string projectId);
 
         /// <summary>
         /// Returns the projects report data

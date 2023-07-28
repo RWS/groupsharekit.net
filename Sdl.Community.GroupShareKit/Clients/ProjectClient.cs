@@ -1598,6 +1598,13 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.GetAll<AuditTrail>(ApiUrls.AuditTrail(projectId), null);
         }
 
+        [Obsolete("AuditTrial is deprecated, please call AuditTrail instead.")]
+        public Task<IReadOnlyList<AuditTrial>> AuditTrial(string projectId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            return ApiConnection.GetAll<AuditTrial>(ApiUrls.AuditTrial(projectId), null);
+        }
+
         #endregion
 
         #region Reporting
