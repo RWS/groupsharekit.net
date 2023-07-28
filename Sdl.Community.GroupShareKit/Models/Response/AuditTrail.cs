@@ -4,7 +4,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class AuditTrail
     {
-		public LanguageFileDetails LanguageFile { get; set; }
-	    public List<Trail> Trails { get; set; }
-	}
+        public LanguageFileDetails LanguageFile { get; set; }
+        public List<Trail> Trails { get; set; }
+    }
 }
