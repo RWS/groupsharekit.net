@@ -285,7 +285,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
                 FormatUri(CurrentProjectServerUrl, templateId);
         }
 
-
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns all project templates
         /// </summary>
@@ -538,6 +537,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/tms/{1}".FormatUri(CurrentTranslationMemoriesUrl, tmId);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that gives the language direction information for a specified tm
         /// </summary>
@@ -572,6 +572,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/termbases".FormatUri(CurrentMultitermUrl);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that gives specified tm
         /// </summary>
@@ -587,6 +588,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/templates".FormatUri(CurrentFieldServiceUrl);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns specific  field template
         /// </summary>
@@ -594,6 +596,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/templates/{1}".FormatUri(CurrentFieldServiceUrl, id);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns the health status of tm service
         /// </summary>
@@ -647,6 +650,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/termbases/{1}/concepts/{2}".FormatUri(CurrentMultitermUrl, termbaseId, conceptId);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that gets all language resource templates
         /// </summary>
@@ -677,6 +681,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/defaults/{1}/{2}".FormatUri(CurrentLanguageResourceServiceUrl, type, language);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that language resources for specified template and resource.
         /// </summary>
@@ -694,6 +699,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/templates/{1}/resources/{2}/{3}".FormatUri(CurrentLanguageResourceServiceUrl, templateId,
                 languageResourceId, action);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that gets a list of Fields for a specific Template ID.
         /// </summary>
@@ -717,6 +723,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/tms/{1}/tus/{2}".FormatUri(CurrentTranslationMemoriesUrl, tmId, action);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that retrieves the translation units from the Translation memory
         /// </summary>
@@ -724,6 +731,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/tms/{1}/tus".FormatUri(CurrentTranslationMemoriesUrl, tmId);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that retrieves the number of translation units from the Translation memory
         /// </summary>
@@ -739,6 +747,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/tms/{1}/tus/{2}/count".FormatUri(CurrentTranslationMemoriesUrl, tmId, type);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that retrieves the Duplicate Translation Units in a specific TM
         /// </summary>
@@ -1157,7 +1166,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for predefined tasks report data
         /// </summary>
-        /// <param name="options"></param>
         public static Uri GetPredefinedTasksData()
         {
             return "{0}/predefined/tasks".FormatUri(ReportingServiceUrl);
@@ -1166,7 +1174,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for predefined tasks report data with pagination parameters
         /// </summary>
-        /// <param name="options"></param>
         public static Uri GetPredefinedTasksDataV2()
         {
             return "{0}/predefined/tasks".FormatUri(ReportingServiceV2Url);

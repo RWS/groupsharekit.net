@@ -35,7 +35,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         public Task<ReportingServicePredefinedProjectsV2> PredefinedProjectsV2(PredefinedReportsFilters filters)
         {
-            var predefinedProjectsUrl = ApiUrls.GetPredefinedProjectsDataV2();
+            var predefinedProjectsV2Url = ApiUrls.GetPredefinedProjectsDataV2();
 
             var filterParameters = new Dictionary<string, string>
             {
@@ -55,7 +55,7 @@ namespace Sdl.Community.GroupShareKit.Clients
                 { "PageSize", filters.PageSize.ToString() }
             };
 
-            return ApiConnection.Get<ReportingServicePredefinedProjectsV2>(predefinedProjectsUrl, filterParameters);
+            return ApiConnection.Get<ReportingServicePredefinedProjectsV2>(predefinedProjectsV2Url, filterParameters);
         }
 
         public Task<List<ReportingServicePredefinedTasks>> PredefinedTasks(PredefinedReportsFilters filters)
@@ -81,7 +81,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         public Task<ReportingServicePredefinedTasksV2> PredefinedTasksV2(PredefinedReportsFilters filters)
         {
-            var predefinedTasksUrl = ApiUrls.GetPredefinedTasksDataV2();
+            var predefinedTasksV2Url = ApiUrls.GetPredefinedTasksDataV2();
 
             var filterParameters = new Dictionary<string, string>
             {
@@ -101,7 +101,7 @@ namespace Sdl.Community.GroupShareKit.Clients
                 { "PageSize", filters.PageSize.ToString() }
             };
 
-            return ApiConnection.Get<ReportingServicePredefinedTasksV2>(predefinedTasksUrl, filterParameters);
+            return ApiConnection.Get<ReportingServicePredefinedTasksV2>(predefinedTasksV2Url, filterParameters);
         }
 
         public Task<List<ReportingServicePredefinedTmLeverage>> PredefinedTmLeverage(PredefinedReportsFilters filters)
