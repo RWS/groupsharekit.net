@@ -27,7 +27,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task PredefinedProjectsDataV2()
         {
             var groupShareClient = Helper.GsClient;
-            var filters = new PredefinedReportsFilters
+            var filters = new PredefinedReportsFiltersV2
             {
                 ShowAll = true,
                 Status = 31,
@@ -39,7 +39,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var reportingData = await groupShareClient.Reporting.PredefinedProjectsV2(filters);
             Assert.True(reportingData.Count > 0);
-            Assert.True(reportingData.Items.Count() <= 3);
+            Assert.True(reportingData.Items.Length <= 3);
         }
 
         [Fact]
@@ -60,7 +60,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task PredefinedTasksDataV2()
         {
             var groupShareClient = Helper.GsClient;
-            var filters = new PredefinedReportsFilters
+            var filters = new PredefinedReportsFiltersV2
             {
                 ShowAll = true,
                 Status = 31,
@@ -72,7 +72,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var reportingData = await groupShareClient.Reporting.PredefinedTasksV2(filters);
             Assert.True(reportingData.Count > 0);
-            Assert.True(reportingData.Items.Count() <= 5);
+            Assert.True(reportingData.Items.Length <= 5);
         }
 
         [Fact]

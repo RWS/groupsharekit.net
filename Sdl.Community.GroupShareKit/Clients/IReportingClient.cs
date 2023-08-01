@@ -27,7 +27,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// This method requires authentication.
         /// <param name="filters"></param>
         /// <returns></returns>
-        Task<ReportingServicePredefinedProjectsV2> PredefinedProjectsV2(PredefinedReportsFilters filters);
+        Task<ReportingServicePredefinedProjectsV2> PredefinedProjectsV2(PredefinedReportsFiltersV2 filters);
 
         /// <summary>
         /// Returns the Predefined Tasks report data
@@ -49,7 +49,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// This method requires authentication.
         /// <param name="filters"></param>
         /// <returns></returns>
-        Task<ReportingServicePredefinedTasksV2> PredefinedTasksV2(PredefinedReportsFilters filters);
+        Task<ReportingServicePredefinedTasksV2> PredefinedTasksV2(PredefinedReportsFiltersV2 filters);
 
         /// <summary>
         /// Returns the Predefined TmLeverage report data

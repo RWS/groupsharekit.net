@@ -33,7 +33,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Get<List<ReportingServicePredefinedProjects>>(predefinedProjectsUrl, filterParameters);
         }
 
-        public Task<ReportingServicePredefinedProjectsV2> PredefinedProjectsV2(PredefinedReportsFilters filters)
+        public Task<ReportingServicePredefinedProjectsV2> PredefinedProjectsV2(PredefinedReportsFiltersV2 filters)
         {
             var predefinedProjectsV2Url = ApiUrls.GetPredefinedProjectsDataV2();
 
@@ -79,7 +79,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Get<List<ReportingServicePredefinedTasks>>(predefinedTasksUrl, filterParameters);
         }
 
-        public Task<ReportingServicePredefinedTasksV2> PredefinedTasksV2(PredefinedReportsFilters filters)
+        public Task<ReportingServicePredefinedTasksV2> PredefinedTasksV2(PredefinedReportsFiltersV2 filters)
         {
             var predefinedTasksV2Url = ApiUrls.GetPredefinedTasksDataV2();
 
