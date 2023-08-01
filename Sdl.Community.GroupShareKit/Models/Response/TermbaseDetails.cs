@@ -52,6 +52,4 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// </summary>
         public List<EntryClass> EntryClasses { get; set; }
     }
-
-
 }

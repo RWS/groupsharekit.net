@@ -17,6 +17,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static readonly Uri CurrentLanguageResourceServiceUrl = new Uri("api/language-resource-service", UriKind.Relative);
         public static readonly Uri TranslateAndAnalysisServiceUrl = new Uri("ta/api", UriKind.Relative);
         public static readonly Uri ReportingServiceUrl = new Uri("api/reports", UriKind.Relative);
+        public static readonly Uri ReportingServiceV2Url = new Uri("api/reports/v2", UriKind.Relative);
         public static readonly Uri LogServiceUri = new Uri("api/log", UriKind.Relative);
 
         public static Uri Modules()
@@ -284,7 +285,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
                 FormatUri(CurrentProjectServerUrl, templateId);
         }
 
-
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns all project templates
         /// </summary>
@@ -537,6 +537,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/tms/{1}".FormatUri(CurrentTranslationMemoriesUrl, tmId);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that gives the language direction information for a specified tm
         /// </summary>
@@ -571,6 +572,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/termbases".FormatUri(CurrentMultitermUrl);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that gives specified tm
         /// </summary>
@@ -586,6 +588,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/templates".FormatUri(CurrentFieldServiceUrl);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns specific  field template
         /// </summary>
@@ -593,6 +596,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/templates/{1}".FormatUri(CurrentFieldServiceUrl, id);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns the health status of tm service
         /// </summary>
@@ -646,6 +650,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/termbases/{1}/concepts/{2}".FormatUri(CurrentMultitermUrl, termbaseId, conceptId);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that gets all language resource templates
         /// </summary>
@@ -676,6 +681,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/defaults/{1}/{2}".FormatUri(CurrentLanguageResourceServiceUrl, type, language);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that language resources for specified template and resource.
         /// </summary>
@@ -693,6 +699,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/templates/{1}/resources/{2}/{3}".FormatUri(CurrentLanguageResourceServiceUrl, templateId,
                 languageResourceId, action);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that gets a list of Fields for a specific Template ID.
         /// </summary>
@@ -716,6 +723,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/tms/{1}/tus/{2}".FormatUri(CurrentTranslationMemoriesUrl, tmId, action);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that retrieves the translation units from the Translation memory
         /// </summary>
@@ -723,6 +731,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/tms/{1}/tus".FormatUri(CurrentTranslationMemoriesUrl, tmId);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that retrieves the number of translation units from the Translation memory
         /// </summary>
@@ -738,6 +747,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/tms/{1}/tus/{2}/count".FormatUri(CurrentTranslationMemoriesUrl, tmId, type);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that retrieves the Duplicate Translation Units in a specific TM
         /// </summary>
@@ -965,12 +975,19 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> that retries the audit trail for all the language files in the given project
+        /// Returns the <see cref="Uri"/> that retrieves the audit trail for all the language files in the given project
         /// </summary>
+        public static Uri AuditTrail(string projectId)
+        {
+            return "{0}/auditTrail/languageFiles/{1}".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        [Obsolete("AuditTrial is deprecated, please use AuditTrail instead.")]
         public static Uri AuditTrial(string projectId)
         {
             return "{0}/auditTrail/languageFiles/{1}".FormatUri(CurrentProjectServerUrl, projectId);
         }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that checks if the user can open the file in universal editor 
         /// </summary>
@@ -1138,12 +1155,28 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for predefined projects report data with pagination parameters
+        /// </summary>
+        /// <returns></returns>
+        public static Uri GetPredefinedProjectsDataV2()
+        {
+            return "{0}/predefined/projects".FormatUri(ReportingServiceV2Url);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for predefined tasks report data
         /// </summary>
-        /// <param name="options"></param>
         public static Uri GetPredefinedTasksData()
         {
             return "{0}/predefined/tasks".FormatUri(ReportingServiceUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for predefined tasks report data with pagination parameters
+        /// </summary>
+        public static Uri GetPredefinedTasksDataV2()
+        {
+            return "{0}/predefined/tasks".FormatUri(ReportingServiceV2Url);
         }
 
         /// <summary>

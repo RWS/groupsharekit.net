@@ -10,7 +10,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Returns the Predefined Projects report data
         /// </summary>
-        /// <param name="options"></param>
+        /// <param name="filters"></param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -22,9 +22,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<List<ReportingServicePredefinedProjects>> PredefinedProjects(PredefinedReportsFilters filters);
 
         /// <summary>
+        /// Returns the Predefined Projects report data sorted and paged
+        /// </summary>
+        /// This method requires authentication.
+        /// <param name="filters"></param>
+        /// <returns></returns>
+        Task<ReportingServicePredefinedProjectsV2> PredefinedProjectsV2(PredefinedReportsFiltersV2 filters);
+
+        /// <summary>
         /// Returns the Predefined Tasks report data
         /// </summary>
-        /// <param name="options"></param>
+        /// <param name="filters"></param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -36,9 +44,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<List<ReportingServicePredefinedTasks>> PredefinedTasks(PredefinedReportsFilters filters);
 
         /// <summary>
+        /// Returns the Predefined Tasks report data sorted and paged
+        /// </summary>
+        /// This method requires authentication.
+        /// <param name="filters"></param>
+        /// <returns></returns>
+        Task<ReportingServicePredefinedTasksV2> PredefinedTasksV2(PredefinedReportsFiltersV2 filters);
+
+        /// <summary>
         /// Returns the Predefined TmLeverage report data
         /// </summary>
-        /// <param name="options"></param>
+        /// <param name="filters"></param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -52,7 +68,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Returns the Deliveries Due Soon report data
         /// </summary>
-        /// <param name="options"></param>
+        /// <param name="sortParameters"></param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -66,7 +82,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Returns the Your Tasks report data
         /// </summary>
-        /// <param name="options"></param>
+        /// <param name="sortParameters"></param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -80,7 +96,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Returns the Projects Per Month report data
         /// </summary>
-        /// <param name="options"></param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -94,7 +109,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Returns the Words Per Month report data
         /// </summary>
-        /// <param name="options"></param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -108,7 +122,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Returns the Words Per Organization report data
         /// </summary>
-        /// <param name="options"></param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -122,7 +135,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Returns the Top Language Pairs report data
         /// </summary>
-        /// <param name="options"></param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -137,6 +149,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Exports the Predefined Reports to Excel
         /// </summary>
         ///  This method requires authentication.
-        Task<byte[]> ExportPredefinedReports(PredefinedReportsFilters filters);
+        Task<byte[]> ExportPredefinedReports(ExportPredefinedReportsFilters filters);
     }
 }

@@ -2,6 +2,7 @@ using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Models;
 using Sdl.Community.GroupShareKit.Models.Response;
 using Sdl.Community.GroupShareKit.Models.Response.ProjectPublishingInformation;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Project = Sdl.Community.GroupShareKit.Models.Response.Project;
@@ -576,7 +577,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// The project must be created in GroupShare, not in Studio and published in GS
         /// </summary>
         /// <param name="projectId">The project id</param>
-        /// <param name="languageCode"> language code. Eg: en-US/param>
+        /// <param name="languageCode"> language code. Eg: en-US</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -962,6 +963,9 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        Task<IReadOnlyList<AuditTrail>> AuditTrail(string projectId);
+
+        [Obsolete("AuditTrial is deprecated, please use AuditTrail instead.")]
         Task<IReadOnlyList<AuditTrial>> AuditTrial(string projectId);
 
         /// <summary>

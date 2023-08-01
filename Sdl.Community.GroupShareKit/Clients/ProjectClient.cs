@@ -1592,6 +1592,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public Task<IReadOnlyList<AuditTrail>> AuditTrail(string projectId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            return ApiConnection.GetAll<AuditTrail>(ApiUrls.AuditTrail(projectId), null);
+        }
+
+        [Obsolete("AuditTrial is deprecated, please call AuditTrail instead.")]
         public Task<IReadOnlyList<AuditTrial>> AuditTrial(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");

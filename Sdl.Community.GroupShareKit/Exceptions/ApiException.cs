@@ -95,7 +95,7 @@ namespace Sdl.Community.GroupShareKit.Exceptions
         public override string Message => ApiErrorMessageSafe ?? $"An error occurred with this API request - Status code {StatusCode}";
 
         /// <summary>
-        /// The HTTP status code associated with the repsonse
+        /// The HTTP status code associated with the response
         /// </summary>
         public HttpStatusCode StatusCode { get; }
 
