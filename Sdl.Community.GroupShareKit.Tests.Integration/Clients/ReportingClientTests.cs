@@ -1,4 +1,5 @@
-﻿using Sdl.Community.GroupShareKit.Clients;
+﻿using System.IO;
+using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Tests.Integration.Setup;
 using System.Linq;
 using System.Threading.Tasks;
@@ -158,10 +159,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task ExportPredefinedReports()
         {
             var groupShareClient = Helper.GsClient;
-            var filters = new PredefinedReportsFilters
+            var filters = new ExportPredefinedReportsFilters
             {
                 ShowAll = true,
-                Status = 31
+                Status = 31,
+                Language = ReportLanguage.Fr,
+                TimeZone = "Europe/Paris"
             };
 
             var export = await groupShareClient.Reporting.ExportPredefinedReports(filters);

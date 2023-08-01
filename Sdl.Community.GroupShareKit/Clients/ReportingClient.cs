@@ -179,7 +179,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Get<List<ReportingServiceTopLanguagePairs>>(topLanguagePairsUrl, null);
         }
 
-        public async Task<byte[]> ExportPredefinedReports(PredefinedReportsFilters filters)
+        public async Task<byte[]> ExportPredefinedReports(ExportPredefinedReportsFilters filters)
         {
             var filterParameters = new Dictionary<string, string>
             {
@@ -192,7 +192,9 @@ namespace Sdl.Community.GroupShareKit.Clients
                 { "OrganizationPath", filters.OrganizationPath },
                 { "SourceLanguages", filters.SourceLanguages },
                 { "TargetLanguages", filters.TargetLanguages },
-                { "AssignedUserIds", filters.AssignedUsersIds }
+                { "AssignedUserIds", filters.AssignedUsersIds },
+                { "Language", filters.Language.ToString() },
+                { "TimeZone", filters.TimeZone }
             };
 
             return await ApiConnection.Get<byte[]>(ApiUrls.ExportPredefinedReports(), filterParameters);
