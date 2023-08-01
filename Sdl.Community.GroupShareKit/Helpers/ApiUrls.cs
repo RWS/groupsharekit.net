@@ -17,6 +17,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static readonly Uri CurrentLanguageResourceServiceUrl = new Uri("api/language-resource-service", UriKind.Relative);
         public static readonly Uri TranslateAndAnalysisServiceUrl = new Uri("ta/api", UriKind.Relative);
         public static readonly Uri ReportingServiceUrl = new Uri("api/reports", UriKind.Relative);
+        public static readonly Uri ReportingServiceV2Url = new Uri("api/reports/v2", UriKind.Relative);
         public static readonly Uri LogServiceUri = new Uri("api/log", UriKind.Relative);
 
         public static Uri Modules()
@@ -1145,12 +1146,30 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for predefined projects report data with pagination parameters
+        /// </summary>
+        /// <returns></returns>
+        public static Uri GetPredefinedProjectsDataV2()
+        {
+            return "{0}/predefined/projects".FormatUri(ReportingServiceV2Url);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for predefined tasks report data
         /// </summary>
         /// <param name="options"></param>
         public static Uri GetPredefinedTasksData()
         {
             return "{0}/predefined/tasks".FormatUri(ReportingServiceUrl);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for predefined tasks report data with pagination parameters
+        /// </summary>
+        /// <param name="options"></param>
+        public static Uri GetPredefinedTasksDataV2()
+        {
+            return "{0}/predefined/tasks".FormatUri(ReportingServiceV2Url);
         }
 
         /// <summary>

@@ -577,7 +577,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// The project must be created in GroupShare, not in Studio and published in GS
         /// </summary>
         /// <param name="projectId">The project id</param>
-        /// <param name="languageCode"> language code. Eg: en-US/param>
+        /// <param name="languageCode"> language code. Eg: en-US</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.

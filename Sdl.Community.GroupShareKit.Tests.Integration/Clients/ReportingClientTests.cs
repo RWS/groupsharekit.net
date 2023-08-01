@@ -1,5 +1,6 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Tests.Integration.Setup;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -23,6 +24,25 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
+        public async Task PredefinedProjectsDataV2()
+        {
+            var groupShareClient = Helper.GsClient;
+            var filters = new PredefinedReportsFilters
+            {
+                ShowAll = true,
+                Status = 31,
+                OrderBy = "projectName",
+                SortDirection = "ASC",
+                Page = 1,
+                PageSize = 3
+            };
+
+            var reportingData = await groupShareClient.Reporting.PredefinedProjectsV2(filters);
+            Assert.True(reportingData.Count > 0);
+            Assert.True(reportingData.Items.Count() <= 3);
+        }
+
+        [Fact]
         public async Task PredefinedTasksData()
         {
             var groupShareClient = Helper.GsClient;
@@ -34,6 +54,25 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var reportingData = await groupShareClient.Reporting.PredefinedTasks(filters);
             Assert.True(reportingData.Count > 0);
+        }
+
+        [Fact]
+        public async Task PredefinedTasksDataV2()
+        {
+            var groupShareClient = Helper.GsClient;
+            var filters = new PredefinedReportsFilters
+            {
+                ShowAll = true,
+                Status = 31,
+                OrderBy = "DueDate",
+                SortDirection = "DESC",
+                Page = 1,
+                PageSize = 5
+            };
+
+            var reportingData = await groupShareClient.Reporting.PredefinedTasksV2(filters);
+            Assert.True(reportingData.Count > 0);
+            Assert.True(reportingData.Items.Count() <= 5);
         }
 
         [Fact]

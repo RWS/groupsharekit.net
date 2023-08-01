@@ -14,5 +14,9 @@ namespace Sdl.Community.GroupShareKit.Clients
         public string SourceLanguages { get; set; }
         public string TargetLanguages { get; set; }
         public string AssignedUsersIds { get; set; }
+        public string OrderBy { get; set; }
+        public string SortDirection { get; set; }
+        public int? Page { get; set; }
+        public int? PageSize { get; set; }
     }
 }
