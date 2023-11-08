@@ -24,16 +24,16 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// <summary>
         /// The error message
         /// </summary>
-        public string Message { get; protected set; }
+        public string Message { get; set; }
 
         /// <summary>
         /// URL to the documentation for this error.
         /// </summary>
-        public string DocumentationUrl { get; protected set; }
+        public string DocumentationUrl { get; set; }
 
         /// <summary>
         /// Additional details about the error
         /// </summary>
-        public IReadOnlyList<ApiErrorDetail> Errors { get; protected set; }
+        public IReadOnlyList<ApiErrorDetail> Errors { get; set; }
     }
 }
