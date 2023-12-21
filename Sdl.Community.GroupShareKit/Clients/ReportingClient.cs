@@ -112,7 +112,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             {
                 { "showAll" , filters.ShowAll.ToString() },
                 { "publishStart", filters.PublishStart.ToString() },
-                { "publishEnd", filters.PublishEnd.ToString()} ,
+                { "publishEnd", filters.PublishEnd.ToString() } ,
                 { "dueStart", filters.DueStart.ToString() },
                 { "dueEnd", filters.DueEnd.ToString() },
                 { "status" , filters.Status.ToString() },
@@ -131,8 +131,8 @@ namespace Sdl.Community.GroupShareKit.Clients
 
             var requestSortParameters = new Dictionary<string, string>
             {
-                { "OrderBy" , sortParameters.OrderBy},
-                { "OrderDirection", sortParameters.OrderDirection},
+                { "OrderBy" , sortParameters.OrderBy },
+                { "OrderDirection", sortParameters.OrderDirection },
             };
 
             return ApiConnection.Get<ReportingServiceDeliveriesDueSoonProjects>(deliveriesDueSoonUrl, requestSortParameters);
@@ -144,8 +144,8 @@ namespace Sdl.Community.GroupShareKit.Clients
 
             var requestSortParameters = new Dictionary<string, string>
             {
-                { "OrderBy" , sortParameters.OrderBy},
-                { "OrderDirection", sortParameters.OrderDirection},
+                { "OrderBy" , sortParameters.OrderBy },
+                { "OrderDirection", sortParameters.OrderDirection },
             };
 
             return ApiConnection.Get<List<ReportingServiceYourTasks>>(yourTasksUrl, requestSortParameters);

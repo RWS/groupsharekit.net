@@ -1,3 +1,6 @@
+# New in 15.1.10
+* Support for GroupShare 2020 CU10
+
 # New in 15.1.9
 * Support for GroupShare 2020 CU09
 
