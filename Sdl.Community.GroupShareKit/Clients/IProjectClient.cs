@@ -504,6 +504,20 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<string> GetTemplateById(string templateId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <returns></returns>
+        Task<ProjectTemplateSettingsV4> GetProjectTemplateV4(Guid templateId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateRequest"></param>
+        /// <returns></returns>
+        Task<Guid> CreateProjectTemplateV4(ProjectTemplateV4 templateRequest);
+
+        /// <summary>
         ///Deletes a template 
         /// </summary>
         /// <param name="id">string</param>
@@ -516,6 +530,20 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteProjectTemplate(string id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task DeleteProjectTemplateV3(Guid id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task DeleteProjectTemplateV4(Guid id);
 
         /// <summary>
         ///Uploads a template to a newly created project 

@@ -968,7 +968,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             return projectId;
         }
-        
+
         private static async Task<string> CreateTestProjectTemplate(GroupShareClient groupShareClient, string fileName = "")
         {
             var rawData = fileName == "" ?
@@ -976,12 +976,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\" + fileName));
 
             var id = Guid.NewGuid().ToString();
-            var templateName = $"Project template - { Guid.NewGuid() }";
+            var templateName = $"Project template - {Guid.NewGuid()}";
             var templateRequest = new ProjectTemplates(id, templateName, "", Helper.OrganizationId);
             var templateId = await groupShareClient.Project.CreateTemplate(templateRequest, rawData);
 
             return templateId;
         }
+
+        //private static async Task<string> CreateProjectTemplateV4(GroupShareClient groupShareClient)
+        //{
+
+        //}
 
         private static async Task DeleteTestProject(GroupShareClient groupShareClient, string projectId)
         {
@@ -1057,13 +1062,23 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
+        public async Task GetProjectTemplateV4()
+        {
+            var groupShareClient = Helper.GsClient;
+
+            var template = await groupShareClient.Project.GetProjectTemplateV4(Guid.Parse(ProjectTemplateId));
+
+            Assert.NotNull(template);
+        }
+
+        [Fact]
         public async Task CreateTemplate()
         {
             var groupShareClient = Helper.GsClient;
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
 
             var id = Guid.NewGuid().ToString();
-            var templateName = $"Project template - { Guid.NewGuid() }";
+            var templateName = $"Project template - {Guid.NewGuid()}";
             var templateRequest = new ProjectTemplates(id, templateName, "", Helper.OrganizationId);
             var templateId = await groupShareClient.Project.CreateTemplate(templateRequest, rawData);
 
@@ -1071,6 +1086,43 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             await groupShareClient.Project.DeleteProjectTemplate(templateId);
         }
+
+        [Fact]
+        public async Task CreateProjectTemplateV4()
+        {
+            var groupShareClient = Helper.GsClient;
+            var templateName = $"Project template - default Segment Locking settings - {Guid.NewGuid()}";
+            var segmentLockingSettings = new List<SegmentLockingSettings>
+            {
+                new SegmentLockingSettings
+                {
+                    UseAndCondition = false,
+                    TranslationStatuses = new List<string> { "ApprovedSignOff", "ApprovedTranslation", "Translated" },
+                    TranslationOrigins = new List<string> { "TranslationMemory", "NeuralMachineTranslation" },
+                    Score = 100,
+                    MTQE = new List<string> { "Good" },
+                    TargetLanguage = ""
+                }
+            };
+
+            var templateSettings = new ProjectTemplateSettingsV4
+            {
+                EnableSegmentLockTask = true,
+                SourceLanguageCode = "en-us",
+                TargetLanguageCodes = new[] { "de-de" },
+                Termbases = new List<TermbaseDetailsV3>(),
+                SegmentLockingSettings = segmentLockingSettings,
+                TranslationMemories = new List<TranslationMemoryDetailsV3>()
+            };
+
+            var templateRequest = new ProjectTemplateV4(templateName, description: "Segment Locking enabled", Guid.Parse(Helper.OrganizationId), templateSettings);
+            var templateId = await groupShareClient.Project.CreateProjectTemplateV4(templateRequest);
+
+            Assert.NotEqual(Guid.Empty, templateId);
+
+            await groupShareClient.Project.DeleteProjectTemplateV4(templateId);
+        }
+
         #endregion
 
         #region File version tests

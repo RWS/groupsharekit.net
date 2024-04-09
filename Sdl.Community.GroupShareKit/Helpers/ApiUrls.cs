@@ -295,6 +295,36 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Uri ProjectTemplatesV3(Guid templateId)
+        {
+            return "{0}/projects/templates/{1}".
+                FormatUri(CurrentProjectServerV3Url, templateId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Uri ProjectTemplatesV4(Guid templateId)
+        {
+            return "{0}/projects/templates/{1}".
+                FormatUri(CurrentProjectServerV4Url, templateId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all project templates
+        /// </summary>
+        /// <returns></returns>
+        public static Uri ProjectTemplatesV4()
+        {
+            return "{0}/projects/templates".
+                FormatUri(CurrentProjectServerV4Url);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns all phases associated with the specified project
         /// </summary>
         /// <param name="projectId">The project id</param>

@@ -894,6 +894,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateRequest"></param>
+        /// <returns></returns>
+        public async Task<Guid> CreateProjectTemplateV4(ProjectTemplateV4 templateRequest)
+        {
+            var templateId = await ApiConnection.Post<Guid>(ApiUrls.ProjectTemplatesV4(), templateRequest, "application/json");
+            return templateId;
+        }
+
+        /// <summary>
         /// Creates a template
         /// </summary>
         /// <param name="templateRequest"><see cref="ProjectTemplateV3"/></param>
@@ -934,6 +945,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         //}
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateRequest"></param>
+        /// <returns></returns>
+        public async Task<Guid> CreateTemplateV4(ProjectTemplateV4 templateRequest)
+        {
+            var templateId = await ApiConnection.Post<Guid>(ApiUrls.ProjectTemplatesV4(), templateRequest);
+            return templateId;
+        }
+
+        /// <summary>
         /// Get a template by id
         /// </summary>
         /// <param name="templateId">string</param>
@@ -952,6 +974,12 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Get<string>(ApiUrls.ProjectTemplates(templateId), null);
         }
 
+        public async Task<ProjectTemplateSettingsV4> GetProjectTemplateV4(Guid templateId)
+        {
+            Ensure.ArgumentNotNull(templateId, "templateId");
+            return await ApiConnection.GetWithContent<ProjectTemplateSettingsV4>(ApiUrls.ProjectTemplatesV4(templateId), "application/json");
+        }
+
         /// <summary>
         /// Deletes a template 
         /// </summary>
@@ -967,6 +995,28 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             await ApiConnection.Delete(ApiUrls.ProjectTemplates(templateId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <returns></returns>
+        public async Task DeleteProjectTemplateV3(Guid templateId)
+        {
+            Ensure.ArgumentNotNull(templateId, "templateId");
+            await ApiConnection.Delete(ApiUrls.ProjectTemplatesV3(templateId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <returns></returns>
+        public async Task DeleteProjectTemplateV4(Guid templateId)
+        {
+            Ensure.ArgumentNotNull(templateId, "templateId");
+            await ApiConnection.Delete(ApiUrls.ProjectTemplatesV4(templateId));
         }
 
         /// <summary>
