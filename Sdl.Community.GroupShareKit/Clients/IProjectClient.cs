@@ -740,6 +740,20 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<ProjectSettings> GetProjectSettings(string projectId, string languageFileId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        Task<ProjectSettingsV2> GetProjectSettings(Guid projectId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        Task<ProjectSettingsV4> GetProjectSettingsV4(Guid projectId);
+
+        /// <summary>
         /// Validates that the user can open the file in universal editor
         /// </summary>
         /// <param name="projectId">The id of the project</param>

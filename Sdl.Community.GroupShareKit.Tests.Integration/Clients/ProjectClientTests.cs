@@ -136,12 +136,36 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
+        public async Task Projects_GetLanguageFileSettings_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var languageFileSettings = await groupShareClient.Project.GetProjectSettings(ProjectId, LanguageFileId);
+
+            Assert.True(languageFileSettings != null);
+        }
+
+        [Fact]
         public async Task Projects_GetProjectSettings_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var projectSettings = await groupShareClient.Project.GetProjectSettings(ProjectId, LanguageFileId);
+            var projectSettings = await groupShareClient.Project.GetProjectSettings(Guid.Parse(ProjectId));
 
-            Assert.True(projectSettings != null);
+            Assert.Equal(Guid.Parse(ProjectId), projectSettings.GeneralSettings.ProjectId);
+            Assert.Equal(3, projectSettings.GeneralSettings.LanguageDirection.Count);
+            Assert.Empty(projectSettings.Termbases);
+        }
+
+        [Fact]
+        public async Task Projects_GetProjectSettingsV4_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectSettings = await groupShareClient.Project.GetProjectSettingsV4(Guid.Parse(ProjectId));
+
+            Assert.False(projectSettings.EnableSegmentLockTask);
+            Assert.Empty(projectSettings.SegmentLock);
+            Assert.Equal(Guid.Parse(ProjectId), projectSettings.GeneralSettings.ProjectId);
+            Assert.Equal(3, projectSettings.GeneralSettings.LanguageDirection.Count);
+            Assert.Empty(projectSettings.Termbases);
         }
 
         [Fact]

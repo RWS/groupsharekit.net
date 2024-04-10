@@ -1285,8 +1285,33 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");
 
-            var projectSettings =
-                await ApiConnection.Get<ProjectSettings>(ApiUrls.GetProjectSettings(projectId, languageFileId), null);
+            var projectSettings = await ApiConnection.Get<ProjectSettings>(ApiUrls.GetProjectSettings(projectId, languageFileId), null);
+            return projectSettings;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public async Task<ProjectSettingsV2> GetProjectSettings(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var projectSettings = await ApiConnection.Get<ProjectSettingsV2>(ApiUrls.GetProjectSettings(projectId), null);
+            return projectSettings;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public async Task<ProjectSettingsV4> GetProjectSettingsV4(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var projectSettings = await ApiConnection.Get<ProjectSettingsV4>(ApiUrls.GetProjectSettingsV4(projectId), null);
             return projectSettings;
         }
 

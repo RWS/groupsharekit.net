@@ -868,6 +868,26 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri GetProjectSettings(Guid projectId)
+        {
+            return "{0}/projects/{1}/settings".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri GetProjectSettingsV4(Guid projectId)
+        {
+            return "{0}/projects/{1}/settings".FormatUri(CurrentProjectServerV4Url, projectId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that checks in a file edited in the Online Editor
         /// </summary>
         public static Uri OnlineCheckIn(string projectId, string languageFileId)

@@ -19,20 +19,6 @@
     </LanguageDirection>
   </LanguageDirections>
   <TermbaseConfiguration>
-    <Termbases>
-      <Name>Printer Termbase</Name>
-      <SettingsXml>&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;TermbaseSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;Path&gt;C:\Users\aghisa\Documents\Studio 2017\Projects\Sample Project\Termbase\Printer.sdltb&lt;/Path&gt;
-  &lt;IsOpen&gt;false&lt;/IsOpen&gt;
-  &lt;Filter&gt;0&lt;/Filter&gt;
-  &lt;FilterHighlight&gt;true&lt;/FilterHighlight&gt;
-  &lt;Layout&gt;0&lt;/Layout&gt;
-  &lt;Local&gt;true&lt;/Local&gt;
-  &lt;IsCustom&gt;false&lt;/IsCustom&gt;
-&lt;/TermbaseSettings&gt;</SettingsXml>
-      <Enabled>true</Enabled>
-    </Termbases>
     <LanguageIndexMappings>
       <Language>de-DE</Language>
       <Index>German</Index>
