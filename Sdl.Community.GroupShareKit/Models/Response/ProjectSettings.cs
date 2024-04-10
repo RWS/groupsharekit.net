@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 
 namespace Sdl.Community.GroupShareKit.Models.Response
 {
+    [Obsolete("ProjectSettings is deprecated, please use LanguageFileSettings instead.")]
     public class ProjectSettings
     {
 	    public MatchSettings Translation { get; set; }

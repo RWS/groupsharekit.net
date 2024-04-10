@@ -871,6 +871,17 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// 
         /// </summary>
         /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        public static Uri GetLanguageFileSettings(Guid projectId, Guid languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/settings".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
         /// <returns></returns>
         public static Uri GetProjectSettings(Guid projectId)
         {
@@ -885,6 +896,15 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri GetProjectSettingsV4(Guid projectId)
         {
             return "{0}/projects/{1}/settings".FormatUri(CurrentProjectServerV4Url, projectId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Uri GetSegmentLockingConfig()
+        {
+            return "{0}/projects/segmentLockingConfig".FormatUri(CurrentProjectServerV4Url);
         }
 
         /// <summary>

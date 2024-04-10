@@ -743,6 +743,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// 
         /// </summary>
         /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        Task<LanguageFileSettings> GetLanguageFileSettings(Guid projectId, Guid languageFileId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
         /// <returns></returns>
         Task<ProjectSettingsV2> GetProjectSettings(Guid projectId);
 
@@ -752,6 +760,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <param name="projectId"></param>
         /// <returns></returns>
         Task<ProjectSettingsV4> GetProjectSettingsV4(Guid projectId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        Task<dynamic> GetGetSegmentLockingConfig();
 
         /// <summary>
         /// Validates that the user can open the file in universal editor

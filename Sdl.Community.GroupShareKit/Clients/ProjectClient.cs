@@ -1293,6 +1293,21 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// 
         /// </summary>
         /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        public async Task<LanguageFileSettings> GetLanguageFileSettings(Guid projectId, Guid languageFileId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(languageFileId, "languageFileId");
+
+            var languageFileSettings = await ApiConnection.Get<LanguageFileSettings>(ApiUrls.GetLanguageFileSettings(projectId, languageFileId), null);
+            return languageFileSettings;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
         /// <returns></returns>
         public async Task<ProjectSettingsV2> GetProjectSettings(Guid projectId)
         {
@@ -1313,6 +1328,17 @@ namespace Sdl.Community.GroupShareKit.Clients
 
             var projectSettings = await ApiConnection.Get<ProjectSettingsV4>(ApiUrls.GetProjectSettingsV4(projectId), null);
             return projectSettings;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public async Task<dynamic> GetGetSegmentLockingConfig()
+        {
+            var segmentLockingConfig = await ApiConnection.Get<dynamic>(ApiUrls.GetSegmentLockingConfig(), null);
+            return segmentLockingConfig;
         }
 
         /// <summary>
