@@ -930,75 +930,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </remarks>
         Task UndoExternalCheckOutForFiles(string projectId, List<string> filesIds);
 
-        /// <summary>
-        /// Gets the dashboard projects per month data
-        /// </summary>
-        /// <remarks>
-		///  This method requires authentication.
-		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-		///  </remarks>
-		///  <exception cref="AuthorizationException">
-		///  Thrown when the current user does not have permission to make the request.
-		///  </exception>
-		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task<IReadOnlyList<DashboardCount>> DashboardProjectsPerMonth();
-
-        /// <summary>
-        /// Gets the dashboard top language pairs
-        /// </summary>
-        /// <param name="noOfTopLanguagePairs"></param>
-        /// <returns></returns>
-        /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task<IReadOnlyList<LanguagePairsInProject>> DashboardTopLanguagePairs();
-
-        /// <summary>
-        /// Gets the dashboard words per month
-        /// </summary>
-        /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task<IReadOnlyList<DashboardCount>> DashboardWordsPerMonth();
-
-        /// <summary>
-        /// Gets the dashboard words per organization
-        /// </summary>
-        /// <remarks>
-		///  This method requires authentication.
-		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-		///  </remarks>
-		///  <exception cref="AuthorizationException">
-		///  Thrown when the current user does not have permission to make the request.
-		///  </exception>
-		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task<IReadOnlyList<WordsInOrganization>> DashboardWordsPerOrganization();
-
-        /// <summary>
-        /// Gets the dashboard statistics data
-        /// </summary>
-        /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task<DashboardStatistics> DashboardStatistics();
-
         ///  <summary>
-        /// Retries the audit trail for all the language files in the given project
+        /// Retrieves the audit trail for all the language files in the given project
         ///  </summary>
         ///  This method requires authentication.
         /// <param name="projectId">The id of the project</param>

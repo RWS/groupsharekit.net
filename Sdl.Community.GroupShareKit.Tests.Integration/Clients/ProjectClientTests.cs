@@ -1184,52 +1184,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    Assert.True(dashboard != null);
         //}
 
-        [Fact]
-        public async Task DashboardProjectsPerMonth()
-        {
-            var groupShareClient = Helper.GsClient;
-            var projectCounts = await groupShareClient.Project.DashboardProjectsPerMonth();
-
-            Assert.NotNull(projectCounts);
-        }
-
-        [Fact]
-        public async Task DashboardTopLanguagePairs()
-        {
-            var groupShareClient = Helper.GsClient;
-            var languagePairs = await groupShareClient.Project.DashboardTopLanguagePairs();
-
-            Assert.NotNull(languagePairs);
-        }
-
-        [Fact]
-        public async Task DashboardWordsPerMonth()
-        {
-            var groupShareClient = Helper.GsClient;
-            var wordCounts = await groupShareClient.Project.DashboardWordsPerMonth();
-
-            Assert.NotNull(wordCounts);
-        }
-
-        [Fact]
-        public async Task DashboardWordsPerOrganization()
-        {
-            var groupShareClient = Helper.GsClient;
-            var wordCounts = await groupShareClient.Project.DashboardWordsPerOrganization();
-
-            Assert.NotNull(wordCounts);
-        }
-
-        [Fact]
-        public async Task DashboardStatistics()
-        {
-            var groupShareClient = Helper.GsClient;
-            var statistics = await groupShareClient.Project.DashboardStatistics();
-
-            Assert.NotNull(statistics);
-            Assert.True(statistics.NoOfOrganizations > 0);
-            Assert.True(statistics.NoOfUsers > 0);
-        }
         #endregion
 
     }

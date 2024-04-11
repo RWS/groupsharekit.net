@@ -170,5 +170,52 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var export = await groupShareClient.Reporting.ExportPredefinedReports(filters);
             Assert.NotNull(export);
         }
+
+        [Fact]
+        public async Task DashboardProjectsPerMonth()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectCounts = await groupShareClient.Reporting.DashboardProjectsPerMonth();
+
+            Assert.NotNull(projectCounts);
+        }
+
+        [Fact]
+        public async Task DashboardTopLanguagePairs()
+        {
+            var groupShareClient = Helper.GsClient;
+            var languagePairs = await groupShareClient.Reporting.DashboardTopLanguagePairs();
+
+            Assert.NotNull(languagePairs);
+        }
+
+        [Fact]
+        public async Task DashboardWordsPerMonth()
+        {
+            var groupShareClient = Helper.GsClient;
+            var wordCounts = await groupShareClient.Reporting.DashboardWordsPerMonth();
+
+            Assert.NotNull(wordCounts);
+        }
+
+        [Fact]
+        public async Task DashboardWordsPerOrganization()
+        {
+            var groupShareClient = Helper.GsClient;
+            var wordCounts = await groupShareClient.Reporting.DashboardWordsPerOrganization();
+
+            Assert.NotNull(wordCounts);
+        }
+
+        [Fact]
+        public async Task DashboardStatistics()
+        {
+            var groupShareClient = Helper.GsClient;
+            var statistics = await groupShareClient.Reporting.DashboardStatistics();
+
+            Assert.NotNull(statistics);
+            Assert.True(statistics.NoOfOrganizations > 0);
+            Assert.True(statistics.NoOfUsers > 0);
+        }
     }
 }
