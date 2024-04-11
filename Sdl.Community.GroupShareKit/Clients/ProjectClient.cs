@@ -974,6 +974,18 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Get<string>(ApiUrls.ProjectTemplates(templateId), null);
         }
 
+        /// <summary>
+        /// Gets a project template by id
+        /// </summary>
+        /// <param name="templateId">Project template GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The project template data</returns>
         public async Task<ProjectTemplateSettingsV4> GetProjectTemplateV4(Guid templateId)
         {
             Ensure.ArgumentNotNull(templateId, "templateId");
@@ -1290,11 +1302,18 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Get project settings for a given language file
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="languageFileId"></param>
-        /// <returns></returns>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="LanguageFileSettings"/></returns>
         public async Task<LanguageFileSettings> GetLanguageFileSettings(Guid projectId, Guid languageFileId)
         {
             Ensure.ArgumentNotNull(projectId, "projectId");
@@ -1305,10 +1324,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Get project general settings
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <returns></returns>
+        /// <param name="projectId">The project GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ProjectSettingsV2"/></returns>
         public async Task<ProjectSettingsV2> GetProjectSettings(Guid projectId)
         {
             Ensure.ArgumentNotNull(projectId, "projectId");
@@ -1318,10 +1344,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Get project general settings
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <returns></returns>
+        /// <param name="projectId">The project GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ProjectSettingsV4"/></returns>
         public async Task<ProjectSettingsV4> GetProjectSettingsV4(Guid projectId)
         {
             Ensure.ArgumentNotNull(projectId, "projectId");
@@ -1331,10 +1364,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Retrieves the configured Segment Locking configuration
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <returns></returns>
         public async Task<dynamic> GetGetSegmentLockingConfig()
         {
             var segmentLockingConfig = await ApiConnection.Get<dynamic>(ApiUrls.GetSegmentLockingConfig(), null);

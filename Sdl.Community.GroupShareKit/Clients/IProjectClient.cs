@@ -476,7 +476,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         ///Creates a template
         /// </summary>
-        /// <param name="projectRequest"><see cref="ProjectTemplates"/></param>
+        /// <param name="projectTemplateRequest"><see cref="ProjectTemplates"/></param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -486,7 +486,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Id of created template/></returns>
-        Task<string> CreateTemplate(ProjectTemplates projectRequest, byte[] rawData);
+        Task<string> CreateTemplate(ProjectTemplates projectTemplateRequest, byte[] rawData);
 
         /// <summary>
         ///Get a template by id
@@ -500,21 +500,35 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Te contend of template in a string/></returns>
+        /// <returns>Te content of the template in a string/></returns>
         Task<string> GetTemplateById(string templateId);
 
         /// <summary>
-        /// 
+        /// Gets a project template by id
         /// </summary>
-        /// <param name="templateId"></param>
-        /// <returns></returns>
+        /// <param name="templateId">Project template GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The project template data</returns>
         Task<ProjectTemplateSettingsV4> GetProjectTemplateV4(Guid templateId);
 
         /// <summary>
-        /// 
+        /// Creates a project template
         /// </summary>
-        /// <param name="templateRequest"></param>
-        /// <returns></returns>
+        /// <param name="templateRequest"><see cref="ProjectTemplateV4"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The GUID of the created project template</returns>
         Task<Guid> CreateProjectTemplateV4(ProjectTemplateV4 templateRequest);
 
         /// <summary>
@@ -532,17 +546,30 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task DeleteProjectTemplate(string id);
 
         /// <summary>
-        /// 
+        /// Deletes a project template
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">Project template GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteProjectTemplateV3(Guid id);
 
         /// <summary>
-        /// 
+        /// Deletes a project template
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">Project template GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteProjectTemplateV4(Guid id);
 
         /// <summary>
@@ -724,7 +751,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsXml(string projectId, string languageCode = null, int? reportId = null);
 
         /// <summary>
-        ///  Get project settings for a language file
+        /// Get project settings for a language file
         /// </summary>
         /// <param name="projectId">The id of the project</param>
         /// <param name="languageFileId">The if of the language file</param>
@@ -740,31 +767,51 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<ProjectSettings> GetProjectSettings(string projectId, string languageFileId);
 
         /// <summary>
-        /// 
+        /// Get project settings for a given language file
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="languageFileId"></param>
-        /// <returns></returns>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="LanguageFileSettings"/></returns>
         Task<LanguageFileSettings> GetLanguageFileSettings(Guid projectId, Guid languageFileId);
 
         /// <summary>
-        /// 
+        /// Get project general settings
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <returns></returns>
+        /// <param name="projectId">The project GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ProjectSettingsV2"/></returns>
         Task<ProjectSettingsV2> GetProjectSettings(Guid projectId);
 
         /// <summary>
-        /// 
+        /// Get project general settings
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <returns></returns>
+        /// <param name="projectId">The project GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ProjectSettingsV4"/></returns>
         Task<ProjectSettingsV4> GetProjectSettingsV4(Guid projectId);
 
         /// <summary>
-        /// 
+        /// Retrieves the configured Segment Locking configuration
         /// </summary>
-        /// <returns></returns>
         Task<dynamic> GetGetSegmentLockingConfig();
 
         /// <summary>
