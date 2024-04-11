@@ -79,7 +79,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var sortedProjects = await groupShareClient.Project.GetProject(projectRequest);
             var projects = await groupShareClient.Project.GetAllProjects();
 
-            Assert.True(sortedProjects.Items.Count == projects.Items.Count);
+            Assert.Equal(sortedProjects.Items.Count, projects.Items.Count);
 
             var projectsNames = projects.Items.Select(p => p.Name).ToList();
             projectsNames.Sort();
@@ -87,7 +87,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             int i = 0;
             foreach (var proj in sortedProjects.Items)
             {
-                Assert.True(string.Compare(proj.Name, projectsNames[i++], StringComparison.CurrentCultureIgnoreCase) == 0);
+                Assert.Equal(0, string.Compare(proj.Name, projectsNames[i++], StringComparison.CurrentCultureIgnoreCase));
             }
         }
 
@@ -124,7 +124,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var report = await groupShareClient.Project.GetAnalysisReportsAsHtml(ProjectId, null);
-            Assert.True(report != null);
+            Assert.NotNull(report);
         }
 
         [Fact]
@@ -132,7 +132,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var report = await groupShareClient.Project.GetAnalysisReportsAsXml(ProjectId, null);
-            Assert.True(report != null);
+            Assert.NotNull(report);
         }
 
         [Fact]
@@ -182,6 +182,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var segmentLockingConfig = await groupShareClient.Project.GetGetSegmentLockingConfig();
+
+            Assert.NotNull(segmentLockingConfig);
         }
 
         [Fact]
@@ -199,7 +201,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var editorProfile = await groupShareClient.Project.EditorProfile(ProjectId, LanguageFileId);
 
-            Assert.True(editorProfile != null);
+            Assert.NotNull(editorProfile);
         }
 
         [Fact]
@@ -225,7 +227,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var checkoutResponse = await groupShareClient.Project.OnlineCheckout(ProjectId, LanguageFileId);
             var response = await groupShareClient.Project.OnlineCheckin(ProjectId, LanguageFileId, checkoutResponse);
-            Assert.True(response != null);
+            Assert.NotNull(response);
         }
 
         [Fact]
@@ -234,7 +236,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
 
             var checkoutResponse = await groupShareClient.Project.OnlineCheckout(ProjectId, LanguageFileId);
-            Assert.True(checkoutResponse != null);
+            Assert.NotNull(checkoutResponse);
 
             await groupShareClient.Project.UndoCheckout(ProjectId, LanguageFileId);
         }
@@ -245,7 +247,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
 
             var response = await groupShareClient.Project.ExternalCheckout(ProjectId, LanguageFileId);
-            Assert.True(response != null);
+            Assert.NotNull(response);
 
             await groupShareClient.Project.ExternalCheckin(ProjectId, LanguageFileId, "comment");
         }
@@ -282,7 +284,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var dashboard = await groupShareClient.Project.Dashboard();
-            Assert.True(dashboard != null);
+            Assert.NotNull(dashboard);
         }
 
         [Fact]
@@ -300,7 +302,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var editorProfileMode = OnlineCheckout.EditorProfileMode.Basic.ToString();
             var response = await groupShareClient.Project.OnlineCheckoutHealthCheck(editorProfileMode);
-            Assert.True(response != null);
+            Assert.NotNull(response);
         }
 
         [Fact]
@@ -309,7 +311,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var editorProfileMode = OnlineCheckout.EditorProfileMode.Advanced.ToString();
             var response = await groupShareClient.Project.OnlineCheckoutHealthCheck(editorProfileMode);
-            Assert.True(response != null);
+            Assert.NotNull(response);
         }
 
         [Fact]
@@ -375,7 +377,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
 
-            Assert.True(!string.IsNullOrEmpty(projectId));
+            Assert.False(string.IsNullOrEmpty(projectId));
 
             await DeleteTestProject(groupShareClient, projectId);
             await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
@@ -584,7 +586,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var reports = await groupShareClient.Project.GetAnalysisReportsV3(projectId);
             var projectCreationReport = reports.FirstOrDefault(r => r.TriggeredBy == "ProjectCreation");
 
-            Assert.Equal(1, reports.Count);
+            Assert.Single(reports);
             Assert.NotNull(projectCreationReport);
 
             await DeleteTestProject(groupShareClient, projectId);
@@ -640,7 +642,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var report = await groupShareClient.Project.GetAnalysisReportsV3AsHtml(ProjectId, null);
-            Assert.True(report != null);
+            Assert.NotNull(report);
         }
 
         [Fact]
@@ -648,7 +650,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var report = await groupShareClient.Project.GetAnalysisReportsV3AsXml(ProjectId, null);
-            Assert.True(report != null);
+            Assert.NotNull(report);
         }
 
         [Fact]
@@ -819,12 +821,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(created);
             var analysisReports = await Helper.GsClient.Project.GetAnalysisReports(projectId, "fr-fr");
-            Assert.True(analysisReports[0].Report.Task.File.Count == 4);
-            Assert.True(analysisReports[0].Report.Task.File[0].Analyse.Total.Segments == "3");
-            Assert.True(analysisReports[0].Report.Task.File[0].Analyse.Perfect.Segments == "0");
-            Assert.True(analysisReports[0].Report.Task.File[1].Analyse.Perfect.Segments == "1");
-            Assert.True(analysisReports[0].Report.Task.File[2].Analyse.Perfect.Segments == "2");
-            Assert.True(analysisReports[0].Report.Task.File[3].Analyse.Perfect.Segments == "3");
+            Assert.Equal(4, analysisReports[0].Report.Task.File.Count);
+            Assert.Equal("3", analysisReports[0].Report.Task.File[0].Analyse.Total.Segments);
+            Assert.Equal("0", analysisReports[0].Report.Task.File[0].Analyse.Perfect.Segments);
+            Assert.Equal("1", analysisReports[0].Report.Task.File[1].Analyse.Perfect.Segments);
+            Assert.Equal("2", analysisReports[0].Report.Task.File[2].Analyse.Perfect.Segments);
+            Assert.Equal("3", analysisReports[0].Report.Task.File[3].Analyse.Perfect.Segments);
 
             await Helper.GsClient.Project.DeleteProject(projectId);
             await Helper.GsClient.Project.DeleteProjectTemplate(projectTemplateId);
@@ -844,12 +846,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(created);
 
             var analysisReports = await Helper.GsClient.Project.GetAnalysisReports(projectId, "fr-fr");
-            Assert.True(analysisReports[0].Report.Task.File.Count == 4);
-            Assert.True(analysisReports[0].Report.Task.File[0].Analyse.Total.Segments == "3");
-            Assert.True(analysisReports[0].Report.Task.File[0].Analyse.Perfect.Segments == "0");
-            Assert.True(analysisReports[0].Report.Task.File[1].Analyse.Perfect.Segments == "1");
-            Assert.True(analysisReports[0].Report.Task.File[2].Analyse.Perfect.Segments == "2");
-            Assert.True(analysisReports[0].Report.Task.File[3].Analyse.Perfect.Segments == "3");
+            Assert.Equal(4, analysisReports[0].Report.Task.File.Count);
+            Assert.Equal("3", analysisReports[0].Report.Task.File[0].Analyse.Total.Segments);
+            Assert.Equal("0", analysisReports[0].Report.Task.File[0].Analyse.Perfect.Segments);
+            Assert.Equal("1", analysisReports[0].Report.Task.File[1].Analyse.Perfect.Segments);
+            Assert.Equal("2", analysisReports[0].Report.Task.File[2].Analyse.Perfect.Segments);
+            Assert.Equal("3", analysisReports[0].Report.Task.File[3].Analyse.Perfect.Segments);
 
             await Helper.GsClient.Project.DeleteProject(projectId);
             await Helper.GsClient.Project.DeleteProjectTemplate(projectTemplateId);
@@ -1023,11 +1025,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             return templateId;
         }
 
-        //private static async Task<string> CreateProjectTemplateV4(GroupShareClient groupShareClient)
-        //{
-
-        //}
-
         private static async Task DeleteTestProject(GroupShareClient groupShareClient, string projectId)
         {
             await groupShareClient.Project.DeleteProject(projectId);
@@ -1091,14 +1088,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task<string> GetTemplateById()
+        public async Task GetTemplateById()
         {
             var groupShareClient = Helper.GsClient;
 
             var template = await groupShareClient.Project.GetTemplateById(ProjectTemplateId);
 
             Assert.True(template != string.Empty);
-            return template;
         }
 
         [Fact]
@@ -1181,7 +1177,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var downloadedFile = await groupShareClient.Project.DownloadFileVersion(ProjectId, LanguageFileId, 2);
 
-            Assert.True(downloadedFile.Length != 0);
+            Assert.True(downloadedFile.Length > 0);
         }
         #endregion
 
@@ -1202,7 +1198,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var projectCounts = await groupShareClient.Project.DashboardProjectsPerMonth();
-            Assert.True(projectCounts != null);
+            Assert.NotNull(projectCounts);
         }
 
         [Fact]
@@ -1210,7 +1206,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var languagePairs = await groupShareClient.Project.DashboardTopLanguagePairs(5);
-            Assert.True(languagePairs != null);
+            Assert.NotNull(languagePairs);
         }
 
         [Fact]
@@ -1218,7 +1214,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var wordCounts = await groupShareClient.Project.DashboardWordsPerMonth();
-            Assert.True(wordCounts != null);
+            Assert.NotNull(wordCounts);
         }
 
         [Fact]
@@ -1226,7 +1222,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var wordCounts = await groupShareClient.Project.DashboardWordsPerOrganization();
-            Assert.True(wordCounts != null);
+            Assert.NotNull(wordCounts);
         }
 
         [Fact]
@@ -1234,7 +1230,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var statistics = await groupShareClient.Project.DashboardStatistics();
-            Assert.True(statistics != null);
+            Assert.NotNull(statistics);
         }
         #endregion
 
@@ -1249,7 +1245,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             var reportingData = await groupShareClient.Project.ReportingProjectPredefinedReportData(options);
-            Assert.True(reportingData != null);
+            Assert.NotNull(reportingData);
         }
 
         [Fact]
@@ -1261,7 +1257,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Status = 7
             };
             var reportingData = await groupShareClient.Project.ReportingTasksReportData(options);
-            Assert.True(reportingData != null);
+            Assert.NotNull(reportingData);
         }
 
         [Fact]
@@ -1274,7 +1270,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             var reportingData = await groupShareClient.Project.ReportingTmLeverageData(options);
-            Assert.True(reportingData != null);
+            Assert.NotNull(reportingData);
         }
         #endregion Reporting
     }
