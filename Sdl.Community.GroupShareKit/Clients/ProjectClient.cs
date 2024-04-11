@@ -945,10 +945,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         //}
 
         /// <summary>
-        /// 
+        /// Creates a project template
         /// </summary>
-        /// <param name="templateRequest"></param>
-        /// <returns></returns>
+        /// <param name="templateRequest"><see cref="ProjectTemplateV4"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The GUID of the created project template</returns>
         public async Task<Guid> CreateTemplateV4(ProjectTemplateV4 templateRequest)
         {
             var templateId = await ApiConnection.Post<Guid>(ApiUrls.ProjectTemplatesV4(), templateRequest);
