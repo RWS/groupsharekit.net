@@ -1583,23 +1583,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Post<string>(ApiUrls.UndoExternalCheckOutForFiles(projectId), content);
         }
 
-        ///  <summary>
-        /// Gets the dashboard data
-        ///  </summary>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        [Obsolete("The dashboard function is obsolete in GroupShare 2020. " +
-            "Use the new functions DashboardProjectsPerMonth, DashboardTopLanguagePairs, " +
-            "DashboardWordsPerMonth, DashboardWordsPerOrganization, DashboardStatistics instead for GroupShare 2020.")]
-        public async Task<Dashboard> Dashboard()
-        {
-            return await ApiConnection.Get<Dashboard>(ApiUrls.Dashboard(), null);
-        }
-
         /// <summary>
         /// Gets the dashboard projects per month data
         /// </summary>
@@ -1613,7 +1596,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task<IReadOnlyList<DashboardCount>> DashboardProjectsPerMonth()
         {
-            return await ApiConnection.GetAll<DashboardCount>(ApiUrls.DashboardProjectsPerMonth());
+            return await ApiConnection.GetAll<DashboardCount>(ApiUrls.GetProjectsPerMonthData());
         }
 
         /// <summary>
@@ -1629,9 +1612,9 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task<IReadOnlyList<LanguagePairsInProject>> DashboardTopLanguagePairs(int? noOfTopLanguagePairs)
+        public async Task<IReadOnlyList<LanguagePairsInProject>> DashboardTopLanguagePairs()
         {
-            return await ApiConnection.GetAll<LanguagePairsInProject>(ApiUrls.DashboardTopLanguagePairs(noOfTopLanguagePairs));
+            return await ApiConnection.GetAll<LanguagePairsInProject>(ApiUrls.DashboardTopLanguagePairs());
         }
 
         /// <summary>
@@ -1708,60 +1691,5 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         #endregion
 
-        #region Reporting
-        /// <summary>
-        /// Returns the projects report data
-        /// </summary>
-        /// <param name="options"></param>
-        /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public Task<IReadOnlyList<ProjectReport>> ReportingProjectPredefinedReportData(ReportingOptions options)
-        {
-            var jsonOptions = options.Stringify();
-            return ApiConnection.GetAll<ProjectReport>(ApiUrls.GetProjectPredefinedReportData(jsonOptions));
-        }
-
-        /// <summary>
-        /// Returns the tasks Report report data
-        /// </summary>
-        /// <param name="options"></param>
-        /// <remarks>
-		///  This method requires authentication.
-		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-		///  </remarks>
-		///  <exception cref="AuthorizationException">
-		///  Thrown when the current user does not have permission to make the request.
-		///  </exception>
-		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public Task<IReadOnlyList<TasksReport>> ReportingTasksReportData(ReportingOptions options)
-        {
-            var jsonOptions = options.Stringify();
-            return ApiConnection.GetAll<TasksReport>(ApiUrls.GetTasksReportData(jsonOptions));
-        }
-
-        /// <summary>
-        /// Returns the TM Leverage report data
-        /// </summary>
-        /// <param name="options"></param>
-        /// <remarks>
-		///  This method requires authentication.
-		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-		///  </remarks>
-		///  <exception cref="AuthorizationException">
-		///  Thrown when the current user does not have permission to make the request.
-		///  </exception>
-		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public Task<TmLeverageReport> ReportingTmLeverageData(ReportingOptions options)
-        {
-            var jsonOptions = options.Stringify();
-            return ApiConnection.Get<TmLeverageReport>(ApiUrls.GetTmLeverageData(jsonOptions), null);
-        }
-        #endregion
     }
 }

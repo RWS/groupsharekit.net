@@ -280,14 +280,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task Dashboard()
-        {
-            var groupShareClient = Helper.GsClient;
-            var dashboard = await groupShareClient.Project.Dashboard();
-            Assert.NotNull(dashboard);
-        }
-
-        [Fact]
         public async Task AuditTrail()
         {
             var groupShareClient = Helper.GsClient;
@@ -1192,12 +1184,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    Assert.True(dashboard != null);
         //}
 
-
         [Fact]
         public async Task DashboardProjectsPerMonth()
         {
             var groupShareClient = Helper.GsClient;
             var projectCounts = await groupShareClient.Project.DashboardProjectsPerMonth();
+
             Assert.NotNull(projectCounts);
         }
 
@@ -1205,7 +1197,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task DashboardTopLanguagePairs()
         {
             var groupShareClient = Helper.GsClient;
-            var languagePairs = await groupShareClient.Project.DashboardTopLanguagePairs(5);
+            var languagePairs = await groupShareClient.Project.DashboardTopLanguagePairs();
+
             Assert.NotNull(languagePairs);
         }
 
@@ -1214,6 +1207,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var wordCounts = await groupShareClient.Project.DashboardWordsPerMonth();
+
             Assert.NotNull(wordCounts);
         }
 
@@ -1222,6 +1216,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var wordCounts = await groupShareClient.Project.DashboardWordsPerOrganization();
+
             Assert.NotNull(wordCounts);
         }
 
@@ -1230,48 +1225,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var statistics = await groupShareClient.Project.DashboardStatistics();
+
             Assert.NotNull(statistics);
+            Assert.True(statistics.NoOfOrganizations > 0);
+            Assert.True(statistics.NoOfUsers > 0);
         }
         #endregion
 
-        #region Reporting
-        [Fact]
-        public async Task ReportingProjectPredefinedReportData()
-        {
-            var groupShareClient = Helper.GsClient;
-            var options = new ReportingOptions
-            {
-                Status = 7
-            };
-
-            var reportingData = await groupShareClient.Project.ReportingProjectPredefinedReportData(options);
-            Assert.NotNull(reportingData);
-        }
-
-        [Fact]
-        public async Task ReportingTasksReportData()
-        {
-            var groupShareClient = Helper.GsClient;
-            var options = new ReportingOptions
-            {
-                Status = 7
-            };
-            var reportingData = await groupShareClient.Project.ReportingTasksReportData(options);
-            Assert.NotNull(reportingData);
-        }
-
-        [Fact]
-        public async Task ReportingTmLeverageData()
-        {
-            var groupShareClient = Helper.GsClient;
-            var options = new ReportingOptions
-            {
-                Status = 7
-            };
-
-            var reportingData = await groupShareClient.Project.ReportingTmLeverageData(options);
-            Assert.NotNull(reportingData);
-        }
-        #endregion Reporting
     }
 }

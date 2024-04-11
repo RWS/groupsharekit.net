@@ -2,11 +2,11 @@
 {
     public class DashboardStatistics
     {
-	    public int NumberOfOrganizations { get; set; }
-	    public int NumberOfUsers { get; set; }
-	    public int NumberOfProjects { get; set; }
-	    public int NumberOfTranslationMemories { get; set; }
-	    public int NumberOfTermbases { get; set; }
-	    public int NumberOfTranslatedWords { get; set; }
+	    public int NoOfOrganizations { get; set; }
+	    public int NoOfUsers { get; set; }
+	    public int NoOfProjects { get; set; }
+	    public int NoOfTranslationMemories { get; set; }
+	    public int NoOfTermbases { get; set; }
+	    public int NoOfTranslatedWords { get; set; }
 	}
 }

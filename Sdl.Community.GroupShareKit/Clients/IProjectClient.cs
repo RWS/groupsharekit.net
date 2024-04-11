@@ -930,17 +930,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </remarks>
         Task UndoExternalCheckOutForFiles(string projectId, List<string> filesIds);
 
-        ///  <summary>
-        /// Gets the dashboard data
-        ///  </summary>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task<Dashboard> Dashboard();
-
         /// <summary>
         /// Gets the dashboard projects per month data
         /// </summary>
@@ -967,7 +956,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task<IReadOnlyList<LanguagePairsInProject>> DashboardTopLanguagePairs(int? noOfTopLanguagePairs);
+        Task<IReadOnlyList<LanguagePairsInProject>> DashboardTopLanguagePairs();
 
         /// <summary>
         /// Gets the dashboard words per month
@@ -1023,48 +1012,6 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         [Obsolete("AuditTrial is deprecated, please use AuditTrail instead.")]
         Task<IReadOnlyList<AuditTrial>> AuditTrial(string projectId);
-
-        /// <summary>
-        /// Returns the projects report data
-        /// </summary>
-        /// <param name="options"></param>
-        /// <remarks>
-		///  This method requires authentication.
-		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-		///  </remarks>
-		///  <exception cref="AuthorizationException">
-		///  Thrown when the current user does not have permission to make the request.
-		///  </exception>
-		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task<IReadOnlyList<ProjectReport>> ReportingProjectPredefinedReportData(ReportingOptions options);
-
-        /// <summary>
-        /// Returns the tasks Report report data
-        /// </summary>
-        /// <param name="options"></param>
-        /// <remarks>
-		///  This method requires authentication.
-		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-		///  </remarks>
-		///  <exception cref="AuthorizationException">
-		///  Thrown when the current user does not have permission to make the request.
-		///  </exception>
-		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task<IReadOnlyList<TasksReport>> ReportingTasksReportData(ReportingOptions options);
-
-        /// <summary>
-        /// Returns the TM Leverage report data
-        /// </summary>
-        /// <param name="options"></param>
-        /// <remarks>
-		///  This method requires authentication.
-		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-		///  </remarks>
-		///  <exception cref="AuthorizationException">
-		///  Thrown when the current user does not have permission to make the request.
-		///  </exception>
-		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task<TmLeverageReport> ReportingTmLeverageData(ReportingOptions options);
 
         /// <summary>
         /// Get background tasks list

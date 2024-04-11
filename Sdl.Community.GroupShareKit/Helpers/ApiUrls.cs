@@ -991,30 +991,13 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> that returns dashboard data
-        /// </summary>
-        public static Uri Dashboard()
-        {
-            return "{0}/dashboard".FormatUri(CurrentProjectServerUrl);
-        }
-
-        /// <summary>
-        /// Returns the <see cref="Uri"/> for dashboard projects per month
-        /// </summary>
-        /// <returns></returns>
-        public static Uri DashboardProjectsPerMonth()
-        {
-            return "{0}/dashboard/projectsPerMonth".FormatUri(CurrentProjectServerUrl);
-        }
-
-        /// <summary>
         /// Returns the <see cref="Uri"/> for dashboard top language pairs
         /// </summary>
         /// <param name="noOfTopLanguagePairs"></param>
         /// <returns></returns>
-        public static Uri DashboardTopLanguagePairs(int? noOfTopLanguagePairs = null)
+        public static Uri DashboardTopLanguagePairs()
         {
-            return "{0}/dashboard/topLanguagePairs/{1}".FormatUri(CurrentProjectServerUrl, noOfTopLanguagePairs);
+            return "{0}/dashboard/topLanguagePairs".FormatUri(ReportingServiceUrl);
         }
 
         /// <summary>
@@ -1023,7 +1006,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <returns></returns>
         public static Uri DashboardWordsPerMonth()
         {
-            return "{0}/dashboard/wordsPerMonth".FormatUri(CurrentProjectServerUrl);
+            return "{0}/dashboard/wordsPerMonth".FormatUri(ReportingServiceUrl);
         }
 
         /// <summary>
@@ -1032,16 +1015,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <returns></returns>
         public static Uri DashboardWordsPerOrganization()
         {
-            return "{0}/dashboard/wordsPerOrganization".FormatUri(CurrentProjectServerUrl);
-        }
-
-        /// <summary>
-        /// Returns the <see cref="Uri"/> for dashboard statistics
-        /// </summary>
-        /// <returns></returns>
-        public static Uri DashboardStatistics()
-        {
-            return "{0}/dashboard/statistics".FormatUri(CurrentProjectServerUrl);
+            return "{0}/dashboard/wordsPerOrganization".FormatUri(ReportingServiceUrl);
         }
 
         /// <summary>
@@ -1190,30 +1164,12 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> for projects report data
+        /// Returns the <see cref="Uri"/> for dashboard statistics
         /// </summary>
-        /// <param name="options"></param>
-        public static Uri GetProjectPredefinedReportData(string options)
+        /// <returns></returns>
+        public static Uri DashboardStatistics()
         {
-            return "{0}/projectPredefinedReports?filter={1}".FormatUri(CurrentProjectServerUrl, options);
-        }
-
-        /// <summary>
-        /// Returns the <see cref="Uri"/> for tasks Report report data
-        /// </summary>
-        /// <param name="options"></param>
-        public static Uri GetTasksReportData(string options)
-        {
-            return "{0}/tasksReport?filter={1}".FormatUri(CurrentProjectServerUrl, options);
-        }
-
-        /// <summary>
-        /// Returns the <see cref="Uri"/> for TM Leverage report data
-        /// </summary>
-        /// <param name="options"></param>
-        public static Uri GetTmLeverageData(string options)
-        {
-            return "{0}/tmLeverageReport?filter={1}".FormatUri(CurrentProjectServerUrl, options);
+            return "{0}/dashboard/statistics".FormatUri(ReportingServiceUrl);
         }
 
         /// <summary>
