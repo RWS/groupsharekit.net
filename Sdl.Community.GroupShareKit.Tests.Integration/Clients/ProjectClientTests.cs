@@ -1173,18 +1173,5 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
         #endregion
 
-        #region Dashboard
-
-        //[Fact]
-        //[Trait("GSVersion", "2017")]
-        //public async Task Dashboard()
-        //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
-        //    var dashboard = await groupShareClient.Project.Dashboard();
-        //    Assert.True(dashboard != null);
-        //}
-
-        #endregion
-
     }
 }

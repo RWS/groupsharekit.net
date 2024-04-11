@@ -11,11 +11,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
 
             var passwordComplexityRules = await groupShareClient.PasswordComplexityRules.GetPasswordConstraints();
-            Assert.True(passwordComplexityRules.MinimumDigits == 1);
-            Assert.True(passwordComplexityRules.MinimumPasswordLength == 3);
-            Assert.True(passwordComplexityRules.MinimumLowercaseChars == 1);
-            Assert.True(passwordComplexityRules.MinimumSpecialChars == 0);
-            Assert.True(passwordComplexityRules.MinimumUppercaseChars == 1);
+            Assert.Equal(1, passwordComplexityRules.MinimumDigits);
+            Assert.Equal(3, passwordComplexityRules.MinimumPasswordLength);
+            Assert.Equal(1, passwordComplexityRules.MinimumLowercaseChars);
+            Assert.Equal(0, passwordComplexityRules.MinimumSpecialChars);
+            Assert.Equal(1, passwordComplexityRules.MinimumUppercaseChars);
         }
     }
 }

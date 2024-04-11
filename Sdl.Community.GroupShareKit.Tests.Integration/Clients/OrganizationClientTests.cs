@@ -62,7 +62,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Path = "/",
                 ParentOrganizationId = new Guid(Helper.OrganizationId),
                 ChildOrganizations = null,
-                Tags = new List<string>() { "tagTest" }
+                Tags = new List<string> { "tagTest" }
             };
 
             var organizationId = await groupShareClient.Organization.Create(organization);
@@ -101,7 +101,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var resources = await grClient.Organization.GetAllOrganizationResources(organizationId);
             var addedResource = resources.FirstOrDefault(r => r.Id.ToString() == templateId);
-            Assert.True(addedResource != null);
+            Assert.NotNull(addedResource);
 
             await grClient.Project.DeleteProjectTemplate(templateId);
             await grClient.Organization.DeleteOrganization(newOrganizationId);
@@ -129,7 +129,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.Organization.UnlinkResourceToOrganization(resourceRequest);
 
             var resources = await groupShareClient.Organization.GetAllOrganizationResources(newOrganizationId);
-            Assert.Equal(0, resources.Count);
+            Assert.Empty(resources);
 
             await groupShareClient.Organization.DeleteOrganization(newOrganizationId);
             await groupShareClient.Project.DeleteProjectTemplate(firstResource);

@@ -39,7 +39,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var filters = await groupShareClient.Terminology.GetFilters(termbaseId);
 
-            Assert.True(filters != null);
+            Assert.NotNull(filters);
         }
 
         [Theory]

@@ -282,7 +282,5 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Get<DashboardStatistics>(ApiUrls.DashboardStatistics(), null);
         }
 
-
-
     }
 }

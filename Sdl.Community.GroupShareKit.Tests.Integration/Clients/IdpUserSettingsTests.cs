@@ -11,9 +11,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
 
             var idpUserSettings = await groupShareClient.IdpUserSettingsClient.GetIdpUserSettings();
-          
-            Assert.True(idpUserSettings != null);
-           
+
+            Assert.NotNull(idpUserSettings);
         }
     }
 }

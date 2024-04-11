@@ -41,7 +41,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var projectPhases = await groupShareClient.Project.GetAllPhasesForProject(ProjectId);
 
-            Assert.True(projectPhases.Count != 0);
+            Assert.NotEmpty(projectPhases);
         }
 
         [Fact]

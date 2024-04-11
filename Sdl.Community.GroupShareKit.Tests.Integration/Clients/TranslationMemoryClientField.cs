@@ -152,8 +152,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(fieldId != string.Empty);
 
             var fields = await groupShareClient.TranslationMemories.GetFieldsForTemplate(fieldTemplateId);
-            Assert.True(fields.Count == 1);
-            Assert.True(fields[0].Values.Count == 4);
+            Assert.Single(fields);
+            Assert.Equal(4, fields[0].Values.Count);
 
             await groupShareClient.TranslationMemories.DeleteFieldTemplate(fieldTemplateId);
         }
@@ -187,13 +187,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(fieldId != string.Empty);
 
             var fields = await groupShareClient.TranslationMemories.GetFieldsForTemplate(fieldTemplateId);
-            Assert.True(fields.Count == 1);
-            Assert.True(fields[0].Values.Count == 4);
+            Assert.Single(fields);
+            Assert.Equal(4, fields[0].Values.Count);
 
             await groupShareClient.TranslationMemories.DeleteFieldForTemplate(fieldTemplateId, fieldId);
 
             fields = await groupShareClient.TranslationMemories.GetFieldsForTemplate(fieldTemplateId);
-            Assert.True(fields.Count == 0);
+            Assert.Empty(fields);
 
             await groupShareClient.TranslationMemories.DeleteFieldTemplate(fieldTemplateId);
         }
