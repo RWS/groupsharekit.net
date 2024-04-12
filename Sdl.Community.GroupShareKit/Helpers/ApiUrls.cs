@@ -295,9 +295,8 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// 
+        /// Returns the <see cref="Uri"/> that returns a project template
         /// </summary>
-        /// <returns></returns>
         public static Uri ProjectTemplatesV3(Guid templateId)
         {
             return "{0}/projects/templates/{1}".
@@ -305,7 +304,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// 
+        /// Returns the <see cref="Uri"/> that returns a project template
         /// </summary>
         /// <returns></returns>
         public static Uri ProjectTemplatesV4(Guid templateId)
@@ -868,18 +867,15 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// 
+        /// Returns the <see cref="Uri"/> that returns the project settings for a given language file
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="languageFileId"></param>
-        /// <returns></returns>
         public static Uri GetLanguageFileSettings(Guid projectId, Guid languageFileId)
         {
             return "{0}/projects/{1}/files/{2}/settings".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
         }
 
         /// <summary>
-        /// 
+        /// Returns the <see cref="Uri"/> that returns the general project settings
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
@@ -889,7 +885,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// 
+        /// Returns the <see cref="Uri"/> that returns the general project settings
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
@@ -899,7 +895,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// 
+        /// Returns the <see cref="Uri"/> that returns the Segment Locking configuration
         /// </summary>
         /// <returns></returns>
         public static Uri GetSegmentLockingConfig()
