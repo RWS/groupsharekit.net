@@ -1371,7 +1371,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Retrieves the configured Segment Locking configuration
+        /// Retrieves the Segment Locking configuration
         /// </summary>
         public async Task<dynamic> GetGetSegmentLockingConfig()
         {

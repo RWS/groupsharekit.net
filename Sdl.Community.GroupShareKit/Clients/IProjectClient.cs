@@ -810,7 +810,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<ProjectSettingsV4> GetProjectSettingsV4(Guid projectId);
 
         /// <summary>
-        /// Retrieves the configured Segment Locking configuration
+        /// Retrieves the Segment Locking configuration
         /// </summary>
         Task<dynamic> GetGetSegmentLockingConfig();
 
