@@ -924,25 +924,22 @@ namespace Sdl.Community.GroupShareKit.Clients
             return templateId;
         }
 
-        ///// <summary>
-        /////Creates a template
-        ///// </summary>
-        ///// <param name="templateRequest"><see cref="ProjectTemplateV3"/></param>
-        ///// <remarks>
-        ///// This method requires authentication.
-        ///// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///// </remarks>
-        ///// <exception cref="AuthorizationException">
-        ///// Thrown when the current user does not have permission to make the request.
-        ///// </exception>
-        ///// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///// <returns>Id of created template/></returns>
-        //public async Task<string> UpdateProjectTemplateV3(ProjectTemplateV3 templateRequest)
-        //{
-        //    //var templateId = await ApiConnection.Put<>(ApiUrls.ProjectTemplatesV3(), templateRequest, "application/json");
-        //    ////await UploadProjectTemplate(templateId, templateRequest.Name);
-        //    //return templateId;
-        //}
+        /// <summary>
+        /// Updates a project template
+        /// </summary>
+        /// <param name="templateRequest"><see cref="ProjectTemplateV3"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The GUID of the project template/></returns>
+        public async Task<Guid> UpdateProjectTemplateV3(Guid templateId, ProjectTemplateV3 templateRequest)
+        {
+            return await ApiConnection.Put<Guid>(ApiUrls.ProjectTemplatesV3(templateId), templateRequest);
+        }
 
         /// <summary>
         /// Creates a project template
@@ -963,6 +960,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="templateRequest"></param>
+        /// <returns></returns>
+        public async Task<Guid> UpdateProjectTemplateV4(Guid templateId, ProjectTemplateV4 templateRequest)
+        {
+            return await ApiConnection.Put<Guid>(ApiUrls.ProjectTemplatesV4(templateId), templateRequest);
+        }
+
+        /// <summary>
         /// Get a template by id
         /// </summary>
         /// <param name="templateId">string</param>
@@ -979,6 +987,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             return await ApiConnection.Get<string>(ApiUrls.ProjectTemplates(templateId), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <returns></returns>
+        public async Task<ProjectTemplateSettingsV3> GetProjectTemplateV3(Guid templateId)
+        {
+            Ensure.ArgumentNotNull(templateId, "templateId");
+            return await ApiConnection.GetWithContent<ProjectTemplateSettingsV3>(ApiUrls.ProjectTemplatesV3(templateId), "application/json");
         }
 
         /// <summary>

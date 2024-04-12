@@ -1090,6 +1090,18 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
+        public async Task GetProjectTemplateV3()
+        {
+            var groupShareClient = Helper.GsClient;
+
+            var template = await groupShareClient.Project.GetProjectTemplateV3(Guid.Parse(ProjectTemplateId));
+
+            Assert.NotNull(template);
+            Assert.True(template.SourceLanguageCode != string.Empty);
+            Assert.True(template.TargetLanguageCodes.Count > 0);
+        }
+
+        [Fact]
         public async Task GetProjectTemplateV4()
         {
             var groupShareClient = Helper.GsClient;
@@ -1097,6 +1109,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var template = await groupShareClient.Project.GetProjectTemplateV4(Guid.Parse(ProjectTemplateId));
 
             Assert.NotNull(template);
+            Assert.True(template.SourceLanguageCode != string.Empty);
+            Assert.True(template.TargetLanguageCodes.Count > 0);
+            Assert.False(template.EnableSegmentLockTask);
         }
 
         [Fact]
@@ -1116,7 +1131,38 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task CreateProjectTemplateV4()
+        public async Task UpdateProjectTemplateV3_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectTemplateId = Guid.Parse(await CreateTestProjectTemplate(groupShareClient));
+
+            var templateRequest = new ProjectTemplateV3
+            {
+                Name = "Project template - " + projectTemplateId + " - edited",
+                Description = "edited using GroupShare Kit",
+                OrganizationId = Helper.OrganizationId,
+                Settings = new ProjectTemplateSettings
+                {
+                    SourceLanguageCode = "en-us",
+                    TargetLanguageCodes = new[] { "fr-fr" },
+                    Termbases = new List<TermbaseDetailsV3>(),
+                    TranslationMemories = new List<TranslationMemoryDetailsV3>()
+                }
+            };
+
+            await groupShareClient.Project.UpdateProjectTemplateV3(projectTemplateId, templateRequest);
+            var updatedProjectTemplate = await groupShareClient.Project.GetProjectTemplateV3(projectTemplateId);
+
+            Assert.Equal("en-us", updatedProjectTemplate.SourceLanguageCode);
+            Assert.Equal("fr-fr", updatedProjectTemplate.TargetLanguageCodes.Single());
+            Assert.Empty(updatedProjectTemplate.Termbases);
+            Assert.Empty(updatedProjectTemplate.TranslationMemories);
+
+            await groupShareClient.Project.DeleteProjectTemplateV3(projectTemplateId);
+        }
+
+        [Fact]
+        public async Task CreateProjectTemplateV4_default_SegmentLocking_settings()
         {
             var groupShareClient = Helper.GsClient;
             var templateName = $"Project template - default Segment Locking settings - {Guid.NewGuid()}";
@@ -1149,6 +1195,55 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.NotEqual(Guid.Empty, templateId);
 
             await groupShareClient.Project.DeleteProjectTemplateV4(templateId);
+        }
+
+        [Fact]
+        public async Task UpdateProjectTemplateV4_SegmentLocking_settings()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectTemplateId = Guid.Parse(await CreateTestProjectTemplate(groupShareClient));
+
+            var segmentLockingSettings = new List<SegmentLockingSettings>
+            {
+                new SegmentLockingSettings
+                {
+                    UseAndCondition = true,
+                    TranslationStatuses = new List<string> { "ApprovedSignOff", "Translated" },
+                    TranslationOrigins = new List<string> { "DocumentMatch", "AutomatedAlignment", "AutoPropagated" },
+                    Score = 99,
+                    MTQE = new List<string> { "Good", "Adequate" },
+                    TargetLanguage = ""
+                }
+            };
+
+            var templateRequest = new ProjectTemplateV4
+            {
+                Name = "Project template - " + projectTemplateId + " - edited",
+                Description = "edited using GroupShare Kit",
+                OrganizationId = Guid.Parse(Helper.OrganizationId),
+                Settings = new ProjectTemplateSettingsV4
+                {
+                    EnableSegmentLockTask = true,
+                    SourceLanguageCode = "en-us",
+                    TargetLanguageCodes = new[] { "fr-fr" },
+                    Termbases = new List<TermbaseDetailsV3>(),
+                    SegmentLockingSettings = segmentLockingSettings,
+                    TranslationMemories = new List<TranslationMemoryDetailsV3>()
+                }
+            };
+
+            await groupShareClient.Project.UpdateProjectTemplateV4(projectTemplateId, templateRequest);
+            var updatedProjectTemplate = await groupShareClient.Project.GetProjectTemplateV4(projectTemplateId);
+
+            Assert.Equal("en-us", updatedProjectTemplate.SourceLanguageCode);
+            Assert.Equal("fr-fr", updatedProjectTemplate.TargetLanguageCodes.Single());
+            Assert.Empty(updatedProjectTemplate.Termbases);
+            Assert.Empty(updatedProjectTemplate.TranslationMemories);
+            Assert.True(updatedProjectTemplate.EnableSegmentLockTask);
+            Assert.True(updatedProjectTemplate.SegmentLockingSettings.Single().UseAndCondition);
+            Assert.Equal(99, updatedProjectTemplate.SegmentLockingSettings.Single().Score);
+
+            await groupShareClient.Project.DeleteProjectTemplateV4(projectTemplateId);
         }
 
         #endregion
