@@ -504,16 +504,32 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<string> GetTemplateById(string templateId);
 
         /// <summary>
-        /// 
+        /// Gets a project template by id
         /// </summary>
-        /// <param name="templateId"></param>
-        /// <returns></returns>
+        /// <param name="templateId">Project template GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The project template data</returns>
         Task<ProjectTemplateSettingsV3> GetProjectTemplateV3(Guid templateId);
 
         /// <summary>
-        /// 
+        /// Updates a project template
         /// </summary>
-        /// <returns></returns>
+        /// <param name="templateId">Project template GUID</param>
+        /// <param name="templateRequest"><see cref="ProjectTemplateV3"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The GUID of the project template</returns>
         Task<Guid> UpdateProjectTemplateV3(Guid templateId, ProjectTemplateV3 templateRequest);
 
         /// <summary>
@@ -545,11 +561,18 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<Guid> CreateProjectTemplateV4(ProjectTemplateV4 templateRequest);
 
         /// <summary>
-        /// 
+        /// Updates a project template
         /// </summary>
-        /// <param name="templateId"></param>
-        /// <param name="templateRequest"></param>
-        /// <returns></returns>
+        /// <param name="templateId">Project template GUID</param>
+        /// <param name="templateRequest"><see cref="ProjectTemplateV4"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The GUID of the project template</returns>
         Task<Guid> UpdateProjectTemplateV4(Guid templateId, ProjectTemplateV4 templateRequest);
 
         /// <summary>
@@ -585,7 +608,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <param name="id">Project template GUID</param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
