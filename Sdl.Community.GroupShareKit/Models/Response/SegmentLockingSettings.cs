@@ -12,16 +12,16 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         public string TargetLanguage { get; set; }
 
         [JsonProperty("translationStatuses")]
-        public IList<string> TranslationStatuses { get; set; }/* = new List<string>();*/
+        public IList<string> TranslationStatuses { get; set; }
 
         [JsonProperty("translationOrigins")]
-        public IList<string> TranslationOrigins { get; set; }/* = new List<string>();*/
+        public IList<string> TranslationOrigins { get; set; }
 
         [JsonProperty("score")]
         public int? Score { get; set; }
 
         [JsonProperty("mtqe")]
-        public IList<string> MTQE { get; set; } = new List<string>();
+        public IList<string> MTQE { get; set; }
 
         public SegmentLockingSettings() { }
 

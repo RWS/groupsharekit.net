@@ -6,6 +6,6 @@ namespace Sdl.Community.GroupShareKit.Models.Response
     {
         public IList<SegmentLockingSettings> SegmentLockingSettings { get; set; }
 
-        public bool? EnableSegmentLockTask { get; set; } = false;
+        public bool? EnableSegmentLockTask { get; set; }
     }
 }
