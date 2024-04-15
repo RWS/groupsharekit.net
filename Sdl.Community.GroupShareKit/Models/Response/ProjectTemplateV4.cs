@@ -2,7 +2,7 @@
 
 namespace Sdl.Community.GroupShareKit.Models.Response
 {
-    public class ProjectTemplateV4/* : ProjectTemplateV3*/
+    public class ProjectTemplateV4
     {
         /// <summary>
         /// Gets or sets the template name
@@ -17,14 +17,8 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// </summary>
         public Guid OrganizationId { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public int Number { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public ProjectTemplateSettingsV4 Settings { get; set; }
 
         public ProjectTemplateV4() { }

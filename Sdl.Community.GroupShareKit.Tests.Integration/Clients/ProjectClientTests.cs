@@ -1141,7 +1141,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Name = "Project template - " + projectTemplateId + " - edited",
                 Description = "edited using GroupShare Kit",
                 OrganizationId = Helper.OrganizationId,
-                Settings = new ProjectTemplateSettings
+                Settings = new ProjectTemplateSettingsV3
                 {
                     SourceLanguageCode = "en-us",
                     TargetLanguageCodes = new[] { "fr-fr" },

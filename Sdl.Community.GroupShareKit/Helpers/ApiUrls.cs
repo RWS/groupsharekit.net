@@ -1162,7 +1162,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for dashboard statistics
         /// </summary>
-        /// <returns></returns>
         public static Uri DashboardStatistics()
         {
             return "{0}/dashboard/statistics".FormatUri(ReportingServiceUrl);
@@ -1179,7 +1178,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for predefined projects report data with pagination parameters
         /// </summary>
-        /// <returns></returns>
         public static Uri GetPredefinedProjectsDataV2()
         {
             return "{0}/predefined/projects".FormatUri(ReportingServiceV2Url);

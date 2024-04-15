@@ -15,14 +15,8 @@
         /// </summary>
         public string OrganizationId { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public int Number { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public ProjectTemplateSettings Settings { get; set; }
+        public ProjectTemplateSettingsV3 Settings { get; set; }
     }
 }
