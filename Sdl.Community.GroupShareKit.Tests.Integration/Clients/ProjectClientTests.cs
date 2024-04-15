@@ -322,19 +322,19 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             }
         }
 
-        // test fails because of a bug that has to be fixed in the REST API
-        //[Fact]
-        //public async Task GetProjectLanguageStatistics()
-        //{
-        //    var groupShareClient = Helper.GsClient;
+        [Fact]
+        public async Task GetProjectLanguageStatistics()
+        {
+            var groupShareClient = Helper.GsClient;
 
-        //    var projects = await groupShareClient.Project.GetAllProjects();
-        //    var project = projects.Items.FirstOrDefault();
+            var languageStatistics = await groupShareClient.Project.GetProjectLanguageStatistics(ProjectId);
+            var targetLanguageCodes = languageStatistics.Keys.ToList();
 
-        //    var response = await groupShareClient.Project.GetProjectLanguageStatistics(project.ProjectId);
-
-        //    Assert.Equal(response.Keys.First(), "en-US");
-        //}
+            Assert.Equal(3, languageStatistics.Count());
+            Assert.Equal("de-DE", targetLanguageCodes[0]);
+            Assert.Equal("fr-FR", targetLanguageCodes[1]);
+            Assert.Equal("ja-JP", targetLanguageCodes[2]);
+        }
 
         [Fact]
         public async Task GetProjectFileStatistics()
