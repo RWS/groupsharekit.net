@@ -1059,7 +1059,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Deletes a project template
         /// </summary>
-        /// <param name="id">Project template GUID</param>
+        /// <param name="templateId">Project template GUID</param>
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
@@ -1076,7 +1076,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Deletes a project template
         /// </summary>
-        /// <param name="id">Project template GUID</param>
+        /// <param name="templateId">Project template GUID</param>
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
