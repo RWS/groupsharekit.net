@@ -1,17 +1,26 @@
+# New in 15.1.11
+* Support for GroupShare 2020 SR1 CU11
+* Added support for ProjectTemplatesV3 endpoints
+* Added support for ProjectTemplatesV4 endpoints
+* Added support for ProjectSettings endpoints
+* Added support for ProjectSettingsV4 endpoints
+* Added support for SegmentLockingConfig endpoint
+* Moved Dashboard endpoints from ProjectClient to ReportingClient
+
 # New in 15.1.10
-* Support for GroupShare 2020 CU10
+* Support for GroupShare 2020 SR1 CU10
 
 # New in 15.1.9
-* Support for GroupShare 2020 CU09
+* Support for GroupShare 2020 SR1 CU09
 
 # New in 15.1.8
-* Support for GroupShare 2020 CU08
+* Support for GroupShare 2020 SR1 CU08
 
 # New in 15.1.7
-* Support for GroupShare 2020 CU07
+* Support for GroupShare 2020 SR1 CU07
 
 # New in 15.1.6
-* Support for GroupShare 2020 CU06
+* Support for GroupShare 2020 SR1 CU06
 
 # New in 1.3.6
 * [#20](https://github.com/sdl/groupsharekit.net/pull/20)Added configurable TwelveHourDateTimeConverter
