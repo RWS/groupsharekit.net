@@ -894,6 +894,24 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// Creates a project template
+        /// </summary>
+        /// <param name="templateRequest"><see cref="ProjectTemplateV4"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The GUID of the created project template</returns>
+        public async Task<Guid> CreateProjectTemplateV4(ProjectTemplateV4 templateRequest)
+        {
+            var templateId = await ApiConnection.Post<Guid>(ApiUrls.ProjectTemplatesV4(), templateRequest, "application/json");
+            return templateId;
+        }
+
+        /// <summary>
         /// Creates a template
         /// </summary>
         /// <param name="templateRequest"><see cref="ProjectTemplateV3"/></param>
@@ -909,29 +927,62 @@ namespace Sdl.Community.GroupShareKit.Clients
         public async Task<string> CreateTemplateV3(ProjectTemplateV3 templateRequest)
         {
             var templateId = await ApiConnection.Post<string>(ApiUrls.ProjectTemplatesV3(), templateRequest, "application/json");
-            //await UploadProjectTemplate(templateId, templateRequest.Name);
             return templateId;
         }
 
-        ///// <summary>
-        /////Creates a template
-        ///// </summary>
-        ///// <param name="templateRequest"><see cref="ProjectTemplateV3"/></param>
-        ///// <remarks>
-        ///// This method requires authentication.
-        ///// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///// </remarks>
-        ///// <exception cref="AuthorizationException">
-        ///// Thrown when the current user does not have permission to make the request.
-        ///// </exception>
-        ///// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///// <returns>Id of created template/></returns>
-        //public async Task<string> UpdateProjectTemplateV3(ProjectTemplateV3 templateRequest)
-        //{
-        //    //var templateId = await ApiConnection.Put<>(ApiUrls.ProjectTemplatesV3(), templateRequest, "application/json");
-        //    ////await UploadProjectTemplate(templateId, templateRequest.Name);
-        //    //return templateId;
-        //}
+        /// <summary>
+        /// Updates a project template
+        /// </summary>
+        /// <param name="templateId">Project template GUID</param>
+        /// <param name="templateRequest"><see cref="ProjectTemplateV3"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The GUID of the project template/></returns>
+        public async Task<Guid> UpdateProjectTemplateV3(Guid templateId, ProjectTemplateV3 templateRequest)
+        {
+            return await ApiConnection.Put<Guid>(ApiUrls.ProjectTemplatesV3(templateId), templateRequest);
+        }
+
+        /// <summary>
+        /// Creates a project template
+        /// </summary>
+        /// <param name="templateRequest"><see cref="ProjectTemplateV4"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The GUID of the created project template</returns>
+        public async Task<Guid> CreateTemplateV4(ProjectTemplateV4 templateRequest)
+        {
+            var templateId = await ApiConnection.Post<Guid>(ApiUrls.ProjectTemplatesV4(), templateRequest);
+            return templateId;
+        }
+
+        /// <summary>
+        /// Updates a project template
+        /// </summary>
+        /// <param name="templateId">Project template GUID</param>
+        /// <param name="templateRequest"><see cref="ProjectTemplateV4"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The GUID of the project template</returns>l
+        public async Task<Guid> UpdateProjectTemplateV4(Guid templateId, ProjectTemplateV4 templateRequest)
+        {
+            return await ApiConnection.Put<Guid>(ApiUrls.ProjectTemplatesV4(templateId), templateRequest);
+        }
 
         /// <summary>
         /// Get a template by id
@@ -953,6 +1004,42 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// Gets a project template by id
+        /// </summary>
+        /// <param name="templateId">Project template GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The project template data</returns>
+        public async Task<ProjectTemplateSettingsV3> GetProjectTemplateV3(Guid templateId)
+        {
+            Ensure.ArgumentNotNull(templateId, "templateId");
+            return await ApiConnection.GetWithContent<ProjectTemplateSettingsV3>(ApiUrls.ProjectTemplatesV3(templateId), "application/json");
+        }
+
+        /// <summary>
+        /// Gets a project template by id
+        /// </summary>
+        /// <param name="templateId">Project template GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The project template data</returns>
+        public async Task<ProjectTemplateSettingsV4> GetProjectTemplateV4(Guid templateId)
+        {
+            Ensure.ArgumentNotNull(templateId, "templateId");
+            return await ApiConnection.GetWithContent<ProjectTemplateSettingsV4>(ApiUrls.ProjectTemplatesV4(templateId), "application/json");
+        }
+
+        /// <summary>
         /// Deletes a template 
         /// </summary>
         /// <param name="templateId">string</param>
@@ -967,6 +1054,40 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             await ApiConnection.Delete(ApiUrls.ProjectTemplates(templateId));
+        }
+
+        /// <summary>
+        /// Deletes a project template
+        /// </summary>
+        /// <param name="templateId">Project template GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task DeleteProjectTemplateV3(Guid templateId)
+        {
+            Ensure.ArgumentNotNull(templateId, "templateId");
+            await ApiConnection.Delete(ApiUrls.ProjectTemplatesV3(templateId));
+        }
+
+        /// <summary>
+        /// Deletes a project template
+        /// </summary>
+        /// <param name="templateId">Project template GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task DeleteProjectTemplateV4(Guid templateId)
+        {
+            Ensure.ArgumentNotNull(templateId, "templateId");
+            await ApiConnection.Delete(ApiUrls.ProjectTemplatesV4(templateId));
         }
 
         /// <summary>
@@ -1039,8 +1160,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNull(version, "version");
 
-            var fileContent = await
-                    ApiConnection.Get<byte[]>(ApiUrls.DownloadFileForVersion(projectId, languageFileId, version), null);
+            var fileContent = await ApiConnection.Get<byte[]>(ApiUrls.DownloadFileForVersion(projectId, languageFileId, version), null);
 
             return fileContent;
         }
@@ -1235,9 +1355,79 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");
 
-            var projectSettings =
-                await ApiConnection.Get<ProjectSettings>(ApiUrls.GetProjectSettings(projectId, languageFileId), null);
+            var projectSettings = await ApiConnection.Get<ProjectSettings>(ApiUrls.GetProjectSettings(projectId, languageFileId), null);
             return projectSettings;
+        }
+
+        /// <summary>
+        /// Get project settings for a given language file
+        /// </summary>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="LanguageFileSettings"/></returns>
+        public async Task<LanguageFileSettings> GetLanguageFileSettings(Guid projectId, Guid languageFileId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(languageFileId, "languageFileId");
+
+            var languageFileSettings = await ApiConnection.Get<LanguageFileSettings>(ApiUrls.GetLanguageFileSettings(projectId, languageFileId), null);
+            return languageFileSettings;
+        }
+
+        /// <summary>
+        /// Get project general settings
+        /// </summary>
+        /// <param name="projectId">The project GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ProjectSettingsV2"/></returns>
+        public async Task<ProjectSettingsV2> GetProjectSettings(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var projectSettings = await ApiConnection.Get<ProjectSettingsV2>(ApiUrls.GetProjectSettings(projectId), null);
+            return projectSettings;
+        }
+
+        /// <summary>
+        /// Get project general settings
+        /// </summary>
+        /// <param name="projectId">The project GUID</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ProjectSettingsV4"/></returns>
+        public async Task<ProjectSettingsV4> GetProjectSettingsV4(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var projectSettings = await ApiConnection.Get<ProjectSettingsV4>(ApiUrls.GetProjectSettingsV4(projectId), null);
+            return projectSettings;
+        }
+
+        /// <summary>
+        /// Retrieves the Segment Locking configuration
+        /// </summary>
+        public async Task<dynamic> GetGetSegmentLockingConfig()
+        {
+            var segmentLockingConfig = await ApiConnection.Get<dynamic>(ApiUrls.GetSegmentLockingConfig(), null);
+            return segmentLockingConfig;
         }
 
         /// <summary>
@@ -1483,105 +1673,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         ///  <summary>
-        /// Gets the dashboard data
-        ///  </summary>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        [Obsolete("The dashboard function is obsolete in GroupShare 2020. " +
-            "Use the new functions DashboardProjectsPerMonth, DashboardTopLanguagePairs, " +
-            "DashboardWordsPerMonth, DashboardWordsPerOrganization, DashboardStatistics instead for GroupShare 2020.")]
-        public async Task<Dashboard> Dashboard()
-        {
-            return await ApiConnection.Get<Dashboard>(ApiUrls.Dashboard(), null);
-        }
-
-        /// <summary>
-        /// Gets the dashboard projects per month data
-        /// </summary>
-        /// <remarks>
-		///  This method requires authentication.
-		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-		///  </remarks>
-		///  <exception cref="AuthorizationException">
-		///  Thrown when the current user does not have permission to make the request.
-		///  </exception>
-		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task<IReadOnlyList<DashboardCount>> DashboardProjectsPerMonth()
-        {
-            return await ApiConnection.GetAll<DashboardCount>(ApiUrls.DashboardProjectsPerMonth());
-        }
-
-        /// <summary>
-        /// Gets the dashboard top language pairs
-        /// </summary>
-        /// <param name="noOfTopLanguagePairs"></param>
-        /// <returns></returns>
-        /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task<IReadOnlyList<LanguagePairsInProject>> DashboardTopLanguagePairs(int? noOfTopLanguagePairs)
-        {
-            return await ApiConnection.GetAll<LanguagePairsInProject>(ApiUrls.DashboardTopLanguagePairs(noOfTopLanguagePairs));
-        }
-
-        /// <summary>
-        /// Gets the dashboard words per month
-        /// </summary>
-        /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task<IReadOnlyList<DashboardCount>> DashboardWordsPerMonth()
-        {
-            return await ApiConnection.GetAll<DashboardCount>(ApiUrls.DashboardWordsPerMonth());
-        }
-
-        /// <summary>
-        /// Gets the dashboard words per organization
-        /// </summary>
-        /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task<IReadOnlyList<WordsInOrganization>> DashboardWordsPerOrganization()
-        {
-            return await ApiConnection.GetAll<WordsInOrganization>(ApiUrls.DashboardWordsPerOrganization());
-        }
-
-        /// <summary>
-        /// Gets the dashboard statistics data
-        /// </summary>
-        /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task<DashboardStatistics> DashboardStatistics()
-        {
-            return await ApiConnection.Get<DashboardStatistics>(ApiUrls.DashboardStatistics(), null);
-        }
-
-        ///  <summary>
         /// Retries the audit trail for all the language files in the given project
         ///  </summary>
         ///  This method requires authentication.
@@ -1607,60 +1698,5 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         #endregion
 
-        #region Reporting
-        /// <summary>
-        /// Returns the projects report data
-        /// </summary>
-        /// <param name="options"></param>
-        /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public Task<IReadOnlyList<ProjectReport>> ReportingProjectPredefinedReportData(ReportingOptions options)
-        {
-            var jsonOptions = options.Stringify();
-            return ApiConnection.GetAll<ProjectReport>(ApiUrls.GetProjectPredefinedReportData(jsonOptions));
-        }
-
-        /// <summary>
-        /// Returns the tasks Report report data
-        /// </summary>
-        /// <param name="options"></param>
-        /// <remarks>
-		///  This method requires authentication.
-		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-		///  </remarks>
-		///  <exception cref="AuthorizationException">
-		///  Thrown when the current user does not have permission to make the request.
-		///  </exception>
-		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public Task<IReadOnlyList<TasksReport>> ReportingTasksReportData(ReportingOptions options)
-        {
-            var jsonOptions = options.Stringify();
-            return ApiConnection.GetAll<TasksReport>(ApiUrls.GetTasksReportData(jsonOptions));
-        }
-
-        /// <summary>
-        /// Returns the TM Leverage report data
-        /// </summary>
-        /// <param name="options"></param>
-        /// <remarks>
-		///  This method requires authentication.
-		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-		///  </remarks>
-		///  <exception cref="AuthorizationException">
-		///  Thrown when the current user does not have permission to make the request.
-		///  </exception>
-		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public Task<TmLeverageReport> ReportingTmLeverageData(ReportingOptions options)
-        {
-            var jsonOptions = options.Stringify();
-            return ApiConnection.Get<TmLeverageReport>(ApiUrls.GetTmLeverageData(jsonOptions), null);
-        }
-        #endregion
     }
 }

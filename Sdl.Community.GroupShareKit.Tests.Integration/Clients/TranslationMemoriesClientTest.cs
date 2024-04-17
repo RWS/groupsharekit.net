@@ -209,7 +209,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task HealthVersion()
         {
             var healthVersion = await GroupShareClient.TranslationMemories.TmServiceInfo();
-            Assert.True(healthVersion != null);
+            Assert.NotNull(healthVersion);
         }
 
         [Fact]
@@ -254,7 +254,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var tus = await GroupShareClient.TranslationMemories.GetTranslationUnitForTm(tmId, translationUnitRequest);
 
             // there are no TUs in the empty TM
-            Assert.True(tus == null);
+            Assert.Null(tus);
         }
 
         //[Fact]
@@ -290,7 +290,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var languageParameters = new LanguageParameters("en-us", "de-de");
             var tusNumber = await GroupShareClient.TranslationMemories.GetNumberOfTus(tmId, languageParameters);
 
-            Assert.True(tusNumber == 0);
+            Assert.Equal(0, tusNumber);
         }
 
         [Fact]

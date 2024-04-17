@@ -33,7 +33,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
 
             var file = await groupShareClient.Project.DownloadFile(new FileDownloadRequest(ProjectId, null, FileDownloadRequest.Types.All));
-            Assert.True(file != null);
+            Assert.NotNull(file);
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var file = await groupShareClient.Project.DownloadNative(ProjectId);
 
-            Assert.True(file != null);
+            Assert.NotNull(file);
         }
 
         //[Theory]
@@ -63,7 +63,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var files = await groupShareClient.Project.DownloadFiles(ProjectId, LanguageFileIds);
 
-            Assert.True(files != null);
+            Assert.NotNull(files);
         }
     }
 }

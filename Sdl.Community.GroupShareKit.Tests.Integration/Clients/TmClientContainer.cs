@@ -50,7 +50,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetContainerById()
         {
-
             var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(DbServerRequest);
             var containerId = await CreateNewTmContainer(dbServerId);
             var container = await groupShareClient.TranslationMemories.GetContainerById(containerId);

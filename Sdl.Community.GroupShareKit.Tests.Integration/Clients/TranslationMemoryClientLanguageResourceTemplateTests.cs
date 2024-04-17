@@ -81,7 +81,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             {
                 LanguageResourceTemplateId = Guid.NewGuid().ToString(),
                 Name = $"test LRTemplate {Guid.NewGuid()}",
-                Description = "Created from Groupshare kit",
+                Description = "Created using GroupShare Kit",
                 OwnerId = Helper.OrganizationId,
                 Location = Helper.OrganizationPath,
                 IsTmSpecific = false,

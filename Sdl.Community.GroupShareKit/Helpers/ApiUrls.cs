@@ -295,6 +295,35 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> that returns a project template
+        /// </summary>
+        public static Uri ProjectTemplatesV3(Guid templateId)
+        {
+            return "{0}/projects/templates/{1}".
+                FormatUri(CurrentProjectServerV3Url, templateId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns a project template
+        /// </summary>
+        /// <returns></returns>
+        public static Uri ProjectTemplatesV4(Guid templateId)
+        {
+            return "{0}/projects/templates/{1}".
+                FormatUri(CurrentProjectServerV4Url, templateId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all project templates
+        /// </summary>
+        /// <returns></returns>
+        public static Uri ProjectTemplatesV4()
+        {
+            return "{0}/projects/templates".
+                FormatUri(CurrentProjectServerV4Url);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns all phases associated with the specified project
         /// </summary>
         /// <param name="projectId">The project id</param>
@@ -838,6 +867,43 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> that returns the project settings for a given language file
+        /// </summary>
+        public static Uri GetLanguageFileSettings(Guid projectId, Guid languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/settings".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns the general project settings
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri GetProjectSettings(Guid projectId)
+        {
+            return "{0}/projects/{1}/settings".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns the general project settings
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri GetProjectSettingsV4(Guid projectId)
+        {
+            return "{0}/projects/{1}/settings".FormatUri(CurrentProjectServerV4Url, projectId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns the Segment Locking configuration
+        /// </summary>
+        /// <returns></returns>
+        public static Uri GetSegmentLockingConfig()
+        {
+            return "{0}/projects/segmentLockingConfig".FormatUri(CurrentProjectServerV4Url);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that checks in a file edited in the Online Editor
         /// </summary>
         public static Uri OnlineCheckIn(string projectId, string languageFileId)
@@ -921,30 +987,13 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> that returns dashboard data
-        /// </summary>
-        public static Uri Dashboard()
-        {
-            return "{0}/dashboard".FormatUri(CurrentProjectServerUrl);
-        }
-
-        /// <summary>
-        /// Returns the <see cref="Uri"/> for dashboard projects per month
-        /// </summary>
-        /// <returns></returns>
-        public static Uri DashboardProjectsPerMonth()
-        {
-            return "{0}/dashboard/projectsPerMonth".FormatUri(CurrentProjectServerUrl);
-        }
-
-        /// <summary>
         /// Returns the <see cref="Uri"/> for dashboard top language pairs
         /// </summary>
         /// <param name="noOfTopLanguagePairs"></param>
         /// <returns></returns>
-        public static Uri DashboardTopLanguagePairs(int? noOfTopLanguagePairs = null)
+        public static Uri DashboardTopLanguagePairs()
         {
-            return "{0}/dashboard/topLanguagePairs/{1}".FormatUri(CurrentProjectServerUrl, noOfTopLanguagePairs);
+            return "{0}/dashboard/topLanguagePairs".FormatUri(ReportingServiceUrl);
         }
 
         /// <summary>
@@ -953,7 +1002,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <returns></returns>
         public static Uri DashboardWordsPerMonth()
         {
-            return "{0}/dashboard/wordsPerMonth".FormatUri(CurrentProjectServerUrl);
+            return "{0}/dashboard/wordsPerMonth".FormatUri(ReportingServiceUrl);
         }
 
         /// <summary>
@@ -962,16 +1011,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <returns></returns>
         public static Uri DashboardWordsPerOrganization()
         {
-            return "{0}/dashboard/wordsPerOrganization".FormatUri(CurrentProjectServerUrl);
-        }
-
-        /// <summary>
-        /// Returns the <see cref="Uri"/> for dashboard statistics
-        /// </summary>
-        /// <returns></returns>
-        public static Uri DashboardStatistics()
-        {
-            return "{0}/dashboard/statistics".FormatUri(CurrentProjectServerUrl);
+            return "{0}/dashboard/wordsPerOrganization".FormatUri(ReportingServiceUrl);
         }
 
         /// <summary>
@@ -1120,30 +1160,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> for projects report data
+        /// Returns the <see cref="Uri"/> for dashboard statistics
         /// </summary>
-        /// <param name="options"></param>
-        public static Uri GetProjectPredefinedReportData(string options)
+        public static Uri DashboardStatistics()
         {
-            return "{0}/projectPredefinedReports?filter={1}".FormatUri(CurrentProjectServerUrl, options);
-        }
-
-        /// <summary>
-        /// Returns the <see cref="Uri"/> for tasks Report report data
-        /// </summary>
-        /// <param name="options"></param>
-        public static Uri GetTasksReportData(string options)
-        {
-            return "{0}/tasksReport?filter={1}".FormatUri(CurrentProjectServerUrl, options);
-        }
-
-        /// <summary>
-        /// Returns the <see cref="Uri"/> for TM Leverage report data
-        /// </summary>
-        /// <param name="options"></param>
-        public static Uri GetTmLeverageData(string options)
-        {
-            return "{0}/tmLeverageReport?filter={1}".FormatUri(CurrentProjectServerUrl, options);
+            return "{0}/dashboard/statistics".FormatUri(ReportingServiceUrl);
         }
 
         /// <summary>
@@ -1157,7 +1178,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for predefined projects report data with pagination parameters
         /// </summary>
-        /// <returns></returns>
         public static Uri GetPredefinedProjectsDataV2()
         {
             return "{0}/predefined/projects".FormatUri(ReportingServiceV2Url);

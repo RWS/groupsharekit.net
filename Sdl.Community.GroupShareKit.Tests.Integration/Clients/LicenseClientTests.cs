@@ -11,7 +11,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var license = await groupShareClient.License.GetLicenseInformation();
 
-            Assert.True(license != null);
+            Assert.NotNull(license);
         }
     }
 }

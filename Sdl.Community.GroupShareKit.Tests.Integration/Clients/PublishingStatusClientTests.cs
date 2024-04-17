@@ -26,7 +26,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var project = await groupShareClient.Project.PublishingStatus(ProjectId);
 
-            Assert.True(project != null);
+            Assert.NotNull(project);
         }
     }
 }

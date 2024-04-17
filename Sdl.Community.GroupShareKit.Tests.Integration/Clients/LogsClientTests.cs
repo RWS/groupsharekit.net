@@ -24,15 +24,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             {
                 FromDate = DateTime.Now.AddDays(-15),
                 ToDate = DateTime.Now,
-                Level = new string[] { "Warn" },
-                ProcessName = new string[] { "ApplicationService" }
+                Level = new[] { "Warn" },
+                ProcessName = new[] { "ApplicationService" }
 
             };
 
             var logsData = await groupShareClient.Logs.GetFilteredLogs(filter);
             Assert.True(logsData.Count > 0);
-            Assert.True(logsData.Items[0].Level == "Warn");
-            Assert.True(logsData.Items[0].ProcessName == "ApplicationService");
+            Assert.Equal("Warn", logsData.Items[0].Level);
+            Assert.Equal("ApplicationService", logsData.Items[0].ProcessName);
         }
 
         [Fact]
@@ -43,7 +43,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var logs = await groupShareClient.Logs.GetLogs(logsRequest);
             Assert.True(logs.Count > 0);
-            Assert.True(logs.Items.Count() == 7);
+            Assert.Equal(7, logs.Items.Length);
         }
 
     }

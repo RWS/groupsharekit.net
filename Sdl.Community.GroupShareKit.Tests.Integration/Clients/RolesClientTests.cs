@@ -83,7 +83,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                             DisplayName = permissions.First().DisplayName,
                             Description = null,
                             FullName = permissions.First().FullName,
-                            PermissionName =permissions.First().PermissionName,
+                            PermissionName = permissions.First().PermissionName,
                             ResourceName = permissions.First().ResourceName
                         } }));
 
@@ -102,15 +102,18 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                        id,
                        name,
                        false,
-                      new List<Permission> {new Permission
-                        {
-                            UniqueId = permissions.First().UniqueId,
-                            DisplayName = permissions.First().DisplayName,
-                            Description = null,
-                            FullName = permissions.First().FullName,
-                            PermissionName =permissions.First().PermissionName,
-                            ResourceName = permissions.First().ResourceName
-                        } }));
+                      new List<Permission>
+                      {
+                          new Permission
+                          {
+                              UniqueId = permissions.First().UniqueId,
+                              DisplayName = permissions.First().DisplayName,
+                              Description = null,
+                              FullName = permissions.First().FullName,
+                              PermissionName = permissions.First().PermissionName,
+                              ResourceName = permissions.First().ResourceName
+                          } }));
+
             var roleList = new List<Role>
             {
                 new Role
@@ -120,13 +123,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                     RoleId = roleId
                 }
             };
+
             await groupShareClient.Role.AddUserToRole(roleList);
 
             var roles = await groupShareClient.Role.GetUsersForRole(roleId);
 
             var addedRole = roles.FirstOrDefault(u => u.UniqueId.ToString() == userId);
 
-            Assert.True(addedRole != null);
+            Assert.NotNull(addedRole);
 
             await groupShareClient.Role.RemoveUserFromRole(roleList, roleId);
 
@@ -134,7 +138,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var removedRole = roles.FirstOrDefault(u => u.UniqueId.ToString() == userId);
 
-            Assert.True(removedRole == null);
+            Assert.Null(removedRole);
 
             await groupShareClient.Role.DeleteRole(roleId);
         }
@@ -148,7 +152,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var users = await groupShareClient.Role.GetUsersForRole(roleId);
 
-            Assert.True(users.Count != 0);
+            Assert.NotEmpty(users);
 
             await groupShareClient.User.Delete(userId);
         }

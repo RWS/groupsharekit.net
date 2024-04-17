@@ -79,7 +79,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var sortedProjects = await groupShareClient.Project.GetProject(projectRequest);
             var projects = await groupShareClient.Project.GetAllProjects();
 
-            Assert.True(sortedProjects.Items.Count == projects.Items.Count);
+            Assert.Equal(sortedProjects.Items.Count, projects.Items.Count);
 
             var projectsNames = projects.Items.Select(p => p.Name).ToList();
             projectsNames.Sort();
@@ -87,7 +87,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             int i = 0;
             foreach (var proj in sortedProjects.Items)
             {
-                Assert.True(string.Compare(proj.Name, projectsNames[i++], StringComparison.CurrentCultureIgnoreCase) == 0);
+                Assert.Equal(0, string.Compare(proj.Name, projectsNames[i++], StringComparison.CurrentCultureIgnoreCase));
             }
         }
 
@@ -124,7 +124,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var report = await groupShareClient.Project.GetAnalysisReportsAsHtml(ProjectId, null);
-            Assert.True(report != null);
+            Assert.NotNull(report);
         }
 
         [Fact]
@@ -132,16 +132,58 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var report = await groupShareClient.Project.GetAnalysisReportsAsXml(ProjectId, null);
-            Assert.True(report != null);
+            Assert.NotNull(report);
+        }
+
+        [Fact]
+        public async Task Projects_GetProjectSettings_Obsolete_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var languageFileSettings = await groupShareClient.Project.GetProjectSettings(ProjectId, LanguageFileId);
+
+            Assert.NotNull(languageFileSettings);
+        }
+
+        [Fact]
+        public async Task Projects_GetLanguageFileSettings_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var languageFileSettings = await groupShareClient.Project.GetLanguageFileSettings(Guid.Parse(ProjectId), Guid.Parse(LanguageFileId));
+
+            Assert.NotNull(languageFileSettings);
         }
 
         [Fact]
         public async Task Projects_GetProjectSettings_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var projectSettings = await groupShareClient.Project.GetProjectSettings(ProjectId, LanguageFileId);
+            var projectSettings = await groupShareClient.Project.GetProjectSettings(Guid.Parse(ProjectId));
 
-            Assert.True(projectSettings != null);
+            Assert.Equal(Guid.Parse(ProjectId), projectSettings.GeneralSettings.ProjectId);
+            Assert.Equal(3, projectSettings.GeneralSettings.LanguageDirection.Count);
+            Assert.Empty(projectSettings.Termbases);
+        }
+
+        [Fact]
+        public async Task Projects_GetProjectSettingsV4_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectSettings = await groupShareClient.Project.GetProjectSettingsV4(Guid.Parse(ProjectId));
+
+            Assert.False(projectSettings.EnableSegmentLockTask);
+            Assert.Empty(projectSettings.SegmentLock);
+            Assert.Equal(Guid.Parse(ProjectId), projectSettings.GeneralSettings.ProjectId);
+            Assert.Equal(3, projectSettings.GeneralSettings.LanguageDirection.Count);
+            Assert.Empty(projectSettings.Termbases);
+        }
+
+        [Fact]
+        public async Task GetSegmentLockingConfig_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var segmentLockingConfig = await groupShareClient.Project.GetGetSegmentLockingConfig();
+
+            Assert.NotNull(segmentLockingConfig);
         }
 
         [Fact]
@@ -159,7 +201,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var editorProfile = await groupShareClient.Project.EditorProfile(ProjectId, LanguageFileId);
 
-            Assert.True(editorProfile != null);
+            Assert.NotNull(editorProfile);
         }
 
         [Fact]
@@ -185,7 +227,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var checkoutResponse = await groupShareClient.Project.OnlineCheckout(ProjectId, LanguageFileId);
             var response = await groupShareClient.Project.OnlineCheckin(ProjectId, LanguageFileId, checkoutResponse);
-            Assert.True(response != null);
+            Assert.NotNull(response);
         }
 
         [Fact]
@@ -194,7 +236,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
 
             var checkoutResponse = await groupShareClient.Project.OnlineCheckout(ProjectId, LanguageFileId);
-            Assert.True(checkoutResponse != null);
+            Assert.NotNull(checkoutResponse);
 
             await groupShareClient.Project.UndoCheckout(ProjectId, LanguageFileId);
         }
@@ -205,7 +247,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
 
             var response = await groupShareClient.Project.ExternalCheckout(ProjectId, LanguageFileId);
-            Assert.True(response != null);
+            Assert.NotNull(response);
 
             await groupShareClient.Project.ExternalCheckin(ProjectId, LanguageFileId, "comment");
         }
@@ -238,14 +280,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task Dashboard()
-        {
-            var groupShareClient = Helper.GsClient;
-            var dashboard = await groupShareClient.Project.Dashboard();
-            Assert.True(dashboard != null);
-        }
-
-        [Fact]
         public async Task AuditTrail()
         {
             var groupShareClient = Helper.GsClient;
@@ -260,7 +294,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var editorProfileMode = OnlineCheckout.EditorProfileMode.Basic.ToString();
             var response = await groupShareClient.Project.OnlineCheckoutHealthCheck(editorProfileMode);
-            Assert.True(response != null);
+            Assert.NotNull(response);
         }
 
         [Fact]
@@ -269,7 +303,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var editorProfileMode = OnlineCheckout.EditorProfileMode.Advanced.ToString();
             var response = await groupShareClient.Project.OnlineCheckoutHealthCheck(editorProfileMode);
-            Assert.True(response != null);
+            Assert.NotNull(response);
         }
 
         [Fact]
@@ -288,19 +322,19 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             }
         }
 
-        // test fails because of a bug that has to be fixed in the REST API
-        //[Fact]
-        //public async Task GetProjectLanguageStatistics()
-        //{
-        //    var groupShareClient = Helper.GsClient;
+        [Fact]
+        public async Task GetProjectLanguageStatistics()
+        {
+            var groupShareClient = Helper.GsClient;
 
-        //    var projects = await groupShareClient.Project.GetAllProjects();
-        //    var project = projects.Items.FirstOrDefault();
+            var languageStatistics = await groupShareClient.Project.GetProjectLanguageStatistics(ProjectId);
+            var targetLanguageCodes = languageStatistics.Keys.ToList();
 
-        //    var response = await groupShareClient.Project.GetProjectLanguageStatistics(project.ProjectId);
-
-        //    Assert.Equal(response.Keys.First(), "en-US");
-        //}
+            Assert.Equal(3, languageStatistics.Count());
+            Assert.Equal("de-DE", targetLanguageCodes[0]);
+            Assert.Equal("fr-FR", targetLanguageCodes[1]);
+            Assert.Equal("ja-JP", targetLanguageCodes[2]);
+        }
 
         [Fact]
         public async Task GetProjectFileStatistics()
@@ -335,7 +369,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
 
-            Assert.True(!string.IsNullOrEmpty(projectId));
+            Assert.False(string.IsNullOrEmpty(projectId));
 
             await DeleteTestProject(groupShareClient, projectId);
             await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
@@ -544,7 +578,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var reports = await groupShareClient.Project.GetAnalysisReportsV3(projectId);
             var projectCreationReport = reports.FirstOrDefault(r => r.TriggeredBy == "ProjectCreation");
 
-            Assert.Equal(1, reports.Count);
+            Assert.Single(reports);
             Assert.NotNull(projectCreationReport);
 
             await DeleteTestProject(groupShareClient, projectId);
@@ -600,7 +634,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var report = await groupShareClient.Project.GetAnalysisReportsV3AsHtml(ProjectId, null);
-            Assert.True(report != null);
+            Assert.NotNull(report);
         }
 
         [Fact]
@@ -608,7 +642,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
             var report = await groupShareClient.Project.GetAnalysisReportsV3AsXml(ProjectId, null);
-            Assert.True(report != null);
+            Assert.NotNull(report);
         }
 
         [Fact]
@@ -779,12 +813,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(created);
             var analysisReports = await Helper.GsClient.Project.GetAnalysisReports(projectId, "fr-fr");
-            Assert.True(analysisReports[0].Report.Task.File.Count == 4);
-            Assert.True(analysisReports[0].Report.Task.File[0].Analyse.Total.Segments == "3");
-            Assert.True(analysisReports[0].Report.Task.File[0].Analyse.Perfect.Segments == "0");
-            Assert.True(analysisReports[0].Report.Task.File[1].Analyse.Perfect.Segments == "1");
-            Assert.True(analysisReports[0].Report.Task.File[2].Analyse.Perfect.Segments == "2");
-            Assert.True(analysisReports[0].Report.Task.File[3].Analyse.Perfect.Segments == "3");
+            Assert.Equal(4, analysisReports[0].Report.Task.File.Count);
+            Assert.Equal("3", analysisReports[0].Report.Task.File[0].Analyse.Total.Segments);
+            Assert.Equal("0", analysisReports[0].Report.Task.File[0].Analyse.Perfect.Segments);
+            Assert.Equal("1", analysisReports[0].Report.Task.File[1].Analyse.Perfect.Segments);
+            Assert.Equal("2", analysisReports[0].Report.Task.File[2].Analyse.Perfect.Segments);
+            Assert.Equal("3", analysisReports[0].Report.Task.File[3].Analyse.Perfect.Segments);
 
             await Helper.GsClient.Project.DeleteProject(projectId);
             await Helper.GsClient.Project.DeleteProjectTemplate(projectTemplateId);
@@ -804,12 +838,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(created);
 
             var analysisReports = await Helper.GsClient.Project.GetAnalysisReports(projectId, "fr-fr");
-            Assert.True(analysisReports[0].Report.Task.File.Count == 4);
-            Assert.True(analysisReports[0].Report.Task.File[0].Analyse.Total.Segments == "3");
-            Assert.True(analysisReports[0].Report.Task.File[0].Analyse.Perfect.Segments == "0");
-            Assert.True(analysisReports[0].Report.Task.File[1].Analyse.Perfect.Segments == "1");
-            Assert.True(analysisReports[0].Report.Task.File[2].Analyse.Perfect.Segments == "2");
-            Assert.True(analysisReports[0].Report.Task.File[3].Analyse.Perfect.Segments == "3");
+            Assert.Equal(4, analysisReports[0].Report.Task.File.Count);
+            Assert.Equal("3", analysisReports[0].Report.Task.File[0].Analyse.Total.Segments);
+            Assert.Equal("0", analysisReports[0].Report.Task.File[0].Analyse.Perfect.Segments);
+            Assert.Equal("1", analysisReports[0].Report.Task.File[1].Analyse.Perfect.Segments);
+            Assert.Equal("2", analysisReports[0].Report.Task.File[2].Analyse.Perfect.Segments);
+            Assert.Equal("3", analysisReports[0].Report.Task.File[3].Analyse.Perfect.Segments);
 
             await Helper.GsClient.Project.DeleteProject(projectId);
             await Helper.GsClient.Project.DeleteProjectTemplate(projectTemplateId);
@@ -968,7 +1002,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             return projectId;
         }
-        
+
         private static async Task<string> CreateTestProjectTemplate(GroupShareClient groupShareClient, string fileName = "")
         {
             var rawData = fileName == "" ?
@@ -976,7 +1010,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\" + fileName));
 
             var id = Guid.NewGuid().ToString();
-            var templateName = $"Project template - { Guid.NewGuid() }";
+            var templateName = $"Project template - {Guid.NewGuid()}";
             var templateRequest = new ProjectTemplates(id, templateName, "", Helper.OrganizationId);
             var templateId = await groupShareClient.Project.CreateTemplate(templateRequest, rawData);
 
@@ -1046,14 +1080,38 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task<string> GetTemplateById()
+        public async Task GetTemplateById()
         {
             var groupShareClient = Helper.GsClient;
 
             var template = await groupShareClient.Project.GetTemplateById(ProjectTemplateId);
 
             Assert.True(template != string.Empty);
-            return template;
+        }
+
+        [Fact]
+        public async Task GetProjectTemplateV3()
+        {
+            var groupShareClient = Helper.GsClient;
+
+            var template = await groupShareClient.Project.GetProjectTemplateV3(Guid.Parse(ProjectTemplateId));
+
+            Assert.NotNull(template);
+            Assert.True(template.SourceLanguageCode != string.Empty);
+            Assert.True(template.TargetLanguageCodes.Count > 0);
+        }
+
+        [Fact]
+        public async Task GetProjectTemplateV4()
+        {
+            var groupShareClient = Helper.GsClient;
+
+            var template = await groupShareClient.Project.GetProjectTemplateV4(Guid.Parse(ProjectTemplateId));
+
+            Assert.NotNull(template);
+            Assert.True(template.SourceLanguageCode != string.Empty);
+            Assert.True(template.TargetLanguageCodes.Count > 0);
+            Assert.False(template.EnableSegmentLockTask);
         }
 
         [Fact]
@@ -1063,7 +1121,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
 
             var id = Guid.NewGuid().ToString();
-            var templateName = $"Project template - { Guid.NewGuid() }";
+            var templateName = $"Project template - {Guid.NewGuid()}";
             var templateRequest = new ProjectTemplates(id, templateName, "", Helper.OrganizationId);
             var templateId = await groupShareClient.Project.CreateTemplate(templateRequest, rawData);
 
@@ -1071,6 +1129,123 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             await groupShareClient.Project.DeleteProjectTemplate(templateId);
         }
+
+        [Fact]
+        public async Task UpdateProjectTemplateV3_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectTemplateId = Guid.Parse(await CreateTestProjectTemplate(groupShareClient));
+
+            var templateRequest = new ProjectTemplateV3
+            {
+                Name = "Project template - " + projectTemplateId + " - edited",
+                Description = "edited using GroupShare Kit",
+                OrganizationId = Helper.OrganizationId,
+                Settings = new ProjectTemplateSettingsV3
+                {
+                    SourceLanguageCode = "en-us",
+                    TargetLanguageCodes = new[] { "fr-fr" },
+                    Termbases = new List<TermbaseDetailsV3>(),
+                    TranslationMemories = new List<TranslationMemoryDetailsV3>()
+                }
+            };
+
+            await groupShareClient.Project.UpdateProjectTemplateV3(projectTemplateId, templateRequest);
+            var updatedProjectTemplate = await groupShareClient.Project.GetProjectTemplateV3(projectTemplateId);
+
+            Assert.Equal("en-us", updatedProjectTemplate.SourceLanguageCode);
+            Assert.Equal("fr-fr", updatedProjectTemplate.TargetLanguageCodes.Single());
+            Assert.Empty(updatedProjectTemplate.Termbases);
+            Assert.Empty(updatedProjectTemplate.TranslationMemories);
+
+            await groupShareClient.Project.DeleteProjectTemplateV3(projectTemplateId);
+        }
+
+        [Fact]
+        public async Task CreateProjectTemplateV4_default_SegmentLocking_settings()
+        {
+            var groupShareClient = Helper.GsClient;
+            var templateName = $"Project template - default Segment Locking settings - {Guid.NewGuid()}";
+            var segmentLockingSettings = new List<SegmentLockingSettings>
+            {
+                new SegmentLockingSettings
+                {
+                    UseAndCondition = false,
+                    TranslationStatuses = new List<string> { "ApprovedSignOff", "ApprovedTranslation", "Translated" },
+                    TranslationOrigins = new List<string> { "TranslationMemory", "NeuralMachineTranslation" },
+                    Score = 100,
+                    MTQE = new List<string> { "Good" },
+                    TargetLanguage = ""
+                }
+            };
+
+            var templateSettings = new ProjectTemplateSettingsV4
+            {
+                EnableSegmentLockTask = true,
+                SourceLanguageCode = "en-us",
+                TargetLanguageCodes = new[] { "de-de" },
+                Termbases = new List<TermbaseDetailsV3>(),
+                SegmentLockingSettings = segmentLockingSettings,
+                TranslationMemories = new List<TranslationMemoryDetailsV3>()
+            };
+
+            var templateRequest = new ProjectTemplateV4(templateName, description: "Segment Locking enabled", Guid.Parse(Helper.OrganizationId), templateSettings);
+            var templateId = await groupShareClient.Project.CreateProjectTemplateV4(templateRequest);
+
+            Assert.NotEqual(Guid.Empty, templateId);
+
+            await groupShareClient.Project.DeleteProjectTemplateV4(templateId);
+        }
+
+        [Fact]
+        public async Task UpdateProjectTemplateV4_SegmentLocking_settings()
+        {
+            var groupShareClient = Helper.GsClient;
+            var projectTemplateId = Guid.Parse(await CreateTestProjectTemplate(groupShareClient));
+
+            var segmentLockingSettings = new List<SegmentLockingSettings>
+            {
+                new SegmentLockingSettings
+                {
+                    UseAndCondition = true,
+                    TranslationStatuses = new List<string> { "ApprovedSignOff", "Translated" },
+                    TranslationOrigins = new List<string> { "DocumentMatch", "AutomatedAlignment", "AutoPropagated" },
+                    Score = 99,
+                    MTQE = new List<string> { "Good", "Adequate" },
+                    TargetLanguage = ""
+                }
+            };
+
+            var templateRequest = new ProjectTemplateV4
+            {
+                Name = "Project template - " + projectTemplateId + " - edited",
+                Description = "edited using GroupShare Kit",
+                OrganizationId = Guid.Parse(Helper.OrganizationId),
+                Settings = new ProjectTemplateSettingsV4
+                {
+                    EnableSegmentLockTask = true,
+                    SourceLanguageCode = "en-us",
+                    TargetLanguageCodes = new[] { "fr-fr" },
+                    Termbases = new List<TermbaseDetailsV3>(),
+                    SegmentLockingSettings = segmentLockingSettings,
+                    TranslationMemories = new List<TranslationMemoryDetailsV3>()
+                }
+            };
+
+            await groupShareClient.Project.UpdateProjectTemplateV4(projectTemplateId, templateRequest);
+            var updatedProjectTemplate = await groupShareClient.Project.GetProjectTemplateV4(projectTemplateId);
+
+            Assert.Equal("en-us", updatedProjectTemplate.SourceLanguageCode);
+            Assert.Equal("fr-fr", updatedProjectTemplate.TargetLanguageCodes.Single());
+            Assert.Empty(updatedProjectTemplate.Termbases);
+            Assert.Empty(updatedProjectTemplate.TranslationMemories);
+            Assert.True(updatedProjectTemplate.EnableSegmentLockTask);
+            Assert.True(updatedProjectTemplate.SegmentLockingSettings.Single().UseAndCondition);
+            Assert.Equal(99, updatedProjectTemplate.SegmentLockingSettings.Single().Score);
+
+            await groupShareClient.Project.DeleteProjectTemplateV4(projectTemplateId);
+        }
+
         #endregion
 
         #region File version tests
@@ -1089,101 +1264,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var downloadedFile = await groupShareClient.Project.DownloadFileVersion(ProjectId, LanguageFileId, 2);
 
-            Assert.True(downloadedFile.Length != 0);
+            Assert.True(downloadedFile.Length > 0);
         }
         #endregion
 
-        #region Dashboard
-
-        //[Fact]
-        //[Trait("GSVersion", "2017")]
-        //public async Task Dashboard()
-        //{
-        //    var groupShareClient = await Helper.GetGroupShareClient();
-        //    var dashboard = await groupShareClient.Project.Dashboard();
-        //    Assert.True(dashboard != null);
-        //}
-
-
-        [Fact]
-        public async Task DashboardProjectsPerMonth()
-        {
-            var groupShareClient = Helper.GsClient;
-            var projectCounts = await groupShareClient.Project.DashboardProjectsPerMonth();
-            Assert.True(projectCounts != null);
-        }
-
-        [Fact]
-        public async Task DashboardTopLanguagePairs()
-        {
-            var groupShareClient = Helper.GsClient;
-            var languagePairs = await groupShareClient.Project.DashboardTopLanguagePairs(5);
-            Assert.True(languagePairs != null);
-        }
-
-        [Fact]
-        public async Task DashboardWordsPerMonth()
-        {
-            var groupShareClient = Helper.GsClient;
-            var wordCounts = await groupShareClient.Project.DashboardWordsPerMonth();
-            Assert.True(wordCounts != null);
-        }
-
-        [Fact]
-        public async Task DashboardWordsPerOrganization()
-        {
-            var groupShareClient = Helper.GsClient;
-            var wordCounts = await groupShareClient.Project.DashboardWordsPerOrganization();
-            Assert.True(wordCounts != null);
-        }
-
-        [Fact]
-        public async Task DashboardStatistics()
-        {
-            var groupShareClient = Helper.GsClient;
-            var statistics = await groupShareClient.Project.DashboardStatistics();
-            Assert.True(statistics != null);
-        }
-        #endregion
-
-        #region Reporting
-        [Fact]
-        public async Task ReportingProjectPredefinedReportData()
-        {
-            var groupShareClient = Helper.GsClient;
-            var options = new ReportingOptions
-            {
-                Status = 7
-            };
-
-            var reportingData = await groupShareClient.Project.ReportingProjectPredefinedReportData(options);
-            Assert.True(reportingData != null);
-        }
-
-        [Fact]
-        public async Task ReportingTasksReportData()
-        {
-            var groupShareClient = Helper.GsClient;
-            var options = new ReportingOptions
-            {
-                Status = 7
-            };
-            var reportingData = await groupShareClient.Project.ReportingTasksReportData(options);
-            Assert.True(reportingData != null);
-        }
-
-        [Fact]
-        public async Task ReportingTmLeverageData()
-        {
-            var groupShareClient = Helper.GsClient;
-            var options = new ReportingOptions
-            {
-                Status = 7
-            };
-
-            var reportingData = await groupShareClient.Project.ReportingTmLeverageData(options);
-            Assert.True(reportingData != null);
-        }
-        #endregion Reporting
     }
 }

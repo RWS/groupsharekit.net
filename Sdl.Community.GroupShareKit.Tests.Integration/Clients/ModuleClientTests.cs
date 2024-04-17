@@ -11,7 +11,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var modules = await groupShareClient.ModuleClient.GetModules();
 
-            Assert.True(modules != null);
+            Assert.NotNull(modules);
         }
     }
 }
