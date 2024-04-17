@@ -1,3 +1,12 @@
+# New in 15.1.11
+* Support for GroupShare 2020 CU11
+* Added support for ProjectTemplatesV3 endpoints
+* Added support for ProjectTemplatesV4 endpoints
+* Added support for ProjectSettings endpoints
+* Added support for ProjectSettingsV4 endpoints
+* Added support for SegmentLockingConfig endpoint
+* Moved Dashboard endpoints from ProjectClient to ReportingClient
+
 # New in 15.1.10
 * Support for GroupShare 2020 CU10
 
