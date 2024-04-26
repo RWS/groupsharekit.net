@@ -2,7 +2,7 @@
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
-    public class LanguageParameters:RequestParameters
+    public class LanguageParameters : RequestParameters
     {
         /// <summary>
         /// Gets or sets source language
@@ -13,7 +13,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// </summary>
         public string Target { get; set; }
 
-        public LanguageParameters(string source,string target)
+        public LanguageParameters(string source, string target)
         {
             Source = source;
             Target = target;
