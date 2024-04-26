@@ -17,6 +17,11 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         public bool? ImportAsPlainText { get; set; }
 
         /// <summary>
+        /// Gets or sets the minimum alignment quality
+        /// </summary>
+        public int? MinimumAlignmentQuality { get; set; }
+
+        /// <summary>
         /// Gets or sets if TM from user id should be used
         /// </summary>
         public bool? UseTmUserIdFromBilingualFile { get; set; }

@@ -320,13 +320,29 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             byteContent.Headers.Add("Content-Type", "application/json");
             var multipartContent = new MultipartFormDataContent
             {
-                {byteContent,"file",fileName}
+                { byteContent, "file", fileName }
             };
 
-            return
-                await
-                    ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target),
-                        multipartContent, "application/json");
+            return await ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target), multipartContent, "application/json");
+        }
+
+        public async Task<ImportResponse> ImportTmWithSettings(string tmId, LanguageParameters language, string filePath, ImportSettings settings)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "tm id");
+            Ensure.ArgumentNotNull(language, "language parameters");
+            Ensure.ArgumentNotNullOrEmptyString(filePath, "file path");
+
+            using (var content = new MultipartFormDataContent())
+            {
+                var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Open);
+                var streamContent = new StreamContent(stream);
+                content.Add(streamContent, "File", System.IO.Path.GetFileName(filePath));
+
+                var importSettings = new SimpleJsonSerializer().Serialize(settings);
+                content.Add(new StringContent(importSettings), "Settings");
+
+                return await ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target), content);
+            }
         }
 
         public async Task<ImportResponse> ImportTmWithSettings(string tmId, LanguageParameters language, byte[] rawFile, string fileName, ImportSettings settings)
@@ -349,6 +365,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             return await ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target), multipartContent, "application/json");
         }
+
         #endregion
 
         #region Translation unit methods
@@ -358,10 +375,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNull(unitRequest, "translation unit request");
             Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
-            return
-                await
-                    ApiConnection.Post<TranslationUnitResponse>(ApiUrls.TranslationUnits(tmId, "text"), unitRequest,
-                        "application/json");
+
+            return await ApiConnection.Post<TranslationUnitResponse>(ApiUrls.TranslationUnits(tmId, "text"), unitRequest, "application/json");
         }
 
         /// <summary>
