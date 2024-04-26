@@ -343,14 +343,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             var multipartContent = new MultipartFormDataContent
             {
-                {byteContent,"file",fileName},
-                { new StringContent(json, Encoding.Unicode, "application/json"), "settings" }
+                { byteContent, "file", fileName },
+                { new StringContent(json), "settings" }
             };
 
-            return
-                await
-                    ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target),
-                        multipartContent, "application/json");
+            return await ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target), multipartContent, "application/json");
         }
         #endregion
 
