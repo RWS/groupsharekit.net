@@ -136,6 +136,30 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
+        public async Task Projects_GetMTQEAnalysisReports_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var reports = await groupShareClient.Project.GetMTQEAnalysisReportsV3(Guid.Parse(ProjectId), null);
+            Assert.NotNull(reports);
+        }
+
+        [Fact]
+        public async Task Projects_GetMTQEAnalysisReportsAsHtml_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var report = await groupShareClient.Project.GetMTQEAnalysisReportsAsHtml(Guid.Parse(ProjectId), null);
+            Assert.NotNull(report);
+        }
+
+        [Fact]
+        public async Task Projects_GetMTQEAnalysisReportsAsXml_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var report = await groupShareClient.Project.GetAnalysisReportsAsXml(ProjectId, null);
+            Assert.NotNull(report);
+        }
+
+        [Fact]
         public async Task Projects_GetProjectSettings_Obsolete_Succeeds()
         {
             var groupShareClient = Helper.GsClient;

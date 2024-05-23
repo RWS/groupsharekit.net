@@ -859,6 +859,15 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> that returns the MTQE analysis reports v3 for a project
+        /// </summary>
+        /// <returns></returns>
+        public static Uri MTQEAnalysisReportsV3(Guid projectId, string languageCode, int? reportId = null)
+        {
+            return "{0}/projects/{1}/mtqeanalysisreports/{2}/{3}".FormatUri(CurrentProjectServerV3Url, projectId, languageCode, reportId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns the project settings for a language file
         /// </summary>
         public static Uri GetProjectSettings(string projectId, string languageFileId)

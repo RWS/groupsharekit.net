@@ -1262,6 +1262,68 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <param name="reportId"></param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<AnalysisReports>> GetMTQEAnalysisReportsV3(Guid projectId, string languageCode = null, int? reportId = null)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetAll<AnalysisReports>(ApiUrls.MTQEAnalysisReportsV3(projectId, languageCode, reportId));
+
+            return reportResult;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetMTQEAnalysisReportsAsHtml(Guid projectId, string languageCode = null, int? reportId = null)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.MTQEAnalysisReportsV3(projectId, languageCode, reportId), "text/html");
+
+            return reportResult;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetMTQEAnalysisReportsAsXml(Guid projectId, string languageCode = null, int? reportId = null)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.MTQEAnalysisReportsV3(projectId, languageCode, reportId), "text/xml");
+
+            return reportResult;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetMTQEAnalysisReportsAsJson(Guid projectId, string languageCode = null, int? reportId = null)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.MTQEAnalysisReportsV3(projectId, languageCode, reportId), "text/json");
+
+            return reportResult;
+        }
+
+        /// <summary>
         /// Get the project analysis report v3 for a given project, in html format.
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
         /// </summary>

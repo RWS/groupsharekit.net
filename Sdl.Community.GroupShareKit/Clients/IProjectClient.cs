@@ -740,6 +740,41 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<AnalysisReports>> GetAnalysisReportsV3(string projectId, string languageCode = null, int? reportId = null);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <param name="reportId"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<AnalysisReports>> GetMTQEAnalysisReportsV3(Guid projectId, string languageCode = null, int? reportId = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetMTQEAnalysisReportsAsHtml(Guid projectId, string languageCode = null, int? reportId = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <param name="reportId"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetMTQEAnalysisReportsAsJson(Guid projectId, string languageCode = null, int? reportId = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <param name="reportId"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetMTQEAnalysisReportsAsXml(Guid projectId, string languageCode = null, int? reportId = null);
+
+        /// <summary>
         /// Get the project analysis report v3 for a given project, in html format.
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
         /// </summary>
