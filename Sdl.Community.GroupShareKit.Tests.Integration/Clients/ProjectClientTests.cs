@@ -123,16 +123,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Projects_AnalysisReportsAsHtml_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var report = await groupShareClient.Project.GetAnalysisReportsAsHtml(ProjectId, null);
-            Assert.NotNull(report);
+            var reports = await groupShareClient.Project.GetAnalysisReportsAsHtml(ProjectId, null);
+            Assert.NotNull(reports);
         }
 
         [Fact]
         public async Task Projects_AnalysisReportsAsXml_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var report = await groupShareClient.Project.GetAnalysisReportsAsXml(ProjectId, null);
-            Assert.NotNull(report);
+            var reports = await groupShareClient.Project.GetAnalysisReportsAsXml(ProjectId, null);
+            Assert.NotNull(reports);
         }
 
         [Fact]
@@ -147,16 +147,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Projects_GetMTQEAnalysisReportsAsHtml_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var report = await groupShareClient.Project.GetMTQEAnalysisReportsAsHtml(Guid.Parse(ProjectId), null);
-            Assert.NotNull(report);
+            var reports = await groupShareClient.Project.GetMTQEAnalysisReportsAsHtml(Guid.Parse(ProjectId), null);
+            Assert.NotNull(reports);
         }
 
         [Fact]
         public async Task Projects_GetMTQEAnalysisReportsAsXml_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var report = await groupShareClient.Project.GetAnalysisReportsAsXml(ProjectId, null);
-            Assert.NotNull(report);
+            var reports = await groupShareClient.Project.GetAnalysisReportsAsXml(ProjectId, null);
+            Assert.NotNull(reports);
         }
 
         [Fact]
@@ -654,19 +654,27 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
+        public async Task Projects_GetAnalysisReportsV3_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var reports = await groupShareClient.Project.GetAnalysisReportsV3(ProjectId, null);
+            Assert.NotNull(reports);
+        }
+
+        [Fact]
         public async Task Projects_GetAnalysisReportsV3AsHtml_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var report = await groupShareClient.Project.GetAnalysisReportsV3AsHtml(ProjectId, null);
-            Assert.NotNull(report);
+            var reports = await groupShareClient.Project.GetAnalysisReportsV3AsHtml(ProjectId, null);
+            Assert.NotNull(reports);
         }
 
         [Fact]
         public async Task Projects_GetAnalysisReportsV3AsXml_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var report = await groupShareClient.Project.GetAnalysisReportsV3AsXml(ProjectId, null);
-            Assert.NotNull(report);
+            var reports = await groupShareClient.Project.GetAnalysisReportsV3AsXml(ProjectId, null);
+            Assert.NotNull(reports);
         }
 
         [Fact]
