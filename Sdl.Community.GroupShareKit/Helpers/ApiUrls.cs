@@ -195,7 +195,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> that represents publishing information for one or multiple projects.
         /// </summary>
         /// <param name="projectIds"></param>
-        /// <returns></returns>
         public static Uri PublishingInformation(string projectIds)
         {
             return "{0}/projects/publishingInformation?projectIds={1}".
@@ -306,7 +305,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns a project template
         /// </summary>
-        /// <returns></returns>
         public static Uri ProjectTemplatesV4(Guid templateId)
         {
             return "{0}/projects/templates/{1}".
@@ -316,7 +314,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns all project templates
         /// </summary>
-        /// <returns></returns>
         public static Uri ProjectTemplatesV4()
         {
             return "{0}/projects/templates".
@@ -448,7 +445,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="reference"></param>
-        /// <returns></returns>
         public static string AddProjectFiles(string projectId, bool reference = false)
         {
             return string.Format("{0}/projects/{1}/update?&reference={2}",
@@ -460,7 +456,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="reference"></param>
-        /// <returns></returns>
         public static Uri UpdateProjectFiles(string projectId, bool reference = false)
         {
             return "{0}/projects/{1}/update?&reference={2}".FormatUri(CurrentProjectServerV4Url, projectId, reference);
@@ -470,7 +465,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the uri that cancels files of an existing project
         /// </summary>
         /// <param name="projectId"></param>
-        /// <returns></returns>
         public static Uri CancelProjectFiles(string projectId)
         {
             return "{0}/projects/{1}/setFileCancelStatus".FormatUri(CurrentProjectServerV4Url, projectId);
@@ -480,7 +474,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> that starts the project creation
         /// </summary>
         /// <param name="projectId"></param>
-        /// <returns></returns>
         public static Uri StartProjectCreationUri(string projectId)
         {
             return "{0}/projects/{1}/create".FormatUri(CurrentProjectServerUrl, projectId);
@@ -861,7 +854,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns the MTQE analysis reports v3 for a project
         /// </summary>
-        /// <returns></returns>
         public static Uri MTQEAnalysisReportsV3(Guid projectId, string languageCode, int? reportId = null)
         {
             return "{0}/projects/{1}/mtqeanalysisreports/{2}/{3}".FormatUri(CurrentProjectServerV3Url, projectId, languageCode, reportId);
@@ -887,7 +879,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> that returns the general project settings
         /// </summary>
         /// <param name="projectId"></param>
-        /// <returns></returns>
         public static Uri GetProjectSettings(Guid projectId)
         {
             return "{0}/projects/{1}/settings".FormatUri(CurrentProjectServerUrl, projectId);
@@ -897,7 +888,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> that returns the general project settings
         /// </summary>
         /// <param name="projectId"></param>
-        /// <returns></returns>
         public static Uri GetProjectSettingsV4(Guid projectId)
         {
             return "{0}/projects/{1}/settings".FormatUri(CurrentProjectServerV4Url, projectId);
@@ -906,7 +896,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns the Segment Locking configuration
         /// </summary>
-        /// <returns></returns>
         public static Uri GetSegmentLockingConfig()
         {
             return "{0}/projects/segmentLockingConfig".FormatUri(CurrentProjectServerV4Url);
@@ -971,7 +960,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> that checks-out multiple files for editing
         /// </summary>
-        /// <returns></returns>
         public static Uri ExternalCheckOutFiles(string projectId)
         {
             return "{0}/projects/{1}/files/externalcheckout".FormatUri(CurrentProjectServerUrl, projectId);
@@ -980,7 +968,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> that checks-in files previously checked-out
         /// </summary>
-        /// <returns></returns>
         public static Uri ExternalCheckInFiles(string projectId)
         {
             return "{0}/projects/{1}/files/externalcheckin".FormatUri(CurrentProjectServerUrl, projectId);
@@ -989,7 +976,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> that performs undo external check-out for multiple files
         /// </summary>
-        /// <returns></returns>
         public static Uri UndoExternalCheckOutForFiles(string projectId)
         {
             return "{0}/projects/{1}/files/undoexternalcheckout".FormatUri(CurrentProjectServerUrl, projectId);
@@ -999,7 +985,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> for dashboard top language pairs
         /// </summary>
         /// <param name="noOfTopLanguagePairs"></param>
-        /// <returns></returns>
         public static Uri DashboardTopLanguagePairs()
         {
             return "{0}/dashboard/topLanguagePairs".FormatUri(ReportingServiceUrl);
@@ -1008,7 +993,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for dashboard words per month
         /// </summary>
-        /// <returns></returns>
         public static Uri DashboardWordsPerMonth()
         {
             return "{0}/dashboard/wordsPerMonth".FormatUri(ReportingServiceUrl);
@@ -1017,7 +1001,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for dashboard words per month
         /// </summary>
-        /// <returns></returns>
         public static Uri DashboardWordsPerOrganization()
         {
             return "{0}/dashboard/wordsPerOrganization".FormatUri(ReportingServiceUrl);
@@ -1219,7 +1202,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> for exporting the Predefined Reports to Excel
         /// </summary>
-        /// <returns></returns>
         public static Uri ExportPredefinedReports()
         {
             return "{0}/exportExcel".FormatUri(ReportingServiceUrl);
