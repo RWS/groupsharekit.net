@@ -299,7 +299,7 @@
         </member>
         <member name="M:Sdl.Community.GroupShareKit.Clients.ILicense.GetLicenseInformation">
             <summary>
-            Gets license  informations<see cref="T:Sdl.Community.GroupShareKit.Models.Response.License"/>.
+            Gets license information<see cref="T:Sdl.Community.GroupShareKit.Models.Response.License"/>.
             </summary>
             <remarks>
             This method requires authentication.
@@ -319,7 +319,7 @@
         </member>
         <member name="M:Sdl.Community.GroupShareKit.Clients.IOrganizationClient.Get(System.String)">
             <summary>
-            Gets organizarion by Id<see cref="T:Sdl.Community.GroupShareKit.Models.Response.Organization"/>.
+            Gets organization by Id<see cref="T:Sdl.Community.GroupShareKit.Models.Response.Organization"/>.
             </summary>
              <param name="organizationId">string></param>
             <remarks>
@@ -334,7 +334,7 @@
         </member>
         <member name="M:Sdl.Community.GroupShareKit.Clients.IOrganizationClient.GetByTag(System.String)">
             <summary>
-            Gets organizarion by Id<see cref="T:Sdl.Community.GroupShareKit.Models.Response.Organization"/>.
+            Gets organization by Id<see cref="T:Sdl.Community.GroupShareKit.Models.Response.Organization"/>.
             </summary>
              <param name="tag">string></param>
             <remarks>
@@ -5637,52 +5637,52 @@
             Gets or sets the project custom phase
             </summary>
         </member>
-        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Atribute.AllowMultipleValues">
+        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Attribute.AllowMultipleValues">
             <summary>
             Gets or sets if allows multiple values
             </summary>
         </member>
-        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Atribute.PickListValues">
+        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Attribute.PickListValues">
             <summary>
             Gets or sets pick list values
             </summary>
         </member>
-        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Atribute.Level">
+        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Attribute.Level">
             <summary>
             Gets or sets the level
             </summary>
         </member>
-        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Atribute.DataType">
+        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Attribute.DataType">
             <summary>
             Gets or sets data type
             </summary>
         </member>
-        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Atribute.Name">
+        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Attribute.Name">
             <summary>
             Gets or sets name
             </summary>
         </member>
-        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Atribute.Description">
+        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Attribute.Description">
             <summary>
             Gets or sets description
             </summary>
         </member>
-        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Atribute.Id">
+        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Attribute.Id">
             <summary>
             Gets or sets id
             </summary>
         </member>
-        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Atribute.Type">
+        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Attribute.Type">
             <summary>
             Gets or sets the type
             </summary>
         </member>
-        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Atribute.Mandatory">
+        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Attribute.Mandatory">
             <summary>
             Gets or sets mandatory
             </summary>
         </member>
-        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Atribute.AllowCustomValues">
+        <member name="P:Sdl.Community.GroupShareKit.Models.Response.Attribute.AllowCustomValues">
             <summary>
             Gets or sets id allows custom values
             </summary>

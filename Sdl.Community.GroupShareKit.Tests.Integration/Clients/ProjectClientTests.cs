@@ -139,24 +139,45 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Projects_GetMTQEAnalysisReports_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var reports = await groupShareClient.Project.GetMTQEAnalysisReportsV3(Guid.Parse(ProjectId), null);
+
+            var reports = await groupShareClient.Project.GetMTQEAnalysisReportsV3(Guid.Parse(ProjectId));
             Assert.NotNull(reports);
+
+            var individualLanguageReports = await groupShareClient.Project.GetMTQEAnalysisReportsV3(Guid.Parse(ProjectId), "de-de");
+            Assert.NotNull(individualLanguageReports);
+
+            var individualLanguageReportsWithId = await groupShareClient.Project.GetMTQEAnalysisReportsV3(Guid.Parse(ProjectId), "de-de", 1);
+            Assert.NotNull(individualLanguageReportsWithId);
         }
 
         [Fact]
         public async Task Projects_GetMTQEAnalysisReportsAsHtml_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var reports = await groupShareClient.Project.GetMTQEAnalysisReportsAsHtml(Guid.Parse(ProjectId), null);
+
+            var reports = await groupShareClient.Project.GetMTQEAnalysisReportsAsHtml(Guid.Parse(ProjectId));
             Assert.NotNull(reports);
+
+            var individualLanguageReports = await groupShareClient.Project.GetMTQEAnalysisReportsAsHtml(Guid.Parse(ProjectId), "de-de");
+            Assert.NotNull(individualLanguageReports);
+
+            var individualLanguageReportsWithId = await groupShareClient.Project.GetMTQEAnalysisReportsAsHtml(Guid.Parse(ProjectId), "de-de", 1);
+            Assert.NotNull(individualLanguageReportsWithId);
         }
 
         [Fact]
         public async Task Projects_GetMTQEAnalysisReportsAsXml_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var reports = await groupShareClient.Project.GetAnalysisReportsAsXml(ProjectId, null);
+
+            var reports = await groupShareClient.Project.GetMTQEAnalysisReportsAsXml(Guid.Parse(ProjectId));
             Assert.NotNull(reports);
+
+            var individualLanguageReports = await groupShareClient.Project.GetMTQEAnalysisReportsAsXml(Guid.Parse(ProjectId), "de-de");
+            Assert.NotNull(individualLanguageReports);
+
+            var individualLanguageReportsWithId = await groupShareClient.Project.GetMTQEAnalysisReportsAsXml(Guid.Parse(ProjectId), "de-de", 1);
+            Assert.NotNull(individualLanguageReportsWithId);
         }
 
         [Fact]
