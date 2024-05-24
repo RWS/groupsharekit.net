@@ -1188,7 +1188,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get the project analysis report for a given project, in html format.
+        /// Get the project analysis report for a given project in HTML format (the format only refers to the Report property)
         /// The project must be created in GroupShare, not in Studio and published in GS
         /// </summary>
         /// <param name="projectId">The project id</param>
@@ -1212,7 +1212,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get the project analysis report for a given project, in XML format.
+        /// Get the project analysis report for a given project in XML format (the format only refers to the Report property)
         /// The project must be created in GroupShare, not in Studio and published in GS
         /// </summary>
         /// <param name="projectId">The project id</param>
@@ -1285,7 +1285,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get the MTQE analysis reports for a project in HTML format
+        /// Get the MTQE analysis reports for a project in HTML format (the format only refers to the Report property)
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare 
         /// </summary>
         /// <param name="projectId">The project GUID</param>
@@ -1309,7 +1309,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get the MTQE analysis reports for a project in JSON format
+        /// Get the MTQE analysis reports for a project in JSON format (the format only refers to the Report property)
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare 
         /// </summary>
         /// <param name="projectId">The project GUID</param>
@@ -1332,7 +1332,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get the MTQE analysis reports for a project in XML format
+        /// Get the MTQE analysis reports for a project in XML format (the format only refers to the Report property)
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare 
         /// </summary>
         /// <param name="projectId">The project GUID</param>
@@ -1356,7 +1356,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get the project analysis report v3 for a given project, in html format.
+        /// Get the project analysis report v3 for a given project in HTML format (the format only refers to the Report property)
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
         /// </summary>
         /// <param name="projectId">The project id</param>
@@ -1381,7 +1381,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get the project analysis report v3 for a given project, in xml format.
+        /// Get the project analysis report v3 for a given project in XML format (the format only refers to the Report property)
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
         /// </summary>
         /// <param name="projectId">The project id</param>
@@ -1406,7 +1406,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get the project analysis report v3 for a given project, in json format.
+        /// Get the project analysis report v3 for a given project in JSON format (the format only refers to the Report property)
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
         /// </summary>
         /// <param name="projectId">The project id</param>
