@@ -740,39 +740,71 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<AnalysisReports>> GetAnalysisReportsV3(string projectId, string languageCode = null, int? reportId = null);
 
         /// <summary>
-        /// 
+        /// Get the MTQE analysis reports for a project
+        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="languageCode"></param>
-        /// <param name="reportId"></param>
-        /// <returns></returns>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageCode">Optional language code. Eg: en-US</param>
+        /// <param name="reportId">Optional report id</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>List <see cref="AnalysisReports"/>s.</returns>
         Task<IReadOnlyList<AnalysisReports>> GetMTQEAnalysisReportsV3(Guid projectId, string languageCode = null, int? reportId = null);
 
         /// <summary>
-        /// 
+        /// Get the MTQE analysis reports for a project in HTML format
+        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare 
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="languageCode"></param>
-        /// <returns></returns>
-        Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetMTQEAnalysisReportsAsHtml(Guid projectId, string languageCode = null, int? reportId = null);
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageCode">Optional language code. Eg: en-US</param>
+        /// <param name="reportId">Optional report id</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
+        Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetMTQEAnalysisReportsV3AsHtml(Guid projectId, string languageCode = null, int? reportId = null);
 
         /// <summary>
-        /// 
+        /// Get the MTQE analysis reports for a project in JSON format
+        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare 
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="languageCode"></param>
-        /// <param name="reportId"></param>
-        /// <returns></returns>
-        Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetMTQEAnalysisReportsAsJson(Guid projectId, string languageCode = null, int? reportId = null);
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageCode">Optional language code. Eg: en-US</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
+        Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetMTQEAnalysisReportsV3AsJson(Guid projectId, string languageCode = null, int? reportId = null);
 
         /// <summary>
-        /// 
+        /// Get the MTQE analysis reports for a project in XML format
+        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare 
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="languageCode"></param>
-        /// <param name="reportId"></param>
-        /// <returns></returns>
-        Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetMTQEAnalysisReportsAsXml(Guid projectId, string languageCode = null, int? reportId = null);
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageCode">Optional language code. Eg: en-US</param>
+        /// <param name="reportId">Optional report id</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
+        Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetMTQEAnalysisReportsV3AsXml(Guid projectId, string languageCode = null, int? reportId = null);
 
         /// <summary>
         /// Get the project analysis report v3 for a given project, in html format.
