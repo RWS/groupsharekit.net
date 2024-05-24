@@ -668,7 +668,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
 
             return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFile(downloadRequest.ProjectId, "all"), null);
-
         }
 
         /// <summary>
@@ -1434,8 +1433,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Get project settings for a language file
         /// </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1528,8 +1527,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Validates that the user can open the file in universal editor
         /// </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1550,8 +1549,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         ///Returns user permissions in editor
         /// </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1573,8 +1572,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  <summary>
         /// Checks in a file edited in the Universal Editor
         ///  </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1594,8 +1593,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  <summary>
         /// Checks out a file for editing in the Universal Editor
         ///  </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1614,10 +1613,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         ///  <summary>
-        /// Undoes an online checkout, note that you will loose all the changes done inside the OnlineEditor. To make a proper checkin use the OnlineCheckOutController.
+        /// Undoes an online checkout, note that you will lose all the changes done inside the OnlineEditor. To make a proper check-in, use the OnlineCheckOutController.
         ///  </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1652,7 +1651,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  <summary>
         /// Checks if the given language file is check-out to someone other than the user making this call
         ///  </summary>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="languageFileId">The language file GUID</param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1670,8 +1669,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  <summary>
         /// Checks in a file for editing
         ///  </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
         /// <param name="comment">Comment</param>	 
         /// <remarks>
         ///  This method requires authentication.

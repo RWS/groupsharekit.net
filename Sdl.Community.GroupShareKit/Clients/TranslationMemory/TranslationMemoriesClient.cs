@@ -956,7 +956,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNull(request, "container request");
 
-            return await ApiConnection.Post<string>(ApiUrls.Containers(), request, "application/json").ConfigureAwait(false); ;
+            return await ApiConnection.Post<string>(ApiUrls.Containers(), request, "application/json").ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1105,7 +1105,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task UpdateDbServer(string serverId, RequestDbServer request)
         {
-            Ensure.ArgumentNotNullOrEmptyString(serverId, "server id"); ;
+            Ensure.ArgumentNotNullOrEmptyString(serverId, "server id");
             Ensure.ArgumentNotNull(request, "server request");
 
             await ApiConnection.Put<string>(ApiUrls.DbServers(serverId), request);
