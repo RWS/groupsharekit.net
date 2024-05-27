@@ -668,7 +668,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
 
             return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFile(downloadRequest.ProjectId, "all"), null);
-
         }
 
         /// <summary>
@@ -978,7 +977,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>The GUID of the project template</returns>l
+        /// <returns>The GUID of the project template</returns>
         public async Task<Guid> UpdateProjectTemplateV4(Guid templateId, ProjectTemplateV4 templateRequest)
         {
             return await ApiConnection.Put<Guid>(ApiUrls.ProjectTemplatesV4(templateId), templateRequest);
@@ -1189,7 +1188,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get the project analysis report for a given project, in html format.
+        /// Get the project analysis report for a given project in HTML format (the format only refers to the Report property)
         /// The project must be created in GroupShare, not in Studio and published in GS
         /// </summary>
         /// <param name="projectId">The project id</param>
@@ -1213,7 +1212,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get the project analysis report for a given project, in html format.
+        /// Get the project analysis report for a given project in XML format (the format only refers to the Report property)
         /// The project must be created in GroupShare, not in Studio and published in GS
         /// </summary>
         /// <param name="projectId">The project id</param>
@@ -1241,8 +1240,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
         /// </summary>
         /// <param name="projectId">The project id</param>
-        /// <param name="languageCode"> Optional language code. Eg: en-US</param>
-        /// <param name="reportId"> Optional report id</param>
+        /// <param name="languageCode">Optional language code. Eg: en-US</param>
+        /// <param name="reportId">Optional report id</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1262,12 +1261,107 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get the project analysis report v3 for a given project, in html format.
+        /// Get the MTQE analysis reports for a project
+        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
+        /// </summary>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageCode">Optional language code. Eg: en-US</param>
+        /// <param name="reportId">Optional report id</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>List <see cref="AnalysisReports"/>s.</returns>
+        public async Task<IReadOnlyList<AnalysisReports>> GetMTQEAnalysisReportsV3(Guid projectId, string languageCode = null, int? reportId = null)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetAll<AnalysisReports>(ApiUrls.MTQEAnalysisReportsV3(projectId, languageCode, reportId));
+
+            return reportResult;
+        }
+
+        /// <summary>
+        /// Get the MTQE analysis reports for a project in HTML format (the format only refers to the Report property)
+        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare 
+        /// </summary>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageCode">Optional language code. Eg: en-US</param>
+        /// <param name="reportId">Optional report id</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
+        public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetMTQEAnalysisReportsV3AsHtml(Guid projectId, string languageCode = null, int? reportId = null)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.MTQEAnalysisReportsV3(projectId, languageCode, reportId), "text/html");
+
+            return reportResult;
+        }
+
+        /// <summary>
+        /// Get the MTQE analysis reports for a project in JSON format (the format only refers to the Report property)
+        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare 
+        /// </summary>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageCode">Optional language code. Eg: en-US</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
+        public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetMTQEAnalysisReportsV3AsJson(Guid projectId, string languageCode = null, int? reportId = null)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.MTQEAnalysisReportsV3(projectId, languageCode, reportId), "text/json");
+
+            return reportResult;
+        }
+
+        /// <summary>
+        /// Get the MTQE analysis reports for a project in XML format (the format only refers to the Report property)
+        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare 
+        /// </summary>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageCode">Optional language code. Eg: en-US</param>
+        /// <param name="reportId">Optional report id</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
+        public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetMTQEAnalysisReportsV3AsXml(Guid projectId, string languageCode = null, int? reportId = null)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.MTQEAnalysisReportsV3(projectId, languageCode, reportId), "text/xml");
+
+            return reportResult;
+        }
+
+        /// <summary>
+        /// Get the project analysis report v3 for a given project in HTML format (the format only refers to the Report property)
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
         /// </summary>
         /// <param name="projectId">The project id</param>
-        /// <param name="languageCode"> Optional language code. Eg: en-US</param>
-        /// <param name="reportId"> Optional report id</param>
+        /// <param name="languageCode">Optional language code. Eg: en-US</param>
+        /// <param name="reportId">Optional report id</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1287,12 +1381,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get the project analysis report v3 for a given project, in xml format.
+        /// Get the project analysis report v3 for a given project in XML format (the format only refers to the Report property)
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
         /// </summary>
         /// <param name="projectId">The project id</param>
-        /// <param name="languageCode"> Optional language code. Eg: en-US</param>
-        /// <param name="reportId"> Optional report id</param>
+        /// <param name="languageCode">Optional language code. Eg: en-US</param>
+        /// <param name="reportId">Optional report id</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1312,12 +1406,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get the project analysis report v3 for a given project, in json format.
+        /// Get the project analysis report v3 for a given project in JSON format (the format only refers to the Report property)
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
         /// </summary>
         /// <param name="projectId">The project id</param>
-        /// <param name="languageCode"> Optional language code. Eg: en-US</param>
-        /// <param name="reportId"> Optional report id</param>
+        /// <param name="languageCode">Optional language code. Eg: en-US</param>
+        /// <param name="reportId">Optional report id</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1337,10 +1431,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///  Get project settings for a language file
+        /// Get project settings for a language file
         /// </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1433,8 +1527,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Validates that the user can open the file in universal editor
         /// </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1455,8 +1549,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         ///Returns user permissions in editor
         /// </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
         /// <remarks>
         /// This method requires authentication.
         /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1478,8 +1572,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  <summary>
         /// Checks in a file edited in the Universal Editor
         ///  </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1499,8 +1593,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  <summary>
         /// Checks out a file for editing in the Universal Editor
         ///  </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1519,10 +1613,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         ///  <summary>
-        /// Undoes an online checkout, note that you will loose all the changes done inside the OnlineEditor. To make a proper checkin use the OnlineCheckOutController.
+        /// Undoes an online checkout, note that you will lose all the changes done inside the OnlineEditor. To make a proper check-in, use the OnlineCheckOutController.
         ///  </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1557,7 +1651,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  <summary>
         /// Checks if the given language file is check-out to someone other than the user making this call
         ///  </summary>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="languageFileId">The language file GUID</param>
         /// <remarks>
         ///  This method requires authentication.
         ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
@@ -1575,8 +1669,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  <summary>
         /// Checks in a file for editing
         ///  </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The if of the language file</param>
+        /// <param name="projectId">The project GUID</param>
+        /// <param name="languageFileId">The language file GUID</param>
         /// <param name="comment">Comment</param>	 
         /// <remarks>
         ///  This method requires authentication.

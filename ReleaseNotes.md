@@ -1,3 +1,7 @@
+# New in 15.1.12
+* Support for GroupShare 2020 SR1 CU12
+* Added support for MTQEAnalysisReportsV3 endpoints
+
 # New in 15.1.11
 * Support for GroupShare 2020 SR1 CU11
 * Added support for ProjectTemplatesV3 endpoints

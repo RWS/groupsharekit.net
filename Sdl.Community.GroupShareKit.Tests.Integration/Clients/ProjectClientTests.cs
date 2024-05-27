@@ -123,16 +123,61 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Projects_AnalysisReportsAsHtml_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var report = await groupShareClient.Project.GetAnalysisReportsAsHtml(ProjectId, null);
-            Assert.NotNull(report);
+            var reports = await groupShareClient.Project.GetAnalysisReportsAsHtml(ProjectId, null);
+            Assert.NotNull(reports);
         }
 
         [Fact]
         public async Task Projects_AnalysisReportsAsXml_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var report = await groupShareClient.Project.GetAnalysisReportsAsXml(ProjectId, null);
-            Assert.NotNull(report);
+            var reports = await groupShareClient.Project.GetAnalysisReportsAsXml(ProjectId, null);
+            Assert.NotNull(reports);
+        }
+
+        [Fact]
+        public async Task Projects_GetMTQEAnalysisReportsV3_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+
+            var reports = await groupShareClient.Project.GetMTQEAnalysisReportsV3(Guid.Parse(ProjectId));
+            Assert.NotNull(reports);
+
+            var individualLanguageReports = await groupShareClient.Project.GetMTQEAnalysisReportsV3(Guid.Parse(ProjectId), "de-de");
+            Assert.NotNull(individualLanguageReports);
+
+            var individualLanguageReportsWithId = await groupShareClient.Project.GetMTQEAnalysisReportsV3(Guid.Parse(ProjectId), "de-de", 1);
+            Assert.NotNull(individualLanguageReportsWithId);
+        }
+
+        [Fact]
+        public async Task Projects_GetMTQEAnalysisReportsV3AsHtml_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+
+            var reports = await groupShareClient.Project.GetMTQEAnalysisReportsV3AsHtml(Guid.Parse(ProjectId));
+            Assert.NotNull(reports);
+
+            var individualLanguageReports = await groupShareClient.Project.GetMTQEAnalysisReportsV3AsHtml(Guid.Parse(ProjectId), "de-de");
+            Assert.NotNull(individualLanguageReports);
+
+            var individualLanguageReportsWithId = await groupShareClient.Project.GetMTQEAnalysisReportsV3AsHtml(Guid.Parse(ProjectId), "de-de", 1);
+            Assert.NotNull(individualLanguageReportsWithId);
+        }
+
+        [Fact]
+        public async Task Projects_GetMTQEAnalysisReportsV3AsXml_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+
+            var reports = await groupShareClient.Project.GetMTQEAnalysisReportsV3AsXml(Guid.Parse(ProjectId));
+            Assert.NotNull(reports);
+
+            var individualLanguageReports = await groupShareClient.Project.GetMTQEAnalysisReportsV3AsXml(Guid.Parse(ProjectId), "de-de");
+            Assert.NotNull(individualLanguageReports);
+
+            var individualLanguageReportsWithId = await groupShareClient.Project.GetMTQEAnalysisReportsV3AsXml(Guid.Parse(ProjectId), "de-de", 1);
+            Assert.NotNull(individualLanguageReportsWithId);
         }
 
         [Fact]
@@ -630,19 +675,27 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
+        public async Task Projects_GetAnalysisReportsV3_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var reports = await groupShareClient.Project.GetAnalysisReportsV3(ProjectId, null);
+            Assert.NotNull(reports);
+        }
+
+        [Fact]
         public async Task Projects_GetAnalysisReportsV3AsHtml_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var report = await groupShareClient.Project.GetAnalysisReportsV3AsHtml(ProjectId, null);
-            Assert.NotNull(report);
+            var reports = await groupShareClient.Project.GetAnalysisReportsV3AsHtml(ProjectId, null);
+            Assert.NotNull(reports);
         }
 
         [Fact]
         public async Task Projects_GetAnalysisReportsV3AsXml_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var report = await groupShareClient.Project.GetAnalysisReportsV3AsXml(ProjectId, null);
-            Assert.NotNull(report);
+            var reports = await groupShareClient.Project.GetAnalysisReportsV3AsXml(ProjectId, null);
+            Assert.NotNull(reports);
         }
 
         [Fact]
