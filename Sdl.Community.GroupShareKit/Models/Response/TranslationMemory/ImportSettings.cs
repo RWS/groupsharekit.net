@@ -10,30 +10,42 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// Gets or sets the filter
         /// </summary>
         public FilterDuplicates Filter { get; set; }
+
         /// <summary>
         /// Gets or sets if segment should be imported as a plain text
         /// </summary>
         public bool? ImportAsPlainText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minimum alignment quality
+        /// </summary>
+        public int? MinimumAlignmentQuality { get; set; }
+
         /// <summary>
         /// Gets or sets if TM from user id should be used
         /// </summary>
         public bool? UseTmUserIdFromBilingualFile { get; set; }
+
         /// <summary>
         /// Gets or sets if recomputed statistics should be triggered
         /// </summary>
         public bool? TriggerRecomputeStatistics { get; set; }
+
         /// <summary>
         /// Gets or sets if invalid translation units should be exported
         /// </summary>
         public bool? ExportInvalidTranslationUnits { get; set; }
+
         /// <summary>
         /// Gets or sets id should use acronyms autosubstitution
         /// </summary>
         public bool? AcronymsAutoSubstitution { get; set; }
+
         /// <summary>
         /// Gets or sets if matching sublanguages should be checked
         /// </summary>
         public bool? CheckMatchingSublanguages { get; set; }
+
         /// <summary>
         /// Gets or sets a list of confirmation levels
         /// </summary>

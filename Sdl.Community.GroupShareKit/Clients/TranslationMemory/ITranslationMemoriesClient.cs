@@ -151,6 +151,23 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile, string fileName);
 
         /// <summary>
+        /// Imports translation units into a translation memory
+        /// </summary>
+        /// <param name="tmId">Translation memory GUID</param>
+        /// <param name="language"><see cref="LanguageParameters"/></param>
+        /// <param name="filePath">Local file path</param>
+        /// <param name="settings">Import settings</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ImportResponse"/></returns>
+        Task<ImportResponse> ImportTmWithSettings(string tmId, LanguageParameters language, string filePath, ImportSettings settings);
+
+        /// <summary>
         /// Imports TUs into a Translation Memory
         /// The file should be a TMX type.
         /// <param name="tmId">Translation memory id</param>
@@ -161,7 +178,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
