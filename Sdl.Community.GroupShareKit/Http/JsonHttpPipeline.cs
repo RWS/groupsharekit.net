@@ -41,9 +41,11 @@ namespace Sdl.Community.GroupShareKit.Http
         {
             Ensure.ArgumentNotNull(response, "response");
 
-            if (response.ContentType == null ||
-                !response.ContentType.Equals("application/json", StringComparison.Ordinal))
+            if (response.ContentType == null || !(response.ContentType.Equals("application/json", StringComparison.Ordinal) || response.ContentType.Equals("text/json", StringComparison.Ordinal)))
+            {
                 return new ApiResponse<T>(response);
+            }
+
             var body = response.Body as string;
             if (IsNullOrEmpty(body) || body == "{}") return new ApiResponse<T>(response);
             var typeIsDictionary = typeof(IDictionary).IsAssignableFrom(typeof(T));

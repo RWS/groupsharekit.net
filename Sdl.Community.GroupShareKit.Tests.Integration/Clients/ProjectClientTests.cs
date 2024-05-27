@@ -683,6 +683,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
+        public async Task Projects_GetAnalysisReportsV3AsJson_Succeeds()
+        {
+            var groupShareClient = Helper.GsClient;
+            var reports = await groupShareClient.Project.GetAnalysisReportsV3AsJson(ProjectId, null);
+            Assert.NotNull(reports);
+        }
+
+        [Fact]
         public async Task Projects_GetAnalysisReportsV3AsHtml_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
