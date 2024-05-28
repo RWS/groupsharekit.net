@@ -73,19 +73,18 @@ namespace Sdl.Community.GroupShareKit.Clients
                 return (prop, value) =>
                 {
                     var name = prop.Name;
-                    var json = string.Empty;
 
                     if (HasFilterOptions(name, value))
                     {
-                        json = ((FilterOptions)value).Stringify();
+                        return ((FilterOptions)value).Stringify();
                     }
 
-                    if (!name.Equals("Sort", StringComparison.OrdinalIgnoreCase))
+                    if (HasSortParameters(name, value))
                     {
-                        return json;
+                        return ((SortParameters)value).Stringify();
                     }
 
-                    return value is SortParameters sortParameters ? sortParameters.Stringify() : json;
+                    return string.Empty;
                 };
             }
 
@@ -100,6 +99,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         private static bool HasFilterOptions(string name, object value)
         {
             return name.Equals("Filter", StringComparison.OrdinalIgnoreCase) && value is FilterOptions;
+        }
+
+        private static bool HasSortParameters(string name, object value)
+        {
+            return name.Equals("Sort", StringComparison.OrdinalIgnoreCase) && value is SortParameters;
         }
 
         private class PropertyParameter
