@@ -60,7 +60,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task DeleteDbServer()
         {
             var serverId = await CreateNewDbServer();
-            await GroupShareClient.TranslationMemories.DeleteDbServer(serverId).ConfigureAwait(false);
+            await GroupShareClient.TranslationMemories.DeleteDbServer(serverId);
 
             Task result() => GroupShareClient.TranslationMemories.GetDbServerById(serverId);
             await Assert.ThrowsAsync<ForbiddenException>(result);

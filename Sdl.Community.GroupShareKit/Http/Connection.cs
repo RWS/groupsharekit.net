@@ -83,7 +83,6 @@ namespace Sdl.Community.GroupShareKit.Http
             return SendData<T>(uri, HttpMethod.Get, null, contentType, CancellationToken.None);
         }
 
-
         public Task<IApiResponse<T>> Get<T>(Uri uri, TimeSpan timeout)
         {
             Ensure.ArgumentNotNull(uri, "uri");

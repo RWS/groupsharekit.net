@@ -51,7 +51,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var searchedResponse = await groupShareClient.Terminology.SearchTerm(request);
             var searchedWord = searchedResponse.Terms.FirstOrDefault(s => s.TermText == query);
-            Assert.True(searchedWord != null);
+            Assert.NotNull(searchedWord);
         }
 
         [Theory]
@@ -74,10 +74,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var conceptId = await CreateConcept(termbaseId, "NewEntry");
 
-
             var conceptRequest = new ConceptResponse(termbaseId, conceptId);
             var conceptResponse = await groupShareClient.Terminology.GetConcept(conceptRequest);
-
 
             Assert.Equal(conceptResponse.Concept.Id, conceptId);
 

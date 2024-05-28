@@ -170,9 +170,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async void GetTmById()
+        public async Task GetTmById()
         {
-            var tm = await GroupShareClient.TranslationMemories.GetTmById(tmId).ConfigureAwait(false);
+            var tm = await GroupShareClient.TranslationMemories.GetTmById(tmId);
             Assert.Equal(tmId, tm.TranslationMemoryId);
         }
 

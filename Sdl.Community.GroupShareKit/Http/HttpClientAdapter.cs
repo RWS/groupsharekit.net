@@ -88,17 +88,12 @@ namespace Sdl.Community.GroupShareKit.Http
                 contentType);
         }
 
-        private string GetContentMediaType(HttpContent content)
+        private static string GetContentMediaType(HttpContent content)
         {
-            if (content.Headers?.ContentType != null)
-            {
-                return content.Headers.ContentType.MediaType;
-            }
-
-            return null;
+            return content.Headers?.ContentType?.MediaType;
         }
 
-        private HttpRequestMessage BuildRequestMessage(IRequest request)
+        private static HttpRequestMessage BuildRequestMessage(IRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");
             HttpRequestMessage requestMessage = null;
@@ -111,13 +106,11 @@ namespace Sdl.Community.GroupShareKit.Http
                 {
                     requestMessage.Headers.Add(header.Key, header.Value);
                 }
-                var httpContent = request.Body as HttpContent;
-                if (httpContent != null)
+                if (request.Body is HttpContent httpContent)
                 {
                     requestMessage.Content = httpContent;
                 }
-                var body = request.Body as string;
-                if (body != null)
+                if (request.Body is string body)
                 {
                     requestMessage.Content = new StringContent(body, Encoding.UTF8, request.ContentType);
                 }
@@ -151,14 +144,16 @@ namespace Sdl.Community.GroupShareKit.Http
         {
             var cancellationTokenForRequest = cancellationToken;
 
-            if (request.Timeout != TimeSpan.Zero)
+            if (request.Timeout == TimeSpan.Zero)
             {
-                var timeoutCancellation = new CancellationTokenSource(request.Timeout);
-                var unifiedCancellationToken = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken,
-                    timeoutCancellation.Token);
-
-                cancellationTokenForRequest = unifiedCancellationToken.Token;
+                return cancellationTokenForRequest;
             }
+
+            var timeoutCancellation = new CancellationTokenSource(request.Timeout);
+            var unifiedCancellationToken = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken,
+                timeoutCancellation.Token);
+
+            cancellationTokenForRequest = unifiedCancellationToken.Token;
 
             return cancellationTokenForRequest;
         }
@@ -238,7 +233,7 @@ namespace Sdl.Community.GroupShareKit.Http
                 {
                     newRequest.Headers.Authorization = null;
                 }
-                response = await this.SendAsync(newRequest, cancellationToken);
+                response = await SendAsync(newRequest, cancellationToken);
             }
 
             if (response.StatusCode == HttpStatusCode.Created)
