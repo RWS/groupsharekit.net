@@ -1,6 +1,7 @@
 # New in 15.1.12
 * Support for GroupShare 2020 SR1 CU12
 * Added support for MTQEAnalysisReportsV3 endpoints
+* Removed redundant GetAnalysisReportsV3AsJson method (the default GetAnalysisReportsV3 method can be used instead)
 
 # New in 15.1.11
 * Support for GroupShare 2020 SR1 CU11

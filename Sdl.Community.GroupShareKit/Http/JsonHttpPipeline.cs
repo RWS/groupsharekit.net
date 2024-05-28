@@ -41,7 +41,7 @@ namespace Sdl.Community.GroupShareKit.Http
         {
             Ensure.ArgumentNotNull(response, "response");
 
-            if (response.ContentType == null || !(response.ContentType.Equals("application/json", StringComparison.Ordinal) || response.ContentType.Equals("text/json", StringComparison.Ordinal)))
+            if (response.ContentType == null || !(response.ContentType.Equals("application/json", StringComparison.OrdinalIgnoreCase) || response.ContentType.Equals("text/json", StringComparison.OrdinalIgnoreCase)))
             {
                 return new ApiResponse<T>(response);
             }
