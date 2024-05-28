@@ -47,7 +47,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             return baseType == null ? properties : properties.Concat(GetAllProperties(baseType));
         }
 
-        static Func<PropertyInfo, object, string> GetValueFunc(Type propertyType)
+        private static Func<PropertyInfo, object, string> GetValueFunc(Type propertyType)
         {
             if (typeof(IEnumerable<string>).IsAssignableFrom(propertyType))
             {
@@ -58,17 +58,16 @@ namespace Sdl.Community.GroupShareKit.Clients
                 };
             }
 
-            if (propertyType == typeof(DateTimeOffset) ||
-                propertyType == typeof(DateTimeOffset?))
+            if (propertyType == typeof(DateTimeOffset) || propertyType == typeof(DateTimeOffset?))
             {
-                return (prop, value) => ((DateTimeOffset?)value)?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ",
-                    CultureInfo.InvariantCulture);
+                return (prop, value) => ((DateTimeOffset?)value)?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture);
             }
 
             if (typeof(bool).IsAssignableFrom(propertyType))
             {
                 return (prop, value) => value?.ToString().ToLowerInvariant();
             }
+
             if (typeof(IJsonRequest).IsAssignableFrom(propertyType))
             {
 
@@ -76,18 +75,21 @@ namespace Sdl.Community.GroupShareKit.Clients
                 {
                     var name = prop.Name;
                     var json = string.Empty;
-                    if (name.Equals("Filter", StringComparison.OrdinalIgnoreCase))
+
+                    if (name.Equals("Filter", StringComparison.OrdinalIgnoreCase) && (FilterOptions)value != null)
                     {
-                        if ((FilterOptions)value != null)
-                        {
-                            json = ((FilterOptions)value).Stringify();
-                        }
+                        json = ((FilterOptions)value).Stringify();
                     }
 
-                    if (name.Equals("Sort", StringComparison.OrdinalIgnoreCase))
+                    if (!name.Equals("Sort", StringComparison.OrdinalIgnoreCase))
                     {
-                        var sortParameters = (SortParameters)value;
-                        if (sortParameters != null) json = sortParameters.Stringify();
+                        return json;
+                    }
+
+                    var sortParameters = (SortParameters)value;
+                    if (sortParameters != null)
+                    {
+                        json = sortParameters.Stringify();
                     }
 
                     return json;
