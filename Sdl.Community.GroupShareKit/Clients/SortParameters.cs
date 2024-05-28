@@ -46,7 +46,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         public string Stringify()
         {
-            var sort = new SortParameters()
+            var sort = new SortParameters
             {
                 Property = Property,
                 Direction = Direction

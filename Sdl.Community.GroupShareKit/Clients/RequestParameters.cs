@@ -58,7 +58,7 @@ namespace Sdl.Community.GroupShareKit.Clients
                 };
             }
 
-            if (propertyType == typeof(DateTimeOffset) || propertyType == typeof(DateTimeOffset?))
+            if (IsTypeOfDateTimeOffset(propertyType))
             {
                 return (prop, value) => ((DateTimeOffset?)value)?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture);
             }
@@ -70,13 +70,12 @@ namespace Sdl.Community.GroupShareKit.Clients
 
             if (typeof(IJsonRequest).IsAssignableFrom(propertyType))
             {
-
                 return (prop, value) =>
                 {
                     var name = prop.Name;
                     var json = string.Empty;
 
-                    if (name.Equals("Filter", StringComparison.OrdinalIgnoreCase) && (FilterOptions)value != null)
+                    if (HasFilterOptions(name, (FilterOptions)value))
                     {
                         json = ((FilterOptions)value).Stringify();
                     }
@@ -87,22 +86,28 @@ namespace Sdl.Community.GroupShareKit.Clients
                     }
 
                     var sortParameters = (SortParameters)value;
-                    if (sortParameters != null)
-                    {
-                        json = sortParameters.Stringify();
-                    }
 
-                    return json;
+                    return sortParameters != null ? sortParameters.Stringify() : json;
                 };
             }
 
             return (prop, value) => value?.ToString();
         }
 
+        private static bool IsTypeOfDateTimeOffset(Type propertyType)
+        {
+            return propertyType == typeof(DateTimeOffset) || propertyType == typeof(DateTimeOffset?);
+        }
+
+        private static bool HasFilterOptions(string name, FilterOptions value)
+        {
+            return name.Equals("Filter", StringComparison.OrdinalIgnoreCase) && value != null;
+        }
+
         private class PropertyParameter
         {
-            readonly Func<PropertyInfo, object, string> _valueFunc;
-            readonly PropertyInfo _property;
+            private readonly Func<PropertyInfo, object, string> _valueFunc;
+            private readonly PropertyInfo _property;
             public PropertyParameter(PropertyInfo property)
             {
                 _property = property;
