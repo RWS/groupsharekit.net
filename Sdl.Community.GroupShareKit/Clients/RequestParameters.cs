@@ -75,7 +75,7 @@ namespace Sdl.Community.GroupShareKit.Clients
                     var name = prop.Name;
                     var json = string.Empty;
 
-                    if (HasFilterOptions(name, (FilterOptions)value))
+                    if (HasFilterOptions(name, value))
                     {
                         json = ((FilterOptions)value).Stringify();
                     }
@@ -85,9 +85,7 @@ namespace Sdl.Community.GroupShareKit.Clients
                         return json;
                     }
 
-                    var sortParameters = (SortParameters)value;
-
-                    return sortParameters != null ? sortParameters.Stringify() : json;
+                    return value is SortParameters sortParameters ? sortParameters.Stringify() : json;
                 };
             }
 
@@ -99,9 +97,9 @@ namespace Sdl.Community.GroupShareKit.Clients
             return propertyType == typeof(DateTimeOffset) || propertyType == typeof(DateTimeOffset?);
         }
 
-        private static bool HasFilterOptions(string name, FilterOptions value)
+        private static bool HasFilterOptions(string name, object value)
         {
-            return name.Equals("Filter", StringComparison.OrdinalIgnoreCase) && value != null;
+            return name.Equals("Filter", StringComparison.OrdinalIgnoreCase) && value is FilterOptions;
         }
 
         private class PropertyParameter
