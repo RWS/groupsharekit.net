@@ -809,24 +809,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsHtml(string projectId, string languageCode = null, int? reportId = null);
 
         /// <summary>
-        /// Get the project analysis report v3 for a given project in JSON format (the format only refers to the Report property)
-        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
-        /// </summary>
-        /// <param name="projectId">The project id</param>
-        /// <param name="languageCode"> Optional language code. Eg: en-US</param>
-        /// <param name="reportId"> Optional report id</param>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> List <see cref="AnalysisReports"/>s.</returns>
-        Task<IReadOnlyList<AnalysisReports>> GetAnalysisReportsV3AsJson(string projectId, string languageCode = null, int? reportId = null);
-
-        /// <summary>
         /// Get the project analysis report v3 for a given project in XML format (the format only refers to the Report property)
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
         /// </summary>
