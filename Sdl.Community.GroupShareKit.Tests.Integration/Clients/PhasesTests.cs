@@ -57,6 +57,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                     PhaseId = Phases[1].ProjectPhaseId
                 },
             };
+
             await groupShareClient.Project.ChangePhases(ProjectId, new ChangePhaseRequest("Changed phase ", request));
         }
 
