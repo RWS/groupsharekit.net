@@ -53,7 +53,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var projectFiles = await groupShareClient.Project.GetAllFilesForProject(ProjectId);
 
-            var translatableFileId = projectFiles.FirstOrDefault(f => f.FileRole == "Translatable").UniqueId;
+            var translatableFileId = projectFiles.First(f => f.FileRole == "Translatable").UniqueId;
             var languageFileIds = new List<string> { translatableFileId.ToString() };
 
             var projectPhases = await groupShareClient.Project.GetAllPhasesForProject(ProjectId);

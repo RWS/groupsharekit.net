@@ -54,14 +54,22 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri Roles()
         {
-            return "{0}/roles".
-                FormatUri(CurrentManagementV2Url);
+            return "{0}/roles".FormatUri(CurrentManagementV2Url);
         }
 
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns a single role
         /// </summary>
         public static Uri Role(string roleId)
+        {
+            return "{0}/roles/{1}".
+                FormatUri(CurrentManagementV2Url, roleId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns a single role
+        /// </summary>
+        public static Uri Role(Guid roleId)
         {
             return "{0}/roles/{1}".
                 FormatUri(CurrentManagementV2Url, roleId);

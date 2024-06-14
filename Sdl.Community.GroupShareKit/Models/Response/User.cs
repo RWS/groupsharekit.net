@@ -16,7 +16,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// <summary>
         /// Gets or sets the password
         /// </summary>
-        public object Password { get; set; }
+        //public object Password { get; set; }
         /// <summary>
         /// Gets or sets the display name
         /// </summary>
@@ -36,7 +36,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// <summary>
         /// Gets or sets the locale
         /// </summary>
-        public string Locale { get; set; }
+        //public string Locale { get; set; }
         /// <summary>
         /// Gets or sets the  organization id
         /// </summary>
@@ -52,6 +52,6 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// <summary>
         /// Gets or sets a list of roles <see cref="Role"/> 
         /// </summary>
-        public List<Role> Roles { get; set; }
+        //public List<Role> Roles { get; set; }
     }
 }

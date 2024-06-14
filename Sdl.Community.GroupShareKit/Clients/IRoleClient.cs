@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Models.Response;
@@ -19,7 +20,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Role"/>s.</returns>
+        [Obsolete("GetAllRoles is deprecated, please use GetRoles instead.")]
         Task<IReadOnlyList<RoleRequest>> GetAllRoles();
+
+        /// <summary>
+        /// Gets all <see cref="Role"/>s.
+        /// </summary>
+        /// <returns></returns>
+        Task<IReadOnlyList<Role>> GetRoles();
 
         /// <summary>
         /// Create <see cref="Role"/>s.
@@ -34,7 +42,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Role id.</returns>
+        [Obsolete]
         Task<string> CreateRole(RoleRequest request);
+
+        Task<Guid> CreateRole(Role role);
 
         /// <summary>
         /// Update role <see cref="RoleRequest"/>s.
@@ -62,7 +73,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="RoleRequest"/>s.</returns>
+        [Obsolete("GetRole is deprecated, please use GetRoles instead.")]
         Task<RoleRequest> GetRole(string roleId);
+
+        /// <summary>
+        /// Get <see cref="Role"/>s.
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        Task<Role> GetRole(Guid roleId);
 
         /// <summary>
         /// Delete role.
@@ -76,7 +95,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteRole(string roleId);
-
 
         /// <summary>
         /// Add a user to a role for a specific organization.<see cref="Role"/>s.
@@ -105,7 +123,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteRoleMembership(List<Role> role);
 
-
         /// <summary>
         /// Gets users for a specific role<see cref="Role"/>s.
         /// </summary>
@@ -132,7 +149,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         Task AddUserToRole(List<Role> roles);
+
+        Task AddUserToRole(List<RoleMembership> roles);
 
         /// <summary>
         /// Removes users for a specific role<see cref="Role"/>s.
@@ -147,6 +167,9 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         Task RemoveUserFromRole(List<Role> roles, string roleId);
+
+        Task RemoveUserFromRole(List<RoleMembership> roles/*, Guid roleId*/);
     }
 }
