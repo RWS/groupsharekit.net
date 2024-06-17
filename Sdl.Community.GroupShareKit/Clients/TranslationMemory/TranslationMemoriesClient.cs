@@ -63,10 +63,15 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task<TranslationMemoryDetails> GetTmById(string tmId)
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
-            return
-                await
-                    ApiConnection.Get<TranslationMemoryDetails>(ApiUrls.GetTmById(tmId), null);
+            return await ApiConnection.Get<TranslationMemoryDetails>(ApiUrls.GetTmById(tmId), null);
         }
+
+        public async Task<TranslationMemoryDetails> GetTranslationMemoryById(Guid translationMemoryId)
+        {
+            Ensure.ArgumentNotNull(translationMemoryId, "translationMemoryId");
+            return await ApiConnection.Get<TranslationMemoryDetails>(ApiUrls.GetTranslationMemoryById(translationMemoryId), null);
+        }
+
         /// <summary>
         /// Gets specified language direction for tm
         /// </summary>
@@ -151,6 +156,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Post<string>(ApiUrls.GetTms(), tm, "application/json").ConfigureAwait(false);
         }
 
+        public async Task<Guid> CreateTranslationMemory(CreateTranslationMemoryRequest request)
+        {
+            Ensure.ArgumentNotNull(request, "request");
+            return await ApiConnection.Post<Guid>(ApiUrls.GetTms(), request, "application/json");
+        }
+
         /// <summary>
         /// Deletes specified tm .
         /// </summary>
@@ -166,6 +177,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
             await ApiConnection.Delete(ApiUrls.GetTmById(tmId));
+        }
+
+        public async Task DeleteTranslationMemory(Guid translationMemoryId)
+        {
+            Ensure.ArgumentNotNull(translationMemoryId, "translationMemoryId");
+            await ApiConnection.Delete(ApiUrls.GetTranslationMemoryById(translationMemoryId));
         }
 
         /// <summary>
@@ -1140,10 +1157,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task<string> CreateFieldTemplate(FieldTemplate template)
         {
             Ensure.ArgumentNotNull(template, "FieldTemplate");
-            var templateLocation =
-                await ApiConnection.Post<string>(ApiUrls.FieldTemplate(), template, "application/json");
+            var templateLocation = await ApiConnection.Post<string>(ApiUrls.FieldTemplate(), template, "application/json");
             var templateId = templateLocation.Split('/').Last();
             return templateId;
+        }
+
+        public async Task<Guid> CreateFieldTemplate(CreateFieldTemplateRequest request)
+        {
+            Ensure.ArgumentNotNull(request, "request");
+
+            var fieldTemplateId = await ApiConnection.Post<Guid>(ApiUrls.FieldTemplate(), request, "application/json");
+            return fieldTemplateId;
         }
 
         /// <summary>
@@ -1671,6 +1695,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return id;
         }
 
+        public async Task<Guid> CreateLanguageResourceTemplate(CreateLanguageResourceTemplateRequest request)
+        {
+            Ensure.ArgumentNotNull(request, "request");
+
+            var languageResourceTemplateId = await ApiConnection.Post<Guid>(ApiUrls.LanguageResourceServiceTemplates(), request, "application/json");
+            return languageResourceTemplateId;
+        }
+
         /// <summary>
         ///Deletes a  language resource template .
         /// </summary>
@@ -1686,6 +1718,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNullOrEmptyString(languageResourceTemplateId, "languageResourceTemplateId");
             await ApiConnection.Delete(ApiUrls.GetLanguageResourceTemplateById(languageResourceTemplateId));
+        }
+
+        public async Task DeleteLanguageResourceTemplate(Guid languageResourceTemplateId)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            await ApiConnection.Delete(ApiUrls.LanguageResourceTemplates(languageResourceTemplateId));
         }
 
         /// <summary>

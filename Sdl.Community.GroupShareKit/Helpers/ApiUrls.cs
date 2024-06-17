@@ -568,6 +568,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/tms/{1}".FormatUri(CurrentTranslationMemoriesUrl, tmId);
         }
 
+        public static Uri GetTranslationMemoryById(Guid translationMemoryId)
+        {
+            return "{0}/tms/{1}".FormatUri(CurrentTranslationMemoriesUrl, translationMemoryId);
+        }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that gives the language direction information for a specified tm
         /// </summary>
@@ -693,6 +698,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> for specified  language resource template
         /// </summary>
         public static Uri GetLanguageResourceTemplateById(string templateId)
+        {
+            return "{0}/templates/{1}".FormatUri(CurrentLanguageResourceServiceUrl, templateId);
+        }
+
+        public static Uri LanguageResourceTemplates(Guid templateId)
         {
             return "{0}/templates/{1}".FormatUri(CurrentLanguageResourceServiceUrl, templateId);
         }

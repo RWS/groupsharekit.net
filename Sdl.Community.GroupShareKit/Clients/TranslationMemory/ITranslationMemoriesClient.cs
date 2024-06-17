@@ -1,6 +1,7 @@
 ﻿using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Models.Response;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BackgroundTask = Sdl.Community.GroupShareKit.Models.Response.TranslationMemory.BackgroundTask;
@@ -39,6 +40,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns>  <see cref="TranslationMemoryDetails"/></returns>
         Task<TranslationMemoryDetails> GetTmById(string tmId);
 
+        Task<TranslationMemoryDetails> GetTranslationMemoryById(Guid translationMemoryId);
+
         /// <summary>
         /// Before you create a TM please make sure you HAVE CREATED A TEMPLATE FIELD and a LANGUAGE RESOURCE TEMPLATE.
         /// USE these ids in the create request 
@@ -56,6 +59,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns>  Translation memory Id</returns>
         Task<string> CreateTm(CreateTmRequest tm);
 
+        Task<Guid> CreateTranslationMemory(CreateTranslationMemoryRequest request);
+
         /// <summary>
         /// Deletes<see cref="Models.Response.TranslationMemory.TranslationMemory"/> .
         /// </summary>
@@ -68,6 +73,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteTm(string tmId);
+
+        Task DeleteTranslationMemory(Guid translationMemoryId);
 
         /// <summary>
         /// Updates<see cref="Models.Response.TranslationMemory.TranslationMemory"/> .
@@ -664,6 +671,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         ///<returns>Created field template id</returns>
         Task<string> CreateFieldTemplate(FieldTemplate template);
 
+        Task<Guid> CreateFieldTemplate(CreateFieldTemplateRequest request);
+
         /// <summary>
         /// Gets <see cref="FieldTemplates"/>.
         /// </summary>
@@ -997,6 +1006,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns> Created template id</returns>
         Task<string> CreateTemplate(LanguageResourceTemplate templateRequest);
 
+        Task<Guid> CreateLanguageResourceTemplate(CreateLanguageResourceTemplateRequest request);
+
         /// <summary>
         ///Deletes a  language resource template  .
         /// </summary>
@@ -1009,6 +1020,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteTemplate(string languageResourceTemplateId);
+
+        Task DeleteLanguageResourceTemplate(Guid languageResourceTemplateId);
         #endregion
 
     }
