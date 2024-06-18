@@ -24,7 +24,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             _containerId = CreateContainer().Result;
             _fieldTemplateId = CreateTmSpecificFieldTemplate().Result;
             _languageResourceTemplateId = CreateTmSpecificLanguageResourceTemplate().Result;
-            _translationMemoryId = CreateTranslationMemory().Result;
+            _translationMemoryId = CreateTranslationMemory(_fieldTemplateId, _languageResourceTemplateId).Result;
         }
 
         private async Task<string> CreateDatabaseServer()
@@ -122,43 +122,86 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         private async Task<Guid> CreateTranslationMemory()
         {
-            var tmRequest = new CreateTranslationMemoryRequest
-            {
-                Name = $"TM - {Guid.NewGuid()}",
-                LanguageDirections = new List<LanguageDirection>
+            var languageDirections = new List<LanguageDirection>
                 {
                     new LanguageDirection
                     {
                         Source = "en-US",
                         Target = "de-DE",
                     }
-                },
-                FieldTemplateId = _fieldTemplateId,
-                LanguageResourceTemplateId = _languageResourceTemplateId,
+                };
+
+            var fuzzyIndexTuningSettings = new FuzzyIndexTuningSettings
+            {
+                MinScoreIncrease = 20,
+                MinSearchVectorLengthSourceCharIndex = 5,
+                MinSearchVectorLengthSourceWordIndex = 3,
+                MinSearchVectorLengthTargetCharIndex = 5,
+                MinSearchVectorLengthTargetWordIndex = 3
+
+            };
+
+            var tmRequest = new CreateTranslationMemoryRequest
+            {
+                Name = $"TM - {Guid.NewGuid()}",
+                LanguageDirections = languageDirections,
                 Recognizers = "RecognizeAll",
                 FuzzyIndexes = "SourceWordBased,TargetWordBased",
                 WordCountFlags = "DefaultFlags",
                 OwnerId = Guid.Parse(Helper.OrganizationId),
-                FuzzyIndexTuningSettings = new FuzzyIndexTuningSettings
-                {
-                    MinScoreIncrease = 20,
-                    MinSearchVectorLengthSourceCharIndex = 5,
-                    MinSearchVectorLengthSourceWordIndex = 3,
-                    MinSearchVectorLengthTargetCharIndex = 5,
-                    MinSearchVectorLengthTargetWordIndex = 3
-
-                },
+                FuzzyIndexTuningSettings = fuzzyIndexTuningSettings,
                 ContainerId = Guid.Parse(_containerId)
             };
 
-            _translationMemoryId = await GroupShareClient.TranslationMemories.CreateTranslationMemory(tmRequest).ConfigureAwait(false);
+            var translationMemoryId = await GroupShareClient.TranslationMemories.CreateTranslationMemory(tmRequest).ConfigureAwait(false);
 
-            var translationMemory = await GroupShareClient.TranslationMemories.GetTmById(_translationMemoryId.ToString());
+            var translationMemory = await GroupShareClient.TranslationMemories.GetTmById(translationMemoryId.ToString());
             _languageDirectionId = Guid.Parse(translationMemory.LanguageDirections.First().LanguageDirectionId);
-            //_translationMemoryId = id.ToString();
-            //Assert.True(_translationMemoryId != string.Empty);
 
-            return _translationMemoryId;
+            return translationMemoryId;
+        }
+
+        private async Task<Guid> CreateTranslationMemory(Guid fieldTemplateId, Guid languageResourceTemplateId)
+        {
+            var languageDirections = new List<LanguageDirection>
+                {
+                    new LanguageDirection
+                    {
+                        Source = "en-US",
+                        Target = "de-DE",
+                    }
+                };
+
+            var fuzzyIndexTuningSettings = new FuzzyIndexTuningSettings
+            {
+                MinScoreIncrease = 20,
+                MinSearchVectorLengthSourceCharIndex = 5,
+                MinSearchVectorLengthSourceWordIndex = 3,
+                MinSearchVectorLengthTargetCharIndex = 5,
+                MinSearchVectorLengthTargetWordIndex = 3
+
+            };
+
+            var tmRequest = new CreateTranslationMemoryRequest
+            {
+                Name = $"TM - {Guid.NewGuid()}",
+                LanguageDirections = languageDirections,
+                FieldTemplateId = fieldTemplateId,
+                LanguageResourceTemplateId = languageResourceTemplateId,
+                Recognizers = "RecognizeAll",
+                FuzzyIndexes = "SourceWordBased,TargetWordBased",
+                WordCountFlags = "DefaultFlags",
+                OwnerId = Guid.Parse(Helper.OrganizationId),
+                FuzzyIndexTuningSettings = fuzzyIndexTuningSettings,
+                ContainerId = Guid.Parse(_containerId)
+            };
+
+            var translationMemoryId = await GroupShareClient.TranslationMemories.CreateTranslationMemory(tmRequest).ConfigureAwait(false);
+
+            var translationMemory = await GroupShareClient.TranslationMemories.GetTmById(translationMemoryId.ToString());
+            _languageDirectionId = Guid.Parse(translationMemory.LanguageDirections.First().LanguageDirectionId);
+
+            return translationMemoryId;
         }
 
         // Cleanup
@@ -337,32 +380,35 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Null(tus);
         }
 
-        //[Fact]
-        //public async Task RecomputeStatistics()
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    var tmId = await CreateTm();
-        //    var request = new FuzzyRequest();
+        [Fact]
+        public async Task RecomputeStatistics()
+        {
+            var groupShareClient = Helper.GsClient;
+            var tmId = await CreateTranslationMemory();
+            var request = new FuzzyRequest();
 
-        //    var response = await groupShareClient.TranslationMemories.RecomputeStatistics(tmId, request);
+            var response = await groupShareClient.TranslationMemories.RecomputeStatistics(tmId.ToString(), request);
 
-        //    Assert.True(response != null);
-        //    await groupShareClient.TranslationMemories.DeleteTm(tmId);
-        //}
+            Assert.Equal(tmId, Guid.Parse(response.TranslationMemoryId));
+            Assert.Equal("Queued", response.Status);
+            
+            await groupShareClient.TranslationMemories.DeleteTranslationMemory(tmId);
+        }
 
-        //  [Fact]
-        //public async Task Reindex()
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    var tmId = await CreateTm();
-        //    var request = new FuzzyRequest();
+        [Fact]
+        public async Task Reindex()
+        {
+            var groupShareClient = Helper.GsClient;
+            var tmId = await CreateTranslationMemory();
+            var request = new FuzzyRequest();
 
-        //    var response = await groupShareClient.TranslationMemories.Reindex(tmId, request);
+            var response = await groupShareClient.TranslationMemories.Reindex(tmId.ToString(), request);
 
-        //    Assert.True(response != null);
-        //    await groupShareClient.TranslationMemories.DeleteTm(tmId);
+            Assert.Equal(tmId, Guid.Parse(response.TranslationMemoryId));
+            Assert.Equal("Queued", response.Status);
 
-        //}
+            await groupShareClient.TranslationMemories.DeleteTranslationMemory(tmId);
+        }
 
         [Fact]
         public async Task GetTusNumberForTm()
