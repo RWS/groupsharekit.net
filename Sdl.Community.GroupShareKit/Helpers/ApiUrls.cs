@@ -583,6 +583,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/tms/{1}/language-directions/{2}".FormatUri(CurrentTranslationMemoriesUrl, tmId, languageDirectionId);
         }
 
+        public static Uri GetTmLanguageDirection(Guid tmId, Guid languageDirectionId)
+        {
+            return "{0}/tms/{1}/language-directions/{2}".FormatUri(CurrentTranslationMemoriesUrl, tmId, languageDirectionId);
+        }
+
         /// <summary>
         ///  Returns the <see cref="Uri"/> that gives the tms for resource language template id
         /// </summary>

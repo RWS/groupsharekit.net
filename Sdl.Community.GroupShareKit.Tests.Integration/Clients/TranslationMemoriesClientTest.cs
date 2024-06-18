@@ -1,6 +1,7 @@
 ﻿using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -14,7 +15,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         private string _containerId;
         private Guid _fieldTemplateId;
         private Guid _languageResourceTemplateId;
-        private string _languageDirectionId;
+        private Guid _languageDirectionId;
         private Guid _translationMemoryId;
 
         public TranslationMemoriesClientTest()
@@ -151,6 +152,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             _translationMemoryId = await GroupShareClient.TranslationMemories.CreateTranslationMemory(tmRequest).ConfigureAwait(false);
+
+            var translationMemory = await GroupShareClient.TranslationMemories.GetTmById(_translationMemoryId.ToString());
+            _languageDirectionId = Guid.Parse(translationMemory.LanguageDirections.First().LanguageDirectionId);
             //_translationMemoryId = id.ToString();
             //Assert.True(_translationMemoryId != string.Empty);
 
@@ -248,12 +252,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(_translationMemoryId, Guid.Parse(tm.TranslationMemoryId));
         }
 
-        //[Fact]
-        //public async Task GetLanguageDirectionForTm()
-        //{
-        //    var languageDirection = await GroupShareClient.TranslationMemories.GetLanguageDirectionForTm(tmId, languageDirectionId);
-        //    Assert.Equal(languageDirection.LanguageDirectionId, languageDirectionId);
-        //}
+        [Fact]
+        public async Task GetLanguageDirectionForTm()
+        {
+            var languageDirection = await GroupShareClient.TranslationMemories.GetTmLanguageDirection(_translationMemoryId, _languageDirectionId);
+
+            Assert.Equal(_languageDirectionId, Guid.Parse(languageDirection.LanguageDirectionId));
+            Assert.Equal("en-us", languageDirection.Source);
+            Assert.Equal("de-de", languageDirection.Target);
+            Assert.Equal(0, languageDirection.TuCount);
+        }
 
         //[Fact]
         //public async Task ExportTm()

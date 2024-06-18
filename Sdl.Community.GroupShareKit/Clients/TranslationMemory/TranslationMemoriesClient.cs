@@ -90,9 +90,16 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
             Ensure.ArgumentNotNullOrEmptyString(languageDirectionId, "languageDirectionId");
-            return
-                await
-                    ApiConnection.Get<LanguageDirection>(ApiUrls.GetLanguageDirectionForTm(tmId, languageDirectionId), null);
+
+            return await ApiConnection.Get<LanguageDirection>(ApiUrls.GetLanguageDirectionForTm(tmId, languageDirectionId), null);
+        }
+
+        public async Task<LanguageDirection> GetTmLanguageDirection(Guid tmId, Guid languageDirectionId)
+        {
+            Ensure.ArgumentNotNull(tmId, "tmId");
+            Ensure.ArgumentNotNull(languageDirectionId, "languageDirectionId");
+
+            return await ApiConnection.Get<LanguageDirection>(ApiUrls.GetTmLanguageDirection(tmId, languageDirectionId), null);
         }
 
         /// <summary>

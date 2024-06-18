@@ -267,6 +267,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>  <see cref="LanguageDirection"/></returns>
         Task<LanguageDirection> GetLanguageDirectionForTm(string tmId, string languageDirectionId);
+
+        Task<LanguageDirection> GetTmLanguageDirection(Guid tmId, Guid languageDirectionId);
         #endregion
 
         #region Translation unit methods
