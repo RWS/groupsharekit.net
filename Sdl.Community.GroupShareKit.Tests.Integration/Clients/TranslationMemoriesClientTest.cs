@@ -1,7 +1,10 @@
-﻿using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
+﻿using Sdl.Community.GroupShareKit.Models.Response;
+using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -138,7 +141,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 MinSearchVectorLengthSourceWordIndex = 3,
                 MinSearchVectorLengthTargetCharIndex = 5,
                 MinSearchVectorLengthTargetWordIndex = 3
-
             };
 
             var tmRequest = new CreateTranslationMemoryRequest
@@ -179,7 +181,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 MinSearchVectorLengthSourceWordIndex = 3,
                 MinSearchVectorLengthTargetCharIndex = 5,
                 MinSearchVectorLengthTargetWordIndex = 3
-
             };
 
             var tmRequest = new CreateTranslationMemoryRequest
@@ -306,27 +307,27 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(0, languageDirection.TuCount);
         }
 
-        //[Fact]
-        //public async Task ExportTm()
-        //{
-        //    var languageParam = new LanguageParameters("en-us", "de-de");
-        //    var requestExportRequest = new ExportRequest();
+        [Fact]
+        public async Task ExportTm()
+        {
+            var languageParam = new LanguageParameters("en-us", "de-de");
+            var exportRequest = new ExportRequest();
 
-        //    var tm = await GroupShareClient.TranslationMemories.ExportTm(tmId, requestExportRequest, languageParam).ConfigureAwait(true);
+            var tmExport = await GroupShareClient.TranslationMemories.ExportTm(_translationMemoryId.ToString(), exportRequest, languageParam);
 
-        //    Assert.True(tm.Length > 0);
+            Assert.True(tmExport.Length > 0);
 
-        //    //Example of how the byte[] should be decompressed and how to write the tm to disk
+            //Example of how the byte[] can be decompressed and how to write the exported TM can be written to the disk
 
-        //    //using (var compressedStream = new MemoryStream(tm))
-        //    //using (var zipStream = new GZipStream(compressedStream, CompressionMode.Decompress))
-        //    //using (var resultStream = new MemoryStream())
-        //    //{
-        //    //    zipStream.CopyTo(resultStream);
-        //    //    var test = resultStream.ToArray();
-        //    //    File.WriteAllBytes(@"C:\UserData\aghisa\Desktop\testTm.tmx", test);
-        //    //}                    
-        //}
+            //using (var compressedStream = new MemoryStream(tm))
+            //using (var zipStream = new GZipStream(compressedStream, CompressionMode.Decompress))
+            //using (var resultStream = new MemoryStream())
+            //{
+            //    zipStream.CopyTo(resultStream);
+            //    var test = resultStream.ToArray();
+            //    File.WriteAllBytes(@"C:Temp\Export.tmx", test);
+            //}
+        }
 
         [Fact]
         public async Task HealthVersion()
@@ -374,10 +375,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetTusForTm()
         {
             var translationUnitRequest = new TranslationUnitDetailsRequest("en-us", "de-de", 0, 50);
-            var tus = await GroupShareClient.TranslationMemories.GetTranslationUnitForTm(_translationMemoryId.ToString(), translationUnitRequest);
+            var translationUnits = await GroupShareClient.TranslationMemories.GetTranslationUnitForTm(_translationMemoryId.ToString(), translationUnitRequest);
 
             // there are no TUs in the empty TM
-            Assert.Null(tus);
+            Assert.Null(translationUnits);
         }
 
         [Fact]
@@ -445,21 +446,32 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         //    Assert.Equal(tusNumber, 0);
         //}
 
-        //[Fact]
-        //public async Task Filter()
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    //      var languageDetails = new LanguageDetailsRequest("Europäischen", "de-de", "Acord ", "ro-ro");
-        //    var languageDetails = new LanguageDetailsRequest("", "de-de", "Informare", "ro-ro");
-        //    var tmDetails = new TranslationMemoryDetailsRequest(new Guid("27782e18-a0df-4266-ac9f-29965d3a3638"), 0, 50);
+        [Fact]
+        public async Task FilterTranslationUnits()
+        {
+            var groupShareClient = Helper.GsClient;
+            var languageParameters = new LanguageParameters("en-us", "de-de");
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\FiveWords_EN-DE_TM.tmx");
+            var file = System.IO.File.ReadAllBytes(filePath);
 
-        //    var filter = await groupShareClient.TranslationMemories.FilterAsPlainText(languageDetails, tmDetails, true, true);
+            await groupShareClient.TranslationMemories.ImportTm(_translationMemoryId.ToString(), languageParameters, file, "FiveWords_EN-DE_TM.tmx");
+            Thread.Sleep(3000);
 
-        //    foreach (var segment in filter)
-        //    {
-        //        Assert.Contains("Informare", segment.Target);
-        //    }
-        //}
+            //var languageDetails = new LanguageDetailsRequest("Europäischen", "de-de", "Acord ", "ro-ro");
+            //var languageDetails = new LanguageDetailsRequest("car", "en-us", "auto", "de-de");
+
+            var languageDetails = new LanguageDetailsRequest("en-us", "de-de");
+            var tmDetails = new TranslationMemoryDetailsRequest(_translationMemoryId, 0, 10);
+
+            var filteredTranslationUnits = await groupShareClient.TranslationMemories.FilterAsPlainText(languageDetails, tmDetails, true, true);
+
+            Assert.Equal(5, filteredTranslationUnits.Count);
+            Assert.Contains(filteredTranslationUnits, translationUnit => translationUnit.Source.Equals("car") && translationUnit.Target.Equals("Auto"));
+            Assert.Contains(filteredTranslationUnits, translationUnit => translationUnit.Source.Equals("dog") && translationUnit.Target.Equals("Hund"));
+            Assert.Contains(filteredTranslationUnits, translationUnit => translationUnit.Source.Equals("cat") && translationUnit.Target.Equals("Katze"));
+            Assert.Contains(filteredTranslationUnits, translationUnit => translationUnit.Source.Equals("house") && translationUnit.Target.Equals("Haus"));
+            Assert.Contains(filteredTranslationUnits, translationUnit => translationUnit.Source.Equals("phone") && translationUnit.Target.Equals("Telefon"));
+        }
 
         #region Text Search
 

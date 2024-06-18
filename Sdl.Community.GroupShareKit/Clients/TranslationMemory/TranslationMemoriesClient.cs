@@ -637,16 +637,15 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             Ensure.ArgumentNotNull(tmRequest.TmId, "translation memory id");
 
+            RestFilterExpression restFilterExpression = null;
             var expression = FilterExpression.CreateFilter(languageRequest, caseSensitive, allowWildCards);
 
-            var restFilterExpression = FilterExpression.GetRestFilterExpression(expression, languageRequest);
+            if (expression != "")
+            {
+                restFilterExpression = FilterExpression.GetRestFilterExpression(expression, languageRequest);
+            }
 
-            var document =
-                await
-                    _client.GetTranslationUnitsAsync(tmRequest.TmId, languageRequest.SourceLanguageCode,
-                        languageRequest.TargetLanguageCode, tmRequest.StartTuId, tmRequest.Count, restFilterExpression);
-
-
+            var document = await _client.GetTranslationUnitsAsync(tmRequest.TmId, languageRequest.SourceLanguageCode, languageRequest.TargetLanguageCode, tmRequest.StartTuId, tmRequest.Count, restFilterExpression);
             var searchResult = FilterResults.GetFilterResultForDocument(document, null);
 
             return searchResult;

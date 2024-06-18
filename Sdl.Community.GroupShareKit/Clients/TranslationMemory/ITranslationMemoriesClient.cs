@@ -425,8 +425,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="TranslationUnitDetailsResponse"/></returns>
-        Task<TranslationUnitDetailsResponse> GetDuplicateTusForTm(string tmId, LanguageParameters language,
-            DuplicatesTusRequest duplicatesRequest);
+        Task<TranslationUnitDetailsResponse> GetDuplicateTusForTm(string tmId, LanguageParameters language, DuplicatesTusRequest duplicatesRequest);
 
         /// <summary>
         /// Filters translation units, retrieves a string matching the expression
