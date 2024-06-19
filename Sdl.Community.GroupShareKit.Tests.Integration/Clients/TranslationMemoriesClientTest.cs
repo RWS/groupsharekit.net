@@ -613,26 +613,26 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var searchResponse = await groupShareClient.TranslationMemories.SearchText(searchRequest);
             Assert.True(searchResponse != null);
         }
-
+        */
         #endregion
 
         #region Concordance Search for source
-        
+
         [Fact]
         public async Task ConcordanceSimpleSearch()
         {
             var groupShareClient = Helper.GsClient;
-            var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "blue", "en-us", "ca-es");
 
-            var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "FiveWords_EN-DE_TM.tmx");
 
-            foreach (var response in searchResponse)
-            {
-                Assert.Contains("blue", response.Source.ToLower());
-            }
+            var concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "phone", "en-us", "de-de");
+            var results = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+
+            Assert.Equal("100", results.Single().MatchScore);
+            Assert.Equal("phone", results.Single().Source);
+            Assert.Equal("Telefon", results.Single().Target);
         }
         
-        */
         //Concordance search with custom settings
         [Fact]
         public async Task ConcordanceSearchWithCustomSettings()
@@ -766,14 +766,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         #endregion
         [Fact]
-        public async Task TargetConcordanceSearch()
+        public async Task ConcordanceSearchWithEmptySettings()
         {
             var groupShareClient = Helper.GsClient;
 
             await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "FiveWords_EN-DE_TM.tmx");
 
-            var concordanceSearchSettings = new ConcordanceSearchSettings();
-            var concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "house", "en-us", "de-de", concordanceSearchSettings);
+            var concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "house", "en-us", "de-de", new ConcordanceSearchSettings());
             var results = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
 
             Assert.Equal("100", results.Single().MatchScore);
