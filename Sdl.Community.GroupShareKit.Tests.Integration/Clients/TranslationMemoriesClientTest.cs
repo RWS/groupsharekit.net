@@ -205,6 +205,22 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             return translationMemoryId;
         }
 
+        private async Task<ImportResponse> ImportTranslationUnitsIntoTestTm(GroupShareClient groupShareClient, Guid translationMemoryId, string fileName = "")
+        {
+            var languageParameters = new LanguageParameters("en-us", "de-de");
+
+            var filePath = fileName == ""
+                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\FiveWords_EN-DE_TM.tmx")
+                : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\" + fileName);
+
+            var file = System.IO.File.ReadAllBytes(filePath);
+
+            var response = await groupShareClient.TranslationMemories.ImportTm(translationMemoryId.ToString(), languageParameters, file, fileName);
+            Thread.Sleep(3000);
+
+            return response;
+        }
+
         // Cleanup
         public void Dispose()
         {
@@ -311,14 +327,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task ImportTranslationUnits()
         {
             var groupShareClient = Helper.GsClient;
-            var languageParameters = new LanguageParameters("en-us", "de-de");
-            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\FiveWords_EN-DE_TM.tmx");
-            var file = System.IO.File.ReadAllBytes(filePath);
 
-            var result = await groupShareClient.TranslationMemories.ImportTm(_translationMemoryId.ToString(), languageParameters, file, "FiveWords_EN-DE_TM.tmx");
+            var response = await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "FiveWords_EN-DE_TM.tmx");
 
-            Assert.Equal("Queued", result.Status);
-            Assert.Equal(_translationMemoryId, Guid.Parse(result.TranslationMemoryId));
+            Assert.Equal("Queued", response.Status);
+            Assert.Equal(_translationMemoryId, Guid.Parse(response.TranslationMemoryId));
         }
 
         [Fact]
@@ -463,12 +476,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task FilterTranslationUnits()
         {
             var groupShareClient = Helper.GsClient;
-            var languageParameters = new LanguageParameters("en-us", "de-de");
-            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\FiveWords_EN-DE_TM.tmx");
-            var file = System.IO.File.ReadAllBytes(filePath);
 
-            await groupShareClient.TranslationMemories.ImportTm(_translationMemoryId.ToString(), languageParameters, file, "FiveWords_EN-DE_TM.tmx");
-            Thread.Sleep(3000);
+            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "FiveWords_EN-DE_TM.tmx");
 
             //var languageDetails = new LanguageDetailsRequest("Europäischen", "de-de", "Acord ", "ro-ro");
             //var languageDetails = new LanguageDetailsRequest("car", "en-us", "auto", "de-de");
@@ -488,22 +497,24 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         #region Text Search
 
-        /* search examples
+        // search examples
 
         [Fact]
         public async Task SimpleSearch()
         {
             var groupShareClient = Helper.GsClient;
-            var searchRequest = new SearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "Blu", "en-us", "ca-es");
 
-            var searchResponse = await groupShareClient.TranslationMemories.SearchText(searchRequest);
+            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "FiveWords_EN-DE_TM.tmx");
 
-            foreach (var response in searchResponse)
-            {
-                Assert.Contains("Blue eye", response.Source);
-            }
+            var searchRequest = new SearchRequest(_translationMemoryId, "car", "en-us", "de-de");
+
+            var searchResults = await groupShareClient.TranslationMemories.SearchText(searchRequest);
+
+            Assert.Equal("car", searchResults.Single().Source);
+            Assert.Equal("Auto", searchResults.Single().Target);
         }
 
+        /*
         [Theory]
         [InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", "\"Andrea\" = (\"AndreaField\")", "TestFilterName", "blue")]
         public async Task SearchWithFilterExpression(string tmId, string simpleExpression, string filterName, string searchText)
