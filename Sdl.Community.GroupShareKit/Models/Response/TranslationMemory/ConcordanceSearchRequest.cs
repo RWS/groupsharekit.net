@@ -15,7 +15,6 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
             TargetLanguageCode = targetCode;
             TmId = tmId;
             SearchText = searchText;
-
         }
 
         public ConcordanceSearchRequest(Guid tmId, string searchText, string sourceCode, string targetCode, ConcordanceSearchSettings searchSettings)

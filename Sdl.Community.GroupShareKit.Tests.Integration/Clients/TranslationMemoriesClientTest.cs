@@ -605,6 +605,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         #endregion
 
         #region Concordance Search for source
+        
         [Fact]
         public async Task ConcordanceSimpleSearch()
         {
@@ -618,35 +619,40 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Assert.Contains("blue", response.Source.ToLower());
             }
         }
-
+        
+        */
         //Concordance search with custom settings
         [Fact]
         public async Task ConcordanceSearchWithCustomSettings()
         {
             var groupShareClient = Helper.GsClient;
 
-            // the score for this search is 85
+            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "Sample_EN-DE_TM.tmx");
+
             var concordanceSearchSettings = new ConcordanceSearchSettings
             {
                 MinScore = 90
             };
-            var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "blu", "en-us", "ca-es", concordanceSearchSettings);
 
-            var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+            var concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "random words", "en-us", "de-de", concordanceSearchSettings);
+            var response = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+            Assert.Empty(response);
 
-            Assert.True(searchResponse.Count == 0);
+            concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "education programme", "en-us", "de-de", concordanceSearchSettings);
+            response = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+            Assert.Equal(5, response.Count);
 
-            var concordanceSearchMaxResults = new ConcordanceSearchSettings
+            concordanceSearchSettings = new ConcordanceSearchSettings
             {
                 MaxResults = 3
             };
-            var concordanceSearchMaxRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "blue", "en-us", "ca-es", concordanceSearchMaxResults);
 
-            var concordanceMaxRequest = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchMaxRequest);
-
-            Assert.True(concordanceMaxRequest.Count == 3);
+            concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "school children", "en-us", "de-de", concordanceSearchSettings);
+            response = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+            Assert.Equal(3, response.Count);
         }
 
+        /*
         [Theory]
         [InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", "\"Andrea\" = (\"AndreaField\")", "TestFilterName")]
         public async Task ConcordanceSearchWithCustomFilter(string tmId, string expression, string filterName)
