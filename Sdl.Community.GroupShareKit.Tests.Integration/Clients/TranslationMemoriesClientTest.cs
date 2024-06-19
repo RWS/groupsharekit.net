@@ -568,7 +568,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             var searchRequest = new SearchRequest(_translationMemoryId, "contact", "en-us", "de-de", settings);
-
             var searchResults = await groupShareClient.TranslationMemories.SearchText(searchRequest);
             Assert.Single(searchResults);
 
@@ -579,7 +578,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             searchRequest = new SearchRequest(_translationMemoryId, "officer", "en-us", "de-de", settings);
-
             searchResults = await groupShareClient.TranslationMemories.SearchText(searchRequest);
             Assert.Single(searchResults);
 
@@ -589,7 +587,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             searchRequest = new SearchRequest(_translationMemoryId, "officer", "en-us", "de-de", settings);
-
             searchResults = await groupShareClient.TranslationMemories.SearchText(searchRequest);
             Assert.Equal(2, searchResults.Count);
         }
