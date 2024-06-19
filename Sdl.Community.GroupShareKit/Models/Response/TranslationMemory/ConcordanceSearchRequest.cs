@@ -19,7 +19,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         }
 
         public ConcordanceSearchRequest(Guid tmId, string searchText, string sourceCode, string targetCode, ConcordanceSearchSettings searchSettings)
-            :this(tmId,searchText,sourceCode,targetCode)
+            : this(tmId, searchText, sourceCode, targetCode)
         {
             Settings = searchSettings;
         }

@@ -744,19 +744,26 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Assert.Contains("blue", response.Source.ToLower());
             }
         }
+        */
 
         #endregion
         [Fact]
         public async Task TargetConcordanceSearch()
         {
             var groupShareClient = Helper.GsClient;
-            var concordanceSearchSettings = new ConcordanceSearchSettings();
-            var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "blue", "en-us", "ca-es", concordanceSearchSettings);
-            var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
 
-            Assert.True(searchResponse.Count > 0);
+            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "FiveWords_EN-DE_TM.tmx");
+
+            var concordanceSearchSettings = new ConcordanceSearchSettings();
+            var concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "house", "en-us", "de-de", concordanceSearchSettings);
+            var results = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+
+            Assert.Equal("100", results.Single().MatchScore);
+            Assert.Equal("house", results.Single().Source);
+            Assert.Equal("Haus", results.Single().Target);
         }
 
+        /*
         [Theory]
         [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638", " \"andrea\" = \"TestValue\"")]
         public async Task CustomFilterExpression(string tmId, string simpleExpression)
@@ -786,6 +793,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
         */
 
-        #endregion
+        //#endregion
     }
 }

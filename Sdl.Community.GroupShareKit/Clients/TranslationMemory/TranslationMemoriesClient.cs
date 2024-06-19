@@ -725,7 +725,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             var restConcordanceSearch = new RestConcordanceSearch
             {
-
                 Settings = new RestConcordanceSearchSettings(),
                 SearchText = concordanceSearchRequest.SearchText
             };

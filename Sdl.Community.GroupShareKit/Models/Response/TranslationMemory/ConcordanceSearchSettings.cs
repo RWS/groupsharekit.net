@@ -9,7 +9,5 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         public List<ConcordanceSearchFilter> Filters { get; set; }
         public List<Penalty> Penalties { get; set; }
         public bool IncludeTokens { get; set; }
-       
-
     }
 }
