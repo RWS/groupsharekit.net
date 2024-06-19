@@ -308,6 +308,20 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
+        public async Task ImportTranslationUnits()
+        {
+            var groupShareClient = Helper.GsClient;
+            var languageParameters = new LanguageParameters("en-us", "de-de");
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\FiveWords_EN-DE_TM.tmx");
+            var file = System.IO.File.ReadAllBytes(filePath);
+
+            var result = await groupShareClient.TranslationMemories.ImportTm(_translationMemoryId.ToString(), languageParameters, file, "FiveWords_EN-DE_TM.tmx");
+
+            Assert.Equal("Queued", result.Status);
+            Assert.Equal(_translationMemoryId, Guid.Parse(result.TranslationMemoryId));
+        }
+
+        [Fact]
         public async Task ExportTm()
         {
             var languageParam = new LanguageParameters("en-us", "de-de");
@@ -434,17 +448,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(0, postDatedTUs);
         }
 
-        //[Theory]
-        //[InlineData("27782e18-a0df-4266-ac9f-29965d3a3638")]
-        //public async Task GetTusNumberForUnalignedTm(string tmId)
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    var languageParameters = new LanguageParameters("de-de", "ro-ro");
+        [Fact]
+        public async Task GetTusNumberForUnalignedTm()
+        {
+            var groupShareClient = Helper.GsClient;
+            var languageParameters = new LanguageParameters("en-us", "de-de");
 
-        //    var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfUnalignedTus(tmId, languageParameters);
+            var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfUnalignedTus(_translationMemoryId.ToString(), languageParameters);
 
-        //    Assert.Equal(tusNumber, 0);
-        //}
+            Assert.Equal(0, tusNumber);
+        }
 
         [Fact]
         public async Task FilterTranslationUnits()
