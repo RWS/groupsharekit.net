@@ -553,33 +553,48 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(searchResponse.Count == 0);
         }
-        
+        */
+
         [Fact]
-        public async Task TextSearchMinAndMaxResultSet()
+        public async Task TextSearchMinScoreMaxResults()
         {
             var groupShareClient = Helper.GsClient;
-            //set Min score
-            var settingsMin = new SearchTextSettings
+
+            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "Sample_EN-DE_TM.tmx");
+
+            var settings = new SearchTextSettings
             {
-                MinScore = 40
+                MinScore = 70
             };
-            var minSearchRequest = new SearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "Blue", "en-us", "ca-es", settingsMin);
 
+            var searchRequest = new SearchRequest(_translationMemoryId, "contact", "en-us", "de-de", settings);
 
-            var minSearchResponse = await groupShareClient.TranslationMemories.SearchText(minSearchRequest);
-            Assert.True(minSearchResponse != null);
+            var searchResults = await groupShareClient.TranslationMemories.SearchText(searchRequest);
+            Assert.Single(searchResults);
 
-            var settingsMax = new SearchTextSettings
+            settings = new SearchTextSettings
             {
-                MaxResults = 2
+                MinScore = 30,
+                MaxResults = 1
             };
-            var maxSearchRequest = new SearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "Blue", "en-us", "ca-es", settingsMax);
 
+            searchRequest = new SearchRequest(_translationMemoryId, "officer", "en-us", "de-de", settings);
 
-            var maxSearchResponse = await groupShareClient.TranslationMemories.SearchText(maxSearchRequest);
-            Assert.True(maxSearchResponse.Count <= 2);
+            searchResults = await groupShareClient.TranslationMemories.SearchText(searchRequest);
+            Assert.Single(searchResults);
+
+            settings = new SearchTextSettings
+            {
+                MinScore = 30
+            };
+
+            searchRequest = new SearchRequest(_translationMemoryId, "officer", "en-us", "de-de", settings);
+
+            searchResults = await groupShareClient.TranslationMemories.SearchText(searchRequest);
+            Assert.Equal(2, searchResults.Count);
         }
 
+        /*
         [Fact]
         public async Task TextSearchPenalties()
         {
@@ -629,25 +644,25 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "Sample_EN-DE_TM.tmx");
 
-            var concordanceSearchSettings = new ConcordanceSearchSettings
+            var settings = new ConcordanceSearchSettings
             {
                 MinScore = 90
             };
 
-            var concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "random words", "en-us", "de-de", concordanceSearchSettings);
+            var concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "random words", "en-us", "de-de", settings);
             var response = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
             Assert.Empty(response);
 
-            concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "education programme", "en-us", "de-de", concordanceSearchSettings);
+            concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "education programme", "en-us", "de-de", settings);
             response = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
             Assert.Equal(5, response.Count);
 
-            concordanceSearchSettings = new ConcordanceSearchSettings
+            settings = new ConcordanceSearchSettings
             {
                 MaxResults = 3
             };
 
-            concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "school children", "en-us", "de-de", concordanceSearchSettings);
+            concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "school children", "en-us", "de-de", settings);
             response = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
             Assert.Equal(3, response.Count);
         }
