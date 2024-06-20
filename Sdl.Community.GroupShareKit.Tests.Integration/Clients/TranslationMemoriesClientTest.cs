@@ -419,7 +419,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.Equal(tmId, Guid.Parse(response.TranslationMemoryId));
             Assert.Equal("Queued", response.Status);
-            
+
             await groupShareClient.TranslationMemories.DeleteTranslationMemory(tmId);
         }
 
@@ -478,9 +478,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
 
             await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "FiveWords_EN-DE_TM.tmx");
-
-            //var languageDetails = new LanguageDetailsRequest("Europäischen", "de-de", "Acord ", "ro-ro");
-            //var languageDetails = new LanguageDetailsRequest("car", "en-us", "auto", "de-de");
 
             var languageDetails = new LanguageDetailsRequest("en-us", "de-de");
             var tmDetails = new TranslationMemoryDetailsRequest(_translationMemoryId, 0, 10);
@@ -591,7 +588,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(2, searchResults.Count);
         }
 
-        /*
         [Fact]
         public async Task TextSearchPenalties()
         {
@@ -603,17 +599,18 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 {
                     new Penalty
                     {
-                        Malus=2,
+                        Malus = 2,
                         PenaltyType = Penalty.PenaltyTypeEnum.FilterPenalty
                     }
                 }
             };
-            var searchRequest = new SearchRequest(new Guid("773bbfe4-fd97-4a70-85e3-8b301e58064b"), "Blue", "en-us", "ca-es", settings);
 
-            var searchResponse = await groupShareClient.TranslationMemories.SearchText(searchRequest);
-            Assert.True(searchResponse != null);
+            var searchRequest = new SearchRequest(_translationMemoryId, "car", "en-us", "de-de", settings);
+
+            var results = await groupShareClient.TranslationMemories.SearchText(searchRequest);
+            Assert.Empty(results);
         }
-        */
+
         #endregion
 
         #region Concordance Search for source
@@ -632,7 +629,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal("phone", results.Single().Source);
             Assert.Equal("Telefon", results.Single().Target);
         }
-        
+
         //Concordance search with custom settings
         [Fact]
         public async Task ConcordanceSearchWithCustomSettings()
@@ -780,35 +777,49 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal("Haus", results.Single().Target);
         }
 
-        /*
-        [Theory]
-        [InlineData("27782e18-a0df-4266-ac9f-29965d3a3638", " \"andrea\" = \"TestValue\"")]
-        public async Task CustomFilterExpression(string tmId, string simpleExpression)
+        [Fact]
+        public async Task CustomFilterExpression()
         {
             var groupShareClient = Helper.GsClient;
-            // simple expression 
-            var filedsList = new List<FieldFilter>
+
+            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "Sample_EN-DE_TM_with_fields.tmx");
+
+            var fields = new List<FieldFilter>
             {
                 new FieldFilter
                 {
-                    Name = "andrea",
+                    Name = "Text field",
                     Type = FieldFilter.TypeEnum.SingleString,
                     Values = null
                 }
             };
 
-            var filterRequest = new FieldFilterRequest(filedsList, simpleExpression);
+            string expression = "(\"Text field\" = \"marked segment\")";
+            var filterRequest = new FieldFilterRequest(fields, expression);
 
-            var rawFilterRequest = new RawFilterRequest(new Guid(tmId), "de-de", "ro-ro", 0, 30, filterRequest);
+            var rawFilterRequest = new RawFilterRequest(_translationMemoryId, "en-us", "de-de", 0, 30, filterRequest);
 
-            var responseSimpleExpr = await groupShareClient.TranslationMemories.RawFilter(rawFilterRequest);
+            var results = await groupShareClient.TranslationMemories.RawFilter(rawFilterRequest);
+            Assert.Equal(4, results.Count);
 
-            foreach (var item in responseSimpleExpr)
+            fields = new List<FieldFilter>
             {
-                Assert.Equal("TRADUCERE", item.Target);
-            }
+                new FieldFilter
+                {
+                    Name = "Text field",
+                    Type = FieldFilter.TypeEnum.SingleString,
+                    Values = null
+                }
+            };
+
+            expression = "(\"Text field\" = \"discarded\")";
+            filterRequest = new FieldFilterRequest(fields, expression);
+
+            rawFilterRequest = new RawFilterRequest(_translationMemoryId, "en-us", "de-de", 0, 30, filterRequest);
+
+            results = await groupShareClient.TranslationMemories.RawFilter(rawFilterRequest);
+            Assert.Equal(2, results.Count);
         }
-        */
 
         //#endregion
     }
