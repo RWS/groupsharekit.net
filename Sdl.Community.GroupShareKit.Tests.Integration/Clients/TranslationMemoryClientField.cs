@@ -60,29 +60,29 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task UpdateFieldTemplate()
         {
             var groupShareClient = Helper.GsClient;
-            var tplId = Guid.NewGuid();
 
-            var fieldTemplate = new FieldTemplate
+            var fieldTemplateName = $"Field template - {Guid.NewGuid()}";
+
+            var fieldTemplateRequest = new CreateFieldTemplateRequest
             {
-                Name = $"{tplId}",
-                Description = "test field template",
-                FieldTemplateId = tplId.ToString(),
+                Name = fieldTemplateName,
+                Description = "Created using GroupShare Kit",
                 IsTmSpecific = false,
-                Location = Helper.OrganizationPath,
-                OwnerId = Helper.OrganizationId
+                OwnerId = Guid.Parse(Helper.OrganizationId)
             };
 
-            var templateId = await groupShareClient.TranslationMemories.CreateFieldTemplate(fieldTemplate);
-            Assert.True(templateId != string.Empty);
+            var templateId = await groupShareClient.TranslationMemories.CreateFieldTemplate(fieldTemplateRequest);
 
-            await groupShareClient.TranslationMemories.UpdateFieldTemplate(
-                templateId,
-                new FieldTemplateRequest { Name = "updated field template" });
+            var fieldTemplate = await groupShareClient.TranslationMemories.GetFieldTemplateById(templateId.ToString());
+            Assert.Equal(fieldTemplateName, fieldTemplate.Name);
 
-            var updatedTemplate = await groupShareClient.TranslationMemories.GetFieldTemplateById(templateId);
-            Assert.Equal("updated field template", updatedTemplate.Name);
+            var newName = $"Edited name - {Guid.NewGuid()}";
+            await groupShareClient.TranslationMemories.UpdateFieldTemplate(templateId.ToString(), new FieldTemplateRequest { Name = newName });
 
-            await groupShareClient.TranslationMemories.DeleteFieldTemplate(templateId);
+            var updatedTemplate = await groupShareClient.TranslationMemories.GetFieldTemplateById(templateId.ToString());
+            Assert.Equal(newName, updatedTemplate.Name);
+
+            await groupShareClient.TranslationMemories.DeleteFieldTemplate(templateId.ToString());
         }
 
         // WTF
@@ -90,6 +90,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task AddOperations()
         {
             var groupShareClient = Helper.GsClient;
+
             var tplId = Guid.NewGuid();
 
             var fieldTemplate = new FieldTemplate

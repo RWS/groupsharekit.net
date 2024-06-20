@@ -14,8 +14,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             DbServerRequest = new DatabaseServerRequest
             {
                 DatabaseServerId = Guid.NewGuid().ToString(),
-                Name = "Test Server",
-                Description = "Added from kit",
+                Name = $"Server - {Guid.NewGuid()}",
+                Description = "Created using GroupShare Kit",
                 OwnerId = Helper.OrganizationId,
                 Location = Helper.OrganizationPath,
                 Host = Helper.GsServerName

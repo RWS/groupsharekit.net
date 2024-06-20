@@ -532,14 +532,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             string expression = "(\"Text field\" = \"marked segment\")";
 
             var filter = new List<ConcordanceSearchFilter>
+            {
+                new ConcordanceSearchFilter
                 {
-                    new ConcordanceSearchFilter
-                    {
-                        Name = "Filter_1",
-                        Expression = new FieldFilterRequest(fields, expression),
-                        Penalty = 0
-                    },
-                };
+                    Name = "Filter_1",
+                    Expression = new FieldFilterRequest(fields, expression),
+                    Penalty = 0
+                }
+            };
 
             var searchSettings = new SearchTextSettings
             {
