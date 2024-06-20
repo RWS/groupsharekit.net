@@ -511,46 +511,47 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal("Auto", searchResults.Single().Target);
         }
 
-        /*
-        [Theory]
-        [InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", "\"Andrea\" = (\"AndreaField\")", "TestFilterName", "blue")]
-        public async Task SearchWithFilterExpression(string tmId, string simpleExpression, string filterName, string searchText)
+        [Fact]
+        //[InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", "\"Andrea\" = (\"AndreaField\")", "TestFilterName", "blue")]
+        public async Task SearchWithFilterExpression()
         {
             var groupShareClient = Helper.GsClient;
-            // simple expression 
-            var fieldFilter = new List<FieldFilter>
+
+            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "Sample_EN-DE_TM_with_fields.tmx");
+
+            var fields = new List<FieldFilter>
             {
                 new FieldFilter
                 {
-                    //filed name
-                    Name="Andrea",
-                    Type = FieldFilter.TypeEnum.MultipleString,
+                    Name = "Text field",
+                    Type = FieldFilter.TypeEnum.SingleString,
                     Values = null
                 }
             };
 
-            var filterRequest = new List<ConcordanceSearchFilter>
+            string expression = "(\"Text field\" = \"marked segment\")";
+
+            var filter = new List<ConcordanceSearchFilter>
                 {
                     new ConcordanceSearchFilter
                     {
-                        Expression = new FieldFilterRequest(fieldFilter,simpleExpression),
-                        Penalty = 10,
-                        Name=filterName
+                        Name = "Filter_1",
+                        Expression = new FieldFilterRequest(fields, expression),
+                        Penalty = 0
                     },
                 };
 
             var searchSettings = new SearchTextSettings
             {
-                Filters = filterRequest
+                Filters = filter
             };
 
-            var searchRequest = new SearchRequest(new Guid(tmId), searchText, "en-us", "ca-es", searchSettings);
+            var searchRequest = new SearchRequest(_translationMemoryId, "programme", "en-us", "de-de", searchSettings);
 
             var searchResponse = await groupShareClient.TranslationMemories.SearchText(searchRequest);
 
-            Assert.True(searchResponse.Count == 0);
+            Assert.Empty(searchResponse);
         }
-        */
 
         [Fact]
         public async Task TextSearchMinScoreMaxResults()
@@ -630,7 +631,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal("Telefon", results.Single().Target);
         }
 
-        //Concordance search with custom settings
         [Fact]
         public async Task ConcordanceSearchWithCustomSettings()
         {
@@ -661,67 +661,24 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(3, response.Count);
         }
 
-        /*
-        [Theory]
-        [InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", "\"Andrea\" = (\"AndreaField\")", "TestFilterName")]
-        public async Task ConcordanceSearchWithCustomFilter(string tmId, string expression, string filterName)
+        [Fact]
+        public async Task ConcordanceSearchWithCustomFilter()
         {
             var groupShareClient = Helper.GsClient;
-            var fieldFilter = new List<FieldFilter>
+
+            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "Sample_EN-DE_TM_with_fields.tmx");
+
+            var fields = new List<FieldFilter>
             {
                 new FieldFilter
                 {
-                    //filed name
-                    Name="Andrea",
-                    Type = FieldFilter.TypeEnum.MultipleString,
+                    Name = "Text field",
+                    Type = FieldFilter.TypeEnum.SingleString,
                     Values = null
                 }
             };
-            var concordanceSearchSettings = new ConcordanceSearchSettings
-            {
-                Filters = new List<ConcordanceSearchFilter>
-                {
-                    new ConcordanceSearchFilter
-                    {
-                        Expression = new FieldFilterRequest(fieldFilter,expression),
-                        Penalty = 10,
-                        Name=filterName
-                    },
 
-                },
-                IncludeTokens = true
-
-            };
-
-            var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid(tmId),
-                "blue",
-                "en-us",
-                "ca-es",
-                concordanceSearchSettings);
-
-            var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
-
-            foreach (var response in searchResponse)
-            {
-                Assert.Contains("blue", response.Source.ToLower());
-            }
-        }
-
-        [Theory]
-        [InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", "\"Andrea\" = (\"AndreaField\")", "TestFilterName")]
-        public async Task ConcordanceSearchWithPenalties(string tmId, string expression, string filterName)
-        {
-            var groupShareClient = Helper.GsClient;
-            var fieldFilter = new List<FieldFilter>
-            {
-                new FieldFilter
-                {
-                    //filed name
-                    Name="Andrea",
-                    Type = FieldFilter.TypeEnum.MultipleString,
-                    Values = null
-                }
-            };
+            string expression = "(\"Text field\" = \"marked segment\")";
 
             var concordanceSearchSettings = new ConcordanceSearchSettings
             {
@@ -729,39 +686,75 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 {
                     new ConcordanceSearchFilter
                     {
-                        Expression = new FieldFilterRequest(fieldFilter,expression),
-                        Penalty = 10,
-                        Name=filterName
+                        Name = "Filter_1",
+                        Expression = new FieldFilterRequest(fields, expression),
+                        Penalty = 0
                     },
 
                 },
-                Penalties = new List<Penalty>
-                {
-                    new Penalty
-                    {
-                        Malus = 1,
-                        PenaltyType = Penalty.PenaltyTypeEnum.AutoLocalization
-                    }
-                },
-                IncludeTokens = true
+                IncludeTokens = false
             };
 
-            var concordanceSearchRequest = new ConcordanceSearchRequest(new Guid(tmId),
-                "blue",
-                "en-us",
-                "ca-es",
-                concordanceSearchSettings);
+            var concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "Education", "en-us", "de-de", concordanceSearchSettings);
 
-            var searchResponse = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
-
-            foreach (var response in searchResponse)
-            {
-                Assert.Contains("blue", response.Source.ToLower());
-            }
+            var results = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+            Assert.True(results.Count > 0);
         }
-        */
 
-        #endregion
+        [Fact]
+        public async Task ConcordanceSearchWithPenalties()
+        {
+            var groupShareClient = Helper.GsClient;
+
+            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "Sample_EN-DE_TM_with_fields.tmx");
+
+            var fields = new List<FieldFilter>
+            {
+                new FieldFilter
+                {
+                    Name = "Text field",
+                    Type = FieldFilter.TypeEnum.SingleString,
+                    Values = null
+                }
+            };
+
+            var penalties = new List<Penalty>
+            {
+                new Penalty
+                {
+                    Malus = 3,
+                    PenaltyType = Penalty.PenaltyTypeEnum.MultipleTranslations
+                },
+                new Penalty
+                {
+                    Malus = 2,
+                    PenaltyType = Penalty.PenaltyTypeEnum.Alignment
+                }
+            };
+
+            string expression = "(\"Text field\" = \"marked segment\")";
+
+            var concordanceSearchSettings = new ConcordanceSearchSettings
+            {
+                Filters = new List<ConcordanceSearchFilter>
+                {
+                    new ConcordanceSearchFilter
+                    {
+                        Name = "Filter_1",
+                        Expression = new FieldFilterRequest(fields, expression),
+                        Penalty = 0,
+                    },
+                },
+                Penalties = penalties,
+                IncludeTokens = false
+            };
+
+            var concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "place", "en-us", "de-de", concordanceSearchSettings);
+
+            var results = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+            Assert.True(results.Count > 0);
+        }
+
         [Fact]
         public async Task ConcordanceSearchWithEmptySettings()
         {
@@ -820,7 +813,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             results = await groupShareClient.TranslationMemories.RawFilter(rawFilterRequest);
             Assert.Equal(2, results.Count);
         }
-
-        //#endregion
+        #endregion
     }
 }
