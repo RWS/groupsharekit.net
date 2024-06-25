@@ -1649,11 +1649,15 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task<LanguageResourceTemplate> GetTemplateById(string templateId)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            return
-                await
-                    ApiConnection.Get<LanguageResourceTemplate>(ApiUrls.GetLanguageResourceTemplateById(templateId),
-                        null);
+            return await ApiConnection.Get<LanguageResourceTemplate>(ApiUrls.GetLanguageResourceTemplateById(templateId), null);
         }
+
+        public async Task<LanguageResourceTemplate> GetLanguageResourceTemplate(Guid languageResourceTemplateId)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            return await ApiConnection.Get<LanguageResourceTemplate>(ApiUrls.GetLanguageResourceTemplate(languageResourceTemplateId), null);
+        }
+
         /// <summary>
         /// Updates  language resource template  .
         /// </summary>

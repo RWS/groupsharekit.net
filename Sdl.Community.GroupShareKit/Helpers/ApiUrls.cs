@@ -707,6 +707,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/templates/{1}".FormatUri(CurrentLanguageResourceServiceUrl, templateId);
         }
 
+        public static Uri GetLanguageResourceTemplate(Guid languageResourceTemplateId)
+        {
+            return "{0}/templates/{1}".FormatUri(CurrentLanguageResourceServiceUrl, languageResourceTemplateId);
+        }
+
         public static Uri LanguageResourceTemplates(Guid templateId)
         {
             return "{0}/templates/{1}".FormatUri(CurrentLanguageResourceServiceUrl, templateId);

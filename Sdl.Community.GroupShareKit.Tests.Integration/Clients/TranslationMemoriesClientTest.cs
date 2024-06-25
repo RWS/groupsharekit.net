@@ -279,7 +279,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var languageResourceTemplateRequest = new CreateLanguageResourceTemplateRequest
             {
                 Name = name,
-                Description = "created using GroupShare Kit",
+                Description = "Created using GroupShare Kit",
                 IsTmSpecific = false,
                 Recognizers = "RecognizeAll",
                 WordCountFlags = "DefaultFlags",
@@ -293,7 +293,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(name, languageResourceTemplate.Name);
             Assert.Empty(languageResourceTemplate.LanguageResources);
             Assert.False(languageResourceTemplate.IsTmSpecific);
-            Assert.Equal("created using GroupShare Kit", languageResourceTemplate.Description);
+            Assert.Equal("Created using GroupShare Kit", languageResourceTemplate.Description);
 
             await GroupShareClient.TranslationMemories.DeleteLanguageResourceTemplate(languageResourceTemplateId);
         }
