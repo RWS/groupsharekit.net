@@ -746,6 +746,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task AddOperationsForFieldTemplate(string templateId, FieldTemplatePatchRequest request);
 
+        Task AddOperationsForFieldTemplate(Guid fieldTemplateId, List<Operation> operations);
+
         /// <summary>
         /// Gets a list of Fields for a specific Field Template ID
         /// </summary>

@@ -1267,6 +1267,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Patch(ApiUrls.GetFieldTemplateById(templateId), request, "application/json");
         }
 
+        public async Task AddOperationsForFieldTemplate(Guid fieldTemplateId, List<Operation> operations)
+        {
+            Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
+
+            await ApiConnection.Patch(ApiUrls.GetFieldTemplateById(fieldTemplateId.ToString()), operations, "application/json");
+        }
+
         /// <summary>
         /// Gets a list of Fields for a specific field Template ID
         /// </summary>

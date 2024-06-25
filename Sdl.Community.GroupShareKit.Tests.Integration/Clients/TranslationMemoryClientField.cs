@@ -1,6 +1,7 @@
 ﻿using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -86,7 +87,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task AddOperations()
+        public async Task AddUpdateFieldTemplateFields()
         {
             var groupShareClient = Helper.GsClient;
 
@@ -101,20 +102,48 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             var fieldTemplateId = await groupShareClient.TranslationMemories.CreateFieldTemplate(fieldTemplateRequest);
-            var updateFieldTemplateRequest = new FieldTemplatePatchRequest
+            var fields = await groupShareClient.TranslationMemories.GetFieldsForTemplate(fieldTemplateId.ToString());
+            Assert.Empty(fields);
+
+            var fieldRequest = new FieldRequest
             {
-                Operations = new List<Operation>
-                    {
-                        new Operation
-                        {
-                            Path = "/fields",
-                            Op = "replace",
-                            Value = null
-                        }
-                    }
+                Name = "Text field",
+                Type = FieldRequest.TypeEnum.SingleString,
+                Values = new List<string> { }
             };
 
-            await groupShareClient.TranslationMemories.AddOperationsForFieldTemplate(fieldTemplateId.ToString(), updateFieldTemplateRequest);
+            var fieldId = await groupShareClient.TranslationMemories.CreateFieldForTemplate(fieldTemplateId.ToString(), fieldRequest);
+            fields = await groupShareClient.TranslationMemories.GetFieldsForTemplate(fieldTemplateId.ToString());
+            Assert.Equal(fieldRequest.Name, fields.Single().Name);
+
+            var newFieldName = "Text field - edited";
+
+            var value = new List<OperationValue>
+            {
+                new OperationValue
+                {
+                    FieldId = Guid.Parse(fieldId),
+                    FieldTemplateId = fieldTemplateId,
+                    Name = newFieldName,
+                    Type = "SingleString",
+                    Values = new List<string> { }
+                }
+            };
+
+            var operations = new List<Operation>
+            {
+                new Operation
+                {
+                    Path = "/fields",
+                    Op = "replace",
+                    Value = value
+                }
+            };
+
+            await groupShareClient.TranslationMemories.AddOperationsForFieldTemplate(fieldTemplateId, operations);
+
+            fields = await groupShareClient.TranslationMemories.GetFieldsForTemplate(fieldTemplateId.ToString());
+            Assert.Equal(newFieldName, fields.Single().Name);
 
             await groupShareClient.TranslationMemories.DeleteFieldTemplate(fieldTemplateId.ToString());
         }
