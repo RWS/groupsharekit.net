@@ -823,6 +823,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/dbservers/{1}".FormatUri(CurrentTranslationMemoriesUrl, serverId);
         }
 
+        public static Uri DbServers(Guid serverId)
+        {
+            return "{0}/dbservers/{1}".FormatUri(CurrentTranslationMemoriesUrl, serverId);
+        }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that schedules a recompute statistics operation
         /// </summary>

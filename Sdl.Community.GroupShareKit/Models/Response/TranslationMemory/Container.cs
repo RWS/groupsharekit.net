@@ -42,8 +42,6 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// </summary>
         public string OwnerId { get; set; }
 
-
-
     }
 
 

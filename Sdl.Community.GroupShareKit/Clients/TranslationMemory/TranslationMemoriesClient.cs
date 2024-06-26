@@ -1086,6 +1086,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<DatabaseServer>(ApiUrls.DbServers(serverId), null);
         }
 
+        public async Task<DatabaseServer> GetDbServer(Guid serverId)
+        {
+            Ensure.ArgumentNotNull(serverId, "serverId");
+            return await ApiConnection.Get<DatabaseServer>(ApiUrls.DbServers(serverId), null);
+        }
+
         /// <summary>
         ///Creates a new database server
         /// </summary>
@@ -1102,8 +1108,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task<string> CreateDbServer(DatabaseServerRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");
+            return await ApiConnection.Post<string>(ApiUrls.DbServers(), request, "application/json");
+        }
 
-            return await ApiConnection.Post<string>(ApiUrls.DbServers(), request, "application/json").ConfigureAwait(false);
+        public async Task<Guid> CreateDbServer(CreateDatabaseServerRequest request)
+        {
+            Ensure.ArgumentNotNull(request, "request");
+            return await ApiConnection.Post<Guid>(ApiUrls.DbServers(), request, "application/json");
         }
 
         /// <summary>
@@ -1121,6 +1132,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task DeleteDbServer(string serverId)
         {
             Ensure.ArgumentNotNullOrEmptyString(serverId, "server id");
+            await ApiConnection.Delete(ApiUrls.DbServers(serverId));
+        }
+
+        public async Task DeleteDbServer(Guid serverId)
+        {
+            Ensure.ArgumentNotNull(serverId, "serverId");
             await ApiConnection.Delete(ApiUrls.DbServers(serverId));
         }
 
@@ -1143,6 +1160,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(request, "server request");
 
             await ApiConnection.Put<string>(ApiUrls.DbServers(serverId), request);
+        }
+
+        public async Task UpdateDbServer(Guid serverId, UpdateDatabaseServerRequest request)
+        {
+            Ensure.ArgumentNotNull(serverId, "serverId");
+            await ApiConnection.Put<Guid>(ApiUrls.DbServers(serverId), request);
         }
         #endregion
 

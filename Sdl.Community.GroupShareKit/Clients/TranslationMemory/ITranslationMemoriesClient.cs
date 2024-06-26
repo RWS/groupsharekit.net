@@ -612,6 +612,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         ///<returns><see cref="DatabaseServer"/></returns>
         Task<DatabaseServer> GetDbServerById(string serverId);
 
+        Task<DatabaseServer> GetDbServer(Guid serverId);
+
         /// <summary>
         ///Creates a new database server
         /// </summary>
@@ -627,6 +629,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         ///<returns>The id of db server</returns>
         Task<string> CreateDbServer(DatabaseServerRequest request);
 
+        Task<Guid> CreateDbServer(CreateDatabaseServerRequest request);
+
         /// <summary>
         ///Deletes specified  database server
         /// </summary>
@@ -640,6 +644,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteDbServer(string serverId);
+
+        Task DeleteDbServer(Guid serverId);
 
         /// <summary>
         ///Updates specified  database server
@@ -655,6 +661,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task UpdateDbServer(string serverId, RequestDbServer request);
+
+        Task UpdateDbServer(Guid serverId, UpdateDatabaseServerRequest request);
+
         #endregion
 
         #region Field methods
