@@ -539,6 +539,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         ///<returns>Container's Id</returns>
         Task<string> CreateContainer(ContainerRequest request);
 
+        Task<Guid> CreateContainer(CreateContainerRequest request);
+
         /// <summary>
         ///Returns  specified container
         /// </summary>
@@ -553,6 +555,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         ///<returns><see cref="Container"/></returns>
         Task<Container> GetContainerById(string containerId);
 
+        Task<Container> GetContainer(Guid containerId);
+
         /// <summary>
         ///Deletes  specified container
         /// </summary>
@@ -565,6 +569,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteContainer(string containerId);
+
+        Task DeleteContainer(Guid containerId);
 
         /// <summary>
         ///Updates  specified container
@@ -579,6 +585,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task UpdateContainer(string containerId, UpdateContainerRequest request);
+
+        Task UpdateContainer(Guid containerId, UpdateContainerRequest request);
 
         #endregion
 

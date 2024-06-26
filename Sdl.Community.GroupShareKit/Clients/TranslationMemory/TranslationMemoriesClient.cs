@@ -989,8 +989,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task<string> CreateContainer(ContainerRequest request)
         {
             Ensure.ArgumentNotNull(request, "container request");
+            return await ApiConnection.Post<string>(ApiUrls.Containers(), request, "application/json");
+        }
 
-            return await ApiConnection.Post<string>(ApiUrls.Containers(), request, "application/json").ConfigureAwait(false);
+        public async Task<Guid> CreateContainer(CreateContainerRequest request)
+        {
+            Ensure.ArgumentNotNull(request, "request");
+            return await ApiConnection.Post<Guid>(ApiUrls.Containers(), request, "application/json");
         }
 
         /// <summary>
@@ -1011,6 +1016,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<Container>(ApiUrls.Containers(containerId), null);
         }
 
+        public async Task<Container> GetContainer(Guid containerId)
+        {
+            Ensure.ArgumentNotNull(containerId, "containerId");
+            return await ApiConnection.Get<Container>(ApiUrls.Containers(containerId), null);
+        }
+
         /// <summary>
         ///Deletes  specified container
         /// </summary>
@@ -1025,6 +1036,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task DeleteContainer(string containerId)
         {
             Ensure.ArgumentNotNullOrEmptyString(containerId, "container id");
+            await ApiConnection.Delete(ApiUrls.Containers(containerId));
+        }
+
+        public async Task DeleteContainer(Guid containerId)
+        {
+            Ensure.ArgumentNotNull(containerId, "containerId");
             await ApiConnection.Delete(ApiUrls.Containers(containerId));
         }
 
@@ -1047,6 +1064,15 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             await ApiConnection.Put<string>(ApiUrls.Containers(containerId), request);
         }
+
+        public async Task UpdateContainer(Guid containerId, UpdateContainerRequest request)
+        {
+            Ensure.ArgumentNotNull(containerId, "container id");
+            Ensure.ArgumentNotNull(request, "request");
+
+            await ApiConnection.Put<Guid>(ApiUrls.Containers(containerId), request);
+        }
+
         #endregion
 
         #region Database server

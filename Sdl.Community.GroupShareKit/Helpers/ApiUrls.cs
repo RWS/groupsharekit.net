@@ -868,6 +868,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/containers/{1}".FormatUri(CurrentTranslationMemoriesUrl, containerid);
         }
 
+        public static Uri Containers(Guid containerid)
+        {
+            return "{0}/containers/{1}".FormatUri(CurrentTranslationMemoriesUrl, containerid);
+        }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns the analysis report for a project
         /// </summary>
