@@ -10,54 +10,52 @@ using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
-    public class TranslationMemoriesClientTest : IDisposable
+    public class TranslationMemoriesClientTests : IDisposable
     {
         private static readonly GroupShareClient GroupShareClient = Helper.GsClient;
 
-        private string _databaseServerId;
-        private string _containerId;
+        private Guid _databaseServerId;
+        private Guid _containerId;
         private Guid _fieldTemplateId;
         private Guid _languageResourceTemplateId;
         private Guid _languageDirectionId;
         private Guid _translationMemoryId;
 
-        public TranslationMemoriesClientTest()
+        public TranslationMemoriesClientTests()
         {
-            _databaseServerId = CreateDatabaseServer().Result;
-            _containerId = CreateContainer().Result;
+            _databaseServerId = CreateTestDatabaseServer().Result;
+            _containerId = CreateTestContainer().Result;
             _fieldTemplateId = CreateTmSpecificFieldTemplate().Result;
             _languageResourceTemplateId = CreateTmSpecificLanguageResourceTemplate().Result;
             _translationMemoryId = CreateTranslationMemory(_fieldTemplateId, _languageResourceTemplateId).Result;
         }
 
-        private async Task<string> CreateDatabaseServer()
+        private async Task<Guid> CreateTestDatabaseServer()
         {
-            var dbServerGuid = Guid.NewGuid().ToString();
-            var dbServerRequest = new DatabaseServerRequest
+            var databaseServerRequest = new CreateDatabaseServerRequest
             {
-                DatabaseServerId = dbServerGuid,
-                Name = $"DB server {dbServerGuid}",
-                Description = "created using GroupShare Kit",
-                OwnerId = Helper.OrganizationId,
+                Name = $"Server - {Guid.NewGuid()}",
+                Description = "Created using GroupShare Kit",
+                OwnerId = Guid.Parse(Helper.OrganizationId),
                 Location = Helper.OrganizationPath,
                 Host = Helper.GsServerName
             };
 
-            _databaseServerId = await GroupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);
+            _databaseServerId = await GroupShareClient.TranslationMemories.CreateDbServer(databaseServerRequest);
             return _databaseServerId;
         }
 
-        private async Task<string> CreateContainer()
+        private async Task<Guid> CreateTestContainer()
         {
-            var containerGuid = Guid.NewGuid().ToString();
-            var request = new ContainerRequest
+            var containerName = $"Container_{DateTime.Now.Ticks}";
+
+            var request = new CreateContainerRequest
             {
-                OwnerId = Helper.OrganizationId,
+                OwnerId = Guid.Parse(Helper.OrganizationId),
                 Location = Helper.OrganizationPath,
-                ContainerId = containerGuid,
                 DatabaseServerId = _databaseServerId,
-                DatabaseName = $"TM_Container_{DateTime.Now.Ticks}",
-                DisplayName = $"DB_container_{containerGuid}",
+                DatabaseName = containerName,
+                DisplayName = containerName,
                 IsShared = false
             };
 
@@ -152,7 +150,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 WordCountFlags = "DefaultFlags",
                 OwnerId = Guid.Parse(Helper.OrganizationId),
                 FuzzyIndexTuningSettings = fuzzyIndexTuningSettings,
-                ContainerId = Guid.Parse(_containerId)
+                ContainerId =_containerId
             };
 
             var translationMemoryId = await GroupShareClient.TranslationMemories.CreateTranslationMemory(tmRequest).ConfigureAwait(false);
@@ -194,7 +192,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 WordCountFlags = "DefaultFlags",
                 OwnerId = Guid.Parse(Helper.OrganizationId),
                 FuzzyIndexTuningSettings = fuzzyIndexTuningSettings,
-                ContainerId = Guid.Parse(_containerId)
+                ContainerId = _containerId
             };
 
             var translationMemoryId = await GroupShareClient.TranslationMemories.CreateTranslationMemory(tmRequest).ConfigureAwait(false);
@@ -308,7 +306,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetTmById()
         {
-            var tm = await GroupShareClient.TranslationMemories.GetTranslationMemoryById(_translationMemoryId);
+            var tm = await GroupShareClient.TranslationMemories.GetTranslationMemory(_translationMemoryId);
             Assert.Equal(_translationMemoryId, Guid.Parse(tm.TranslationMemoryId));
         }
 
@@ -380,12 +378,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task UpdateTm()
         {
-            var tm = await GroupShareClient.TranslationMemories.GetTranslationMemoryById(_translationMemoryId);
+            var tm = await GroupShareClient.TranslationMemories.GetTranslationMemory(_translationMemoryId);
 
             tm.Description = "Updated tm";
             await GroupShareClient.TranslationMemories.Update(_translationMemoryId.ToString(), tm);
 
-            var updatedTm = await GroupShareClient.TranslationMemories.GetTranslationMemoryById(_translationMemoryId);
+            var updatedTm = await GroupShareClient.TranslationMemories.GetTranslationMemory(_translationMemoryId);
             Assert.Equal("Updated tm", updatedTm.Description);
         }
 

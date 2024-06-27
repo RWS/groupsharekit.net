@@ -1,5 +1,8 @@
-﻿namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
+﻿using System;
+
+namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
+    [Obsolete("ContainerRequest is deprecated, please use CreateContainerRequest instead.")]
     public class ContainerRequest
     {
         /// <summary>

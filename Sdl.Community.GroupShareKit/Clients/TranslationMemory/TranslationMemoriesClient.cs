@@ -66,10 +66,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<TranslationMemoryDetails>(ApiUrls.GetTmById(tmId), null);
         }
 
-        public async Task<TranslationMemoryDetails> GetTranslationMemoryById(Guid translationMemoryId)
+        public async Task<TranslationMemoryDetails> GetTranslationMemory(Guid translationMemoryId)
         {
             Ensure.ArgumentNotNull(translationMemoryId, "translationMemoryId");
-            return await ApiConnection.Get<TranslationMemoryDetails>(ApiUrls.GetTranslationMemoryById(translationMemoryId), null);
+            return await ApiConnection.Get<TranslationMemoryDetails>(ApiUrls.GetTranslationMemory(translationMemoryId), null);
         }
 
         /// <summary>
@@ -189,7 +189,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task DeleteTranslationMemory(Guid translationMemoryId)
         {
             Ensure.ArgumentNotNull(translationMemoryId, "translationMemoryId");
-            await ApiConnection.Delete(ApiUrls.GetTranslationMemoryById(translationMemoryId));
+            await ApiConnection.Delete(ApiUrls.GetTranslationMemory(translationMemoryId));
         }
 
         /// <summary>
@@ -997,6 +997,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Post<string>(ApiUrls.Containers(), request, "application/json");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<Guid> CreateContainer(CreateContainerRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");

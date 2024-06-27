@@ -40,7 +40,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns>  <see cref="TranslationMemoryDetails"/></returns>
         Task<TranslationMemoryDetails> GetTmById(string tmId);
 
-        Task<TranslationMemoryDetails> GetTranslationMemoryById(Guid translationMemoryId);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="translationMemoryId"></param>
+        /// <returns></returns>
+        Task<TranslationMemoryDetails> GetTranslationMemory(Guid translationMemoryId);
 
         /// <summary>
         /// Before you create a TM please make sure you HAVE CREATED A TEMPLATE FIELD and a LANGUAGE RESOURCE TEMPLATE.
@@ -59,6 +64,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns>  Translation memory Id</returns>
         Task<string> CreateTm(CreateTmRequest tm);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task<Guid> CreateTranslationMemory(CreateTranslationMemoryRequest request);
 
         /// <summary>
@@ -74,6 +84,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteTm(string tmId);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="translationMemoryId"></param>
+        /// <returns></returns>
         Task DeleteTranslationMemory(Guid translationMemoryId);
 
         /// <summary>
@@ -252,6 +267,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="FuzzyIndexResponse"/></returns>
         Task<FuzzyIndexResponse> Reindex(string tmId, FuzzyRequest request);
+
         /// <summary>
         /// Gets <see cref="LanguageDirection"/> for tm
         /// </summary>
@@ -268,6 +284,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns>  <see cref="LanguageDirection"/></returns>
         Task<LanguageDirection> GetLanguageDirectionForTm(string tmId, string languageDirectionId);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <param name="languageDirectionId"></param>
+        /// <returns></returns>
         Task<LanguageDirection> GetTmLanguageDirection(Guid tmId, Guid languageDirectionId);
         #endregion
 
@@ -327,8 +349,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="TranslationUnitResponse"/></returns>
-        Task<TranslationUnitResponse> AddAllTranslationUnits(TranslationUnitRequest unitRequest, string tmId,
-            FieldTemplate fieldTemplate);
+        Task<TranslationUnitResponse> AddAllTranslationUnits(TranslationUnitRequest unitRequest, string tmId, FieldTemplate fieldTemplate);
 
         /// <summary>
         /// Gets specified translation unit for TM
@@ -1109,6 +1130,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns> Created template id</returns>
         Task<string> CreateTemplate(LanguageResourceTemplate templateRequest);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task<Guid> CreateLanguageResourceTemplate(CreateLanguageResourceTemplateRequest request);
 
         /// <summary>
@@ -1124,6 +1150,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteTemplate(string languageResourceTemplateId);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageResourceTemplateId"></param>
+        /// <returns></returns>
         Task DeleteLanguageResourceTemplate(Guid languageResourceTemplateId);
         #endregion
 

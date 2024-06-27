@@ -568,7 +568,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/tms/{1}".FormatUri(CurrentTranslationMemoriesUrl, tmId);
         }
 
-        public static Uri GetTranslationMemoryById(Guid translationMemoryId)
+        public static Uri GetTranslationMemory(Guid translationMemoryId)
         {
             return "{0}/tms/{1}".FormatUri(CurrentTranslationMemoriesUrl, translationMemoryId);
         }

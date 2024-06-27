@@ -41,8 +41,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task CreateContainer()
         {
             var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
-            var randomNumber = new Random().Next(100, 10000);
-            var containerName = $"Container_{randomNumber}";
+            var containerName = $"Container_{DateTime.Now.Ticks}";
 
             var request = new CreateContainerRequest
             {
@@ -102,8 +101,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
             var containerId = await CreateTestTmContainer(dbServerId);
 
-            var randomNumber = new Random().Next(100, 10000);
-            var newContainerName = $"Container_{randomNumber}";
+            var newContainerName = $"Container_{DateTime.Now.Ticks}";
 
             var updateRequest = new UpdateContainerRequest
             {
@@ -126,8 +124,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         public async Task<Guid> CreateTestTmContainer(Guid serverId)
         {
-            var randomNumber = new Random().Next(100, 10000);
-            var containerName = $"Container_{randomNumber}";
+            var containerName = $"Container_{DateTime.Now.Ticks}";
 
             var request = new CreateContainerRequest
             {
