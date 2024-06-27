@@ -67,7 +67,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task GetContainerById()
+        public async Task GetContainer()
         {
             var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
             var containerId = await CreateTestTmContainer(dbServerId);

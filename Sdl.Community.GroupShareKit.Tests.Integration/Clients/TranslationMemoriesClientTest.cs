@@ -261,7 +261,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             var fieldTemplateId = await GroupShareClient.TranslationMemories.CreateFieldTemplate(fieldTemplateRequest);
-            var fieldTemplate = await GroupShareClient.TranslationMemories.GetFieldTemplateById(fieldTemplateId.ToString());
+            var fieldTemplate = await GroupShareClient.TranslationMemories.GetFieldTemplate(fieldTemplateId);
 
             Assert.Equal(fieldTemplateName, fieldTemplate.Name);
             Assert.Equal(2, fieldTemplate.Fields.Count);

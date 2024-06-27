@@ -638,6 +638,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldTemplateId"></param>
+        /// <returns></returns>
+        public static Uri GetFieldTemplate(Guid fieldTemplateId)
+        {
+            return "{0}/templates/{1}".FormatUri(CurrentFieldServiceUrl, fieldTemplateId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns the health status of tm service
         /// </summary>
         public static Uri Health()

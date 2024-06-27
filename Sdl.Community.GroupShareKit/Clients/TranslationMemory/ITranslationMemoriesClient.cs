@@ -511,7 +511,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         #region Container methods
 
         /// <summary>
-        ///Returns a list of all available containers
+        /// Returns a list of all available containers
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -521,13 +521,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns><see cref="ContainerResponse"/></returns>
-        //Task<ContainerResponse> GetContainers();
-
+        ///<returns><see cref="Containers"/></returns>
         Task<Containers> GetContainers();
 
         /// <summary>
-        ///creates a new container
+        /// Creates a new container
         /// </summary>
         /// <remarks>
         /// <param name="request"><see cref="ContainerRequest"/></param>
@@ -538,13 +536,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns>Container's Id</returns>
+        /// <returns>Container's Id</returns>
         Task<string> CreateContainer(ContainerRequest request);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task<Guid> CreateContainer(CreateContainerRequest request);
 
         /// <summary>
-        ///Returns  specified container
+        ///Returns specified container
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -557,10 +560,15 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         ///<returns><see cref="Container"/></returns>
         Task<Container> GetContainerById(string containerId);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="containerId"></param>
+        /// <returns></returns>
         Task<Container> GetContainer(Guid containerId);
 
         /// <summary>
-        ///Deletes  specified container
+        /// Deletes a container
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -572,10 +580,15 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteContainer(string containerId);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="containerId"></param>
+        /// <returns></returns>
         Task DeleteContainer(Guid containerId);
 
         /// <summary>
-        ///Updates  specified container
+        /// Updates a container
         /// </summary>
         /// <remarks>
         /// <param name="request"><see cref="UpdateContainerRequest"/></param>
@@ -588,13 +601,19 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task UpdateContainer(string containerId, UpdateContainerRequest request);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="containerId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task UpdateContainer(Guid containerId, UpdateContainerRequest request);
 
         #endregion
 
         #region Database server
         /// <summary>
-        ///Returns a list of all available database servers
+        /// Returns a list of all available database servers
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -604,11 +623,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns><see cref="DatabaseServerResponse"/></returns>
+        /// <returns><see cref="DatabaseServerResponse"/></returns>
         Task<DatabaseServerResponse> GetDbServers();
 
         /// <summary>
-        ///Returns specified  database server
+        ///Returns specified database server
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -622,10 +641,15 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         ///<returns><see cref="DatabaseServer"/></returns>
         Task<DatabaseServer> GetDbServerById(string serverId);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serverId"></param>
+        /// <returns></returns>
         Task<DatabaseServer> GetDbServer(Guid serverId);
 
         /// <summary>
-        ///Creates a new database server
+        /// Creates a new database server
         /// </summary>
         /// <remarks>
         /// <param name="request"><see cref="DatabaseServerRequest"/></param>
@@ -636,13 +660,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns>The id of db server</returns>
+        /// <returns>The id of db server</returns>
         Task<string> CreateDbServer(DatabaseServerRequest request);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task<Guid> CreateDbServer(CreateDatabaseServerRequest request);
 
         /// <summary>
-        ///Deletes specified  database server
+        /// Deletes a database server
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -655,10 +684,15 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteDbServer(string serverId);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serverId"></param>
+        /// <returns></returns>
         Task DeleteDbServer(Guid serverId);
 
         /// <summary>
-        ///Updates specified  database server
+        /// Updates a database server
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -672,6 +706,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task UpdateDbServer(string serverId, RequestDbServer request);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serverId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task UpdateDbServer(Guid serverId, UpdateDatabaseServerRequest request);
 
         #endregion
@@ -688,9 +728,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns>Created field template id</returns>
+        /// <returns>Created field template id</returns>
         Task<string> CreateFieldTemplate(FieldTemplate template);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         Task<Guid> CreateFieldTemplate(CreateFieldTemplateRequest request);
 
         /// <summary>
@@ -722,6 +767,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<FieldTemplate> GetFieldTemplateById(string id);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldTemplateId"></param>
+        /// <returns></returns>
+        Task<FieldTemplate> GetFieldTemplate(Guid fieldTemplateId);
+
+        /// <summary>
         /// Updates <see cref="FieldTemplate"/> 
         /// </summary>
         /// <remarks>
@@ -736,6 +788,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         ///<returns><see cref="FieldTemplate"/> id</returns>
         Task UpdateFieldTemplate(string templateId, FieldTemplateRequest templateRequest);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldTemplateId"></param>
+        /// <param name="templateRequest"></param>
+        /// <returns></returns>
+        Task UpdateFieldTemplate(Guid fieldTemplateId, FieldTemplateRequest templateRequest);
 
         /// <summary>
         /// Deletes <see cref="FieldTemplate"/> by id.
@@ -750,6 +809,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteFieldTemplate(string templateId);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldTemplateId"></param>
+        /// <returns></returns>
+        Task DeleteFieldTemplate(Guid fieldTemplateId);
 
         /// <summary>
         /// Updates <see cref="FieldTemplate"/> 
@@ -765,6 +830,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task AddOperationsForFieldTemplate(string templateId, FieldTemplatePatchRequest request);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldTemplateId"></param>
+        /// <param name="operations"></param>
+        /// <returns></returns>
         Task AddOperationsForFieldTemplate(Guid fieldTemplateId, List<Operation> operations);
 
         /// <summary>

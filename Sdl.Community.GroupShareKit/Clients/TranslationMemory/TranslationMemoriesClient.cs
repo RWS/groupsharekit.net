@@ -1264,6 +1264,16 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldTemplateId"></param>
+        /// <returns></returns>
+        public async Task<FieldTemplate> GetFieldTemplate(Guid fieldTemplateId)
+        {
+            return await ApiConnection.Get<FieldTemplate>(ApiUrls.GetFieldTemplate(fieldTemplateId), null);
+        }
+
+        /// <summary>
         /// Updates <see cref="FieldTemplate"/> 
         /// </summary>
         /// <remarks>
@@ -1285,6 +1295,20 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldTemplateId"></param>
+        /// <param name="fieldTemplateRequest"></param>
+        /// <returns></returns>
+        public async Task UpdateFieldTemplate(Guid fieldTemplateId, FieldTemplateRequest fieldTemplateRequest)
+        {
+            Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
+            Ensure.ArgumentNotNull(fieldTemplateRequest, "fieldTemplateRequest");
+
+            await ApiConnection.Put<Guid>(ApiUrls.GetFieldTemplate(fieldTemplateId), fieldTemplateRequest);
+        }
+
+        /// <summary>
         /// Deletes <see cref="FieldTemplate"/> by id.
         /// </summary>
         /// <remarks>
@@ -1299,6 +1323,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             await ApiConnection.Delete(ApiUrls.GetFieldTemplateById(templateId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldTemplateId"></param>
+        /// <returns></returns>
+        public async Task DeleteFieldTemplate(Guid fieldTemplateId)
+        {
+            Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
+            await ApiConnection.Delete(ApiUrls.GetFieldTemplate(fieldTemplateId));
         }
 
         /// <summary>
