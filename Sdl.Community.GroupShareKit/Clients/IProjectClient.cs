@@ -196,8 +196,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task<string> CreateProject(BasicCreateProjectRequest request,
-            string filesPath, string referenceFilesPath = null, string[] perfectMatchFilesPaths = null);
+        Task<string> CreateProject(BasicCreateProjectRequest request, string filesPath, string referenceFilesPath = null, string[] perfectMatchFilesPaths = null);
 
         /// <summary>
         /// Delete project
@@ -210,7 +209,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         Task DeleteProject(string projectId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        Task DeleteProject(Guid projectId);
 
         /// <summary>
         /// Get project
@@ -225,6 +232,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="ProjectDetails"/></returns>
         Task<ProjectDetails> Get(string projectId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        Task<ProjectDetails> GetProject(Guid projectId);
 
         /// <summary>
         /// Get the publishing status of a server project.
@@ -519,6 +533,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<ProjectTemplates>> GetAllTemplates();
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        Task<IReadOnlyList<ProjectTemplate>> GetProjectTemplates();
+
+        /// <summary>
         ///Creates a template
         /// </summary>
         /// <param name="projectTemplateRequest"><see cref="ProjectTemplates"/></param>
@@ -546,7 +566,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Te content of the template in a string/></returns>
+        [Obsolete]
         Task<string> GetTemplateById(string templateId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <returns></returns>
+        Task<string> GetProjectTemplate(Guid templateId);
 
         /// <summary>
         /// Gets a project template by id
@@ -730,7 +758,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> List <see cref="AnalysisReports"/>s.</returns>
+        [Obsolete]
         Task<IReadOnlyList<AnalysisReports>> GetAnalysisReports(string projectId, string languageCode);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<AnalysisReports>> GetAnalysisReports(Guid projectId, string languageCode);
 
         /// <summary>
         /// Get the project analysis report for a given project in HTML format (the format only refers to the Report property)
@@ -747,7 +784,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> List <see cref="AnalysisReportWithMimeType"/>s.</returns>
+        [Obsolete]
         Task<IReadOnlyList<AnalysisReportWithMimeType>> GetAnalysisReportsAsHtml(string projectId, string languageCode);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<AnalysisReportWithMimeType>> GetAnalysisReportsAsHtml(Guid projectId, string languageCode);
 
         /// <summary>
         /// Get the project analysis report for a given project in XML format (the format only refers to the Report property)
@@ -764,7 +810,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> List <see cref="AnalysisReportWithMimeType"/>s.</returns>
+        [Obsolete]
         Task<IReadOnlyList<AnalysisReportWithMimeType>> GetAnalysisReportsAsXml(string projectId, string languageCode);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<AnalysisReportWithMimeType>> GetAnalysisReportsAsXml(Guid projectId, string languageCode);
 
         /// <summary>
         /// Get the project analysis report v3 for a given project
@@ -782,7 +837,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> List <see cref="AnalysisReports"/>s.</returns>
+        [Obsolete]
         Task<IReadOnlyList<AnalysisReports>> GetAnalysisReportsV3(string projectId, string languageCode = null, int? reportId = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <param name="reportId"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<AnalysisReports>> GetAnalysisReportsV3(Guid projectId, string languageCode = null, int? reportId = null);
 
         /// <summary>
         /// Get the MTQE analysis reports for a project
@@ -854,6 +919,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsHtml(string projectId, string languageCode = null, int? reportId = null);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <param name="reportId"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsHtml(Guid projectId, string languageCode = null, int? reportId = null);
+
+        /// <summary>
         /// Get the project analysis report v3 for a given project in XML format (the format only refers to the Report property)
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
         /// </summary>
@@ -870,6 +944,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
         Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsXml(string projectId, string languageCode = null, int? reportId = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <param name="reportId"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsXml(Guid projectId, string languageCode = null, int? reportId = null);
 
         /// <summary>
         /// Get project settings for a language file

@@ -191,6 +191,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri Project(Guid projectId)
+        {
+            return "{0}/projects/{1}".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that represents publishing status of a server project.
         /// </summary>
         public static Uri PublishingStatus(string projectId)
@@ -328,10 +338,21 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> that returns a template
         /// </summary>
         /// <param name="templateId">The template id</param>
+        [Obsolete]
         public static Uri ProjectTemplates(string templateId)
         {
             return "{0}/projects/templates/{1}".
                 FormatUri(CurrentProjectServerUrl, templateId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <returns></returns>
+        public static Uri ProjectTemplates(Guid templateId)
+        {
+            return "{0}/projects/templates/{1}".FormatUri(CurrentProjectServerUrl, templateId);
         }
 
         /// <summary>
@@ -978,9 +999,33 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <returns></returns>
+        public static Uri AnalysisReports(Guid projectId, string languageCode)
+        {
+            return "{0}/projects/{1}/analysisreports/{2}".FormatUri(CurrentProjectServerUrl, projectId, languageCode);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns the analysis report v3 for a project
         /// </summary>
+        [Obsolete]
         public static Uri AnalysisReportsV3(string projectId, string languageCode, int? reportId = null)
+        {
+            return "{0}/projects/{1}/analysisreports/{2}/{3}".FormatUri(CurrentProjectServerV3Url, projectId, languageCode, reportId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageCode"></param>
+        /// <param name="reportId"></param>
+        /// <returns></returns>
+        public static Uri AnalysisReportsV3(Guid projectId, string languageCode, int? reportId = null)
         {
             return "{0}/projects/{1}/analysisreports/{2}/{3}".FormatUri(CurrentProjectServerV3Url, projectId, languageCode, reportId);
         }
