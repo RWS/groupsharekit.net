@@ -968,9 +968,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         ///<returns><see cref="ContainerResponse"/></returns>
-        public async Task<ContainerResponse> GetContainers()
+        //public async Task<ContainerResponse> GetContainers()
+        //{
+        //    return await ApiConnection.Get<ContainerResponse>(ApiUrls.Containers(), null);
+        //}
+
+        public async Task<Containers> GetContainers()
         {
-            return await ApiConnection.Get<ContainerResponse>(ApiUrls.Containers(), null);
+            return await ApiConnection.Get<Containers>(ApiUrls.Containers(), null);
         }
 
         /// <summary>

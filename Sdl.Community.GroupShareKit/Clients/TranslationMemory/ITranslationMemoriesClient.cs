@@ -522,7 +522,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         ///<returns><see cref="ContainerResponse"/></returns>
-        Task<ContainerResponse> GetContainers();
+        //Task<ContainerResponse> GetContainers();
+
+        Task<Containers> GetContainers();
 
         /// <summary>
         ///creates a new container

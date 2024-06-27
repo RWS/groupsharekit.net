@@ -27,10 +27,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetContainers()
         {
             var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
-            var containerId = await CreateNewTmContainer(dbServerId);
+            var containerId = await CreateTestTmContainer(dbServerId);
             var response = await groupShareClient.TranslationMemories.GetContainers();
 
             Assert.True(response.Items.Count > 0);
+            Assert.Contains(response.Items, container => container.ContainerId.Equals(containerId));
 
             await groupShareClient.TranslationMemories.DeleteContainer(containerId);
             await groupShareClient.TranslationMemories.DeleteDbServer(dbServerId);
@@ -41,13 +42,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
             var randomNumber = new Random().Next(100, 10000);
-            var name = $"Container_{randomNumber}";
+            var containerName = $"Container_{randomNumber}";
 
             var request = new CreateContainerRequest
             {
                 DatabaseServerId = dbServerId,
-                DisplayName = name,
-                DatabaseName = name,
+                DisplayName = containerName,
+                DatabaseName = containerName,
                 IsShared = false,
                 OwnerId = Guid.Parse(Helper.OrganizationId),
                 Location = Helper.OrganizationPath,
@@ -56,8 +57,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var containerId = await groupShareClient.TranslationMemories.CreateContainer(request);
             var container = await groupShareClient.TranslationMemories.GetContainer(containerId);
 
-            Assert.Equal(name, container.DisplayName);
-            Assert.Equal(name, container.DatabaseName);
+            Assert.Equal(containerName, container.DisplayName);
+            Assert.Equal(containerName, container.DatabaseName);
             Assert.Equal(dbServerId, container.DatabaseServerId);
             Assert.False(container.IsShared);
 
@@ -69,7 +70,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetContainerById()
         {
             var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
-            var containerId = await CreateNewTmContainer(dbServerId);
+            var containerId = await CreateTestTmContainer(dbServerId);
             var container = await groupShareClient.TranslationMemories.GetContainer(containerId);
 
             Assert.Equal(container.ContainerId, containerId);
@@ -82,7 +83,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task DeleteContainer()
         {
             var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
-            var containerId = await CreateNewTmContainer(dbServerId);
+            var containerId = await CreateTestTmContainer(dbServerId);
 
             var containersBefore = await groupShareClient.TranslationMemories.GetContainers();
             var containersBeforeCount = containersBefore.Items.Count;
@@ -99,12 +100,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task UpdateContainer()
         {
             var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
-            var containerId = await CreateNewTmContainer(dbServerId);
+            var containerId = await CreateTestTmContainer(dbServerId);
+
+            var randomNumber = new Random().Next(100, 10000);
+            var newContainerName = $"Container_{randomNumber}";
 
             var updateRequest = new UpdateContainerRequest
             {
                 ContainerId = containerId,
-                DisplayName = "Updated Name",
+                DisplayName = newContainerName,
                 IsShared = false
             };
 
@@ -113,23 +117,25 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var container = await groupShareClient.TranslationMemories.GetContainer(containerId);
 
-            Assert.Equal("Updated Name", container.DisplayName);
+            Assert.Equal(newContainerName, container.DisplayName);
 
-            //Deletes created container and db server
+            //Delete created container and database server
             await groupShareClient.TranslationMemories.DeleteContainer(containerId);
             await groupShareClient.TranslationMemories.DeleteDbServer(dbServerId);
         }
 
-        public async Task<Guid> CreateNewTmContainer(Guid serverId)
+        public async Task<Guid> CreateTestTmContainer(Guid serverId)
         {
-            var containerGuid = Guid.NewGuid().ToString();
+            var randomNumber = new Random().Next(100, 10000);
+            var containerName = $"Container_{randomNumber}";
+
             var request = new CreateContainerRequest
             {
                 OwnerId = Guid.Parse(Helper.OrganizationId),
                 Location = Helper.OrganizationPath,
                 DatabaseServerId = serverId,
-                DatabaseName = "TestContainer",
-                DisplayName = "TestContainer",
+                DatabaseName = containerName,
+                DisplayName = containerName,
                 IsShared = false
             };
 
