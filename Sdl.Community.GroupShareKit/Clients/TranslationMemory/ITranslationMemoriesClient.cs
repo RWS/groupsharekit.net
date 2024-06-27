@@ -1091,6 +1091,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns><see cref="LanguageResourceTemplate"/> </returns>
         Task<LanguageResourceTemplate> GetTemplateById(string templateId);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageResourceTemplateId"></param>
+        /// <returns></returns>
         Task<LanguageResourceTemplate> GetLanguageResourceTemplate(Guid languageResourceTemplateId);
 
         /// <summary>

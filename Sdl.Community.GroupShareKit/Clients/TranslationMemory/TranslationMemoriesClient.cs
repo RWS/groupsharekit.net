@@ -66,6 +66,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<TranslationMemoryDetails>(ApiUrls.GetTmById(tmId), null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="translationMemoryId"></param>
+        /// <returns></returns>
         public async Task<TranslationMemoryDetails> GetTranslationMemory(Guid translationMemoryId)
         {
             Ensure.ArgumentNotNull(translationMemoryId, "translationMemoryId");
@@ -170,7 +175,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Deletes specified tm .
+        /// Deletes a translation memory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -186,6 +191,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Delete(ApiUrls.GetTmById(tmId));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="translationMemoryId"></param>
+        /// <returns></returns>
         public async Task DeleteTranslationMemory(Guid translationMemoryId)
         {
             Ensure.ArgumentNotNull(translationMemoryId, "translationMemoryId");
@@ -193,7 +203,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Updates specified tm .
+        /// Updates a translation memory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -211,7 +221,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Gets the status  of tm service .
+        /// Gets the status of TM Service
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -957,7 +967,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
 
         /// <summary>
-        ///Returns a list of all available containers
+        /// Returns a list of all available containers
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -967,12 +977,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns><see cref="ContainerResponse"/></returns>
-        //public async Task<ContainerResponse> GetContainers()
-        //{
-        //    return await ApiConnection.Get<ContainerResponse>(ApiUrls.Containers(), null);
-        //}
-
+        ///<returns><see cref="Containers"/></returns>
         public async Task<Containers> GetContainers()
         {
             return await ApiConnection.Get<Containers>(ApiUrls.Containers(), null);
@@ -1026,6 +1031,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<Container>(ApiUrls.Containers(containerId), null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="containerId"></param>
+        /// <returns></returns>
         public async Task<Container> GetContainer(Guid containerId)
         {
             Ensure.ArgumentNotNull(containerId, "containerId");
@@ -1033,7 +1043,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        ///Deletes  specified container
+        ///Deletes a container
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1049,6 +1059,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Delete(ApiUrls.Containers(containerId));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="containerId"></param>
+        /// <returns></returns>
         public async Task DeleteContainer(Guid containerId)
         {
             Ensure.ArgumentNotNull(containerId, "containerId");
@@ -1056,7 +1071,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        ///Updates  specified container
+        /// Updates a container
         /// </summary>
         /// <remarks>
         /// <param name="request"><see cref="UpdateContainerRequest"/></param>
@@ -1075,6 +1090,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Put<string>(ApiUrls.Containers(containerId), request);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="containerId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task UpdateContainer(Guid containerId, UpdateContainerRequest request)
         {
             Ensure.ArgumentNotNull(containerId, "container id");
@@ -1097,7 +1118,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns><see cref="DatabaseServerResponse"/> id</returns>
+        /// <returns><see cref="DatabaseServerResponse"/> id</returns>
         public async Task<DatabaseServerResponse> GetDbServers()
         {
             return await ApiConnection.Get<DatabaseServerResponse>(ApiUrls.DbServers(), null);
@@ -1122,6 +1143,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<DatabaseServer>(ApiUrls.DbServers(serverId), null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serverId"></param>
+        /// <returns></returns>
         public async Task<DatabaseServer> GetDbServer(Guid serverId)
         {
             Ensure.ArgumentNotNull(serverId, "serverId");
@@ -1147,6 +1173,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Post<string>(ApiUrls.DbServers(), request, "application/json");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<Guid> CreateDbServer(CreateDatabaseServerRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");
@@ -1171,6 +1202,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Delete(ApiUrls.DbServers(serverId));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serverId"></param>
+        /// <returns></returns>
         public async Task DeleteDbServer(Guid serverId)
         {
             Ensure.ArgumentNotNull(serverId, "serverId");
@@ -1198,6 +1234,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Put<string>(ApiUrls.DbServers(serverId), request);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serverId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task UpdateDbServer(Guid serverId, UpdateDatabaseServerRequest request)
         {
             Ensure.ArgumentNotNull(serverId, "serverId");
@@ -1226,6 +1268,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return templateId;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<Guid> CreateFieldTemplate(CreateFieldTemplateRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");
@@ -1262,7 +1309,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns><see cref="FieldTemplate"/></returns>
+        /// <returns><see cref="FieldTemplate"/></returns>
         public async Task<FieldTemplate> GetFieldTemplateById(string id)
         {
             return await ApiConnection.Get<FieldTemplate>(ApiUrls.GetFieldTemplateById(id), null);
@@ -1361,6 +1408,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Patch(ApiUrls.GetFieldTemplateById(templateId), request, "application/json");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldTemplateId"></param>
+        /// <param name="operations"></param>
+        /// <returns></returns>
         public async Task AddOperationsForFieldTemplate(Guid fieldTemplateId, List<Operation> operations)
         {
             Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
@@ -1404,6 +1457,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
             return await ApiConnection.Get<Field>(ApiUrls.GetField(fieldTemplateId, fieldId), null);
         }
+
         /// <summary>
         /// Creates a Field for a specific Field Template ID
         /// If selected type is SinglePicklist or MultiplePicklist , "values " property should be filled out.
@@ -1537,8 +1591,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(request, "request");
             var encodeData = Convert.ToBase64String(Encoding.UTF8.GetBytes(request.Data));
             request.Data = encodeData;
-            var resourceUrl =
-                await ApiConnection.Post<string>(ApiUrls.LanguageResource(templateId), request, "application/json");
+            var resourceUrl = await ApiConnection.Post<string>(ApiUrls.LanguageResource(templateId), request, "application/json");
 
             return resourceUrl.Split('/').Last();
         }
@@ -1585,10 +1638,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             Ensure.ArgumentNotNullOrEmptyString(languageResourceId, "languageResourceId");
 
-            return
-                await
-                    ApiConnection.Get<Resource>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId),
-                        null);
+            return await ApiConnection.Get<Resource>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId), null);
         }
 
         /// <summary>
@@ -1721,9 +1771,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns><see cref="LanguageResourceTemplates"/> which contains a list of language resource templates </returns>
         public async Task<LanguageResourceTemplates> GetAllLanguageResourceTemplates()
         {
-            return
-                await
-                    ApiConnection.Get<LanguageResourceTemplates>(ApiUrls.LanguageResourceServiceTemplates(), null);
+            return await ApiConnection.Get<LanguageResourceTemplates>(ApiUrls.LanguageResourceServiceTemplates(), null);
         }
 
         /// <summary>
@@ -1744,6 +1792,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<LanguageResourceTemplate>(ApiUrls.GetLanguageResourceTemplateById(templateId), null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageResourceTemplateId"></param>
+        /// <returns></returns>
         public async Task<LanguageResourceTemplate> GetLanguageResourceTemplate(Guid languageResourceTemplateId)
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
@@ -1751,7 +1804,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Updates  language resource template  .
+        /// Updates a language resource template
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1813,6 +1866,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return id;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<Guid> CreateLanguageResourceTemplate(CreateLanguageResourceTemplateRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");
@@ -1838,6 +1896,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Delete(ApiUrls.GetLanguageResourceTemplateById(languageResourceTemplateId));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageResourceTemplateId"></param>
+        /// <returns></returns>
         public async Task DeleteLanguageResourceTemplate(Guid languageResourceTemplateId)
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");

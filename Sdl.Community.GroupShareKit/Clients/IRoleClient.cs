@@ -45,6 +45,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         [Obsolete]
         Task<string> CreateRole(RoleRequest request);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
         Task<Guid> CreateRole(Role role);
 
         /// <summary>
@@ -152,6 +157,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         [Obsolete]
         Task AddUserToRole(List<Role> roles);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roles"></param>
+        /// <returns></returns>
         Task AddUserToRole(List<RoleMembership> roles);
 
         /// <summary>
@@ -170,6 +180,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         [Obsolete]
         Task RemoveUserFromRole(List<Role> roles, string roleId);
 
-        Task RemoveUserFromRole(List<RoleMembership> roles/*, Guid roleId*/);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roles"></param>
+        /// <returns></returns>
+        Task RemoveUserFromRole(List<RoleMembership> roles);
     }
 }

@@ -56,6 +56,11 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Post<string>(ApiUrls.Roles(), request, "application/json");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
         public async Task<Guid> CreateRole(Role role)
         {
             Ensure.ArgumentNotNull(role, "role");
@@ -99,6 +104,11 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Get<RoleRequest>(ApiUrls.Role(roleId), null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
         public Task<Role> GetRole(Guid roleId)
         {
             Ensure.ArgumentNotNull(roleId, "roleId");
@@ -193,6 +203,11 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Put<string>(ApiUrls.RoleMembership(), roles);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roles"></param>
+        /// <returns></returns>
         public async Task AddUserToRole(List<RoleMembership> roles)
         {
             await ApiConnection.Put<Guid>(ApiUrls.RoleMembership(), roles);
@@ -217,6 +232,11 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Delete(ApiUrls.DeleteUserFromRole(roleId), roles, "application/json");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roles"></param>
+        /// <returns></returns>
         public async Task RemoveUserFromRole(List<RoleMembership> roles)
         {
             await ApiConnection.Delete(ApiUrls.RoleMembership(), roles, "application/json");
