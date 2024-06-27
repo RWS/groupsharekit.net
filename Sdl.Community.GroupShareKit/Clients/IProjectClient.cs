@@ -79,6 +79,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<File>> GetAllFilesForProject(string projectId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<File>> GetProjectFiles(Guid projectId);
+
+        /// <summary>
         /// Gets all <see cref="Phase"/>s for the project.
         /// </summary>
         /// <remarks>
@@ -91,6 +98,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Phase"/>s.</returns>
         Task<IReadOnlyList<Phase>> GetAllPhasesForProject(string projectId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<Phase>> GetProjectPhases(Guid projectId);
 
         /// <summary>
         /// Gets the list of files for the requested project with all the project phases and theirs assignees <see cref="PhasesWithAssignees"/>
@@ -119,6 +133,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Phase"/>s.</returns>
         Task ChangePhases(string projectId, ChangePhaseRequest request);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task ChangePhase(Guid projectId, ChangePhaseRequest request);
 
         /// <summary>
         /// Changes the assignment for a specific phase for files from a server project,
@@ -240,6 +262,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<byte[]> DownloadFiles(string projectId, List<string> languageFileIds);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileIds"></param>
+        /// <returns></returns>
+        Task<byte[]> DownloadFiles(Guid projectId, List<Guid> languageFileIds);
+
+        /// <summary>
         ///Downloads the files with the specific type and language code.
         /// </summary>
         /// <remarks>
@@ -268,6 +298,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<byte[]> DownloadNative(string projectId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        Task<byte[]> DownloadNative(Guid projectId);
+
+        /// <summary>
 		/// Finalizes the files of a project.
 		/// </summary>
 		/// <remarks>
@@ -280,6 +317,14 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
 		/// <returns>A list of byte[] which represents downloaded files.</returns>
         Task<byte[]> Finalize(string projectId, List<string> languageFileIds);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileIds"></param>
+        /// <returns></returns>
+        Task<byte[]> Finalize(Guid projectId, List<Guid> languageFileIds);
 
         /// <summary>
         ///Gets a list of user assignments

@@ -104,6 +104,13 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.GetAll<File>(ApiUrls.ProjectFiles(projectId));
         }
 
+        public Task<IReadOnlyList<File>> GetProjectFiles(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            return ApiConnection.GetAll<File>(ApiUrls.ProjectFiles(projectId));
+        }
+
         /// <summary>
         /// Gets all <see cref="Phase"/>s for the project.
         /// </summary>
@@ -121,6 +128,17 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             return ApiConnection.GetAll<Phase>(ApiUrls.ProjectPhases(projectId));
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public Task<IReadOnlyList<Phase>> GetProjectPhases(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            return ApiConnection.GetAll<Phase>(ApiUrls.ProjectPhases(projectId));
         }
 
         /// <summary>
@@ -154,12 +172,27 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Phase"/>s.</returns>
+        [Obsolete]
         public Task ChangePhases(string projectId, ChangePhaseRequest request)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNull(request, "request");
 
             return ApiConnection.Post<string>(ApiUrls.ChangePhases(projectId), request, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public Task ChangePhase(Guid projectId, ChangePhaseRequest request)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(request, "request");
+
+            return ApiConnection.Post<Guid>(ApiUrls.ChangePhase(projectId), request, "application/json");
         }
 
         /// <summary>
@@ -571,6 +604,19 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileIds"></param>
+        /// <returns></returns>
+        public async Task<byte[]> DownloadFiles(Guid projectId, List<Guid> languageFileIds)
+        {
+            Ensure.ArgumentNotNull(languageFileIds, "languageFileIds");
+
+            return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFiles(projectId, LanguageIdQuery(languageFileIds)), null);
+        }
+
+        /// <summary>
         /// Downloads the native files of a project.
         /// </summary>
         /// <remarks>
@@ -589,7 +635,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-		/// Finalizes the files of a project.
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public async Task<byte[]> DownloadNative(Guid projectId)
+        {
+            return await ApiConnection.Get<byte[]>(ApiUrls.DownloadNative(projectId), null);
+        }
+
+        /// <summary>
+		/// Finalizes the file(s) of a project.
 		/// </summary>
 		/// <remarks>
 		/// This method requires authentication.
@@ -608,11 +664,42 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileIds"></param>
+        /// <returns></returns>
+        public async Task<byte[]> Finalize(Guid projectId, List<Guid> languageFileIds)
+        {
+            Ensure.ArgumentNotNull(projectId, "languageFileIds");
+            Ensure.ArgumentNotNull(languageFileIds, "languageFileIds");
+
+            return await ApiConnection.Post<byte[]>(ApiUrls.Finalize(projectId, LanguageIdQuery(languageFileIds)));
+        }
+
+        /// <summary>
         /// Helper method to create  query.
         /// </summary>
         /// <param name="languageFileIds"></param>
         /// <returns></returns>
         public string LanguageIdQuery(List<string> languageFileIds)
+        {
+            var query = string.Empty;
+
+            if (languageFileIds.Count == 1)
+            {
+                return "languageFileIds=" + languageFileIds.FirstOrDefault();
+            }
+
+            foreach (var id in languageFileIds)
+            {
+                query = query + "languageFileIds=" + id + "&";
+            }
+
+            return query;
+        }
+
+        public string LanguageIdQuery(List<Guid> languageFileIds)
         {
             var query = string.Empty;
 

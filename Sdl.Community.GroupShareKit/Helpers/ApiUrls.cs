@@ -228,6 +228,17 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileIdsQuery"></param>
+        /// <returns></returns>
+        public static Uri DownloadFiles(Guid projectId, string languageFileIdsQuery)
+        {
+            return "{0}/projects/{1}/download/?{2}archive=true".FormatUri(CurrentProjectServerUrl, projectId, languageFileIdsQuery);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that represents downloaded native files
         /// </summary>
         public static Uri DownloadNative(string projectId)
@@ -237,12 +248,33 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri DownloadNative(Guid projectId)
+        {
+            return "{0}/projects/{1}/download/targetnativefiles".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that represents the finalization of a project
         /// </summary>
         public static Uri Finalize(string projectId, string languageFileIdsQuery)
         {
             return "{0}/projects/{1}/finalize/?{2}".
                 FormatUri(CurrentProjectServerUrl, projectId, languageFileIdsQuery);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileIdsQuery"></param>
+        /// <returns></returns>
+        public static Uri Finalize(Guid projectId, string languageFileIdsQuery)
+        {
+            return "{0}/projects/{1}/finalize/?{2}".FormatUri(CurrentProjectServerUrl, projectId, languageFileIdsQuery);
         }
 
         /// <summary>
@@ -271,6 +303,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/projects/{1}/files".
                 FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri ProjectFiles(Guid projectId)
+        {
+            return "{0}/projects/{1}/files".FormatUri(CurrentProjectServerUrl, projectId);
         }
 
         /// <summary>
@@ -339,6 +381,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri ProjectPhases(Guid projectId)
+        {
+            return "{0}/phases/{1}".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri" />that gets a list of files for the requested project with all the project phases and theirs assignees
         /// </summary>
         /// <param name="projectId">Project id</param>
@@ -357,6 +409,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/projects/{1}/changephase".
                FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri ChangePhase(Guid projectId)
+        {
+            return "{0}/projects/{1}/changephase".FormatUri(CurrentProjectServerUrl, projectId);
         }
 
         /// <summary>
