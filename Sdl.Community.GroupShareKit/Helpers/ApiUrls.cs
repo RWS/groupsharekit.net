@@ -568,6 +568,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/tms/{1}".FormatUri(CurrentTranslationMemoriesUrl, tmId);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="translationMemoryId"></param>
+        /// <returns></returns>
         public static Uri GetTranslationMemory(Guid translationMemoryId)
         {
             return "{0}/tms/{1}".FormatUri(CurrentTranslationMemoriesUrl, translationMemoryId);
@@ -717,11 +722,21 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/templates/{1}".FormatUri(CurrentLanguageResourceServiceUrl, templateId);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageResourceTemplateId"></param>
+        /// <returns></returns>
         public static Uri GetLanguageResourceTemplate(Guid languageResourceTemplateId)
         {
             return "{0}/templates/{1}".FormatUri(CurrentLanguageResourceServiceUrl, languageResourceTemplateId);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <returns></returns>
         public static Uri LanguageResourceTemplates(Guid templateId)
         {
             return "{0}/templates/{1}".FormatUri(CurrentLanguageResourceServiceUrl, templateId);
@@ -832,7 +847,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/dbservers/{1}".FormatUri(CurrentTranslationMemoriesUrl, serverId);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serverId"></param>
+        /// <returns></returns>
         public static Uri DbServers(Guid serverId)
         {
             return "{0}/dbservers/{1}".FormatUri(CurrentTranslationMemoriesUrl, serverId);
@@ -878,6 +897,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/containers/{1}".FormatUri(CurrentTranslationMemoriesUrl, containerid);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="containerid"></param>
+        /// <returns></returns>
         public static Uri Containers(Guid containerid)
         {
             return "{0}/containers/{1}".FormatUri(CurrentTranslationMemoriesUrl, containerid);

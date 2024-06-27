@@ -31,6 +31,10 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.GetAll<RoleRequest>(ApiUrls.Roles());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public Task<IReadOnlyList<Role>> GetRoles()
         {
             return ApiConnection.GetAll<Role>(ApiUrls.Roles());
