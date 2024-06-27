@@ -1765,13 +1765,24 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             Ensure.ArgumentNotNull(request, "request");
-            await
-                ApiConnection.Put<string>(ApiUrls.GetLanguageResourceTemplateById(templateId),
-                    request);
+            await ApiConnection.Put<string>(ApiUrls.GetLanguageResourceTemplateById(templateId), request);
         }
 
         /// <summary>
-        ///Creates a  language resource template  .
+        /// 
+        /// </summary>
+        /// <param name="languageResourceTemplateId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task UpdateLanguageResourceTemplate(Guid languageResourceTemplateId, FieldTemplateRequest request)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            Ensure.ArgumentNotNull(request, "request");
+            await ApiConnection.Put<Guid>(ApiUrls.GetLanguageResourceTemplate(languageResourceTemplateId), request);
+        }
+
+        /// <summary>
+        /// Creates a language resource template
         /// </summary>
         /// <remarks>
         /// This method requires authentication.

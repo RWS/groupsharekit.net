@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
-    public class TranslationMemoryClientLanguageResourceTemplateTests
+    public class TranslationMemoryClientLanguageResourceTemplatesTests
     {
         private static readonly GroupShareClient GroupShareClient = Helper.GsClient;
 
@@ -22,7 +22,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task GetLanguageResourceTemplateById()
+        public async Task GetLanguageResourceTemplate()
         {
             var languageResourceTemplateId = await CreateTestLanguageResourceTemplate();
             var languageResourceTemplate = await GroupShareClient.TranslationMemories.GetLanguageResourceTemplate(languageResourceTemplateId);
@@ -38,14 +38,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var updateRequest = new FieldTemplateRequest
             {
                 Name = "UpdatedName",
-                Description = "updated from kit"
+                Description = "Edited using GroupShare Kit"
             };
 
-            await GroupShareClient.TranslationMemories.EditTemplate(languageResourceTemplateId.ToString(), updateRequest);
+            await GroupShareClient.TranslationMemories.UpdateLanguageResourceTemplate(languageResourceTemplateId, updateRequest);
 
-            var templateById = await GroupShareClient.TranslationMemories.GetLanguageResourceTemplate(languageResourceTemplateId);
+            var languageResourceTemplate = await GroupShareClient.TranslationMemories.GetLanguageResourceTemplate(languageResourceTemplateId);
 
-            Assert.Equal("UpdatedName", templateById.Name);
+            Assert.Equal("UpdatedName", languageResourceTemplate.Name);
             await GroupShareClient.TranslationMemories.DeleteLanguageResourceTemplate(languageResourceTemplateId);
         }
 

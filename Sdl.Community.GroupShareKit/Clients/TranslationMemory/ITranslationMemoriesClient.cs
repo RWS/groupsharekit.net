@@ -1073,7 +1073,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<LanguageResourceTemplate> GetLanguageResourceTemplate(Guid languageResourceTemplateId);
 
         /// <summary>
-        /// Updates  language resource template .
+        /// Updates a language resource template
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1086,6 +1086,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task EditTemplate(string templateId, FieldTemplateRequest request);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageResourceTemplateId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task UpdateLanguageResourceTemplate(Guid languageResourceTemplateId,  FieldTemplateRequest request);
 
         /// <summary>
         ///Creates a  language resource template  .
