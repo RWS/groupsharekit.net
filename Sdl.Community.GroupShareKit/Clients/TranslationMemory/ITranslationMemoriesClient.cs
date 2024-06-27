@@ -794,7 +794,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <param name="fieldTemplateId"></param>
         /// <param name="templateRequest"></param>
         /// <returns></returns>
-        Task UpdateFieldTemplate(Guid fieldTemplateId, FieldTemplateRequest templateRequest);
+        Task UpdateFieldTemplate(Guid fieldTemplateId, UpdateTemplateRequest templateRequest);
 
         /// <summary>
         /// Deletes <see cref="FieldTemplate"/> by id.
@@ -1093,7 +1093,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <param name="languageResourceTemplateId"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task UpdateLanguageResourceTemplate(Guid languageResourceTemplateId,  FieldTemplateRequest request);
+        Task UpdateLanguageResourceTemplate(Guid languageResourceTemplateId, UpdateTemplateRequest request);
 
         /// <summary>
         ///Creates a  language resource template  .

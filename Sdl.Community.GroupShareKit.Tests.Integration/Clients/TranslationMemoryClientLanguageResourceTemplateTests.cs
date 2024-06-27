@@ -35,7 +35,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task UpdateLanguageResourceTemplate()
         {
             var languageResourceTemplateId = await CreateTestLanguageResourceTemplate();
-            var updateRequest = new FieldTemplateRequest
+            var updateRequest = new UpdateTemplateRequest
             {
                 Name = "UpdatedName",
                 Description = "Edited using GroupShare Kit"

@@ -78,7 +78,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(fieldTemplateName, fieldTemplate.Name);
 
             var newName = $"Edited name - {Guid.NewGuid()}";
-            await groupShareClient.TranslationMemories.UpdateFieldTemplate(fieldTemplateId, new FieldTemplateRequest { Name = newName });
+            await groupShareClient.TranslationMemories.UpdateFieldTemplate(fieldTemplateId, new UpdateTemplateRequest { Name = newName });
 
             var updatedTemplate = await groupShareClient.TranslationMemories.GetFieldTemplate(fieldTemplateId);
             Assert.Equal(newName, updatedTemplate.Name);

@@ -1300,7 +1300,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <param name="fieldTemplateId"></param>
         /// <param name="fieldTemplateRequest"></param>
         /// <returns></returns>
-        public async Task UpdateFieldTemplate(Guid fieldTemplateId, FieldTemplateRequest fieldTemplateRequest)
+        public async Task UpdateFieldTemplate(Guid fieldTemplateId, UpdateTemplateRequest fieldTemplateRequest)
         {
             Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
             Ensure.ArgumentNotNull(fieldTemplateRequest, "fieldTemplateRequest");
@@ -1625,13 +1625,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             var encodeData = Convert.ToBase64String(Encoding.UTF8.GetBytes(resourceRequest.Data));
             resourceRequest.Data = encodeData;
 
-            await
-                ApiConnection.Put<string>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId),
-                    resourceRequest);
+            await ApiConnection.Put<string>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId), resourceRequest);
         }
 
         /// <summary>
-        ///Reset to default Culture values a specific Language Resource in a specific Language Resource Template
+        /// Reset to default Culture values a specific Language Resource in a specific Language Resource Template
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1774,7 +1772,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <param name="languageResourceTemplateId"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task UpdateLanguageResourceTemplate(Guid languageResourceTemplateId, FieldTemplateRequest request)
+        public async Task UpdateLanguageResourceTemplate(Guid languageResourceTemplateId, UpdateTemplateRequest request)
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
             Ensure.ArgumentNotNull(request, "request");
