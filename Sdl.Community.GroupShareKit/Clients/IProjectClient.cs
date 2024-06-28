@@ -257,9 +257,23 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        Task<PublishingStatus> PublishingStatus(Guid projectId);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="projectIds"></param>
         /// <returns></returns>
         Task<List<ProjectPublishingInformation>> GetProjectsPublishingInformation(string projectIds);
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="projectIds"></param>
+        ///// <returns></returns>
+        //Task<List<ProjectPublishingInformation>> GetProjectsPublishingInformation(Guid projectIds);
 
         /// <summary>
         ///Downloads the files with the specific language ids.
@@ -355,7 +369,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<UserAssignments>> GetUserAssignments();
 
         /// <summary>
-        ///Gets a list of assignments for a project
+        /// Gets a list of assignments for a project
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -366,7 +380,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="ProjectAssignment"/>s.</returns>
+        [Obsolete]
         Task<IReadOnlyList<ProjectAssignment>> GetProjectAssignmentById(string projectId, List<string> fileIdsList);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="fileIdsList"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<ProjectAssignment>> GetProjectAssignmentById(Guid projectId, List<Guid> fileIdsList);
 
         /// <summary>
         ///Uploads file for a specific project
@@ -391,9 +414,27 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<MidProjectUpdateResponse> AddFiles(string projectId, string filesPath, bool reference = false);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="filesPath"></param>
+        /// <param name="reference"></param>
+        /// <returns></returns>
+        Task<MidProjectUpdateResponse> AddFiles(Guid projectId, string filesPath, bool reference = false);
+
+        /// <summary>
         /// Updates files of an existing project without any file selection
         /// </summary>
         Task<MidProjectUpdateResponse> UpdateFiles(string projectId, string filesPath, bool reference = false);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="filesPath"></param>
+        /// <param name="reference"></param>
+        /// <returns></returns>
+        Task<MidProjectUpdateResponse> UpdateFiles(Guid projectId, string filesPath, bool reference = false);
 
         /// <summary>
         /// Updates selected files of an existing project
@@ -401,9 +442,27 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="filesPath"></param>
+        /// <param name="fileIds"></param>
+        /// <param name="reference"></param>
+        /// <returns></returns>
+        Task<MidProjectUpdateResponse> UpdateSelectedFiles(Guid projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false);
+
+        /// <summary>
         /// Cancels selected files of an existing project
         /// </summary>
         Task<string> CancelProjectFiles(string projectId, MidProjectFileIdsModel fileIds);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="fileIds"></param>
+        /// <returns></returns>
+        Task<string> CancelProjectFiles(Guid projectId, MidProjectFileIdsModel fileIds);
 
         /// <summary>
         ///Change project status
@@ -426,6 +485,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <param name="deleteProjectTMs"></param>
         /// <returns></returns>
         Task DetachProject(string projectId, bool deleteProjectTMs = false);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="deleteProjectTMs"></param>
+        /// <returns></returns>
+        Task DetachProject(Guid projectId, bool deleteProjectTMs = false);
 
         /// <summary>
         ///Change project status detach
@@ -499,6 +566,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<ProjectFileStatistics>> GetAllProjectFileStatistics(string projectId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<ProjectFileStatistics>> GetAllProjectFileStatistics(Guid projectId);
+
+        /// <summary>
         /// Get the project language statistics.
         /// </summary>
         /// <remarks>
@@ -511,6 +585,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A dictionary with the key representing the language code and the value as project statistics </returns>
         Task<Dictionary<string, ProjectStatistics>> GetProjectLanguageStatistics(string projectId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        Task<Dictionary<string, ProjectStatistics>> GetProjectLanguageStatistics(Guid projectId);
 
         Task<bool> IsProjectNameInUse(IsProjectNameInUseRequest request);
 
@@ -551,7 +632,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Id of created template/></returns>
+        [Obsolete]
         Task<string> CreateTemplate(ProjectTemplates projectTemplateRequest, byte[] rawData);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectTemplateRequest"></param>
+        /// <param name="rawData"></param>
+        /// <returns></returns>
+        Task<Guid> CreateProjectTemplate(ProjectTemplate projectTemplateRequest, byte[] rawData);
 
         /// <summary>
         ///Get a template by id
@@ -663,6 +753,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task DeleteProjectTemplate(string id);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task DeleteProjectTemplate(Guid templateId);
+
+        /// <summary>
         /// Deletes a project template
         /// </summary>
         /// <param name="templateId">Project template GUID</param>
@@ -725,6 +822,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<FileVersion>> GetFileVersions(string languageFileId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<FileVersion>> GetFileVersions(Guid languageFileId);
+
+        /// <summary>
         /// Downloads the file/>.
         /// </summary>
         /// <param name="projectId">The project id</param>
@@ -740,6 +844,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> Downloaded file in bytes[].</returns>
         Task<byte[]> DownloadFileVersion(string projectId, string languageFileId, int version);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <param name="version"></param>
+        /// <returns></returns>
+        Task<byte[]> DownloadFileVersion(Guid projectId, Guid languageFileId, int version);
 
         #endregion
 
@@ -1031,7 +1144,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         Task<string> IsUserAuthorizedToOpenFile(string projectId, string languageFileId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        Task<string> IsUserAuthorizedToOpenFile(Guid projectId, Guid languageFileId);
 
         /// <summary>
         ///Returns user permissions in editor
@@ -1049,6 +1171,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns><see cref="EditorProfile"/></returns>
         Task<EditorProfile> EditorProfile(string projectId, string languageFileId);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        Task<EditorProfile> EditorProfile(Guid projectId, Guid languageFileId);
+
         ///  <summary>
         /// Checks in a file edited in the Universal Editor
         ///  </summary>
@@ -1063,6 +1193,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<OnlineCheckInRequest> OnlineCheckin(string projectId, string languageFileId, OnlineCheckInRequest onlineCheckInRequest);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <param name="onlineCheckInRequest"></param>
+        /// <returns></returns>
+        Task<OnlineCheckInRequest> OnlineCheckin(Guid projectId, Guid languageFileId, OnlineCheckInRequest onlineCheckInRequest);
 
         ///  <summary>
         /// Checks out a file for editing in the Universal Editor
@@ -1079,6 +1218,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<OnlineCheckInRequest> OnlineCheckout(string projectId, string languageFileId);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        Task<OnlineCheckInRequest> OnlineCheckout(Guid projectId, Guid languageFileId);
+
         ///  <summary>
         /// Undoes an online checkout, note that you will lose all the changes done inside the OnlineEditor. To make a proper checkin use the OnlineCheckOutController.
         ///  </summary>
@@ -1093,6 +1240,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task UndoCheckout(string projectId, string languageFileId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        Task UndoCheckout(Guid projectId, Guid languageFileId);
 
         ///  <summary>
         /// Health check call used to keep the OE license advanced/basic seat taken
@@ -1120,6 +1275,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<bool> IsCheckoutToSomeoneElse(string languageFileId, string editorProfileMode);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageFileId"></param>
+        /// <param name="editorProfileMode"></param>
+        /// <returns></returns>
+        Task<bool> IsCheckoutToSomeoneElse(Guid languageFileId, string editorProfileMode);
+
         ///  <summary>
         /// Checks in a file for editing
         ///  </summary>
@@ -1135,6 +1298,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<string> ExternalCheckin(string projectId, string languageFileId, string comment);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <param name="comment"></param>
+        /// <returns></returns>
+        Task<string> ExternalCheckin(Guid projectId, Guid languageFileId, string comment);
 
         ///  <summary>
         /// Checks out a file for editing
@@ -1152,6 +1324,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<string> ExternalCheckout(string projectId, string languageFileId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        Task<string> ExternalCheckout(Guid projectId, Guid languageFileId);
+
+        /// <summary>
         /// Checks-out multiple files for editing
         /// </summary>
         /// <param name="projectId">The id of the project</param>
@@ -1160,6 +1340,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  This method requires authentication.
         /// </remarks>
         Task ExternalCheckOutFiles(string projectId, List<string> filesIds);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="filesIds"></param>
+        /// <returns></returns>
+        Task ExternalCheckOutFiles(Guid projectId, List<Guid> filesIds);
 
         /// <summary>
         /// Checks-in files previously checked-out
@@ -1172,6 +1360,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task ExternalCheckInFiles(string projectId, ExternalCheckInData externalCheckInData);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="externalCheckInData"></param>
+        /// <returns></returns>
+        Task ExternalCheckInFiles(Guid projectId, ExternalCheckInData externalCheckInData);
+
+        /// <summary>
         /// Performs undo external check-out for multiple files
         /// </summary>
         /// <param name="projectId">The id of the project</param>
@@ -1180,6 +1376,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  This method requires authentication.
         /// </remarks>
         Task UndoExternalCheckOutForFiles(string projectId, List<string> filesIds);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="filesIds"></param>
+        /// <returns></returns>
+        Task UndoExternalCheckOutForFiles(Guid projectId, List<Guid> filesIds);
 
         ///  <summary>
         /// Retrieves the audit trail for all the language files in the given project
@@ -1193,6 +1397,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<IReadOnlyList<AuditTrail>> AuditTrail(string projectId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<AuditTrail>> AuditTrail(Guid projectId);
 
         [Obsolete("AuditTrial is deprecated, please use AuditTrail instead.")]
         Task<IReadOnlyList<AuditTrial>> AuditTrial(string projectId);

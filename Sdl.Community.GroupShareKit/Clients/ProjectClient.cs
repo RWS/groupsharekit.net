@@ -390,6 +390,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
+        [Obsolete]
         public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string filesPath, bool reference)
         {
             var uri = ApiUrls.AddProjectFiles(projectId, reference);
@@ -405,6 +406,22 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
+        public async Task<MidProjectUpdateResponse> AddFiles(Guid projectId, string filesPath, bool reference)
+        {
+            var uri = ApiUrls.AddProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                var stream = new System.IO.FileStream(filesPath, System.IO.FileMode.Open);
+                var streamContent = new StreamContent(stream);
+                streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
+
+                return await ApiConnection.Post<MidProjectUpdateResponse>(uri, content, null);
+            }
+        }
+
+        [Obsolete]
         public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string[] filesPaths, bool reference)
         {
             var uri = ApiUrls.AddProjectFiles(projectId, reference);
@@ -423,6 +440,25 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
+        public async Task<MidProjectUpdateResponse> AddFiles(Guid projectId, string[] filesPaths, bool reference)
+        {
+            var uri = ApiUrls.AddProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                foreach (var file in filesPaths)
+                {
+                    var stream = new System.IO.FileStream(file, System.IO.FileMode.Open);
+                    var streamContent = new StreamContent(stream);
+                    streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                    content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
+                }
+
+                return await ApiConnection.Post<MidProjectUpdateResponse>(uri, content, null);
+            }
+        }
+
+        [Obsolete]
         public async Task<MidProjectUpdateResponse> UpdateFiles(string projectId, string filesPath, bool reference)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
@@ -438,6 +474,22 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
+        public async Task<MidProjectUpdateResponse> UpdateFiles(Guid projectId, string filesPath, bool reference)
+        {
+            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                var stream = new System.IO.FileStream(filesPath, System.IO.FileMode.Open);
+                var streamContent = new StreamContent(stream);
+                streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
+
+                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
+            }
+        }
+
+        [Obsolete]
         public async Task<MidProjectUpdateResponse> UpdateFiles(string projectId, string[] filesPaths, bool reference)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
@@ -456,6 +508,25 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
+        public async Task<MidProjectUpdateResponse> UpdateFiles(Guid projectId, string[] filesPaths, bool reference)
+        {
+            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                foreach (var file in filesPaths)
+                {
+                    var stream = new System.IO.FileStream(file, System.IO.FileMode.Open);
+                    var streamContent = new StreamContent(stream);
+                    streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                    content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
+                }
+
+                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
+            }
+        }
+
+        [Obsolete]
         public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
@@ -474,6 +545,25 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
+        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(Guid projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference)
+        {
+            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                var stream = new System.IO.FileStream(filesPath, System.IO.FileMode.Open);
+                var streamContent = new StreamContent(stream);
+                streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
+
+                var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
+                content.Add(new StringContent(fileIdsString), "FileIds");
+
+                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
+            }
+        }
+
+        [Obsolete]
         public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string[] filesPaths, MidProjectFileIdsModel fileIds, bool reference)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
@@ -495,7 +585,37 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
+        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(Guid projectId, string[] filesPaths, MidProjectFileIdsModel fileIds, bool reference)
+        {
+            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                foreach (var file in filesPaths)
+                {
+                    var stream = new System.IO.FileStream(file, System.IO.FileMode.Open);
+                    var streamContent = new StreamContent(stream);
+                    streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                    content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
+                }
+
+                var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
+                content.Add(new StringContent(fileIdsString), "FileIds");
+
+                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
+            }
+        }
+
+        [Obsolete]
         public async Task<string> CancelProjectFiles(string projectId, MidProjectFileIdsModel fileIds)
+        {
+            var uri = ApiUrls.CancelProjectFiles(projectId);
+            var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
+
+            return await ApiConnection.Put<string>(uri, fileIdsString);
+        }
+
+        public async Task<string> CancelProjectFiles(Guid projectId, MidProjectFileIdsModel fileIds)
         {
             var uri = ApiUrls.CancelProjectFiles(projectId);
             var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
@@ -592,9 +712,21 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="PublishingStatus"/></returns>
+        [Obsolete]
         public async Task<PublishingStatus> PublishingStatus(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            return await ApiConnection.Get<PublishingStatus>(ApiUrls.PublishingStatus(projectId), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public async Task<PublishingStatus> PublishingStatus(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
             return await ApiConnection.Get<PublishingStatus>(ApiUrls.PublishingStatus(projectId), null);
         }
 
@@ -756,6 +888,23 @@ namespace Sdl.Community.GroupShareKit.Clients
 
             return query;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageFileIds"></param>
+        /// <returns></returns>
+        public string FileIdQuery(List<Guid> languageFileIds)
+        {
+            var query = string.Empty;
+            foreach (var id in languageFileIds)
+            {
+                query = query + "fileId=" + id + "&";
+            }
+
+            return query;
+        }
+
         /// <summary>
         ///Downloads the files with the specific type and language code.
         /// </summary>
@@ -816,10 +965,21 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNull(fileIdsList, "fileIdsList");
 
-            return
-                await
-                    ApiConnection.GetAll<ProjectAssignment>(
-                        ApiUrls.GetProjectAssignmentById(projectId, FileIdQuery(fileIdsList)), null);
+            return await ApiConnection.GetAll<ProjectAssignment>(ApiUrls.GetProjectAssignmentById(projectId, FileIdQuery(fileIdsList)), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="fileIdsList"></param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<ProjectAssignment>> GetProjectAssignmentById(Guid projectId, List<Guid> fileIdsList)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(fileIdsList, "fileIdsList");
+
+            return await ApiConnection.GetAll<ProjectAssignment>(ApiUrls.GetProjectAssignmentById(projectId, FileIdQuery(fileIdsList)), null);
         }
 
         /// <summary>
@@ -869,7 +1029,19 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <param name="projectId">The project id.</param>
         /// <param name="deleteProjectTMs">If true, project TMs will be deleted after the project is detached.</param>
+        [Obsolete]
         public async Task DetachProject(string projectId, bool deleteProjectTMs = false)
+        {
+            await ApiConnection.Delete(ApiUrls.DetachProject(projectId, deleteProjectTMs));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="deleteProjectTMs"></param>
+        /// <returns></returns>
+        public async Task DetachProject(Guid projectId, bool deleteProjectTMs = false)
         {
             await ApiConnection.Delete(ApiUrls.DetachProject(projectId, deleteProjectTMs));
         }
@@ -942,6 +1114,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Post(ApiUrls.CancelPublishProjectPackage(projectId));
         }
 
+        [Obsolete]
         public Task<IReadOnlyList<ProjectFileStatistics>> GetAllProjectFileStatistics(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -949,9 +1122,24 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.GetAll<ProjectFileStatistics>(ApiUrls.ProjectFileStatistics(projectId), null);
         }
 
+        public Task<IReadOnlyList<ProjectFileStatistics>> GetAllProjectFileStatistics(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            return ApiConnection.GetAll<ProjectFileStatistics>(ApiUrls.ProjectFileStatistics(projectId), null);
+        }
+
+        [Obsolete]
         public Task<Dictionary<string, ProjectStatistics>> GetProjectLanguageStatistics(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+
+            return ApiConnection.Get<Dictionary<string, ProjectStatistics>>(ApiUrls.ProjectLanguageStatistics(projectId), null);
+        }
+
+        public Task<Dictionary<string, ProjectStatistics>> GetProjectLanguageStatistics(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
 
             return ApiConnection.Get<Dictionary<string, ProjectStatistics>>(ApiUrls.ProjectLanguageStatistics(projectId), null);
         }
@@ -1010,6 +1198,19 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             var templateId = await ApiConnection.Post<string>(ApiUrls.ProjectTemplates(), templateRequest, "application/json");
             await UploadProjectTemplate(templateId, rawData, templateRequest.Name);
+            return templateId;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectTemplateRequest"></param>
+        /// <param name="rawData"></param>
+        /// <returns></returns>
+        public async Task<Guid> CreateProjectTemplate(ProjectTemplate projectTemplateRequest, byte[] rawData)
+        {
+            var templateId = await ApiConnection.Post<Guid>(ApiUrls.ProjectTemplates(), projectTemplateRequest, "application/json");
+            await UploadProjectTemplate(templateId, rawData, projectTemplateRequest.Name);
             return templateId;
         }
 
@@ -1177,9 +1378,21 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
+        [Obsolete]
         public async Task DeleteProjectTemplate(string templateId)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
+            await ApiConnection.Delete(ApiUrls.ProjectTemplates(templateId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <returns></returns>
+        public async Task DeleteProjectTemplate(Guid templateId)
+        {
+            Ensure.ArgumentNotNull(templateId, "templateId");
             await ApiConnection.Delete(ApiUrls.ProjectTemplates(templateId));
         }
 
@@ -1232,6 +1445,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public async Task<string> UploadProjectTemplate(string templateId, byte[] projectTemplate, string templateName)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
@@ -1242,6 +1456,25 @@ namespace Sdl.Community.GroupShareKit.Clients
             };
 
             return await ApiConnection.Post<string>(ApiUrls.UploadProjectTemplate(templateId), multipartContent, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="projectTemplate"></param>
+        /// <param name="templateName"></param>
+        /// <returns></returns>
+        public async Task<Guid> UploadProjectTemplate(Guid templateId, byte[] projectTemplate, string templateName)
+        {
+            Ensure.ArgumentNotNull(templateId, "templateId");
+            var templateByteArray = new ByteArrayContent(projectTemplate);
+            var multipartContent = new MultipartFormDataContent
+            {
+                { templateByteArray, "file", templateName }
+            };
+
+            return await ApiConnection.Post<Guid>(ApiUrls.UploadProjectTemplate(templateId), multipartContent, "application/json");
         }
         #endregion
 
@@ -1260,10 +1493,22 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> List <see cref="FileVersion"/>s.</returns>
+        [Obsolete]
         public async Task<IReadOnlyList<FileVersion>> GetFileVersions(string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "languageFileId");
             return await ApiConnection.GetAll<FileVersion>(ApiUrls.GetFileVersion(languageFileId), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<FileVersion>> GetFileVersions(Guid languageFileId)
+        {
+            Ensure.ArgumentNotNull(languageFileId, "languageFileId");
+            return await ApiConnection.GetAll<FileVersion>(ApiUrls.GetFileVersions(languageFileId), null);
         }
 
         /// <summary>
@@ -1288,6 +1533,24 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(version, "version");
 
             var fileContent = await ApiConnection.Get<byte[]>(ApiUrls.DownloadFileForVersion(projectId, languageFileId, version), null);
+
+            return fileContent;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <param name="version"></param>
+        /// <returns></returns>
+        public async Task<byte[]> DownloadFileVersion(Guid projectId, Guid languageFileId, int version)
+        {
+            Ensure.ArgumentNotNull(languageFileId, "languageFileId");
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(version, "version");
+
+            var fileContent = await ApiConnection.Get<byte[]>(ApiUrls.DownloadFileVersion(projectId, languageFileId, version), null);
 
             return fileContent;
         }
@@ -1694,6 +1957,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public async Task<string> IsUserAuthorizedToOpenFile(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1704,7 +1968,21 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///Returns user permissions in editor
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        public async Task<string> IsUserAuthorizedToOpenFile(Guid projectId, Guid languageFileId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(languageFileId, "languageFileId");
+
+            return await ApiConnection.Get<string>(ApiUrls.IsAuthorizedToOpenInEditor(projectId, languageFileId), null);
+        }
+
+        /// <summary>
+        /// Returns user permissions in editor
         /// </summary>
         /// <param name="projectId">The project GUID</param>
         /// <param name="languageFileId">The language file GUID</param>
@@ -1717,10 +1995,26 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="EditorProfile"/></returns>
+        [Obsolete]
         public async Task<EditorProfile> EditorProfile(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");
+            var editorProfile = await ApiConnection.Get<EditorProfile>(ApiUrls.EditorProfile(projectId, languageFileId), null);
+
+            return editorProfile;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        public async Task<EditorProfile> EditorProfile(Guid projectId, Guid languageFileId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(projectId, "languageFileId");
             var editorProfile = await ApiConnection.Get<EditorProfile>(ApiUrls.EditorProfile(projectId, languageFileId), null);
 
             return editorProfile;
@@ -1739,10 +2033,26 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public async Task<OnlineCheckInRequest> OnlineCheckin(string projectId, string languageFileId, OnlineCheckInRequest checkoutResponse)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
+
+            return await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckIn(projectId, languageFileId), checkoutResponse, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <param name="checkoutResponse"></param>
+        /// <returns></returns>
+        public async Task<OnlineCheckInRequest> OnlineCheckin(Guid projectId, Guid languageFileId, OnlineCheckInRequest checkoutResponse)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(languageFileId, "languageFileId");
 
             return await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckIn(projectId, languageFileId), checkoutResponse, "application/json");
         }
@@ -1760,13 +2070,25 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public async Task<OnlineCheckInRequest> OnlineCheckout(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
-            return
-                await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckout(projectId, languageFileId),
-                    "application/json");
+            return await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckout(projectId, languageFileId), "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        public async Task<OnlineCheckInRequest> OnlineCheckout(Guid projectId, Guid languageFileId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(languageFileId, "languageFileId");
+            return await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckout(projectId, languageFileId), "application/json");
         }
 
         ///  <summary>
@@ -1786,6 +2108,20 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
+
+            await ApiConnection.Delete(ApiUrls.UndoCheckout(projectId, languageFileId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        public async Task UndoCheckout(Guid projectId, Guid languageFileId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(languageFileId, "languageFileId");
 
             await ApiConnection.Delete(ApiUrls.UndoCheckout(projectId, languageFileId));
         }
@@ -1817,9 +2153,22 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public async Task<bool> IsCheckoutToSomeoneElse(string languageFileId, string editorProfileMode)
         {
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
+            return await ApiConnection.Get<bool>(ApiUrls.IsCheckoutToSomeoneElse(languageFileId, editorProfileMode), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageFileId"></param>
+        /// <param name="editorProfileMode"></param>
+        /// <returns></returns>
+        public async Task<bool> IsCheckoutToSomeoneElse(Guid languageFileId, string editorProfileMode)
+        {
+            Ensure.ArgumentNotNull(languageFileId, "LanguageFileId");
             return await ApiConnection.Get<bool>(ApiUrls.IsCheckoutToSomeoneElse(languageFileId, editorProfileMode), null);
         }
 
@@ -1837,10 +2186,26 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public async Task<string> ExternalCheckin(string projectId, string languageFileId, string comment)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
+
+            return await ApiConnection.Post<string>(ApiUrls.ExternalCheckin(projectId, languageFileId), comment, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <param name="comment"></param>
+        /// <returns></returns>
+        public async Task<string> ExternalCheckin(Guid projectId, Guid languageFileId, string comment)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(languageFileId, "LanguageFileId");
 
             return await ApiConnection.Post<string>(ApiUrls.ExternalCheckin(projectId, languageFileId), comment, "application/json");
         }
@@ -1858,10 +2223,25 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public async Task<string> ExternalCheckout(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
+
+            return await ApiConnection.Post<string>(ApiUrls.ExternalCheckout(projectId, languageFileId), "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        public async Task<string> ExternalCheckout(Guid projectId, Guid languageFileId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(languageFileId, "LanguageFileId");
 
             return await ApiConnection.Post<string>(ApiUrls.ExternalCheckout(projectId, languageFileId), "application/json");
         }
@@ -1874,6 +2254,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         ///  This method requires authentication.
         /// </remarks>
+        [Obsolete]
         public async Task ExternalCheckOutFiles(string projectId, List<string> filesIdsList)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1886,6 +2267,23 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="filesIds"></param>
+        /// <returns></returns>
+        public async Task ExternalCheckOutFiles(Guid projectId, List<Guid> filesIdsList)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(filesIdsList, "filesIds");
+
+            var filesIds = "[\"" + string.Join("\",\"", filesIdsList) + "\"]";
+            var content = new StringContent(filesIds, Encoding.UTF8, "application/json");
+
+            await ApiConnection.Post<Guid>(ApiUrls.ExternalCheckOutFiles(projectId), content);
+        }
+
+        /// <summary>
         /// Checks-in files previously checked-out
         /// </summary>
         /// <param name="projectId">The id of the project</param>
@@ -1893,9 +2291,27 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         ///  This method requires authentication.
         /// </remarks>
+        [Obsolete]
         public async Task ExternalCheckInFiles(string projectId, ExternalCheckInData externalCheckInData)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            Ensure.ArgumentNotNull(externalCheckInData, "externalCheckInData");
+
+            var serialized = new SimpleJsonSerializer().Serialize(externalCheckInData);
+            var content = new StringContent(serialized, Encoding.UTF8, "application/json");
+
+            await ApiConnection.Post<string>(ApiUrls.ExternalCheckInFiles(projectId), content);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="externalCheckInData"></param>
+        /// <returns></returns>
+        public async Task ExternalCheckInFiles(Guid projectId, ExternalCheckInData externalCheckInData)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
             Ensure.ArgumentNotNull(externalCheckInData, "externalCheckInData");
 
             var serialized = new SimpleJsonSerializer().Serialize(externalCheckInData);
@@ -1912,6 +2328,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         ///  This method requires authentication.
         /// </remarks>
+        [Obsolete]
         public async Task UndoExternalCheckOutForFiles(string projectId, List<string> filesIdsList)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1921,6 +2338,34 @@ namespace Sdl.Community.GroupShareKit.Clients
             var content = new StringContent(filesIds, Encoding.UTF8, "application/json");
 
             await ApiConnection.Post<string>(ApiUrls.UndoExternalCheckOutForFiles(projectId), content);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="filesIdsList"></param>
+        /// <returns></returns>
+        public async Task UndoExternalCheckOutForFiles(Guid projectId, List<Guid> filesIdsList)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(filesIdsList, "filesIds");
+
+            var filesIds = "[\"" + string.Join("\",\"", filesIdsList) + "\"]";
+            var content = new StringContent(filesIds, Encoding.UTF8, "application/json");
+
+            await ApiConnection.Post<string>(ApiUrls.UndoExternalCheckOutForFiles(projectId), content);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public Task<IReadOnlyList<AuditTrail>> AuditTrail(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            return ApiConnection.GetAll<AuditTrail>(ApiUrls.AuditTrail(projectId), null);
         }
 
         ///  <summary>
@@ -1934,6 +2379,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public Task<IReadOnlyList<AuditTrail>> AuditTrail(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");

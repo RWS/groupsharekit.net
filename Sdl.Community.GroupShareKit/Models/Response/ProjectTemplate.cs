@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class ProjectTemplate
     {
+        [JsonProperty("Id", NullValueHandling = NullValueHandling.Ignore)]
         public Guid Id { get; set; }
 
         public string Name { get; set; }

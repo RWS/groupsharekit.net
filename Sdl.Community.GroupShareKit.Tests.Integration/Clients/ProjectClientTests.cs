@@ -9,7 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using File = System.IO.File;
+using File = System.IO.File; 
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
@@ -17,8 +17,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
     {
         private readonly Guid _projectTemplateId;
         private readonly Guid _projectId;
-        private readonly string _languageFileId;
-        private readonly List<string> _translatableFileIds;
+        private readonly Guid _languageFileId;
+        private readonly List<Guid> _translatableFileIds;
 
         public ProjectClientTests()
         {
@@ -36,10 +36,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             _projectId = project != null ? Guid.Parse(project.ProjectId) : Guid.Empty;
 
             var translatableFiles = groupShareClient.Project.GetProjectFiles(_projectId).Result;
-            _translatableFileIds = translatableFiles.Where(f => f.FileRole == "Translatable").Select(f => f.UniqueId.ToString()).ToList();
+            _translatableFileIds = translatableFiles.Where(f => f.FileRole == "Translatable").Select(f => f.UniqueId).ToList();
 
             var languageFile = groupShareClient.Project.GetProjectFiles(_projectId).Result.FirstOrDefault(f => f.FileRole == "Translatable");
-            _languageFileId = languageFile != null ? languageFile.UniqueId.ToString() : string.Empty;
+            _languageFileId = languageFile != null ? languageFile.UniqueId : Guid.Empty;
 
             var projectTemplate = groupShareClient.Project.GetProjectTemplates().Result.ToList().FirstOrDefault();
             _projectTemplateId = projectTemplate != null ? projectTemplate.Id : Guid.Empty;
@@ -184,7 +184,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Projects_GetProjectSettings_Obsolete_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var languageFileSettings = await groupShareClient.Project.GetProjectSettings(_projectId.ToString(), _languageFileId);
+            var languageFileSettings = await groupShareClient.Project.GetProjectSettings(_projectId.ToString(), _languageFileId.ToString());
 
             Assert.NotNull(languageFileSettings);
         }
@@ -193,7 +193,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Projects_GetLanguageFileSettings_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var languageFileSettings = await groupShareClient.Project.GetLanguageFileSettings(_projectId, Guid.Parse(_languageFileId));
+            var languageFileSettings = await groupShareClient.Project.GetLanguageFileSettings(_projectId, _languageFileId);
 
             Assert.NotNull(languageFileSettings);
         }
@@ -235,7 +235,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Projects_IsUserAuthorizedToOpenTheFile_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var response = await groupShareClient.Project.IsUserAuthorizedToOpenFile(_projectId.ToString(), _languageFileId);
+            var response = await groupShareClient.Project.IsUserAuthorizedToOpenFile(_projectId, _languageFileId);
 
             Assert.True(string.IsNullOrEmpty(response));
         }
@@ -244,7 +244,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task Projects_EditorProfile_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var editorProfile = await groupShareClient.Project.EditorProfile(_projectId.ToString(), _languageFileId);
+            var editorProfile = await groupShareClient.Project.EditorProfile(_projectId, _languageFileId);
 
             Assert.NotNull(editorProfile);
         }
@@ -270,8 +270,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
 
-            var checkoutResponse = await groupShareClient.Project.OnlineCheckout(_projectId.ToString(), _languageFileId);
-            var response = await groupShareClient.Project.OnlineCheckin(_projectId.ToString(), _languageFileId, checkoutResponse);
+            var checkoutResponse = await groupShareClient.Project.OnlineCheckout(_projectId, _languageFileId);
+            var response = await groupShareClient.Project.OnlineCheckin(_projectId, _languageFileId, checkoutResponse);
             Assert.NotNull(response);
         }
 
@@ -280,10 +280,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
 
-            var checkoutResponse = await groupShareClient.Project.OnlineCheckout(_projectId.ToString(), _languageFileId);
+            var checkoutResponse = await groupShareClient.Project.OnlineCheckout(_projectId, _languageFileId);
             Assert.NotNull(checkoutResponse);
 
-            await groupShareClient.Project.UndoCheckout(_projectId.ToString(), _languageFileId);
+            await groupShareClient.Project.UndoCheckout(_projectId, _languageFileId);
         }
 
         [Fact]
@@ -291,44 +291,44 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
 
-            var response = await groupShareClient.Project.ExternalCheckout(_projectId.ToString(), _languageFileId);
+            var response = await groupShareClient.Project.ExternalCheckout(_projectId, _languageFileId);
             Assert.NotNull(response);
 
-            await groupShareClient.Project.ExternalCheckin(_projectId.ToString(), _languageFileId, "comment");
+            await groupShareClient.Project.ExternalCheckin(_projectId, _languageFileId, "comment");
         }
 
         [Fact]
         public async Task ExternalCheckOut_ExternalCheckIn_files()
         {
             var groupShareClient = Helper.GsClient;
-            var filesIds = new List<string> { _translatableFileIds[0], _translatableFileIds[1] };
+            var filesIds = new List<Guid> { _translatableFileIds[0], _translatableFileIds[1] };
 
-            await groupShareClient.Project.ExternalCheckOutFiles(_projectId.ToString(), filesIds);
+            await groupShareClient.Project.ExternalCheckOutFiles(_projectId, filesIds);
 
             var externalCheckInData = new ExternalCheckInData
             {
-                LanguageFileIds = new[] { _translatableFileIds[0], _translatableFileIds[1] },
+                LanguageFileIds = new[] { _translatableFileIds[0].ToString(), _translatableFileIds[1].ToString() },
                 Comment = "GroupShare Kit external check-in"
             };
 
-            await groupShareClient.Project.ExternalCheckInFiles(_projectId.ToString(), externalCheckInData);
+            await groupShareClient.Project.ExternalCheckInFiles(_projectId, externalCheckInData);
         }
 
         [Fact]
         public async Task ExternalCheckOut_UndoExternalCheckOut_files()
         {
             var groupShareClient = Helper.GsClient;
-            var filesIds = new List<string> { _translatableFileIds[0], _translatableFileIds[1] };
+            var filesIds = new List<Guid> { _translatableFileIds[0], _translatableFileIds[1] };
 
-            await groupShareClient.Project.ExternalCheckOutFiles(_projectId.ToString(), filesIds);
-            await groupShareClient.Project.UndoExternalCheckOutForFiles(_projectId.ToString(), filesIds);
+            await groupShareClient.Project.ExternalCheckOutFiles(_projectId, filesIds);
+            await groupShareClient.Project.UndoExternalCheckOutForFiles(_projectId, filesIds);
         }
 
         [Fact]
         public async Task AuditTrail()
         {
             var groupShareClient = Helper.GsClient;
-            var auditTrail = await groupShareClient.Project.AuditTrail(_projectId.ToString());
+            var auditTrail = await groupShareClient.Project.AuditTrail(_projectId);
 
             Assert.True(auditTrail?.Count > 0);
         }
@@ -372,7 +372,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
 
-            var languageStatistics = await groupShareClient.Project.GetProjectLanguageStatistics(_projectId.ToString());
+            var languageStatistics = await groupShareClient.Project.GetProjectLanguageStatistics(_projectId);
             var targetLanguageCodes = languageStatistics.Keys.ToList();
 
             Assert.Equal(3, languageStatistics.Count());
@@ -389,7 +389,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projects = await groupShareClient.Project.GetAllProjects();
             var project = projects.Items.FirstOrDefault();
 
-            var response = await groupShareClient.Project.GetAllProjectFileStatistics(project.ProjectId);
+            var response = await groupShareClient.Project.GetAllProjectFileStatistics(Guid.Parse(project.ProjectId));
 
             Assert.True(response.Count > 0);
         }
@@ -414,7 +414,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
 
-            //Assert.False(string.IsNullOrEmpty(projectId));
+            var project = await groupShareClient.Project.GetProject(projectId);
+            Assert.Equal(Helper.OrganizationId, project.OrganizationId);
 
             await DeleteTestProject(groupShareClient, projectId);
             await DeleteTestProjectTemplate(groupShareClient, projectTemplateId);
@@ -426,7 +427,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
-            var result = await groupShareClient.Project.AddFiles(projectId.ToString(), @"Resources\TwoFiles.zip");
+            var result = await groupShareClient.Project.AddFiles(projectId, @"Resources\TwoFiles.zip");
 
             Assert.True(result.CreateBackgroundTask);
             Assert.Empty(result.ResponseText);
@@ -441,7 +442,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
-            var result = await groupShareClient.Project.AddFiles(projectId.ToString(), @"Resources\test.docx");
+            var result = await groupShareClient.Project.AddFiles(projectId, @"Resources\test.docx");
 
             Assert.True(result.CreateBackgroundTask);
             Assert.Empty(result.ResponseText);
@@ -456,7 +457,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
-            var result = await groupShareClient.Project.AddFiles(projectId.ToString(), @"Resources\TwoFiles.zip", true);
+            var result = await groupShareClient.Project.AddFiles(projectId, @"Resources\TwoFiles.zip", true);
 
             Assert.True(result.CreateBackgroundTask);
             Assert.Empty(result.ResponseText);
@@ -471,7 +472,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
-            var result = await groupShareClient.Project.AddFiles(projectId.ToString(), @"Resources\test.txt", true);
+            var result = await groupShareClient.Project.AddFiles(projectId, @"Resources\test.txt", true);
 
             Assert.True(result.CreateBackgroundTask);
             Assert.Empty(result.ResponseText);
@@ -501,7 +502,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId);
 
-            var result = await groupShareClient.Project.UpdateFiles(projectId.ToString(), @"Resources\Grammar.zip");
+            var result = await groupShareClient.Project.UpdateFiles(projectId, @"Resources\Grammar.zip");
             Assert.True(result.CreateBackgroundTask);
             Assert.Empty(result.ResponseText);
 
@@ -524,7 +525,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 FileIds = new[] { translatableFileId }
             };
 
-            var result = await groupShareClient.Project.UpdateSelectedFiles(projectId.ToString(), @"Resources\TwoTranslatable_twoReference.zip", fileIds);
+            var result = await groupShareClient.Project.UpdateSelectedFiles(projectId, @"Resources\TwoTranslatable_twoReference.zip", fileIds);
             var expectedResponseText = "The following files will be skipped: FourWords.txt. These files are not part of this project or are not available for update. All other files will be uploaded.";
 
             Assert.True(result.CreateBackgroundTask);
@@ -548,7 +549,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 FileIds = new[] { referenceFileId }
             };
 
-            var result = await groupShareClient.Project.UpdateSelectedFiles(projectId.ToString(), @"Resources\TwoTranslatable_twoReference.zip", fileIds, true);
+            var result = await groupShareClient.Project.UpdateSelectedFiles(projectId, @"Resources\TwoTranslatable_twoReference.zip", fileIds, true);
             var expectedResponseText = "The following files will be skipped: Second.txt. These files are not part of this project or are not available for update. All other files will be uploaded.";
 
             Assert.True(result.CreateBackgroundTask);
@@ -572,7 +573,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 FileIds = new[] { translatableFileId }
             };
 
-            await groupShareClient.Project.CancelProjectFiles(projectId.ToString(), fileIds);
+            await groupShareClient.Project.CancelProjectFiles(projectId, fileIds);
 
             projectFiles = await groupShareClient.Project.GetProjectFiles(projectId);
 
@@ -601,7 +602,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 FileIds = referenceFilesIds
             };
 
-            await groupShareClient.Project.CancelProjectFiles(projectId.ToString(), fileIds);
+            await groupShareClient.Project.CancelProjectFiles(projectId, fileIds);
 
             projectFiles = await groupShareClient.Project.GetProjectFiles(projectId);
             var referenceFiles = projectFiles.Where(f => f.FileRole.Equals("Reference", StringComparison.OrdinalIgnoreCase));
@@ -637,8 +638,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId, "TwoTranslatable_twoReference.zip");
 
-            await groupShareClient.Project.AddFiles(projectId.ToString(), @"Resources\test.docx");
-            await WaitForUpdateProjectBackgroundTaskToFinish(projectId.ToString());
+            await groupShareClient.Project.AddFiles(projectId, @"Resources\test.docx");
+            await WaitForUpdateProjectBackgroundTaskToFinish(projectId);
 
             var reports = await groupShareClient.Project.GetAnalysisReportsV3(projectId);
             var projectCreationReport = reports.FirstOrDefault(r => r.TriggeredBy == "ProjectCreation");
@@ -659,8 +660,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId, "TwoTranslatable_twoReference.zip");
 
-            await groupShareClient.Project.UpdateFiles(projectId.ToString(), @"Resources\FiveWords.txt");
-            await WaitForUpdateProjectBackgroundTaskToFinish(projectId.ToString());
+            await groupShareClient.Project.UpdateFiles(projectId, @"Resources\FiveWords.txt");
+            await WaitForUpdateProjectBackgroundTaskToFinish(projectId);
 
             var reports = await groupShareClient.Project.GetAnalysisReportsV3(projectId);
             var projectCreationReport = reports.FirstOrDefault(r => r.TriggeredBy == "ProjectCreation");
@@ -705,11 +706,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient, "default_en-de_fr_it.sdltpl");
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId, "Grammar.zip");
 
-            await groupShareClient.Project.AddFiles(projectId.ToString(), @"Resources\test.docx");
-            await WaitForUpdateProjectBackgroundTaskToFinish(projectId.ToString());
+            await groupShareClient.Project.AddFiles(projectId, @"Resources\test.docx");
+            await WaitForUpdateProjectBackgroundTaskToFinish(projectId);
 
-            await groupShareClient.Project.UpdateFiles(projectId.ToString(), @"Resources\FiveWords.txt");
-            await WaitForUpdateProjectBackgroundTaskToFinish(projectId.ToString());
+            await groupShareClient.Project.UpdateFiles(projectId, @"Resources\FiveWords.txt");
+            await WaitForUpdateProjectBackgroundTaskToFinish(projectId);
 
             var reports = await groupShareClient.Project.GetAnalysisReportsV3(projectId);
             var reportLanguageCode = reports.First().LanguageCode;
@@ -727,11 +728,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectTemplateId = await CreateTestProjectTemplate(groupShareClient, "default_en-de_fr_it.sdltpl");
             var projectId = await CreateTestProject(groupShareClient, projectTemplateId, "TwoTranslatable_twoReference.zip");
 
-            await groupShareClient.Project.AddFiles(projectId.ToString(), @"Resources\test.docx");
-            await WaitForUpdateProjectBackgroundTaskToFinish(projectId.ToString());
+            await groupShareClient.Project.AddFiles(projectId, @"Resources\test.docx");
+            await WaitForUpdateProjectBackgroundTaskToFinish(projectId);
 
-            await groupShareClient.Project.UpdateFiles(projectId.ToString(), @"Resources\FiveWords.txt");
-            await WaitForUpdateProjectBackgroundTaskToFinish(projectId.ToString());
+            await groupShareClient.Project.UpdateFiles(projectId, @"Resources\FiveWords.txt");
+            await WaitForUpdateProjectBackgroundTaskToFinish(projectId);
 
             var reports = await groupShareClient.Project.GetAnalysisReportsV3(projectId);
             var projectCreationReport = reports.FirstOrDefault(r => r.TriggeredBy == "ProjectCreation");
@@ -778,7 +779,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectId = await groupShareClient.Project.CreateProjectSkeleton(createProjectRequest);
             await groupShareClient.Project.PublishPackage(projectId, rawData);
 
-            var created = await WaitForProjectCreated(projectId);
+            var created = await WaitForProjectCreated(Guid.Parse(projectId));
             Assert.True(created);
 
             var project = await groupShareClient.Project.GetProject(Guid.Parse(projectId));
@@ -814,9 +815,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetProjectAssignmentsById()
         {
             var groupShareClient = Helper.GsClient;
-            var fileIds = new List<string> { _languageFileId };
+            var fileIds = new List<Guid> { _languageFileId };
 
-            var assignments = await groupShareClient.Project.GetProjectAssignmentById(_projectId.ToString(), fileIds);
+            var assignments = await groupShareClient.Project.GetProjectAssignmentById(_projectId, fileIds);
 
             Assert.True(assignments.Count > 0);
         }
@@ -860,12 +861,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\PerfectMatch");
             var projectTemplateId = await CreateProjectTemplateForPerfectMatch(Path.Combine(baseDir, "project-template.sdltpl"));
 
-            var basicProjectCreateRequest = CreateBasicCreateProjectRequest(projectTemplateId);
+            var basicProjectCreateRequest = CreateBasicCreateProjectRequest(projectTemplateId.ToString());
             var projectId = await Helper.GsClient.Project.CreateProject(basicProjectCreateRequest, Path.Combine(baseDir, "PerfectMatch.zip"));
-            var created = await WaitForProjectCreated(projectId);
+            var created = await WaitForProjectCreated(Guid.Parse(projectId));
 
             Assert.True(created);
-            var analysisReports = await Helper.GsClient.Project.GetAnalysisReports(projectId, "fr-fr");
+            var analysisReports = await Helper.GsClient.Project.GetAnalysisReports(Guid.Parse(projectId), "fr-fr");
             Assert.Equal(4, analysisReports[0].Report.Task.File.Count);
             Assert.Equal("3", analysisReports[0].Report.Task.File[0].Analyse.Total.Segments);
             Assert.Equal("0", analysisReports[0].Report.Task.File[0].Analyse.Perfect.Segments);
@@ -873,7 +874,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal("2", analysisReports[0].Report.Task.File[2].Analyse.Perfect.Segments);
             Assert.Equal("3", analysisReports[0].Report.Task.File[3].Analyse.Perfect.Segments);
 
-            await Helper.GsClient.Project.DeleteProject(projectId);
+            await Helper.GsClient.Project.DeleteProject(Guid.Parse(projectId));
             await Helper.GsClient.Project.DeleteProjectTemplate(projectTemplateId);
         }
 
@@ -883,14 +884,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\PerfectMatch");
             var projectTemplateId = await CreateProjectTemplateForPerfectMatch(Path.Combine(baseDir, "project-template.sdltpl"));
 
-            var basicProjectCreateRequest = CreateBasicCreateProjectRequest(projectTemplateId);
+            var basicProjectCreateRequest = CreateBasicCreateProjectRequest(projectTemplateId.ToString());
             var projectId = await Helper.GsClient.Project.CreateProject(
                 basicProjectCreateRequest, Path.Combine(baseDir, "project-files"), null,
                 new string[] { Path.Combine(baseDir, "previous-translations") });
-            var created = await WaitForProjectCreated(projectId);
+            var created = await WaitForProjectCreated(Guid.Parse(projectId));
             Assert.True(created);
 
-            var analysisReports = await Helper.GsClient.Project.GetAnalysisReports(projectId, "fr-fr");
+            var analysisReports = await Helper.GsClient.Project.GetAnalysisReports(Guid.Parse(projectId), "fr-fr");
             Assert.Equal(4, analysisReports[0].Report.Task.File.Count);
             Assert.Equal("3", analysisReports[0].Report.Task.File[0].Analyse.Total.Segments);
             Assert.Equal("0", analysisReports[0].Report.Task.File[0].Analyse.Perfect.Segments);
@@ -898,7 +899,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal("2", analysisReports[0].Report.Task.File[2].Analyse.Perfect.Segments);
             Assert.Equal("3", analysisReports[0].Report.Task.File[3].Analyse.Perfect.Segments);
 
-            await Helper.GsClient.Project.DeleteProject(projectId);
+            await Helper.GsClient.Project.DeleteProject(Guid.Parse(projectId));
             await Helper.GsClient.Project.DeleteProjectTemplate(projectTemplateId);
         }
 
@@ -958,7 +959,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(ProjectStatus.Archived, projectPublishingInformation.Project.Status);
             Assert.NotNull(projectPublishingInformation.Project);
 
-            await groupShareClient.Project.DetachProject(projectId.ToString());
+            await groupShareClient.Project.DetachProject(projectId);
             projectPublishingInformation = (await groupShareClient.Project.GetProjectsPublishingInformation(projectId.ToString())).Single();
             Assert.Equal(ProjectPublishValidity.Deleted, projectPublishingInformation.Validity);
             Assert.Null(projectPublishingInformation.Project);
@@ -1010,18 +1011,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await DeleteTestProjectTemplate(groupShareClient, secondProjectTemplateId);
         }
 
-        private static async Task<string> CreateProjectTemplateForPerfectMatch(string projectTemplateFilePath)
+        private static async Task<Guid> CreateProjectTemplateForPerfectMatch(string projectTemplateFilePath)
         {
             var projectTemplateData = File.ReadAllBytes(projectTemplateFilePath);
-            var projectTemplateRequest = new ProjectTemplates
+            var projectTemplateRequest = new ProjectTemplate
             {
-                Id = Guid.NewGuid().ToString(),
                 Name = "PerfectMatchProjectTemplate_" + Guid.NewGuid(),
                 Description = "",
-                OrganizationId = Helper.OrganizationId
+                OrganizationId = Guid.Parse(Helper.OrganizationId)
             };
 
-            var projectTemplateId = await Helper.GsClient.Project.CreateTemplate(projectTemplateRequest, projectTemplateData);
+            var projectTemplateId = await Helper.GsClient.Project.CreateProjectTemplate(projectTemplateRequest, projectTemplateData);
             return projectTemplateId;
         }
 
@@ -1040,9 +1040,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
         }
 
-        private static async Task<Guid> CreateTestProject(GroupShareClient groupShareClient, string projectTemplateId, string fileName = "")
+        private static async Task<Guid> CreateTestProject(GroupShareClient groupShareClient, Guid projectTemplateId, string fileName = "")
         {
-            var basicProjectCreateRequest = CreateBasicCreateProjectRequest(projectTemplateId);
+            var basicProjectCreateRequest = CreateBasicCreateProjectRequest(projectTemplateId.ToString());
 
             var filePath = fileName == ""
                 ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip")
@@ -1050,22 +1050,25 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var projectId = await groupShareClient.Project.CreateProject(basicProjectCreateRequest, filePath);
 
-            var statusInfo = await WaitForProjectCreated(projectId);
+            var statusInfo = await WaitForProjectCreated(Guid.Parse(projectId));
             Assert.True(statusInfo);
 
             return Guid.Parse(projectId);
         }
 
-        private static async Task<string> CreateTestProjectTemplate(GroupShareClient groupShareClient, string fileName = "")
+        private static async Task<Guid> CreateTestProjectTemplate(GroupShareClient groupShareClient, string fileName = "")
         {
             var rawData = fileName == "" ?
                 File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\DefaultTemplate_en-de.sdltpl")) :
                 File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\" + fileName));
 
-            var id = Guid.NewGuid().ToString();
-            var templateName = $"Project template - {Guid.NewGuid()}";
-            var templateRequest = new ProjectTemplates(id, templateName, "", Helper.OrganizationId);
-            var templateId = await groupShareClient.Project.CreateTemplate(templateRequest, rawData);
+            var templateRequest = new ProjectTemplate
+            {
+                Name = $"Project template - {Guid.NewGuid()}",
+                OrganizationId = Guid.Parse(Helper.OrganizationId)
+            };
+
+            var templateId = await groupShareClient.Project.CreateProjectTemplate(templateRequest, rawData);
 
             return templateId;
         }
@@ -1075,12 +1078,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await groupShareClient.Project.DeleteProject(projectId);
         }
 
-        private static async Task DeleteTestProjectTemplate(GroupShareClient groupShareClient, string projectTemplateId)
+        private static async Task DeleteTestProjectTemplate(GroupShareClient groupShareClient, Guid projectTemplateId)
         {
             await groupShareClient.Project.DeleteProjectTemplate(projectTemplateId);
         }
 
-        private static async Task<bool> WaitForProjectCreated(string projectId, int retryInterval = 3, int maxTryCount = 15)
+        private static async Task<bool> WaitForProjectCreated(Guid projectId, int retryInterval = 3, int maxTryCount = 15)
         {
             for (var i = 0; i < maxTryCount; i++)
             {
@@ -1104,12 +1107,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         // get only Update Project background tasks - type = 28
-        private static async Task WaitForUpdateProjectBackgroundTaskToFinish(string projectId)
+        private static async Task WaitForUpdateProjectBackgroundTaskToFinish(Guid projectId)
         {
             var filter = new BackgroundTasksRequestFilter { Type = new[] { 28 } }.SerializeFilter();
 
             var projectUpdateBackgroundTasks = (await Helper.GsClient.Project.GetBackgroundTasks(filter)).Items;
-            var backgroundTaskId = projectUpdateBackgroundTasks.First(task => task.ReferenceId.ToString() == projectId).Id;
+            var backgroundTaskId = projectUpdateBackgroundTasks.First(task => task.ReferenceId == projectId).Id;
 
             BackgroundTask backgroundTask;
             do
@@ -1173,12 +1176,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var groupShareClient = Helper.GsClient;
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
 
-            var id = Guid.NewGuid().ToString();
-            var templateName = $"Project template - {Guid.NewGuid()}";
-            var templateRequest = new ProjectTemplates(id, templateName, "", Helper.OrganizationId);
-            var templateId = await groupShareClient.Project.CreateTemplate(templateRequest, rawData);
+            var templateRequest = new ProjectTemplate
+            {
+                Name = $"Project template - {Guid.NewGuid()}",
+                OrganizationId = Guid.Parse(Helper.OrganizationId)
+            };
 
-            Assert.True(templateId != string.Empty);
+            var templateId = await groupShareClient.Project.CreateProjectTemplate(templateRequest, rawData);
+            var template = await groupShareClient.Project.GetProjectTemplate(templateId);
+
+            Assert.NotEqual(string.Empty, template);
 
             await groupShareClient.Project.DeleteProjectTemplate(templateId);
         }
@@ -1187,7 +1194,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task UpdateProjectTemplateV3_Succeeds()
         {
             var groupShareClient = Helper.GsClient;
-            var projectTemplateId = Guid.Parse(await CreateTestProjectTemplate(groupShareClient));
+            var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
 
             var templateRequest = new ProjectTemplateV3
             {
@@ -1254,7 +1261,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task UpdateProjectTemplateV4_SegmentLocking_settings()
         {
             var groupShareClient = Helper.GsClient;
-            var projectTemplateId = Guid.Parse(await CreateTestProjectTemplate(groupShareClient));
+            var projectTemplateId = await CreateTestProjectTemplate(groupShareClient);
 
             var segmentLockingSettings = new List<SegmentLockingSettings>
             {
@@ -1315,7 +1322,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task DownloadFileVersion()
         {
             var groupShareClient = Helper.GsClient;
-            var downloadedFile = await groupShareClient.Project.DownloadFileVersion(_projectId.ToString(), _languageFileId, 2);
+            var downloadedFile = await groupShareClient.Project.DownloadFileVersion(_projectId, _languageFileId, 2);
 
             Assert.True(downloadedFile.Length > 0);
         }

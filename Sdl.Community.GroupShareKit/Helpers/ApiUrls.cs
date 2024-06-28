@@ -210,6 +210,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri PublishingStatus(Guid projectId)
+        {
+            return "{0}/projects/{1}/publishingstatus".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that represents publishing information for one or multiple projects.
         /// </summary>
         /// <param name="projectIds"></param>
@@ -463,6 +473,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        public static Uri GetFileVersions(Guid languageFileId)
+        {
+            return "{0}/projects/fileversions/{1}".FormatUri(CurrentProjectServerUrl, languageFileId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> to download the file for a specified version 
         /// </summary>
         /// <param name="projectId">The project id</param>
@@ -472,6 +492,18 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/projects/{1}/fileversions/download/{2}/{3}".
                 FormatUri(CurrentProjectServerUrl, projectId, languageFileId, version);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <param name="version"></param>
+        /// <returns></returns>
+        public static Uri DownloadFileVersion(Guid projectId, Guid languageFileId, int version)
+        {
+            return "{0}/projects/{1}/fileversions/download/{2}/{3}".FormatUri(CurrentProjectServerUrl, projectId, languageFileId, version);
         }
 
         /// <summary>
@@ -500,11 +532,33 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/projects/{1}/assignment?{2}"
                 .FormatUri(CurrentProjectServerUrl, projectId, fileIdQuery);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="fileIdQuery"></param>
+        /// <returns></returns>
+        public static Uri GetProjectAssignmentById(Guid projectId, string fileIdQuery)
+        {
+            return "{0}/projects/{1}/assignment?{2}".FormatUri(CurrentProjectServerUrl, projectId, fileIdQuery);
+        }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that adds the template
         /// </summary>
         /// <param name="templateId">Template id</param>
         public static Uri UploadProjectTemplate(string templateId)
+        {
+            return "{0}/projects/templates/{1}/upload".FormatUri(CurrentProjectServerUrl, templateId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <returns></returns>
+        public static Uri UploadProjectTemplate(Guid templateId)
         {
             return "{0}/projects/templates/{1}/upload".FormatUri(CurrentProjectServerUrl, templateId);
         }
@@ -543,6 +597,17 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="reference"></param>
+        /// <returns></returns>
+        public static string AddProjectFiles(Guid projectId, bool reference = false)
+        {
+            return string.Format("{0}/projects/{1}/update?&reference={2}", CurrentProjectServerV4Url, projectId, reference);
+        }
+
+        /// <summary>
         /// Returns the uri that updates files of an existing project
         /// </summary>
         /// <param name="projectId"></param>
@@ -553,10 +618,31 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="reference"></param>
+        /// <returns></returns>
+        public static Uri UpdateProjectFiles(Guid projectId, bool reference = false)
+        {
+            return "{0}/projects/{1}/update?&reference={2}".FormatUri(CurrentProjectServerV4Url, projectId, reference);
+        }
+
+        /// <summary>
         /// Returns the uri that cancels files of an existing project
         /// </summary>
         /// <param name="projectId"></param>
         public static Uri CancelProjectFiles(string projectId)
+        {
+            return "{0}/projects/{1}/setFileCancelStatus".FormatUri(CurrentProjectServerV4Url, projectId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri CancelProjectFiles(Guid projectId)
         {
             return "{0}/projects/{1}/setFileCancelStatus".FormatUri(CurrentProjectServerV4Url, projectId);
         }
@@ -585,6 +671,17 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <param name="projectId">The project id.</param>
         /// <param name="deleteProjectTMs">If true, project TMs will be deleted after the project is detached.</param>
         public static Uri DetachProject(string projectId, bool deleteProjectTMs = false)
+        {
+            return "{0}/projects/{1}/detach?deleteProjectTMs={2}".FormatUri(CurrentProjectServerUrl, projectId, deleteProjectTMs);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="deleteProjectTMs"></param>
+        /// <returns></returns>
+        public static Uri DetachProject(Guid projectId, bool deleteProjectTMs = false)
         {
             return "{0}/projects/{1}/detach?deleteProjectTMs={2}".FormatUri(CurrentProjectServerUrl, projectId, deleteProjectTMs);
         }
@@ -1089,9 +1186,31 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        public static Uri OnlineCheckIn(Guid projectId, Guid languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/onlinecheckin".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that Undoes an online checkout
         /// </summary>
         public static Uri UndoCheckout(string projectId, string languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/undoCheckout".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        public static Uri UndoCheckout(Guid projectId, Guid languageFileId)
         {
             return "{0}/projects/{1}/files/{2}/undoCheckout".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
         }
@@ -1113,9 +1232,31 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageFileId"></param>
+        /// <param name="editorProfileMode"></param>
+        /// <returns></returns>
+        public static Uri IsCheckoutToSomeoneElse(Guid languageFileId, string editorProfileMode)
+        {
+            return "{0}/onlinecheckout/isCheckOutToSomeoneElse/{1}/{2}".FormatUri(CurrentProjectServerUrl, languageFileId, editorProfileMode);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that checks out a file for editing in the Universal Editor
         /// </summary>
         public static Uri OnlineCheckout(string projectId, string languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/onlinecheckout".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        public static Uri OnlineCheckout(Guid projectId, Guid languageFileId)
         {
             return "{0}/projects/{1}/files/{2}/onlinecheckout".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
         }
@@ -1129,9 +1270,31 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        public static Uri ExternalCheckout(Guid projectId, Guid languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/externalcheckout".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that checks in a file for editing
         /// </summary>
         public static Uri ExternalCheckin(string projectId, string languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/externalcheckin".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        public static Uri ExternalCheckin(Guid projectId, Guid languageFileId)
         {
             return "{0}/projects/{1}/files/{2}/externalcheckin".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
         }
@@ -1145,6 +1308,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri ExternalCheckOutFiles(Guid projectId)
+        {
+            return "{0}/projects/{1}/files/externalcheckout".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that checks-in files previously checked-out
         /// </summary>
         public static Uri ExternalCheckInFiles(string projectId)
@@ -1153,9 +1326,29 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri ExternalCheckInFiles(Guid projectId)
+        {
+            return "{0}/projects/{1}/files/externalcheckin".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that performs undo external check-out for multiple files
         /// </summary>
         public static Uri UndoExternalCheckOutForFiles(string projectId)
+        {
+            return "{0}/projects/{1}/files/undoexternalcheckout".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri UndoExternalCheckOutForFiles(Guid projectId)
         {
             return "{0}/projects/{1}/files/undoexternalcheckout".FormatUri(CurrentProjectServerUrl, projectId);
         }
@@ -1186,6 +1379,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri AuditTrail(Guid projectId)
+        {
+            return "{0}/auditTrail/languageFiles/{1}".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that retrieves the audit trail for all the language files in the given project
         /// </summary>
         public static Uri AuditTrail(string projectId)
@@ -1208,9 +1411,31 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        public static Uri IsAuthorizedToOpenInEditor(Guid projectId, Guid languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/isauthorized".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns the permissions in editor for the user	 
         /// </summary>
         public static Uri EditorProfile(string projectId, string languageFileId)
+        {
+            return "{0}/projects/{1}/files/{2}/editorprofile".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="languageFileId"></param>
+        /// <returns></returns>
+        public static Uri EditorProfile(Guid projectId, Guid languageFileId)
         {
             return "{0}/projects/{1}/files/{2}/editorprofile".FormatUri(CurrentProjectServerUrl, projectId, languageFileId);
         }
@@ -1249,10 +1474,30 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri ProjectFileStatistics(Guid projectId)
+        {
+            return "{0}/projects/{1}/files/detailed-information".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns all language statistics associated with the specified project
         /// </summary>
         /// <param name="projectId">The project id</param>
         public static Uri ProjectLanguageStatistics(string projectId)
+        {
+            return "{0}/projects/{1}/languages".FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri ProjectLanguageStatistics(Guid projectId)
         {
             return "{0}/projects/{1}/languages".FormatUri(CurrentProjectServerUrl, projectId);
         }
