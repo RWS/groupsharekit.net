@@ -11,25 +11,24 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class PhasesTests : IClassFixture<IntegrationTestsProjectData>
     {
+        private readonly GroupShareClient GroupShareClient = Helper.GsClient;
         private readonly Guid _projectId;
         private readonly List<Guid> _languageFileIds;
         private readonly List<Phase> _phases;
 
         public PhasesTests()
         {
-            var groupShareClient = Helper.GsClient;
-
             var projectRequest = new ProjectsRequest("/", true, 7) { Page = "0", Limit = "1" };
-            var project = groupShareClient.Project.GetProject(projectRequest).Result.Items.FirstOrDefault();
+            var project = GroupShareClient.Project.GetProject(projectRequest).Result.Items.FirstOrDefault();
 
             _projectId = project != null ? Guid.Parse(project.ProjectId) : Guid.Empty;
 
-            _languageFileIds = groupShareClient
+            _languageFileIds = GroupShareClient
                 .Project
                 .GetProjectFiles(_projectId).Result.Where(f => f.FileRole == "Translatable")
                 .Select(lf => lf.UniqueId).ToList();
 
-            _phases = groupShareClient
+            _phases = GroupShareClient
                 .Project
                 .GetProjectPhases(_projectId)
                 .Result.ToList();

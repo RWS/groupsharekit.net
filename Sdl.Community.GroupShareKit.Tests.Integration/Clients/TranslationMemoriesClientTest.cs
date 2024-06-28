@@ -203,7 +203,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             return translationMemoryId;
         }
 
-        private async Task<ImportResponse> ImportTranslationUnitsIntoTestTm(GroupShareClient groupShareClient, Guid translationMemoryId, string fileName = "")
+        private async Task<ImportResponse> ImportTranslationUnitsIntoTestTm(Guid translationMemoryId, string fileName = "")
         {
             var languageParameters = new LanguageParameters("en-us", "de-de");
 
@@ -213,7 +213,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var file = System.IO.File.ReadAllBytes(filePath);
 
-            var response = await groupShareClient.TranslationMemories.ImportTm(translationMemoryId.ToString(), languageParameters, file, fileName);
+            var response = await GroupShareClient.TranslationMemories.ImportTm(translationMemoryId.ToString(), languageParameters, file, fileName);
             Thread.Sleep(3000);
 
             return response;
@@ -326,7 +326,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
 
-            var response = await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "FiveWords_EN-DE_TM.tmx");
+            var response = await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "FiveWords_EN-DE_TM.tmx");
 
             Assert.Equal("Queued", response.Status);
             Assert.Equal(_translationMemoryId, Guid.Parse(response.TranslationMemoryId));
@@ -475,7 +475,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
 
-            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "FiveWords_EN-DE_TM.tmx");
+            await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "FiveWords_EN-DE_TM.tmx");
 
             var languageDetails = new LanguageDetailsRequest("en-us", "de-de");
             var tmDetails = new TranslationMemoryDetailsRequest(_translationMemoryId, 0, 10);
@@ -499,7 +499,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
 
-            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "FiveWords_EN-DE_TM.tmx");
+            await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "FiveWords_EN-DE_TM.tmx");
 
             var searchRequest = new SearchRequest(_translationMemoryId, "car", "en-us", "de-de");
 
@@ -515,7 +515,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
 
-            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "Sample_EN-DE_TM_with_fields.tmx");
+            await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "Sample_EN-DE_TM_with_fields.tmx");
 
             var fields = new List<FieldFilter>
             {
@@ -556,7 +556,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
 
-            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "Sample_EN-DE_TM.tmx");
+            await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "Sample_EN-DE_TM.tmx");
 
             var settings = new SearchTextSettings
             {
@@ -619,7 +619,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
 
-            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "FiveWords_EN-DE_TM.tmx");
+            await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "FiveWords_EN-DE_TM.tmx");
 
             var concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "phone", "en-us", "de-de");
             var results = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
@@ -634,7 +634,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
 
-            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "Sample_EN-DE_TM.tmx");
+            await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "Sample_EN-DE_TM.tmx");
 
             var settings = new ConcordanceSearchSettings
             {
@@ -664,7 +664,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
 
-            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "Sample_EN-DE_TM_with_fields.tmx");
+            await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "Sample_EN-DE_TM_with_fields.tmx");
 
             var fields = new List<FieldFilter>
             {
@@ -704,7 +704,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
 
-            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "Sample_EN-DE_TM_with_fields.tmx");
+            await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "Sample_EN-DE_TM_with_fields.tmx");
 
             var fields = new List<FieldFilter>
             {
@@ -758,7 +758,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
 
-            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "FiveWords_EN-DE_TM.tmx");
+            await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "FiveWords_EN-DE_TM.tmx");
 
             var concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "house", "en-us", "de-de", new ConcordanceSearchSettings());
             var results = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
@@ -773,7 +773,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var groupShareClient = Helper.GsClient;
 
-            await ImportTranslationUnitsIntoTestTm(groupShareClient, _translationMemoryId, "Sample_EN-DE_TM_with_fields.tmx");
+            await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "Sample_EN-DE_TM_with_fields.tmx");
 
             var fields = new List<FieldFilter>
             {
