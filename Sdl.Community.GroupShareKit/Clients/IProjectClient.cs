@@ -121,6 +121,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<PhasesWithAssignees>> GetPhasesWithAssignees(string projectId, int phaseId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="phaseId"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<PhasesWithAssignees>> GetPhasesWithAssignees(Guid projectId, int phaseId);
+
+        /// <summary>
         /// Changes the phases for files from a server project
         /// </summary>
         /// <remarks>
@@ -155,6 +163,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Phase"/>s.</returns>
         Task ChangeAssignments(string projectId, ChangeAssignmentRequest request);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task ChangeAssignment(Guid projectId, ChangeAssignmentRequest request);
 
         /// <summary>
         /// Create project

@@ -154,10 +154,24 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="PhasesWithAssignees"/>s.</returns>
+        [Obsolete]
         public Task<IReadOnlyList<PhasesWithAssignees>> GetPhasesWithAssignees(string projectId, int phaseId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNullOrEmptyString(phaseId.ToString(), "phaseId");
+            return ApiConnection.GetAll<PhasesWithAssignees>(ApiUrls.ProjectPhasesWithAssignees(projectId, phaseId));
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="phaseId"></param>
+        /// <returns></returns>
+        public Task<IReadOnlyList<PhasesWithAssignees>> GetPhasesWithAssignees(Guid projectId, int phaseId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(phaseId, "phaseId");
+
             return ApiConnection.GetAll<PhasesWithAssignees>(ApiUrls.ProjectPhasesWithAssignees(projectId, phaseId));
         }
 
@@ -208,12 +222,27 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Phase"/>s.</returns>
+        [Obsolete]
         public Task ChangeAssignments(string projectId, ChangeAssignmentRequest request)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNull(request, "request");
 
             return ApiConnection.Post<string>(ApiUrls.ChangeAssignments(projectId), request, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public Task ChangeAssignment(Guid projectId, ChangeAssignmentRequest request)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(request, "request");
+
+            return ApiConnection.Post<string>(ApiUrls.ChangeAssignment(projectId), request, "application/json");
         }
 
         /// <summary>

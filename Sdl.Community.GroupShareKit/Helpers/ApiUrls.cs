@@ -433,6 +433,17 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="phaseId"></param>
+        /// <returns></returns>
+        public static Uri ProjectPhasesWithAssignees(Guid projectId, int phaseId)
+        {
+            return "{0}/projects/{1}/phaseswithassignees/{2}".FormatUri(CurrentProjectServerUrl, projectId, phaseId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that change the project phases
         /// </summary>
         /// <param name="projectId">The project id</param>
@@ -460,6 +471,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/projects/{1}/changeassignment".
                FormatUri(CurrentProjectServerUrl, projectId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public static Uri ChangeAssignment(Guid projectId)
+        {
+            return "{0}/projects/{1}/changeassignment".FormatUri(CurrentProjectServerUrl, projectId);
         }
 
         /// <summary>
