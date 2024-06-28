@@ -11,12 +11,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
     public class IntegrationTestsProjectData : IDisposable
     {
         private static readonly GroupShareClient GroupShareClient = Helper.GsClient;
-        private readonly string _projectId;
-        private string _projectTemplateId;
+        private readonly Guid _projectId;
+        private Guid _projectTemplateId;
 
         public IntegrationTestsProjectData()
         {
-            _projectId = CreateTestProject(GroupShareClient).Result;
+            _projectId = CreateTestProject().Result;
         }
 
         private async Task<bool> WaitForProjectCreated(string projectId, int retryInterval = 30, int maxTryCount = 20)
@@ -42,34 +42,37 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
             return false;
         }
 
-        private async Task<string> CreateTestProject(GroupShareClient groupShareClient)
+        private async Task<Guid> CreateTestProject()
         {
-            var projectTemplateId = CreateProjectTemplate(groupShareClient).Result;
+            var projectTemplateId = await CreateTestrojectTemplate();
 
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
             var projectName = $"Project - {Guid.NewGuid()}";
-            var projectId = await groupShareClient.Project.CreateProject(new CreateProjectRequest(
+            var projectId = await GroupShareClient.Project.CreateProject(new CreateProjectRequest(
                 projectName,
                 Helper.OrganizationId,
                 null,
                 DateTime.Now.AddDays(2),
-                projectTemplateId,
+                projectTemplateId.ToString(),
                 rawData));
 
             var statusInfo = await WaitForProjectCreated(projectId);
             Assert.True(statusInfo);
 
-            return projectId;
+            return Guid.Parse(projectId);
         }
 
-        private async Task<string> CreateProjectTemplate(GroupShareClient groupShareClient)
+        private async Task<Guid> CreateTestrojectTemplate()
         {
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
 
-            var id = Guid.NewGuid().ToString();
-            var templateName = $"Project template - { Guid.NewGuid() }";
-            var templateRequest = new ProjectTemplates(id, templateName, "", Helper.OrganizationId);
-            var templateId = await groupShareClient.Project.CreateTemplate(templateRequest, rawData);
+            var templateRequest = new ProjectTemplate
+            {
+                Name = $"Project template - {Guid.NewGuid()}",
+                OrganizationId = Guid.Parse(Helper.OrganizationId)
+            };
+
+            var templateId = await GroupShareClient.Project.CreateProjectTemplate(templateRequest, rawData);
             
             _projectTemplateId = templateId;
             return templateId;
