@@ -1,4 +1,5 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -33,7 +34,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var users = await groupShareClient.User.GetAllUsers(userRequest);
             var currentUser = users.Items.First(user => user.Name == Helper.GsUser);
 
-            var templateId = await Helper.CreateTemplateResourceAsync(Helper.OrganizationId);
+            var templateId = await Helper.CreateTemplateResourceAsync(Guid.Parse(Helper.OrganizationId));
             var projectId = await Helper.CreateProjectAsync(templateId);
 
             var organizationPermissions = await groupShareClient.Permission.GetUserPermissions(currentUser.Name, hideImplicitLibs: false);
@@ -57,7 +58,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var users = await groupShareClient.User.GetAllUsers(userRequest);
             var currentUser = users.Items.First(user => user.Name == Helper.GsUser);
 
-            var templateId = await Helper.CreateTemplateResourceAsync(Helper.OrganizationId);
+            var templateId = await Helper.CreateTemplateResourceAsync(Guid.Parse(Helper.OrganizationId));
             var projectId = await Helper.CreateProjectAsync(templateId);
 
             var organizationPermissions = await groupShareClient.Permission.GetUserPermissions(currentUser.Name, hideImplicitLibs: true);

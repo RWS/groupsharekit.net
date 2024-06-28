@@ -15,6 +15,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class ProjectClientTests : IClassFixture<IntegrationTestsProjectData>
     {
+        private readonly GroupShareClient groupShareClient = Helper.GsClient;
         private readonly Guid _projectTemplateId;
         private readonly Guid _projectId;
         private readonly Guid _languageFileId;
@@ -22,8 +23,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         public ProjectClientTests()
         {
-            var groupShareClient = Helper.GsClient;
-
             var sortParameters = new SortParameters
             {
                 Property = SortParameters.PropertyOption.CreatedAt,
@@ -49,7 +48,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task Projects_GetProjectByName_Succeeds()
         {
-            var groupShareClient = Helper.GsClient;
             var projects = await groupShareClient.Project.GetAllProjects();
             var project = projects.Items.FirstOrDefault();
 
@@ -67,7 +65,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task Projects_SortProjectsByName_Succeeds()
         {
-            var groupShareClient = Helper.GsClient;
             var sortParameters = new SortParameters
             {
                 Property = SortParameters.PropertyOption.ProjectName,

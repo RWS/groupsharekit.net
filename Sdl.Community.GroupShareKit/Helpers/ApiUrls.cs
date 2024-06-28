@@ -93,6 +93,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="organizationId"></param>
+        /// <returns></returns>
+        public static Uri Organization(Guid organizationId)
+        {
+            return "{0}/organizations/{1}".FormatUri(CurrentManagementV2Url, organizationId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that a list of organizations
         /// </summary>
         public static Uri Organizations()
@@ -127,6 +137,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/organizationresources/{1}".
                 FormatUri(CurrentManagementV2Url, organizationId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="organizationId"></param>
+        /// <returns></returns>
+        public static Uri OrganizationResources(Guid organizationId)
+        {
+            return "{0}/organizationresources/{1}".FormatUri(CurrentManagementV2Url, organizationId);
         }
 
         /// <summary>

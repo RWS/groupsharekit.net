@@ -33,46 +33,49 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [MemberData(nameof(OrganizationData.OrganizationId), MemberType = typeof(OrganizationData))]
-        public async Task Update(string organizationId)
+        public async Task UpdateOrganization(Guid organizationId)
         {
             var groupShareClient = Helper.GsClient;
 
-            var organization = await groupShareClient.Organization.Get(organizationId);
+            var organization = await groupShareClient.Organization.GetOrganization(organizationId);
 
-            organization.Description = "AddedDescription";
+            organization.Description = "Edited using GroupShare Kit";
 
-            var updatedOrgId = await groupShareClient.Organization.Update(organization);
-            var updatedOrganization = await groupShareClient.Organization.Get(updatedOrgId);
+            var updatedOrganizationId = await groupShareClient.Organization.UpdateOrganization(organization);
+            var updatedOrganization = await groupShareClient.Organization.GetOrganization(updatedOrganizationId);
 
-            Assert.Equal("AddedDescription", updatedOrganization.Description);
+            Assert.Equal("Edited using GroupShare Kit", updatedOrganization.Description);
         }
 
         [Fact]
-        public async Task Create()
+        public async Task CreateOrganization()
         {
             var groupShareClient = Helper.GsClient;
             var uniqueId = Guid.NewGuid();
+            var organizationName = $"Organization - {uniqueId}";
 
-            var organization = new Organization()
+            var organizationRequest = new Organization()
             {
                 UniqueId = uniqueId,
-                Name = $"test_ {uniqueId}",
+                Name = organizationName,
                 IsLibrary = true,
-                Description = null,
+                Description = "Created using GroupShare Kit",
                 Path = "/",
                 ParentOrganizationId = new Guid(Helper.OrganizationId),
                 ChildOrganizations = null,
                 Tags = new List<string> { "tagTest" }
             };
 
-            var organizationId = await groupShareClient.Organization.Create(organization);
+            var organizationId = await groupShareClient.Organization.CreateOrganization(organizationRequest);
+            var organization = await groupShareClient.Organization.GetOrganization(organizationId);
 
-            Assert.True(organizationId != string.Empty);
+            Assert.Equal(organizationName, organization.Name);
+            Assert.Equal("Created using GroupShare Kit", organization.Description);
 
             var response = await groupShareClient.Organization.GetByTag("tagTest");
             Assert.True(response.Count > 0);
 
-            await Update(organizationId);
+            await UpdateOrganization(organizationId);
             await groupShareClient.Organization.DeleteOrganization(organizationId);
         }
 
@@ -95,12 +98,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var templateId = await Helper.CreateTemplateResourceAsync(newOrganizationId);
 
             var resourceRequest =
-                new OrganizationResourcesRequest(new List<string> { templateId },
+                new OrganizationResourcesRequest(new List<string> { templateId.ToString() },
                     organizationId);
             await grClient.Organization.MoveResourceToOrganization(resourceRequest);
 
             var resources = await grClient.Organization.GetAllOrganizationResources(organizationId);
-            var addedResource = resources.FirstOrDefault(r => r.Id.ToString() == templateId);
+            var addedResource = resources.FirstOrDefault(r => r.Id == templateId);
             Assert.NotNull(addedResource);
 
             await grClient.Project.DeleteProjectTemplate(templateId);
@@ -110,7 +113,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [MemberData(nameof(OrganizationData.OrganizationId), MemberType = typeof(OrganizationData))]
-        public async Task LinkResourceToOrganization(string organizationId)
+        public async Task LinkResourceToOrganization(Guid organizationId)
         {
             var groupShareClient = Helper.GsClient;
 
@@ -118,17 +121,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var firstResource = await Helper.CreateTemplateResourceAsync(organizationId);
             var secondResource = await Helper.CreateTemplateResourceAsync(organizationId);
             var resourceRequest =
-                new OrganizationResourcesRequest(new List<string> { firstResource, secondResource },
-                    newOrganizationId);
+                new OrganizationResourcesRequest(new List<string> { firstResource.ToString(), secondResource.ToString() },
+                    newOrganizationId.ToString());
 
             await groupShareClient.Organization.LinkResourceToOrganization(resourceRequest);
 
-            var organizationResources = await groupShareClient.Organization.GetAllOrganizationResources(newOrganizationId);
+            var organizationResources = await groupShareClient.Organization.GetOrganizationResources(newOrganizationId);
             Assert.True(organizationResources.Count > 0);
 
             await groupShareClient.Organization.UnlinkResourceToOrganization(resourceRequest);
 
-            var resources = await groupShareClient.Organization.GetAllOrganizationResources(newOrganizationId);
+            var resources = await groupShareClient.Organization.GetOrganizationResources(newOrganizationId);
             Assert.Empty(resources);
 
             await groupShareClient.Organization.DeleteOrganization(newOrganizationId);

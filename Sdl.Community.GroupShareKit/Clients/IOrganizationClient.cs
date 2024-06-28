@@ -24,6 +24,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<Organization> Get(string organizationId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="organizationId"></param>
+        /// <returns></returns>
+        Task<Organization> GetOrganization(Guid organizationId);
+
+        /// <summary>
         /// Gets organization by Id<see cref="Organization"/>.
         /// </summary>
         ///  <param name="tag">string></param>
@@ -69,6 +76,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task DeleteOrganization(string organizationId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="organizationId"></param>
+        /// <returns></returns>
+        Task DeleteOrganization(Guid organizationId);
+
+        /// <summary>
         /// Updates <see cref="Organization"/>'s.
         /// </summary>
         /// <param name="organization"><see cref="Organization"/></param>
@@ -82,6 +96,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Organization"/>s.</returns>
         Task<string> Update(Organization organization);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="organization"></param>
+        /// <returns></returns>
+        Task<Guid> UpdateOrganization(Organization organization);
 
         /// <summary>
         /// Create <see cref="Organization"/>'s.
@@ -99,11 +120,25 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<string> Create(Organization organization);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="organization"></param>
+        /// <returns></returns>
+        Task<Guid> CreateOrganization(Organization organization);
+
+        /// <summary>
         /// Gets all resources for a organization 
         /// </summary>
         /// <param name="organizationId">string</param>
         /// <returns>A list of<see cref="OrganizationResources"/></returns>
         Task<IReadOnlyList<OrganizationResources>> GetAllOrganizationResources(string organizationId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="organizationId"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<OrganizationResources>> GetOrganizationResources(Guid organizationId);
 
         /// <summary>
         /// Moves a resource to specific organization
