@@ -220,11 +220,25 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public async Task Update(string tmId, TranslationMemoryDetails tm)
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
             Ensure.ArgumentNotNull(tm, "tm");
             await ApiConnection.Put<string>(ApiUrls.GetTmById(tmId), tm);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <param name="tm"></param>
+        /// <returns></returns>
+        public async Task Update(Guid tmId, TranslationMemoryDetails tmDetails)
+        {
+            Ensure.ArgumentNotNull(tmId, "tmId");
+            Ensure.ArgumentNotNull(tmDetails, "tmDetails");
+            await ApiConnection.Put<string>(ApiUrls.GetTranslationMemory(tmId), tmDetails);
         }
 
         /// <summary>
@@ -258,9 +272,24 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="FuzzyIndexResponse"/></returns>
+        [Obsolete]
         public async Task<FuzzyIndexResponse> RecomputeStatistics(string tmId, FuzzyRequest request)
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
+            Ensure.ArgumentNotNull(request, "request");
+
+            return await ApiConnection.Post<FuzzyIndexResponse>(ApiUrls.Fuzzy(tmId, "recomputestatistics"), request, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<FuzzyIndexResponse> RecomputeStatistics(Guid tmId, FuzzyRequest request)
+        {
+            Ensure.ArgumentNotNull(tmId, "tmId");
             Ensure.ArgumentNotNull(request, "request");
 
             return await ApiConnection.Post<FuzzyIndexResponse>(ApiUrls.Fuzzy(tmId, "recomputestatistics"), request, "application/json");
@@ -311,10 +340,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(request, "request");
             Ensure.ArgumentNotNull(language, "language parameters");
 
-            var response = await
-
-                     ApiConnection.Post<ExportResponse>(ApiUrls.Export(tmId, language.Source, language.Target), request,
-                        "application/json");
+            var response = await ApiConnection.Post<ExportResponse>(ApiUrls.Export(tmId, language.Source, language.Target), request, "application/json");
 
             BackgroundTask backgroundTask;
             do
@@ -501,10 +527,25 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="TranslationUnitDetailsResponse"/></returns>
+        [Obsolete]
         public async Task<TranslationUnitDetailsResponse> GetTranslationUnitForTm(string tmId, TranslationUnitDetailsRequest request)
         {
             Ensure.ArgumentNotNull(request, "translation request params");
             Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
+
+            return await ApiConnection.Get<TranslationUnitDetailsResponse>(ApiUrls.Tus(tmId), request.ToParametersDictionary());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<TranslationUnitDetailsResponse> GetTranslationUnitsForTm(Guid tmId, TranslationUnitDetailsRequest request)
+        {
+            Ensure.ArgumentNotNull(request, "translation request params");
+            Ensure.ArgumentNotNull(tmId, "translation memory id");
 
             return await ApiConnection.Get<TranslationUnitDetailsResponse>(ApiUrls.Tus(tmId), request.ToParametersDictionary());
         }
@@ -1425,7 +1466,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
 
-            await ApiConnection.Patch(ApiUrls.GetFieldTemplateById(fieldTemplateId.ToString()), operations, "application/json");
+            await ApiConnection.Patch(ApiUrls.GetFieldTemplate(fieldTemplateId), operations, "application/json");
         }
 
         /// <summary>
@@ -1509,6 +1550,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         private static List<Value> GetValues(List<string> valuesList)
         {
             var multipleValuesList = new List<Value>();
+
             foreach (var value in valuesList)
             {
                 var item = new Value
@@ -1516,8 +1558,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                     Id = Guid.NewGuid().ToString(),
                     Name = value
                 };
+
                 multipleValuesList.Add(item);
             }
+
             return multipleValuesList;
         }
 
@@ -1537,8 +1581,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
             Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
             Ensure.ArgumentNotNull(field, "field request");
-            await
-                ApiConnection.Put<string>(ApiUrls.GetField(fieldTemplateId, fieldId), field);
+            await ApiConnection.Put<string>(ApiUrls.GetField(fieldTemplateId, fieldId), field);
         }
 
         /// <summary>

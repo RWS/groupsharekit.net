@@ -1049,9 +1049,29 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <returns></returns>
+        public static Uri Tus(Guid tmId)
+        {
+            return "{0}/tms/{1}/tus".FormatUri(CurrentTranslationMemoriesUrl, tmId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that retrieves the number of translation units from the Translation memory
         /// </summary>
         public static Uri TusCount(string tmId)
+        {
+            return "{0}/tms/{1}/tus/count".FormatUri(CurrentTranslationMemoriesUrl, tmId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <returns></returns>
+        public static Uri TusCount(Guid tmId)
         {
             return "{0}/tms/{1}/tus/count".FormatUri(CurrentTranslationMemoriesUrl, tmId);
         }
@@ -1065,12 +1085,34 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static Uri TusByType(Guid tmId, string type)
+        {
+            return "{0}/tms/{1}/tus/{2}/count".FormatUri(CurrentTranslationMemoriesUrl, tmId, type);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that retrieves the Duplicate Translation Units in a specific TM
         /// </summary>
         public static Uri TranslationUnitsDuplicates(string tmId, string source, string target)
         {
-            return "{0}/tms/{1}/tus/duplicate/source={2}&target={3}".FormatUri(CurrentTranslationMemoriesUrl, tmId,
-                source, target);
+            return "{0}/tms/{1}/tus/duplicate/source={2}&target={3}".FormatUri(CurrentTranslationMemoriesUrl, tmId, source, target);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public static Uri TranslationUnitsDuplicates(Guid tmId, string source, string target)
+        {
+            return "{0}/tms/{1}/tus/duplicate/source={2}&target={3}".FormatUri(CurrentTranslationMemoriesUrl, tmId, source, target);
         }
 
         /// <summary>
@@ -1102,6 +1144,17 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> that schedules a recompute statistics operation
         /// </summary>
         public static Uri Fuzzy(string tmId, string action)
+        {
+            return "{0}/tms/{1}/fuzzyindex/{2}".FormatUri(CurrentTranslationMemoriesUrl, tmId, action);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static Uri Fuzzy(Guid tmId, string action)
         {
             return "{0}/tms/{1}/fuzzyindex/{2}".FormatUri(CurrentTranslationMemoriesUrl, tmId, action);
         }

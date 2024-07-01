@@ -57,6 +57,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<User> GetUserById(string userId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<User> GetUser(Guid userId);
+
+        /// <summary>
         /// Update <see cref="User"/>.
         /// </summary>
         /// <remarks>
@@ -69,6 +76,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A <see cref="User"/>.</returns>
         Task<string> Update(User user);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        Task<Guid> UpdateUser(User user);
 
         /// <summary>
         /// Delete <see cref="User"/>.

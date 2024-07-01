@@ -76,6 +76,18 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Task<User> GetUser(Guid userId)
+        {
+            Ensure.ArgumentNotNull(userId, "userId");
+
+            return ApiConnection.Get<User>(ApiUrls.User(userId), null);
+        }
+
+        /// <summary>
         /// Update <see cref="User"/>.
         /// </summary>
         /// <remarks>
@@ -87,9 +99,20 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A <see cref="User"/>.</returns>
+        [Obsolete]
         public Task<string> Update(User user)
         {
             return ApiConnection.Put<string>(ApiUrls.User(), user);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public Task<Guid> UpdateUser(User user)
+        {
+            return ApiConnection.Put<Guid>(ApiUrls.User(), user);
         }
 
         /// <summary>

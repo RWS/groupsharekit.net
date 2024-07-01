@@ -102,7 +102,16 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         Task Update(string tmId, TranslationMemoryDetails tm);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <param name="tm"></param>
+        /// <returns></returns>
+        Task Update(Guid tmId, TranslationMemoryDetails tmDetails);
 
         /// <summary>
         /// Gets<see cref="Health"/> of tm service .
@@ -253,6 +262,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<FuzzyIndexResponse> RecomputeStatistics(string tmId, FuzzyRequest request);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<FuzzyIndexResponse> RecomputeStatistics(Guid tmId, FuzzyRequest request);
+
+        /// <summary>
         /// Schedules a reindex operation
         /// <param name="request"><see cref="FuzzyRequest"/></param>
         /// <param name="tmId">Translation memory id</param>
@@ -366,6 +383,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="TranslationUnitDetailsResponse"/></returns>
         Task<TranslationUnitDetailsResponse> GetTranslationUnitForTm(string tmId, TranslationUnitDetailsRequest request);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<TranslationUnitDetailsResponse> GetTranslationUnitsForTm(Guid tmId, TranslationUnitDetailsRequest request);
 
         /// <summary>
         /// Gets the translation units number from the translation memory

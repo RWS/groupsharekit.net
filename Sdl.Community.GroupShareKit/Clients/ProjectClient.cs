@@ -161,6 +161,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNullOrEmptyString(phaseId.ToString(), "phaseId");
             return ApiConnection.GetAll<PhasesWithAssignees>(ApiUrls.ProjectPhasesWithAssignees(projectId, phaseId));
         }
+
         /// <summary>
         /// 
         /// </summary>

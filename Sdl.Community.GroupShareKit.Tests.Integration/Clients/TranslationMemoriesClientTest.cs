@@ -153,9 +153,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 ContainerId =_containerId
             };
 
-            var translationMemoryId = await GroupShareClient.TranslationMemories.CreateTranslationMemory(tmRequest).ConfigureAwait(false);
+            var translationMemoryId = await GroupShareClient.TranslationMemories.CreateTranslationMemory(tmRequest);
 
-            var translationMemory = await GroupShareClient.TranslationMemories.GetTmById(translationMemoryId.ToString());
+            var translationMemory = await GroupShareClient.TranslationMemories.GetTranslationMemory(translationMemoryId);
             _languageDirectionId = Guid.Parse(translationMemory.LanguageDirections.First().LanguageDirectionId);
 
             return translationMemoryId;
@@ -195,9 +195,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 ContainerId = _containerId
             };
 
-            var translationMemoryId = await GroupShareClient.TranslationMemories.CreateTranslationMemory(tmRequest).ConfigureAwait(false);
+            var translationMemoryId = await GroupShareClient.TranslationMemories.CreateTranslationMemory(tmRequest);
 
-            var translationMemory = await GroupShareClient.TranslationMemories.GetTmById(translationMemoryId.ToString());
+            var translationMemory = await GroupShareClient.TranslationMemories.GetTranslationMemory(translationMemoryId);
             _languageDirectionId = Guid.Parse(translationMemory.LanguageDirections.First().LanguageDirectionId);
 
             return translationMemoryId;
@@ -266,7 +266,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.False(fieldTemplate.IsTmSpecific);
             Assert.Equal("created using GroupShare Kit", fieldTemplate.Description);
 
-            await GroupShareClient.TranslationMemories.DeleteFieldTemplate(fieldTemplateId.ToString());
+            await GroupShareClient.TranslationMemories.DeleteFieldTemplate(fieldTemplateId);
         }
 
         [Fact]
@@ -286,7 +286,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             var languageResourceTemplateId = await GroupShareClient.TranslationMemories.CreateLanguageResourceTemplate(languageResourceTemplateRequest);
-            var languageResourceTemplate = await GroupShareClient.TranslationMemories.GetTemplateById(languageResourceTemplateId.ToString());
+            var languageResourceTemplate = await GroupShareClient.TranslationMemories.GetLanguageResourceTemplate(languageResourceTemplateId);
 
             Assert.Equal(name, languageResourceTemplate.Name);
             Assert.Empty(languageResourceTemplate.LanguageResources);
@@ -381,7 +381,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var tm = await GroupShareClient.TranslationMemories.GetTranslationMemory(_translationMemoryId);
 
             tm.Description = "Updated tm";
-            await GroupShareClient.TranslationMemories.Update(_translationMemoryId.ToString(), tm);
+            await GroupShareClient.TranslationMemories.Update(_translationMemoryId, tm);
 
             var updatedTm = await GroupShareClient.TranslationMemories.GetTranslationMemory(_translationMemoryId);
             Assert.Equal("Updated tm", updatedTm.Description);
@@ -400,7 +400,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetTusForTm()
         {
             var translationUnitRequest = new TranslationUnitDetailsRequest("en-us", "de-de", 0, 50);
-            var translationUnits = await GroupShareClient.TranslationMemories.GetTranslationUnitForTm(_translationMemoryId.ToString(), translationUnitRequest);
+            var translationUnits = await GroupShareClient.TranslationMemories.GetTranslationUnitsForTm(_translationMemoryId, translationUnitRequest);
 
             // there are no TUs in the empty TM
             Assert.Null(translationUnits);
@@ -413,7 +413,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var tmId = await CreateTranslationMemory();
             var request = new FuzzyRequest();
 
-            var response = await groupShareClient.TranslationMemories.RecomputeStatistics(tmId.ToString(), request);
+            var response = await groupShareClient.TranslationMemories.RecomputeStatistics(tmId, request);
 
             Assert.Equal(tmId, Guid.Parse(response.TranslationMemoryId));
             Assert.Equal("Queued", response.Status);
