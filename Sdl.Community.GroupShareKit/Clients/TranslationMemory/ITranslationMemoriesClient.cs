@@ -976,6 +976,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<IReadOnlyList<Resource>> GetLanguageResourcesForTemplate(string templateId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<Resource>> GetLanguageResources(Guid languageResourceTemplateId);
+
+        /// <summary>
         /// Creates a  language resources <see cref="Resource"/> for specified template.
         /// </summary>
         /// <remarks>
@@ -988,6 +995,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> Resource id</returns>
         Task<string> CreateLanguageResourceForTemplate(string templateId, Resource request);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<Guid> CreateLanguageResourceForTemplate(Guid languageResourceTemplateId, Resource request);
 
         /// <summary>
         /// Gets language resource service defaults type.
@@ -1030,6 +1045,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteLanguageResourceForTemplate(string templateId, string languageResourceId);
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <returns></returns>
+        Task DeleteLanguageResourceForTemplate(Guid languageResourceTemplateId, Guid languageResourceId);
 
         /// <summary>
         /// Updates   language resource <see cref="Resource"/> for specified template.
@@ -1042,8 +1065,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task UpdateLanguageResourceForTemplate(string templateId, string languageResourceId,
-            Resource resourceRequest);
+        Task UpdateLanguageResourceForTemplate(string templateId, string languageResourceId, Resource resourceRequest);
 
         /// <summary>
         ///Reset to default Culture values a specific Language Resource in a specific Language Resource Template

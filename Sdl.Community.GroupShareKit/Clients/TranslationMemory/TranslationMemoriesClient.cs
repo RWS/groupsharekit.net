@@ -1617,10 +1617,22 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>  A list of <see cref="Resource"/></returns>
+        [Obsolete]
         public async Task<IReadOnlyList<Resource>> GetLanguageResourcesForTemplate(string templateId)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             return await ApiConnection.GetAll<Resource>(ApiUrls.LanguageResource(templateId), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Resource>> GetLanguageResources(Guid languageResourceTemplateId)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            return await ApiConnection.GetAll<Resource>(ApiUrls.LanguageResources(languageResourceTemplateId), null);
         }
 
         /// <summary>
@@ -1635,6 +1647,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> Resource id</returns>
+        [Obsolete]
         public async Task<string> CreateLanguageResourceForTemplate(string templateId, Resource request)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
@@ -1644,6 +1657,23 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             var resourceUrl = await ApiConnection.Post<string>(ApiUrls.LanguageResource(templateId), request, "application/json");
 
             return resourceUrl.Split('/').Last();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<Guid> CreateLanguageResourceForTemplate(Guid languageResourceTemplateId, Resource request)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            Ensure.ArgumentNotNull(request, "request");
+
+            var encodeData = Convert.ToBase64String(Encoding.UTF8.GetBytes(request.Data));
+            request.Data = encodeData;
+
+            return await ApiConnection.Post<Guid>(ApiUrls.LanguageResources(languageResourceTemplateId), request, "application/json");
         }
 
         /// <summary>
@@ -1692,7 +1722,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Deletes   language resource <see cref="Resource"/> for specified template.
+        /// Deletes language resource <see cref="Resource"/> for specified template.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1702,12 +1732,27 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public async Task DeleteLanguageResourceForTemplate(string templateId, string languageResourceId)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             Ensure.ArgumentNotNullOrEmptyString(languageResourceId, "languageResourceId");
 
             await ApiConnection.Delete(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <returns></returns>
+        public async Task DeleteLanguageResourceForTemplate(Guid languageResourceTemplateId, Guid languageResourceId)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            Ensure.ArgumentNotNull(languageResourceId, "languageResourceId");
+
+            await ApiConnection.Delete(ApiUrls.LanguageResourcesForTemplate(languageResourceTemplateId, languageResourceId));
         }
 
         /// <summary>

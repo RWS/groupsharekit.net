@@ -1,36 +1,56 @@
-﻿namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
+﻿using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class TranslationMemoryClientLanguageResourceTests
     {
-        //[Theory]
-        //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9")]
-        //public async Task GetLanguageResourcesForTemplate(string templateId)
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    var resources = await groupShareClient.TranslationMemories.GetLanguageResourcesForTemplate(templateId);
+        private static readonly GroupShareClient GroupShareClient = Helper.GsClient;
 
-        //    Assert.True(resources.Count > 0);
-        //}
+        private Guid _languageResourceTemplateId;
+        private Guid _languageDirectionId;
 
-        //[Theory]
-        //[InlineData("a3b1fd22-e3cd-4931-9e2a-91f6c6c246c0", "en-de")]
-        //public async Task CreateLanguageResourceForTemplate(string templateId, string language)
-        //{
-        //    var groupShareClient = Helper.GsClient;
+        public TranslationMemoryClientLanguageResourceTests()
+        {
+            _languageResourceTemplateId = CreateTestLanguageResourceTemplate().Result;
+        }
 
-        //    var resource = new Resource
-        //    {
-        //        Type = "OrdinalFollowers",
-        //        LanguageResourceTemplateId = Guid.NewGuid().ToString(),
-        //        LanguageResourceId = Guid.NewGuid().ToString(),
-        //        CultureName = language,
-        //        Data = "test data"
-        //    };
-        //    var id = await groupShareClient.TranslationMemories.CreateLanguageResourceForTemplate(templateId, resource);
+        [Fact]
+        public async Task GetLanguageResourcesForTemplate()
+        {
+            var resources = await GroupShareClient.TranslationMemories.GetLanguageResources(_languageResourceTemplateId);
 
-        //    Assert.True(id != string.Empty);
-        //    await groupShareClient.TranslationMemories.DeleteLanguageResourceForTemplate(templateId, id);
-        //}
+            Assert.True(resources.Count > 0);
+        }
+
+        [Fact]
+        public async Task CreateLanguageResourceForTemplate()
+        {
+            var resource = new Resource
+            {
+                Type = "OrdinalFollowers",
+                CultureName = "ro-ro",
+                Data = "test data"
+            };
+
+            var languageResourceId = await GroupShareClient.TranslationMemories.CreateLanguageResourceForTemplate(_languageResourceTemplateId, resource);
+            var languageResources = await GroupShareClient.TranslationMemories.GetLanguageResources(_languageResourceTemplateId);
+            var initialLanguageResourcesCount = languageResources.Count;
+            var addedLanguageResource = languageResources.Single(lr => Guid.Parse(lr.LanguageResourceId) == languageResourceId);
+
+            Assert.Equal(resource.Type, addedLanguageResource.Type);
+            Assert.Equal(resource.CultureName, addedLanguageResource.CultureName);
+
+            await GroupShareClient.TranslationMemories.DeleteLanguageResourceForTemplate(_languageResourceTemplateId, languageResourceId);
+            languageResources = await GroupShareClient.TranslationMemories.GetLanguageResources(_languageResourceTemplateId);
+
+            Assert.True(languageResources.Count < initialLanguageResourcesCount);
+        }
 
         //[Theory]
         //[InlineData("ro-ro")]
@@ -105,5 +125,34 @@
         //    await groupShareClient.TranslationMemories.ResetToDefaultLanguageResource(templateId, languageResourceId);
 
         //}
+
+        private async Task<Guid> CreateTestLanguageResourceTemplate()
+        {
+            var request = new ResourceServiceDefaultsRequest(ResourceServiceDefaultsRequest.ResourceType.Variables, "ro-ro");
+            var resource = await GroupShareClient.TranslationMemories.GetDefaultsType(request);
+
+            var languageResourceTemplateRequest = new CreateLanguageResourceTemplateRequest
+            {
+                Name = $"Language processing rule - {Guid.NewGuid()}",
+                Description = "Created using GroupShare Kit",
+                IsTmSpecific = false,
+                Recognizers = "RecognizeAll",
+                WordCountFlags = "DefaultFlags",
+                TokenizerFlags = "DefaultFlags",
+                OwnerId = Guid.Parse(Helper.OrganizationId),
+                LanguageResources = new List<Resource>
+                {
+                    new Resource
+                    {
+                        CultureName = "ro-ro",
+                        Type = "Variables",
+                        Data = "test"
+                    }
+                }
+            };
+
+            var languageResourceTemplateId = await GroupShareClient.TranslationMemories.CreateLanguageResourceTemplate(languageResourceTemplateRequest);
+            return languageResourceTemplateId;
+        }
     }
 }

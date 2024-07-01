@@ -990,6 +990,17 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/templates/{1}/resources".FormatUri(CurrentLanguageResourceServiceUrl, templateId);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <returns></returns>
+        public static Uri LanguageResources(Guid languageResourceTemplateId)
+        {
+            return "{0}/templates/{1}/resources".FormatUri(CurrentLanguageResourceServiceUrl, languageResourceTemplateId);
+        }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that gives default type for a language
         /// </summary>
@@ -1003,8 +1014,18 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri LanguageResourcesForTemplate(string templateId, string languageResourceId)
         {
-            return "{0}/templates/{1}/resources/{2}".FormatUri(CurrentLanguageResourceServiceUrl, templateId,
-                languageResourceId);
+            return "{0}/templates/{1}/resources/{2}".FormatUri(CurrentLanguageResourceServiceUrl, templateId, languageResourceId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <returns></returns>
+        public static Uri LanguageResourcesForTemplate(Guid templateId, Guid languageResourceId)
+        {
+            return "{0}/templates/{1}/resources/{2}".FormatUri(CurrentLanguageResourceServiceUrl, templateId, languageResourceId);
         }
 
         /// <summary>
@@ -1012,8 +1033,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri LanguageResourceActions(string templateId, string languageResourceId, string action)
         {
-            return "{0}/templates/{1}/resources/{2}/{3}".FormatUri(CurrentLanguageResourceServiceUrl, templateId,
-                languageResourceId, action);
+            return "{0}/templates/{1}/resources/{2}/{3}".FormatUri(CurrentLanguageResourceServiceUrl, templateId, languageResourceId, action);
         }
 
         /// <summary>
