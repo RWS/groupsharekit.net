@@ -2,6 +2,7 @@ using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System;
 using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
@@ -101,12 +102,26 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
+        [Obsolete]
         public Task Delete(string userId)
         {
             Ensure.ArgumentNotNullOrEmptyString(userId, "userId");
 
             return ApiConnection.Delete(ApiUrls.User(userId));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public Task DeleteUser(Guid userId)
+        {
+            Ensure.ArgumentNotNull(userId, "userId");
+
+            return ApiConnection.Delete(ApiUrls.User(userId));
+        }
+
         /// <summary>
         /// Create <see cref="User"/>.
         /// </summary>
@@ -124,6 +139,18 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(user, "user");
 
             return await ApiConnection.Post<string>(ApiUrls.User(), user, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task<Guid> CreateUser(CreateUserRequest user)
+        {
+            Ensure.ArgumentNotNull(user, "user");
+
+            return await ApiConnection.Post<Guid>(ApiUrls.User(), user, "application/json");
         }
     }
 }

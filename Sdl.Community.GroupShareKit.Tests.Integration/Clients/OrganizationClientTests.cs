@@ -23,12 +23,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [MemberData(nameof(OrganizationData.OrganizationId), MemberType = typeof(OrganizationData))]
-        public async Task GetOrganizationById(string organizationId)
+        public async Task GetOrganizationById(Guid organizationId)
         {
             var groupShareClient = Helper.GsClient;
-            var organization = await groupShareClient.Organization.Get(organizationId);
+            var organization = await groupShareClient.Organization.GetOrganization(organizationId);
 
-            Assert.Equal(organization.UniqueId.ToString(), organizationId);
+            Assert.Equal(organization.UniqueId, organizationId);
         }
 
         [Theory]

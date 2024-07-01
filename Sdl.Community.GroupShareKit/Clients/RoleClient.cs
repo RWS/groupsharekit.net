@@ -139,6 +139,18 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public Task DeleteRole(Guid roleId)
+        {
+            Ensure.ArgumentNotNull(roleId, "roleId");
+
+            return ApiConnection.Delete(ApiUrls.Role(roleId));
+        }
+
+        /// <summary>
         /// Add a user to a role for a specific organization.<see cref="Role"/>s.
         /// </summary>
         /// <remarks>
@@ -183,9 +195,21 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="User"/>'s</returns>
+        [Obsolete]
         public Task<IReadOnlyList<User>> GetUsersForRole(string roleId)
         {
             Ensure.ArgumentNotNullOrEmptyString(roleId, "roleId");
+            return ApiConnection.GetAll<User>(ApiUrls.GetUsersForRole(roleId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public Task<IReadOnlyList<User>> GetUsersForRole(Guid roleId)
+        {
+            Ensure.ArgumentNotNull(roleId, "roleId");
             return ApiConnection.GetAll<User>(ApiUrls.GetUsersForRole(roleId));
         }
 

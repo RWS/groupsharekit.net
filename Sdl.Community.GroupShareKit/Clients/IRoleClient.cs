@@ -99,7 +99,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         Task DeleteRole(string roleId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        Task DeleteRole(Guid roleId);
 
         /// <summary>
         /// Add a user to a role for a specific organization.<see cref="Role"/>s.
@@ -141,6 +149,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="User"/>'s</returns>
         Task<IReadOnlyList<User>> GetUsersForRole(string roleId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        Task<IReadOnlyList<User>> GetUsersForRole(Guid roleId);
 
         /// <summary>
         /// Adds users for a specific role<see cref="Role"/>s.

@@ -50,6 +50,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static Uri User(Guid userId)
+        {
+            return "{0}/users/{1}".FormatUri(CurrentManagementV2Url, userId);
+        }
+
+        /// <summary>
         ///  Returns the <see cref="Uri"/> that returns all roles
         /// </summary>
         public static Uri Roles()
@@ -760,6 +770,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         /// <param name="roleId">The role id</param>
         public static Uri GetUsersForRole(string roleId)
+        {
+            return "{0}/roles/{1}/membership".FormatUri(CurrentManagementV2Url, roleId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public static Uri GetUsersForRole(Guid roleId)
         {
             return "{0}/roles/{1}/membership".FormatUri(CurrentManagementV2Url, roleId);
         }

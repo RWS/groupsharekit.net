@@ -121,7 +121,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 }
             };
 
-            var userId = await groupShareClient.User.Create(newUser);
+            var userId = await groupShareClient.User.CreateUser(newUser);
 
             var roleList = new List<RoleMembership>
             {
@@ -129,28 +129,28 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 {
                     OrganizationId = Guid.Parse(Helper.OrganizationId),
                     RoleId = roleId,
-                    UserId = Guid.Parse(userId),
+                    UserId = userId,
                 }
             };
 
             await groupShareClient.Role.AddUserToRole(roleList);
 
-            var usersWithSpecificRole = await groupShareClient.Role.GetUsersForRole(roleId.ToString());
+            var usersWithSpecificRole = await groupShareClient.Role.GetUsersForRole(roleId);
 
-            var userWithSpecificRole = usersWithSpecificRole.FirstOrDefault(u => u.UniqueId.ToString() == userId);
+            var userWithSpecificRole = usersWithSpecificRole.FirstOrDefault(u => u.UniqueId == userId);
 
             Assert.NotNull(userWithSpecificRole);
 
             await groupShareClient.Role.RemoveUserFromRole(roleList);
 
-            usersWithSpecificRole = await groupShareClient.Role.GetUsersForRole(roleId.ToString());
+            usersWithSpecificRole = await groupShareClient.Role.GetUsersForRole(roleId);
 
-            userWithSpecificRole = usersWithSpecificRole.FirstOrDefault(u => u.UniqueId.ToString() == userId);
+            userWithSpecificRole = usersWithSpecificRole.FirstOrDefault(u => u.UniqueId == userId);
 
             Assert.Null(userWithSpecificRole);
 
-            await groupShareClient.Role.DeleteRole(roleId.ToString());
-            await groupShareClient.User.Delete(userId);
+            await groupShareClient.Role.DeleteRole(roleId);
+            await groupShareClient.User.DeleteUser(userId);
         }
 
         [Theory]
@@ -169,14 +169,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         private static async Task<string> CreatePowerUser(GroupShareClient groupShareClient)
         {
-            var uniqueId = Guid.NewGuid().ToString();
+            var uniqueId = Guid.NewGuid();
+            var name = $"User - {uniqueId}";
 
             var newUser = new CreateUserRequest
             {
-                Name = $"automated user {uniqueId}",
+                Name = name,
                 Password = "Password1",
-                DisplayName = "test",
-                Description = null,
+                DisplayName = name,
+                Description = "Created using GroupShare Kit",
                 PhoneNumber = null,
                 OrganizationId = Helper.OrganizationId,
                 UserType = "SDLUser",
@@ -186,7 +187,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                     {
                          OrganizationId = Guid.Parse(Helper.OrganizationId),
                          RoleId = Guid.Parse(Helper.PowerUserRoleId),
-                         UserId = Guid.Parse(uniqueId)
+                         UserId = uniqueId
                     }
                 }
             };
