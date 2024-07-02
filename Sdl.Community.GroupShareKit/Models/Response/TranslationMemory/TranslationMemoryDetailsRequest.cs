@@ -8,7 +8,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         public int StartTuId { get; set; }
         public int Count { get; set; }
 
-        public TranslationMemoryDetailsRequest(Guid id, int startTuId,int count)
+        public TranslationMemoryDetailsRequest(Guid id, int startTuId, int count)
         {
             TmId = id;
             StartTuId = startTuId;

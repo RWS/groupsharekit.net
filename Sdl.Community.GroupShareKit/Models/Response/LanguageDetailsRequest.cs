@@ -7,7 +7,13 @@
         public string TargetText { get; set; }
         public string TargetLanguageCode { get; set; }
 
-        public LanguageDetailsRequest(string sourceText,string sourceLanguageCode,string targetText,string targetLanguageCode)
+        public LanguageDetailsRequest(string sourceLanguageCode, string targetLanguageCode)
+        {
+            SourceLanguageCode = sourceLanguageCode;
+            TargetLanguageCode = targetLanguageCode;
+        }
+
+        public LanguageDetailsRequest(string sourceText, string sourceLanguageCode, string targetText, string targetLanguageCode)
         {
             SourceText = sourceText;
             SourceLanguageCode = sourceLanguageCode;

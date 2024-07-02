@@ -10,17 +10,16 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// Gets or sets filed name
         /// </summary>
         public string Name { get; set; }
-      
+
         /// <summary>
         /// Gets or sets field values
         /// </summary>
         public List<string> Values { get; set; }
 
-
         /// <summary>
         /// Gets or sets filed type
         /// </summary>
-        [JsonConverter(typeof (StringEnumConverter))]
+        [JsonConverter(typeof(StringEnumConverter))]
         public TypeEnum Type { get; set; }
 
         public enum TypeEnum

@@ -1,14 +1,15 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
-    public class DatabaseServerRequest
+    public class CreateDatabaseServerRequest
     {
         /// <summary>
         /// Gets or sets database server id
         /// </summary>
         [JsonProperty("databaseServerId", NullValueHandling = NullValueHandling.Ignore)]
-        public string DatabaseServerId { get; set; }
+        public Guid DatabaseServerId { get; set; }
 
         /// <summary>
         /// Gets or sets db server name
@@ -44,7 +45,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// Gets or sets owner id
         /// </summary>
         [JsonProperty("ownerId")]
-        public string OwnerId { get; set; }
+        public Guid OwnerId { get; set; }
 
         /// <summary>
         /// Gets or sets the location

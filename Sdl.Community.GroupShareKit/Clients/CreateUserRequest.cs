@@ -36,7 +36,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Gets or sets the locale
         /// </summary>
-        public string Locale { get; set; }
+        //public string Locale { get; set; }
         /// <summary>
         /// Gets or sets the organization id
         /// </summary>
@@ -48,6 +48,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Gets or sets a list of user role 
         /// </summary>
-        public List<Role> Roles { get; set; }
+        //public List<Role> Roles { get; set; }
+        public List<RoleMembership> Roles { get; set; }
     }
 }

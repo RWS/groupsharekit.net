@@ -125,6 +125,7 @@ namespace Sdl.Community.GroupShareKit.Http
 
             return SendData<T>(uri, HttpMethod.Post, null, null, CancellationToken.None);
         }
+
         public Task<IApiResponse<T>> Put<T>(Uri uri, object body)
         {
             Ensure.ArgumentNotNull(uri, "uri");
@@ -143,8 +144,9 @@ namespace Sdl.Community.GroupShareKit.Http
         public async Task<HttpStatusCode> Patch(Uri uri, object body, string contentType)
         {
             Ensure.ArgumentNotNull(uri, "uri");
+
             var method = new HttpMethod("PATCH");
-            var response = await SendData<object>(uri, method, body, null, CancellationToken.None);
+            var response = await SendData<object>(uri, method, body, contentType, CancellationToken.None);
             return response.HttpResponse.StatusCode;
         }
 

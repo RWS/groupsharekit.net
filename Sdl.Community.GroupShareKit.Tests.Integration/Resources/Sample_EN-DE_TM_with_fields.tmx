@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tmx version="1.4">
+  <header creationtool="SDL Language Platform" creationtoolversion="8.1" o-tmf="SDL TM8 Format" datatype="xml" segtype="sentence" adminlang="en-US" srclang="en-US" creationdate="20240619T075533Z" creationid="unknown">
+    <prop type="x-List field:SinglePicklist">two,one,three</prop>
+    <prop type="x-Number field:Integer"></prop>
+    <prop type="x-Text field:SingleString"></prop>
+    <prop type="x-Recognizers">RecognizeAll</prop>
+    <prop type="x-IncludesContextContent">True</prop>
+    <prop type="x-TMName">Sample en-de</prop>
+    <prop type="x-TokenizerFlags">DefaultFlags</prop>
+    <prop type="x-WordCountFlags">DefaultFlags</prop>
+  </header>
+  <body>
+    <tu creationdate="20050528T002046Z" creationid="GAVIN" changedate="20240620T085519Z" changeid="System Administrator" lastusagedate="20050528T002046Z">
+      <prop type="x-LastUsedBy">GAVIN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <prop type="x-Text field:SingleString">marked segment</prop>
+      <prop type="x-Number field:Integer">1</prop>
+      <prop type="x-List field:SinglePicklist">one</prop>
+      <tuv xml:lang="en-us">
+        <seg>For example: Sunday.</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Beispiel:<ph type="1" />Sonntag.</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T131032Z" creationid="CAROL-ANN" changedate="20000120T131032Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000120T131032Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Bicycle safety programmes</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Fahrradsicherheit</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T125118Z" creationid="CAROL-ANN" changedate="20000120T125118Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000120T125118Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Education programme for school children</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Erziehungsprogramm für Schüler</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T130700Z" creationid="CAROL-ANN" changedate="20000217T112848Z" changeid="CAROL-ANN" lastusagedate="20000217T112848Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>School Programme Content</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Inhalt des Schulprogramms</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T124950Z" creationid="CAROL-ANN" changedate="20000120T124950Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000120T124950Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Secondary school children</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Schüler in der Sekundarstufe</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T131337Z" creationid="CAROL-ANN" changedate="20240620T085519Z" changeid="System Administrator" lastusagedate="20000209T173452Z" usagecount="1">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <prop type="x-Text field:SingleString">marked segment</prop>
+      <prop type="x-List field:SinglePicklist">two</prop>
+      <tuv xml:lang="en-us">
+        <seg>Contact</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Kontaktperson</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T131133Z" creationid="CAROL-ANN" changedate="20000120T131133Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000120T131133Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Present the basic components of the school programme.</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Übersicht über die Basiskomponenten des Schulprogramms.</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T125154Z" creationid="CAROL-ANN" changedate="20000120T125154Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000120T125154Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Education programme for secondary school children</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Erziehungsprogramm für Schüler in der Sekundarstufe</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20080827T092153Z" creationid="STUTTGART\dbrockmann" changedate="20081102T174206Z" changeid="STUTTGART\dbrockmann" lastusagedate="20080827T092153Z">
+      <prop type="x-LastUsedBy">STUTTGART\dbrockmann</prop>
+      <prop type="x-Context">0, 0</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Finding a suitable location for your photo printer</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Geeigneten Aufstellungsort für Ihren Fotodrucker finden</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000118T155802Z" creationid="CAROL-ANN" changedate="20000118T155802Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000118T174416Z" usagecount="1">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>To register, contact your local branch of the Road Safety Association.</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Um sich anzumelden, wenden Sie sich bitte an die örtliche Vertretung der Gesellschaft für Verkehrssicherheit.</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T131029Z" creationid="CAROL-ANN" changedate="20240620T083908Z" changeid="System Administrator" lastusagedate="20000120T131029Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <prop type="x-Number field:Integer">15</prop>
+      <prop type="x-List field:SinglePicklist">three</prop>
+      <tuv xml:lang="en-us">
+        <seg>Direction</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Richtung</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20080827T091800Z" creationid="STUTTGART\dbrockmann" changedate="20240620T083909Z" changeid="System Administrator" lastusagedate="20080827T091800Z">
+      <prop type="x-LastUsedBy">STUTTGART\dbrockmann</prop>
+      <prop type="x-Context">0, 0</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <prop type="x-Number field:Integer">2</prop>
+      <tuv xml:lang="en-us">
+        <seg>Reporting in Essentials 2007</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Berichte in Essentials 2007</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T131606Z" creationid="CAROL-ANN" changedate="20000120T131606Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000120T131606Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Safety Officer</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Sicherheitsbeauftragter</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20050528T001837Z" creationid="GAVIN" changedate="20240620T083908Z" changeid="System Administrator" lastusagedate="20050528T001837Z">
+      <prop type="x-LastUsedBy">GAVIN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <prop type="x-List field:SinglePicklist">one</prop>
+      <tuv xml:lang="en-us">
+        <seg>Use the FORWARD and BACKWARD keys to choose the desired day.</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Wählen Sie mit den <bpt i="1" type="1" />Vorwärts<ept i="1" />- und <bpt i="2" type="2" />Rückwärts<ept i="2" />-Tasten den gewünschten Wochentag aus.</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000118T131947Z" creationid="CAROL-ANN" changedate="20000118T131947Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000118T131947Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Road Safety Education in our Primary Schools</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Verkehrserziehung in der Grundschule</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T131637Z" creationid="CAROL-ANN" changedate="20240620T085520Z" changeid="System Administrator" lastusagedate="20000120T131637Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <prop type="x-Text field:SingleString">marked segment</prop>
+      <prop type="x-Number field:Integer">2</prop>
+      <tuv xml:lang="en-us">
+        <seg>Education Officer</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Erziehungsbeauftragte</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000118T155855Z" creationid="CAROL-ANN" changedate="20240620T083908Z" changeid="System Administrator" lastusagedate="20000215T110112Z" usagecount="2">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <prop type="x-Number field:Integer">15</prop>
+      <prop type="x-List field:SinglePicklist">three</prop>
+      <tuv xml:lang="en-us">
+        <seg>Hurry, as places are limited!</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Schnelle Anmeldung wird empfohlen, da die Teilnehmerzahl begrenzt ist.</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T131104Z" creationid="CAROL-ANN" changedate="20240620T083908Z" changeid="System Administrator" lastusagedate="20000120T131104Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <prop type="x-Number field:Integer">3</prop>
+      <prop type="x-List field:SinglePicklist">two</prop>
+      <tuv xml:lang="en-us">
+        <seg>Practical demonstration</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Praktische Vorführung</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000209T161300Z" creationid="CAROL-ANN" changedate="20240620T085519Z" changeid="System Administrator" lastusagedate="20000320T183009Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <prop type="x-Text field:SingleString">marked segment</prop>
+      <tuv xml:lang="en-us">
+        <seg>Education programme for Primary school children</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Erziehungsprogramm für Schüler</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20050528T002806Z" creationid="GAVIN" changedate="20240620T085519Z" changeid="System Administrator" lastusagedate="20050528T002806Z">
+      <prop type="x-LastUsedBy">GAVIN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <prop type="x-Text field:SingleString">discarded</prop>
+      <tuv xml:lang="en-us">
+        <seg>For example: 12 May 2005.</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Beispiel: 12.05.05</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T131627Z" creationid="CAROL-ANN" changedate="20240620T083908Z" changeid="System Administrator" lastusagedate="20000120T131627Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <prop type="x-Number field:Integer">15</prop>
+      <tuv xml:lang="en-us">
+        <seg>Mary Murphy</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Mary Murphy</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20080827T092141Z" creationid="STUTTGART\dbrockmann" changedate="20080827T092141Z" changeid="STUTTGART\dbrockmann" lastusagedate="20110525T075203Z" usagecount="1">
+      <prop type="x-LastUsedBy">STUTTGART\dbrockmann</prop>
+      <prop type="x-Context">0, 0</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <prop type="x-StructureContext:MultipleString">x-heading</prop>
+      <prop type="x-StructureContext:MultipleString">x-tm-heading</prop>
+      <tuv xml:lang="en-us">
+        <seg>Getting Started</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Erste Schritte</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20050528T002431Z" creationid="GAVIN" changedate="20240620T083908Z" changeid="System Administrator" lastusagedate="20050528T002431Z">
+      <prop type="x-LastUsedBy">GAVIN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <prop type="x-Number field:Integer">40</prop>
+      <prop type="x-List field:SinglePicklist">one</prop>
+      <tuv xml:lang="en-us">
+        <seg>Use the FORWARD and BACKWARD keys to choose the desired date.</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Wählen Sie mit den <bpt i="1" type="1" />Vorwärts<ept i="1" />- und <bpt i="2" type="2" />Rückwärts<ept i="2" />-Tasten den gewünschten Wochentag aus.</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000118T131835Z" creationid="CAROL-ANN" changedate="20240620T085520Z" changeid="System Administrator" lastusagedate="20000118T131835Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <prop type="x-Text field:SingleString">discarded</prop>
+      <tuv xml:lang="en-us">
+        <seg>Association for Road Safety Conference</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Tagung der Gesellschaft für Verkehrssicherheit</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20050528T003407Z" creationid="GAVIN" changedate="20050528T003407Z" changeid="STUTTGART\dbrockmann" lastusagedate="20050528T003407Z">
+      <prop type="x-LastUsedBy">GAVIN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Press the CLOCK key for 2 sec. again.</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Drücken Sie für 2 Sek. die <bpt i="1" type="1" />Uhr<ept i="1" />-Taste.</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T130614Z" creationid="CAROL-ANN" changedate="20240620T083908Z" changeid="System Administrator" lastusagedate="20000120T130614Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <prop type="x-List field:SinglePicklist">three</prop>
+      <tuv xml:lang="en-us">
+        <seg>Stress the role of parents in enforcing road safety awareness as part of home life.</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Besondere Betonung findet die Rolle der Eltern, die das Bewußtsein über Verkehrssicherheit als Teil der häuslichen Erziehung vermitteln müssen.</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20081102T173949Z" creationid="STUTTGART\dbrockmann" changedate="20081102T174050Z" changeid="STUTTGART\dbrockmann" lastusagedate="20081102T174031Z" usagecount="1">
+      <prop type="x-LastUsedBy">STUTTGART\dbrockmann</prop>
+      <prop type="x-Context">0, 0</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Place the photo printer on a flat, clean and dust-free surface, in a dry location, and out of direct sunlight.</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Platzieren Sie den Fotodrucker auf einer flachen, sauberen und staubfreien Oberfläche, und stellen Sie ihn an einem trockenen Ort auf, der keinem direkten Sonnenlicht ausgesetzt ist.</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000118T131947Z" creationid="CAROL-ANN" changedate="20000118T131947Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000118T131947Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Road Safety Education in our Secondary Schools</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Verkehrserziehung in der Sekundarstufe</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000118T154900Z" creationid="CAROL-ANN" changedate="20000118T155535Z" changeid="CAROL-ANN" lastusagedate="20000118T155535Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Speakers include the Minister for Education and many road safety experts.</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Vorträge unter anderem vom Bildungsminister und zahlreichen Experten im Bereich der Verkehrssicherheit.</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T131725Z" creationid="CAROL-ANN" changedate="20000120T131725Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000120T131725Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Present the continuing cooperation between the Department of Education and the Road Safety Authority.</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Darstellung der kontinuierlichen Zusammenarbeit zwischen dem Bildungsministerium und der Verkehrssicherheitsbehörde.</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T131235Z" creationid="CAROL-ANN" changedate="20000120T131235Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000120T131308Z" usagecount="1">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Contact Information</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Kontaktinformationen</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20080827T092153Z" creationid="STUTTGART\dbrockmann" changedate="20081102T174213Z" changeid="STUTTGART\dbrockmann" lastusagedate="20080827T092153Z">
+      <prop type="x-LastUsedBy">STUTTGART\dbrockmann</prop>
+      <prop type="x-Context">0, 0</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Finding an approprate location for your photo printer</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Passenden Aufstellungsort für Ihren Fotodrucker finden</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000118T154315Z" creationid="CAROL-ANN" changedate="20000118T154315Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000118T154315Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>This conference presents the new <bpt i="1" type="1" x="1" />education programme<ept i="1" /> unveiled by the Minister for Education last year.</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Auf dieser Tagung wird das neue <bpt i="1" type="1" x="1" />Erziehungsprogramm<ept i="1" /> präsentiert, welches letztes Jahr vom Bildungsminister vorgestellt wurde.</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T131027Z" creationid="CAROL-ANN" changedate="20000120T131027Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000120T131027Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Car speed</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Fahrzeuggeschwindigkeit</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20080827T091837Z" creationid="STUTTGART\dbrockmann" changedate="20080827T091837Z" changeid="STUTTGART\dbrockmann" lastusagedate="20080827T091837Z">
+      <prop type="x-LastUsedBy">STUTTGART\dbrockmann</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Essentials 2007 provides the following capabilities with Reporting:</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Essentials 2007 stellt die folgenden Berichtsfunktionen zur Verfügung:</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T131334Z" creationid="CAROL-ANN" changedate="20000120T131334Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000209T173417Z" usagecount="1">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Organisation</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Institution</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T131520Z" creationid="CAROL-ANN" changedate="20000120T131520Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000120T131601Z" usagecount="1">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Patrick O'Neill</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Patrick O'Neill</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000118T131914Z" creationid="CAROL-ANN" changedate="20000118T131914Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000118T131914Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Road Safety Education in our Schools</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Verkehrserziehung an Schulen</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20071010T152628Z" creationid="DENISE" changedate="20071010T152628Z" changeid="DENISE" lastusagedate="20071010T152628Z">
+      <prop type="x-LastUsedBy">DENISE</prop>
+      <prop type="x-Context">0, 0</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <prop type="x-StructureContext:MultipleString">x-table-cell</prop>
+      <tuv xml:lang="en-us">
+        <seg>Time</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Uhrzeit</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T131035Z" creationid="CAROL-ANN" changedate="20000120T131035Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000120T131035Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Safety tips</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Sicherheitshinweise</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T124300Z" creationid="CAROL-ANN" changedate="20000217T112827Z" changeid="CAROL-ANN" lastusagedate="20000209T154200Z" usagecount="3">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Education Programme Workflow</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Ablauf des Erziehungsprogramms</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T124831Z" creationid="CAROL-ANN" changedate="20000120T124831Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000120T124831Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Younger school children</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Grundschüler</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20000120T131024Z" creationid="CAROL-ANN" changedate="20000120T131024Z" changeid="STUTTGART\dbrockmann" lastusagedate="20000120T131024Z">
+      <prop type="x-LastUsedBy">CAROL-ANN</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">ApprovedSignOff</prop>
+      <tuv xml:lang="en-us">
+        <seg>Vehicle awareness</seg>
+      </tuv>
+      <tuv xml:lang="de-de">
+        <seg>Fahrzeugbewußtsein</seg>
+      </tuv>
+    </tu>
+  </body>
+</tmx>

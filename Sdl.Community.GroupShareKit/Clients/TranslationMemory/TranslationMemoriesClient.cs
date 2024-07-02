@@ -63,10 +63,20 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task<TranslationMemoryDetails> GetTmById(string tmId)
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
-            return
-                await
-                    ApiConnection.Get<TranslationMemoryDetails>(ApiUrls.GetTmById(tmId), null);
+            return await ApiConnection.Get<TranslationMemoryDetails>(ApiUrls.GetTmById(tmId), null);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="translationMemoryId"></param>
+        /// <returns></returns>
+        public async Task<TranslationMemoryDetails> GetTranslationMemory(Guid translationMemoryId)
+        {
+            Ensure.ArgumentNotNull(translationMemoryId, "translationMemoryId");
+            return await ApiConnection.Get<TranslationMemoryDetails>(ApiUrls.GetTranslationMemory(translationMemoryId), null);
+        }
+
         /// <summary>
         /// Gets specified language direction for tm
         /// </summary>
@@ -85,13 +95,26 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
             Ensure.ArgumentNotNullOrEmptyString(languageDirectionId, "languageDirectionId");
-            return
-                await
-                    ApiConnection.Get<LanguageDirection>(ApiUrls.GetLanguageDirectionForTm(tmId, languageDirectionId), null);
+
+            return await ApiConnection.Get<LanguageDirection>(ApiUrls.GetLanguageDirectionForTm(tmId, languageDirectionId), null);
         }
 
         /// <summary>
-        /// Gets the  tms number.
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <param name="languageDirectionId"></param>
+        /// <returns></returns>
+        public async Task<LanguageDirection> GetTmLanguageDirection(Guid tmId, Guid languageDirectionId)
+        {
+            Ensure.ArgumentNotNull(tmId, "tmId");
+            Ensure.ArgumentNotNull(languageDirectionId, "languageDirectionId");
+
+            return await ApiConnection.Get<LanguageDirection>(ApiUrls.GetTmLanguageDirection(tmId, languageDirectionId), null);
+        }
+
+        /// <summary>
+        /// Gets the tms number by language resource template id
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -105,13 +128,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task<int> GetTmsNumberByLanguageResourceTemplateId(string resourceTemplateId)
         {
             Ensure.ArgumentNotNullOrEmptyString(resourceTemplateId, "resourceTemplateId");
-            return
-                await
-                    ApiConnection.Get<int>(ApiUrls.GetTmsNumberByLanguageResourceTemplateId(resourceTemplateId), null);
+            return await ApiConnection.Get<int>(ApiUrls.GetTmsNumberByLanguageResourceTemplateId(resourceTemplateId), null);
         }
 
         /// <summary>
-        /// Gets the  tms number by field template id.
+        /// Gets the tms number by field template id
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -125,9 +146,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task<int> GetTmsNumberByFieldTemplateId(string fieldTemplateId)
         {
             Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
-            return
-               await
-                   ApiConnection.Get<int>(ApiUrls.GetTmsNumberByFieldTemplateId(fieldTemplateId), null);
+            return await ApiConnection.Get<int>(ApiUrls.GetTmsNumberByFieldTemplateId(fieldTemplateId), null);
         }
 
         /// <summary>
@@ -152,7 +171,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Deletes specified tm .
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<Guid> CreateTranslationMemory(CreateTranslationMemoryRequest request)
+        {
+            Ensure.ArgumentNotNull(request, "request");
+            return await ApiConnection.Post<Guid>(ApiUrls.GetTms(), request, "application/json");
+        }
+
+        /// <summary>
+        /// Deletes a translation memory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -169,7 +199,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Updates specified tm .
+        /// 
+        /// </summary>
+        /// <param name="translationMemoryId"></param>
+        /// <returns></returns>
+        public async Task DeleteTranslationMemory(Guid translationMemoryId)
+        {
+            Ensure.ArgumentNotNull(translationMemoryId, "translationMemoryId");
+            await ApiConnection.Delete(ApiUrls.GetTranslationMemory(translationMemoryId));
+        }
+
+        /// <summary>
+        /// Updates a translation memory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -179,6 +220,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public async Task Update(string tmId, TranslationMemoryDetails tm)
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
@@ -187,7 +229,20 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Gets the status  of tm service .
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <param name="tm"></param>
+        /// <returns></returns>
+        public async Task Update(Guid tmId, TranslationMemoryDetails tmDetails)
+        {
+            Ensure.ArgumentNotNull(tmId, "tmId");
+            Ensure.ArgumentNotNull(tmDetails, "tmDetails");
+            await ApiConnection.Put<string>(ApiUrls.GetTranslationMemory(tmId), tmDetails);
+        }
+
+        /// <summary>
+        /// Gets the status of TM Service
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -217,9 +272,24 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="FuzzyIndexResponse"/></returns>
+        [Obsolete]
         public async Task<FuzzyIndexResponse> RecomputeStatistics(string tmId, FuzzyRequest request)
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
+            Ensure.ArgumentNotNull(request, "request");
+
+            return await ApiConnection.Post<FuzzyIndexResponse>(ApiUrls.Fuzzy(tmId, "recomputestatistics"), request, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<FuzzyIndexResponse> RecomputeStatistics(Guid tmId, FuzzyRequest request)
+        {
+            Ensure.ArgumentNotNull(tmId, "tmId");
             Ensure.ArgumentNotNull(request, "request");
 
             return await ApiConnection.Post<FuzzyIndexResponse>(ApiUrls.Fuzzy(tmId, "recomputestatistics"), request, "application/json");
@@ -270,10 +340,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(request, "request");
             Ensure.ArgumentNotNull(language, "language parameters");
 
-            var response = await
-
-                     ApiConnection.Post<ExportResponse>(ApiUrls.Export(tmId, language.Source, language.Target), request,
-                        "application/json");
+            var response = await ApiConnection.Post<ExportResponse>(ApiUrls.Export(tmId, language.Source, language.Target), request, "application/json");
 
             BackgroundTask backgroundTask;
             do
@@ -460,10 +527,25 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="TranslationUnitDetailsResponse"/></returns>
+        [Obsolete]
         public async Task<TranslationUnitDetailsResponse> GetTranslationUnitForTm(string tmId, TranslationUnitDetailsRequest request)
         {
             Ensure.ArgumentNotNull(request, "translation request params");
             Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
+
+            return await ApiConnection.Get<TranslationUnitDetailsResponse>(ApiUrls.Tus(tmId), request.ToParametersDictionary());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<TranslationUnitDetailsResponse> GetTranslationUnitsForTm(Guid tmId, TranslationUnitDetailsRequest request)
+        {
+            Ensure.ArgumentNotNull(request, "translation request params");
+            Ensure.ArgumentNotNull(tmId, "translation memory id");
 
             return await ApiConnection.Get<TranslationUnitDetailsResponse>(ApiUrls.Tus(tmId), request.ToParametersDictionary());
         }
@@ -613,16 +695,15 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             Ensure.ArgumentNotNull(tmRequest.TmId, "translation memory id");
 
+            RestFilterExpression restFilterExpression = null;
             var expression = FilterExpression.CreateFilter(languageRequest, caseSensitive, allowWildCards);
 
-            var restFilterExpression = FilterExpression.GetRestFilterExpression(expression, languageRequest);
+            if (expression != "")
+            {
+                restFilterExpression = FilterExpression.GetRestFilterExpression(expression, languageRequest);
+            }
 
-            var document =
-                await
-                    _client.GetTranslationUnitsAsync(tmRequest.TmId, languageRequest.SourceLanguageCode,
-                        languageRequest.TargetLanguageCode, tmRequest.StartTuId, tmRequest.Count, restFilterExpression);
-
-
+            var document = await _client.GetTranslationUnitsAsync(tmRequest.TmId, languageRequest.SourceLanguageCode, languageRequest.TargetLanguageCode, tmRequest.StartTuId, tmRequest.Count, restFilterExpression);
             var searchResult = FilterResults.GetFilterResultForDocument(document, null);
 
             return searchResult;
@@ -702,7 +783,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             var restConcordanceSearch = new RestConcordanceSearch
             {
-
                 Settings = new RestConcordanceSearchSettings(),
                 SearchText = concordanceSearchRequest.SearchText
             };
@@ -935,7 +1015,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
 
         /// <summary>
-        ///Returns a list of all available containers
+        /// Returns a list of all available containers
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -945,10 +1025,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns><see cref="ContainerResponse"/></returns>
-        public async Task<ContainerResponse> GetContainers()
+        ///<returns><see cref="Containers"/></returns>
+        public async Task<Containers> GetContainers()
         {
-            return await ApiConnection.Get<ContainerResponse>(ApiUrls.Containers(), null);
+            return await ApiConnection.Get<Containers>(ApiUrls.Containers(), null);
         }
 
         /// <summary>
@@ -967,8 +1047,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task<string> CreateContainer(ContainerRequest request)
         {
             Ensure.ArgumentNotNull(request, "container request");
+            return await ApiConnection.Post<string>(ApiUrls.Containers(), request, "application/json");
+        }
 
-            return await ApiConnection.Post<string>(ApiUrls.Containers(), request, "application/json").ConfigureAwait(false);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<Guid> CreateContainer(CreateContainerRequest request)
+        {
+            Ensure.ArgumentNotNull(request, "request");
+            return await ApiConnection.Post<Guid>(ApiUrls.Containers(), request, "application/json");
         }
 
         /// <summary>
@@ -990,7 +1080,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        ///Deletes  specified container
+        /// 
+        /// </summary>
+        /// <param name="containerId"></param>
+        /// <returns></returns>
+        public async Task<Container> GetContainer(Guid containerId)
+        {
+            Ensure.ArgumentNotNull(containerId, "containerId");
+            return await ApiConnection.Get<Container>(ApiUrls.Containers(containerId), null);
+        }
+
+        /// <summary>
+        /// Deletes a container
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1007,7 +1108,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        ///Updates  specified container
+        /// 
+        /// </summary>
+        /// <param name="containerId"></param>
+        /// <returns></returns>
+        public async Task DeleteContainer(Guid containerId)
+        {
+            Ensure.ArgumentNotNull(containerId, "containerId");
+            await ApiConnection.Delete(ApiUrls.Containers(containerId));
+        }
+
+        /// <summary>
+        /// Updates a container
         /// </summary>
         /// <remarks>
         /// <param name="request"><see cref="UpdateContainerRequest"/></param>
@@ -1025,11 +1137,26 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             await ApiConnection.Put<string>(ApiUrls.Containers(containerId), request);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="containerId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task UpdateContainer(Guid containerId, UpdateContainerRequest request)
+        {
+            Ensure.ArgumentNotNull(containerId, "container id");
+            Ensure.ArgumentNotNull(request, "request");
+
+            await ApiConnection.Put<Guid>(ApiUrls.Containers(containerId), request);
+        }
+
         #endregion
 
         #region Database server
         /// <summary>
-        ///Returns a list of all available database servers
+        /// Returns a list of all available database servers
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1039,14 +1166,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns><see cref="DatabaseServerResponse"/> id</returns>
+        /// <returns><see cref="DatabaseServerResponse"/> id</returns>
         public async Task<DatabaseServerResponse> GetDbServers()
         {
             return await ApiConnection.Get<DatabaseServerResponse>(ApiUrls.DbServers(), null);
         }
 
         /// <summary>
-        ///Returns specified  database server
+        /// Returns a database server
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1057,7 +1184,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns><see cref="DatabaseServer"/></returns>
+        /// <returns><see cref="DatabaseServer"/></returns>
         public async Task<DatabaseServer> GetDbServerById(string serverId)
         {
             Ensure.ArgumentNotNullOrEmptyString(serverId, "serverId");
@@ -1065,7 +1192,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        ///Creates a new database server
+        /// 
+        /// </summary>
+        /// <param name="serverId"></param>
+        /// <returns></returns>
+        public async Task<DatabaseServer> GetDbServer(Guid serverId)
+        {
+            Ensure.ArgumentNotNull(serverId, "serverId");
+            return await ApiConnection.Get<DatabaseServer>(ApiUrls.DbServers(serverId), null);
+        }
+
+        /// <summary>
+        /// Creates a new database server
         /// </summary>
         /// <remarks>
         /// <param name="request"><see cref="DatabaseServerRequest"/></param>
@@ -1076,16 +1214,26 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns>The id of db server</returns>
+        /// <returns>The id of db server</returns>
         public async Task<string> CreateDbServer(DatabaseServerRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");
-
-            return await ApiConnection.Post<string>(ApiUrls.DbServers(), request, "application/json").ConfigureAwait(false);
+            return await ApiConnection.Post<string>(ApiUrls.DbServers(), request, "application/json");
         }
 
         /// <summary>
-        ///Deletes specified  database server
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<Guid> CreateDbServer(CreateDatabaseServerRequest request)
+        {
+            Ensure.ArgumentNotNull(request, "request");
+            return await ApiConnection.Post<Guid>(ApiUrls.DbServers(), request, "application/json");
+        }
+
+        /// <summary>
+        /// Deletes a database server
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1103,7 +1251,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        ///Updates specified  database server
+        /// 
+        /// </summary>
+        /// <param name="serverId"></param>
+        /// <returns></returns>
+        public async Task DeleteDbServer(Guid serverId)
+        {
+            Ensure.ArgumentNotNull(serverId, "serverId");
+            await ApiConnection.Delete(ApiUrls.DbServers(serverId));
+        }
+
+        /// <summary>
+        /// Updates a database server
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1122,6 +1281,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             await ApiConnection.Put<string>(ApiUrls.DbServers(serverId), request);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="serverId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task UpdateDbServer(Guid serverId, UpdateDatabaseServerRequest request)
+        {
+            Ensure.ArgumentNotNull(serverId, "serverId");
+            await ApiConnection.Put<Guid>(ApiUrls.DbServers(serverId), request);
+        }
         #endregion
 
         #region Fields methods
@@ -1136,14 +1307,26 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns>Created field template id</returns>
+        /// <returns>Created field template id</returns>
         public async Task<string> CreateFieldTemplate(FieldTemplate template)
         {
             Ensure.ArgumentNotNull(template, "FieldTemplate");
-            var templateLocation =
-                await ApiConnection.Post<string>(ApiUrls.FieldTemplate(), template, "application/json");
+            var templateLocation = await ApiConnection.Post<string>(ApiUrls.FieldTemplate(), template, "application/json");
             var templateId = templateLocation.Split('/').Last();
             return templateId;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<Guid> CreateFieldTemplate(CreateFieldTemplateRequest request)
+        {
+            Ensure.ArgumentNotNull(request, "request");
+
+            var fieldTemplateId = await ApiConnection.Post<Guid>(ApiUrls.FieldTemplate(), request, "application/json");
+            return fieldTemplateId;
         }
 
         /// <summary>
@@ -1157,7 +1340,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns>Returns <see cref="FieldTemplates"/> which contains a list of <see cref="FieldTemplate"/></returns>
+        /// <returns>Returns <see cref="FieldTemplates"/> which contains a list of <see cref="FieldTemplate"/></returns>
         public async Task<FieldTemplates> GetFieldTemplates()
         {
             return await ApiConnection.Get<FieldTemplates>(ApiUrls.FieldTemplate(), null);
@@ -1174,10 +1357,20 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns><see cref="FieldTemplate"/></returns>
+        /// <returns><see cref="FieldTemplate"/></returns>
         public async Task<FieldTemplate> GetFieldTemplateById(string id)
         {
             return await ApiConnection.Get<FieldTemplate>(ApiUrls.GetFieldTemplateById(id), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldTemplateId"></param>
+        /// <returns></returns>
+        public async Task<FieldTemplate> GetFieldTemplate(Guid fieldTemplateId)
+        {
+            return await ApiConnection.Get<FieldTemplate>(ApiUrls.GetFieldTemplate(fieldTemplateId), null);
         }
 
         /// <summary>
@@ -1192,13 +1385,27 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns><see cref="FieldTemplate"/> id</returns>
+        /// <returns><see cref="FieldTemplate"/> id</returns>
         public async Task UpdateFieldTemplate(string templateId, FieldTemplateRequest templateRequest)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             Ensure.ArgumentNotNull(templateRequest, "templateRequest");
 
             await ApiConnection.Put<string>(ApiUrls.GetFieldTemplateById(templateId), templateRequest);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldTemplateId"></param>
+        /// <param name="fieldTemplateRequest"></param>
+        /// <returns></returns>
+        public async Task UpdateFieldTemplate(Guid fieldTemplateId, UpdateTemplateRequest fieldTemplateRequest)
+        {
+            Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
+            Ensure.ArgumentNotNull(fieldTemplateRequest, "fieldTemplateRequest");
+
+            await ApiConnection.Put<Guid>(ApiUrls.GetFieldTemplate(fieldTemplateId), fieldTemplateRequest);
         }
 
         /// <summary>
@@ -1219,6 +1426,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldTemplateId"></param>
+        /// <returns></returns>
+        public async Task DeleteFieldTemplate(Guid fieldTemplateId)
+        {
+            Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
+            await ApiConnection.Delete(ApiUrls.GetFieldTemplate(fieldTemplateId));
+        }
+
+        /// <summary>
         /// Updates <see cref="FieldTemplate"/> 
         /// </summary>
         /// <remarks>
@@ -1236,6 +1454,19 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(request, "request");
 
             await ApiConnection.Patch(ApiUrls.GetFieldTemplateById(templateId), request, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldTemplateId"></param>
+        /// <param name="operations"></param>
+        /// <returns></returns>
+        public async Task AddOperationsForFieldTemplate(Guid fieldTemplateId, List<Operation> operations)
+        {
+            Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
+
+            await ApiConnection.Patch(ApiUrls.GetFieldTemplate(fieldTemplateId), operations, "application/json");
         }
 
         /// <summary>
@@ -1274,6 +1505,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
             return await ApiConnection.Get<Field>(ApiUrls.GetField(fieldTemplateId, fieldId), null);
         }
+
         /// <summary>
         /// Creates a Field for a specific Field Template ID
         /// If selected type is SinglePicklist or MultiplePicklist , "values " property should be filled out.
@@ -1304,9 +1536,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                 FieldId = fieldRequest.FieldId,
                 Values = GetValues(fieldRequest.Values)
             };
-            var fieldLocation =
-                await
-                    ApiConnection.Post<string>(ApiUrls.GetFields(fieldTemplateId), field, "application/json");
+
+            var fieldLocation = await ApiConnection.Post<string>(ApiUrls.GetFields(fieldTemplateId), field, "application/json");
             var fieldId = fieldLocation.Split('/').Last();
             return fieldId;
         }
@@ -1319,6 +1550,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         private static List<Value> GetValues(List<string> valuesList)
         {
             var multipleValuesList = new List<Value>();
+
             foreach (var value in valuesList)
             {
                 var item = new Value
@@ -1326,8 +1558,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
                     Id = Guid.NewGuid().ToString(),
                     Name = value
                 };
+
                 multipleValuesList.Add(item);
             }
+
             return multipleValuesList;
         }
 
@@ -1347,8 +1581,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
             Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
             Ensure.ArgumentNotNull(field, "field request");
-            await
-                ApiConnection.Put<string>(ApiUrls.GetField(fieldTemplateId, fieldId), field);
+            await ApiConnection.Put<string>(ApiUrls.GetField(fieldTemplateId, fieldId), field);
         }
 
         /// <summary>
@@ -1384,10 +1617,22 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>  A list of <see cref="Resource"/></returns>
+        [Obsolete]
         public async Task<IReadOnlyList<Resource>> GetLanguageResourcesForTemplate(string templateId)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             return await ApiConnection.GetAll<Resource>(ApiUrls.LanguageResource(templateId), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<LanguageResource>> GetLanguageResources(Guid languageResourceTemplateId)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            return await ApiConnection.GetAll<LanguageResource>(ApiUrls.LanguageResources(languageResourceTemplateId), null);
         }
 
         /// <summary>
@@ -1402,16 +1647,33 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> Resource id</returns>
+        [Obsolete]
         public async Task<string> CreateLanguageResourceForTemplate(string templateId, Resource request)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             Ensure.ArgumentNotNull(request, "request");
             var encodeData = Convert.ToBase64String(Encoding.UTF8.GetBytes(request.Data));
             request.Data = encodeData;
-            var resourceUrl =
-                await ApiConnection.Post<string>(ApiUrls.LanguageResource(templateId), request, "application/json");
+            var resourceUrl = await ApiConnection.Post<string>(ApiUrls.LanguageResource(templateId), request, "application/json");
 
             return resourceUrl.Split('/').Last();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<Guid> CreateLanguageResourceForTemplate(Guid languageResourceTemplateId, LanguageResource request)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            Ensure.ArgumentNotNull(request, "request");
+
+            var encodeData = Convert.ToBase64String(Encoding.UTF8.GetBytes(request.Data));
+            request.Data = encodeData;
+
+            return await ApiConnection.Post<Guid>(ApiUrls.LanguageResources(languageResourceTemplateId), request, "application/json");
         }
 
         /// <summary>
@@ -1427,16 +1689,24 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> Resource <see cref="ResourceServiceDefaultsRequest"/></returns>
+        [Obsolete]
         public async Task<Resource> GetDefaultsType(ResourceServiceDefaultsRequest defaultsRequest)
         {
             Ensure.ArgumentNotNull(defaultsRequest, "request");
 
-            return
-                await
-                    ApiConnection.Get<Resource>(
-                        ApiUrls.GetDefaults(
-                            Enum.GetName(typeof(ResourceServiceDefaultsRequest.ResourceType), defaultsRequest.Type),
-                            defaultsRequest.Language), null);
+            return await ApiConnection.Get<Resource>(ApiUrls.GetDefaults(Enum.GetName(typeof(ResourceServiceDefaultsRequest.ResourceType), defaultsRequest.Type), defaultsRequest.Language), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="defaultsRequest"></param>
+        /// <returns></returns>
+        public async Task<LanguageResource> GetLanguageResourceServiceDefaults(LanguageResourceServiceDefaultsRequest request)
+        {
+            Ensure.ArgumentNotNull(request, "request");
+
+            return await ApiConnection.Get<LanguageResource>(ApiUrls.GetDefaults(Enum.GetName(typeof(LanguageResourceType), request.Type), request.Language), null);
         }
 
         /// <summary>
@@ -1451,19 +1721,31 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="Resource"/></returns>
+        [Obsolete]
         public async Task<Resource> GetLanguageResourceForTemplate(string templateId, string languageResourceId)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             Ensure.ArgumentNotNullOrEmptyString(languageResourceId, "languageResourceId");
 
-            return
-                await
-                    ApiConnection.Get<Resource>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId),
-                        null);
+            return await ApiConnection.Get<Resource>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId), null);
         }
 
         /// <summary>
-        /// Deletes   language resource <see cref="Resource"/> for specified template.
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <returns></returns>
+        public async Task<LanguageResource> GetLanguageResourceForTemplate(Guid templateId, Guid languageResourceId)
+        {
+            Ensure.ArgumentNotNull(templateId, "templateId");
+            Ensure.ArgumentNotNull(languageResourceId, "languageResourceId");
+
+            return await ApiConnection.Get<LanguageResource>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId), null);
+        }
+
+        /// <summary>
+        /// Deletes language resource <see cref="Resource"/> for specified template.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1473,6 +1755,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public async Task DeleteLanguageResourceForTemplate(string templateId, string languageResourceId)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
@@ -1482,7 +1765,21 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Updates   language resource <see cref="Resource"/> for specified template.
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <returns></returns>
+        public async Task DeleteLanguageResourceForTemplate(Guid languageResourceTemplateId, Guid languageResourceId)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            Ensure.ArgumentNotNull(languageResourceId, "languageResourceId");
+
+            await ApiConnection.Delete(ApiUrls.LanguageResourcesForTemplate(languageResourceTemplateId, languageResourceId));
+        }
+
+        /// <summary>
+        /// Updates language resource <see cref="Resource"/> for specified template.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1501,13 +1798,30 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             var encodeData = Convert.ToBase64String(Encoding.UTF8.GetBytes(resourceRequest.Data));
             resourceRequest.Data = encodeData;
 
-            await
-                ApiConnection.Put<string>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId),
-                    resourceRequest);
+            await ApiConnection.Put<string>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId), resourceRequest);
         }
 
         /// <summary>
-        ///Reset to default Culture values a specific Language Resource in a specific Language Resource Template
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <param name="resourceRequest"></param>
+        /// <returns></returns>
+        public async Task UpdateLanguageResourceForTemplate(Guid languageResourceTemplateId, Guid languageResourceId, LanguageResource resourceRequest)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            Ensure.ArgumentNotNull(languageResourceId, "languageResourceId");
+            Ensure.ArgumentNotNull(resourceRequest, "resourceRequest");
+
+            var encodeData = Convert.ToBase64String(Encoding.UTF8.GetBytes(resourceRequest.Data));
+            resourceRequest.Data = encodeData;
+
+            await ApiConnection.Put<string>(ApiUrls.LanguageResourcesForTemplate(languageResourceTemplateId, languageResourceId), resourceRequest);
+        }
+
+        /// <summary>
+        /// Reset to default Culture values a specific Language Resource in a specific Language Resource Template
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1537,6 +1851,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public async Task ImportFileForLanguageResource(string templateId, string languageResourceId, byte[] file)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
@@ -1547,12 +1862,34 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             byteContent.Headers.Add("Content-Type", "application/json");
             var multipartContent = new MultipartFormDataContent
             {
-                {byteContent,"file"}
+                { byteContent, "file" }
             };
 
-            await
-                ApiConnection.Post<string>(ApiUrls.LanguageResourceActions(templateId, languageResourceId, "import"),
-                    multipartContent);
+            await ApiConnection.Post<string>(ApiUrls.LanguageResourceActions(templateId, languageResourceId, "import"), multipartContent);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public async Task ImportFileForLanguageResource(Guid languageResourceTemplateId, Guid languageResourceId, byte[] file)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            Ensure.ArgumentNotNull(languageResourceId, "languageResourceId");
+            Ensure.ArgumentNotNull(file, "fileData");
+
+            var byteContent = new ByteArrayContent(file);
+            byteContent.Headers.Add("Content-Type", "application/json");
+
+            var multipartContent = new MultipartFormDataContent
+            {
+                { byteContent, "file", "File" }
+            };
+
+            await ApiConnection.Post<string>(ApiUrls.LanguageResourceActions(languageResourceTemplateId, languageResourceId, "import"), multipartContent, "application/json");
         }
 
         /// <summary>
@@ -1594,9 +1931,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns><see cref="LanguageResourceTemplates"/> which contains a list of language resource templates </returns>
         public async Task<LanguageResourceTemplates> GetAllLanguageResourceTemplates()
         {
-            return
-                await
-                    ApiConnection.Get<LanguageResourceTemplates>(ApiUrls.LanguageResourceServiceTemplates(), null);
+            return await ApiConnection.Get<LanguageResourceTemplates>(ApiUrls.LanguageResourceServiceTemplates(), null);
         }
 
         /// <summary>
@@ -1614,13 +1949,22 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task<LanguageResourceTemplate> GetTemplateById(string templateId)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            return
-                await
-                    ApiConnection.Get<LanguageResourceTemplate>(ApiUrls.GetLanguageResourceTemplateById(templateId),
-                        null);
+            return await ApiConnection.Get<LanguageResourceTemplate>(ApiUrls.GetLanguageResourceTemplateById(templateId), null);
         }
+
         /// <summary>
-        /// Updates  language resource template  .
+        /// 
+        /// </summary>
+        /// <param name="languageResourceTemplateId"></param>
+        /// <returns></returns>
+        public async Task<LanguageResourceTemplate> GetLanguageResourceTemplate(Guid languageResourceTemplateId)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            return await ApiConnection.Get<LanguageResourceTemplate>(ApiUrls.GetLanguageResourceTemplate(languageResourceTemplateId), null);
+        }
+
+        /// <summary>
+        /// Updates a language resource template
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1637,13 +1981,24 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             Ensure.ArgumentNotNull(request, "request");
-            await
-                ApiConnection.Put<string>(ApiUrls.GetLanguageResourceTemplateById(templateId),
-                    request);
+            await ApiConnection.Put<string>(ApiUrls.GetLanguageResourceTemplateById(templateId), request);
         }
 
         /// <summary>
-        ///Creates a  language resource template  .
+        /// 
+        /// </summary>
+        /// <param name="languageResourceTemplateId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task UpdateLanguageResourceTemplate(Guid languageResourceTemplateId, UpdateTemplateRequest request)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            Ensure.ArgumentNotNull(request, "request");
+            await ApiConnection.Put<Guid>(ApiUrls.GetLanguageResourceTemplate(languageResourceTemplateId), request);
+        }
+
+        /// <summary>
+        /// Creates a language resource template
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1672,6 +2027,19 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<Guid> CreateLanguageResourceTemplate(CreateLanguageResourceTemplateRequest request)
+        {
+            Ensure.ArgumentNotNull(request, "request");
+
+            var languageResourceTemplateId = await ApiConnection.Post<Guid>(ApiUrls.LanguageResourceServiceTemplates(), request, "application/json");
+            return languageResourceTemplateId;
+        }
+
+        /// <summary>
         ///Deletes a  language resource template .
         /// </summary>
         /// <remarks>
@@ -1686,6 +2054,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNullOrEmptyString(languageResourceTemplateId, "languageResourceTemplateId");
             await ApiConnection.Delete(ApiUrls.GetLanguageResourceTemplateById(languageResourceTemplateId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageResourceTemplateId"></param>
+        /// <returns></returns>
+        public async Task DeleteLanguageResourceTemplate(Guid languageResourceTemplateId)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            await ApiConnection.Delete(ApiUrls.LanguageResourceTemplates(languageResourceTemplateId));
         }
 
         /// <summary>

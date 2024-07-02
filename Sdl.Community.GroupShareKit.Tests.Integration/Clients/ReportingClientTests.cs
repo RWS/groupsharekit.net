@@ -1,7 +1,5 @@
-﻿using System.IO;
-using Sdl.Community.GroupShareKit.Clients;
+﻿using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Tests.Integration.Setup;
-using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 

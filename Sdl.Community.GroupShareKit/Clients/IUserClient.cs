@@ -1,5 +1,6 @@
 using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System;
 using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
@@ -56,6 +57,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<User> GetUserById(string userId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<User> GetUser(Guid userId);
+
+        /// <summary>
         /// Update <see cref="User"/>.
         /// </summary>
         /// <remarks>
@@ -68,6 +76,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A <see cref="User"/>.</returns>
         Task<string> Update(User user);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        Task<Guid> UpdateUser(User user);
 
         /// <summary>
         /// Delete <see cref="User"/>.
@@ -83,6 +98,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task Delete(string userId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task DeleteUser(Guid userId);
+
+        /// <summary>
         /// Create <see cref="User"/>.
         /// </summary>
         /// /// <remarks>
@@ -95,5 +117,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <param name="user"><see cref="CreateUserRequest"/></param>
         /// <returns>Created user Id</returns>
         Task<string> Create(CreateUserRequest user);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        Task<Guid> CreateUser(CreateUserRequest user);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Helpers;
@@ -31,6 +32,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Task<IReadOnlyList<Role>> GetRoles()
+        {
+            return ApiConnection.GetAll<Role>(ApiUrls.Roles());
+        }
+
+        /// <summary>
         /// Create <see cref="Role"/>s.
         /// </summary>
         /// <remarks>
@@ -48,6 +58,18 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(request, "request");
 
             return await ApiConnection.Post<string>(ApiUrls.Roles(), request, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        public async Task<Guid> CreateRole(Role role)
+        {
+            Ensure.ArgumentNotNull(role, "role");
+
+            return await ApiConnection.Post<Guid>(ApiUrls.Roles(), role, "application/json");
         }
 
         /// <summary>
@@ -87,6 +109,18 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public Task<Role> GetRole(Guid roleId)
+        {
+            Ensure.ArgumentNotNull(roleId, "roleId");
+
+            return ApiConnection.Get<Role>(ApiUrls.Role(roleId), null);
+        }
+
+        /// <summary>
         /// Delete role.
         /// </summary>
         /// <remarks>
@@ -100,6 +134,18 @@ namespace Sdl.Community.GroupShareKit.Clients
         public Task DeleteRole(string roleId)
         {
             Ensure.ArgumentNotNullOrEmptyString(roleId, "roleId");
+
+            return ApiConnection.Delete(ApiUrls.Role(roleId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public Task DeleteRole(Guid roleId)
+        {
+            Ensure.ArgumentNotNull(roleId, "roleId");
 
             return ApiConnection.Delete(ApiUrls.Role(roleId));
         }
@@ -149,9 +195,21 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="User"/>'s</returns>
+        [Obsolete]
         public Task<IReadOnlyList<User>> GetUsersForRole(string roleId)
         {
             Ensure.ArgumentNotNullOrEmptyString(roleId, "roleId");
+            return ApiConnection.GetAll<User>(ApiUrls.GetUsersForRole(roleId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public Task<IReadOnlyList<User>> GetUsersForRole(Guid roleId)
+        {
+            Ensure.ArgumentNotNull(roleId, "roleId");
             return ApiConnection.GetAll<User>(ApiUrls.GetUsersForRole(roleId));
         }
 
@@ -167,9 +225,20 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public async Task AddUserToRole(List<Role> roles)
         {
             await ApiConnection.Put<string>(ApiUrls.RoleMembership(), roles);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roles"></param>
+        /// <returns></returns>
+        public async Task AddUserToRole(List<RoleMembership> roles)
+        {
+            await ApiConnection.Put<Guid>(ApiUrls.RoleMembership(), roles);
         }
 
         /// <summary>
@@ -185,9 +254,21 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public async Task RemoveUserFromRole(List<Role> roles, string roleId)
         {
             await ApiConnection.Delete(ApiUrls.DeleteUserFromRole(roleId), roles, "application/json");
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roles"></param>
+        /// <returns></returns>
+        public async Task RemoveUserFromRole(List<RoleMembership> roles)
+        {
+            await ApiConnection.Delete(ApiUrls.RoleMembership(), roles, "application/json");
+        }
+
     }
 }

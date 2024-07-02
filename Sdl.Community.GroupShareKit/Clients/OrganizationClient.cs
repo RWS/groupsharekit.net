@@ -27,9 +27,22 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="Organization"/>s.</returns>
+        [Obsolete]
         public Task<Organization> Get(string organizationId)
         {
             Ensure.ArgumentNotNullOrEmptyString(organizationId, "organizationId");
+
+            return ApiConnection.Get<Organization>(ApiUrls.Organization(organizationId), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="organizationId"></param>
+        /// <returns></returns>
+        public Task<Organization> GetOrganization(Guid organizationId)
+        {
+            Ensure.ArgumentNotNull(organizationId, "organizationId");
 
             return ApiConnection.Get<Organization>(ApiUrls.Organization(organizationId), null);
         }
@@ -94,6 +107,18 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="organizationId"></param>
+        /// <returns></returns>
+        public Task DeleteOrganization(Guid organizationId)
+        {
+            Ensure.ArgumentNotNull(organizationId, "organizationId");
+
+            return ApiConnection.Delete(ApiUrls.Organization(organizationId));
+        }
+
+        /// <summary>
         /// Update <see cref="Organization"/>'s.
         /// </summary>
         /// <remarks>
@@ -106,9 +131,20 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="Organization"/>.</returns>
+        [Obsolete]
         public Task<string> Update(Organization organization)
         {
             return ApiConnection.Put<string>(ApiUrls.Organizations(), organization);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="organization"></param>
+        /// <returns></returns>
+        public Task<Guid> UpdateOrganization(Organization organization)
+        {
+            return ApiConnection.Put<Guid>(ApiUrls.Organizations(), organization);
         }
 
         /// <summary>
@@ -124,9 +160,20 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Id of created organization.</returns>
+        [Obsolete]
         public async Task<string> Create(Organization organization)
         {
             return await ApiConnection.Post<string>(ApiUrls.Organizations(), organization, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="organization"></param>
+        /// <returns></returns>
+        public async Task<Guid> CreateOrganization(Organization organization)
+        {
+            return await ApiConnection.Post<Guid>(ApiUrls.Organizations(), organization, "application/json");
         }
 
         /// <summary>
@@ -142,7 +189,18 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>List of <see cref="OrganizationResources"/></returns>
+        [Obsolete]
         public async Task<IReadOnlyList<OrganizationResources>> GetAllOrganizationResources(string organizationId)
+        {
+            return await ApiConnection.GetAll<OrganizationResources>(ApiUrls.OrganizationResources(organizationId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="organizationId"></param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<OrganizationResources>> GetOrganizationResources(Guid organizationId)
         {
             return await ApiConnection.GetAll<OrganizationResources>(ApiUrls.OrganizationResources(organizationId));
         }

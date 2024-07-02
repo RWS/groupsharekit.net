@@ -1,4 +1,6 @@
-﻿namespace Sdl.Community.GroupShareKit.Clients
+﻿using System;
+
+namespace Sdl.Community.GroupShareKit.Clients
 {
     public class ChangeStatusRequest : RequestParameters
 
@@ -24,6 +26,12 @@
         public ChangeStatusRequest(string projectId, ProjectStatus projectStatus)
         {
             ProjectId = projectId;
+            Status = projectStatus;
+        }
+
+        public ChangeStatusRequest(Guid projectId, ProjectStatus projectStatus)
+        {
+            ProjectId = projectId.ToString();
             Status = projectStatus;
         }
     }

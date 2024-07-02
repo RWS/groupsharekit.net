@@ -2,7 +2,6 @@
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
-
     public class BasicCreateProjectRequest
     {
         /// <summary>
