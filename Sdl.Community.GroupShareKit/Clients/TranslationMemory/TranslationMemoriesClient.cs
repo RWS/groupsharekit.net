@@ -1629,10 +1629,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <param name="templateId"></param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Resource>> GetLanguageResources(Guid languageResourceTemplateId)
+        public async Task<IReadOnlyList<LanguageResource>> GetLanguageResources(Guid languageResourceTemplateId)
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
-            return await ApiConnection.GetAll<Resource>(ApiUrls.LanguageResources(languageResourceTemplateId), null);
+            return await ApiConnection.GetAll<LanguageResource>(ApiUrls.LanguageResources(languageResourceTemplateId), null);
         }
 
         /// <summary>
@@ -1665,7 +1665,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <param name="templateId"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<Guid> CreateLanguageResourceForTemplate(Guid languageResourceTemplateId, Resource request)
+        public async Task<Guid> CreateLanguageResourceForTemplate(Guid languageResourceTemplateId, LanguageResource request)
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
             Ensure.ArgumentNotNull(request, "request");
@@ -1689,16 +1689,24 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> Resource <see cref="ResourceServiceDefaultsRequest"/></returns>
+        [Obsolete]
         public async Task<Resource> GetDefaultsType(ResourceServiceDefaultsRequest defaultsRequest)
         {
             Ensure.ArgumentNotNull(defaultsRequest, "request");
 
-            return
-                await
-                    ApiConnection.Get<Resource>(
-                        ApiUrls.GetDefaults(
-                            Enum.GetName(typeof(ResourceServiceDefaultsRequest.ResourceType), defaultsRequest.Type),
-                            defaultsRequest.Language), null);
+            return await ApiConnection.Get<Resource>(ApiUrls.GetDefaults(Enum.GetName(typeof(ResourceServiceDefaultsRequest.ResourceType), defaultsRequest.Type), defaultsRequest.Language), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="defaultsRequest"></param>
+        /// <returns></returns>
+        public async Task<LanguageResource> GetLanguageResourceServiceDefaults(LanguageResourceServiceDefaultsRequest request)
+        {
+            Ensure.ArgumentNotNull(request, "request");
+
+            return await ApiConnection.Get<LanguageResource>(ApiUrls.GetDefaults(Enum.GetName(typeof(LanguageResourceType), request.Type), request.Language), null);
         }
 
         /// <summary>
@@ -1713,12 +1721,27 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="Resource"/></returns>
+        [Obsolete]
         public async Task<Resource> GetLanguageResourceForTemplate(string templateId, string languageResourceId)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             Ensure.ArgumentNotNullOrEmptyString(languageResourceId, "languageResourceId");
 
             return await ApiConnection.Get<Resource>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <returns></returns>
+        public async Task<LanguageResource> GetLanguageResourceForTemplate(Guid templateId, Guid languageResourceId)
+        {
+            Ensure.ArgumentNotNull(templateId, "templateId");
+            Ensure.ArgumentNotNull(languageResourceId, "languageResourceId");
+
+            return await ApiConnection.Get<LanguageResource>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId), null);
         }
 
         /// <summary>

@@ -1,5 +1,8 @@
-﻿namespace Sdl.Community.GroupShareKit.Clients
+﻿using System;
+
+namespace Sdl.Community.GroupShareKit.Clients
 {
+    [Obsolete]
     public class ResourceServiceDefaultsRequest
     {
         public string Language { get; set; }

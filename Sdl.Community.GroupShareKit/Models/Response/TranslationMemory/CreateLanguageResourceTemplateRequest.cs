@@ -15,7 +15,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 
         public string Location { get; set; }
 
-        public List<Resource> LanguageResources { get; set; }
+        public List<LanguageResource> LanguageResources { get; set; }
 
         public string Recognizers { get; set; }
 

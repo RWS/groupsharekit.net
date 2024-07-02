@@ -980,7 +980,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <param name="templateId"></param>
         /// <returns></returns>
-        Task<IReadOnlyList<Resource>> GetLanguageResources(Guid languageResourceTemplateId);
+        Task<IReadOnlyList<LanguageResource>> GetLanguageResources(Guid languageResourceTemplateId);
 
         /// <summary>
         /// Creates a  language resources <see cref="Resource"/> for specified template.
@@ -1002,7 +1002,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <param name="templateId"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<Guid> CreateLanguageResourceForTemplate(Guid languageResourceTemplateId, Resource request);
+        Task<Guid> CreateLanguageResourceForTemplate(Guid languageResourceTemplateId, LanguageResource request);
 
         /// <summary>
         /// Gets language resource service defaults type.
@@ -1020,6 +1020,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<Resource> GetDefaultsType(ResourceServiceDefaultsRequest defaultsRequest);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="defaultsRequest"></param>
+        /// <returns></returns>
+        Task<LanguageResource> GetLanguageResourceServiceDefaults(LanguageResourceServiceDefaultsRequest request);
+
+        /// <summary>
         /// Gets   language resource <see cref="Resource"/> for specified template.
         /// </summary>
         /// <remarks>
@@ -1032,6 +1039,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="Resource"/></returns>
         Task<Resource> GetLanguageResourceForTemplate(string templateId, string languageResourceId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <returns></returns>
+        Task<LanguageResource> GetLanguageResourceForTemplate(Guid templateId, Guid languageResourceId);
 
         /// <summary>
         /// Deletes   language resource <see cref="Resource"/> for specified template.

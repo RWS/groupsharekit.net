@@ -76,8 +76,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         public async Task<Guid> CreateTestLanguageResourceTemplate()
         {
-            var request = new ResourceServiceDefaultsRequest(ResourceServiceDefaultsRequest.ResourceType.Variables, "ro-ro");
-            var resource = await GroupShareClient.TranslationMemories.GetDefaultsType(request);
+            //var request = new ResourceServiceDefaultsRequest(ResourceServiceDefaultsRequest.ResourceType.Variables, "ro-ro");
+            //var resource = await GroupShareClient.TranslationMemories.GetDefaultsType(request);
 
             //var template = new LanguageResourceTemplate
             //{
@@ -108,12 +108,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 WordCountFlags = "DefaultFlags",
                 TokenizerFlags = "DefaultFlags",
                 OwnerId = Guid.Parse(Helper.OrganizationId),
-                LanguageResources = new List<Resource>
+                LanguageResources = new List<LanguageResource>
                 {
-                    new Resource
+                    new LanguageResource
                     {
                         CultureName = "ro-ro",
-                        Type = "Variables",
+                        Type = LanguageResourceType.Variables,
                         Data = "test"
                     }
                 }
