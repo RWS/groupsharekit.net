@@ -1,5 +1,4 @@
-﻿using Sdl.Community.GroupShareKit.Clients;
-using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
+﻿using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,71 +6,75 @@ using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
-    public class TranslationMemoryClientLanguageResourceTemplatesTests
+    public class TranslationMemoryClientLanguageResourceTemplatesTests : IDisposable
     {
         private static readonly GroupShareClient GroupShareClient = Helper.GsClient;
+
+        private Guid _languageResourceId;
+        private Guid _languageResourceTemplateId;
+
+        public TranslationMemoryClientLanguageResourceTemplatesTests()
+        {
+            _languageResourceTemplateId = CreateTestLanguageResourceTemplate().Result;
+            //_languageResourceId = GroupShareClient.TranslationMemories.GetLanguageResources(_languageResourceTemplateId).Result;
+        }
 
         [Fact]
         public async Task GetAllLanguageResourceTemplates()
         {
-            var languageResourceTemplateId = await CreateTestLanguageResourceTemplate();
             var templatesResponse = await GroupShareClient.TranslationMemories.GetAllLanguageResourceTemplates();
 
             Assert.True(templatesResponse.Items.Count > 0);
-            await GroupShareClient.TranslationMemories.DeleteLanguageResourceTemplate(languageResourceTemplateId);
         }
 
         [Fact]
         public async Task GetLanguageResourceTemplate()
         {
-            var languageResourceTemplateId = await CreateTestLanguageResourceTemplate();
-            var languageResourceTemplate = await GroupShareClient.TranslationMemories.GetLanguageResourceTemplate(languageResourceTemplateId);
+            var languageResourceTemplate = await GroupShareClient.TranslationMemories.GetLanguageResourceTemplate(_languageResourceTemplateId);
 
-            Assert.Equal(languageResourceTemplateId, Guid.Parse(languageResourceTemplate.LanguageResourceTemplateId));
-            await GroupShareClient.TranslationMemories.DeleteLanguageResourceTemplate(languageResourceTemplateId);
+            Assert.Equal(_languageResourceTemplateId, Guid.Parse(languageResourceTemplate.LanguageResourceTemplateId));
         }
 
         [Fact]
         public async Task UpdateLanguageResourceTemplate()
         {
-            var languageResourceTemplateId = await CreateTestLanguageResourceTemplate();
             var updateRequest = new UpdateTemplateRequest
             {
                 Name = "UpdatedName",
                 Description = "Edited using GroupShare Kit"
             };
 
-            await GroupShareClient.TranslationMemories.UpdateLanguageResourceTemplate(languageResourceTemplateId, updateRequest);
+            await GroupShareClient.TranslationMemories.UpdateLanguageResourceTemplate(_languageResourceTemplateId, updateRequest);
 
-            var languageResourceTemplate = await GroupShareClient.TranslationMemories.GetLanguageResourceTemplate(languageResourceTemplateId);
+            var languageResourceTemplate = await GroupShareClient.TranslationMemories.GetLanguageResourceTemplate(_languageResourceTemplateId);
 
             Assert.Equal("UpdatedName", languageResourceTemplate.Name);
-            await GroupShareClient.TranslationMemories.DeleteLanguageResourceTemplate(languageResourceTemplateId);
         }
 
         [Fact]
         public async Task CreateLanguageResourceTemplate()
         {
-            var languageResourceTemplateId = await CreateTestLanguageResourceTemplate();
-            var languageResourceTemplate = await GroupShareClient.TranslationMemories.GetLanguageResourceTemplate(languageResourceTemplateId);
+            var languageResourceTemplate = await GroupShareClient.TranslationMemories.GetLanguageResourceTemplate(_languageResourceTemplateId);
 
             Assert.Equal("Created using GroupShare Kit", languageResourceTemplate.Description);
-
-            await GroupShareClient.TranslationMemories.DeleteLanguageResourceTemplate(languageResourceTemplateId);
         }
 
         [Fact]
         public async Task DeleteLanguageResourceTemplateTemplate()
         {
             var languageResourceTemplateId = await CreateTestLanguageResourceTemplate();
-            var lrTemplatesBefore = await GroupShareClient.TranslationMemories.GetAllLanguageResourceTemplates();
-            var lrTemplatesCountBefore = lrTemplatesBefore.Items.Count;
+            var initialLanguageResourceTemplates = await GroupShareClient.TranslationMemories.GetAllLanguageResourceTemplates();
+            var initialCount = initialLanguageResourceTemplates.Items.Count;
 
             await GroupShareClient.TranslationMemories.DeleteLanguageResourceTemplate(languageResourceTemplateId);
-            var lrTemplates = await GroupShareClient.TranslationMemories.GetAllLanguageResourceTemplates();
-            var lrTemplatesCount = lrTemplates.Items.Count;
+            var languageresourceTemplates = await GroupShareClient.TranslationMemories.GetAllLanguageResourceTemplates();
 
-            Assert.True(lrTemplatesCount < lrTemplatesCountBefore);
+            Assert.True(languageresourceTemplates.Items.Count < initialCount);
+        }
+
+        public void Dispose()
+        {
+            GroupShareClient.TranslationMemories.DeleteLanguageResourceTemplate(_languageResourceTemplateId).Wait();
         }
 
         public async Task<Guid> CreateTestLanguageResourceTemplate()
@@ -120,6 +123,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             var languageResourceTemplateId = await GroupShareClient.TranslationMemories.CreateLanguageResourceTemplate(languageResourceTemplateRequest);
+
             return languageResourceTemplateId;
         }
     }

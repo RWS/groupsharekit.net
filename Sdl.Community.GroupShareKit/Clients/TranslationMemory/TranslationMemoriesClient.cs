@@ -1779,7 +1779,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Updates   language resource <see cref="Resource"/> for specified template.
+        /// Updates language resource <see cref="Resource"/> for specified template.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1799,6 +1799,25 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             resourceRequest.Data = encodeData;
 
             await ApiConnection.Put<string>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId), resourceRequest);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <param name="resourceRequest"></param>
+        /// <returns></returns>
+        public async Task UpdateLanguageResourceForTemplate(Guid languageResourceTemplateId, Guid languageResourceId, LanguageResource resourceRequest)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            Ensure.ArgumentNotNull(languageResourceId, "languageResourceId");
+            Ensure.ArgumentNotNull(resourceRequest, "resourceRequest");
+
+            var encodeData = Convert.ToBase64String(Encoding.UTF8.GetBytes(resourceRequest.Data));
+            resourceRequest.Data = encodeData;
+
+            await ApiConnection.Put<string>(ApiUrls.LanguageResourcesForTemplate(languageResourceTemplateId, languageResourceId), resourceRequest);
         }
 
         /// <summary>
@@ -1832,6 +1851,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public async Task ImportFileForLanguageResource(string templateId, string languageResourceId, byte[] file)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
@@ -1842,12 +1862,34 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             byteContent.Headers.Add("Content-Type", "application/json");
             var multipartContent = new MultipartFormDataContent
             {
-                {byteContent,"file"}
+                { byteContent, "file" }
             };
 
-            await
-                ApiConnection.Post<string>(ApiUrls.LanguageResourceActions(templateId, languageResourceId, "import"),
-                    multipartContent);
+            await ApiConnection.Post<string>(ApiUrls.LanguageResourceActions(templateId, languageResourceId, "import"), multipartContent);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public async Task ImportFileForLanguageResource(Guid languageResourceTemplateId, Guid languageResourceId, byte[] file)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            Ensure.ArgumentNotNull(languageResourceId, "languageResourceId");
+            Ensure.ArgumentNotNull(file, "fileData");
+
+            var byteContent = new ByteArrayContent(file);
+            byteContent.Headers.Add("Content-Type", "application/json");
+
+            var multipartContent = new MultipartFormDataContent
+            {
+                { byteContent, "file", "File" }
+            };
+
+            await ApiConnection.Post<string>(ApiUrls.LanguageResourceActions(languageResourceTemplateId, languageResourceId, "import"), multipartContent, "application/json");
         }
 
         /// <summary>

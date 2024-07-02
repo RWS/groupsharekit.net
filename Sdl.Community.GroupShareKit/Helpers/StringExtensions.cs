@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Sdl.Community.GroupShareKit.Helpers
 {
-    internal static class StringExtensions
+    public static class StringExtensions
     {
         public static bool IsBlank(this string value)
         {

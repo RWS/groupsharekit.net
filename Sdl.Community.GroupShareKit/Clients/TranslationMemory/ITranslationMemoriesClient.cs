@@ -1083,6 +1083,15 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task UpdateLanguageResourceForTemplate(string templateId, string languageResourceId, Resource resourceRequest);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <param name="resourceRequest"></param>
+        /// <returns></returns>
+        Task UpdateLanguageResourceForTemplate(Guid languageResourceTemplateId, Guid languageResourceId, LanguageResource resourceRequest);
+
+        /// <summary>
         ///Reset to default Culture values a specific Language Resource in a specific Language Resource Template
         /// </summary>
         /// <remarks>
@@ -1108,6 +1117,15 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task ImportFileForLanguageResource(string templateId, string languageResourceId, byte[] file);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        Task ImportFileForLanguageResource(Guid languageResourceTemplateId, Guid languageResourceId, byte[] file);
 
         /// <summary>
         /// Exports a file with data for a specific Language Resource Template 

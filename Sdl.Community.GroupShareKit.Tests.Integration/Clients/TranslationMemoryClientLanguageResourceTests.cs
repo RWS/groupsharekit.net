@@ -2,9 +2,11 @@
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
+using Sdl.Community.GroupShareKit.Helpers;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
@@ -12,12 +14,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
     {
         private static readonly GroupShareClient GroupShareClient = Helper.GsClient;
 
+        private Guid _languageResourceId;
         private Guid _languageResourceTemplateId;
-        //private Guid _languageDirectionId;
 
         public TranslationMemoryClientLanguageResourceTests()
         {
             _languageResourceTemplateId = CreateTestLanguageResourceTemplate().Result;
+            //_languageResourceId = GroupShareClient.TranslationMemories.GetLanguageResources(_languageResourceTemplateId).Result().Single().LanguageResourceId;
         }
 
         [Fact]
@@ -100,37 +103,31 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(languageResourceFrench.CultureName, retrievedVariables.CultureName);
         }
 
-        //[Theory]
-        //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
-        //public async Task UpdateLanguageResourceForTemplate(string templateId, string languageResourceId)
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    var resource =
-        //        await groupShareClient.TranslationMemories.GetLanguageResourceForTemplate(templateId, languageResourceId);
-        //    resource.CultureName = "de-de";
+        [Fact]
+        public async Task UpdateLanguageResourceForTemplate()
+        {
+            var languageResource =  await GroupShareClient.TranslationMemories.GetLanguageResourceForTemplate(_languageResourceTemplateId, _languageResourceId);
+            languageResource.CultureName = "de-de";
 
-        //        await
-        //            groupShareClient.TranslationMemories.UpdateLanguageResourceForTemplate(templateId, languageResourceId,
-        //                resource);
+            await GroupShareClient.TranslationMemories.UpdateLanguageResourceForTemplate(_languageResourceTemplateId, _languageResourceId, languageResource);
+            var updatedResource = await GroupShareClient.TranslationMemories.GetLanguageResourceForTemplate(_languageResourceTemplateId, _languageResourceId);
 
-        //    var updatedResource = 
-        //        await groupShareClient.TranslationMemories.GetLanguageResourceForTemplate(templateId, languageResourceId);
+            Assert.Equal("de-de", updatedResource.CultureName);
+        }
 
-        //    Assert.Equal(updatedResource.CultureName, "de-de");
-        //}
+        [Fact]
+        public async Task ImportFileForLanguageResource()
+        {
+            var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\test.txt"));
 
-        //[Theory]
-        //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
-        //public async Task ImportFileForLanguageResource(string templateId, string languageResourceId)
-        //{
-        //    var groupShareClient = Helper.GsClient;
+            await GroupShareClient.TranslationMemories.ImportFileForLanguageResource(_languageResourceTemplateId, _languageResourceId, rawData);
+            var languageResource = await GroupShareClient.TranslationMemories.GetLanguageResourceForTemplate(_languageResourceTemplateId, _languageResourceId);
+            var dataDecoded = StringExtensions.FromBase64String(languageResource.Data);
 
-        //    var rawData =
-        //       File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\test.txt"));
+            Assert.Contains("car", dataDecoded);
+            Assert.Contains("window", dataDecoded);
+        }
 
-        //    await
-        //        groupShareClient.TranslationMemories.ImportFileForLanguageResource(templateId, languageResourceId, rawData);
-        //}
         //[Theory]
         //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
         //public async Task ExportFileForLanguageResource(string templateId, string languageResourceId)
@@ -174,7 +171,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 {
                     new LanguageResource
                     {
-                        CultureName = "ro-ro",
+                        CultureName = "en-us",
                         Type = LanguageResourceType.Variables,
                         Data = "test"
                     }
@@ -182,6 +179,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             var languageResourceTemplateId = await GroupShareClient.TranslationMemories.CreateLanguageResourceTemplate(languageResourceTemplateRequest);
+            _languageResourceId = (await GroupShareClient.TranslationMemories.GetLanguageResources(languageResourceTemplateId)).Single().LanguageResourceId;
+
             return languageResourceTemplateId;
         }
     }

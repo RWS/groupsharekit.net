@@ -1037,6 +1037,18 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static Uri LanguageResourceActions(Guid templateId, Guid languageResourceId, string action)
+        {
+            return "{0}/templates/{1}/resources/{2}/{3}".FormatUri(CurrentLanguageResourceServiceUrl, templateId, languageResourceId, action);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that gets a list of Fields for a specific Template ID.
         /// </summary>
         public static Uri GetFields(string templateId)
