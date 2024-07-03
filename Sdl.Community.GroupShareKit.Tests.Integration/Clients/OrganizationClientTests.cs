@@ -11,12 +11,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class OrganizationClientTests
     {
+        private readonly GroupShareClient GroupShareClient = Helper.GsClient;
+
         [Fact]
         public async Task GetOrganizations()
         {
-            var groupShareClient = Helper.GsClient;
-
-            var response = await groupShareClient.Organization.GetAll(new OrganizationRequest(false));
+            var response = await GroupShareClient.Organization.GetAll(new OrganizationRequest(false));
 
             Assert.True(response.Count > 0);
         }
@@ -25,8 +25,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [MemberData(nameof(OrganizationData.OrganizationId), MemberType = typeof(OrganizationData))]
         public async Task GetOrganizationById(Guid organizationId)
         {
-            var groupShareClient = Helper.GsClient;
-            var organization = await groupShareClient.Organization.GetOrganization(organizationId);
+            var organization = await GroupShareClient.Organization.GetOrganization(organizationId);
 
             Assert.Equal(organization.UniqueId, organizationId);
         }
@@ -35,14 +34,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [MemberData(nameof(OrganizationData.OrganizationId), MemberType = typeof(OrganizationData))]
         public async Task UpdateOrganization(Guid organizationId)
         {
-            var groupShareClient = Helper.GsClient;
-
-            var organization = await groupShareClient.Organization.GetOrganization(organizationId);
+            var organization = await GroupShareClient.Organization.GetOrganization(organizationId);
 
             organization.Description = "Edited using GroupShare Kit";
 
-            var updatedOrganizationId = await groupShareClient.Organization.UpdateOrganization(organization);
-            var updatedOrganization = await groupShareClient.Organization.GetOrganization(updatedOrganizationId);
+            var updatedOrganizationId = await GroupShareClient.Organization.UpdateOrganization(organization);
+            var updatedOrganization = await GroupShareClient.Organization.GetOrganization(updatedOrganizationId);
 
             Assert.Equal("Edited using GroupShare Kit", updatedOrganization.Description);
         }
@@ -50,7 +47,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task CreateOrganization()
         {
-            var groupShareClient = Helper.GsClient;
             var uniqueId = Guid.NewGuid();
             var organizationName = $"Organization - {uniqueId}";
 
@@ -66,25 +62,24 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Tags = new List<string> { "tagTest" }
             };
 
-            var organizationId = await groupShareClient.Organization.CreateOrganization(organizationRequest);
-            var organization = await groupShareClient.Organization.GetOrganization(organizationId);
+            var organizationId = await GroupShareClient.Organization.CreateOrganization(organizationRequest);
+            var organization = await GroupShareClient.Organization.GetOrganization(organizationId);
 
             Assert.Equal(organizationName, organization.Name);
             Assert.Equal("Created using GroupShare Kit", organization.Description);
 
-            var response = await groupShareClient.Organization.GetByTag("tagTest");
+            var response = await GroupShareClient.Organization.GetByTag("tagTest");
             Assert.True(response.Count > 0);
 
             await UpdateOrganization(organizationId);
-            await groupShareClient.Organization.DeleteOrganization(organizationId);
+            await GroupShareClient.Organization.DeleteOrganization(organizationId);
         }
 
         [Theory]
         [MemberData(nameof(OrganizationData.OrganizationId), MemberType = typeof(OrganizationData))]
         public async Task GetOrganizationResources(string organizationId)
         {
-            var grClient = Helper.GsClient;
-            var orgResources = await grClient.Organization.GetAllOrganizationResources(organizationId);
+            var orgResources = await GroupShareClient.Organization.GetAllOrganizationResources(organizationId);
 
             Assert.True(orgResources.Count > 0);
         }
@@ -93,58 +88,48 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [MemberData(nameof(OrganizationData.OrganizationId), MemberType = typeof(OrganizationData))]
         public async Task MoveResourceToOrganization(string organizationId)
         {
-            var grClient = Helper.GsClient;
             var newOrganizationId = await Helper.CreateOrganizationAsync();
             var templateId = await Helper.CreateTemplateResourceAsync(newOrganizationId);
 
-            var resourceRequest =
-                new OrganizationResourcesRequest(new List<string> { templateId.ToString() },
-                    organizationId);
-            await grClient.Organization.MoveResourceToOrganization(resourceRequest);
+            var resourceRequest = new OrganizationResourcesRequest(new List<string> { templateId.ToString() }, organizationId);
+            await GroupShareClient.Organization.MoveResourceToOrganization(resourceRequest);
 
-            var resources = await grClient.Organization.GetAllOrganizationResources(organizationId);
+            var resources = await GroupShareClient.Organization.GetAllOrganizationResources(organizationId);
             var addedResource = resources.FirstOrDefault(r => r.Id == templateId);
             Assert.NotNull(addedResource);
 
-            await grClient.Project.DeleteProjectTemplate(templateId);
-            await grClient.Organization.DeleteOrganization(newOrganizationId);
+            await GroupShareClient.Project.DeleteProjectTemplate(templateId);
+            await GroupShareClient.Organization.DeleteOrganization(newOrganizationId);
         }
-
 
         [Theory]
         [MemberData(nameof(OrganizationData.OrganizationId), MemberType = typeof(OrganizationData))]
         public async Task LinkResourceToOrganization(Guid organizationId)
         {
-            var groupShareClient = Helper.GsClient;
-
             var newOrganizationId = await Helper.CreateOrganizationAsync();
             var firstResource = await Helper.CreateTemplateResourceAsync(organizationId);
             var secondResource = await Helper.CreateTemplateResourceAsync(organizationId);
-            var resourceRequest =
-                new OrganizationResourcesRequest(new List<string> { firstResource.ToString(), secondResource.ToString() },
-                    newOrganizationId.ToString());
+            var resourceRequest = new OrganizationResourcesRequest(new List<string> { firstResource.ToString(), secondResource.ToString() }, newOrganizationId.ToString());
 
-            await groupShareClient.Organization.LinkResourceToOrganization(resourceRequest);
+            await GroupShareClient.Organization.LinkResourceToOrganization(resourceRequest);
 
-            var organizationResources = await groupShareClient.Organization.GetOrganizationResources(newOrganizationId);
+            var organizationResources = await GroupShareClient.Organization.GetOrganizationResources(newOrganizationId);
             Assert.True(organizationResources.Count > 0);
 
-            await groupShareClient.Organization.UnlinkResourceToOrganization(resourceRequest);
+            await GroupShareClient.Organization.UnlinkResourceToOrganization(resourceRequest);
 
-            var resources = await groupShareClient.Organization.GetOrganizationResources(newOrganizationId);
+            var resources = await GroupShareClient.Organization.GetOrganizationResources(newOrganizationId);
             Assert.Empty(resources);
 
-            await groupShareClient.Organization.DeleteOrganization(newOrganizationId);
-            await groupShareClient.Project.DeleteProjectTemplate(firstResource);
-            await groupShareClient.Project.DeleteProjectTemplate(secondResource);
+            await GroupShareClient.Organization.DeleteOrganization(newOrganizationId);
+            await GroupShareClient.Project.DeleteProjectTemplate(firstResource);
+            await GroupShareClient.Project.DeleteProjectTemplate(secondResource);
         }
 
         [Fact]
         public async Task GetOrganizationId()
         {
-            var groupShareClient = Helper.GsClient;
-
-            var orgGuid = await groupShareClient.Organization.GetOrganizationId(Helper.OrganizationPath);
+            var orgGuid = await GroupShareClient.Organization.GetOrganizationId(Helper.OrganizationPath);
 
             Assert.Equal(new Guid(Helper.OrganizationId), orgGuid);
         }

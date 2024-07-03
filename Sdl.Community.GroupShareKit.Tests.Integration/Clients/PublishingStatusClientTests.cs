@@ -9,14 +9,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class PublishingStatusClientTests : IClassFixture<IntegrationTestsProjectData>
     {
+        private readonly GroupShareClient GroupShareClient = Helper.GsClient;
         private readonly Guid _projectId;
 
         public PublishingStatusClientTests()
         {
-            var groupShareClient = Helper.GsClient;
-
             var projectRequest = new ProjectsRequest("/", true, 7) { Page = "0", Limit = "1" };
-            var project = groupShareClient.Project.GetProject(projectRequest).Result.Items.FirstOrDefault();
+            var project = GroupShareClient.Project.GetProject(projectRequest).Result.Items.FirstOrDefault();
 
             _projectId = project != null ? Guid.Parse(project.ProjectId) : Guid.Empty;
         }
@@ -24,8 +23,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task PublishingStatusProject()
         {
-            var groupShareClient = Helper.GsClient;
-            var project = await groupShareClient.Project.PublishingStatus(_projectId);
+            var project = await GroupShareClient.Project.PublishingStatus(_projectId);
 
             Assert.NotNull(project);
         }

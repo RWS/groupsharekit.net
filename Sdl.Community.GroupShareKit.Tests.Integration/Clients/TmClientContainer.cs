@@ -7,7 +7,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class TmClientContainerTests
     {
-        private readonly GroupShareClient groupShareClient = Helper.GsClient;
+        private readonly GroupShareClient GroupShareClient = Helper.GsClient;
         private readonly CreateDatabaseServerRequest _databaseServerRequest;
 
         public TmClientContainerTests()
@@ -26,21 +26,21 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetContainers()
         {
-            var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
+            var dbServerId = await GroupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
             var containerId = await CreateTestTmContainer(dbServerId);
-            var response = await groupShareClient.TranslationMemories.GetContainers();
+            var response = await GroupShareClient.TranslationMemories.GetContainers();
 
             Assert.True(response.Items.Count > 0);
             Assert.Contains(response.Items, container => container.ContainerId.Equals(containerId));
 
-            await groupShareClient.TranslationMemories.DeleteContainer(containerId);
-            await groupShareClient.TranslationMemories.DeleteDbServer(dbServerId);
+            await GroupShareClient.TranslationMemories.DeleteContainer(containerId);
+            await GroupShareClient.TranslationMemories.DeleteDbServer(dbServerId);
         }
 
         [Fact]
         public async Task CreateContainer()
         {
-            var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
+            var dbServerId = await GroupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
             var containerName = $"Container_{DateTime.Now.Ticks}";
 
             var request = new CreateContainerRequest
@@ -53,52 +53,52 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Location = Helper.OrganizationPath,
             };
 
-            var containerId = await groupShareClient.TranslationMemories.CreateContainer(request);
-            var container = await groupShareClient.TranslationMemories.GetContainer(containerId);
+            var containerId = await GroupShareClient.TranslationMemories.CreateContainer(request);
+            var container = await GroupShareClient.TranslationMemories.GetContainer(containerId);
 
             Assert.Equal(containerName, container.DisplayName);
             Assert.Equal(containerName, container.DatabaseName);
             Assert.Equal(dbServerId, container.DatabaseServerId);
             Assert.False(container.IsShared);
 
-            await groupShareClient.TranslationMemories.DeleteContainer(containerId);
-            await groupShareClient.TranslationMemories.DeleteDbServer(dbServerId);
+            await GroupShareClient.TranslationMemories.DeleteContainer(containerId);
+            await GroupShareClient.TranslationMemories.DeleteDbServer(dbServerId);
         }
 
         [Fact]
         public async Task GetContainer()
         {
-            var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
+            var dbServerId = await GroupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
             var containerId = await CreateTestTmContainer(dbServerId);
-            var container = await groupShareClient.TranslationMemories.GetContainer(containerId);
+            var container = await GroupShareClient.TranslationMemories.GetContainer(containerId);
 
             Assert.Equal(container.ContainerId, containerId);
 
-            await groupShareClient.TranslationMemories.DeleteContainer(containerId);
-            await groupShareClient.TranslationMemories.DeleteDbServer(dbServerId);
+            await GroupShareClient.TranslationMemories.DeleteContainer(containerId);
+            await GroupShareClient.TranslationMemories.DeleteDbServer(dbServerId);
         }
 
         [Fact]
         public async Task DeleteContainer()
         {
-            var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
+            var dbServerId = await GroupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
             var containerId = await CreateTestTmContainer(dbServerId);
 
-            var containersBefore = await groupShareClient.TranslationMemories.GetContainers();
+            var containersBefore = await GroupShareClient.TranslationMemories.GetContainers();
             var containersBeforeCount = containersBefore.Items.Count;
 
-            await groupShareClient.TranslationMemories.DeleteContainer(containerId);
-            var containers = await groupShareClient.TranslationMemories.GetContainers();
+            await GroupShareClient.TranslationMemories.DeleteContainer(containerId);
+            var containers = await GroupShareClient.TranslationMemories.GetContainers();
             var containersCount = containers.Items.Count;
 
             Assert.True(containersCount < containersBeforeCount);
-            await groupShareClient.TranslationMemories.DeleteDbServer(dbServerId);
+            await GroupShareClient.TranslationMemories.DeleteDbServer(dbServerId);
         }
 
         [Fact]
         public async Task UpdateContainer()
         {
-            var dbServerId = await groupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
+            var dbServerId = await GroupShareClient.TranslationMemories.CreateDbServer(_databaseServerRequest);
             var containerId = await CreateTestTmContainer(dbServerId);
 
             var newContainerName = $"Container_{DateTime.Now.Ticks}";
@@ -111,15 +111,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             //Update container
-            await groupShareClient.TranslationMemories.UpdateContainer(containerId, updateRequest);
+            await GroupShareClient.TranslationMemories.UpdateContainer(containerId, updateRequest);
 
-            var container = await groupShareClient.TranslationMemories.GetContainer(containerId);
+            var container = await GroupShareClient.TranslationMemories.GetContainer(containerId);
 
             Assert.Equal(newContainerName, container.DisplayName);
 
             //Delete created container and database server
-            await groupShareClient.TranslationMemories.DeleteContainer(containerId);
-            await groupShareClient.TranslationMemories.DeleteDbServer(dbServerId);
+            await GroupShareClient.TranslationMemories.DeleteContainer(containerId);
+            await GroupShareClient.TranslationMemories.DeleteDbServer(dbServerId);
         }
 
         public async Task<Guid> CreateTestTmContainer(Guid serverId)
@@ -136,7 +136,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 IsShared = false
             };
 
-            var containerId = await groupShareClient.TranslationMemories.CreateContainer(request);
+            var containerId = await GroupShareClient.TranslationMemories.CreateContainer(request);
             return containerId;
         }
     }

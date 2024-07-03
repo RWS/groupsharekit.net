@@ -11,12 +11,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class UserClientTests
     {
+        private static readonly GroupShareClient GroupShareClient = Helper.GsClient;
+
         [Fact]
         public async Task Users_GetAllUsers_WithoutRoles_ReturnsUsers()
         {
-            var groupShareClient = Helper.GsClient;
             var userRequest = new UsersRequest(1, 1, 10);
-            var users = await groupShareClient.User.GetAllUsers(userRequest);
+            var users = await GroupShareClient.User.GetAllUsers(userRequest);
 
             var currentUser = users.Items.First(user => user.Name == Helper.GsUser);
 
@@ -32,8 +33,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [MemberData(nameof(UserData.Username), MemberType = typeof(UserData))]
         public async Task Users_GetUserByUsername_ReturnsUser(string userName)
         {
-            var groupShareClient = Helper.GsClient;
-            var response = await groupShareClient.User.Get(new UserRequest(userName));
+            var response = await GroupShareClient.User.Get(new UserRequest(userName));
 
             Assert.Equal(userName, response.Name);
         }
@@ -42,8 +42,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [MemberData(nameof(UserData.UserId), MemberType = typeof(UserData))]
         public async Task Users_GetUserById_ReturnsUser(Guid userId)
         {
-            var groupShareClient = Helper.GsClient;
-            var user = await groupShareClient.User.GetUser(userId);
+            var user = await GroupShareClient.User.GetUser(userId);
 
             Assert.Equal(user.UniqueId, userId);
         }
@@ -52,24 +51,21 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [MemberData(nameof(UserData.Username), MemberType = typeof(UserData))]
         public async Task Users_UpdateByUsername_Succeeds(string userName)
         {
-            var groupShareClient = Helper.GsClient;
-            var user = await groupShareClient.User.Get(new UserRequest(userName));
+            var user = await GroupShareClient.User.Get(new UserRequest(userName));
 
             var updatedDescription = $"Updated description - {DateTime.Now.ToLongDateString()}";
             user.Description = updatedDescription;
 
-            var userId = await groupShareClient.User.UpdateUser(user);
+            var userId = await GroupShareClient.User.UpdateUser(user);
             Assert.Equal(user.UniqueId, userId);
 
-            var updatedUser = await groupShareClient.User.Get(new UserRequest(userName));
+            var updatedUser = await GroupShareClient.User.Get(new UserRequest(userName));
             Assert.Equal(updatedDescription, updatedUser.Description);
         }
 
         [Fact]
         public async Task Users_UpdateUserLanguageDirections_Succeeds()
         {
-            var groupShareClient = Helper.GsClient;
-
             var uniqueId = Guid.NewGuid();
             var name = $"user - {uniqueId}";
 
@@ -94,24 +90,23 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 }
             };
 
-            var userId = await groupShareClient.User.CreateUser(userRequest);
-            var user = await groupShareClient.User.GetUser(userId);
+            var userId = await GroupShareClient.User.CreateUser(userRequest);
+            var user = await GroupShareClient.User.GetUser(userId);
 
             Assert.Equal(userRequest.Name, user.Name);
             Assert.Equal(userRequest.Description, user.Description);
             Assert.Equal(Guid.Parse(userRequest.OrganizationId), user.OrganizationId);
 
-            await groupShareClient.User.Update(user);
+            await GroupShareClient.User.Update(user);
 
-            var updatedUser = await groupShareClient.User.GetUser(userId);
+            var updatedUser = await GroupShareClient.User.GetUser(userId);
 
-            await groupShareClient.User.DeleteUser(userId);
+            await GroupShareClient.User.DeleteUser(userId);
         }
 
         [Fact]
         public async Task Users_CreateUser_Succeeds()
         {
-            var groupShareClient = Helper.GsClient;
             var uniqueId = Guid.NewGuid();
 
             var userRequest = new CreateUserRequest
@@ -135,14 +130,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 }
             };
 
-            var userId = await groupShareClient.User.CreateUser(userRequest);
-            var user = await groupShareClient.User.GetUser(userId);
+            var userId = await GroupShareClient.User.CreateUser(userRequest);
+            var user = await GroupShareClient.User.GetUser(userId);
 
             Assert.Equal(userRequest.Name, user.Name);
             Assert.Equal(userRequest.Description, user.Description);
             Assert.Equal(Guid.Parse(userRequest.OrganizationId), user.OrganizationId);
 
-            await groupShareClient.User.DeleteUser(userId);
+            await GroupShareClient.User.DeleteUser(userId);
         }
     }
 }

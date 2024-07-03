@@ -797,11 +797,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectTemplateId = await CreateProjectTemplateForPerfectMatch(Path.Combine(baseDir, "project-template.sdltpl"));
 
             var basicProjectCreateRequest = CreateBasicCreateProjectRequest(projectTemplateId.ToString());
-            var projectId = await Helper.GsClient.Project.CreateProject(basicProjectCreateRequest, Path.Combine(baseDir, "PerfectMatch.zip"));
+            var projectId = await GroupShareClient.Project.CreateProject(basicProjectCreateRequest, Path.Combine(baseDir, "PerfectMatch.zip"));
             var created = await WaitForProjectCreated(Guid.Parse(projectId));
 
             Assert.True(created);
-            var analysisReports = await Helper.GsClient.Project.GetAnalysisReports(Guid.Parse(projectId), "fr-fr");
+            var analysisReports = await GroupShareClient.Project.GetAnalysisReports(Guid.Parse(projectId), "fr-fr");
             Assert.Equal(4, analysisReports[0].Report.Task.File.Count);
             Assert.Equal("3", analysisReports[0].Report.Task.File[0].Analyse.Total.Segments);
             Assert.Equal("0", analysisReports[0].Report.Task.File[0].Analyse.Perfect.Segments);
@@ -809,8 +809,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal("2", analysisReports[0].Report.Task.File[2].Analyse.Perfect.Segments);
             Assert.Equal("3", analysisReports[0].Report.Task.File[3].Analyse.Perfect.Segments);
 
-            await Helper.GsClient.Project.DeleteProject(Guid.Parse(projectId));
-            await Helper.GsClient.Project.DeleteProjectTemplate(projectTemplateId);
+            await GroupShareClient.Project.DeleteProject(Guid.Parse(projectId));
+            await GroupShareClient.Project.DeleteProjectTemplate(projectTemplateId);
         }
 
         [Fact]
@@ -820,13 +820,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectTemplateId = await CreateProjectTemplateForPerfectMatch(Path.Combine(baseDir, "project-template.sdltpl"));
 
             var basicProjectCreateRequest = CreateBasicCreateProjectRequest(projectTemplateId.ToString());
-            var projectId = await Helper.GsClient.Project.CreateProject(
+            var projectId = await GroupShareClient.Project.CreateProject(
                 basicProjectCreateRequest, Path.Combine(baseDir, "project-files"), null,
                 new string[] { Path.Combine(baseDir, "previous-translations") });
             var created = await WaitForProjectCreated(Guid.Parse(projectId));
             Assert.True(created);
 
-            var analysisReports = await Helper.GsClient.Project.GetAnalysisReports(Guid.Parse(projectId), "fr-fr");
+            var analysisReports = await GroupShareClient.Project.GetAnalysisReports(Guid.Parse(projectId), "fr-fr");
             Assert.Equal(4, analysisReports[0].Report.Task.File.Count);
             Assert.Equal("3", analysisReports[0].Report.Task.File[0].Analyse.Total.Segments);
             Assert.Equal("0", analysisReports[0].Report.Task.File[0].Analyse.Perfect.Segments);
@@ -834,8 +834,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal("2", analysisReports[0].Report.Task.File[2].Analyse.Perfect.Segments);
             Assert.Equal("3", analysisReports[0].Report.Task.File[3].Analyse.Perfect.Segments);
 
-            await Helper.GsClient.Project.DeleteProject(Guid.Parse(projectId));
-            await Helper.GsClient.Project.DeleteProjectTemplate(projectTemplateId);
+            await GroupShareClient.Project.DeleteProject(Guid.Parse(projectId));
+            await GroupShareClient.Project.DeleteProjectTemplate(projectTemplateId);
         }
 
         [Fact]
@@ -942,7 +942,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await DeleteTestProjectTemplate(secondProjectTemplateId);
         }
 
-        private static async Task<Guid> CreateProjectTemplateForPerfectMatch(string projectTemplateFilePath)
+        private async Task<Guid> CreateProjectTemplateForPerfectMatch(string projectTemplateFilePath)
         {
             var projectTemplateData = File.ReadAllBytes(projectTemplateFilePath);
             var projectTemplateRequest = new ProjectTemplate
@@ -952,7 +952,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 OrganizationId = Guid.Parse(Helper.OrganizationId)
             };
 
-            var projectTemplateId = await Helper.GsClient.Project.CreateProjectTemplate(projectTemplateRequest, projectTemplateData);
+            var projectTemplateId = await GroupShareClient.Project.CreateProjectTemplate(projectTemplateRequest, projectTemplateData);
             return projectTemplateId;
         }
 
@@ -1014,11 +1014,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await GroupShareClient.Project.DeleteProjectTemplate(projectTemplateId);
         }
 
-        private static async Task<bool> WaitForProjectCreated(Guid projectId, int retryInterval = 3, int maxTryCount = 15)
+        private async Task<bool> WaitForProjectCreated(Guid projectId, int retryInterval = 3, int maxTryCount = 15)
         {
             for (var i = 0; i < maxTryCount; i++)
             {
-                var statusInfo = await Helper.GsClient.Project.PublishingStatus(projectId);
+                var statusInfo = await GroupShareClient.Project.PublishingStatus(projectId);
                 switch (statusInfo.Status)
                 {
                     case PublishProjectStatus.Uploading:
@@ -1038,17 +1038,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         // get only Update Project background tasks - type = 28
-        private static async Task WaitForUpdateProjectBackgroundTaskToFinish(Guid projectId)
+        private async Task WaitForUpdateProjectBackgroundTaskToFinish(Guid projectId)
         {
             var filter = new BackgroundTasksRequestFilter { Type = new[] { 28 } }.SerializeFilter();
 
-            var projectUpdateBackgroundTasks = (await Helper.GsClient.Project.GetBackgroundTasks(filter)).Items;
+            var projectUpdateBackgroundTasks = (await GroupShareClient.Project.GetBackgroundTasks(filter)).Items;
             var backgroundTaskId = projectUpdateBackgroundTasks.First(task => task.ReferenceId == projectId).Id;
 
             BackgroundTask backgroundTask;
             do
             {
-                projectUpdateBackgroundTasks = (await Helper.GsClient.Project.GetBackgroundTasks(filter)).Items;
+                projectUpdateBackgroundTasks = (await GroupShareClient.Project.GetBackgroundTasks(filter)).Items;
                 backgroundTask = projectUpdateBackgroundTasks.Single(b => b.Id == backgroundTaskId);
             } while (backgroundTask.Status != (int)BackgroundTaskStatus.Done);
         }
