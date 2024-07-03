@@ -324,8 +324,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task ImportTranslationUnits()
         {
-            var groupShareClient = Helper.GsClient;
-
             var response = await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "FiveWords_EN-DE_TM.tmx");
 
             Assert.Equal("Queued", response.Status);
@@ -364,14 +362,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetTmsNumberByLanguageResourceTemplateId()
         {
-            var tmNumber = await GroupShareClient.TranslationMemories.GetTmsNumberByLanguageResourceTemplateId(_languageResourceTemplateId.ToString());
+            var tmNumber = await GroupShareClient.TranslationMemories.GetTmsNumberByLanguageResourceTemplateId(_languageResourceTemplateId);
             Assert.Equal(1, tmNumber);
         }
 
         [Fact]
         public async Task GetTmsNumberByFieldTemplateId()
         {
-            var tmNumber = await GroupShareClient.TranslationMemories.GetTmsNumberByFieldTemplateId(_fieldTemplateId.ToString());
+            var tmNumber = await GroupShareClient.TranslationMemories.GetTmsNumberByFieldTemplateId(_fieldTemplateId);
             Assert.Equal(1, tmNumber);
         }
 
@@ -390,8 +388,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetTmServiceHealth()
         {
-            var groupShareClient = Helper.GsClient;
-            var health = await groupShareClient.TranslationMemories.Health();
+            var health = await GroupShareClient.TranslationMemories.Health();
 
             Assert.Equal("UP", health.Status);
         }
@@ -409,31 +406,29 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task RecomputeStatistics()
         {
-            var groupShareClient = Helper.GsClient;
             var tmId = await CreateTranslationMemory();
             var request = new FuzzyRequest();
 
-            var response = await groupShareClient.TranslationMemories.RecomputeStatistics(tmId, request);
+            var response = await GroupShareClient.TranslationMemories.RecomputeStatistics(tmId, request);
 
             Assert.Equal(tmId, Guid.Parse(response.TranslationMemoryId));
             Assert.Equal("Queued", response.Status);
 
-            await groupShareClient.TranslationMemories.DeleteTranslationMemory(tmId);
+            await GroupShareClient.TranslationMemories.DeleteTranslationMemory(tmId);
         }
 
         [Fact]
         public async Task Reindex()
         {
-            var groupShareClient = Helper.GsClient;
             var tmId = await CreateTranslationMemory();
             var request = new FuzzyRequest();
 
-            var response = await groupShareClient.TranslationMemories.Reindex(tmId.ToString(), request);
+            var response = await GroupShareClient.TranslationMemories.Reindex(tmId.ToString(), request);
 
             Assert.Equal(tmId, Guid.Parse(response.TranslationMemoryId));
             Assert.Equal("Queued", response.Status);
 
-            await groupShareClient.TranslationMemories.DeleteTranslationMemory(tmId);
+            await GroupShareClient.TranslationMemories.DeleteTranslationMemory(tmId);
         }
 
         [Fact]
@@ -448,24 +443,22 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetTusNumberForPostDatedTm()
         {
-            var groupShareClient = Helper.GsClient;
             var languageParameters = new LanguageParameters("en-us", "de-de");
 
 
-            var preDatedTUs = await groupShareClient.TranslationMemories.GetNumberOfPreDatedTus(_translationMemoryId.ToString(), languageParameters);
+            var preDatedTUs = await GroupShareClient.TranslationMemories.GetNumberOfPreDatedTus(_translationMemoryId.ToString(), languageParameters);
             Assert.Equal(0, preDatedTUs);
 
-            var postDatedTUs = await groupShareClient.TranslationMemories.GetNumberOfPostDatedTus(_translationMemoryId.ToString(), languageParameters);
+            var postDatedTUs = await GroupShareClient.TranslationMemories.GetNumberOfPostDatedTus(_translationMemoryId.ToString(), languageParameters);
             Assert.Equal(0, postDatedTUs);
         }
 
         [Fact]
         public async Task GetTusNumberForUnalignedTm()
         {
-            var groupShareClient = Helper.GsClient;
             var languageParameters = new LanguageParameters("en-us", "de-de");
 
-            var tusNumber = await groupShareClient.TranslationMemories.GetNumberOfUnalignedTus(_translationMemoryId.ToString(), languageParameters);
+            var tusNumber = await GroupShareClient.TranslationMemories.GetNumberOfUnalignedTus(_translationMemoryId.ToString(), languageParameters);
 
             Assert.Equal(0, tusNumber);
         }
@@ -473,14 +466,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task FilterTranslationUnits()
         {
-            var groupShareClient = Helper.GsClient;
-
             await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "FiveWords_EN-DE_TM.tmx");
 
             var languageDetails = new LanguageDetailsRequest("en-us", "de-de");
             var tmDetails = new TranslationMemoryDetailsRequest(_translationMemoryId, 0, 10);
 
-            var filteredTranslationUnits = await groupShareClient.TranslationMemories.FilterAsPlainText(languageDetails, tmDetails, true, true);
+            var filteredTranslationUnits = await GroupShareClient.TranslationMemories.FilterAsPlainText(languageDetails, tmDetails, true, true);
 
             Assert.Equal(5, filteredTranslationUnits.Count);
             Assert.Contains(filteredTranslationUnits, translationUnit => translationUnit.Source.Equals("car") && translationUnit.Target.Equals("Auto"));
@@ -497,24 +488,19 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task SimpleSearch()
         {
-            var groupShareClient = Helper.GsClient;
-
             await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "FiveWords_EN-DE_TM.tmx");
 
             var searchRequest = new SearchRequest(_translationMemoryId, "car", "en-us", "de-de");
 
-            var searchResults = await groupShareClient.TranslationMemories.SearchText(searchRequest);
+            var searchResults = await GroupShareClient.TranslationMemories.SearchText(searchRequest);
 
             Assert.Equal("car", searchResults.Single().Source);
             Assert.Equal("Auto", searchResults.Single().Target);
         }
 
         [Fact]
-        //[InlineData("773bbfe4-fd97-4a70-85e3-8b301e58064b", "\"Andrea\" = (\"AndreaField\")", "TestFilterName", "blue")]
         public async Task SearchWithFilterExpression()
         {
-            var groupShareClient = Helper.GsClient;
-
             await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "Sample_EN-DE_TM_with_fields.tmx");
 
             var fields = new List<FieldFilter>
@@ -546,7 +532,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var searchRequest = new SearchRequest(_translationMemoryId, "programme", "en-us", "de-de", searchSettings);
 
-            var searchResponse = await groupShareClient.TranslationMemories.SearchText(searchRequest);
+            var searchResponse = await GroupShareClient.TranslationMemories.SearchText(searchRequest);
 
             Assert.Empty(searchResponse);
         }
@@ -554,8 +540,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task TextSearchMinScoreMaxResults()
         {
-            var groupShareClient = Helper.GsClient;
-
             await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "Sample_EN-DE_TM.tmx");
 
             var settings = new SearchTextSettings
@@ -564,7 +548,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             var searchRequest = new SearchRequest(_translationMemoryId, "contact", "en-us", "de-de", settings);
-            var searchResults = await groupShareClient.TranslationMemories.SearchText(searchRequest);
+            var searchResults = await GroupShareClient.TranslationMemories.SearchText(searchRequest);
             Assert.Single(searchResults);
 
             settings = new SearchTextSettings
@@ -574,7 +558,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             searchRequest = new SearchRequest(_translationMemoryId, "officer", "en-us", "de-de", settings);
-            searchResults = await groupShareClient.TranslationMemories.SearchText(searchRequest);
+            searchResults = await GroupShareClient.TranslationMemories.SearchText(searchRequest);
             Assert.Single(searchResults);
 
             settings = new SearchTextSettings
@@ -583,15 +567,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             searchRequest = new SearchRequest(_translationMemoryId, "officer", "en-us", "de-de", settings);
-            searchResults = await groupShareClient.TranslationMemories.SearchText(searchRequest);
+            searchResults = await GroupShareClient.TranslationMemories.SearchText(searchRequest);
             Assert.Equal(2, searchResults.Count);
         }
 
         [Fact]
         public async Task TextSearchPenalties()
         {
-            var groupShareClient = Helper.GsClient;
-
             var settings = new SearchTextSettings
             {
                 Penalties = new List<Penalty>
@@ -606,7 +588,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var searchRequest = new SearchRequest(_translationMemoryId, "car", "en-us", "de-de", settings);
 
-            var results = await groupShareClient.TranslationMemories.SearchText(searchRequest);
+            var results = await GroupShareClient.TranslationMemories.SearchText(searchRequest);
             Assert.Empty(results);
         }
 
@@ -617,12 +599,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task ConcordanceSimpleSearch()
         {
-            var groupShareClient = Helper.GsClient;
-
             await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "FiveWords_EN-DE_TM.tmx");
 
             var concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "phone", "en-us", "de-de");
-            var results = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+            var results = await GroupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
 
             Assert.Equal("100", results.Single().MatchScore);
             Assert.Equal("phone", results.Single().Source);
@@ -632,8 +612,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task ConcordanceSearchWithCustomSettings()
         {
-            var groupShareClient = Helper.GsClient;
-
             await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "Sample_EN-DE_TM.tmx");
 
             var settings = new ConcordanceSearchSettings
@@ -642,11 +620,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             var concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "random words", "en-us", "de-de", settings);
-            var response = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+            var response = await GroupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
             Assert.Empty(response);
 
             concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "education programme", "en-us", "de-de", settings);
-            response = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+            response = await GroupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
             Assert.Equal(5, response.Count);
 
             settings = new ConcordanceSearchSettings
@@ -655,15 +633,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "school children", "en-us", "de-de", settings);
-            response = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+            response = await GroupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
             Assert.Equal(3, response.Count);
         }
 
         [Fact]
         public async Task ConcordanceSearchWithCustomFilter()
         {
-            var groupShareClient = Helper.GsClient;
-
             await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "Sample_EN-DE_TM_with_fields.tmx");
 
             var fields = new List<FieldFilter>
@@ -695,15 +671,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "Education", "en-us", "de-de", concordanceSearchSettings);
 
-            var results = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+            var results = await GroupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
             Assert.True(results.Count > 0);
         }
 
         [Fact]
         public async Task ConcordanceSearchWithPenalties()
         {
-            var groupShareClient = Helper.GsClient;
-
             await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "Sample_EN-DE_TM_with_fields.tmx");
 
             var fields = new List<FieldFilter>
@@ -749,19 +723,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "place", "en-us", "de-de", concordanceSearchSettings);
 
-            var results = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+            var results = await GroupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
             Assert.True(results.Count > 0);
         }
 
         [Fact]
         public async Task ConcordanceSearchWithEmptySettings()
         {
-            var groupShareClient = Helper.GsClient;
-
             await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "FiveWords_EN-DE_TM.tmx");
 
             var concordanceSearchRequest = new ConcordanceSearchRequest(_translationMemoryId, "house", "en-us", "de-de", new ConcordanceSearchSettings());
-            var results = await groupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
+            var results = await GroupShareClient.TranslationMemories.ConcordanceSearchAsPlainText(concordanceSearchRequest);
 
             Assert.Equal("100", results.Single().MatchScore);
             Assert.Equal("house", results.Single().Source);
@@ -771,8 +743,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task CustomFilterExpression()
         {
-            var groupShareClient = Helper.GsClient;
-
             await ImportTranslationUnitsIntoTestTm(_translationMemoryId, "Sample_EN-DE_TM_with_fields.tmx");
 
             var fields = new List<FieldFilter>
@@ -790,7 +760,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var rawFilterRequest = new RawFilterRequest(_translationMemoryId, "en-us", "de-de", 0, 30, filterRequest);
 
-            var results = await groupShareClient.TranslationMemories.RawFilter(rawFilterRequest);
+            var results = await GroupShareClient.TranslationMemories.RawFilter(rawFilterRequest);
             Assert.Equal(4, results.Count);
 
             fields = new List<FieldFilter>
@@ -808,7 +778,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             rawFilterRequest = new RawFilterRequest(_translationMemoryId, "en-us", "de-de", 0, 30, filterRequest);
 
-            results = await groupShareClient.TranslationMemories.RawFilter(rawFilterRequest);
+            results = await GroupShareClient.TranslationMemories.RawFilter(rawFilterRequest);
             Assert.Equal(2, results.Count);
         }
         #endregion

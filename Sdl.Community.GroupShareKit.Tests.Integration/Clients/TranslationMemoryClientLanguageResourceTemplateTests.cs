@@ -10,13 +10,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
     {
         private static readonly GroupShareClient GroupShareClient = Helper.GsClient;
 
-        private Guid _languageResourceId;
         private Guid _languageResourceTemplateId;
 
         public TranslationMemoryClientLanguageResourceTemplatesTests()
         {
             _languageResourceTemplateId = CreateTestLanguageResourceTemplate().Result;
-            //_languageResourceId = GroupShareClient.TranslationMemories.GetLanguageResources(_languageResourceTemplateId).Result;
         }
 
         [Fact]
@@ -123,7 +121,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             var languageResourceTemplateId = await GroupShareClient.TranslationMemories.CreateLanguageResourceTemplate(languageResourceTemplateRequest);
-
             return languageResourceTemplateId;
         }
     }

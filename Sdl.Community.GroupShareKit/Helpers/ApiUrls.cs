@@ -842,11 +842,32 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/tms/by-language-resource-template/{1}/count".FormatUri(CurrentTranslationMemoriesUrl, resourceTemplateId);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resourceTemplateId"></param>
+        /// <returns></returns>
+        public static Uri GetTmsNumberByLanguageResourceTemplateId(Guid languageResourceTemplateId)
+        {
+            return "{0}/tms/by-language-resource-template/{1}/count".FormatUri(CurrentTranslationMemoriesUrl, languageResourceTemplateId);
+        }
+
         /// <summary>
         ///  Returns the <see cref="Uri"/> that gives the tms for field template id
         /// </summary>
         /// <param name="fieldTemplateId"> field template id</param>
         public static Uri GetTmsNumberByFieldTemplateId(string fieldTemplateId)
+        {
+            return "{0}/tms/by-field-template/{1}/count".FormatUri(CurrentTranslationMemoriesUrl, fieldTemplateId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldTemplateId"></param>
+        /// <returns></returns>
+        public static Uri GetTmsNumberByFieldTemplateId(Guid fieldTemplateId)
         {
             return "{0}/tms/by-field-template/{1}/count".FormatUri(CurrentTranslationMemoriesUrl, fieldTemplateId);
         }

@@ -232,6 +232,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<int> GetTmsNumberByLanguageResourceTemplateId(string resourceTemplateId);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resourceTemplateId"></param>
+        /// <returns></returns>
+        Task<int> GetTmsNumberByLanguageResourceTemplateId(Guid languageResourceTemplateId);
+
+        /// <summary>
         /// Gets the  tms number by field template id number.
         /// </summary>
         /// <remarks>
@@ -244,6 +251,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>  Tm number</returns>
         Task<int> GetTmsNumberByFieldTemplateId(string fieldTemplateId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldTemplateId"></param>
+        /// <returns></returns>
+        Task<int> GetTmsNumberByFieldTemplateId(Guid fieldTemplateId);
 
         /// <summary>
         /// Schedules a recompute statistics operation
@@ -775,6 +789,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Created field template id</returns>
+        [Obsolete]
         Task<string> CreateFieldTemplate(FieldTemplate template);
 
         /// <summary>

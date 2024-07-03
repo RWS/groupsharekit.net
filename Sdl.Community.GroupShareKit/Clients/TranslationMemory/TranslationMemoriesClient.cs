@@ -125,10 +125,22 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>  <see cref="Models.Response.TranslationMemory.TranslationMemory"/> number</returns>
+        [Obsolete]
         public async Task<int> GetTmsNumberByLanguageResourceTemplateId(string resourceTemplateId)
         {
             Ensure.ArgumentNotNullOrEmptyString(resourceTemplateId, "resourceTemplateId");
             return await ApiConnection.Get<int>(ApiUrls.GetTmsNumberByLanguageResourceTemplateId(resourceTemplateId), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageResourceTemplateId"></param>
+        /// <returns></returns>
+        public async Task<int> GetTmsNumberByLanguageResourceTemplateId(Guid languageResourceTemplateId)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            return await ApiConnection.Get<int>(ApiUrls.GetTmsNumberByLanguageResourceTemplateId(languageResourceTemplateId), null);
         }
 
         /// <summary>
@@ -143,9 +155,21 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>  <see cref="Models.Response.TranslationMemory.TranslationMemory"/> number</returns>
+        [Obsolete]
         public async Task<int> GetTmsNumberByFieldTemplateId(string fieldTemplateId)
         {
             Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
+            return await ApiConnection.Get<int>(ApiUrls.GetTmsNumberByFieldTemplateId(fieldTemplateId), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fieldTemplateId"></param>
+        /// <returns></returns>
+        public async Task<int> GetTmsNumberByFieldTemplateId(Guid fieldTemplateId)
+        {
+            Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
             return await ApiConnection.Get<int>(ApiUrls.GetTmsNumberByFieldTemplateId(fieldTemplateId), null);
         }
 
