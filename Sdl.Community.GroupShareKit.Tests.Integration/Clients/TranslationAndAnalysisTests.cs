@@ -1,26 +1,45 @@
-﻿namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
+﻿using Newtonsoft.Json;
+using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Models.Response;
+using System;
+using System.IO;
+using System.Net.Http;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
-    public class TranslationAndAnalysisTests
+    public class TranslationAndAnalysisTests : IDisposable
     {
-        //[Theory]
-        //[InlineData("[{\"minimumMatchValue\":50,\"maximumMatchValue\":84},{\"minimumMatchValue\":85,\"maximumMatchValue\":100}]")]
-        //public async Task GetJobId(string fuzzyBand)
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    var request = new TranslationAndAnalysisJobRequest(fuzzyBand);
-        //    var jobId = await groupShareClient.TranslateAndAnalysis.GetTranslateAndAnalysisJob(request);
+        private static readonly GroupShareClient GroupShareClient = Helper.GsClient;
 
-        //    Assert.True(jobId > 0);
-        //}
+        private int _jobId;
 
-        //[Theory]
-        //[InlineData("10")]
-        //public async Task GetTranslatableDocumentId(string jobId)
+        public TranslationAndAnalysisTests()
+        {
+            _jobId = CreateTestTranslateAndAnalysisJob().Result;
+        }
+
+        [Fact]
+        public async Task GetJobId()
+        {
+            string fuzzyBands = "[{\"minimumMatchValue\":50,\"maximumMatchValue\":84},{\"minimumMatchValue\":85,\"maximumMatchValue\":100}]";
+            var request = new TranslationAndAnalysisJobRequest(fuzzyBands);
+            var jobId = await GroupShareClient.TranslateAndAnalysis.GetTranslateAndAnalysisJob(request);
+
+            Assert.True(jobId > 0);
+        }
+
+        //[Fact]
+        ////[InlineData("10")]
+        //public async Task GetTranslatableDocumentId()
         //{
         //    var groupShareClient = Helper.GsClient;
         //    var fileToTranslatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\FileToTranslate.txt.sdlxliff");
         //    var tmOptionsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\TMOptions.Json");
-        //    var fileContent = new FileStream(fileToTranslatePath,FileMode.Open);
+        //    var fileContent = new FileStream(fileToTranslatePath, FileMode.Open);
         //    var content = new MultipartFormDataContent($"---{Guid.NewGuid()}---");
         //    var optionsContent = JsonConvert.DeserializeObject(System.IO.File.ReadAllText(tmOptionsPath)).ToString();
         //    content.Add(new StreamContent(fileContent), "file", Path.GetFileName(fileToTranslatePath));
@@ -30,104 +49,114 @@
         //    Assert.True(translationJobNo > 0);
         //}
 
-        //[Theory]
-        //[InlineData("9")]
-        //public async Task GetTranslationStatus(string translationJobNo)
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    var translationJobStatus = await groupShareClient.TranslateAndAnalysis.GetTranslationStatus(translationJobNo);
+        [Fact]
+        public async Task GetTranslationStatus()
+        {
+            string fuzzyBand = "[{\"minimumMatchValue\":50,\"maximumMatchValue\":84},{\"minimumMatchValue\":85,\"maximumMatchValue\":100}]";
 
-        //    Assert.IsType<TranslationStatus>(translationJobStatus.Status);
-        //    Assert.IsType<bool>(translationJobStatus.IsFinal);
-        //}
+            var fileToTranslatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\FileToTranslate.txt.sdlxliff");
+            var tmOptionsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\TMOptions.Json");
+            var request = new TranslationAndAnalysisJobRequest(fuzzyBand);
+            var jobId = await GroupShareClient.TranslateAndAnalysis.GetTranslateAndAnalysisJob(request);
 
-        //[Theory]
-        //[InlineData("9")]
-        //public async Task DownloadTranslationDocument(string translationJobNo)
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    var downloadedTranslationDocument = await groupShareClient.TranslateAndAnalysis.DownloadTranslationDocument(translationJobNo);
+            var content = new MultipartFormDataContent($"---{Guid.NewGuid()}---");
+            var fileContent = new FileStream(fileToTranslatePath, FileMode.Open);
+            var optionsContent = JsonConvert.DeserializeObject(System.IO.File.ReadAllText(tmOptionsPath)).ToString();
+            content.Add(new StreamContent(fileContent), "file", Path.GetFileName(fileToTranslatePath));
+            content.Add(new StringContent(optionsContent, Encoding.UTF8, "application/json"), "info");
+            var translationJob = await GroupShareClient.TranslateAndAnalysis.GetTranslationJob(jobId, content);
 
-        //    Assert.True(downloadedTranslationDocument.GetType() == typeof(byte[]) && downloadedTranslationDocument.Length != 0);
-        //}
+            var translationJobStatus = await GroupShareClient.TranslateAndAnalysis.GetTranslationStatus(translationJob);
 
-        //[Theory]
-        //[InlineData("9")]
-        //public async Task GetAnalysisDocumentId(string jobId)
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    var analysisJobNo = await groupShareClient.TranslateAndAnalysis.GetAnalysisJob(jobId);
+            Assert.IsType<TranslationStatus>(translationJobStatus.Status);
+            Assert.IsType<bool>(translationJobStatus.IsFinal);
+        }
 
-        //    Assert.True(analysisJobNo > 0);
-        //}
+        [Fact]
+        public async Task GetAnalysisDocumentId()
+        {
+            var analysisJobId = await GroupShareClient.TranslateAndAnalysis.GetAnalysisJob(_jobId);
 
-        //[Theory]
-        //[InlineData("9")]
-        //public async Task GetAnalysisStatus(string analysisJobNo)
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    var analysisJobStatus = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatus(analysisJobNo);
+            Assert.True(analysisJobId > 0);
+        }
 
-        //    Assert.IsType<AnalysisStatus>(analysisJobStatus.Status);
-        //    Assert.IsType<bool>(analysisJobStatus.IsFinal);
-        //}
+        [Fact]
+        public async Task GetAnalysisStatus()
+        {
+            var analysisJobStatus = await GroupShareClient.TranslateAndAnalysis.GetAnalysisStatus(_jobId);
 
-        //[Theory]
-        //[InlineData("9")]
-        //public async Task GetAnalysisStatistics(string analysisJobNo)
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    var analysisStatistics = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatistics(analysisJobNo);
+            Assert.Equal(AnalysisStatus.NotStarted, analysisJobStatus.Status);
+            Assert.False(analysisJobStatus.IsFinal);
+        }
 
-        //    Assert.True(analysisStatistics != null);
-        //}
+        [Fact]
+        public async Task CreateAndDeleteJob()
+        {
+            string fuzzyBands = "[{\"minimumMatchValue\":51,\"maximumMatchValue\":70},{\"minimumMatchValue\":71,\"maximumMatchValue\":99}]";
+            var request = new TranslationAndAnalysisJobRequest(fuzzyBands);
 
-        //[Theory]
-        //[InlineData("9")]
-        //public async Task DeleteJob(string jobId)
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    await groupShareClient.TranslateAndAnalysis.DeleteJob(jobId);
-        //}
+            var jobId = await GroupShareClient.TranslateAndAnalysis.GetTranslateAndAnalysisJob(request);
+            await GroupShareClient.TranslateAndAnalysis.DeleteJob(_jobId);
+        }
 
-        //[Theory]
-        //[InlineData("[{\"minimumMatchValue\":50,\"maximumMatchValue\":84},{\"minimumMatchValue\":85,\"maximumMatchValue\":100}]")]
-        //public async Task TranslateAndAnalysisFlow(string fuzzyBand)
-        //{
-        //    // For the Translate and Analysis flow a specific order must be followed. Below it's and example.
+        [Fact]
+        public async Task TranslateAndAnalysisFlow()
+        {
+            // In order to run Translate and Analysis, certain steps must pe followed in a specific order. Below is and example:
 
-        //    var groupShareClient = Helper.GsClient;
-        //    var fileToTranslatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\FileToTranslate.txt.sdlxliff");
-        //    var tmOptionsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\TMOptions.Json");
-        //    var request = new TranslationAndAnalysisJobRequest(fuzzyBand);
-        //    var jobId = await groupShareClient.TranslateAndAnalysis.GetTranslateAndAnalysisJob(request);
+            string fuzzyBand = "[{\"minimumMatchValue\":50,\"maximumMatchValue\":84},{\"minimumMatchValue\":85,\"maximumMatchValue\":100}]";
 
-        //    MultipartFormDataContent content = new MultipartFormDataContent($"---{Guid.NewGuid()}---");
-        //    var fileContent = new FileStream(fileToTranslatePath, FileMode.Open);
-        //    var optionsContent = JsonConvert.DeserializeObject(System.IO.File.ReadAllText(tmOptionsPath)).ToString();
-        //    content.Add(new StreamContent(fileContent), "file", Path.GetFileName(fileToTranslatePath));
-        //    content.Add(new StringContent(optionsContent, Encoding.UTF8, "application/json"), "info");
-        //    var translationJob = await groupShareClient.TranslateAndAnalysis.GetTranslationJob(jobId.ToString(), content);
+            var fileToTranslatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\FileToTranslate.txt.sdlxliff");
+            var tmOptionsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\TMOptions.Json");
+            var request = new TranslationAndAnalysisJobRequest(fuzzyBand);
+            var jobId = await GroupShareClient.TranslateAndAnalysis.GetTranslateAndAnalysisJob(request);
 
-        //    var translationJobStatus = await groupShareClient.TranslateAndAnalysis.GetTranslationStatus(translationJob.ToString());
-        //    while (translationJobStatus.IsFinal != true)
-        //    {
-        //        translationJobStatus = await groupShareClient.TranslateAndAnalysis.GetTranslationStatus(translationJob.ToString());
-        //    }
+            var content = new MultipartFormDataContent($"---{Guid.NewGuid()}---");
+            var fileContent = new FileStream(fileToTranslatePath, FileMode.Open);
+            var optionsContent = JsonConvert.DeserializeObject(System.IO.File.ReadAllText(tmOptionsPath)).ToString();
+            content.Add(new StreamContent(fileContent), "file", Path.GetFileName(fileToTranslatePath));
+            content.Add(new StringContent(optionsContent, Encoding.UTF8, "application/json"), "info");
+            var translationJob = await GroupShareClient.TranslateAndAnalysis.GetTranslationJob(jobId, content);
 
-        //    var downloadedTranslationDocument = await groupShareClient.TranslateAndAnalysis.DownloadTranslationDocument(translationJob.ToString());
+            var translationJobStatus = await GroupShareClient.TranslateAndAnalysis.GetTranslationStatus(translationJob);
+            while (translationJobStatus.IsFinal != true)
+            {
+                translationJobStatus = await GroupShareClient.TranslateAndAnalysis.GetTranslationStatus(translationJob);
+            }
 
-        //    var analysisJob = await groupShareClient.TranslateAndAnalysis.GetAnalysisJob(jobId.ToString());
+            // DownloadTranslationDocument sometimes needs a small wait in order not to fail
+            Thread.Sleep(2000);
 
-        //    var analysisJobStatus = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatus(analysisJob.ToString());
-        //    while (analysisJobStatus.IsFinal != true)
-        //    {
-        //        analysisJobStatus = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatus(analysisJob.ToString());
-        //    }
+            var downloadedTranslationDocument = await GroupShareClient.TranslateAndAnalysis.DownloadTranslationDocument(translationJob);
+            Assert.True(downloadedTranslationDocument.GetType() == typeof(byte[]) && downloadedTranslationDocument.Length != 0);
 
-        //    var analysisStatistics = await groupShareClient.TranslateAndAnalysis.GetAnalysisStatistics(analysisJob.ToString());
+            var analysisJob = await GroupShareClient.TranslateAndAnalysis.GetAnalysisJob(jobId);
 
-        //    await groupShareClient.TranslateAndAnalysis.DeleteJob(jobId.ToString());
-        //}
+            var analysisJobStatus = await GroupShareClient.TranslateAndAnalysis.GetAnalysisStatus(analysisJob);
+            while (analysisJobStatus.IsFinal != true)
+            {
+                analysisJobStatus = await GroupShareClient.TranslateAndAnalysis.GetAnalysisStatus(analysisJob);
+            }
+
+            var analysisStatistics = await GroupShareClient.TranslateAndAnalysis.GetAnalysisStatistics(analysisJob);
+            Assert.Equal(10, analysisStatistics.Statistics[0].Total.Segments);
+            Assert.Equal(153, analysisStatistics.Statistics[0].Total.Words);
+
+            await GroupShareClient.TranslateAndAnalysis.DeleteJob(jobId);
+        }
+
+        private async Task<int> CreateTestTranslateAndAnalysisJob()
+        {
+            string fuzzyBands = "[{\"minimumMatchValue\":50,\"maximumMatchValue\":84},{\"minimumMatchValue\":85,\"maximumMatchValue\":100}]";
+            var request = new TranslationAndAnalysisJobRequest(fuzzyBands);
+
+            var jobId = await GroupShareClient.TranslateAndAnalysis.GetTranslateAndAnalysisJob(request);
+            return jobId;
+        }
+
+        public void Dispose()
+        {
+            GroupShareClient.TranslateAndAnalysis.DeleteJob(_jobId);
+        }
     }
 }

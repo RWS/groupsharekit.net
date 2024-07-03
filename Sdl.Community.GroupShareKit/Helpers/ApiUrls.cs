@@ -1674,6 +1674,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jobId"></param>
+        /// <returns></returns>
+        public static Uri TranslationJob(int jobId)
+        {
+            return "{0}/translation/{1}".FormatUri(TranslateAndAnalysisServiceUrl, jobId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> translatable document status
         /// </summary>
         public static Uri TranslationJobStatus(string translationJob)
@@ -1682,9 +1692,29 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="translationJob"></param>
+        /// <returns></returns>
+        public static Uri TranslationJobStatus(int translationJobId)
+        {
+            return "{0}/translation/status/{1}".FormatUri(TranslateAndAnalysisServiceUrl, translationJobId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> translatable document
         /// </summary>
         public static Uri DownloadTranslationDocument(string translationJob)
+        {
+            return "{0}/translation/download/{1}".FormatUri(TranslateAndAnalysisServiceUrl, translationJob);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="translationJob"></param>
+        /// <returns></returns>
+        public static Uri DownloadTranslationDocument(int translationJob)
         {
             return "{0}/translation/download/{1}".FormatUri(TranslateAndAnalysisServiceUrl, translationJob);
         }
@@ -1698,11 +1728,31 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jobId"></param>
+        /// <returns></returns>
+        public static Uri AnalysisJob(int jobId)
+        {
+            return "{0}/analysis/{1}".FormatUri(TranslateAndAnalysisServiceUrl, jobId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> translatable document analysis status
         /// </summary>
         public static Uri AnalysisJobStatus(string analysisJob)
         {
             return "{0}/analysis/status/{1}".FormatUri(TranslateAndAnalysisServiceUrl, analysisJob);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="analysisJobId"></param>
+        /// <returns></returns>
+        public static Uri AnalysisJobStatus(int analysisJobId)
+        {
+            return "{0}/analysis/status/{1}".FormatUri(TranslateAndAnalysisServiceUrl, analysisJobId);
         }
 
         /// <summary>
@@ -1714,9 +1764,29 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jobId"></param>
+        /// <returns></returns>
+        public static Uri AnalysisStatistics(int jobId)
+        {
+            return "{0}/analysis/{1}".FormatUri(TranslateAndAnalysisServiceUrl, jobId);
+        }
+
+        /// <summary>
         /// Deletes the job for translate and analysis
         /// </summary>
         public static Uri DeleteJob(string jobId)
+        {
+            return "{0}/job/{1}".FormatUri(TranslateAndAnalysisServiceUrl, jobId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jobId"></param>
+        /// <returns></returns>
+        public static Uri DeleteJob(int jobId)
         {
             return "{0}/job/{1}".FormatUri(TranslateAndAnalysisServiceUrl, jobId);
         }

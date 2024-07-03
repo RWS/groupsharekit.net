@@ -1,6 +1,7 @@
 ﻿using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -33,7 +34,19 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <response code="200">Translation triggered successfully.</response>
         /// <response code="400">When the given document or translation information not correct</response>
         /// <response code="404">If there is no document with the given identifier</response>
+        [Obsolete]
         public Task<int> GetTranslationJob(string jobId, MultipartFormDataContent request)
+        {
+            return ApiConnection.Post<int>(ApiUrls.TranslationJob(jobId), request, "multipart/form-data");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jobId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public Task<int> GetTranslationJob(int jobId, MultipartFormDataContent request)
         {
             return ApiConnection.Post<int>(ApiUrls.TranslationJob(jobId), request, "multipart/form-data");
         }
@@ -51,6 +64,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="translateJobNo"></param>
+        /// <returns></returns>
+        public Task<Translation> GetTranslationStatus(int translateJobId)
+        {
+            return ApiConnection.Get<Translation>(ApiUrls.TranslationJobStatus(translateJobId), null);
+        }
+
+        /// <summary>
         /// Downloads the translated document.
         /// </summary>
         /// <param name="translateJobNo">The document identifier.</param>
@@ -59,6 +82,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <response code="400">When the translation was not completed successfully. Use the status call to know the status of the translation.</response>
         /// <response code="404">If there is no document with the given identifier</response>
         public Task<byte[]> DownloadTranslationDocument(string translateJobNo)
+        {
+            return ApiConnection.Get<byte[]>(ApiUrls.DownloadTranslationDocument(translateJobNo), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="translateJobNo"></param>
+        /// <returns></returns>
+        public Task<byte[]> DownloadTranslationDocument(int translateJobNo)
         {
             return ApiConnection.Get<byte[]>(ApiUrls.DownloadTranslationDocument(translateJobNo), null);
         }
@@ -77,6 +110,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jobId"></param>
+        /// <returns></returns>
+        public Task<int> GetAnalysisJob(int jobId)
+        {
+            return ApiConnection.Post<int>(ApiUrls.AnalysisJob(jobId), string.Empty, "application/json");
+        }
+
+        /// <summary>
         /// Exposes the status of the given analysis job.
         /// </summary>
         /// <param name="analysisJobNo">The analysis identifier.</param>
@@ -85,6 +128,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         public Task<Analysis> GetAnalysisStatus(string analysisJobNo)
         {
             return ApiConnection.Get<Analysis>(ApiUrls.AnalysisJobStatus(analysisJobNo), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="analysisJobId"></param>
+        /// <returns></returns>
+        public Task<Analysis> GetAnalysisStatus(int analysisJobId)
+        {
+            return ApiConnection.Get<Analysis>(ApiUrls.AnalysisJobStatus(analysisJobId), null);
         }
 
         /// <summary>
@@ -98,11 +151,31 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jobId"></param>
+        /// <returns></returns>
+        public Task<AnalysisStatistics> GetAnalysisStatistics(int jobId)
+        {
+            return ApiConnection.Get<AnalysisStatistics>(ApiUrls.AnalysisStatistics(jobId), null);
+        }
+
+        /// <summary>
         /// Completes a translate and analysis task.
         /// All the resources associated with the given job will be deleted.
         /// </summary>
         /// <param name="jobId">The job identifier.</param>
         public Task DeleteJob(string jobId)
+        {
+            return ApiConnection.Delete(ApiUrls.DeleteJob(jobId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jobId"></param>
+        /// <returns></returns>
+        public Task DeleteJob(int jobId)
         {
             return ApiConnection.Delete(ApiUrls.DeleteJob(jobId));
         }
