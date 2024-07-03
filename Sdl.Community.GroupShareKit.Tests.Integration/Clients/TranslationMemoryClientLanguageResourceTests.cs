@@ -1,4 +1,5 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using Sdl.Community.GroupShareKit.Helpers;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
@@ -20,7 +20,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public TranslationMemoryClientLanguageResourceTests()
         {
             _languageResourceTemplateId = CreateTestLanguageResourceTemplate().Result;
-            //_languageResourceId = GroupShareClient.TranslationMemories.GetLanguageResources(_languageResourceTemplateId).Result().Single().LanguageResourceId;
         }
 
         [Fact]
@@ -106,7 +105,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task UpdateLanguageResourceForTemplate()
         {
-            var languageResource =  await GroupShareClient.TranslationMemories.GetLanguageResourceForTemplate(_languageResourceTemplateId, _languageResourceId);
+            var languageResource = await GroupShareClient.TranslationMemories.GetLanguageResourceForTemplate(_languageResourceTemplateId, _languageResourceId);
             languageResource.CultureName = "de-de";
 
             await GroupShareClient.TranslationMemories.UpdateLanguageResourceForTemplate(_languageResourceTemplateId, _languageResourceId, languageResource);
@@ -128,25 +127,25 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Contains("window", dataDecoded);
         }
 
-        //[Theory]
-        //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
-        //public async Task ExportFileForLanguageResource(string templateId, string languageResourceId)
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    var document =await
-        //        groupShareClient.TranslationMemories.ExportFileForLanguageResource(templateId, languageResourceId);
+        [Fact]
+        public async Task ExportFileForLanguageResource()
+        {
+            var export = await GroupShareClient.TranslationMemories.ExportFileForLanguageResource(_languageResourceTemplateId, _languageResourceId);
 
-        //    Assert.True(document.Count()!=0);
-        //}
-        //[Theory]
-        //// [InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "4ba4843e-fa19-4447-8a42-26aef99a3f9c")]
-        //[InlineData("fe611664-c7c2-4074-8840-e350208ffaf9", "30bdb0b9-7f34-4642-8dcb-a574294035cb")]
-        //public async Task ResetToDefaultLanguageResource(string templateId, string languageResourceId)
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    await groupShareClient.TranslationMemories.ResetToDefaultLanguageResource(templateId, languageResourceId);
+            Assert.True(export.Length > 0);
+        }
 
-        //}
+        [Fact]
+        public async Task ResetLanguageResourceToDefault()
+        {
+            var languageResourcesBeforeReset = await GroupShareClient.TranslationMemories.GetLanguageResources(_languageResourceTemplateId);
+            Assert.Single(languageResourcesBeforeReset);
+
+            await GroupShareClient.TranslationMemories.ResetLanguageResourceToDefault(_languageResourceTemplateId, _languageResourceId);
+
+            var languageResourcesAfterReset = await GroupShareClient.TranslationMemories.GetLanguageResources(_languageResourceTemplateId);
+            Assert.Empty(languageResourcesAfterReset);
+        }
 
         public void Dispose()
         {
@@ -155,9 +154,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         private async Task<Guid> CreateTestLanguageResourceTemplate()
         {
-            //var request = new LanguageResourceServiceDefaultsRequest(LanguageResourceType.Variables, "ro-ro");
-            //var resource = await GroupShareClient.TranslationMemories.GetLanguageResourceServiceDefaults(request);
-
             var languageResourceTemplateRequest = new CreateLanguageResourceTemplateRequest
             {
                 Name = $"Language processing rule - {Guid.NewGuid()}",

@@ -1831,12 +1831,27 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete]
         public async Task ResetToDefaultLanguageResource(string templateId, string languageResourceId)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             Ensure.ArgumentNotNullOrEmptyString(languageResourceId, "languageResourceId");
 
             await ApiConnection.Put<string>(ApiUrls.LanguageResourceActions(templateId, languageResourceId, "reset"), templateId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageResourceTemplateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <returns></returns>
+        public async Task ResetLanguageResourceToDefault(Guid languageResourceTemplateId, Guid languageResourceId)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            Ensure.ArgumentNotNull(languageResourceId, "languageResourceId");
+
+            await ApiConnection.Put<string>(ApiUrls.LanguageResourceActions(languageResourceTemplateId, languageResourceId, "reset"), languageResourceTemplateId);
         }
 
         /// <summary>
@@ -1871,7 +1886,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="templateId"></param>
+        /// <param name="languageResourceTemplateId"></param>
         /// <param name="languageResourceId"></param>
         /// <param name="file"></param>
         /// <returns></returns>
@@ -1904,16 +1919,31 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>byte[] that represents the document content</returns>
+        [Obsolete]
         public async Task<byte[]> ExportFileForLanguageResource(string templateId, string languageResourceId)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
             Ensure.ArgumentNotNullOrEmptyString(languageResourceId, "languageResourceId");
-            var document =
-                await
-                    ApiConnection.Get<string>(
-                        ApiUrls.LanguageResourceActions(templateId, languageResourceId, "export"), null);
+
+            var document = await ApiConnection.Get<string>(ApiUrls.LanguageResourceActions(templateId, languageResourceId, "export"), null);
             return Encoding.UTF8.GetBytes(document);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageResourceTemplateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <returns></returns>
+        public async Task<byte[]> ExportFileForLanguageResource(Guid languageResourceTemplateId, Guid languageResourceId)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            Ensure.ArgumentNotNull(languageResourceId, "languageResourceId");
+
+            var document = await ApiConnection.Get<string>(ApiUrls.LanguageResourceActions(languageResourceTemplateId, languageResourceId, "export"), null);
+            return Encoding.UTF8.GetBytes(document);
+        }
+
         #endregion
 
         #region Language resource template clients

@@ -1092,7 +1092,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task UpdateLanguageResourceForTemplate(Guid languageResourceTemplateId, Guid languageResourceId, LanguageResource resourceRequest);
 
         /// <summary>
-        ///Reset to default Culture values a specific Language Resource in a specific Language Resource Template
+        /// Reset to default Culture values a specific Language Resource in a specific Language Resource Template
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1103,6 +1103,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task ResetToDefaultLanguageResource(string templateId, string languageResourceId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageResourceTemplateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <returns></returns>
+        Task ResetLanguageResourceToDefault(Guid languageResourceTemplateId, Guid languageResourceId);
 
         /// <summary>
         /// Imports a file with data for a specific Language Resource Template 
@@ -1140,6 +1148,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>byte[] that represents the document content</returns>
         Task<byte[]> ExportFileForLanguageResource(string templateId, string languageResourceId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="templateId"></param>
+        /// <param name="languageResourceId"></param>
+        /// <returns></returns>
+        Task<byte[]> ExportFileForLanguageResource(Guid languageResourceTemplateId, Guid languageResourceId);
         #endregion
 
         #region Language resource template methods
