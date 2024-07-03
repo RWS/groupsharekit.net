@@ -58,6 +58,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>The translation status and errors</returns>
         /// <response code="200">The status was returned.</response>
         /// <response code="404">If there is no document with the given identifier</response>
+        [Obsolete]
         public Task<Translation> GetTranslationStatus(string translateJobNo)
         {
             return ApiConnection.Get<Translation>(ApiUrls.TranslationJobStatus(translateJobNo), null);
@@ -81,6 +82,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <response code="200">The download was successful</response>
         /// <response code="400">When the translation was not completed successfully. Use the status call to know the status of the translation.</response>
         /// <response code="404">If there is no document with the given identifier</response>
+        [Obsolete]
         public Task<byte[]> DownloadTranslationDocument(string translateJobNo)
         {
             return ApiConnection.Get<byte[]>(ApiUrls.DownloadTranslationDocument(translateJobNo), null);
@@ -104,6 +106,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>The analysis identifier</returns>
         /// <response code="200">The translated document identifier</response>
         /// <response code="400">When the given document or translation information is incorrect</response>
+        [Obsolete]
         public Task<int> GetAnalysisJob(string jobId)
         {
             return ApiConnection.Post<int>(ApiUrls.AnalysisJob(jobId), string.Empty, "application/json");
@@ -125,6 +128,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <param name="analysisJobNo">The analysis identifier.</param>
         /// <response code="200">The status was returned.</response>
         /// <response code="404">If there is no analysis with the given identifier</response>
+        [Obsolete]
         public Task<Analysis> GetAnalysisStatus(string analysisJobNo)
         {
             return ApiConnection.Get<Analysis>(ApiUrls.AnalysisJobStatus(analysisJobNo), null);
@@ -145,6 +149,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <param name="analysisJobNo">The analysis identifier.</param>
         /// <returns>The analysis statistics</returns>
+        [Obsolete]
         public Task<AnalysisStatistics> GetAnalysisStatistics(string analysisJobNo)
         {
             return ApiConnection.Get<AnalysisStatistics>(ApiUrls.AnalysisStatistics(analysisJobNo), null);
@@ -165,6 +170,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// All the resources associated with the given job will be deleted.
         /// </summary>
         /// <param name="jobId">The job identifier.</param>
+        [Obsolete]
         public Task DeleteJob(string jobId)
         {
             return ApiConnection.Delete(ApiUrls.DeleteJob(jobId));

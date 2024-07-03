@@ -32,22 +32,20 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(jobId > 0);
         }
 
-        //[Fact]
-        ////[InlineData("10")]
-        //public async Task GetTranslatableDocumentId()
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    var fileToTranslatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\FileToTranslate.txt.sdlxliff");
-        //    var tmOptionsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\TMOptions.Json");
-        //    var fileContent = new FileStream(fileToTranslatePath, FileMode.Open);
-        //    var content = new MultipartFormDataContent($"---{Guid.NewGuid()}---");
-        //    var optionsContent = JsonConvert.DeserializeObject(System.IO.File.ReadAllText(tmOptionsPath)).ToString();
-        //    content.Add(new StreamContent(fileContent), "file", Path.GetFileName(fileToTranslatePath));
-        //    content.Add(new StringContent(optionsContent, Encoding.UTF8, "application/json"), "info");
-        //    var translationJobNo = await groupShareClient.TranslateAndAnalysis.GetTranslationJob(jobId, content);
+        [Fact]
+        public async Task GetTranslatableDocumentId()
+        {
+            var fileToTranslatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\FileToTranslate.txt.sdlxliff");
+            var tmOptionsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\TMOptions.Json");
+            var fileContent = new FileStream(fileToTranslatePath, FileMode.Open);
+            var content = new MultipartFormDataContent($"---{Guid.NewGuid()}---");
+            var optionsContent = JsonConvert.DeserializeObject(System.IO.File.ReadAllText(tmOptionsPath)).ToString();
+            content.Add(new StreamContent(fileContent), "file", Path.GetFileName(fileToTranslatePath));
+            content.Add(new StringContent(optionsContent, Encoding.UTF8, "application/json"), "info");
 
-        //    Assert.True(translationJobNo > 0);
-        //}
+            var translationJobNo = await GroupShareClient.TranslateAndAnalysis.GetTranslationJob(_jobId, content);
+            Assert.True(translationJobNo > 0);
+        }
 
         [Fact]
         public async Task GetTranslationStatus()
