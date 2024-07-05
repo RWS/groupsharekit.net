@@ -27,7 +27,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="Organization"/>s.</returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'GetOrganization(Guid)' instead.")]
         public Task<Organization> Get(string organizationId)
         {
             Ensure.ArgumentNotNullOrEmptyString(organizationId, "organizationId");
@@ -99,6 +99,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete("This method is obsolete. Call 'DeleteOrganization(Guid)' instead.")]
         public Task DeleteOrganization(string organizationId)
         {
             Ensure.ArgumentNotNullOrEmptyString(organizationId, "organizationId");
@@ -131,7 +132,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="Organization"/>.</returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'UpdateOrganization(Guid)' instead.")]
         public Task<string> Update(Organization organization)
         {
             return ApiConnection.Put<string>(ApiUrls.Organizations(), organization);
@@ -160,7 +161,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Id of created organization.</returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'CreateOrganization(Guid)' instead.")]
         public async Task<string> Create(Organization organization)
         {
             return await ApiConnection.Post<string>(ApiUrls.Organizations(), organization, "application/json");
@@ -189,7 +190,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>List of <see cref="OrganizationResources"/></returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'GetOrganizationResources(Guid)' instead.")]
         public async Task<IReadOnlyList<OrganizationResources>> GetAllOrganizationResources(string organizationId)
         {
             return await ApiConnection.GetAll<OrganizationResources>(ApiUrls.OrganizationResources(organizationId));

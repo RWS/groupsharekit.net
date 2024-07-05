@@ -21,6 +21,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="Organization"/>s.</returns>
+        [Obsolete("This method is obsolete. Call 'GetOrganization(Guid)' instead.")]
         Task<Organization> Get(string organizationId);
 
         /// <summary>
@@ -73,6 +74,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Organization"/>s.</returns>
+        [Obsolete("This method is obsolete. Call 'DeleteOrganization(Guid)' instead.")]
         Task DeleteOrganization(string organizationId);
 
         /// <summary>
@@ -95,6 +97,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Organization"/>s.</returns>
+        [Obsolete("This method is obsolete. Call 'UpdateOrganization(Guid)' instead.")]
         Task<string> Update(Organization organization);
 
         /// <summary>
@@ -117,6 +120,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Organization"/>s.</returns>
+        [Obsolete("This method is obsolete. Call 'CreateOrganization(Guid)' instead.")]
         Task<string> Create(Organization organization);
 
         /// <summary>
@@ -131,6 +135,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <param name="organizationId">string</param>
         /// <returns>A list of<see cref="OrganizationResources"/></returns>
+        [Obsolete("This method is obsolete. Call 'GetOrganizationResources(Guid)' instead.")]
         Task<IReadOnlyList<OrganizationResources>> GetAllOrganizationResources(string organizationId);
 
         /// <summary>

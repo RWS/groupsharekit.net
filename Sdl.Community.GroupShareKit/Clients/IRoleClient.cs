@@ -20,7 +20,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Role"/>s.</returns>
-        [Obsolete("GetAllRoles is deprecated, please use GetRoles instead.")]
+        [Obsolete("This method is obsolete. Call 'GetRoles()' instead.")]
         Task<IReadOnlyList<RoleRequest>> GetAllRoles();
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Role id.</returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'CreateRole(Role)' instead.")]
         Task<string> CreateRole(RoleRequest request);
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="RoleRequest"/>s.</returns>
-        [Obsolete("GetRole is deprecated, please use GetRoles instead.")]
+        [Obsolete("This method is obsolete. Call 'GetRole(Guid)' instead.")]
         Task<RoleRequest> GetRole(string roleId);
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'DeleteRole(Guid)' instead.")]
         Task DeleteRole(string roleId);
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'AddUserToRole(List<RoleMembership>)' instead.")]
         Task AddUserToRole(List<Role> roles);
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'RemoveUserFromRole(List<RoleMembership>)' instead.")]
         Task RemoveUserFromRole(List<Role> roles, string roleId);
 
         /// <summary>

@@ -97,7 +97,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="File"/>s.</returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'GetProjectFiles(Guid)' instead.")]
         public Task<IReadOnlyList<File>> GetAllFilesForProject(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -124,6 +124,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Phase"/>s.</returns>
+        [Obsolete("This method is obsolete. Call 'GetProjectPhases(Guid)' instead.")]
         public Task<IReadOnlyList<Phase>> GetAllPhasesForProject(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -154,7 +155,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="PhasesWithAssignees"/>s.</returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'GetPhasesWithAssignees(Guid, int)' instead.")]
         public Task<IReadOnlyList<PhasesWithAssignees>> GetPhasesWithAssignees(string projectId, int phaseId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -188,7 +189,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Phase"/>s.</returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'ChangePhase(ChangePhaseRequest)' instead.")]
         public Task ChangePhases(string projectId, ChangePhaseRequest request)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -223,7 +224,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Phase"/>s.</returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'ChangeAssignment(Guid, ChangeAssignmentRequest)' instead.")]
         public Task ChangeAssignments(string projectId, ChangeAssignmentRequest request)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -420,7 +421,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'AddFiles(Guid, string, bool)' instead.")]
         public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string filesPath, bool reference)
         {
             var uri = ApiUrls.AddProjectFiles(projectId, reference);
@@ -451,7 +452,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'AddFiles(Guid, string[], bool)' instead.")]
         public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string[] filesPaths, bool reference)
         {
             var uri = ApiUrls.AddProjectFiles(projectId, reference);
@@ -488,7 +489,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'UpdateFiles(Guid, string, bool)' instead.")]
         public async Task<MidProjectUpdateResponse> UpdateFiles(string projectId, string filesPath, bool reference)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
@@ -519,7 +520,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'UpdateFiles(Guid, string[], bool)' instead.")]
         public async Task<MidProjectUpdateResponse> UpdateFiles(string projectId, string[] filesPaths, bool reference)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
@@ -556,7 +557,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'UpdateSelectedFiles(Guid, string, MidProjectFileIdsModel, bool)' instead.")]
         public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
@@ -593,7 +594,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'UpdateSelectedFiles(Guid, string, MidProjectFileIdsModel, bool)' instead.")]
         public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string[] filesPaths, MidProjectFileIdsModel fileIds, bool reference)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
@@ -636,7 +637,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'CancelProjectFiles(Guid, MidProjectFileIdsModel)' instead.")]
         public async Task<string> CancelProjectFiles(string projectId, MidProjectFileIdsModel fileIds)
         {
             var uri = ApiUrls.CancelProjectFiles(projectId);
@@ -680,6 +681,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete("This method is obsolete. Call 'DeleteProject(Guid)' instead.")]
         public Task DeleteProject(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -711,6 +713,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="ProjectDetails"/></returns>
+        [Obsolete("This method is obsolete. Call 'GetProject(Guid)' instead.")]
         public Task<ProjectDetails> Get(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -742,7 +745,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="PublishingStatus"/></returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'PublishingStatus(Guid)' instead.")]
         public async Task<PublishingStatus> PublishingStatus(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -783,6 +786,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of byte[] which represents downloaded files.</returns>
+        [Obsolete("This method is obsolete. Call 'DownloadFiles(Guid, List<Guid>)' instead.")]
         public async Task<byte[]> DownloadFiles(string projectId, List<string> languageFileIds)
         {
             Ensure.ArgumentNotEmpty(languageFileIds, "languageFileIds");
@@ -816,6 +820,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of byte[] which represents downloaded files.</returns>></param>
         /// <returns></returns>
+        [Obsolete("This method is obsolete. Call 'DownloadNative(Guid)' instead.")]
         public async Task<byte[]> DownloadNative(string projectId)
         {
             return await ApiConnection.Get<byte[]>(ApiUrls.DownloadNative(projectId), null);
@@ -843,6 +848,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 		/// </exception>
 		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
 		/// <returns>A list of byte[] which represents downloaded files.</returns>
+        [Obsolete("This method is obsolete. Call 'Finalize(Guid, List<Guid>)' instead.")]
         public async Task<byte[]> Finalize(string projectId, List<string> languageFileIds)
         {
             Ensure.ArgumentNotEmpty(languageFileIds, "languageFileIds");
@@ -990,6 +996,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="ProjectAssignment"/>s.</returns>
+        [Obsolete("This method is obsolete. Call 'GetProjectAssignmentById(Guid, List<Guid>)' instead.")]
         public async Task<IReadOnlyList<ProjectAssignment>> GetProjectAssignmentById(string projectId, List<string> fileIdsList)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1059,7 +1066,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <param name="projectId">The project id.</param>
         /// <param name="deleteProjectTMs">If true, project TMs will be deleted after the project is detached.</param>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'DetachProject(Guid, bool)' instead.")]
         public async Task DetachProject(string projectId, bool deleteProjectTMs = false)
         {
             await ApiConnection.Delete(ApiUrls.DetachProject(projectId, deleteProjectTMs));
@@ -1144,7 +1151,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Post(ApiUrls.CancelPublishProjectPackage(projectId));
         }
 
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'GetAllProjectFileStatistics(Guid)' instead.")]
         public Task<IReadOnlyList<ProjectFileStatistics>> GetAllProjectFileStatistics(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1159,7 +1166,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.GetAll<ProjectFileStatistics>(ApiUrls.ProjectFileStatistics(projectId), null);
         }
 
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'GetProjectLanguageStatistics(Guid)' instead.")]
         public Task<Dictionary<string, ProjectStatistics>> GetProjectLanguageStatistics(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1348,7 +1355,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Te contend of template in a string/></returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'GetProjectTemplate(Guid)' instead.")]
         public async Task<string> GetTemplateById(string templateId)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
@@ -1408,7 +1415,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'DeleteProjectTemplate(Guid)' instead.")]
         public async Task DeleteProjectTemplate(string templateId)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
@@ -1475,7 +1482,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'UploadProjectTemplate(Guid, byte[], string)' instead.")]
         public async Task<string> UploadProjectTemplate(string templateId, byte[] projectTemplate, string templateName)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
@@ -1523,7 +1530,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> List <see cref="FileVersion"/>s.</returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'GetFileVersions(Guid)' instead.")]
         public async Task<IReadOnlyList<FileVersion>> GetFileVersions(string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "languageFileId");
@@ -1556,6 +1563,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> Downloaded file in bytes[].</returns>
+        [Obsolete("This method is obsolete. Call 'DownloadFileVersion(Guid, Guid, int)' instead.")]
         public async Task<byte[]> DownloadFileVersion(string projectId, string languageFileId, int version)
         {
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "languageFileId");
@@ -1600,7 +1608,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> List <see cref="AnalysisReports"/>s.</returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'GetAnalysisReports(Guid, string)' instead.")]
         public async Task<IReadOnlyList<AnalysisReports>> GetAnalysisReports(string projectId, string languageCode)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1638,7 +1646,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> List <see cref="AnalysisReportWithMimeType"/>s.</returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'GetAnalysisReportsAsHtml(Guid, string)' instead.")]
         public async Task<IReadOnlyList<AnalysisReportWithMimeType>> GetAnalysisReportsAsHtml(string projectId, string languageCode)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1676,7 +1684,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> List <see cref="AnalysisReportWithMimeType"/>s.</returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'GetAnalysisReportsAsXml(Guid, string)' instead.")]
         public async Task<IReadOnlyList<AnalysisReportWithMimeType>> GetAnalysisReportsAsXml(string projectId, string languageCode)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1715,7 +1723,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> List <see cref="AnalysisReports"/>s.</returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'GetAnalysisReportsV3(Guid, string, int)' instead.")]
         public async Task<IReadOnlyList<AnalysisReports>> GetAnalysisReportsV3(string projectId, string languageCode = null, int? reportId = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1818,6 +1826,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
+        [Obsolete("This method is obsolete. Call 'GetAnalysisReportsV3AsHtml(Guid, string, int)' instead.")]
         public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsHtml(string projectId, string languageCode = null, int? reportId = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1857,6 +1866,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
+        [Obsolete("This method is obsolete. Call 'GetAnalysisReportsV3AsXml(Guid, string, int)' instead.")]
         public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsXml(string projectId, string languageCode = null, int? reportId = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1894,6 +1904,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="ProjectSettings"/></returns>
+        [Obsolete("This method is obsolete. Call 'GetLanguageFileSettings(Guid, Guid)' instead.")]
         public async Task<ProjectSettings> GetProjectSettings(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1987,7 +1998,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        [Obsolete]
+        [[Obsolete("This method is obsolete. Call 'IsUserAuthorizedToOpenFile(Guid, Guid)' instead.")]
         public async Task<string> IsUserAuthorizedToOpenFile(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -2025,7 +2036,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="EditorProfile"/></returns>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'EditorProfile(Guid, Guid)' instead.")]
         public async Task<EditorProfile> EditorProfile(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -2063,7 +2074,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'OnlineCheckin(Guid, Guid, OnlineCheckInRequest)' instead.")]
         public async Task<OnlineCheckInRequest> OnlineCheckin(string projectId, string languageFileId, OnlineCheckInRequest checkoutResponse)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -2100,7 +2111,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'OnlineCheckout(Guid, Guid)' instead.")]
         public async Task<OnlineCheckInRequest> OnlineCheckout(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -2134,6 +2145,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete("This method is obsolete. Call 'UndoCheckout(Guid, Guid)' instead.")]
         public async Task UndoCheckout(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -2183,7 +2195,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'IsCheckoutToSomeoneElse(Guid, string)' instead.")]
         public async Task<bool> IsCheckoutToSomeoneElse(string languageFileId, string editorProfileMode)
         {
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
@@ -2216,7 +2228,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'ExternalCheckin(Guid, Guid, string)' instead.")]
         public async Task<string> ExternalCheckin(string projectId, string languageFileId, string comment)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -2253,7 +2265,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'ExternalCheckout(Guid, Guid)' instead.")]
         public async Task<string> ExternalCheckout(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -2284,7 +2296,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         ///  This method requires authentication.
         /// </remarks>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'ExternalCheckOutFiles(Guid, List<Guid>)' instead.")]
         public async Task ExternalCheckOutFiles(string projectId, List<string> filesIdsList)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -2321,7 +2333,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         ///  This method requires authentication.
         /// </remarks>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'ExternalCheckInFiles(Guid, ExternalCheckInData)' instead.")]
         public async Task ExternalCheckInFiles(string projectId, ExternalCheckInData externalCheckInData)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -2358,7 +2370,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         ///  This method requires authentication.
         /// </remarks>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'UndoExternalCheckOutForFiles(Guid, List<Guid>)' instead.")]
         public async Task UndoExternalCheckOutForFiles(string projectId, List<string> filesIdsList)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -2409,14 +2421,14 @@ namespace Sdl.Community.GroupShareKit.Clients
         ///  Thrown when the current user does not have permission to make the request.
         ///  </exception>
         ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        [Obsolete]
+        [Obsolete("This method is obsolete. Call 'AuditTrail(Guid)' instead.")]
         public Task<IReadOnlyList<AuditTrail>> AuditTrail(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             return ApiConnection.GetAll<AuditTrail>(ApiUrls.AuditTrail(projectId), null);
         }
 
-        [Obsolete("AuditTrial is deprecated, please call AuditTrail instead.")]
+        [Obsolete("This method is obsolete. Call 'AuditTrail(Guid)' instead.")]
         public Task<IReadOnlyList<AuditTrial>> AuditTrial(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");

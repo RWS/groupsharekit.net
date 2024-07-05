@@ -54,6 +54,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A <see cref="User"/>.</returns>
+        [Obsolete("This method is obsolete. Call 'GetUser(Guid)' instead.")]
         Task<User> GetUserById(string userId);
 
         /// <summary>
@@ -75,6 +76,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A <see cref="User"/>.</returns>
+        [Obsolete("This method is obsolete. Call 'UpdateUser(User)' instead.")]
         Task<string> Update(User user);
 
         /// <summary>
@@ -95,6 +97,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <param name="userId">string</param>
+        [Obsolete("This method is obsolete. Call 'DeleteUser(Guid)' instead.")]
         Task Delete(string userId);
 
         /// <summary>
