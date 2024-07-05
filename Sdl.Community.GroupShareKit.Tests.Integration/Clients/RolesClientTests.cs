@@ -152,7 +152,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [MemberData(nameof(UserData.UserRole), MemberType = typeof(UserData))]
-        public async Task GetUsersForSpecificRole(string roleId)
+        public async Task GetUsersForSpecificRole(Guid roleId)
         {
             var userId = await CreatePowerUser();
 
@@ -160,10 +160,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.NotEmpty(users);
 
-            await GroupShareClient.User.Delete(userId);
+            await GroupShareClient.User.DeleteUser(userId);
         }
 
-        private static async Task<string> CreatePowerUser()
+        private static async Task<Guid> CreatePowerUser()
         {
             var uniqueId = Guid.NewGuid();
             var name = $"User - {uniqueId}";
@@ -188,7 +188,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 }
             };
 
-            return await GroupShareClient.User.Create(newUser);
+            return await GroupShareClient.User.CreateUser(newUser);
         }
     }
 }

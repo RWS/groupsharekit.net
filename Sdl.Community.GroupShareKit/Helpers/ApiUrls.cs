@@ -370,19 +370,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri ProjectTemplates()
         {
-            return "{0}/projects/templates".
-                FormatUri(CurrentProjectServerUrl);
+            return "{0}/projects/templates".FormatUri(CurrentProjectServerUrl);
         }
 
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns a template
         /// </summary>
         /// <param name="templateId">The template id</param>
-        [Obsolete]
         public static Uri ProjectTemplates(string templateId)
         {
-            return "{0}/projects/templates/{1}".
-                FormatUri(CurrentProjectServerUrl, templateId);
+            return "{0}/projects/templates/{1}".FormatUri(CurrentProjectServerUrl, templateId);
         }
 
         /// <summary>
@@ -1276,7 +1273,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns the analysis report v3 for a project
         /// </summary>
-        [Obsolete]
         public static Uri AnalysisReportsV3(string projectId, string languageCode, int? reportId = null)
         {
             return "{0}/projects/{1}/analysisreports/{2}/{3}".FormatUri(CurrentProjectServerV3Url, projectId, languageCode, reportId);
