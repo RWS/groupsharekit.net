@@ -1998,7 +1998,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        [[Obsolete("This method is obsolete. Call 'IsUserAuthorizedToOpenFile(Guid, Guid)' instead.")]
+        [Obsolete("This method is obsolete. Call 'IsUserAuthorizedToOpenFile(Guid, Guid)' instead.")]
         public async Task<string> IsUserAuthorizedToOpenFile(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
