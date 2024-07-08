@@ -20,12 +20,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         #region Project management methods
 
         /// <summary>
-        /// Gets a <see cref="Project"/>s
+        /// Gets a <see cref="Project"/>.
         /// </summary>
         /// <remarks>
         /// <param name="request"><see cref="ProjectsRequest"/></param>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -35,11 +34,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<Project> GetProject(ProjectsRequest request);
 
         /// <summary>
-        /// Gets all <see cref="Project"/>s
+        /// Gets all <see cref="Project"/>s.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -54,7 +52,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         /// <param name="organizationName">string</param>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -103,7 +100,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Gets a list of files with all phases with assignee information.
         /// </summary>
-        /// <param name="projectId">The project's Guid.</param>
+        /// <param name="projectId">The project's Guid</param>
         /// <param name="phaseId">The Id of the project phase used for filtering. This parameter is optional.</param>
         /// <remarks>
         /// This method requires authentication.
@@ -423,10 +420,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task DetachProject(string projectId, bool deleteProjectTMs = false);
 
         /// <summary>
-        /// 
+        /// Detaches a project, with the possibility to delete project TMs.
         /// </summary>
         /// <param name="projectId">The project's Guid.</param>
-        /// <param name="deleteProjectTMs"></param>
+        /// <param name="deleteProjectTMs">If true, project TMs will be deleted after the project is detached.</param>
         Task DetachProject(Guid projectId, bool deleteProjectTMs = false);
 
         /// <summary>
@@ -679,20 +676,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteProjectTemplateV4(Guid templateId);
 
-        /// <summary>
-        ///Uploads a template to a newly created project 
-        /// This method should be called after you create a project in order to add the template
-        /// </summary>
-        /// <param name="templateId">string</param>
-        /// <param name="projectTemplate">byte[]</param>
-        /// <param name="templateName">string</param>
-        /// <remarks>
-        /// This method requires authentication.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         [Obsolete("This method is obsolete. Call 'UploadProjectTemplate(Guid, byte[], string)' instead.")]
         Task<string> UploadProjectTemplate(string templateId, byte[] projectTemplate, string templateName);
 
@@ -702,6 +685,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <param name="templateId">The project template Guid.</param>
         /// <param name="projectTemplate"></param>
         /// <param name="templateName"></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>The project template's Guid.</returns>
         Task<Guid> UploadProjectTemplate(Guid templateId, byte[] projectTemplate, string templateName);
 
@@ -1164,7 +1154,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns></returns>
+        /// <returns>A list of <see cref="AuditTrail"/>.</returns>
         Task<IReadOnlyList<AuditTrail>> AuditTrail(Guid projectId);
 
         [Obsolete("This method is obsolete. Call 'AuditTrail(Guid)' instead.")]
