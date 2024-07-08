@@ -108,6 +108,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Gets all the <see cref="OrganizationResources"/> of an <see cref="Organization"/>.
         /// </summary>
         /// <param name="organizationId">Organization Guid</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="OrganizationResources"/>.</returns>
         Task<IReadOnlyList<OrganizationResources>> GetOrganizationResources(Guid organizationId);
 

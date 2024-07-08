@@ -14,19 +14,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
         }
 
-        /// <summary>
-        /// Gets<see cref="Organization"/>.
-        /// </summary>
-        /// <remarks>
-        /// <param name="organizationId">string</param>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> <see cref="Organization"/>s.</returns>
         [Obsolete("This method is obsolete. Call 'GetOrganization(Guid)' instead.")]
         public Task<Organization> Get(string organizationId)
         {
@@ -36,10 +23,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Gets an <see cref="Organization"/> by Guid.
         /// </summary>
-        /// <param name="organizationId"></param>
-        /// <returns></returns>
+        /// <param name="organizationId">Organization Guid</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>An <see cref="Organization"/>.</returns>
         public Task<Organization> GetOrganization(Guid organizationId)
         {
             Ensure.ArgumentNotNull(organizationId, "organizationId");
@@ -87,18 +81,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.GetAll<Organization>(ApiUrls.Organizations(), request.ToParametersDictionary());
         }
 
-        /// <summary>
-        /// Delete <see cref="Organization"/>'s.
-        /// </summary>
-        /// <remarks>
-        ///<param name="organizationId">string</param>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         [Obsolete("This method is obsolete. Call 'DeleteOrganization(Guid)' instead.")]
         public Task DeleteOrganization(string organizationId)
         {
@@ -108,10 +90,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Deletes an <see cref="Organization"/>
         /// </summary>
         /// <param name="organizationId"></param>
-        /// <returns></returns>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="Organization"/>s.</returns>
         public Task DeleteOrganization(Guid organizationId)
         {
             Ensure.ArgumentNotNull(organizationId, "organizationId");
@@ -119,19 +108,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Delete(ApiUrls.Organization(organizationId));
         }
 
-        /// <summary>
-        /// Update <see cref="Organization"/>'s.
-        /// </summary>
-        /// <remarks>
-        /// <param name="organization"><see cref="Organization"/></param>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> <see cref="Organization"/>.</returns>
         [Obsolete("This method is obsolete. Call 'UpdateOrganization(Guid)' instead.")]
         public Task<string> Update(Organization organization)
         {
@@ -139,28 +115,22 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Updates an <see cref="Organization"/>.
         /// </summary>
-        /// <param name="organization"></param>
-        /// <returns></returns>
-        public Task<Guid> UpdateOrganization(Organization organization)
-        {
-            return ApiConnection.Put<Guid>(ApiUrls.Organizations(), organization);
-        }
-
-        /// <summary>
-        /// Create <see cref="Organization"/>'s.
-        /// </summary>
-        /// <remarks>
         /// <param name="organization"><see cref="Organization"/></param>
+        /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Id of created organization.</returns>
+        /// <returns>The organization's Guid.</returns>
+        public Task<Guid> UpdateOrganization(Organization organization)
+        {
+            return ApiConnection.Put<Guid>(ApiUrls.Organizations(), organization);
+        }
+
         [Obsolete("This method is obsolete. Call 'CreateOrganization(Guid)' instead.")]
         public async Task<string> Create(Organization organization)
         {
@@ -168,28 +138,19 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Creates an <see cref="Organization"/>.
         /// </summary>
-        /// <param name="organization"></param>
-        /// <returns></returns>
+        /// <param name="organization"><see cref="Organization"/></param>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The organization's Guid.</returns>
         public async Task<Guid> CreateOrganization(Organization organization)
         {
             return await ApiConnection.Post<Guid>(ApiUrls.Organizations(), organization, "application/json");
         }
 
-        /// <summary>
-        /// Gets all organization resources <see cref="OrganizationResources"/>'s.
-        /// </summary>
-        /// <remarks>
-        /// <param name="organizationId">string></param>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>List of <see cref="OrganizationResources"/></returns>
         [Obsolete("This method is obsolete. Call 'GetOrganizationResources(Guid)' instead.")]
         public async Task<IReadOnlyList<OrganizationResources>> GetAllOrganizationResources(string organizationId)
         {
@@ -197,10 +158,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Gets all the <see cref="OrganizationResources"/> of an <see cref="Organization"/>.
         /// </summary>
-        /// <param name="organizationId"></param>
-        /// <returns></returns>
+        /// <param name="organizationId">Organization Guid</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="OrganizationResources"/>.</returns>
         public async Task<IReadOnlyList<OrganizationResources>> GetOrganizationResources(Guid organizationId)
         {
             return await ApiConnection.GetAll<OrganizationResources>(ApiUrls.OrganizationResources(organizationId));
