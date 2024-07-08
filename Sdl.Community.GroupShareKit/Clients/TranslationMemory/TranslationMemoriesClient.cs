@@ -220,7 +220,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task Update(Guid tmId, TranslationMemoryDetails tmDetails)
+        public async Task UpdateTranslationMemory(Guid tmId, TranslationMemoryDetails tmDetails)
         {
             Ensure.ArgumentNotNull(tmId, "tmId");
             Ensure.ArgumentNotNull(tmDetails, "tmDetails");
@@ -1861,7 +1861,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Updates a <see cref="FieldTemplate"/>.
+        /// Updates a <see cref="LanguageResourceTemplate"/>.
         /// </summary>
         /// <param name="languageResourceTemplateId">The language resource template Guid.</param>
         /// <param name="request">Language resource template details.</param>

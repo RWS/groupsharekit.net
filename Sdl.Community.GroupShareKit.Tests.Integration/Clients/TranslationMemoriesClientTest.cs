@@ -379,7 +379,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var tm = await GroupShareClient.TranslationMemories.GetTranslationMemory(_translationMemoryId);
 
             tm.Description = "Updated tm";
-            await GroupShareClient.TranslationMemories.Update(_translationMemoryId, tm);
+            await GroupShareClient.TranslationMemories.UpdateTranslationMemory(_translationMemoryId, tm);
 
             var updatedTm = await GroupShareClient.TranslationMemories.GetTranslationMemory(_translationMemoryId);
             Assert.Equal("Updated tm", updatedTm.Description);
