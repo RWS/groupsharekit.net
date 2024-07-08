@@ -77,24 +77,24 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Theory]
         [MemberData(nameof(OrganizationData.OrganizationId), MemberType = typeof(OrganizationData))]
-        public async Task GetOrganizationResources(string organizationId)
+        public async Task GetOrganizationResources(Guid organizationId)
         {
-            var orgResources = await GroupShareClient.Organization.GetAllOrganizationResources(organizationId);
+            var orgResources = await GroupShareClient.Organization.GetOrganizationResources(organizationId);
 
             Assert.True(orgResources.Count > 0);
         }
 
         [Theory]
         [MemberData(nameof(OrganizationData.OrganizationId), MemberType = typeof(OrganizationData))]
-        public async Task MoveResourceToOrganization(string organizationId)
+        public async Task MoveResourceToOrganization(Guid organizationId)
         {
             var newOrganizationId = await Helper.CreateOrganizationAsync();
             var templateId = await Helper.CreateTemplateResourceAsync(newOrganizationId);
 
-            var resourceRequest = new OrganizationResourcesRequest(new List<string> { templateId.ToString() }, organizationId);
+            var resourceRequest = new OrganizationResourcesRequest(new List<string> { templateId.ToString() }, organizationId.ToString());
             await GroupShareClient.Organization.MoveResourceToOrganization(resourceRequest);
 
-            var resources = await GroupShareClient.Organization.GetAllOrganizationResources(organizationId);
+            var resources = await GroupShareClient.Organization.GetOrganizationResources(organizationId);
             var addedResource = resources.FirstOrDefault(r => r.Id == templateId);
             Assert.NotNull(addedResource);
 

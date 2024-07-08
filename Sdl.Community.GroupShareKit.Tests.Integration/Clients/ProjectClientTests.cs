@@ -94,7 +94,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projects = await GroupShareClient.Project.GetAllProjects();
             var project = projects.Items.FirstOrDefault();
 
-            var projectFiles = await GroupShareClient.Project.GetAllFilesForProject(project.ProjectId);
+            var projectFiles = await GroupShareClient.Project.GetProjectFiles(Guid.Parse(project.ProjectId));
 
             Assert.True(projectFiles.Count > 0);
         }
@@ -325,7 +325,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             if (project != null)
             {
-                var actualProject = await GroupShareClient.Project.Get(project.ProjectId);
+                var actualProject = await GroupShareClient.Project.GetProject(Guid.Parse(project.ProjectId));
 
                 Assert.Equal(actualProject.ProjectId, project.ProjectId);
             }
@@ -441,7 +441,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projects = await GroupShareClient.Project.GetAllProjects();
             var projectId = projects.Items.FirstOrDefault().ProjectId;
 
-            var result = await GroupShareClient.Project.AddFiles(projectId, @"Resources\Grammar.zip", true);
+            var result = await GroupShareClient.Project.AddFiles(Guid.Parse(projectId), @"Resources\Grammar.zip", true);
             var expectedResponseText = "All specified files already exist in this project. If you want to create new versions for them, use the Update Files option instead.";
 
             Assert.False(result.CreateBackgroundTask);
@@ -783,7 +783,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectStatusRequest = new ChangeStatusRequest(_projectId.ToString(), ChangeStatusRequest.ProjectStatus.Completed);
             await GroupShareClient.Project.ChangeProjectStatusDetach(projectStatusRequest);
 
-            var project = await GroupShareClient.Project.Get(_projectId.ToString());
+            var project = await GroupShareClient.Project.GetProject(_projectId);
             Assert.Equal(4, project.Status);
 
             projectStatusRequest = new ChangeStatusRequest(_projectId.ToString(), ChangeStatusRequest.ProjectStatus.Started);

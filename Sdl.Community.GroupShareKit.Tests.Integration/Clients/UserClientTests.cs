@@ -97,7 +97,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(userRequest.Description, user.Description);
             Assert.Equal(Guid.Parse(userRequest.OrganizationId), user.OrganizationId);
 
-            await GroupShareClient.User.Update(user);
+            await GroupShareClient.User.UpdateUser(user);
 
             var updatedUser = await GroupShareClient.User.GetUser(userId);
 

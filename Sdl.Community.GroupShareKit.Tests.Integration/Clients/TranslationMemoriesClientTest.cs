@@ -423,7 +423,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var tmId = await CreateTranslationMemory();
             var request = new FuzzyRequest();
 
-            var response = await GroupShareClient.TranslationMemories.Reindex(tmId.ToString(), request);
+            var response = await GroupShareClient.TranslationMemories.Reindex(tmId, request);
 
             Assert.Equal(tmId, Guid.Parse(response.TranslationMemoryId));
             Assert.Equal("Queued", response.Status);

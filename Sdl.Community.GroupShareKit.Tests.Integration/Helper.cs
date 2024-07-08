@@ -63,7 +63,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
 
             var role = GsClient
                 .Role
-                .GetAllRoles().Result
+                .GetRoles().Result
                 .FirstOrDefault(r => r.Name == "Power User");
             if (role != null)
             {
@@ -79,13 +79,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
                 Environment.GetEnvironmentVariable(key, EnvironmentVariableTarget.User);
         }
 
-        public static async Task<string> CreateOrganizationAsync()
+        public static async Task<Guid> CreateOrganizationAsync()
         {
             var uniqueId = Guid.NewGuid();
             var organization = new Organization()
             {
                 UniqueId = uniqueId,
-                Name = $"automated organization {uniqueId}",
+                Name = $"Organization - {uniqueId}",
                 IsLibrary = false,
                 Description = null,
                 Path = null,
@@ -93,21 +93,25 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
                 ChildOrganizations = null
             };
 
-            return await GsClient.Organization.Create(organization);
+            var organizationId = await GsClient.Organization.CreateOrganization(organization);
+            return organizationId;
         }
 
-        public static async Task<string> CreateTemplateResourceAsync(string orgId)
+        public static async Task<Guid> CreateTemplateResourceAsync(Guid organizationId)
         {
-            var id = Guid.NewGuid().ToString();
+            var templateRequest = new ProjectTemplate
+            {
+                Name = $"Project template - {Guid.NewGuid()}",
+                OrganizationId = organizationId
+            };
 
-            var templateRequest = new ProjectTemplates(id, $"Project template - {id}", "", orgId);
             var rawData = System.IO.File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
-            var templateId = await GsClient.Project.CreateTemplate(templateRequest, rawData);
+            var templateId = await GsClient.Project.CreateProjectTemplate(templateRequest, rawData);
 
             return templateId;
         }
 
-        public static async Task<string> CreateProjectAsync(string projectTemplateId)
+        public static async Task<Guid> CreateProjectAsync(Guid projectTemplateId)
         {
             var rawData = System.IO.File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
             var projectName = $"Project - { Guid.NewGuid() }";
@@ -117,29 +121,29 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration
                 OrganizationId,
                 null,
                 DateTime.Now.AddDays(2),
-                projectTemplateId,
+                projectTemplateId.ToString(),
                 rawData));
 
-            await WaitForProjectCreated(projectId);
+            await WaitForProjectCreated(Guid.Parse(projectId));
 
-            return projectId;
+            return Guid.Parse(projectId);
         }
 
-        public static async Task DeleteProjectAsync(string projectId)
+        public static async Task DeleteProjectAsync(Guid projectId)
         {
             await GsClient.Project.DeleteProject(projectId);
         }
 
-        public static async Task DeleteProjectTemplateAsync(string projectTemplateId)
+        public static async Task DeleteProjectTemplateAsync(Guid projectTemplateId)
         {
             await GsClient.Project.DeleteProjectTemplate(projectTemplateId);
         }
 
-        private static async Task<bool> WaitForProjectCreated(string projectId, int retryInterval = 3, int maxTryCount = 15)
+        private static async Task<bool> WaitForProjectCreated(Guid projectId, int retryInterval = 3, int maxTryCount = 15)
         {
             for (var i = 0; i < maxTryCount; i++)
             {
-                var statusInfo = await GsClient.Project.PublishingStatus(projectId);
+                var statusInfo = await GsClient.Project.GetPublishingStatus(projectId);
                 switch (statusInfo.Status)
                 {
                     case PublishProjectStatus.Uploading:
