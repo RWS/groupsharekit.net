@@ -63,6 +63,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>  Translation memory Id</returns>
+        [Obsolete("This method is obsolete. Call 'CreateTranslationMemory(CreateTranslationMemoryRequest)' instead.")]
         Task<string> CreateTm(CreateTmRequest tm);
 
         /// <summary>
@@ -292,14 +293,22 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="FuzzyIndexResponse"/></returns>
+        [Obsolete("This method is obsolete. Call 'Reindex(Guid, FuzzyRequest)' instead.")]
         Task<FuzzyIndexResponse> Reindex(string tmId, FuzzyRequest request);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<FuzzyIndexResponse> Reindex(Guid tmId, FuzzyRequest request);
 
         /// <summary>
         /// Gets <see cref="LanguageDirection"/> for tm

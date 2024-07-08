@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
+    [Obsolete]
     public class DatabaseServerRequest
     {
         /// <summary>

@@ -158,6 +158,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <param name="user"><see cref="CreateUserRequest"/></param>
         /// <returns>Created user Id</returns>
+        [Obsolete("This method is obsolete. Call 'CreateUser(CreateUserRequest)' instead.")]
         public async Task<string> Create(CreateUserRequest user)
         {
             Ensure.ArgumentNotNull(user, "user");

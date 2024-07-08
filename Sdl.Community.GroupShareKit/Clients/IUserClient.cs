@@ -86,7 +86,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <param name="userId">User Guid</param>
-        /// <returns></returns>
         Task DeleteUser(Guid userId);
 
         [Obsolete("This method is obsolete. Call 'CreateUser(CreateUserRequest)' instead.")]

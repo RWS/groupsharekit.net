@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
+    [Obsolete]
     public class CreateTmRequest
     {
         public string TranslationMemoryId { get; set; }

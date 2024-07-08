@@ -35,7 +35,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -47,19 +46,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<Models.Response.TranslationMemory.TranslationMemory>(ApiUrls.GetTms(), null);
         }
 
-        /// <summary>
-        /// Gets specified tm.
-        /// </summary>
-        /// <remarks>
-        /// <param name="tmId">translation memory id</param>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  <see cref="Models.Response.TranslationMemory.TranslationMemory"/></returns>
         [Obsolete("This method is obsolete. Call 'GetTranslationMemory(Guid)' instead.")]
         public async Task<TranslationMemoryDetails> GetTmById(string tmId)
         {
@@ -68,30 +54,23 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Gets a <see cref="Models.Response.TranslationMemory.TranslationMemory"/> by Guid.
         /// </summary>
-        /// <param name="translationMemoryId"></param>
-        /// <returns></returns>
+        /// <param name="translationMemoryId">Translation memory Guid</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A <see cref="Models.Response.TranslationMemory.TranslationMemory"/>.</returns>
         public async Task<TranslationMemoryDetails> GetTranslationMemory(Guid translationMemoryId)
         {
             Ensure.ArgumentNotNull(translationMemoryId, "translationMemoryId");
             return await ApiConnection.Get<TranslationMemoryDetails>(ApiUrls.GetTranslationMemory(translationMemoryId), null);
         }
 
-        /// <summary>
-        /// Gets specified language direction for tm
-        /// </summary>
-        /// <remarks>
-        /// <param name="tmId">translation memory id</param>
-        /// <param name="languageDirectionId">language direction id</param>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  <see cref="LanguageDirection"/></returns>
         [Obsolete("This method is obsolete. Call 'GetTmLanguageDirection(Guid, Guid)' instead.")]
         public async Task<LanguageDirection> GetLanguageDirectionForTm(string tmId, string languageDirectionId)
         {
@@ -102,11 +81,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Gets TM <see cref="LanguageDirection"/> by Guid.
         /// </summary>
-        /// <param name="tmId"></param>
-        /// <param name="languageDirectionId"></param>
-        /// <returns></returns>
+        /// <param name="tmId">Translation memory Guid</param>
+        /// <param name="languageDirectionId">Language direction Guid</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A <see cref="LanguageDirection"/>.</returns>
         public async Task<LanguageDirection> GetTmLanguageDirection(Guid tmId, Guid languageDirectionId)
         {
             Ensure.ArgumentNotNull(tmId, "tmId");
@@ -115,18 +101,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<LanguageDirection>(ApiUrls.GetTmLanguageDirection(tmId, languageDirectionId), null);
         }
 
-        /// <summary>
-        /// Gets the tms number by language resource template id
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  <see cref="Models.Response.TranslationMemory.TranslationMemory"/> number</returns>
         [Obsolete("This method is obsolete. Call 'GetTmsNumberByLanguageResourceTemplateId(Guid)' instead.")]
         public async Task<int> GetTmsNumberByLanguageResourceTemplateId(string resourceTemplateId)
         {
@@ -135,28 +109,23 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Gets the translation memories number by language resource template Id.
         /// </summary>
-        /// <param name="languageResourceTemplateId"></param>
-        /// <returns></returns>
+        /// <param name="languageResourceTemplateId">Language resource template Guid</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Translation memories number.</returns>
         public async Task<int> GetTmsNumberByLanguageResourceTemplateId(Guid languageResourceTemplateId)
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
             return await ApiConnection.Get<int>(ApiUrls.GetTmsNumberByLanguageResourceTemplateId(languageResourceTemplateId), null);
         }
 
-        /// <summary>
-        /// Gets the tms number by field template id
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  <see cref="Models.Response.TranslationMemory.TranslationMemory"/> number</returns>
         [Obsolete("This method is obsolete. Call 'GetTmsNumberByFieldTemplateId(Guid)' instead.")]
         public async Task<int> GetTmsNumberByFieldTemplateId(string fieldTemplateId)
         {
@@ -165,31 +134,24 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Gets the translation memories number by field template Id.
         /// </summary>
-        /// <param name="fieldTemplateId"></param>
-        /// <returns></returns>
+        /// <param name="fieldTemplateId">Field template Guid</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Translation memories number.</returns>
         public async Task<int> GetTmsNumberByFieldTemplateId(Guid fieldTemplateId)
         {
             Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
             return await ApiConnection.Get<int>(ApiUrls.GetTmsNumberByFieldTemplateId(fieldTemplateId), null);
         }
 
-        /// <summary>
-        /// Before you create a TM please make sure you HAVE CREATED A TEMPLATE FIELD and a LANGUAGE RESOURCE TEMPLATE.
-        /// USE these ids in the create request 
-        /// Creates a Translation Memory/>.
-        /// </summary>
-        /// <remarks>
-        /// <param name="tm">translation memory request <see cref="CreateTmRequest"/> </param>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  Translation memory Id</returns>
+        [Obsolete("This method is obsolete. Call 'CreateTranslationMemory(CreateTranslationMemoryRequest)' instead.")]
         public async Task<string> CreateTm(CreateTmRequest tm)
         {
             Ensure.ArgumentNotNull(tm, "Translation memory");
@@ -197,27 +159,23 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Creates a <see cref="Models.Response.TranslationMemory.TranslationMemory"/>.
         /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <param name="request">Translation memory details</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The translation memory Guid.</returns>
         public async Task<Guid> CreateTranslationMemory(CreateTranslationMemoryRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");
             return await ApiConnection.Post<Guid>(ApiUrls.GetTms(), request, "application/json");
         }
 
-        /// <summary>
-        /// Deletes a translation memory
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         [Obsolete("This method is obsolete. Call 'DeleteTranslationMemory(Guid)' instead.")]
         public async Task DeleteTm(string tmId)
         {
@@ -226,27 +184,22 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Deletes a <see cref="Models.Response.TranslationMemory.TranslationMemory"/>.
         /// </summary>
-        /// <param name="translationMemoryId"></param>
-        /// <returns></returns>
+        /// <param name="translationMemoryId">Translation memory Guid.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task DeleteTranslationMemory(Guid translationMemoryId)
         {
             Ensure.ArgumentNotNull(translationMemoryId, "translationMemoryId");
             await ApiConnection.Delete(ApiUrls.GetTranslationMemory(translationMemoryId));
         }
 
-        /// <summary>
-        /// Updates a translation memory
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         [Obsolete("This method is obsolete. Call 'Update(Guid, TranslationMemoryDetails)' instead.")]
         public async Task Update(string tmId, TranslationMemoryDetails tm)
         {
@@ -256,11 +209,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Updates a <see cref="Models.Response.TranslationMemory.TranslationMemory"/>.
         /// </summary>
-        /// <param name="tmId"></param>
-        /// <param name="tm"></param>
-        /// <returns></returns>
+        /// <param name="tmId">Translation memory Guid</param>
+        /// <param name="tmDetails">Translation memory details</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task Update(Guid tmId, TranslationMemoryDetails tmDetails)
         {
             Ensure.ArgumentNotNull(tmId, "tmId");
@@ -273,7 +232,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -285,20 +243,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<Health>(ApiUrls.Health(), null);
         }
 
-        /// <summary>
-        /// Schedules a recompute statistics operation
-        /// <param name="request"><see cref="FuzzyRequest"/></param>
-        /// <param name="tmId">Translation memory id</param>
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="FuzzyIndexResponse"/></returns>
         [Obsolete("This method is obsolete. Call 'RecomputeStatistics(Guid, FuzzyRequest)' instead.")]
         public async Task<FuzzyIndexResponse> RecomputeStatistics(string tmId, FuzzyRequest request)
         {
@@ -309,11 +253,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Schedules a recompute statistics operation.
         /// </summary>
-        /// <param name="tmId"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <param name="tmId">Translation memory Guid</param>
+        /// <param name="request"><see cref="FuzzyRequest"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="FuzzyIndexResponse"/></returns>
         public async Task<FuzzyIndexResponse> RecomputeStatistics(Guid tmId, FuzzyRequest request)
         {
             Ensure.ArgumentNotNull(tmId, "tmId");
@@ -322,23 +273,31 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Post<FuzzyIndexResponse>(ApiUrls.Fuzzy(tmId, "recomputestatistics"), request, "application/json");
         }
 
+        [Obsolete("This method is obsolete. Call 'Reindex(Guid, FuzzyRequest)' instead.")]
+        public async Task<FuzzyIndexResponse> Reindex(string tmId, FuzzyRequest request)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
+            Ensure.ArgumentNotNull(request, "request");
+
+            return await ApiConnection.Post<FuzzyIndexResponse>(ApiUrls.Fuzzy(tmId, "reindex"), request, "application/json");
+        }
+
         /// <summary>
-        /// Schedules a reindex operation
-        /// <param name="request"><see cref="FuzzyRequest"/></param>
-        /// <param name="tmId">Translation memory id</param>
+        /// Schedules a reindex operation.
         /// </summary>
+        /// <param name="tmId">Translation memory Guid</param>
+        /// <param name="request"><see cref="FuzzyRequest"/></param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="FuzzyIndexResponse"/></returns>
-        public async Task<FuzzyIndexResponse> Reindex(string tmId, FuzzyRequest request)
+        public async Task<FuzzyIndexResponse> Reindex(Guid tmId, FuzzyRequest request)
         {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
+            Ensure.ArgumentNotNull(tmId, "tmId");
             Ensure.ArgumentNotNull(request, "request");
 
             return await ApiConnection.Post<FuzzyIndexResponse>(ApiUrls.Fuzzy(tmId, "reindex"), request, "application/json");
@@ -540,20 +499,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Post<TranslationUnitResponse>(ApiUrls.TranslationUnits(tmId, "text"), unitRequest, "application/json");
         }
 
-        /// <summary>
-        /// Gets specified translation unit for TM
-        /// <param name="request"><see cref="TranslationUnitDetailsRequest"/></param>
-        /// <param name="tmId">Translation memory id</param>
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="TranslationUnitDetailsResponse"/></returns>
         [Obsolete("This method is obsolete. Call 'GetTranslationUnitsForTm(Guid, TranslationUnitDetailsRequest)' instead.")]
         public async Task<TranslationUnitDetailsResponse> GetTranslationUnitForTm(string tmId, TranslationUnitDetailsRequest request)
         {
@@ -564,14 +509,21 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Gets the translation units from the translation memory.
         /// </summary>
-        /// <param name="tmId"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <param name="tmId">Translation memory Guid.</param>
+        /// <param name="request"><see cref="TranslationUnitDetailsRequest"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="TranslationUnitDetailsResponse"/></returns>
         public async Task<TranslationUnitDetailsResponse> GetTranslationUnitsForTm(Guid tmId, TranslationUnitDetailsRequest request)
         {
-            Ensure.ArgumentNotNull(request, "translation request params");
+            Ensure.ArgumentNotNull(request, "request");
             Ensure.ArgumentNotNull(tmId, "translation memory id");
 
             return await ApiConnection.Get<TranslationUnitDetailsResponse>(ApiUrls.Tus(tmId), request.ToParametersDictionary());
@@ -686,11 +638,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(language, "language parameters request");
             Ensure.ArgumentNotNull(duplicatesRequest, "duplicates request");
 
-            return
-                await
-                    ApiConnection.Post<TranslationUnitDetailsResponse>(ApiUrls.TranslationUnitsDuplicates(tmId, language.Source, language.Target),
-                        duplicatesRequest);
-
+            return await ApiConnection.Post<TranslationUnitDetailsResponse>(ApiUrls.TranslationUnitsDuplicates(tmId, language.Source, language.Target), duplicatesRequest);
         }
 
         /// <summary>
@@ -1046,7 +994,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -1058,19 +1005,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<Containers>(ApiUrls.Containers(), null);
         }
 
-        /// <summary>
-        ///creates a new container
-        /// </summary>
-        /// <remarks>
-        /// <param name="request"><see cref="ContainerRequest"/></param>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns>Container's Id</returns>
+        [Obsolete("This method is obsolete. Call 'CreateContainer(CreateContainerRequest)' instead.")]
         public async Task<string> CreateContainer(ContainerRequest request)
         {
             Ensure.ArgumentNotNull(request, "container request");
@@ -1078,28 +1013,23 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Creates a <see cref="ContainerRequest"/>.
         /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <param name="request">The container's details.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The container's Guid.</returns>
         public async Task<Guid> CreateContainer(CreateContainerRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");
             return await ApiConnection.Post<Guid>(ApiUrls.Containers(), request, "application/json");
         }
 
-        /// <summary>
-        ///Returns a specified container
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        ///<returns><see cref="Container"/></returns>
         [Obsolete("This method is obsolete. Call 'GetContainer(Guid)' instead.")]
         public async Task<Container> GetContainerById(string containerId)
         {
@@ -1108,27 +1038,23 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Gets a <see cref="Container"/> with the specified Id.
         /// </summary>
-        /// <param name="containerId"></param>
-        /// <returns></returns>
+        /// <param name="containerId">Container Guid</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ContainerRequest"/></returns>
         public async Task<Container> GetContainer(Guid containerId)
         {
             Ensure.ArgumentNotNull(containerId, "containerId");
             return await ApiConnection.Get<Container>(ApiUrls.Containers(containerId), null);
         }
 
-        /// <summary>
-        /// Deletes a container
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         [Obsolete("This method is obsolete. Call 'DeleteContainer(Guid)' instead.")]
         public async Task DeleteContainer(string containerId)
         {
@@ -1137,28 +1063,22 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Deletes a <see cref="Container"/>.
         /// </summary>
-        /// <param name="containerId"></param>
-        /// <returns></returns>
+        /// <param name="containerId">Container Guid</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task DeleteContainer(Guid containerId)
         {
             Ensure.ArgumentNotNull(containerId, "containerId");
             await ApiConnection.Delete(ApiUrls.Containers(containerId));
         }
 
-        /// <summary>
-        /// Updates a container
-        /// </summary>
-        /// <remarks>
-        /// <param name="request"><see cref="UpdateContainerRequest"/></param>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         [Obsolete("This method is obsolete. Call 'UpdateContainer(Guid)' instead.")]
         public async Task UpdateContainer(string containerId, UpdateContainerRequest request)
         {
@@ -1169,11 +1089,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Updates a <see cref="Container"/>.
         /// </summary>
-        /// <param name="containerId"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <param name="containerId">The container Guid.</param>
+        /// <param name="request"><see cref="UpdateContainerRequest"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task UpdateContainer(Guid containerId, UpdateContainerRequest request)
         {
             Ensure.ArgumentNotNull(containerId, "container id");
@@ -1190,7 +1116,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -1202,19 +1127,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<DatabaseServerResponse>(ApiUrls.DbServers(), null);
         }
 
-        /// <summary>
-        /// Returns a database server
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// <param name="serverId">Server id</param>
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="DatabaseServer"/></returns>
         [Obsolete("This method is obsolete. Call 'GetDbServer(Guid)' instead.")]
         public async Task<DatabaseServer> GetDbServerById(string serverId)
         {
@@ -1223,29 +1135,24 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Gets a <see cref="DatabaseServer"/> with the specified Id.
         /// </summary>
-        /// <param name="serverId"></param>
-        /// <returns></returns>
+        /// <param name="serverId">The database server Guid.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="DatabaseServer"/></returns>
         public async Task<DatabaseServer> GetDbServer(Guid serverId)
         {
             Ensure.ArgumentNotNull(serverId, "serverId");
             return await ApiConnection.Get<DatabaseServer>(ApiUrls.DbServers(serverId), null);
         }
 
-        /// <summary>
-        /// Creates a new database server
-        /// </summary>
-        /// <remarks>
-        /// <param name="request"><see cref="DatabaseServerRequest"/></param>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>The id of db server</returns>
+        [Obsolete("This method is obsolete. Call 'CreateDbServer(CreateDatabaseServerRequest)' instead.")]
         public async Task<string> CreateDbServer(DatabaseServerRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");
@@ -1253,28 +1160,21 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Creates a <see cref="DatabaseServer"/>.
         /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <param name="request">The database server's details.</param>
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The database server Guid.</returns>
         public async Task<Guid> CreateDbServer(CreateDatabaseServerRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");
             return await ApiConnection.Post<Guid>(ApiUrls.DbServers(), request, "application/json");
         }
 
-        /// <summary>
-        /// Deletes a database server
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// <param name="serverId">Server id</param>
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         [Obsolete("This method is obsolete. Call 'DeleteDbServer(Guid)' instead.")]
         public async Task DeleteDbServer(string serverId)
         {
@@ -1283,29 +1183,22 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Deletes a <see cref="DatabaseServer"/>.
         /// </summary>
-        /// <param name="serverId"></param>
-        /// <returns></returns>
+        /// <param name="serverId">The database server Guid.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task DeleteDbServer(Guid serverId)
         {
             Ensure.ArgumentNotNull(serverId, "serverId");
             await ApiConnection.Delete(ApiUrls.DbServers(serverId));
         }
 
-        /// <summary>
-        /// Updates a database server
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// <param name="serverId">Server id</param>
-        /// <param name="request"><see cref="RequestDbServer"/></param>
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         [Obsolete("This method is obsolete. Call 'UpdateDbServer(Guid)' instead.")]
         public async Task UpdateDbServer(string serverId, RequestDbServer request)
         {
@@ -1316,11 +1209,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Updates a <see cref="DatabaseServer"/>.
         /// </summary>
-        /// <param name="serverId"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <param name="serverId">The database server Guid.</param>
+        /// <param name="request"><see cref="UpdateDatabaseServerRequest"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task UpdateDbServer(Guid serverId, UpdateDatabaseServerRequest request)
         {
             Ensure.ArgumentNotNull(serverId, "serverId");
@@ -1329,18 +1228,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         #endregion
 
         #region Fields methods
-        /// <summary>
-        /// Creates <see cref="FieldTemplate"/>.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Created field template id</returns>
+        [Obsolete("This method is obsolete. Call 'CreateFieldTemplate(CreateFieldTemplateRequest)' instead.")]
         public async Task<string> CreateFieldTemplate(FieldTemplate template)
         {
             Ensure.ArgumentNotNull(template, "FieldTemplate");
@@ -1350,10 +1238,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Creates a <see cref="FieldTemplate"/>.
         /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <param name="request"><see cref="CreateFieldTemplateRequest"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The field template's Guid.</returns>
         public async Task<Guid> CreateFieldTemplate(CreateFieldTemplateRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");
@@ -1367,7 +1262,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -1379,18 +1273,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<FieldTemplates>(ApiUrls.FieldTemplate(), null);
         }
 
-        /// <summary>
-        /// Gets <see cref="FieldTemplate"/> by id.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="FieldTemplate"/></returns>
         [Obsolete("This method is obsolete. Call 'GetFieldTemplate(Guid)' instead.")]
         public async Task<FieldTemplate> GetFieldTemplateById(string id)
         {
@@ -1398,28 +1280,22 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Gets a <see cref="FieldTemplate"/> by Id.
         /// </summary>
-        /// <param name="fieldTemplateId"></param>
-        /// <returns></returns>
-        public async Task<FieldTemplate> GetFieldTemplate(Guid fieldTemplateId)
-        {
-            return await ApiConnection.Get<FieldTemplate>(ApiUrls.GetFieldTemplate(fieldTemplateId), null);
-        }
-
-        /// <summary>
-        /// Updates <see cref="FieldTemplate"/> 
-        /// </summary>
+        /// <param name="fieldTemplateId">The field template Guid.</param>
         /// <remarks>
-        /// <param name="templateRequest"><see cref="FieldTemplateRequest"/></param>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="FieldTemplate"/> id</returns>
+        /// <returns>A <see cref="FieldTemplate"/>.</returns>
+        public async Task<FieldTemplate> GetFieldTemplate(Guid fieldTemplateId)
+        {
+            return await ApiConnection.Get<FieldTemplate>(ApiUrls.GetFieldTemplate(fieldTemplateId), null);
+        }
+
         [Obsolete("This method is obsolete. Call 'UpdateFieldTemplate(Guid)' instead.")]
         public async Task UpdateFieldTemplate(string templateId, FieldTemplateRequest templateRequest)
         {
@@ -1430,11 +1306,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Updates a <see cref="FieldTemplate"/>.
         /// </summary>
-        /// <param name="fieldTemplateId"></param>
-        /// <param name="fieldTemplateRequest"></param>
-        /// <returns></returns>
+        /// <param name="fieldTemplateId">The field template's Guid.</param>
+        /// <param name="fieldTemplateRequest"><see cref="UpdateTemplateRequest"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task UpdateFieldTemplate(Guid fieldTemplateId, UpdateTemplateRequest fieldTemplateRequest)
         {
             Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
@@ -1443,17 +1325,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Put<Guid>(ApiUrls.GetFieldTemplate(fieldTemplateId), fieldTemplateRequest);
         }
 
-        /// <summary>
-        /// Deletes <see cref="FieldTemplate"/> by id.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         [Obsolete("This method is obsolete. Call 'DeleteFieldTemplate(Guid)' instead.")]
         public async Task DeleteFieldTemplate(string templateId)
         {
@@ -1462,28 +1333,22 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Deletes a <see cref="FieldTemplate"/> by Id.
         /// </summary>
-        /// <param name="fieldTemplateId"></param>
-        /// <returns></returns>
+        /// <param name="fieldTemplateId">The field template's Guid.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task DeleteFieldTemplate(Guid fieldTemplateId)
         {
             Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
             await ApiConnection.Delete(ApiUrls.GetFieldTemplate(fieldTemplateId));
         }
 
-        /// <summary>
-        /// Updates <see cref="FieldTemplate"/> 
-        /// </summary>
-        /// <remarks>
-        /// <param name="request"><see cref="FieldTemplatePatchRequest"/></param>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         [Obsolete("This method is obsolete. Call 'AddOperationsForFieldTemplate(Guid, List<Operation>)' instead.")]
         public async Task AddOperationsForFieldTemplate(string templateId, FieldTemplatePatchRequest request)
         {
@@ -1494,11 +1359,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Executes a partial update for a <see cref="FieldTemplate"/>.
         /// </summary>
-        /// <param name="fieldTemplateId"></param>
-        /// <param name="operations"></param>
-        /// <returns></returns>
+        /// <param name="fieldTemplateId">The field template's Guid.</param>
+        /// <param name="operations"><see cref="Operation"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task AddOperationsForFieldTemplate(Guid fieldTemplateId, List<Operation> operations)
         {
             Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
@@ -1642,18 +1513,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         #endregion
 
         #region Language resource methods
-        /// <summary>
-        /// Gets all language resources   for a template.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  A list of <see cref="Resource"/></returns>
+        
         [Obsolete("This method is obsolete. Call 'GetLanguageResources(Guid)' instead.")]
         public async Task<IReadOnlyList<Resource>> GetLanguageResourcesForTemplate(string templateId)
         {
@@ -1662,28 +1522,23 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Gets the <see cref="LanguageResource"/>s of a <see cref="LanguageResourceTemplate"/>.
         /// </summary>
-        /// <param name="templateId"></param>
-        /// <returns></returns>
+        /// <param name="languageResourceTemplateId">The language resource template's Guid.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="LanguageResource"/>.</returns>
         public async Task<IReadOnlyList<LanguageResource>> GetLanguageResources(Guid languageResourceTemplateId)
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
             return await ApiConnection.GetAll<LanguageResource>(ApiUrls.LanguageResources(languageResourceTemplateId), null);
         }
 
-        /// <summary>
-        /// Creates a  language resources  for specified template.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> Resource id</returns>
         [Obsolete("This method is obsolete. Call 'CreateLanguageResourceForTemplate(Guid)' instead.")]
         public async Task<string> CreateLanguageResourceForTemplate(string templateId, Resource request)
         {
@@ -1697,11 +1552,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Creates a <see cref="LanguageResource"/>s for a <see cref="LanguageResourceTemplate"/>.
         /// </summary>
-        /// <param name="templateId"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <param name="languageResourceTemplateId">The language resource template's Guid.</param>
+        /// <param name="request">Language resource details.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The language resource Guid.</returns>
         public async Task<Guid> CreateLanguageResourceForTemplate(Guid languageResourceTemplateId, LanguageResource request)
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
@@ -1713,19 +1575,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Post<Guid>(ApiUrls.LanguageResources(languageResourceTemplateId), request, "application/json");
         }
 
-        /// <summary>
-        /// Gets language resource service defaults type.
-        /// </summary>
-        /// <remarks>
-        /// <param name="defaultsRequest"><see cref="ResourceServiceDefaultsRequest"/></param>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> Resource <see cref="ResourceServiceDefaultsRequest"/></returns>
         [Obsolete("This method is obsolete. Call 'GetLanguageResourceServiceDefaults(LanguageResourceServiceDefaultsRequest)' instead.")]
         public async Task<Resource> GetDefaultsType(ResourceServiceDefaultsRequest defaultsRequest)
         {
@@ -1735,10 +1584,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Gets language resource service defaults.
         /// </summary>
-        /// <param name="defaultsRequest"></param>
-        /// <returns></returns>
+        /// <param name="request"><see cref="LanguageResourceServiceDefaultsRequest"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="LanguageResourceServiceDefaultsRequest"/></returns>
         public async Task<LanguageResource> GetLanguageResourceServiceDefaults(LanguageResourceServiceDefaultsRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");
@@ -1746,18 +1602,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<LanguageResource>(ApiUrls.GetDefaults(Enum.GetName(typeof(LanguageResourceType), request.Type), request.Language), null);
         }
 
-        /// <summary>
-        /// Gets   language resource for specified template.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> <see cref="Resource"/></returns>
         [Obsolete("This method is obsolete. Call 'GetLanguageResourceForTemplate(Guid, Guid)' instead.")]
         public async Task<Resource> GetLanguageResourceForTemplate(string templateId, string languageResourceId)
         {
@@ -1768,11 +1612,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Gets a <see cref="LanguageResource"/>s of a <see cref="LanguageResourceTemplate"/>.
         /// </summary>
-        /// <param name="templateId"></param>
-        /// <param name="languageResourceId"></param>
-        /// <returns></returns>
+        /// <param name="templateId">The language resource template's Guid.</param>
+        /// <param name="languageResourceId">The language resource's Guid.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A <see cref="LanguageResource"/>.</returns>
         public async Task<LanguageResource> GetLanguageResourceForTemplate(Guid templateId, Guid languageResourceId)
         {
             Ensure.ArgumentNotNull(templateId, "templateId");
@@ -1781,17 +1632,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<LanguageResource>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId), null);
         }
 
-        /// <summary>
-        /// Deletes language resource <see cref="Resource"/> for specified template.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         [Obsolete("This method is obsolete. Call 'DeleteLanguageResourceForTemplate(Guid, Guid)' instead.")]
         public async Task DeleteLanguageResourceForTemplate(string templateId, string languageResourceId)
         {
@@ -1802,11 +1642,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Deletes a <see cref="LanguageResource"/>s of a <see cref="LanguageResourceTemplate"/>.
         /// </summary>
-        /// <param name="templateId"></param>
-        /// <param name="languageResourceId"></param>
-        /// <returns></returns>
+        /// <param name="languageResourceTemplateId">The language resource template's Guid.</param>
+        /// <param name="languageResourceId">The language resource's Guid.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task DeleteLanguageResourceForTemplate(Guid languageResourceTemplateId, Guid languageResourceId)
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
@@ -1815,17 +1661,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Delete(ApiUrls.LanguageResourcesForTemplate(languageResourceTemplateId, languageResourceId));
         }
 
-        /// <summary>
-        /// Updates language resource <see cref="Resource"/> for specified template.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete("This method is obsolete. Call 'UpdateLanguageResourceForTemplate(Guid, Guid, LanguageResource)' instead.")]
         public async Task UpdateLanguageResourceForTemplate(string templateId, string languageResourceId, Resource resourceRequest)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
@@ -1839,35 +1675,30 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Updates a <see cref="LanguageResource"/>s of a <see cref="LanguageResourceTemplate"/>.
         /// </summary>
-        /// <param name="templateId"></param>
-        /// <param name="languageResourceId"></param>
-        /// <param name="resourceRequest"></param>
-        /// <returns></returns>
-        public async Task UpdateLanguageResourceForTemplate(Guid languageResourceTemplateId, Guid languageResourceId, LanguageResource resourceRequest)
-        {
-            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
-            Ensure.ArgumentNotNull(languageResourceId, "languageResourceId");
-            Ensure.ArgumentNotNull(resourceRequest, "resourceRequest");
-
-            var encodeData = Convert.ToBase64String(Encoding.UTF8.GetBytes(resourceRequest.Data));
-            resourceRequest.Data = encodeData;
-
-            await ApiConnection.Put<string>(ApiUrls.LanguageResourcesForTemplate(languageResourceTemplateId, languageResourceId), resourceRequest);
-        }
-
-        /// <summary>
-        /// Reset to default Culture values a specific Language Resource in a specific Language Resource Template
-        /// </summary>
+        /// <param name="languageResourceTemplateId">The language resource template's Guid.</param>
+        /// <param name="languageResourceId">The language resource's Guid.</param>
+        /// <param name="request">Language resource details</param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task UpdateLanguageResourceForTemplate(Guid languageResourceTemplateId, Guid languageResourceId, LanguageResource request)
+        {
+            Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
+            Ensure.ArgumentNotNull(languageResourceId, "languageResourceId");
+            Ensure.ArgumentNotNull(request, "request");
+
+            var encodeData = Convert.ToBase64String(Encoding.UTF8.GetBytes(request.Data));
+            request.Data = encodeData;
+
+            await ApiConnection.Put<string>(ApiUrls.LanguageResourcesForTemplate(languageResourceTemplateId, languageResourceId), request);
+        }
+
         [Obsolete("This method is obsolete. Call 'ResetLanguageResourceToDefault(Guid, Guid)' instead.")]
         public async Task ResetToDefaultLanguageResource(string templateId, string languageResourceId)
         {
@@ -1878,11 +1709,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Reset to default Culture values a specific Language Resource in a specific Language Resource Template
         /// </summary>
-        /// <param name="languageResourceTemplateId"></param>
-        /// <param name="languageResourceId"></param>
-        /// <returns></returns>
+        /// <param name="languageResourceTemplateId">The language resource template's Guid.</param>
+        /// <param name="languageResourceId">The language resource's Guid.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task ResetLanguageResourceToDefault(Guid languageResourceTemplateId, Guid languageResourceId)
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
@@ -1891,18 +1728,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Put<string>(ApiUrls.LanguageResourceActions(languageResourceTemplateId, languageResourceId, "reset"), languageResourceTemplateId);
         }
 
-        /// <summary>
-        /// Imports a file with data for a specific Language Resource Template 
-        /// Document type be text (.txt)
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         [Obsolete("This method is obsolete. Call 'ImportFileForLanguageResource(Guid, Guid, byte[])' instead.")]
         public async Task ImportFileForLanguageResource(string templateId, string languageResourceId, byte[] file)
         {
@@ -1921,12 +1746,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Imports a file with data for a specific <see cref="LanguageResourceTemplate"/>.
         /// </summary>
-        /// <param name="languageResourceTemplateId"></param>
-        /// <param name="languageResourceId"></param>
-        /// <param name="file"></param>
-        /// <returns></returns>
+        /// <param name="languageResourceTemplateId">The language resource template's Guid.</param>
+        /// <param name="languageResourceId">The language resource's Guid.</param>
+        /// <param name="file">Import file.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task ImportFileForLanguageResource(Guid languageResourceTemplateId, Guid languageResourceId, byte[] file)
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
@@ -1944,18 +1775,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Post<string>(ApiUrls.LanguageResourceActions(languageResourceTemplateId, languageResourceId, "import"), multipartContent, "application/json");
         }
 
-        /// <summary>
-        /// Exports a file with data for a specific Language Resource Template 
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>byte[] that represents the document content</returns>
         [Obsolete("This method is obsolete. Call 'ExportFileForLanguageResource(Guid, Guid)' instead.")]
         public async Task<byte[]> ExportFileForLanguageResource(string templateId, string languageResourceId)
         {
@@ -1967,11 +1786,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Exports a file with data for a specific <see cref="LanguageResourceTemplate"/>.
         /// </summary>
-        /// <param name="languageResourceTemplateId"></param>
-        /// <param name="languageResourceId"></param>
-        /// <returns></returns>
+        /// <param name="languageResourceTemplateId">The language resource template's Guid.</param>
+        /// <param name="languageResourceId">The language resource's Guid.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Exported document content.</returns>
         public async Task<byte[]> ExportFileForLanguageResource(Guid languageResourceTemplateId, Guid languageResourceId)
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
@@ -2001,18 +1827,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<LanguageResourceTemplates>(ApiUrls.LanguageResourceServiceTemplates(), null);
         }
 
-        /// <summary>
-        /// Gets specified  language resource template .
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="LanguageResourceTemplate"/> </returns>
+        [Obsolete("This method is obsolete. Call 'GetLanguageResourceTemplate(Guid)' instead.")]
         public async Task<LanguageResourceTemplate> GetTemplateById(string templateId)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
@@ -2020,30 +1835,24 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Gets a <see cref="LanguageResourceTemplate"/> with the specified Id.
         /// </summary>
-        /// <param name="languageResourceTemplateId"></param>
-        /// <returns></returns>
+        /// <param name="languageResourceTemplateId">The language resource template Guid.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A <see cref="LanguageResourceTemplate"/>.</returns>
         public async Task<LanguageResourceTemplate> GetLanguageResourceTemplate(Guid languageResourceTemplateId)
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
             return await ApiConnection.Get<LanguageResourceTemplate>(ApiUrls.GetLanguageResourceTemplate(languageResourceTemplateId), null);
         }
 
-        /// <summary>
-        /// Updates a language resource template
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// <param name="templateId">Template id</param>
-        /// <param name="request"><see cref="FieldTemplateRequest"/>New values</param>
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="LanguageResourceTemplate"/> </returns>
+        [Obsolete("This method is obsolete. Call 'UpdateLanguageResourceTemplate(Guid, UpdateTemplateRequest)' instead.")]
         public async Task EditTemplate(string templateId, FieldTemplateRequest request)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
@@ -2052,11 +1861,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Updates a <see cref="FieldTemplate"/>.
         /// </summary>
-        /// <param name="languageResourceTemplateId"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <param name="languageResourceTemplateId">The language resource template Guid.</param>
+        /// <param name="request">Language resource template details.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task UpdateLanguageResourceTemplate(Guid languageResourceTemplateId, UpdateTemplateRequest request)
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
@@ -2064,18 +1879,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Put<Guid>(ApiUrls.GetLanguageResourceTemplate(languageResourceTemplateId), request);
         }
 
-        /// <summary>
-        /// Creates a language resource template
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> Created template id</returns>
+        [Obsolete("This method is obsolete. Call 'CreateLanguageResourceTemplate(CreateLanguageResourceTemplateRequest)' instead.")]
         public async Task<string> CreateTemplate(LanguageResourceTemplate templateRequest)
         {
             Ensure.ArgumentNotNull(templateRequest, "templateRequest");
@@ -2094,10 +1898,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Creates a <see cref="LanguageResourceTemplate"/>.
         /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <param name="request"><see cref="CreateLanguageResourceTemplateRequest"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The language resource template's Guid.</returns>
         public async Task<Guid> CreateLanguageResourceTemplate(CreateLanguageResourceTemplateRequest request)
         {
             Ensure.ArgumentNotNull(request, "request");
@@ -2106,17 +1917,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return languageResourceTemplateId;
         }
 
-        /// <summary>
-        ///Deletes a  language resource template .
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete("This method is obsolete. Call 'DeleteLanguageResourceTemplate(Guid)' instead.")]
         public async Task DeleteTemplate(string languageResourceTemplateId)
         {
             Ensure.ArgumentNotNullOrEmptyString(languageResourceTemplateId, "languageResourceTemplateId");
@@ -2124,10 +1925,16 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// 
+        /// Deletes a <see cref="LanguageResourceTemplate"/> by Id.
         /// </summary>
-        /// <param name="languageResourceTemplateId"></param>
-        /// <returns></returns>
+        /// <param name="languageResourceTemplateId">The language resource template's Guid.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task DeleteLanguageResourceTemplate(Guid languageResourceTemplateId)
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");

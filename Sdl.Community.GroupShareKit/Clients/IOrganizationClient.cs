@@ -107,7 +107,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Gets all the <see cref="OrganizationResources"/> of an <see cref="Organization"/>.
         /// </summary>
-        /// <param name="organizationId"></param>
+        /// <param name="organizationId">Organization Guid</param>
         /// <returns>A list of <see cref="OrganizationResources"/>.</returns>
         Task<IReadOnlyList<OrganizationResources>> GetOrganizationResources(Guid organizationId);
 
