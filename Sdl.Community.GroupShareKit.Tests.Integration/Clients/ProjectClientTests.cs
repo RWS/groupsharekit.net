@@ -1018,7 +1018,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             for (var i = 0; i < maxTryCount; i++)
             {
-                var statusInfo = await GroupShareClient.Project.PublishingStatus(projectId);
+                var statusInfo = await GroupShareClient.Project.GetPublishingStatus(projectId);
                 switch (statusInfo.Status)
                 {
                     case PublishProjectStatus.Uploading:

@@ -757,7 +757,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <param name="projectId"></param>
         /// <returns></returns>
-        public async Task<PublishingStatus> PublishingStatus(Guid projectId)
+        public async Task<PublishingStatus> GetPublishingStatus(Guid projectId)
         {
             Ensure.ArgumentNotNull(projectId, "projectId");
             return await ApiConnection.Get<PublishingStatus>(ApiUrls.PublishingStatus(projectId), null);

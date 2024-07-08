@@ -23,7 +23,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task PublishingStatusProject()
         {
-            var project = await GroupShareClient.Project.PublishingStatus(_projectId);
+            var project = await GroupShareClient.Project.GetPublishingStatus(_projectId);
 
             Assert.NotNull(project);
         }
