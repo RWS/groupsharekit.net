@@ -11,12 +11,13 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class UserClientTests
     {
+        private static readonly GroupShareClient GroupShareClient = Helper.GsClient;
+
         [Fact]
         public async Task Users_GetAllUsers_WithoutRoles_ReturnsUsers()
         {
-            var groupShareClient = Helper.GsClient;
-            var userRequest = new UsersRequest(1, 2, 7);
-            var users = await groupShareClient.User.GetAllUsers(userRequest);
+            var userRequest = new UsersRequest(1, 1, 10);
+            var users = await GroupShareClient.User.GetAllUsers(userRequest);
 
             var currentUser = users.Items.First(user => user.Name == Helper.GsUser);
 
@@ -32,123 +33,111 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [MemberData(nameof(UserData.Username), MemberType = typeof(UserData))]
         public async Task Users_GetUserByUsername_ReturnsUser(string userName)
         {
-            var groupShareClient = Helper.GsClient;
-            var response = await groupShareClient.User.Get(new UserRequest(userName));
+            var response = await GroupShareClient.User.Get(new UserRequest(userName));
 
             Assert.Equal(userName, response.Name);
         }
 
         [Theory]
         [MemberData(nameof(UserData.UserId), MemberType = typeof(UserData))]
-        public async Task Users_GetUserById_ReturnsUser(string userId)
+        public async Task Users_GetUserById_ReturnsUser(Guid userId)
         {
-            var groupShareClient = Helper.GsClient;
-            var user = await groupShareClient.User.GetUserById(userId);
+            var user = await GroupShareClient.User.GetUser(userId);
 
-            Assert.Equal(user.UniqueId.ToString(), userId);
+            Assert.Equal(user.UniqueId, userId);
         }
 
         [Theory]
         [MemberData(nameof(UserData.Username), MemberType = typeof(UserData))]
         public async Task Users_UpdateByUsername_Succeeds(string userName)
         {
-            var description = $"Updated description at {DateTime.Now.ToLongDateString()}";
+            var user = await GroupShareClient.User.Get(new UserRequest(userName));
 
-            var groupShareClient = Helper.GsClient;
-            var response = await groupShareClient.User.Get(new UserRequest(userName));
-            response.Description = description;
+            var updatedDescription = $"Updated description - {DateTime.Now.ToLongDateString()}";
+            user.Description = updatedDescription;
 
-            var user = await groupShareClient.User.Update(response);
-            Assert.True(user != string.Empty);
+            var userId = await GroupShareClient.User.UpdateUser(user);
+            Assert.Equal(user.UniqueId, userId);
 
-            var userUpdated = await groupShareClient.User.Get(new UserRequest(userName));
-            Assert.Equal(description, userUpdated.Description);
+            var updatedUser = await GroupShareClient.User.Get(new UserRequest(userName));
+            Assert.Equal(updatedDescription, updatedUser.Description);
         }
 
         [Fact]
         public async Task Users_UpdateUserLanguageDirections_Succeeds()
         {
-            var groupShareClient = Helper.GsClient;
+            var uniqueId = Guid.NewGuid();
+            var name = $"user - {uniqueId}";
 
-            var uniqueId = Guid.NewGuid().ToString();
-            var name = $"automated user {uniqueId}";
-
-            var newUser = new CreateUserRequest
+            var userRequest = new CreateUserRequest
             {
-                UniqueId = uniqueId,
+                UniqueId = uniqueId.ToString(),
                 Name = name,
                 Password = "Password1",
                 DisplayName = name,
-                Description = null,
+                Description = "Created using GroupShare Kit",
                 PhoneNumber = null,
-                Locale = "en-US",
                 OrganizationId = Helper.OrganizationId,
                 UserType = "SDLUser",
-                Roles = new List<Role>
+                Roles = new List<RoleMembership>
                 {
-                    new Role
+                    new RoleMembership
                     {
-                         OrganizationId = Helper.OrganizationId,
-                         RoleId = Helper.PowerUserRoleId,
+                         OrganizationId = Guid.Parse(Helper.OrganizationId),
+                         RoleId = Guid.Parse(Helper.PowerUserRoleId),
                          UserId = uniqueId
                     }
                 }
             };
 
-            var userId = await groupShareClient.User.Create(newUser);
-            try
-            {
-                Assert.True(userId != string.Empty);
+            var userId = await GroupShareClient.User.CreateUser(userRequest);
+            var user = await GroupShareClient.User.GetUser(userId);
 
-                var expectedUser = await groupShareClient.User.GetUserById(userId);
-                Assert.Equal(name, expectedUser.Name);
+            Assert.Equal(userRequest.Name, user.Name);
+            Assert.Equal(userRequest.Description, user.Description);
+            Assert.Equal(Guid.Parse(userRequest.OrganizationId), user.OrganizationId);
 
-                expectedUser.Locale = "de-DE";
-                await groupShareClient.User.Update(expectedUser);
+            await GroupShareClient.User.UpdateUser(user);
 
-                var actualUser = await groupShareClient.User.GetUserById(userId);
+            var updatedUser = await GroupShareClient.User.GetUser(userId);
 
-                Assert.Equal("de-DE", actualUser.Locale);
-            }
-            finally
-            {
-                await groupShareClient.User.Delete(userId);
-            }
+            await GroupShareClient.User.DeleteUser(userId);
         }
 
         [Fact]
         public async Task Users_CreateUser_Succeeds()
         {
-            var groupShareClient = Helper.GsClient;
-            var uniqueId = Guid.NewGuid().ToString();
+            var uniqueId = Guid.NewGuid();
 
-            var newUser = new CreateUserRequest
+            var userRequest = new CreateUserRequest
             {
-                UniqueId = uniqueId,
-                Name = $"automated user {uniqueId}",
+                UniqueId = uniqueId.ToString(),
+                Name = $"user - {uniqueId}",
                 Password = "Password1",
                 DisplayName = "test",
-                Description = null,
+                Description = "Created using GroupShare Kit",
                 PhoneNumber = null,
-                Locale = "en-US",
                 OrganizationId = Helper.OrganizationId,
                 UserType = "SDLUser",
-                Roles = new List<Role>
+                Roles = new List<RoleMembership>
                 {
-                    new Role
+                    new RoleMembership
                     {
-                         OrganizationId = Helper.OrganizationId,
-                         RoleId = Helper.PowerUserRoleId,
+                         OrganizationId = Guid.Parse(Helper.OrganizationId),
+                         RoleId = Guid.Parse(Helper.PowerUserRoleId),
                          UserId = uniqueId
                     }
                 }
             };
 
-            var userId = await groupShareClient.User.Create(newUser);
+            var userId = await GroupShareClient.User.CreateUser(userRequest);
+            var user = await GroupShareClient.User.GetUser(userId);
 
-            Assert.True(userId != string.Empty);
+            Assert.Equal(userRequest.Name, user.Name);
+            Assert.Equal(userRequest.Description, user.Description);
+            Assert.Equal(Guid.Parse(userRequest.OrganizationId), user.OrganizationId);
 
-            await groupShareClient.User.Delete(userId);
+            await GroupShareClient.User.DeleteUser(userId);
         }
     }
 }

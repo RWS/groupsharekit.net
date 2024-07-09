@@ -28,13 +28,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         #region Project management methods
+
         /// <summary>
-        /// Gets a <see cref="Project"/>s
+        /// Gets a <see cref="Project"/>.
         /// </summary>
         /// <remarks>
         /// <param name="request"><see cref="ProjectsRequest"/></param>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -84,19 +84,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             return allProjects.Result.Items.Where(o => o.OrganizationName == organizationName).ToList();
         }
 
-        /// <summary>
-        /// Gets all <see cref="File"/>s for  project.
-        /// </summary>
-        /// <param name="projectId">string</param>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="File"/>s.</returns>
+        [Obsolete("This method is obsolete. Call 'GetProjectFiles(Guid)' instead.")]
         public Task<IReadOnlyList<File>> GetAllFilesForProject(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -105,36 +93,50 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Gets all <see cref="Phase"/>s for the project.
+        /// Gets all <see cref="File"/>s of a project.
         /// </summary>
+        /// <param name="projectId">The project's Guid.</param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="File"/>s.</returns>
+        public Task<IReadOnlyList<File>> GetProjectFiles(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            return ApiConnection.GetAll<File>(ApiUrls.ProjectFiles(projectId));
+        }
+
+        [Obsolete("This method is obsolete. Call 'GetProjectPhases(Guid)' instead.")]
+        public Task<IReadOnlyList<Phase>> GetAllPhasesForProject(string projectId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            return ApiConnection.GetAll<Phase>(ApiUrls.ProjectPhases(projectId));
+        }
+
+        /// <summary>
+        /// Gets all <see cref="Phase"/>s for a project.
+        /// </summary>
+        /// <param name="projectId">The project's Guid.</param>
+        /// <remarks>
+        /// This method requires authentication.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Phase"/>s.</returns>
-        public Task<IReadOnlyList<Phase>> GetAllPhasesForProject(string projectId)
+        public Task<IReadOnlyList<Phase>> GetProjectPhases(Guid projectId)
         {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            Ensure.ArgumentNotNull(projectId, "projectId");
             return ApiConnection.GetAll<Phase>(ApiUrls.ProjectPhases(projectId));
-
         }
 
-        /// <summary>
-        /// Gets the list of files for the requested project with all the project phases and theirs assignees <see cref="PhasesWithAssignees"/>
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="PhasesWithAssignees"/>s.</returns>
+        [Obsolete("This method is obsolete. Call 'GetPhasesWithAssignees(Guid, int)' instead.")]
         public Task<IReadOnlyList<PhasesWithAssignees>> GetPhasesWithAssignees(string projectId, int phaseId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -143,17 +145,27 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Changes the phases for files from a server project
+        /// Gets a list of files with all phases with assignee information.
         /// </summary>
+        /// <param name="projectId">The project's Guid</param>
+        /// <param name="phaseId">The Id of the project phase used for filtering. This parameter is optional.</param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="Phase"/>s.</returns>
+        /// <returns>A list of <see cref="PhasesWithAssignees"/>.</returns>
+        public Task<IReadOnlyList<PhasesWithAssignees>> GetPhasesWithAssignees(Guid projectId, int phaseId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(phaseId, "phaseId");
+
+            return ApiConnection.GetAll<PhasesWithAssignees>(ApiUrls.ProjectPhasesWithAssignees(projectId, phaseId));
+        }
+
+        [Obsolete("This method is obsolete. Call 'ChangePhase(ChangePhaseRequest)' instead.")]
         public Task ChangePhases(string projectId, ChangePhaseRequest request)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -163,23 +175,52 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Changes the assignment for a specific phase for files from a server project,
+        /// Changes the phases for a list of files of a specific project.
         /// </summary>
+        /// <param name="projectId">The project's Guid.</param>
+        /// <param name="request"><see cref="ChangePhaseRequest"/></param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="Phase"/>s.</returns>
+        public Task ChangePhase(Guid projectId, ChangePhaseRequest request)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(request, "request");
+
+            return ApiConnection.Post<Guid>(ApiUrls.ChangePhase(projectId), request, "application/json");
+        }
+
+        [Obsolete("This method is obsolete. Call 'ChangeAssignment(Guid, ChangeAssignmentRequest)' instead.")]
         public Task ChangeAssignments(string projectId, ChangeAssignmentRequest request)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNull(request, "request");
 
             return ApiConnection.Post<string>(ApiUrls.ChangeAssignments(projectId), request, "application/json");
+        }
+
+        /// <summary>
+        /// Changes user assignment for a specific project files list for a specific phase.
+        /// </summary>
+        /// <param name="projectId">The project's Guid.</param>
+        /// <param name="request"><see cref="ChangeAssignmentRequest"/></param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public Task ChangeAssignment(Guid projectId, ChangeAssignmentRequest request)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(request, "request");
+
+            return ApiConnection.Post<string>(ApiUrls.ChangeAssignment(projectId), request, "application/json");
         }
 
         /// <summary>
@@ -356,6 +397,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
+        [Obsolete("This method is obsolete. Call 'AddFiles(Guid, string, bool)' instead.")]
         public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string filesPath, bool reference)
         {
             var uri = ApiUrls.AddProjectFiles(projectId, reference);
@@ -371,6 +413,22 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
+        public async Task<MidProjectUpdateResponse> AddFiles(Guid projectId, string filesPath, bool reference)
+        {
+            var uri = ApiUrls.AddProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                var stream = new System.IO.FileStream(filesPath, System.IO.FileMode.Open);
+                var streamContent = new StreamContent(stream);
+                streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
+
+                return await ApiConnection.Post<MidProjectUpdateResponse>(uri, content, null);
+            }
+        }
+
+        [Obsolete("This method is obsolete. Call 'AddFiles(Guid, string[], bool)' instead.")]
         public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string[] filesPaths, bool reference)
         {
             var uri = ApiUrls.AddProjectFiles(projectId, reference);
@@ -389,6 +447,25 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
+        public async Task<MidProjectUpdateResponse> AddFiles(Guid projectId, string[] filesPaths, bool reference)
+        {
+            var uri = ApiUrls.AddProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                foreach (var file in filesPaths)
+                {
+                    var stream = new System.IO.FileStream(file, System.IO.FileMode.Open);
+                    var streamContent = new StreamContent(stream);
+                    streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                    content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
+                }
+
+                return await ApiConnection.Post<MidProjectUpdateResponse>(uri, content, null);
+            }
+        }
+
+        [Obsolete("This method is obsolete. Call 'UpdateFiles(Guid, string, bool)' instead.")]
         public async Task<MidProjectUpdateResponse> UpdateFiles(string projectId, string filesPath, bool reference)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
@@ -404,6 +481,22 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
+        public async Task<MidProjectUpdateResponse> UpdateFiles(Guid projectId, string filesPath, bool reference)
+        {
+            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                var stream = new System.IO.FileStream(filesPath, System.IO.FileMode.Open);
+                var streamContent = new StreamContent(stream);
+                streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
+
+                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
+            }
+        }
+
+        [Obsolete("This method is obsolete. Call 'UpdateFiles(Guid, string[], bool)' instead.")]
         public async Task<MidProjectUpdateResponse> UpdateFiles(string projectId, string[] filesPaths, bool reference)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
@@ -422,6 +515,25 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
+        public async Task<MidProjectUpdateResponse> UpdateFiles(Guid projectId, string[] filesPaths, bool reference)
+        {
+            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                foreach (var file in filesPaths)
+                {
+                    var stream = new System.IO.FileStream(file, System.IO.FileMode.Open);
+                    var streamContent = new StreamContent(stream);
+                    streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                    content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
+                }
+
+                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
+            }
+        }
+
+        [Obsolete("This method is obsolete. Call 'UpdateSelectedFiles(Guid, string, MidProjectFileIdsModel, bool)' instead.")]
         public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
@@ -440,6 +552,25 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
+        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(Guid projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference)
+        {
+            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                var stream = new System.IO.FileStream(filesPath, System.IO.FileMode.Open);
+                var streamContent = new StreamContent(stream);
+                streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
+
+                var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
+                content.Add(new StringContent(fileIdsString), "FileIds");
+
+                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
+            }
+        }
+
+        [Obsolete("This method is obsolete. Call 'UpdateSelectedFiles(Guid, string, MidProjectFileIdsModel, bool)' instead.")]
         public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string[] filesPaths, MidProjectFileIdsModel fileIds, bool reference)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
@@ -461,7 +592,37 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
+        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(Guid projectId, string[] filesPaths, MidProjectFileIdsModel fileIds, bool reference)
+        {
+            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
+
+            using (var content = new MultipartFormDataContent())
+            {
+                foreach (var file in filesPaths)
+                {
+                    var stream = new System.IO.FileStream(file, System.IO.FileMode.Open);
+                    var streamContent = new StreamContent(stream);
+                    streamContent.Headers.Add("Content-Type", "application/octet-stream");
+                    content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
+                }
+
+                var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
+                content.Add(new StringContent(fileIdsString), "FileIds");
+
+                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
+            }
+        }
+
+        [Obsolete("This method is obsolete. Call 'CancelProjectFiles(Guid, MidProjectFileIdsModel)' instead.")]
         public async Task<string> CancelProjectFiles(string projectId, MidProjectFileIdsModel fileIds)
+        {
+            var uri = ApiUrls.CancelProjectFiles(projectId);
+            var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
+
+            return await ApiConnection.Put<string>(uri, fileIdsString);
+        }
+
+        public async Task<string> CancelProjectFiles(Guid projectId, MidProjectFileIdsModel fileIds)
         {
             var uri = ApiUrls.CancelProjectFiles(projectId);
             var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
@@ -485,17 +646,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Get<JsonCollection<BackgroundTask>>(ApiUrls.GetBackgroundTasks(serializedSortOptions, filter), null);
         }
 
-        /// <summary>
-        /// Delete project
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete("This method is obsolete. Call 'DeleteProject(Guid)' instead.")]
         public Task DeleteProject(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -504,17 +655,24 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get project
+        /// Deletes a project.
         /// </summary>
+        /// <param name="projectId">The project's Guid.</param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> <see cref="ProjectDetails"/></returns>
+        public Task DeleteProject(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            return ApiConnection.Delete(ApiUrls.Project(projectId));
+        }
+
+        [Obsolete("This method is obsolete. Call 'GetProject(Guid)' instead.")]
         public Task<ProjectDetails> Get(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -523,20 +681,46 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get the publishing status of a server project.
+        /// Gets a project by Id.
         /// </summary>
+        /// <param name="projectId">The project's Guid.</param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> <see cref="PublishingStatus"/></returns>
+        /// <returns><see cref="ProjectDetails"/></returns>
+        public Task<ProjectDetails> GetProject(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            return ApiConnection.Get<ProjectDetails>(ApiUrls.Project(projectId), null);
+        }
+
+        [Obsolete("This method is obsolete. Call 'PublishingStatus(Guid)' instead.")]
         public async Task<PublishingStatus> PublishingStatus(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            return await ApiConnection.Get<PublishingStatus>(ApiUrls.PublishingStatus(projectId), null);
+        }
+
+        /// <summary>
+        /// Gets the publishing status of a project.
+        /// </summary>
+        /// <param name="projectId">The project's Guid.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="PublishingStatus"/></returns>
+        public async Task<PublishingStatus> GetPublishingStatus(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
             return await ApiConnection.Get<PublishingStatus>(ApiUrls.PublishingStatus(projectId), null);
         }
 
@@ -551,18 +735,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Get<List<ProjectPublishingInformation>>(ApiUrls.PublishingInformation(projectIds), null);
         }
 
-        /// <summary>
-        /// Downloads the files with the specific language ids.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of byte[] which represents downloaded files.</returns>
+        [Obsolete("This method is obsolete. Call 'DownloadFiles(Guid, List<Guid>)' instead.")]
         public async Task<byte[]> DownloadFiles(string projectId, List<string> languageFileIds)
         {
             Ensure.ArgumentNotEmpty(languageFileIds, "languageFileIds");
@@ -571,38 +744,73 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Downloads the native files of a project.
+        /// Downloads files with specific language file Ids.
         /// </summary>
+        /// <param name="projectId">The project's Guid.</param>
+        /// <param name="languageFileIds">Language file Guids.</param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of byte[] which represents downloaded files.</returns>></param>
-        /// <returns></returns>
+        /// <returns>Downloaded files content.</returns>
+        public async Task<byte[]> DownloadFiles(Guid projectId, List<Guid> languageFileIds)
+        {
+            Ensure.ArgumentNotNull(languageFileIds, "languageFileIds");
+
+            return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFiles(projectId, LanguageIdQuery(languageFileIds)), null);
+        }
+
+        [Obsolete("This method is obsolete. Call 'DownloadNative(Guid)' instead.")]
         public async Task<byte[]> DownloadNative(string projectId)
         {
             return await ApiConnection.Get<byte[]>(ApiUrls.DownloadNative(projectId), null);
         }
 
         /// <summary>
-		/// Finalizes the files of a project.
-		/// </summary>
-		/// <remarks>
-		/// This method requires authentication.
-		/// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-		/// </remarks>
-		/// <exception cref="AuthorizationException">
-		/// Thrown when the current user does not have permission to make the request.
-		/// </exception>
-		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-		/// <returns>A list of byte[] which represents downloaded files.</returns>
+        /// Downloads the native files of a project.
+        /// </summary>
+        /// <param name="projectId">The project's Guid.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Downloaded files content.</returns>
+        public async Task<byte[]> DownloadNative(Guid projectId)
+        {
+            return await ApiConnection.Get<byte[]>(ApiUrls.DownloadNative(projectId), null);
+        }
+
+        [Obsolete("This method is obsolete. Call 'Finalize(Guid, List<Guid>)' instead.")]
         public async Task<byte[]> Finalize(string projectId, List<string> languageFileIds)
         {
             Ensure.ArgumentNotEmpty(languageFileIds, "languageFileIds");
+
+            return await ApiConnection.Post<byte[]>(ApiUrls.Finalize(projectId, LanguageIdQuery(languageFileIds)));
+        }
+
+        /// <summary>
+        /// Finalizes files of a project.
+        /// </summary>
+        /// <param name="projectId">The project's Guid</param>
+        /// <param name="languageFileIds">Language files Guids</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Downloaded file content.</returns>
+        public async Task<byte[]> Finalize(Guid projectId, List<Guid> languageFileIds)
+        {
+            Ensure.ArgumentNotNull(projectId, "languageFileIds");
+            Ensure.ArgumentNotNull(languageFileIds, "languageFileIds");
 
             return await ApiConnection.Post<byte[]>(ApiUrls.Finalize(projectId, LanguageIdQuery(languageFileIds)));
         }
@@ -613,6 +821,23 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <param name="languageFileIds"></param>
         /// <returns></returns>
         public string LanguageIdQuery(List<string> languageFileIds)
+        {
+            var query = string.Empty;
+
+            if (languageFileIds.Count == 1)
+            {
+                return "languageFileIds=" + languageFileIds.FirstOrDefault();
+            }
+
+            foreach (var id in languageFileIds)
+            {
+                query = query + "languageFileIds=" + id + "&";
+            }
+
+            return query;
+        }
+
+        public string LanguageIdQuery(List<Guid> languageFileIds)
         {
             var query = string.Empty;
 
@@ -644,6 +869,23 @@ namespace Sdl.Community.GroupShareKit.Clients
 
             return query;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="languageFileIds"></param>
+        /// <returns></returns>
+        public string FileIdQuery(List<Guid> languageFileIds)
+        {
+            var query = string.Empty;
+            foreach (var id in languageFileIds)
+            {
+                query = query + "fileId=" + id + "&";
+            }
+
+            return query;
+        }
+
         /// <summary>
         ///Downloads the files with the specific type and language code.
         /// </summary>
@@ -687,27 +929,34 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.GetAll<UserAssignments>(ApiUrls.GetProjectsAssignments(), null);
         }
 
+        [Obsolete("This method is obsolete. Call 'GetProjectAssignmentById(Guid, List<Guid>)' instead.")]
+        public async Task<IReadOnlyList<ProjectAssignment>> GetProjectAssignmentById(string projectId, List<string> fileIdsList)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            Ensure.ArgumentNotNull(fileIdsList, "fileIdsList");
+
+            return await ApiConnection.GetAll<ProjectAssignment>(ApiUrls.GetProjectAssignmentById(projectId, FileIdQuery(fileIdsList)), null);
+        }
+
         /// <summary>
-        /// Gets a list of assignments for a project
+        /// Gets a list of assignments for a project.
         /// </summary>
+        /// <param name="projectId">The project's Guid</param>
+        /// <param name="fileIdsList">Language file Ids</param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="ProjectAssignment"/>s.</returns>
-        public async Task<IReadOnlyList<ProjectAssignment>> GetProjectAssignmentById(string projectId, List<string> fileIdsList)
+        public async Task<IReadOnlyList<ProjectAssignment>> GetProjectAssignmentById(Guid projectId, List<Guid> fileIdsList)
         {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            Ensure.ArgumentNotNull(projectId, "projectId");
             Ensure.ArgumentNotNull(fileIdsList, "fileIdsList");
 
-            return
-                await
-                    ApiConnection.GetAll<ProjectAssignment>(
-                        ApiUrls.GetProjectAssignmentById(projectId, FileIdQuery(fileIdsList)), null);
+            return await ApiConnection.GetAll<ProjectAssignment>(ApiUrls.GetProjectAssignmentById(projectId, FileIdQuery(fileIdsList)), null);
         }
 
         /// <summary>
@@ -752,12 +1001,18 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Put<string>(ApiUrls.ChangeProjectStatus(statusRequest.ProjectId, Enum.GetName(typeof(ChangeStatusRequest.ProjectStatus), statusRequest.Status)), statusRequest);
         }
 
+        [Obsolete("This method is obsolete. Call 'DetachProject(Guid, bool)' instead.")]
+        public async Task DetachProject(string projectId, bool deleteProjectTMs = false)
+        {
+            await ApiConnection.Delete(ApiUrls.DetachProject(projectId, deleteProjectTMs));
+        }
+
         /// <summary>
         /// Detaches a project, with the possibility to delete project TMs.
         /// </summary>
-        /// <param name="projectId">The project id.</param>
+        /// <param name="projectId">The project's Guid.</param>
         /// <param name="deleteProjectTMs">If true, project TMs will be deleted after the project is detached.</param>
-        public async Task DetachProject(string projectId, bool deleteProjectTMs = false)
+        public async Task DetachProject(Guid projectId, bool deleteProjectTMs = false)
         {
             await ApiConnection.Delete(ApiUrls.DetachProject(projectId, deleteProjectTMs));
         }
@@ -830,6 +1085,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Post(ApiUrls.CancelPublishProjectPackage(projectId));
         }
 
+        [Obsolete("This method is obsolete. Call 'GetAllProjectFileStatistics(Guid)' instead.")]
         public Task<IReadOnlyList<ProjectFileStatistics>> GetAllProjectFileStatistics(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -837,9 +1093,24 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.GetAll<ProjectFileStatistics>(ApiUrls.ProjectFileStatistics(projectId), null);
         }
 
+        public Task<IReadOnlyList<ProjectFileStatistics>> GetAllProjectFileStatistics(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            return ApiConnection.GetAll<ProjectFileStatistics>(ApiUrls.ProjectFileStatistics(projectId), null);
+        }
+
+        [Obsolete("This method is obsolete. Call 'GetProjectLanguageStatistics(Guid)' instead.")]
         public Task<Dictionary<string, ProjectStatistics>> GetProjectLanguageStatistics(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+
+            return ApiConnection.Get<Dictionary<string, ProjectStatistics>>(ApiUrls.ProjectLanguageStatistics(projectId), null);
+        }
+
+        public Task<Dictionary<string, ProjectStatistics>> GetProjectLanguageStatistics(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
 
             return ApiConnection.Get<Dictionary<string, ProjectStatistics>>(ApiUrls.ProjectLanguageStatistics(projectId), null);
         }
@@ -872,6 +1143,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<ProjectTemplate>> GetProjectTemplates()
+        {
+            return await ApiConnection.GetAll<ProjectTemplate>(ApiUrls.ProjectTemplates(), null);
+        }
+
+        /// <summary>
         /// Creates a template
         /// </summary>
         /// <param name="templateRequest"><see cref="ProjectTemplates"/></param>
@@ -889,6 +1169,19 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             var templateId = await ApiConnection.Post<string>(ApiUrls.ProjectTemplates(), templateRequest, "application/json");
             await UploadProjectTemplate(templateId, rawData, templateRequest.Name);
+            return templateId;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectTemplateRequest"></param>
+        /// <param name="rawData"></param>
+        /// <returns></returns>
+        public async Task<Guid> CreateProjectTemplate(ProjectTemplate projectTemplateRequest, byte[] rawData)
+        {
+            var templateId = await ApiConnection.Post<Guid>(ApiUrls.ProjectTemplates(), projectTemplateRequest, "application/json");
+            await UploadProjectTemplate(templateId, rawData, projectTemplateRequest.Name);
             return templateId;
         }
 
@@ -983,22 +1276,28 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Put<Guid>(ApiUrls.ProjectTemplatesV4(templateId), templateRequest);
         }
 
+        [Obsolete("This method is obsolete. Call 'GetProjectTemplate(Guid)' instead.")]
+        public async Task<string> GetTemplateById(string templateId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
+            return await ApiConnection.Get<string>(ApiUrls.ProjectTemplates(templateId), null);
+        }
+
         /// <summary>
-        /// Get a template by id
+        /// Gets a project template by Id.
         /// </summary>
-        /// <param name="templateId">string</param>
+        /// <param name="templateId">The project template's Guid.</param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Te contend of template in a string/></returns>
-        public async Task<string> GetTemplateById(string templateId)
+        /// <returns>The content of the project template as a string.</returns>
+        public async Task<string> GetProjectTemplate(Guid templateId)
         {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
+            Ensure.ArgumentNotNull(templateId, "templateId");
             return await ApiConnection.Get<string>(ApiUrls.ProjectTemplates(templateId), null);
         }
 
@@ -1038,20 +1337,27 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.GetWithContent<ProjectTemplateSettingsV4>(ApiUrls.ProjectTemplatesV4(templateId), "application/json");
         }
 
+        [Obsolete("This method is obsolete. Call 'DeleteProjectTemplate(Guid)' instead.")]
+        public async Task DeleteProjectTemplate(string templateId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
+            await ApiConnection.Delete(ApiUrls.ProjectTemplates(templateId));
+        }
+
         /// <summary>
-        /// Deletes a template 
+        /// Deletes a project template.
         /// </summary>
-        /// <param name="templateId">string</param>
+        /// <param name="templateId">The project template's Guid.</param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
-        public async Task DeleteProjectTemplate(string templateId)
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task DeleteProjectTemplate(Guid templateId)
         {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
+            Ensure.ArgumentNotNull(templateId, "templateId");
             await ApiConnection.Delete(ApiUrls.ProjectTemplates(templateId));
         }
 
@@ -1089,21 +1395,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Delete(ApiUrls.ProjectTemplatesV4(templateId));
         }
 
-        /// <summary>
-        /// Uploads a template to a newly created project 
-        /// This method should be called after you create a project in order to add the template
-        /// </summary>
-        /// <param name="templateId">string</param>
-        /// <param name="projectTemplate">byte[]</param>
-        /// <param name="templateName">string</param>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete("This method is obsolete. Call 'UploadProjectTemplate(Guid, byte[], string)' instead.")]
         public async Task<string> UploadProjectTemplate(string templateId, byte[] projectTemplate, string templateName)
         {
             Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
@@ -1115,23 +1407,37 @@ namespace Sdl.Community.GroupShareKit.Clients
 
             return await ApiConnection.Post<string>(ApiUrls.UploadProjectTemplate(templateId), multipartContent, "application/json");
         }
-        #endregion
-
-        #region File version methods
 
         /// <summary>
-        /// Gets file versions information<see cref="FileVersion"/>.
+        /// Uploads a project template.
         /// </summary>
-        ///  <param name="languageFileId">Language file id></param>
+        /// <param name="templateId">The project template Guid.</param>
+        /// <param name="projectTemplate"></param>
+        /// <param name="templateName"></param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> List <see cref="FileVersion"/>s.</returns>
+        /// <returns>The project template's Guid.</returns>
+        public async Task<Guid> UploadProjectTemplate(Guid templateId, byte[] projectTemplate, string templateName)
+        {
+            Ensure.ArgumentNotNull(templateId, "templateId");
+            var templateByteArray = new ByteArrayContent(projectTemplate);
+            var multipartContent = new MultipartFormDataContent
+            {
+                { templateByteArray, "file", templateName }
+            };
+
+            return await ApiConnection.Post<Guid>(ApiUrls.UploadProjectTemplate(templateId), multipartContent, "application/json");
+        }
+        #endregion
+
+        #region File version methods
+
+        [Obsolete("This method is obsolete. Call 'GetFileVersions(Guid)' instead.")]
         public async Task<IReadOnlyList<FileVersion>> GetFileVersions(string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "languageFileId");
@@ -1139,20 +1445,24 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Downloads the file/>.
+        /// Gets file versions information.
         /// </summary>
-        /// <param name="projectId">The project id</param>
-        /// <param name="languageFileId"> Language file id</param>
-        /// <param name="version"> File version</param>
+        /// <param name="languageFileId">The language file Guid</param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> Downloaded file in bytes[].</returns>
+        /// <returns>A list of <see cref="FileVersion"/>.</returns>
+        public async Task<IReadOnlyList<FileVersion>> GetFileVersions(Guid languageFileId)
+        {
+            Ensure.ArgumentNotNull(languageFileId, "languageFileId");
+            return await ApiConnection.GetAll<FileVersion>(ApiUrls.GetFileVersions(languageFileId), null);
+        }
+
+        [Obsolete("This method is obsolete. Call 'DownloadFileVersion(Guid, Guid, int)' instead.")]
         public async Task<byte[]> DownloadFileVersion(string projectId, string languageFileId, int version)
         {
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "languageFileId");
@@ -1165,20 +1475,31 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get the project analysis report for a given project.
-        /// The project must be created in GroupShare, not in Studio and published in GS
+        /// Downloads a language file version.
         /// </summary>
-        /// <param name="projectId">The project id</param>
-        /// <param name="languageCode"> language code. Eg: en-US</param>
+        /// <param name="projectId">The project's Guid</param>
+        /// <param name="languageFileId">The language file Guid</param>
+        /// <param name="version">File version</param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> List <see cref="AnalysisReports"/>s.</returns>
+        /// <returns>Downloaded file content.</returns>
+        public async Task<byte[]> DownloadFileVersion(Guid projectId, Guid languageFileId, int version)
+        {
+            Ensure.ArgumentNotNull(languageFileId, "languageFileId");
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(version, "version");
+
+            var fileContent = await ApiConnection.Get<byte[]>(ApiUrls.DownloadFileVersion(projectId, languageFileId, version), null);
+
+            return fileContent;
+        }
+
+        [Obsolete("This method is obsolete. Call 'GetAnalysisReports(Guid, string)' instead.")]
         public async Task<IReadOnlyList<AnalysisReports>> GetAnalysisReports(string projectId, string languageCode)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1188,75 +1509,117 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get the project analysis report for a given project in HTML format (the format only refers to the Report property)
-        /// The project must be created in GroupShare, not in Studio and published in GS
+        /// Gets the analysis reports for a specific project.
         /// </summary>
-        /// <param name="projectId">The project id</param>
-        /// <param name="languageCode"> language code. Eg: en-US</param>
+        /// <param name="projectId">The project's Guid.</param>
+        /// <param name="languageCode"></param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> List <see cref="AnalysisReportWithMimeType"/>s.</returns>
+        /// <returns>A list of <see cref="AnalysisReports"/>.</returns>
+        public async Task<IReadOnlyList<AnalysisReports>> GetAnalysisReports(Guid projectId, string languageCode)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetAll<AnalysisReports>(ApiUrls.AnalysisReports(projectId, languageCode), null);
+            return reportResult;
+        }
+
+        [Obsolete("This method is obsolete. Call 'GetAnalysisReportsAsHtml(Guid, string)' instead.")]
         public async Task<IReadOnlyList<AnalysisReportWithMimeType>> GetAnalysisReportsAsHtml(string projectId, string languageCode)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
 
             var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeType>>(ApiUrls.AnalysisReports(projectId, languageCode), "text/html");
-
             return reportResult;
         }
 
         /// <summary>
-        /// Get the project analysis report for a given project in XML format (the format only refers to the Report property)
-        /// The project must be created in GroupShare, not in Studio and published in GS
+        /// Get the project analysis report for a given project in HTML format (the format only refers to the Report property).
+        /// The project must be created in GroupShare, not in Studio and published in GroupShare.
         /// </summary>
-        /// <param name="projectId">The project id</param>
-        /// <param name="languageCode"> language code. Eg: en-US</param>
+        /// <param name="projectId">The project's Guid</param>
+        /// <param name="languageCode"></param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> List <see cref="AnalysisReportWithMimeType"/>s.</returns>
+        /// <returns>A list of <see cref="AnalysisReportWithMimeType"/>.</returns>
+        public async Task<IReadOnlyList<AnalysisReportWithMimeType>> GetAnalysisReportsAsHtml(Guid projectId, string languageCode)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeType>>(ApiUrls.AnalysisReports(projectId, languageCode), "text/html");
+            return reportResult;
+        }
+
+        [Obsolete("This method is obsolete. Call 'GetAnalysisReportsAsXml(Guid, string)' instead.")]
         public async Task<IReadOnlyList<AnalysisReportWithMimeType>> GetAnalysisReportsAsXml(string projectId, string languageCode)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
 
             var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeType>>(ApiUrls.AnalysisReports(projectId, languageCode), "text/xml");
-
             return reportResult;
         }
 
         /// <summary>
-        /// Get the project analysis report v3 for a given project
-        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
+        /// Get the project analysis report for a given project in XML format (the format only refers to the Report property).
+        /// The project must be created in GroupShare, not in Studio and published in GroupShare.
         /// </summary>
-        /// <param name="projectId">The project id</param>
-        /// <param name="languageCode">Optional language code. Eg: en-US</param>
-        /// <param name="reportId">Optional report id</param>
+        /// <param name="projectId">The project's Guid.</param>
+        /// <param name="languageCode"></param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> List <see cref="AnalysisReports"/>s.</returns>
+        /// <returns>A list of <see cref="AnalysisReportWithMimeType"/>.</returns>
+        public async Task<IReadOnlyList<AnalysisReportWithMimeType>> GetAnalysisReportsAsXml(Guid projectId, string languageCode)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeType>>(ApiUrls.AnalysisReports(projectId, languageCode), "text/xml");
+            return reportResult;
+        }
+
+        [Obsolete("This method is obsolete. Call 'GetAnalysisReportsV3(Guid, string, int)' instead.")]
         public async Task<IReadOnlyList<AnalysisReports>> GetAnalysisReportsV3(string projectId, string languageCode = null, int? reportId = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
 
             var reportResult = await ApiConnection.GetAll<AnalysisReports>(ApiUrls.AnalysisReportsV3(projectId, languageCode, reportId));
+            return reportResult;
+        }
 
+        /// <summary>
+        /// Get the project analysis reports v3 for a given project.
+        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare.
+        /// </summary>
+        /// <param name="projectId">The project's Guid</param>
+        /// <param name="languageCode">Optional language code. Eg: en-US</param>
+        /// <param name="reportId">Optional report id</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="AnalysisReports"/>.</returns>
+        public async Task<IReadOnlyList<AnalysisReports>> GetAnalysisReportsV3(Guid projectId, string languageCode = null, int? reportId = null)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetAll<AnalysisReports>(ApiUrls.AnalysisReportsV3(projectId, languageCode, reportId));
             return reportResult;
         }
 
@@ -1280,7 +1643,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(projectId, "projectId");
 
             var reportResult = await ApiConnection.GetAll<AnalysisReports>(ApiUrls.MTQEAnalysisReportsV3(projectId, languageCode, reportId));
-
             return reportResult;
         }
 
@@ -1304,7 +1666,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(projectId, "projectId");
 
             var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.MTQEAnalysisReportsV3(projectId, languageCode, reportId), "text/html");
-
             return reportResult;
         }
 
@@ -1332,28 +1693,44 @@ namespace Sdl.Community.GroupShareKit.Clients
             return reportResult;
         }
 
-        /// <summary>
-        /// Get the project analysis report v3 for a given project in HTML format (the format only refers to the Report property)
-        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
-        /// </summary>
-        /// <param name="projectId">The project id</param>
-        /// <param name="languageCode">Optional language code. Eg: en-US</param>
-        /// <param name="reportId">Optional report id</param>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
+        [Obsolete("This method is obsolete. Call 'GetAnalysisReportsV3AsHtml(Guid, string, int)' instead.")]
         public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsHtml(string projectId, string languageCode = null, int? reportId = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
 
             var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.AnalysisReportsV3(projectId, languageCode, reportId), "text/html");
+            return reportResult;
+        }
 
+        /// <summary>
+        /// Get the project analysis report v3 for a given project in HTML format (the format only refers to the Report property)
+        /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare. 
+        /// </summary>
+        /// <param name="projectId">The project Guid</param>
+        /// <param name="languageCode">Optional language code. Eg: en-US</param>
+        /// <param name="reportId">Optional report id</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="AnalysisReportWithMimeTypeV3"/>.</returns>
+        public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsHtml(Guid projectId, string languageCode = null, int? reportId = null)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.AnalysisReportsV3(projectId, languageCode, reportId), "text/html");
+            return reportResult;
+        }
+
+        [Obsolete("This method is obsolete. Call 'GetAnalysisReportsV3AsXml(Guid, string, int)' instead.")]
+        public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsXml(string projectId, string languageCode = null, int? reportId = null)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+
+            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.AnalysisReportsV3(projectId, languageCode, reportId), "text/xml");
             return reportResult;
         }
 
@@ -1361,41 +1738,23 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Get the project analysis report v3 for a given project in XML format (the format only refers to the Report property)
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
         /// </summary>
-        /// <param name="projectId">The project id</param>
-        /// <param name="languageCode">Optional language code. Eg: en-US</param>
-        /// <param name="reportId">Optional report id</param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> List <see cref="AnalysisReportWithMimeTypeV3"/>s.</returns>
-        public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsXml(string projectId, string languageCode = null, int? reportId = null)
+        /// <returns>A list of <see cref="AnalysisReportWithMimeTypeV3"/>.</returns>
+        public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsXml(Guid projectId, string languageCode = null, int? reportId = null)
         {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
+            Ensure.ArgumentNotNull(projectId, "projectId");
 
             var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.AnalysisReportsV3(projectId, languageCode, reportId), "text/xml");
-
             return reportResult;
         }
 
-        /// <summary>
-        /// Get project settings for a language file
-        /// </summary>
-        /// <param name="projectId">The project GUID</param>
-        /// <param name="languageFileId">The language file GUID</param>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="ProjectSettings"/></returns>
+        [Obsolete("This method is obsolete. Call 'GetLanguageFileSettings(Guid, Guid)' instead.")]
         public async Task<ProjectSettings> GetProjectSettings(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1406,7 +1765,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Get project settings for a given language file
+        /// Gets project settings for a given language file.
         /// </summary>
         /// <param name="projectId">The project GUID</param>
         /// <param name="languageFileId">The language file GUID</param>
@@ -1476,19 +1835,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             return segmentLockingConfig;
         }
 
-        /// <summary>
-        /// Validates that the user can open the file in universal editor
-        /// </summary>
-        /// <param name="projectId">The project GUID</param>
-        /// <param name="languageFileId">The language file GUID</param>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete("This method is obsolete. Call 'IsUserAuthorizedToOpenFile(Guid, Guid)' instead.")]
         public async Task<string> IsUserAuthorizedToOpenFile(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1499,19 +1846,20 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        ///Returns user permissions in editor
+        /// Validates that the user can open the file in Universal Editor.
         /// </summary>
-        /// <param name="projectId">The project GUID</param>
-        /// <param name="languageFileId">The language file GUID</param>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="EditorProfile"/></returns>
+        /// <param name="projectId">The project's Guid</param>
+        /// <param name="languageFileId">The language file's Guid</param>
+        /// <returns></returns>
+        public async Task<string> IsUserAuthorizedToOpenFile(Guid projectId, Guid languageFileId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(languageFileId, "languageFileId");
+
+            return await ApiConnection.Get<string>(ApiUrls.IsAuthorizedToOpenInEditor(projectId, languageFileId), null);
+        }
+
+        [Obsolete("This method is obsolete. Call 'EditorProfile(Guid, Guid)' instead.")]
         public async Task<EditorProfile> EditorProfile(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1521,19 +1869,22 @@ namespace Sdl.Community.GroupShareKit.Clients
             return editorProfile;
         }
 
-        ///  <summary>
-        /// Checks in a file edited in the Universal Editor
-        ///  </summary>
-        /// <param name="projectId">The project GUID</param>
-        /// <param name="languageFileId">The language file GUID</param>
-        /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <summary>
+        /// Gets the features associated to basic or advanced editor profile mode.
+        /// </summary>
+        /// <param name="projectId">The project's Guid</param>
+        /// <param name="languageFileId">The language file's Guid</param>
+        /// <returns><see cref="EditorProfile"/></returns>
+        public async Task<EditorProfile> EditorProfile(Guid projectId, Guid languageFileId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(projectId, "languageFileId");
+            var editorProfile = await ApiConnection.Get<EditorProfile>(ApiUrls.EditorProfile(projectId, languageFileId), null);
+
+            return editorProfile;
+        }
+
+        [Obsolete("This method is obsolete. Call 'OnlineCheckin(Guid, Guid, OnlineCheckInRequest)' instead.")]
         public async Task<OnlineCheckInRequest> OnlineCheckin(string projectId, string languageFileId, OnlineCheckInRequest checkoutResponse)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1542,41 +1893,57 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckIn(projectId, languageFileId), checkoutResponse, "application/json");
         }
 
-        ///  <summary>
-        /// Checks out a file for editing in the Universal Editor
-        ///  </summary>
-        /// <param name="projectId">The project GUID</param>
-        /// <param name="languageFileId">The language file GUID</param>
+        /// <summary>
+        /// Checks in a file.
+        /// </summary>
+        /// <param name="projectId">The project's Guid</param>
+        /// <param name="languageFileId">The language file's Guid</param>
+        /// <param name="onlineCheckInRequest"></param>
         /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns></returns>
+        public async Task<OnlineCheckInRequest> OnlineCheckin(Guid projectId, Guid languageFileId, OnlineCheckInRequest checkoutResponse)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(languageFileId, "languageFileId");
+
+            return await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckIn(projectId, languageFileId), checkoutResponse, "application/json");
+        }
+
+        [Obsolete("This method is obsolete. Call 'OnlineCheckout(Guid, Guid)' instead.")]
         public async Task<OnlineCheckInRequest> OnlineCheckout(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
-            return
-                await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckout(projectId, languageFileId),
-                    "application/json");
+            return await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckout(projectId, languageFileId), "application/json");
         }
 
-        ///  <summary>
-        /// Undoes an online checkout, note that you will lose all the changes done inside the OnlineEditor. To make a proper check-in, use the OnlineCheckOutController.
-        ///  </summary>
-        /// <param name="projectId">The project GUID</param>
-        /// <param name="languageFileId">The language file GUID</param>
+        /// <summary>
+        /// Checks out a file for editing in the Universal Editor.
+        /// </summary>
+        /// <param name="projectId">The project's Guid</param>
+        /// <param name="languageFileId">The language file's Guid</param>
         /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns></returns>
+        public async Task<OnlineCheckInRequest> OnlineCheckout(Guid projectId, Guid languageFileId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(languageFileId, "languageFileId");
+            return await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckout(projectId, languageFileId), "application/json");
+        }
+
+        [Obsolete("This method is obsolete. Call 'UndoCheckout(Guid, Guid)' instead.")]
         public async Task UndoCheckout(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1585,53 +1952,67 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Delete(ApiUrls.UndoCheckout(projectId, languageFileId));
         }
 
-        ///  <summary>
+        /// <summary>
+        /// Undoes an online checkout, note that you will lose all the changes done inside the OnlineEditor. To make a proper checkin use the OnlineCheckOutController.
+        /// </summary>
+        /// <param name="projectId">The project's Guid</param>
+        /// <param name="languageFileId">The language file's Guid</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task UndoCheckout(Guid projectId, Guid languageFileId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(languageFileId, "languageFileId");
+
+            await ApiConnection.Delete(ApiUrls.UndoCheckout(projectId, languageFileId));
+        }
+
+        /// <summary>
         /// Health check call used to keep the OE license seat taken
-        ///  </summary>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// </summary>
+        /// This method requires authentication.
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task<string> OnlineCheckoutHealthCheck(string editorProfileMode)
         {
             var response = await ApiConnection.Get<string>(ApiUrls.OnlineCheckoutHealthCheck(editorProfileMode), null);
             return response;
         }
 
-        ///  <summary>
-        /// Checks if the given language file is check-out to someone other than the user making this call
-        ///  </summary>
-        /// <param name="languageFileId">The language file GUID</param>
-        /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete("This method is obsolete. Call 'IsCheckoutToSomeoneElse(Guid, string)' instead.")]
         public async Task<bool> IsCheckoutToSomeoneElse(string languageFileId, string editorProfileMode)
         {
             Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
             return await ApiConnection.Get<bool>(ApiUrls.IsCheckoutToSomeoneElse(languageFileId, editorProfileMode), null);
         }
 
-        ///  <summary>
-        /// Checks in a file for editing
-        ///  </summary>
-        /// <param name="projectId">The project GUID</param>
-        /// <param name="languageFileId">The language file GUID</param>
-        /// <param name="comment">Comment</param>	 
+        /// <summary>
+        /// Checks if the given language file is check-out to someone other than the user making this call.
+        /// </summary>
+        /// <param name="languageFileId">The language file's Guid</param>
+        /// <param name="editorProfileMode">Editor profile mode</param>
         /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns></returns>
+        public async Task<bool> IsCheckoutToSomeoneElse(Guid languageFileId, string editorProfileMode)
+        {
+            Ensure.ArgumentNotNull(languageFileId, "LanguageFileId");
+            return await ApiConnection.Get<bool>(ApiUrls.IsCheckoutToSomeoneElse(languageFileId, editorProfileMode), null);
+        }
+
+        [Obsolete("This method is obsolete. Call 'ExternalCheckin(Guid, Guid, string)' instead.")]
         public async Task<string> ExternalCheckin(string projectId, string languageFileId, string comment)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1640,19 +2021,29 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Post<string>(ApiUrls.ExternalCheckin(projectId, languageFileId), comment, "application/json");
         }
 
-        ///  <summary>
-        /// Checks out a file for editing
-        ///  </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="languageFileId">The id of the language file</param>
+        /// <summary>
+        /// Checks in a file.
+        /// </summary>
+        /// <param name="projectId">The project's Guid.</param>
+        /// <param name="languageFileId">The language file's Guid.</param>
+        /// <param name="comment">Optional comment.</param>
         /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns></returns>
+        public async Task<string> ExternalCheckin(Guid projectId, Guid languageFileId, string comment)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(languageFileId, "LanguageFileId");
+
+            return await ApiConnection.Post<string>(ApiUrls.ExternalCheckin(projectId, languageFileId), comment, "application/json");
+        }
+
+        [Obsolete("This method is obsolete. Call 'ExternalCheckout(Guid, Guid)' instead.")]
         public async Task<string> ExternalCheckout(string projectId, string languageFileId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1662,13 +2053,26 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Checks-out multiple files for editing
+        /// Checks out a file for editing.
         /// </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="filesIdsList">Language files ids to check-out</param>
+        /// <param name="projectId">The project's Guid</param>
+        /// <param name="languageFileId">The language file's Guid</param>
         /// <remarks>
-        ///  This method requires authentication.
+        /// This method requires authentication.
         /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task<string> ExternalCheckout(Guid projectId, Guid languageFileId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(languageFileId, "LanguageFileId");
+
+            return await ApiConnection.Post<string>(ApiUrls.ExternalCheckout(projectId, languageFileId), "application/json");
+        }
+
+        [Obsolete("This method is obsolete. Call 'ExternalCheckOutFiles(Guid, List<Guid>)' instead.")]
         public async Task ExternalCheckOutFiles(string projectId, List<string> filesIdsList)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1681,13 +2085,25 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Checks-in files previously checked-out
+        /// Checks-out multiple files for editing.
         /// </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="externalCheckInData">Array of language files ids to check-in and optional comment</param>
+        /// <param name="projectId">The project's Guid</param>
+        /// <param name="filesIds">Language file Ids to check-out</param>
         /// <remarks>
-        ///  This method requires authentication.
+        /// This method requires authentication.
         /// </remarks>
+        public async Task ExternalCheckOutFiles(Guid projectId, List<Guid> filesIdsList)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(filesIdsList, "filesIds");
+
+            var filesIds = "[\"" + string.Join("\",\"", filesIdsList) + "\"]";
+            var content = new StringContent(filesIds, Encoding.UTF8, "application/json");
+
+            await ApiConnection.Post<Guid>(ApiUrls.ExternalCheckOutFiles(projectId), content);
+        }
+
+        [Obsolete("This method is obsolete. Call 'ExternalCheckInFiles(Guid, ExternalCheckInData)' instead.")]
         public async Task ExternalCheckInFiles(string projectId, ExternalCheckInData externalCheckInData)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1700,13 +2116,29 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Performs undo external check-out for multiple files
+        /// Checks-in files.
         /// </summary>
-        /// <param name="projectId">The id of the project</param>
-        /// <param name="filesIdsList">Language files ids to undo external check-out for</param>
+        /// <param name="projectId">The project's Guid</param>
+        /// <param name="externalCheckInData">Array of language file Ids to check-in and optional comment</param>
         /// <remarks>
-        ///  This method requires authentication.
+        /// This method requires authentication.
         /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task ExternalCheckInFiles(Guid projectId, ExternalCheckInData externalCheckInData)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(externalCheckInData, "externalCheckInData");
+
+            var serialized = new SimpleJsonSerializer().Serialize(externalCheckInData);
+            var content = new StringContent(serialized, Encoding.UTF8, "application/json");
+
+            await ApiConnection.Post<string>(ApiUrls.ExternalCheckInFiles(projectId), content);
+        }
+
+        [Obsolete("This method is obsolete. Call 'UndoExternalCheckOutForFiles(Guid, List<Guid>)' instead.")]
         public async Task UndoExternalCheckOutForFiles(string projectId, List<string> filesIdsList)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
@@ -1718,24 +2150,55 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Post<string>(ApiUrls.UndoExternalCheckOutForFiles(projectId), content);
         }
 
-        ///  <summary>
-        /// Retries the audit trail for all the language files in the given project
-        ///  </summary>
-        ///  This method requires authentication.
-        /// <param name="projectId">The id of the project</param>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <summary>
+        /// Performs undo external check-out for multiple files.
+        /// </summary>
+        /// <param name="projectId">The project's Guid</param>
+        /// <param name="filesIds">Language files ids to undo external check-out for</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public async Task UndoExternalCheckOutForFiles(Guid projectId, List<Guid> filesIdsList)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            Ensure.ArgumentNotNull(filesIdsList, "filesIds");
+
+            var filesIds = "[\"" + string.Join("\",\"", filesIdsList) + "\"]";
+            var content = new StringContent(filesIds, Encoding.UTF8, "application/json");
+
+            await ApiConnection.Post<string>(ApiUrls.UndoExternalCheckOutForFiles(projectId), content);
+        }
+
+        /// <summary>
+        /// Gets the audit trail for all the language files of a project.
+        /// </summary>
+        /// <param name="projectId">The project's Guid</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="AuditTrail"/>.</returns>
+        public Task<IReadOnlyList<AuditTrail>> AuditTrail(Guid projectId)
+        {
+            Ensure.ArgumentNotNull(projectId, "projectId");
+            return ApiConnection.GetAll<AuditTrail>(ApiUrls.AuditTrail(projectId), null);
+        }
+
+        [Obsolete("This method is obsolete. Call 'AuditTrail(Guid)' instead.")]
         public Task<IReadOnlyList<AuditTrail>> AuditTrail(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
             return ApiConnection.GetAll<AuditTrail>(ApiUrls.AuditTrail(projectId), null);
         }
 
-        [Obsolete("AuditTrial is deprecated, please call AuditTrail instead.")]
+        [Obsolete("This method is obsolete. Call 'AuditTrail(Guid)' instead.")]
         public Task<IReadOnlyList<AuditTrial>> AuditTrial(string projectId)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");

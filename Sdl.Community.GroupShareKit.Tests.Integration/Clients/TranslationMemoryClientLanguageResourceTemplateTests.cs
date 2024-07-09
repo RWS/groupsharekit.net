@@ -1,5 +1,4 @@
-﻿using Sdl.Community.GroupShareKit.Clients;
-using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
+﻿using Sdl.Community.GroupShareKit.Models.Response.TranslationMemory;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,97 +6,122 @@ using Xunit;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
-    public class TranslationMemoryClientLanguageResourceTemplateTests
+    public class TranslationMemoryClientLanguageResourceTemplatesTests : IDisposable
     {
         private static readonly GroupShareClient GroupShareClient = Helper.GsClient;
+
+        private Guid _languageResourceTemplateId;
+
+        public TranslationMemoryClientLanguageResourceTemplatesTests()
+        {
+            _languageResourceTemplateId = CreateTestLanguageResourceTemplate().Result;
+        }
 
         [Fact]
         public async Task GetAllLanguageResourceTemplates()
         {
-            var id = await CreateNewLanguageResourceTemplateAsync();
             var templatesResponse = await GroupShareClient.TranslationMemories.GetAllLanguageResourceTemplates();
 
             Assert.True(templatesResponse.Items.Count > 0);
-            await GroupShareClient.TranslationMemories.DeleteTemplate(id);
         }
 
         [Fact]
-        public async Task GetLanguageResourceTemplateById()
+        public async Task GetLanguageResourceTemplate()
         {
-            var id = await CreateNewLanguageResourceTemplateAsync();
-            var templateById = await GroupShareClient.TranslationMemories.GetTemplateById(id);
+            var languageResourceTemplate = await GroupShareClient.TranslationMemories.GetLanguageResourceTemplate(_languageResourceTemplateId);
 
-            Assert.Equal(templateById.LanguageResourceTemplateId, id);
-            await GroupShareClient.TranslationMemories.DeleteTemplate(id);
+            Assert.Equal(_languageResourceTemplateId, Guid.Parse(languageResourceTemplate.LanguageResourceTemplateId));
         }
 
         [Fact]
         public async Task UpdateLanguageResourceTemplate()
         {
-            var id = await CreateNewLanguageResourceTemplateAsync();
-            var updateRequest = new FieldTemplateRequest
+            var updateRequest = new UpdateTemplateRequest
             {
                 Name = "UpdatedName",
-                Description = "updated from kit"
+                Description = "Edited using GroupShare Kit"
             };
 
-            await GroupShareClient.TranslationMemories.EditTemplate(id, updateRequest);
+            await GroupShareClient.TranslationMemories.UpdateLanguageResourceTemplate(_languageResourceTemplateId, updateRequest);
 
-            var templateById = await GroupShareClient.TranslationMemories.GetTemplateById(id);
+            var languageResourceTemplate = await GroupShareClient.TranslationMemories.GetLanguageResourceTemplate(_languageResourceTemplateId);
 
-            Assert.Equal("UpdatedName", templateById.Name);
-            await GroupShareClient.TranslationMemories.DeleteTemplate(id);
+            Assert.Equal("UpdatedName", languageResourceTemplate.Name);
         }
 
         [Fact]
-        public async Task CreateTemplate()
+        public async Task CreateLanguageResourceTemplate()
         {
-            var id = await CreateNewLanguageResourceTemplateAsync();
-            Assert.True(id != string.Empty);
+            var languageResourceTemplate = await GroupShareClient.TranslationMemories.GetLanguageResourceTemplate(_languageResourceTemplateId);
 
-            await GroupShareClient.TranslationMemories.DeleteTemplate(id);
+            Assert.Equal("Created using GroupShare Kit", languageResourceTemplate.Description);
         }
 
         [Fact]
-        public async Task DeleteTemplate()
+        public async Task DeleteLanguageResourceTemplateTemplate()
         {
-            var id = await CreateNewLanguageResourceTemplateAsync();
-            var lrTemplatesBefore = await GroupShareClient.TranslationMemories.GetAllLanguageResourceTemplates();
-            var lrTemplatesCountBefore = lrTemplatesBefore.Items.Count;
+            var languageResourceTemplateId = await CreateTestLanguageResourceTemplate();
+            var initialLanguageResourceTemplates = await GroupShareClient.TranslationMemories.GetAllLanguageResourceTemplates();
+            var initialCount = initialLanguageResourceTemplates.Items.Count;
 
-            await GroupShareClient.TranslationMemories.DeleteTemplate(id);
-            var lrTemplates = await GroupShareClient.TranslationMemories.GetAllLanguageResourceTemplates();
-            var lrTemplatesCount = lrTemplates.Items.Count;
+            await GroupShareClient.TranslationMemories.DeleteLanguageResourceTemplate(languageResourceTemplateId);
+            var languageresourceTemplates = await GroupShareClient.TranslationMemories.GetAllLanguageResourceTemplates();
 
-            Assert.True(lrTemplatesCount < lrTemplatesCountBefore);
+            Assert.True(languageresourceTemplates.Items.Count < initialCount);
         }
 
-        public async Task<string> CreateNewLanguageResourceTemplateAsync()
+        public void Dispose()
         {
-            var request = new ResourceServiceDefaultsRequest(ResourceServiceDefaultsRequest.ResourceType.Variables,
-                "ro-ro");
-            var resource = await GroupShareClient.TranslationMemories.GetDefaultsType(request);
-            var template = new LanguageResourceTemplate
+            GroupShareClient.TranslationMemories.DeleteLanguageResourceTemplate(_languageResourceTemplateId).Wait();
+        }
+
+        public async Task<Guid> CreateTestLanguageResourceTemplate()
+        {
+            //var request = new ResourceServiceDefaultsRequest(ResourceServiceDefaultsRequest.ResourceType.Variables, "ro-ro");
+            //var resource = await GroupShareClient.TranslationMemories.GetDefaultsType(request);
+
+            //var template = new LanguageResourceTemplate
+            //{
+            //    LanguageResourceTemplateId = Guid.NewGuid().ToString(),
+            //    Name = $"Language processing rule - {Guid.NewGuid()}",
+            //    Description = "Created using GroupShare Kit",
+            //    OwnerId = Helper.OrganizationId,
+            //    Location = Helper.OrganizationPath,
+            //    IsTmSpecific = false,
+            //    LanguageResources = new List<Resource>
+            //    {
+            //       new Resource
+            //       {
+            //           Type = "Variables",
+            //           LanguageResourceTemplateId = resource.LanguageResourceTemplateId,
+            //           Data = "test",
+            //           CultureName = "ro-ro",
+            //       }
+            //    }
+            //};
+
+            var languageResourceTemplateRequest = new CreateLanguageResourceTemplateRequest
             {
-                LanguageResourceTemplateId = Guid.NewGuid().ToString(),
-                Name = $"test LRTemplate {Guid.NewGuid()}",
+                Name = $"Language processing rule - {Guid.NewGuid()}",
                 Description = "Created using GroupShare Kit",
-                OwnerId = Helper.OrganizationId,
-                Location = Helper.OrganizationPath,
                 IsTmSpecific = false,
-                LanguageResources = new List<Resource>
+                Recognizers = "RecognizeAll",
+                WordCountFlags = "DefaultFlags",
+                TokenizerFlags = "DefaultFlags",
+                OwnerId = Guid.Parse(Helper.OrganizationId),
+                LanguageResources = new List<LanguageResource>
                 {
-                   new Resource
-                   {
-                       Type = "Variables",
-                       LanguageResourceTemplateId = resource.LanguageResourceTemplateId,
-                       Data = "test",
-                       CultureName = "ro-ro",
-                   }
+                    new LanguageResource
+                    {
+                        CultureName = "ro-ro",
+                        Type = LanguageResourceType.Variables,
+                        Data = "test"
+                    }
                 }
             };
-            var id = await GroupShareClient.TranslationMemories.CreateTemplate(template);
-            return id;
+
+            var languageResourceTemplateId = await GroupShareClient.TranslationMemories.CreateLanguageResourceTemplate(languageResourceTemplateRequest);
+            return languageResourceTemplateId;
         }
     }
 }

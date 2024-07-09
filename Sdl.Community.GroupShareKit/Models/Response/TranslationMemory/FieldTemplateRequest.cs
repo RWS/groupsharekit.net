@@ -1,5 +1,8 @@
-﻿namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
+﻿using System;
+
+namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
+    [Obsolete("FieldTemplateRequest is deprecated, please use UpdateTemplateRequest instead.")]
     public class FieldTemplateRequest
     {
         public string Name { get; set; }

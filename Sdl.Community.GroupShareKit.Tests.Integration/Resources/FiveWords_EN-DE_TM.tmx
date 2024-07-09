@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tmx version="1.4">
+  <header creationtool="SDL Language Platform" creationtoolversion="8.0" o-tmf="SDL TM8 Format" datatype="xml" segtype="sentence" adminlang="en-US" srclang="en-US" creationdate="20180903T101828Z" creationid="DEVELOPMENT\ngavrilas">
+    <prop type="x-Recognizers">RecognizeAll</prop>
+    <prop type="x-TMName">FiveWords_SDLTM</prop>
+    <prop type="x-TokenizerFlags">DefaultFlags</prop>
+    <prop type="x-WordCountFlags">DefaultFlags</prop>
+  </header>
+  <body>
+    <tu creationdate="20180903T102116Z" creationid="DEVELOPMENT\ngavrilas" changedate="20180903T102134Z" changeid="DEVELOPMENT\ngavrilas" lastusagedate="20180903T102134Z">
+      <prop type="x-LastUsedBy">DEVELOPMENT\ngavrilas</prop>
+      <prop type="x-Context">0, 0</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">Translated</prop>
+      <tuv xml:lang="en-US">
+        <seg>car</seg>
+      </tuv>
+      <tuv xml:lang="de-DE">
+        <seg>Auto</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20180903T102136Z" creationid="DEVELOPMENT\ngavrilas" changedate="20180903T102137Z" changeid="DEVELOPMENT\ngavrilas" lastusagedate="20180903T102137Z">
+      <prop type="x-LastUsedBy">DEVELOPMENT\ngavrilas</prop>
+      <prop type="x-Context">117562788, 3643196849</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">Translated</prop>
+      <tuv xml:lang="en-US">
+        <seg>dog</seg>
+      </tuv>
+      <tuv xml:lang="de-DE">
+        <seg>Hund</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20180903T102138Z" creationid="DEVELOPMENT\ngavrilas" changedate="20180903T102141Z" changeid="DEVELOPMENT\ngavrilas" lastusagedate="20180903T102141Z">
+      <prop type="x-LastUsedBy">DEVELOPMENT\ngavrilas</prop>
+      <prop type="x-Context">117605692, 3649655389</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">Translated</prop>
+      <tuv xml:lang="en-US">
+        <seg>cat</seg>
+      </tuv>
+      <tuv xml:lang="de-DE">
+        <seg>Katze</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20180903T102146Z" creationid="DEVELOPMENT\ngavrilas" changedate="20180903T102147Z" changeid="DEVELOPMENT\ngavrilas" lastusagedate="20180903T102147Z">
+      <prop type="x-LastUsedBy">DEVELOPMENT\ngavrilas</prop>
+      <prop type="x-Context">117562850, 113206933391</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">Translated</prop>
+      <tuv xml:lang="en-US">
+        <seg>house</seg>
+      </tuv>
+      <tuv xml:lang="de-DE">
+        <seg>Haus</seg>
+      </tuv>
+    </tu>
+    <tu creationdate="20180903T102148Z" creationid="DEVELOPMENT\ngavrilas" changedate="20180903T102152Z" changeid="DEVELOPMENT\ngavrilas" lastusagedate="20180903T102152Z">
+      <prop type="x-LastUsedBy">DEVELOPMENT\ngavrilas</prop>
+      <prop type="x-Context">3649483835, 3649066761</prop>
+      <prop type="x-Origin">TM</prop>
+      <prop type="x-ConfirmationLevel">Translated</prop>
+      <tuv xml:lang="en-US">
+        <seg>phone</seg>
+      </tuv>
+      <tuv xml:lang="de-DE">
+        <seg>Telefon</seg>
+      </tuv>
+    </tu>
+  </body>
+</tmx>

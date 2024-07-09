@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
+    [Obsolete("ContainerResponse is deprecated, please use Containers instead.")]
     public class ContainerResponse
     {
         /// <summary>

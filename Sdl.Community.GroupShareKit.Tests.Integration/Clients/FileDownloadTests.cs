@@ -1,5 +1,6 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Tests.Integration.Setup;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,59 +10,69 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class FileDownloadTests : IClassFixture<IntegrationTestsProjectData>
     {
-        private readonly string ProjectId;
-        private readonly List<string> LanguageFileIds;
+        private readonly GroupShareClient GroupShareClient = Helper.GsClient;
+        private readonly Guid _projectId;
+        private readonly List<Guid> _languageFileIds;
 
         public FileDownloadTests()
         {
-            var groupShareClient = Helper.GsClient;
-
             var projectRequest = new ProjectsRequest("/", true, 7) { Page = "0", Limit = "1" };
-            var project = groupShareClient.Project.GetProject(projectRequest).Result.Items.FirstOrDefault();
+            var project = GroupShareClient.Project.GetProject(projectRequest).Result.Items.LastOrDefault();
 
-            ProjectId = project != null ? project.ProjectId : string.Empty;
+            _projectId = project != null ? Guid.Parse(project.ProjectId) : Guid.Empty;
 
-            LanguageFileIds = groupShareClient
+            _languageFileIds = GroupShareClient
                 .Project
-                .GetAllFilesForProject(ProjectId).Result.Where(f => f.FileRole == "Translatable")
-                .Select(lf => lf.UniqueId.ToString()).ToList();
+                .GetProjectFiles(_projectId).Result.Where(f => f.FileRole == "Translatable")
+                .Select(lf => lf.UniqueId).ToList();
         }
 
         [Fact]
         public async Task DownloadFile()
         {
-            var groupShareClient = Helper.GsClient;
-
-            var file = await groupShareClient.Project.DownloadFile(new FileDownloadRequest(ProjectId, null, FileDownloadRequest.Types.All));
+            var file = await GroupShareClient.Project.DownloadFile(new FileDownloadRequest(_projectId.ToString(), null, FileDownloadRequest.Types.All));
             Assert.NotNull(file);
         }
 
         [Fact]
         public async Task DownloadNative()
         {
-            var groupShareClient = Helper.GsClient;
-            var file = await groupShareClient.Project.DownloadNative(ProjectId);
+            var file = await GroupShareClient.Project.DownloadNative(_projectId);
 
             Assert.NotNull(file);
         }
 
-        //[Theory]
-        //[InlineData("c1f47d9c-a9dd-4069-b636-3405d4fb98a8")]
-        //public async Task Finalize(string projectId)
-        //{
-        //    var groupShareClient = Helper.GsClient;
-        //    var languageFilesId = new List<string> { "23ddbfcf-a015-47ff-9e05-f62a3bfb783a" };
+        [Fact]
+        public async Task FinalizeFile()
+        {
+            var projectFiles = await GroupShareClient.Project.GetProjectFiles(_projectId);
 
-        //    var files = await groupShareClient.Project.Finalize(projectId, languageFilesId);
+            var translatableFileId = projectFiles.First(f => f.FileRole == "Translatable").UniqueId;
+            var languageFileIds = new List<Guid> { translatableFileId };
 
-        //    Assert.True(files != null);
-        //}
+            var projectPhases = await GroupShareClient.Project.GetProjectPhases(_projectId);
+            var finalisationPhase = projectPhases.Single(p => p.Name.Equals("Finalisation", StringComparison.Ordinal));
+
+            var phaseChangeRequest = new[]
+            {
+                new ChangePhaseRequest.File
+                {
+                    LanguageFileId = _languageFileIds.First().ToString(),
+                    PhaseId = finalisationPhase.ProjectPhaseId
+                },
+            };
+
+            await GroupShareClient.Project.ChangePhase(_projectId, new ChangePhaseRequest("Changed phase ", phaseChangeRequest));
+
+            var file = await GroupShareClient.Project.Finalize(_projectId, languageFileIds);
+
+            Assert.NotNull(file);
+        }
 
         [Fact]
         public async Task DownloadFiles()
         {
-            var groupShareClient = Helper.GsClient;
-            var files = await groupShareClient.Project.DownloadFiles(ProjectId, LanguageFileIds);
+            var files = await GroupShareClient.Project.DownloadFiles(_projectId, _languageFileIds);
 
             Assert.NotNull(files);
         }

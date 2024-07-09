@@ -1,4 +1,5 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -7,11 +8,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
     public class PermissionClientTest
     {
+        private readonly GroupShareClient GroupShareClient = Helper.GsClient;
+
         [Fact]
         public async Task GetAll()
         {
-            var groupShareClient = Helper.GsClient;
-            var response = await groupShareClient.Permission.GetAll();
+            var response = await GroupShareClient.Permission.GetAll();
 
             Assert.True(response.Count > 0);
         }
@@ -19,8 +21,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetAllPermissionsNames()
         {
-            var grClient = Helper.GsClient;
-            var response = await grClient.Permission.GetUsersPermissions();
+            var response = await GroupShareClient.Permission.GetUsersPermissions();
 
             Assert.True(response.Count > 0);
         }
@@ -28,15 +29,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetUserPermissions_hideImplicitLibs_false()
         {
-            var groupShareClient = Helper.GsClient;
             var userRequest = new UsersRequest(1, 2, 7);
-            var users = await groupShareClient.User.GetAllUsers(userRequest);
+            var users = await GroupShareClient.User.GetAllUsers(userRequest);
             var currentUser = users.Items.First(user => user.Name == Helper.GsUser);
 
-            var templateId = await Helper.CreateTemplateResourceAsync(Helper.OrganizationId);
+            var templateId = await Helper.CreateTemplateResourceAsync(Guid.Parse(Helper.OrganizationId));
             var projectId = await Helper.CreateProjectAsync(templateId);
 
-            var organizationPermissions = await groupShareClient.Permission.GetUserPermissions(currentUser.Name, hideImplicitLibs: false);
+            var organizationPermissions = await GroupShareClient.Permission.GetUserPermissions(currentUser.Name, hideImplicitLibs: false);
             var firstOrganizationPermissions = organizationPermissions.First();
             Assert.True(firstOrganizationPermissions.Permissions.Count > 0);
             Assert.True(firstOrganizationPermissions.Permissions.Any());
@@ -52,15 +52,14 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task GetUserPermissions_hideImplicitLibs_true()
         {
-            var groupShareClient = Helper.GsClient;
             var userRequest = new UsersRequest(1, 2, 7);
-            var users = await groupShareClient.User.GetAllUsers(userRequest);
+            var users = await GroupShareClient.User.GetAllUsers(userRequest);
             var currentUser = users.Items.First(user => user.Name == Helper.GsUser);
 
-            var templateId = await Helper.CreateTemplateResourceAsync(Helper.OrganizationId);
+            var templateId = await Helper.CreateTemplateResourceAsync(Guid.Parse(Helper.OrganizationId));
             var projectId = await Helper.CreateProjectAsync(templateId);
 
-            var organizationPermissions = await groupShareClient.Permission.GetUserPermissions(currentUser.Name, hideImplicitLibs: true);
+            var organizationPermissions = await GroupShareClient.Permission.GetUserPermissions(currentUser.Name, hideImplicitLibs: true);
             Assert.True(organizationPermissions.Count > 0);
 
             var firstOrganizationPermissions = organizationPermissions.First();

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
@@ -8,13 +9,19 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 
         public string Op { get; set; }
 
-        public object Value { get; set; }
+        public List<OperationValue> Value { get; set; }
     }
 
     public class OperationValue
     {
+        public Guid FieldId { get; set; }
+
+        public Guid FieldTemplateId { get; set; }
+
         public string Type { get; set; }
+
         public string Name { get; set; }
+
         public List<string> Values { get; set; }
     }
 }

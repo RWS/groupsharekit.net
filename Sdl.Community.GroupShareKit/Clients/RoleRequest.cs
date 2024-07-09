@@ -23,7 +23,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         public List<Permission> Permissions { get; set; }
 
-
         public RoleRequest(Guid id, string name, bool isProtected, List<Permission> permissions)
         {
             UniqueId = id;
@@ -33,5 +32,4 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
     }
-
 }

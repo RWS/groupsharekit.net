@@ -1,5 +1,6 @@
 using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System;
 using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
@@ -8,7 +9,6 @@ namespace Sdl.Community.GroupShareKit.Clients
     /// A client for GroupShare's User API.
     /// </summary>
     /// <remarks>
-    /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">User API documentation</a> for more details.
     /// </remarks>
     public interface IUserClient
     {
@@ -17,7 +17,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -27,11 +26,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<UserResponse> GetAllUsers(UsersRequest usersRequest);
 
         /// <summary>
-        /// Get <see cref="User"/>.
+        /// Gets a <see cref="User"/>.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -40,60 +38,71 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A <see cref="User"/>.</returns>
         Task<User> Get(UserRequest request);
 
-        /// <summary>
-        /// Get <see cref="User"/>.
-        /// </summary>
-        /// <remarks>
-        /// <param name="userId">string</param>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A <see cref="User"/>.</returns>
+        [Obsolete("This method is obsolete. Call 'GetUser(Guid)' instead.")]
         Task<User> GetUserById(string userId);
 
         /// <summary>
-        /// Update <see cref="User"/>.
+        /// Gets a <see cref="User"/> by Guid.
         /// </summary>
+        /// <param name="userId">User Guid</param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A <see cref="User"/>.</returns>
+        Task<User> GetUser(Guid userId);
+
+        [Obsolete("This method is obsolete. Call 'UpdateUser(User)' instead.")]
         Task<string> Update(User user);
 
         /// <summary>
-        /// Delete <see cref="User"/>.
+        /// Updates a <see cref="User"/>.
         /// </summary>
-        /// /// <remarks>
+        /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
-        /// <param name="userId">string</param>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <param name="user"><see cref="User"/></param>
+        /// <returns>The user's Guid.</returns>
+        Task<Guid> UpdateUser(User user);
+
+        [Obsolete("This method is obsolete. Call 'DeleteUser(Guid)' instead.")]
         Task Delete(string userId);
 
         /// <summary>
-        /// Create <see cref="User"/>.
+        /// Deletes a <see cref="User"/>.
         /// </summary>
-        /// /// <remarks>
+        /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
-        /// <param name="user"><see cref="CreateUserRequest"/></param>
-        /// <returns>Created user Id</returns>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <param name="userId">User Guid</param>
+        Task DeleteUser(Guid userId);
+
+        [Obsolete("This method is obsolete. Call 'CreateUser(CreateUserRequest)' instead.")]
         Task<string> Create(CreateUserRequest user);
+
+        /// <summary>
+        /// Creates a <see cref="User"/>.
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <param name="user">User details</param>
+        /// <returns>The user's Guid.</returns>
+        Task<Guid> CreateUser(CreateUserRequest user);
     }
 }
