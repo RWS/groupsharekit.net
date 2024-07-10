@@ -47,7 +47,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         /// <param name="tag">string</param>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -67,7 +66,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         ///<param name="request"><see cref="OrganizationRequest"/></param>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -180,7 +178,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         /// <param name="request"><see cref="OrganizationResourcesRequest"/></param>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -208,7 +206,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         /// <param name="resource"><see cref="OrganizationResourcesRequest"/></param>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -226,7 +224,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         /// <param name="resourceGroupPath">Path of the organization.</param>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
+        
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
