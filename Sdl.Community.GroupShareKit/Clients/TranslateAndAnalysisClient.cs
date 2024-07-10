@@ -25,6 +25,12 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Post<int>(ApiUrls.InitiateTranslateAndAnalysisJob(), request, "application/json");
         }
 
+        [Obsolete("This method is obsolete. Call 'GetTranslationJob(int, MultipartFormDataContent)' instead.")]
+        public Task<int> GetTranslationJob(string jobId, MultipartFormDataContent request)
+        {
+            return ApiConnection.Post<int>(ApiUrls.TranslationJob(jobId), request, "multipart/form-data");
+        }
+
         /// <summary>
         /// Gets a new translation job for the specified translate and analysis job.
         /// </summary>
@@ -34,21 +40,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <response code="200">Translation triggered successfully.</response>
         /// <response code="400">When the given document or translation information not correct</response>
         /// <response code="404">If there is no document with the given identifier</response>
-        [Obsolete]
-        public Task<int> GetTranslationJob(string jobId, MultipartFormDataContent request)
+        public Task<int> GetTranslationJob(int jobId, MultipartFormDataContent request)
         {
             return ApiConnection.Post<int>(ApiUrls.TranslationJob(jobId), request, "multipart/form-data");
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="jobId"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public Task<int> GetTranslationJob(int jobId, MultipartFormDataContent request)
+        [Obsolete("This method is obsolete. Call 'GetTranslationStatus(int)' instead.")]
+        public Task<Translation> GetTranslationStatus(string translateJobNo)
         {
-            return ApiConnection.Post<int>(ApiUrls.TranslationJob(jobId), request, "multipart/form-data");
+            return ApiConnection.Get<Translation>(ApiUrls.TranslationJobStatus(translateJobNo), null);
         }
 
         /// <summary>
@@ -58,20 +58,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>The translation status and errors</returns>
         /// <response code="200">The status was returned.</response>
         /// <response code="404">If there is no document with the given identifier</response>
-        [Obsolete]
-        public Task<Translation> GetTranslationStatus(string translateJobNo)
-        {
-            return ApiConnection.Get<Translation>(ApiUrls.TranslationJobStatus(translateJobNo), null);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="translateJobNo"></param>
-        /// <returns></returns>
         public Task<Translation> GetTranslationStatus(int translateJobId)
         {
             return ApiConnection.Get<Translation>(ApiUrls.TranslationJobStatus(translateJobId), null);
+        }
+
+        [Obsolete("This method is obsolete. Call 'DownloadTranslationDocument(int)' instead.")]
+        public Task<byte[]> DownloadTranslationDocument(string translateJobNo)
+        {
+            return ApiConnection.Get<byte[]>(ApiUrls.DownloadTranslationDocument(translateJobNo), null);
         }
 
         /// <summary>
@@ -82,20 +77,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <response code="200">The download was successful</response>
         /// <response code="400">When the translation was not completed successfully. Use the status call to know the status of the translation.</response>
         /// <response code="404">If there is no document with the given identifier</response>
-        [Obsolete]
-        public Task<byte[]> DownloadTranslationDocument(string translateJobNo)
+        public Task<byte[]> DownloadTranslationDocument(int translateJobNo)
         {
             return ApiConnection.Get<byte[]>(ApiUrls.DownloadTranslationDocument(translateJobNo), null);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="translateJobNo"></param>
-        /// <returns></returns>
-        public Task<byte[]> DownloadTranslationDocument(int translateJobNo)
+        [Obsolete("This method is obsolete. Call 'GetAnalysisJob(int)' instead.")]
+        public Task<int> GetAnalysisJob(string jobId)
         {
-            return ApiConnection.Get<byte[]>(ApiUrls.DownloadTranslationDocument(translateJobNo), null);
+            return ApiConnection.Post<int>(ApiUrls.AnalysisJob(jobId), string.Empty, "application/json");
         }
 
         /// <summary>
@@ -106,20 +96,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>The analysis identifier</returns>
         /// <response code="200">The translated document identifier</response>
         /// <response code="400">When the given document or translation information is incorrect</response>
-        [Obsolete]
-        public Task<int> GetAnalysisJob(string jobId)
+        public Task<int> GetAnalysisJob(int jobId)
         {
             return ApiConnection.Post<int>(ApiUrls.AnalysisJob(jobId), string.Empty, "application/json");
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="jobId"></param>
-        /// <returns></returns>
-        public Task<int> GetAnalysisJob(int jobId)
+        [Obsolete("This method is obsolete. Call 'GetAnalysisStatus(int)' instead.")]
+        public Task<Analysis> GetAnalysisStatus(string analysisJobNo)
         {
-            return ApiConnection.Post<int>(ApiUrls.AnalysisJob(jobId), string.Empty, "application/json");
+            return ApiConnection.Get<Analysis>(ApiUrls.AnalysisJobStatus(analysisJobNo), null);
         }
 
         /// <summary>
@@ -128,20 +113,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <param name="analysisJobNo">The analysis identifier.</param>
         /// <response code="200">The status was returned.</response>
         /// <response code="404">If there is no analysis with the given identifier</response>
-        [Obsolete]
-        public Task<Analysis> GetAnalysisStatus(string analysisJobNo)
-        {
-            return ApiConnection.Get<Analysis>(ApiUrls.AnalysisJobStatus(analysisJobNo), null);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="analysisJobId"></param>
-        /// <returns></returns>
         public Task<Analysis> GetAnalysisStatus(int analysisJobId)
         {
             return ApiConnection.Get<Analysis>(ApiUrls.AnalysisJobStatus(analysisJobId), null);
+        }
+
+        [Obsolete("This method is obsolete. Call 'GetAnalysisStatistics(int)' instead.")]
+        public Task<AnalysisStatistics> GetAnalysisStatistics(string analysisJobNo)
+        {
+            return ApiConnection.Get<AnalysisStatistics>(ApiUrls.AnalysisStatistics(analysisJobNo), null);
         }
 
         /// <summary>
@@ -149,20 +129,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <param name="analysisJobNo">The analysis identifier.</param>
         /// <returns>The analysis statistics</returns>
-        [Obsolete]
-        public Task<AnalysisStatistics> GetAnalysisStatistics(string analysisJobNo)
-        {
-            return ApiConnection.Get<AnalysisStatistics>(ApiUrls.AnalysisStatistics(analysisJobNo), null);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="jobId"></param>
-        /// <returns></returns>
         public Task<AnalysisStatistics> GetAnalysisStatistics(int jobId)
         {
             return ApiConnection.Get<AnalysisStatistics>(ApiUrls.AnalysisStatistics(jobId), null);
+        }
+
+        [Obsolete("This method is obsolete. Call 'DeleteJob(int)' instead.")]
+        public Task DeleteJob(string jobId)
+        {
+            return ApiConnection.Delete(ApiUrls.DeleteJob(jobId));
         }
 
         /// <summary>
@@ -170,17 +145,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// All the resources associated with the given job will be deleted.
         /// </summary>
         /// <param name="jobId">The job identifier.</param>
-        [Obsolete]
-        public Task DeleteJob(string jobId)
-        {
-            return ApiConnection.Delete(ApiUrls.DeleteJob(jobId));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="jobId"></param>
-        /// <returns></returns>
         public Task DeleteJob(int jobId)
         {
             return ApiConnection.Delete(ApiUrls.DeleteJob(jobId));
