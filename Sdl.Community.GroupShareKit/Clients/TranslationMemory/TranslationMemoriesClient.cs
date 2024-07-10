@@ -1301,12 +1301,12 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task UpdateFieldTemplate(Guid fieldTemplateId, UpdateTemplateRequest fieldTemplateRequest)
+        public async Task UpdateFieldTemplate(Guid fieldTemplateId, UpdateTemplateRequest templateRequest)
         {
             Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
-            Ensure.ArgumentNotNull(fieldTemplateRequest, "fieldTemplateRequest");
+            Ensure.ArgumentNotNull(templateRequest, "templateRequest");
 
-            await ApiConnection.Put<Guid>(ApiUrls.GetFieldTemplate(fieldTemplateId), fieldTemplateRequest);
+            await ApiConnection.Put<Guid>(ApiUrls.GetFieldTemplate(fieldTemplateId), templateRequest);
         }
 
         [Obsolete("This method is obsolete. Call 'DeleteFieldTemplate(Guid)' instead.")]
@@ -1666,16 +1666,16 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task UpdateLanguageResourceForTemplate(Guid languageResourceTemplateId, Guid languageResourceId, LanguageResource request)
+        public async Task UpdateLanguageResourceForTemplate(Guid languageResourceTemplateId, Guid languageResourceId, LanguageResource resourceRequest)
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
             Ensure.ArgumentNotNull(languageResourceId, "languageResourceId");
-            Ensure.ArgumentNotNull(request, "request");
+            Ensure.ArgumentNotNull(resourceRequest, "request");
 
-            var encodeData = Convert.ToBase64String(Encoding.UTF8.GetBytes(request.Data));
-            request.Data = encodeData;
+            var encodeData = Convert.ToBase64String(Encoding.UTF8.GetBytes(resourceRequest.Data));
+            resourceRequest.Data = encodeData;
 
-            await ApiConnection.Put<string>(ApiUrls.LanguageResourcesForTemplate(languageResourceTemplateId, languageResourceId), request);
+            await ApiConnection.Put<string>(ApiUrls.LanguageResourcesForTemplate(languageResourceTemplateId, languageResourceId), resourceRequest);
         }
 
         [Obsolete("This method is obsolete. Call 'ResetLanguageResourceToDefault(Guid, Guid)' instead.")]

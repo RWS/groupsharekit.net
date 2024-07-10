@@ -393,7 +393,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         [Obsolete("This method is obsolete. Call 'AddFiles(Guid, string, bool)' instead.")]
-        public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string filesPath, bool reference)
+        public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string filesPath, bool reference = false)
         {
             var uri = ApiUrls.AddProjectFiles(projectId, reference);
 
@@ -408,7 +408,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        public async Task<MidProjectUpdateResponse> AddFiles(Guid projectId, string filesPath, bool reference)
+        public async Task<MidProjectUpdateResponse> AddFiles(Guid projectId, string filesPath, bool reference = false)
         {
             var uri = ApiUrls.AddProjectFiles(projectId, reference);
 
@@ -529,7 +529,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         [Obsolete("This method is obsolete. Call 'UpdateSelectedFiles(Guid, string, MidProjectFileIdsModel, bool)' instead.")]
-        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference)
+        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
 
@@ -547,7 +547,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(Guid projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference)
+        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(Guid projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
 
@@ -2125,13 +2125,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         [Obsolete("This method is obsolete. Call 'UndoExternalCheckOutForFiles(Guid, List<Guid>)' instead.")]
-        public async Task UndoExternalCheckOutForFiles(string projectId, List<string> filesIdsList)
+        public async Task UndoExternalCheckOutForFiles(string projectId, List<string> filesIds)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotEmpty(filesIdsList, "filesIds");
+            Ensure.ArgumentNotEmpty(filesIds, "filesIds");
 
-            var filesIds = "[\"" + string.Join("\",\"", filesIdsList) + "\"]";
-            var content = new StringContent(filesIds, Encoding.UTF8, "application/json");
+            var filesIdsString = "[\"" + string.Join("\",\"", filesIds) + "\"]";
+            var content = new StringContent(filesIdsString, Encoding.UTF8, "application/json");
 
             await ApiConnection.Post<string>(ApiUrls.UndoExternalCheckOutForFiles(projectId), content);
         }
@@ -2148,13 +2148,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task UndoExternalCheckOutForFiles(Guid projectId, List<Guid> filesIdsList)
+        public async Task UndoExternalCheckOutForFiles(Guid projectId, List<Guid> filesIds)
         {
             Ensure.ArgumentNotNull(projectId, "projectId");
-            Ensure.ArgumentNotNull(filesIdsList, "filesIds");
+            Ensure.ArgumentNotNull(filesIds, "filesIds");
 
-            var filesIds = "[\"" + string.Join("\",\"", filesIdsList) + "\"]";
-            var content = new StringContent(filesIds, Encoding.UTF8, "application/json");
+            var filesIdsString = "[\"" + string.Join("\",\"", filesIds) + "\"]";
+            var content = new StringContent(filesIdsString, Encoding.UTF8, "application/json");
 
             await ApiConnection.Post<string>(ApiUrls.UndoExternalCheckOutForFiles(projectId), content);
         }
