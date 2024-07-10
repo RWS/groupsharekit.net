@@ -1131,19 +1131,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Gets all project templates that the user is allowed to access.
         /// </summary>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<ProjectTemplate>> GetProjectTemplates()
-        {
-            return await ApiConnection.GetAll<ProjectTemplate>(ApiUrls.ProjectTemplates(), null);
-        }
-
-        /// <summary>
-        /// Creates a template
-        /// </summary>
-        /// <param name="templateRequest"><see cref="ProjectTemplates"/></param>
-        /// <param name="rawData">The project template file as a byte array.</param>
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
@@ -1151,7 +1140,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Id of created template/></returns>
+        /// <returns>A list of <see cref="ProjectTemplate"/></returns>
+        public async Task<IReadOnlyList<ProjectTemplate>> GetProjectTemplates()
+        {
+            return await ApiConnection.GetAll<ProjectTemplate>(ApiUrls.ProjectTemplates(), null);
+        }
+
+        [Obsolete("This method is obsolete. Call 'CreateProjectTemplate(ProjectTemplate, byte[])' instead.")]
         public async Task<string> CreateTemplate(ProjectTemplates templateRequest, byte[] rawData)
         {
             var templateId = await ApiConnection.Post<string>(ApiUrls.ProjectTemplates(), templateRequest, "application/json");
@@ -1160,11 +1155,18 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Creates a project template.
         /// </summary>
-        /// <param name="projectTemplateRequest"></param>
+        /// <param name="projectTemplateRequest">The project template details</param>
         /// <param name="rawData"></param>
-        /// <returns></returns>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The project template's Guid.</returns>
         public async Task<Guid> CreateProjectTemplate(ProjectTemplate projectTemplateRequest, byte[] rawData)
         {
             var templateId = await ApiConnection.Post<Guid>(ApiUrls.ProjectTemplates(), projectTemplateRequest, "application/json");
