@@ -52,8 +52,16 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Get<User>(ApiUrls.User(), request.ToParametersDictionary());
         }
 
+        [Obsolete("This method is obsolete. Call 'GetUser(Guid)' instead.")]
+        public Task<User> GetUserById(string userId)
+        {
+            Ensure.ArgumentNotNull(userId, "userId");
+
+            return ApiConnection.Get<User>(ApiUrls.User(userId), null);
+        }
+
         /// <summary>
-        /// Get <see cref="User"/>.
+        /// Gets a <see cref="User"/>.
         /// </summary>
         /// <remarks>
         /// <param name="userId">string</param>
@@ -64,19 +72,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A <see cref="User"/>.</returns>
-        [Obsolete("This method is obsolete. Call 'GetUser(Guid)' instead.")]
-        public Task<User> GetUserById(string userId)
-        {
-            Ensure.ArgumentNotNull(userId, "userId");
-
-            return ApiConnection.Get<User>(ApiUrls.User(userId), null);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
         public Task<User> GetUser(Guid userId)
         {
             Ensure.ArgumentNotNull(userId, "userId");
@@ -84,8 +79,14 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Get<User>(ApiUrls.User(userId), null);
         }
 
+        [Obsolete("This method is obsolete. Call 'UpdateUser(User)' instead.")]
+        public Task<string> Update(User user)
+        {
+            return ApiConnection.Put<string>(ApiUrls.User(), user);
+        }
+
         /// <summary>
-        /// Update <see cref="User"/>.
+        /// Updates a <see cref="User"/>.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -95,31 +96,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A <see cref="User"/>.</returns>
-        [Obsolete("This method is obsolete. Call 'UpdateUser(User)' instead.")]
-        public Task<string> Update(User user)
-        {
-            return ApiConnection.Put<string>(ApiUrls.User(), user);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
         public Task<Guid> UpdateUser(User user)
         {
             return ApiConnection.Put<Guid>(ApiUrls.User(), user);
         }
 
-        /// <summary>
-        /// Delete <see cref="User"/>.
-        /// </summary>
-        /// /// <remarks>
-        /// This method requires authentication.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
         [Obsolete("This method is obsolete. Call 'DeleteUser(Guid)' instead.")]
         public Task Delete(string userId)
         {
@@ -129,19 +110,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        public Task DeleteUser(Guid userId)
-        {
-            Ensure.ArgumentNotNull(userId, "userId");
-
-            return ApiConnection.Delete(ApiUrls.User(userId));
-        }
-
-        /// <summary>
-        /// Create <see cref="User"/>.
+        /// Deletes a <see cref="User"/>.
         /// </summary>
         /// /// <remarks>
         /// This method requires authentication.
@@ -149,8 +118,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
-        /// <param name="user"><see cref="CreateUserRequest"/></param>
-        /// <returns>Created user Id</returns>
+        public Task DeleteUser(Guid userId)
+        {
+            Ensure.ArgumentNotNull(userId, "userId");
+
+            return ApiConnection.Delete(ApiUrls.User(userId));
+        }
+
         [Obsolete("This method is obsolete. Call 'CreateUser(CreateUserRequest)' instead.")]
         public async Task<string> Create(CreateUserRequest user)
         {
@@ -160,10 +134,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Creates a <see cref="User"/>.
         /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
+        /// /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <param name="user"><see cref="CreateUserRequest"/></param>
+        /// <returns>Created user Id</returns>
         public async Task<Guid> CreateUser(CreateUserRequest user)
         {
             Ensure.ArgumentNotNull(user, "user");
