@@ -178,7 +178,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         /// <param name="request"><see cref="OrganizationResourcesRequest"/></param>
         /// This method requires authentication.
-        
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -206,7 +205,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         /// <param name="resource"><see cref="OrganizationResourcesRequest"/></param>
         /// This method requires authentication.
-        
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -224,7 +222,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         /// <param name="resourceGroupPath">Path of the organization.</param>
         /// This method requires authentication.
-        
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
