@@ -782,7 +782,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> that removes  users from a certain role 
+        /// Returns the <see cref="Uri"/> that removes users from a certain role 
         /// </summary>
         /// <param name="roleId">The role id</param>
         public static Uri DeleteUserFromRole(string roleId)
