@@ -80,7 +80,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task AddUpdateFieldTemplateFields()
         {
-            var fields = await GroupShareClient.TranslationMemories.GetFieldsForTemplate(_fieldTemplateId.ToString());
+            var fields = await GroupShareClient.TranslationMemories.GetFieldsForTemplate(_fieldTemplateId);
             Assert.Empty(fields);
 
             var fieldRequest = new FieldRequest
@@ -90,8 +90,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Values = new List<string> { }
             };
 
-            var fieldId = await GroupShareClient.TranslationMemories.CreateFieldForTemplate(_fieldTemplateId.ToString(), fieldRequest);
-            fields = await GroupShareClient.TranslationMemories.GetFieldsForTemplate(_fieldTemplateId.ToString());
+            var fieldId = await GroupShareClient.TranslationMemories.CreateFieldForTemplate(_fieldTemplateId, fieldRequest);
+            fields = await GroupShareClient.TranslationMemories.GetFieldsForTemplate(_fieldTemplateId);
             Assert.Equal(fieldRequest.Name, fields.Single().Name);
 
             var newFieldName = "Text field - edited";
@@ -100,7 +100,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             {
                 new OperationValue
                 {
-                    FieldId = Guid.Parse(fieldId),
+                    FieldId = fieldId,
                     FieldTemplateId = _fieldTemplateId,
                     Name = newFieldName,
                     Type = "SingleString",
@@ -120,7 +120,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             await GroupShareClient.TranslationMemories.AddOperationsForFieldTemplate(_fieldTemplateId, operations);
 
-            fields = await GroupShareClient.TranslationMemories.GetFieldsForTemplate(_fieldTemplateId.ToString());
+            fields = await GroupShareClient.TranslationMemories.GetFieldsForTemplate(_fieldTemplateId);
             Assert.Equal(newFieldName, fields.Single().Name);
 
             await GroupShareClient.TranslationMemories.DeleteFieldTemplate(_fieldTemplateId);
@@ -130,17 +130,21 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task CreateFieldForTemplate()
         {
             var fieldGuid = Guid.NewGuid();
-            var field = new FieldRequest
+            var fieldRequest = new FieldRequest
             {
                 Name = fieldGuid.ToString(),
                 Type = FieldRequest.TypeEnum.SingleString,
                 Values = new List<string> { "test", "a", "is", "this" }
             };
 
-            var fieldId = await GroupShareClient.TranslationMemories.CreateFieldForTemplate(_fieldTemplateId.ToString(), field);
-            Assert.True(fieldId != string.Empty);
+            var fieldId = await GroupShareClient.TranslationMemories.CreateFieldForTemplate(_fieldTemplateId, fieldRequest);
+            var field = await GroupShareClient.TranslationMemories.GetFieldForTemplate(_fieldTemplateId, fieldId);
 
-            var fields = await GroupShareClient.TranslationMemories.GetFieldsForTemplate(_fieldTemplateId.ToString());
+            Assert.Equal(fieldRequest.Name, field.Name);
+            Assert.Equal(fieldRequest.Type.ToString(), field.Type);
+            Assert.Equal(_fieldTemplateId, Guid.Parse(field.FieldTemplateId));
+
+            var fields = await GroupShareClient.TranslationMemories.GetFieldsForTemplate(_fieldTemplateId);
             Assert.Equal(4, fields[0].Values.Count);
 
             await GroupShareClient.TranslationMemories.DeleteFieldTemplate(_fieldTemplateId);
@@ -157,16 +161,15 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Values = new List<string> { "test", "a", "is", "this" }
             };
 
-            var fieldId = await GroupShareClient.TranslationMemories.CreateFieldForTemplate(_fieldTemplateId.ToString(), field);
-            Assert.True(fieldId != string.Empty);
+            var fieldId = await GroupShareClient.TranslationMemories.CreateFieldForTemplate(_fieldTemplateId, field);
 
-            var fields = await GroupShareClient.TranslationMemories.GetFieldsForTemplate(_fieldTemplateId.ToString());
+            var fields = await GroupShareClient.TranslationMemories.GetFieldsForTemplate(_fieldTemplateId);
             Assert.Single(fields);
             Assert.Equal(4, fields[0].Values.Count);
 
-            await GroupShareClient.TranslationMemories.DeleteFieldForTemplate(_fieldTemplateId.ToString(), fieldId);
+            await GroupShareClient.TranslationMemories.DeleteFieldForTemplate(_fieldTemplateId, fieldId);
 
-            fields = await GroupShareClient.TranslationMemories.GetFieldsForTemplate(_fieldTemplateId.ToString());
+            fields = await GroupShareClient.TranslationMemories.GetFieldsForTemplate(_fieldTemplateId);
             Assert.Empty(fields);
 
             await GroupShareClient.TranslationMemories.DeleteFieldTemplate(_fieldTemplateId);

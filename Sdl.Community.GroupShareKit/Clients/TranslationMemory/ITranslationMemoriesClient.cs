@@ -105,7 +105,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<Health> Health();
 
         /// <summary>
-        /// Gets <see cref="TmServiceDetails"/> of tm service .
+        /// Gets <see cref="TmServiceDetails"/> of TM Service.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -114,8 +114,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Returns the status of tm service and the dependencies</returns>
+        /// <returns>Returns the status of TM Service and the dependencies</returns>
         Task<TmServiceDetails> TmServiceInfo();
+
+        [Obsolete("This method is obsolete. Call 'ExportTm(Guid, ExportRequest, LanguageParameters)' instead.")]
+        Task<byte[]> ExportTm(string tmId, ExportRequest request, LanguageParameters language);
 
         /// <summary>
         /// Exports a translation memory as byte[]
@@ -133,9 +136,27 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>Selected tm as byte[]</returns>
-        Task<byte[]> ExportTm(string tmId, ExportRequest request, LanguageParameters language);
+        Task<byte[]> ExportTm(Guid tmId, ExportRequest request, LanguageParameters language);
 
+        [Obsolete("This method is obsolete. Call 'GetBackgroundTask(Guid)' instead.")]
         Task<BackgroundTask> GetBackgroundTask(string taskId);
+
+        /// <summary>
+        /// Gets the status of a background task operation.
+        /// </summary>
+        /// <param name="backgroundTaskId">The background task's Guid</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="BackgroundTask"/></returns>
+        Task<BackgroundTask> GetBackgroundTask(Guid backgroundTaskId);
+
+        [Obsolete("This method is obsolete. Call 'ImportTm(Guid, LanguageParameters, byte[], string)' instead.")]
+        Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile, string fileName);
 
         /// <summary>
         /// Imports TUs into a Translation Memory
@@ -153,7 +174,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="ImportResponse"/></returns>
-        Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile, string fileName);
+        Task<ImportResponse> ImportTm(Guid tmId, LanguageParameters language, byte[] rawFile, string fileName);
+
+        [Obsolete("This method is obsolete. Call 'ImportTmWithSettings(Guid, LanguageParameters, string, ImportSettings)' instead.")]
+        Task<ImportResponse> ImportTmWithSettings(string tmId, LanguageParameters language, string filePath, ImportSettings settings);
 
         /// <summary>
         /// Imports translation units into a translation memory
@@ -170,7 +194,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="ImportResponse"/></returns>
-        Task<ImportResponse> ImportTmWithSettings(string tmId, LanguageParameters language, string filePath, ImportSettings settings);
+        Task<ImportResponse> ImportTmWithSettings(Guid tmId, LanguageParameters language, string filePath, ImportSettings settings);
+
+        [Obsolete("This method is obsolete. Call 'ImportTmWithSettings(Guid, LanguageParameters, byte[], string, ImportSettings)' instead.")]
+        Task<ImportResponse> ImportTmWithSettings(string tmId, LanguageParameters language, byte[] rawFile, string fileName, ImportSettings settings);
 
         /// <summary>
         /// Imports TUs into a Translation Memory
@@ -189,7 +216,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="ImportResponse"/></returns>
-        Task<ImportResponse> ImportTmWithSettings(string tmId, LanguageParameters language, byte[] rawFile, string fileName, ImportSettings settings);
+        Task<ImportResponse> ImportTmWithSettings(Guid tmId, LanguageParameters language, byte[] rawFile, string fileName, ImportSettings settings);
 
         /// <summary>
         /// Gets the  tms number by language resource template.
@@ -202,6 +229,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>  Tm number</returns>
+        [Obsolete("This method is obsolete. Call 'GetTmsNumberByLanguageResourceTemplateId(Guid)' instead.")]
         Task<int> GetTmsNumberByLanguageResourceTemplateId(string resourceTemplateId);
 
         /// <summary>
@@ -218,17 +246,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns>Translation memories number.</returns>
         Task<int> GetTmsNumberByLanguageResourceTemplateId(Guid languageResourceTemplateId);
 
-        /// <summary>
-        /// Gets the  tms number by field template id number.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  Tm number</returns>
+        [Obsolete("This method is obsolete. Call 'GetTmsNumberByFieldTemplateId(Guid)' instead.")]
         Task<int> GetTmsNumberByFieldTemplateId(string fieldTemplateId);
 
         /// <summary>
@@ -281,7 +299,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns><see cref="FuzzyIndexResponse"/></returns>
         Task<FuzzyIndexResponse> Reindex(Guid tmId, FuzzyRequest request);
 
-        [Obsolete("This method is obsolete. Call '(Guid)' instead.")]
+        [Obsolete("This method is obsolete. Call 'GetTmLanguageDirection(Guid, Guid)' instead.")]
         Task<LanguageDirection> GetLanguageDirectionForTm(string tmId, string languageDirectionId);
 
         /// <summary>
@@ -355,7 +373,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns><see cref="TranslationUnitResponse"/></returns>
         Task<TranslationUnitResponse> AddAllTranslationUnits(TranslationUnitRequest unitRequest, string tmId, FieldTemplate fieldTemplate);
 
-        [Obsolete("This method is obsolete. Call '(Guid)' instead.")]
+        [Obsolete("This method is obsolete. Call 'GetTranslationUnitsForTm(Guid)' instead.")]
         Task<TranslationUnitDetailsResponse> GetTranslationUnitForTm(string tmId, TranslationUnitDetailsRequest request);
 
         /// <summary>
@@ -373,23 +391,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns><see cref="TranslationUnitDetailsResponse"/></returns>
         Task<TranslationUnitDetailsResponse> GetTranslationUnitsForTm(Guid tmId, TranslationUnitDetailsRequest request);
 
-        /// <summary>
-        /// Gets the translation units number from the translation memory
-        /// <param name="language"><see cref="LanguageParameters"/></param>
-        /// <param name="tmId">Translation memory id</param>
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>int</returns>
+        [Obsolete("This method is obsolete. Call 'GetTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
         Task<int> GetNumberOfTus(string tmId, LanguageParameters language);
 
         /// <summary>
-        /// Gets the postdated translation units count from the translation memory
+        /// Gets the translation units number from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
         /// <param name="tmId">Translation memory id</param>
         /// </summary>
@@ -401,12 +407,15 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>int</returns>
+        Task<int> GetTranslationUnitsCount(Guid tmId, LanguageParameters language);
+
+        [Obsolete("This method is obsolete. Call 'GetPostdatedTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
         Task<int> GetNumberOfPostDatedTus(string tmId, LanguageParameters language);
 
         /// <summary>
-        /// Gets the predated translation units count from the translation memory
+        /// Gets the postdated translation units count from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
-        /// <param name="tmId">Translation memory id</param>
+        /// <param name="tmId">Translation memory Guid</param>
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -416,10 +425,31 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>int</returns>
+        Task<int> GetPostdatedTranslationUnitsCount(Guid tmId, LanguageParameters language);
+
+        [Obsolete("This method is obsolete. Call 'GetPredatedTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
         Task<int> GetNumberOfPreDatedTus(string tmId, LanguageParameters language);
 
         /// <summary>
-        /// Gets the unaligned translation units count from the translation memory
+        /// Gets the predated translation units count from the translation memory.
+        /// <param name="language"><see cref="LanguageParameters"/></param>
+        /// <param name="tmId">Translation memory Guid</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>int</returns>
+        Task<int> GetPredatedTranslationUnitsCount(Guid tmId, LanguageParameters language);
+
+        [Obsolete("This method is obsolete. Call 'GetUnalignedTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
+        Task<int> GetNumberOfUnalignedTus(string tmId, LanguageParameters language);
+
+        /// <summary>
+        /// Gets the unaligned translation units count from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
         /// <param name="tmId">Translation memory id</param>
         /// </summary>
@@ -431,10 +461,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>int</returns>
-        Task<int> GetNumberOfUnalignedTus(string tmId, LanguageParameters language);
+        Task<int> GetUnalignedTranslationUnitsCount(Guid tmId, LanguageParameters language);
+
+        [Obsolete("This method is obsolete. Call 'GetDuplicateTranslationUnits(Guid, LanguageParameters, DuplicatesTusRequest)' instead.")]
+        Task<TranslationUnitDetailsResponse> GetDuplicateTusForTm(string tmId, LanguageParameters language, DuplicatesTusRequest duplicatesRequest);
 
         /// <summary>
-        /// Retrieves the Duplicate Translation Units in a specific TM
+        /// Retrieves the Duplicate Translation Units in a specific TM.
         /// <param name="language"><see cref="LanguageParameters"/></param>
         /// <param name="tmId">Translation memory id</param>
         /// <param name="duplicatesRequest"><see cref="DuplicatesTusRequest"/></param>
@@ -447,7 +480,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="TranslationUnitDetailsResponse"/></returns>
-        Task<TranslationUnitDetailsResponse> GetDuplicateTusForTm(string tmId, LanguageParameters language, DuplicatesTusRequest duplicatesRequest);
+        Task<TranslationUnitDetailsResponse> GetDuplicateTranslationUnits(Guid tmId, LanguageParameters language, DuplicatesTusRequest duplicatesRequest);
 
         /// <summary>
         /// Filters translation units, retrieves a string matching the expression
@@ -541,7 +574,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         ///<returns><see cref="Containers"/></returns>
         Task<Containers> GetContainers();
 
-        [Obsolete("This method is obsolete. Call '(Guid)' instead.")]
+        [Obsolete("This method is obsolete. Call 'CreateContainer(Guid)' instead.")]
         Task<string> CreateContainer(ContainerRequest request);
 
         /// <summary>
@@ -790,8 +823,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task AddOperationsForFieldTemplate(Guid fieldTemplateId, List<Operation> operations);
 
+        [Obsolete("This method is obsolete. Call 'GetFieldsForTemplate(Guid)' instead.")]
+        Task<IReadOnlyList<Field>> GetFieldsForTemplate(string fieldTemplateId);
+
         /// <summary>
-        /// Gets a list of Fields for a specific Field Template ID
+        /// Gets a list of Fields for a specific Field Template ID.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -800,11 +836,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="Field"/>'s</returns>
-        Task<IReadOnlyList<Field>> GetFieldsForTemplate(string fieldTemplateId);
+        /// <returns>A list of <see cref="Field"/>s.</returns>
+        Task<IReadOnlyList<Field>> GetFieldsForTemplate(Guid fieldTemplateId);
+
+        [Obsolete("This method is obsolete. Call 'GetFieldForTemplate(Guid, Guid)' instead.")]
+        Task<Field> GetFieldForTemplate(string fieldTemplateId, string fieldId);
 
         /// <summary>
-        /// Gets a specified Field for a specific Field Template ID
+        /// Gets a specified Field for a specific Field Template ID.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -814,10 +853,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="Field"/></returns>
-        Task<Field> GetFieldForTemplate(string fieldTemplateId, string fieldId);
+        Task<Field> GetFieldForTemplate(Guid fieldTemplateId, Guid fieldId);
+
+        [Obsolete("This method is obsolete. Call 'CreateFieldForTemplate(Guid, FieldRequest)' instead.")]
+        Task<string> CreateFieldForTemplate(string fieldTemplateId, FieldRequest field);
 
         /// <summary>
-        /// Creates a Field for a specific Field Template ID
+        /// Creates a Field for a specific Field Template Guid.
         /// If selected type is SinglePicklist or MultiplePicklist , "values " property should be filled out.
         ///  For each value the id should be a new Guid, and the "name" property should be the value you want to add.
         /// </summary>
@@ -829,8 +871,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> Field Id</returns>
-        Task<string> CreateFieldForTemplate(string fieldTemplateId, FieldRequest field);
+        /// <returns>The field's Guid.</returns>
+        Task<Guid> CreateFieldForTemplate(Guid fieldTemplateId, FieldRequest field);
+
+        [Obsolete("This method is obsolete. Call 'UpdateFieldForTemplate(Guid, Guid, Field)' instead.")]
+        Task UpdateFieldForTemplate(string fieldTemplateId, string fieldId, Field field);
 
         /// <summary>
         /// Updates a Field for a specific Field Template ID
@@ -846,7 +891,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task UpdateFieldForTemplate(string fieldTemplateId, string fieldId, Field field);
+        Task UpdateFieldForTemplate(Guid fieldTemplateId, Guid fieldId, Field field);
+
+        [Obsolete("This method is obsolete. Call 'DeleteFieldForTemplate(Guid, Guid)' instead.")]
+        Task DeleteFieldForTemplate(string fieldTemplateId, string fieldId);
 
         /// <summary>
         /// Deletes a specified Field for a specific Field Template ID
@@ -858,7 +906,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task DeleteFieldForTemplate(string fieldTemplateId, string fieldId);
+        Task DeleteFieldForTemplate(Guid fieldTemplateId, Guid fieldId);
+
         #endregion
 
         #region Language resource

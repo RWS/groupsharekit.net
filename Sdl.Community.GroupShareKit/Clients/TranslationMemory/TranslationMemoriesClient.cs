@@ -303,25 +303,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Post<FuzzyIndexResponse>(ApiUrls.Fuzzy(tmId, "reindex"), request, "application/json");
         }
 
-        /// <summary>
-        /// Exports a translation memory as byte[]
-        /// The encoding file format is a zip with the .gz extension
-        /// To save the Tm on disk the array should be decompressed using GZipStream()
-        /// <param name="request"><see cref="ExportRequest"/></param>
-        /// <param name="tmId">Translation memory id</param>
-        /// <param name="language"><see cref="LanguageParameters"/></param>
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Selected tm as byte[]</returns>
+        [Obsolete("This method is obsolete. Call 'ExportTm(Guid, ExportRequest, LanguageParameters)' instead.")]
         public async Task<byte[]> ExportTm(string tmId, ExportRequest request, LanguageParameters language)
         {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tm is");
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
             Ensure.ArgumentNotNull(request, "request");
             Ensure.ArgumentNotNull(language, "language parameters");
 
@@ -338,10 +323,82 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return fileContent;
         }
 
+        /// <summary>
+        /// Exports a translation memory as byte[]
+        /// The encoding file format is a zip with the .gz extension
+        /// To save the Tm on disk the array should be decompressed using GZipStream()
+        /// <param name="request"><see cref="ExportRequest"/></param>
+        /// <param name="tmId">Translation memory id</param>
+        /// <param name="language"><see cref="LanguageParameters"/></param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>Selected tm as byte[]</returns>
+        public async Task<byte[]> ExportTm(Guid tmId, ExportRequest request, LanguageParameters language)
+        {
+            Ensure.ArgumentNotNull(tmId, "tmId");
+            Ensure.ArgumentNotNull(request, "request");
+            Ensure.ArgumentNotNull(language, "language parameters");
+
+            var response = await ApiConnection.Post<ExportResponse>(ApiUrls.Export(tmId, language.Source, language.Target), request, "application/json");
+
+            BackgroundTask backgroundTask;
+            do
+            {
+                backgroundTask = await ApiConnection.Get<BackgroundTask>(ApiUrls.GetTaskById(response.Id), null);
+            } while (backgroundTask.Status != "Done");
+
+            var fileContent = await ApiConnection.Get<byte[]>(ApiUrls.TaskOutput(backgroundTask.Id), null);
+
+            return fileContent;
+        }
+
+        [Obsolete("This method is obsolete. Call 'GetBackgroundTask(Guid)' instead.")]
         public async Task<BackgroundTask> GetBackgroundTask(string taskId)
         {
             var backgroundTask = await ApiConnection.Get<BackgroundTask>(ApiUrls.GetTaskById(taskId), null);
             return backgroundTask;
+        }
+
+        /// <summary>
+        /// Gets the status of a background task operation.
+        /// </summary>
+        /// <param name="backgroundTaskId">The background task's Guid</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="BackgroundTask"/></returns>
+        public async Task<BackgroundTask> GetBackgroundTask(Guid taskId)
+        {
+            var backgroundTask = await ApiConnection.Get<BackgroundTask>(ApiUrls.GetTaskById(taskId), null);
+            return backgroundTask;
+        }
+
+        [Obsolete("This method is obsolete. Call 'ImportTm(Guid, LanguageParameters, byte[], string)' instead.")]
+        public async Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile, string fileName)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
+            Ensure.ArgumentNotNull(language, "language parameters");
+            Ensure.ArgumentNotNull(rawFile, "file");
+            Ensure.ArgumentNotNullOrEmptyString(fileName, "file name");
+
+            var byteContent = new ByteArrayContent(rawFile);
+            byteContent.Headers.Add("Content-Type", "application/json");
+            var multipartContent = new MultipartFormDataContent
+            {
+                { byteContent, "file", fileName }
+            };
+
+            return await ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target), multipartContent, "application/json");
         }
 
         /// <summary>
@@ -360,9 +417,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="ImportResponse"/></returns>
-        public async Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile, string fileName)
+        public async Task<ImportResponse> ImportTm(Guid tmId, LanguageParameters language, byte[] rawFile, string fileName)
         {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tm id");
+            Ensure.ArgumentNotNull(tmId, "tmId");
             Ensure.ArgumentNotNull(language, "language parameters");
             Ensure.ArgumentNotNull(rawFile, "file");
             Ensure.ArgumentNotNullOrEmptyString(fileName, "file name");
@@ -377,9 +434,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target), multipartContent, "application/json");
         }
 
+        [Obsolete("This method is obsolete. Call 'ImportTmWithSettings(Guid, LanguageParameters, string, ImportSettings)' instead.")]
         public async Task<ImportResponse> ImportTmWithSettings(string tmId, LanguageParameters language, string filePath, ImportSettings settings)
         {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tm id");
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
             Ensure.ArgumentNotNull(language, "language parameters");
             Ensure.ArgumentNotNullOrEmptyString(filePath, "file path");
 
@@ -396,9 +454,82 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             }
         }
 
+        /// <summary>
+        /// Imports translation units into a translation memory
+        /// </summary>
+        /// <param name="tmId">Translation memory GUID</param>
+        /// <param name="language"><see cref="LanguageParameters"/></param>
+        /// <param name="filePath">Local file path</param>
+        /// <param name="settings">Import settings</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ImportResponse"/></returns>
+        public async Task<ImportResponse> ImportTmWithSettings(Guid tmId, LanguageParameters language, string filePath, ImportSettings settings)
+        {
+            Ensure.ArgumentNotNull(tmId, "tmId");
+            Ensure.ArgumentNotNull(language, "language parameters");
+            Ensure.ArgumentNotNullOrEmptyString(filePath, "file path");
+
+            using (var content = new MultipartFormDataContent())
+            {
+                var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Open);
+                var streamContent = new StreamContent(stream);
+                content.Add(streamContent, "File", System.IO.Path.GetFileName(filePath));
+
+                var importSettings = new SimpleJsonSerializer().Serialize(settings);
+                content.Add(new StringContent(importSettings), "Settings");
+
+                return await ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target), content);
+            }
+        }
+
+        [Obsolete("This method is obsolete. Call 'ImportTmWithSettings(Guid, LanguageParameters, byte[], string, ImportSettings)' instead.")]
         public async Task<ImportResponse> ImportTmWithSettings(string tmId, LanguageParameters language, byte[] rawFile, string fileName, ImportSettings settings)
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId, "tm id");
+            Ensure.ArgumentNotNull(language, "language parameters");
+            Ensure.ArgumentNotNull(rawFile, "file");
+            Ensure.ArgumentNotNullOrEmptyString(fileName, "file name");
+
+            var byteContent = new ByteArrayContent(rawFile);
+            byteContent.Headers.Add("Content-Type", "application/json");
+
+            var json = JsonConvert.SerializeObject(settings);
+
+            var multipartContent = new MultipartFormDataContent
+            {
+                { byteContent, "file", fileName },
+                { new StringContent(json), "settings" }
+            };
+
+            return await ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target), multipartContent, "application/json");
+        }
+
+        /// <summary>
+        /// Imports TUs into a Translation Memory
+        /// The file should be a TMX type.
+        /// <param name="tmId">Translation memory id</param>
+        /// <param name="language"><see cref="LanguageParameters"/></param>
+        /// <param name="rawFile">byte[] which represents the file</param>
+        /// <param name="fileName">file name</param>
+        /// <param name="settings">import settings</param>
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="ImportResponse"/></returns>
+        public async Task<ImportResponse> ImportTmWithSettings(Guid tmId, LanguageParameters language, byte[] rawFile, string fileName, ImportSettings settings)
+        {
+            Ensure.ArgumentNotNull(tmId, "tmId");
             Ensure.ArgumentNotNull(language, "language parameters");
             Ensure.ArgumentNotNull(rawFile, "file");
             Ensure.ArgumentNotNullOrEmptyString(fileName, "file name");
@@ -525,8 +656,17 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<TranslationUnitDetailsResponse>(ApiUrls.Tus(tmId), request.ToParametersDictionary());
         }
 
+        [Obsolete("This method is obsolete. Call 'GetTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
+        public async Task<int> GetNumberOfTus(string tmId, LanguageParameters language)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
+            Ensure.ArgumentNotNull(language, "language parameters request");
+
+            return await ApiConnection.Get<int>(ApiUrls.TusCount(tmId), language.ToParametersDictionary());
+        }
+
         /// <summary>
-        /// Gets the translation units number from the translation memory
+        /// Gets the translation units number from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
         /// <param name="tmId">Translation memory id</param>
         /// </summary>
@@ -537,13 +677,22 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>int</returns>
-        public async Task<int> GetNumberOfTus(string tmId, LanguageParameters language)
+        /// <returns>Translation units count.</returns>
+        public async Task<int> GetTranslationUnitsCount(Guid tmId, LanguageParameters language)
+        {
+            Ensure.ArgumentNotNull(tmId, "translation memory id");
+            Ensure.ArgumentNotNull(language, "language parameters request");
+
+            return await ApiConnection.Get<int>(ApiUrls.TusCount(tmId), language.ToParametersDictionary());
+        }
+
+        [Obsolete("This method is obsolete. Call 'GetPostdatedTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
+        public async Task<int> GetNumberOfPostDatedTus(string tmId, LanguageParameters language)
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
             Ensure.ArgumentNotNull(language, "language parameters request");
 
-            return await ApiConnection.Get<int>(ApiUrls.TusCount(tmId), language.ToParametersDictionary());
+            return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "postdated"), language.ToParametersDictionary());
         }
 
         /// <summary>
@@ -558,13 +707,22 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>int</returns>
-        public async Task<int> GetNumberOfPostDatedTus(string tmId, LanguageParameters language)
+        /// <returns>Postdated translation units count.</returns>
+        public async Task<int> GetPostdatedTranslationUnitsCount(Guid tmId, LanguageParameters language)
+        {
+            Ensure.ArgumentNotNull(tmId, "translation memory id");
+            Ensure.ArgumentNotNull(language, "language parameters request");
+
+            return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "postdated"), language.ToParametersDictionary());
+        }
+
+        [Obsolete("This method is obsolete. Call 'GetPredatedTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
+        public async Task<int> GetNumberOfPreDatedTus(string tmId, LanguageParameters language)
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
             Ensure.ArgumentNotNull(language, "language parameters request");
 
-            return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "postdated"), language.ToParametersDictionary());
+            return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "predated"), language.ToParametersDictionary());
         }
 
         /// <summary>
@@ -579,17 +737,26 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>int</returns>
-        public async Task<int> GetNumberOfPreDatedTus(string tmId, LanguageParameters language)
+        /// <returns>Predated translation units count.</returns>
+        public async Task<int> GetPredatedTranslationUnitsCount(Guid tmId, LanguageParameters language)
         {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
+            Ensure.ArgumentNotNull(tmId, "translation memory id");
             Ensure.ArgumentNotNull(language, "language parameters request");
 
             return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "predated"), language.ToParametersDictionary());
         }
 
+        [Obsolete("This method is obsolete. Call 'GetUnalignedTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
+        public async Task<int> GetNumberOfUnalignedTus(string tmId, LanguageParameters language)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
+            Ensure.ArgumentNotNull(language, "language parameters request");
+
+            return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "unaligned"), language.ToParametersDictionary());
+        }
+
         /// <summary>
-        /// Gets the unaligned translation units count from the translation memory
+        /// Gets the unaligned translation units count from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
         /// <param name="tmId">Translation memory id</param>
         /// </summary>
@@ -600,13 +767,23 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>int</returns>
-        public async Task<int> GetNumberOfUnalignedTus(string tmId, LanguageParameters language)
+        /// <returns>Unaligned translation units count.</returns>
+        public async Task<int> GetUnalignedTranslationUnitsCount(Guid tmId, LanguageParameters language)
         {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
+            Ensure.ArgumentNotNull(tmId, "translation memory id");
             Ensure.ArgumentNotNull(language, "language parameters request");
 
             return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "unaligned"), language.ToParametersDictionary());
+        }
+
+        [Obsolete("This method is obsolete. Call 'GetDuplicateTranslationUnits(Guid, LanguageParameters, DuplicatesTusRequest)' instead.")]
+        public async Task<TranslationUnitDetailsResponse> GetDuplicateTusForTm(string tmId, LanguageParameters language, DuplicatesTusRequest duplicatesRequest)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
+            Ensure.ArgumentNotNull(language, "language parameters request");
+            Ensure.ArgumentNotNull(duplicatesRequest, "duplicates request");
+
+            return await ApiConnection.Post<TranslationUnitDetailsResponse>(ApiUrls.TranslationUnitsDuplicates(tmId, language.Source, language.Target), duplicatesRequest);
         }
 
         /// <summary>
@@ -623,9 +800,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="TranslationUnitDetailsResponse"/></returns>
-        public async Task<TranslationUnitDetailsResponse> GetDuplicateTusForTm(string tmId, LanguageParameters language, DuplicatesTusRequest duplicatesRequest)
+        public async Task<TranslationUnitDetailsResponse> GetDuplicateTranslationUnits(Guid tmId, LanguageParameters language, DuplicatesTusRequest duplicatesRequest)
         {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
+            Ensure.ArgumentNotNull(tmId, "tmId");
             Ensure.ArgumentNotNull(language, "language parameters request");
             Ensure.ArgumentNotNull(duplicatesRequest, "duplicates request");
 
@@ -1361,6 +1538,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Patch(ApiUrls.GetFieldTemplate(fieldTemplateId), operations, "application/json");
         }
 
+        [Obsolete("This method is obsolete. Call 'GetFieldForTemplate(Guid, Guid)' instead.")]
+        public async Task<IReadOnlyList<Field>> GetFieldsForTemplate(string fieldTemplateId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
+            return await ApiConnection.GetAll<Field>(ApiUrls.GetFields(fieldTemplateId), null);
+        }
+
         /// <summary>
         /// Gets a list of Fields for a specific field Template ID
         /// </summary>
@@ -1371,11 +1555,19 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="Field"/>'s</returns>
-        public async Task<IReadOnlyList<Field>> GetFieldsForTemplate(string fieldTemplateId)
+        /// <returns>A list of <see cref="Field"/>s</returns>
+        public async Task<IReadOnlyList<Field>> GetFieldsForTemplate(Guid fieldTemplateId)
+        {
+            Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
+            return await ApiConnection.GetAll<Field>(ApiUrls.GetFields(fieldTemplateId), null);
+        }
+
+        [Obsolete("This method is obsolete. Call 'GetFieldForTemplate(Guid, Guid)' instead.")]
+        public async Task<Field> GetFieldForTemplate(string fieldTemplateId, string fieldId)
         {
             Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
-            return await ApiConnection.GetAll<Field>(ApiUrls.GetFields(fieldTemplateId), null);
+            Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
+            return await ApiConnection.Get<Field>(ApiUrls.GetField(fieldTemplateId, fieldId), null);
         }
 
         /// <summary>
@@ -1389,27 +1581,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="Field"/></returns>
-        public async Task<Field> GetFieldForTemplate(string fieldTemplateId, string fieldId)
+        public async Task<Field> GetFieldForTemplate(Guid fieldTemplateId, Guid fieldId)
         {
-            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
-            Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
+            Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
+            Ensure.ArgumentNotNull(fieldId, "fieldId");
             return await ApiConnection.Get<Field>(ApiUrls.GetField(fieldTemplateId, fieldId), null);
         }
 
-        /// <summary>
-        /// Creates a Field for a specific Field Template ID
-        /// If selected type is SinglePicklist or MultiplePicklist , "values " property should be filled out.
-        ///  For each value the id should be a new Guid, and the "name" property should be the value you want to add.
-        /// </summary>
-        /// <remarks>
-        /// <param name="fieldRequest"><see cref="FieldRequest"/></param>
-        /// This method requires authentication.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> Field Id</returns>
+        [Obsolete("This method is obsolete. Call 'CreateFieldForTemplate(Guid, FieldRequest)' instead.")]
         public async Task<string> CreateFieldForTemplate(string fieldTemplateId, FieldRequest fieldRequest)
         {
             Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
@@ -1428,6 +1607,40 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             var fieldLocation = await ApiConnection.Post<string>(ApiUrls.GetFields(fieldTemplateId), field, "application/json");
             var fieldId = fieldLocation.Split('/').Last();
+            return fieldId;
+        }
+
+        /// <summary>
+        /// Creates a Field for a specific Field Template Guid.
+        /// If selected type is SinglePicklist or MultiplePicklist , "values " property should be filled out.
+        ///  For each value the id should be a new Guid, and the "name" property should be the value you want to add.
+        /// </summary>
+        /// <remarks>
+        /// <param name="field"><see cref="FieldRequest"/></param>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The field's Guid.</returns>
+        public async Task<Guid> CreateFieldForTemplate(Guid fieldTemplateId, FieldRequest fieldRequest)
+        {
+            Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
+            Ensure.ArgumentNotNull(fieldRequest, "field request");
+            var fieldType = Enum.GetName(typeof(FieldRequest.TypeEnum), fieldRequest.Type);
+
+            // in case the type is SinglePicklist or MultiplePicklist the values will be a list of strings.
+
+            var field = new Field
+            {
+                Type = fieldType,
+                Name = fieldRequest.Name,
+                FieldId = fieldRequest.FieldId,
+                Values = GetValues(fieldRequest.Values)
+            };
+
+            var fieldId = await ApiConnection.Post<Guid>(ApiUrls.GetFields(fieldTemplateId), field, "application/json");
             return fieldId;
         }
 
@@ -1454,6 +1667,15 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return multipleValuesList;
         }
 
+        [Obsolete("This method is obsolete. Call 'UpdateFieldForTemplate(Guid, Guid, Field)' instead.")]
+        public async Task UpdateFieldForTemplate(string fieldTemplateId, string fieldId, Field field)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
+            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
+            Ensure.ArgumentNotNull(field, "field request");
+            await ApiConnection.Put<string>(ApiUrls.GetField(fieldTemplateId, fieldId), field);
+        }
+
         /// <summary>
         /// Updates a Field for a specific Field Template ID
         /// </summary>
@@ -1464,16 +1686,25 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task UpdateFieldForTemplate(string fieldTemplateId, string fieldId, Field field)
+        public async Task UpdateFieldForTemplate(Guid fieldTemplateId, Guid fieldId, Field field)
         {
-            Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
-            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
+            Ensure.ArgumentNotNull(fieldId, "fieldId");
+            Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
             Ensure.ArgumentNotNull(field, "field request");
             await ApiConnection.Put<string>(ApiUrls.GetField(fieldTemplateId, fieldId), field);
         }
 
+        [Obsolete("This method is obsolete. Call 'DeleteFieldForTemplate(Guid, Guid)' instead.")]
+        public async Task DeleteFieldForTemplate(string fieldTemplateId, string fieldId)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
+            Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
+
+            await ApiConnection.Delete(ApiUrls.GetField(fieldTemplateId, fieldId));
+        }
+
         /// <summary>
-        /// Deletes a specified Field for a specific Field Template ID
+        /// Deletes a specified Field for a specific Field Template ID.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -1482,17 +1713,18 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task DeleteFieldForTemplate(string fieldTemplateId, string fieldId)
+        public async Task DeleteFieldForTemplate(Guid fieldTemplateId, Guid fieldId)
         {
-            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
-            Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
+            Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
+            Ensure.ArgumentNotNull(fieldId, "fieldId");
 
             await ApiConnection.Delete(ApiUrls.GetField(fieldTemplateId, fieldId));
         }
+
         #endregion
 
         #region Language resource methods
-        
+
         [Obsolete("This method is obsolete. Call 'GetLanguageResources(Guid)' instead.")]
         public async Task<IReadOnlyList<Resource>> GetLanguageResourcesForTemplate(string templateId)
         {
