@@ -3,7 +3,7 @@ using System;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
-    [Obsolete]
+    [Obsolete("DatabaseServerRequest is deprecated, please use CreateDatabaseServerRequest instead.")]
     public class DatabaseServerRequest
     {
         /// <summary>

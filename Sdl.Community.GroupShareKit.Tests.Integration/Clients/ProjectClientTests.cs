@@ -167,14 +167,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task Projects_GetProjectSettings_Obsolete_Succeeds()
-        {
-            var languageFileSettings = await GroupShareClient.Project.GetProjectSettings(_projectId.ToString(), _languageFileId.ToString());
-
-            Assert.NotNull(languageFileSettings);
-        }
-
-        [Fact]
         public async Task Projects_GetLanguageFileSettings_Succeeds()
         {
             var languageFileSettings = await GroupShareClient.Project.GetLanguageFileSettings(_projectId, _languageFileId);

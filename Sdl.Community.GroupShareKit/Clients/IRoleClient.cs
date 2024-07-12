@@ -41,19 +41,22 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>The role's Guid.</returns>
         Task<Guid> CreateRole(Role role);
 
+        [Obsolete("This method is obsolete. Call 'UpdateRole(RoleRequest)' instead.")]
+        Task<string> Update(RoleRequest role);
+
         /// <summary>
-        /// Update role <see cref="RoleRequest"/>s.
+        /// Updates a <see cref="Role"/>.
         /// </summary>
+        /// <param name="role">Role details</param>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Role id</returns>
-        Task<string> Update(RoleRequest role);
+        /// <returns>The role's Guid.</returns>
+        Task<Guid> UpdateRole(RoleRequest role);
 
         [Obsolete("This method is obsolete. Call 'GetRole(Guid)' instead.")]
         Task<RoleRequest> GetRole(string roleId);
@@ -89,24 +92,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task DeleteRole(Guid roleId);
 
         /// <summary>
-        /// Add a user to a role for a specific organization.<see cref="Role"/>s.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="Role"/>s.</returns>
-        Task<string> RoleMembership(List<Role> role);
-
-        /// <summary>
         /// Delete user membership <see cref="Role"/>s.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -114,70 +103,56 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task DeleteRoleMembership(List<Role> role);
 
-        /// <summary>
-        /// Gets users for a specific role<see cref="Role"/>s.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="User"/>'s</returns>
+        [Obsolete("This method is obsolete. Call 'GetUsersForRole(Guid)' instead.")]
         Task<IReadOnlyList<User>> GetUsersForRole(string roleId);
 
         /// <summary>
-        /// 
+        /// Gets all <see cref="User"/>s that have a specific role.
         /// </summary>
-        /// <param name="roleId"></param>
-        /// <returns></returns>
-        Task<IReadOnlyList<User>> GetUsersForRole(Guid roleId);
-
-        /// <summary>
-        /// Adds users for a specific role<see cref="Role"/>s.
-        /// </summary>
+        /// <param name="roleId">The role's Id</param>
         /// <remarks>
-        /// <param name="roles"><see cref="Role"/></param>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="User"/>s.</returns>
+        Task<IReadOnlyList<User>> GetUsersForRole(Guid roleId);
+
+        [Obsolete("This method is obsolete. Call 'AddUserToRole(List<RoleMembership>)' instead.")]
+        Task<string> RoleMembership(List<Role> role);
+
         [Obsolete("This method is obsolete. Call 'AddUserToRole(List<RoleMembership>)' instead.")]
         Task AddUserToRole(List<Role> roles);
 
         /// <summary>
-        /// 
+        /// Adds users to roles in specific organizations.
         /// </summary>
-        /// <param name="roles"></param>
-        /// <returns></returns>
-        Task AddUserToRole(List<RoleMembership> roles);
-
-        /// <summary>
-        /// Removes users for a specific role<see cref="Role"/>s.
-        /// </summary>
+        /// <param name="roles">An array of <see cref="RoleMembership"/> objects, each of them representing a combination of user, role and organization ids.</param>
         /// <remarks>
-        /// <param name="roles"><see cref="Role"/></param>
-        /// <param name="roleId">string</param>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        Task AddUserToRole(List<RoleMembership> roles);
+
         [Obsolete("This method is obsolete. Call 'RemoveUserFromRole(List<RoleMembership>)' instead.")]
         Task RemoveUserFromRole(List<Role> roles, string roleId);
 
         /// <summary>
-        /// 
+        /// Removes users from roles in specific organizations.
         /// </summary>
-        /// <param name="roles"></param>
-        /// <returns></returns>
+        /// <param name="roles">An array of <see cref="RoleMembership"/> objects, each of them representing a combination of user, role and organization ids.</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task RemoveUserFromRole(List<RoleMembership> roles);
     }
 }

@@ -13,17 +13,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Gets license information<see cref="License"/>.
+        /// Gets <see cref="License"/> information.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  <see cref="License"/></returns>
+        /// <returns><see cref="License"/></returns>
         public async Task<License> GetLicenseInformation()
         {
             return await ApiConnection.Get<License>(ApiUrls.GetLicenseInformation(), null);

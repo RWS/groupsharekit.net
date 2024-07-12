@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
-    [Obsolete]
+    [Obsolete("CreateTmRequest is deprecated, please use CreateTranslationMemoryRequest instead.")]
     public class CreateTmRequest
     {
         public string TranslationMemoryId { get; set; }

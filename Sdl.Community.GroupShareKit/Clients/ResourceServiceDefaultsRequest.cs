@@ -2,7 +2,7 @@
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
-    [Obsolete]
+    [Obsolete("ResourceServiceDefaultsRequest is deprecated, please use LanguageResourceServiceDefaultsRequest instead.")]
     public class ResourceServiceDefaultsRequest
     {
         public string Language { get; set; }

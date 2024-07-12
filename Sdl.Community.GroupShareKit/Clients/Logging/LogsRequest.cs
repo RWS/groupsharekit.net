@@ -4,7 +4,6 @@
     /// Used to request list of logs
     /// </summary>
     /// <remarks>
-    /// API docs: http://gs2017dev.sdl.com:41234/documentation/api/index#/
     /// </remarks>
     public class LogsRequest : RequestParameters
     {

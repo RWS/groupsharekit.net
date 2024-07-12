@@ -782,7 +782,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> that removes  users from a certain role 
+        /// Returns the <see cref="Uri"/> that removes users from a certain role 
         /// </summary>
         /// <param name="roleId">The role id</param>
         public static Uri DeleteUserFromRole(string roleId)
@@ -1075,9 +1075,25 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> that gets a list of Fields for a specific Template ID.
+        /// </summary>
+        public static Uri GetFields(Guid templateId)
+        {
+            return "{0}/templates/{1}/fields".FormatUri(CurrentFieldServiceUrl, templateId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that gets a specified Field for a specific Field Template ID.
         /// </summary>
         public static Uri GetField(string fieldTemplateId, string fieldId)
+        {
+            return "{0}/templates/{1}/fields/{2}".FormatUri(CurrentFieldServiceUrl, fieldTemplateId, fieldId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that gets a specified Field for a specific Field Template ID.
+        /// </summary>
+        public static Uri GetField(Guid fieldTemplateId, Guid fieldId)
         {
             return "{0}/templates/{1}/fields/{2}".FormatUri(CurrentFieldServiceUrl, fieldTemplateId, fieldId);
         }
@@ -1218,9 +1234,25 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> that exports TUs from a Translation Memory
+        /// </summary>
+        public static Uri Export(Guid tmId, string source, string target)
+        {
+            return "{0}/tms/{1}/export?source={2}&target={3}".FormatUri(CurrentTranslationMemoriesUrl, tmId, source, target);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that imports TUs into a Translation Memory
         /// </summary>
         public static Uri Import(string tmId, string source, string target)
+        {
+            return "{0}/tms/{1}/import?source={2}&target={3}".FormatUri(CurrentTranslationMemoriesUrl, tmId, source, target);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that imports TUs into a Translation Memory
+        /// </summary>
+        public static Uri Import(Guid tmId, string source, string target)
         {
             return "{0}/tms/{1}/import?source={2}&target={3}".FormatUri(CurrentTranslationMemoriesUrl, tmId, source, target);
         }
@@ -1615,6 +1647,14 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> that returns a background task by id
         /// </summary>
         public static Uri GetTaskById(string taskId)
+        {
+            return "{0}/tasks/{1}".FormatUri(CurrentTranslationMemoriesUrl, taskId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns a background task by id
+        /// </summary>
+        public static Uri GetTaskById(Guid taskId)
         {
             return "{0}/tasks/{1}".FormatUri(CurrentTranslationMemoriesUrl, taskId);
         }

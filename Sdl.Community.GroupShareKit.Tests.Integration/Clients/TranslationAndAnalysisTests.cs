@@ -94,6 +94,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var request = new TranslationAndAnalysisJobRequest(fuzzyBands);
 
             var jobId = await GroupShareClient.TranslateAndAnalysis.GetTranslateAndAnalysisJob(request);
+            Assert.True(jobId > 0);
+
             await GroupShareClient.TranslateAndAnalysis.DeleteJob(_jobId);
         }
 
