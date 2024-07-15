@@ -1218,9 +1218,25 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> that exports TUs from a Translation Memory
+        /// </summary>
+        public static Uri Export(Guid tmId, string source, string target)
+        {
+            return "{0}/tms/{1}/export?source={2}&target={3}".FormatUri(CurrentTranslationMemoriesUrl, tmId, source, target);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that imports TUs into a Translation Memory
         /// </summary>
         public static Uri Import(string tmId, string source, string target)
+        {
+            return "{0}/tms/{1}/import?source={2}&target={3}".FormatUri(CurrentTranslationMemoriesUrl, tmId, source, target);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that imports TUs into a Translation Memory
+        /// </summary>
+        public static Uri Import(Guid tmId, string source, string target)
         {
             return "{0}/tms/{1}/import?source={2}&target={3}".FormatUri(CurrentTranslationMemoriesUrl, tmId, source, target);
         }
@@ -1615,6 +1631,14 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// Returns the <see cref="Uri"/> that returns a background task by id
         /// </summary>
         public static Uri GetTaskById(string taskId)
+        {
+            return "{0}/tasks/{1}".FormatUri(CurrentTranslationMemoriesUrl, taskId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns a background task by id
+        /// </summary>
+        public static Uri GetTaskById(Guid taskId)
         {
             return "{0}/tasks/{1}".FormatUri(CurrentTranslationMemoriesUrl, taskId);
         }
