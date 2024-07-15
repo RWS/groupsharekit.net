@@ -141,11 +141,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         [Obsolete("This method is obsolete. Call 'GetBackgroundTask(Guid)' instead.")]
         Task<BackgroundTask> GetBackgroundTask(string taskId);
 
-        Task<BackgroundTask> GetBackgroundTask(Guid taskId);
-
-        [Obsolete("This method is obsolete. Call 'ImportTm(Guid, LanguageParameters, byte[], string)' instead.")]
-        Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile, string fileName);
-
         /// <summary>
         /// Gets the status of a background task operation.
         /// </summary>

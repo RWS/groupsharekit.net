@@ -114,28 +114,6 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         [Obsolete("This method is obsolete. Call 'DeleteRole(Guid)' instead.")]
         public Task DeleteRole(string roleId)
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        [Obsolete("This method is obsolete. Call 'DeleteRole(Guid)' instead.")]
-        public Task DeleteRole(string roleId)
-        {
-        /// <summary>
-        /// Deletes a <see cref="Role"/>.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public Task DeleteRole(Guid roleId)
-        /// 
-        /// </summary>
-        /// <param name="roleId"></param>
-        /// <returns></returns>
-        public Task DeleteRole(Guid roleId)
         {
             Ensure.ArgumentNotNullOrEmptyString(roleId, "roleId");
 
@@ -145,7 +123,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Deletes a <see cref="Role"/>.
         /// </summary>
-        /// <param name="roleId">Role Guid</param>
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
@@ -178,31 +155,28 @@ namespace Sdl.Community.GroupShareKit.Clients
         [Obsolete("This method is obsolete. Call 'GetUsersForRole(Guid)' instead.")]
         public Task<IReadOnlyList<User>> GetUsersForRole(string roleId)
         {
-        /// Gets users for a specific <see cref="Role"/>.
             return ApiConnection.GetAll<User>(ApiUrls.GetUsersForRole(roleId));
         }
 
         /// <summary>
-        /// Gets users for a specific role<see cref="Role"/>s.
+        /// Gets users for a specific <see cref="Role"/>.
         /// </summary>
         /// <param name="roleId">The role's Id</param>
         /// <remarks>
         /// This method requires authentication.
-        /// <returns>A list of <see cref="User"/>'s</returns>
-        public Task<IReadOnlyList<User>> GetUsersForRole(Guid roleId)
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="User"/>'s</returns>
-        [Obsolete("This method is obsolete. Call 'GetUsersForRole(Guid)' instead.")]
+        /// <returns>A list of <see cref="User"/>s.</returns>
+        public Task<IReadOnlyList<User>> GetUsersForRole(Guid roleId)
+        {
+            return ApiConnection.GetAll<User>(ApiUrls.GetUsersForRole(roleId));
+        }
+        
         [Obsolete("This method is obsolete. Call 'AddUserToRole(List<RoleMembership>)' instead.")]
         public async Task AddUserToRole(List<Role> roles)
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="roleId"></param>
-        /// <returns></returns>
-        /// Adds users to a specific role.
         {
             await ApiConnection.Put<string>(ApiUrls.RoleMembership(), roles);
         }
@@ -224,7 +198,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         [Obsolete("This method is obsolete. Call 'RemoveUserFromRole(List<RoleMembership>)' instead.")]
-        /// Removes users from a specific role.
+        public async Task RemoveUserFromRole(List<Role> roles, string roleId)
         {
             await ApiConnection.Delete(ApiUrls.DeleteUserFromRole(roleId), roles, "application/json");
         }

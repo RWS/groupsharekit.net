@@ -117,7 +117,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="User"/>'s</returns>
+        /// <returns>A list of <see cref="User"/>s.</returns>
         Task<IReadOnlyList<User>> GetUsersForRole(Guid roleId);
 
         [Obsolete("This method is obsolete. Call 'AddUserToRole(List<RoleMembership>)' instead.")]

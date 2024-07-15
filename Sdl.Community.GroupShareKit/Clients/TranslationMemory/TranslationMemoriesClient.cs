@@ -365,29 +365,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return backgroundTask;
         }
 
-        public async Task<BackgroundTask> GetBackgroundTask(Guid taskId)
-        {
-            return await ApiConnection.Get<BackgroundTask>(ApiUrls.GetTaskById(taskId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'ImportTm(Guid, LanguageParameters, byte[], string)' instead.")]
-        public async Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile, string fileName)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tm id");
-            Ensure.ArgumentNotNull(language, "language parameters");
-            Ensure.ArgumentNotNull(rawFile, "file");
-            Ensure.ArgumentNotNullOrEmptyString(fileName, "file name");
-
-            var byteContent = new ByteArrayContent(rawFile);
-            byteContent.Headers.Add("Content-Type", "application/json");
-            var multipartContent = new MultipartFormDataContent
-            {
-                { byteContent, "file", fileName }
-            };
-
-            return await ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target), multipartContent, "application/json");
-        }
-
         /// <summary>
         /// Gets the status of a background task operation.
         /// </summary>
@@ -409,7 +386,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         [Obsolete("This method is obsolete. Call 'ImportTm(Guid, LanguageParameters, byte[], string)' instead.")]
         public async Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile, string fileName)
         {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "tm id");
             Ensure.ArgumentNotNull(language, "language parameters");
             Ensure.ArgumentNotNull(rawFile, "file");
             Ensure.ArgumentNotNullOrEmptyString(fileName, "file name");

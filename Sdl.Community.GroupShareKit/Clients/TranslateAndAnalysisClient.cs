@@ -32,28 +32,18 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Gets a new translation job for the specified translate and analysis job.
+        /// Gets a new translation job specified translate and analysis job.
         /// </summary>
-        /// <param name="jobId">The job identifier.</param>
-        /// <param name="request">The document and the tm's options</param>
-        /// <returns>The translatable document identifier</returns>
-        /// <response code="200">Translation triggered successfully.</response>
-        /// <response code="400">When the given document or translation information not correct</response>
-        /// <response code="404">If there is no document with the given identifier</response>
-        [Obsolete("This method is obsolete. Call 'GetTranslationJob(int, MultipartFormDataContent)' instead.")]
-        public Task<int> GetTranslationJob(string jobId, MultipartFormDataContent request)
+        /// <param name="jobId">Job identifier</param>
+        /// <param name="request">The request body</param>
+        /// <returns><see cref="int"/>Translation job identifier</returns>
+        public Task<int> GetTranslationJob(int jobId, MultipartFormDataContent request)
         {
             return ApiConnection.Post<int>(ApiUrls.TranslationJob(jobId), request, "multipart/form-data");
         }
 
         [Obsolete("This method is obsolete. Call 'GetTranslationStatus(int)' instead.")]
-        public Task<Translation> GetTranslationStatus(string translateJobNo)
-        {
-            return ApiConnection.Get<Translation>(ApiUrls.TranslationJobStatus(translateJobNo), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetTranslationStatus(int)' instead.")]
-        public Task<Translation> GetTranslationStatus(string translateJobNo)
+        public Task<Translation> GetTranslationStatus(string translateJobId)
         {
             return ApiConnection.Get<Translation>(ApiUrls.TranslationJobStatus(translateJobId), null);
         }
@@ -67,7 +57,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <response code="404">If there is no document with the given identifier</response>
         public Task<Translation> GetTranslationStatus(int translateJobId)
         {
-            return ApiConnection.Get<byte[]>(ApiUrls.DownloadTranslationDocument(translateJobNo), null);
+            return ApiConnection.Get<Translation>(ApiUrls.TranslationJobStatus(translateJobId), null);
         }
 
         [Obsolete("This method is obsolete. Call 'DownloadTranslationDocument(int)' instead.")]
