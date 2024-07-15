@@ -3,7 +3,7 @@ using System;
 
 namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
 {
-    [Obsolete]
+    [Obsolete("Resource is deprecated, please use LanguageResource instead.")]
     public class Resource
     {
         /// <summary>
