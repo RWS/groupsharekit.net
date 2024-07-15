@@ -107,7 +107,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Exposes the status of the given analysis job.
         /// </summary>
-        /// <param name="analysisJobNo">The analysis identifier.</param>
+        /// <param name="analysisJobId">The analysis identifier.</param>
         /// <response code="200">The status was returned.</response>
         /// <response code="404">If there is no analysis with the given identifier</response>
         public Task<Analysis> GetAnalysisStatus(int analysisJobId)
@@ -124,7 +124,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Gets the specified analysis statistics.
         /// </summary>
-        /// <param name="analysisJobNo">The analysis identifier.</param>
+        /// <param name="jobId">The analysis identifier.</param>
         /// <returns>The analysis statistics</returns>
         public Task<AnalysisStatistics> GetAnalysisStatistics(int jobId)
         {

@@ -664,7 +664,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Gets the predated translation units count from the translation memory
+        /// Gets the postdated translation units count from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
         /// <param name="tmId">The translation memory Guid</param>
         /// </summary>
@@ -684,7 +684,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "predated"), language.ToParametersDictionary());
         }
 
-        [Obsolete("This method is obsolete. Call 'GetPostdatedTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
+        [Obsolete("This method is obsolete. Call 'GetPredatedTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
         public async Task<int> GetNumberOfPreDatedTus(string tmId, LanguageParameters language)
         {
             Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
