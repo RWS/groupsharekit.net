@@ -16,7 +16,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -97,7 +96,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -111,7 +109,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -130,7 +127,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -151,13 +147,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="ImportResponse"/></returns>
+        [Obsolete("This method is obsolete. Call '()' instead.")]
         Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile, string fileName);
 
         /// <summary>
@@ -201,13 +197,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>  Tm number</returns>
+        [Obsolete("This method is obsolete. Call '()' instead.")]
         Task<int> GetTmsNumberByLanguageResourceTemplateId(string resourceTemplateId);
 
         /// <summary>
@@ -224,18 +220,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns>Translation memories number.</returns>
         Task<int> GetTmsNumberByLanguageResourceTemplateId(Guid languageResourceTemplateId);
 
-        /// <summary>
-        /// Gets the  tms number by field template id number.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  Tm number</returns>
+        [Obsolete("This method is obsolete. Call 'GetTmsNumberByFieldTemplateId(Guid)' instead.")]
         Task<int> GetTmsNumberByFieldTemplateId(string fieldTemplateId);
 
         /// <summary>
@@ -319,7 +304,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -339,7 +323,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -356,7 +339,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -390,7 +372,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -406,7 +387,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -422,7 +402,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -438,7 +417,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -455,7 +433,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -473,7 +450,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -824,7 +800,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -841,7 +816,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <remarks>
         /// <param name="field"><see cref="FieldRequest"/></param>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -859,7 +833,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <remarks>
         /// <param name="field"><see cref="Field"/></param>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -872,7 +845,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -1034,7 +1006,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -1082,7 +1053,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41235/docs/ui/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.

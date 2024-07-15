@@ -12,13 +12,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <param name="filters"></param>
         /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<List<ReportingServicePredefinedProjects>> PredefinedProjects(PredefinedReportsFilters filters);
 
         /// <summary>
@@ -35,7 +34,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <param name="filters"></param>
         /// <remarks>
         ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         ///  </remarks>
         ///  <exception cref="AuthorizationException">
         ///  Thrown when the current user does not have permission to make the request.
@@ -56,13 +54,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <param name="filters"></param>
         /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<List<ReportingServicePredefinedTmLeverage>> PredefinedTmLeverage(PredefinedReportsFilters filters);
 
         /// <summary>
@@ -71,12 +68,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <param name="sortParameters"></param>
         /// <remarks>
         ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<ReportingServiceDeliveriesDueSoonProjects> DeliveriesDueSoon(ReportingServiceSortingParameters sortParameters);
 
         /// <summary>
@@ -84,13 +80,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <param name="sortParameters"></param>
         /// <remarks>
-        ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task<List<ReportingServiceYourTasks>> YourTasks(ReportingServiceSortingParameters sortParameters);
 
         /// <summary>
@@ -98,7 +93,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         ///  </remarks>
         ///  <exception cref="AuthorizationException">
         ///  Thrown when the current user does not have permission to make the request.
@@ -111,7 +105,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         ///  </remarks>
         ///  <exception cref="AuthorizationException">
         ///  Thrown when the current user does not have permission to make the request.
@@ -124,7 +117,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         ///  </remarks>
         ///  <exception cref="AuthorizationException">
         ///  Thrown when the current user does not have permission to make the request.
@@ -137,7 +129,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         ///  </remarks>
         ///  <exception cref="AuthorizationException">
         ///  Thrown when the current user does not have permission to make the request.
@@ -156,7 +147,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
 		///  This method requires authentication.
-		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
 		///  </remarks>
 		///  <exception cref="AuthorizationException">
 		///  Thrown when the current user does not have permission to make the request.
@@ -171,7 +161,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns></returns>
         /// <remarks>
         ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         ///  </remarks>
         ///  <exception cref="AuthorizationException">
         ///  Thrown when the current user does not have permission to make the request.
@@ -184,7 +173,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         ///  </remarks>
         ///  <exception cref="AuthorizationException">
         ///  Thrown when the current user does not have permission to make the request.
@@ -197,7 +185,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
 		///  This method requires authentication.
-		///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
 		///  </remarks>
 		///  <exception cref="AuthorizationException">
 		///  Thrown when the current user does not have permission to make the request.
@@ -210,7 +197,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         ///  This method requires authentication.
-        ///  See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         ///  </remarks>
         ///  <exception cref="AuthorizationException">
         ///  Thrown when the current user does not have permission to make the request.

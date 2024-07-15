@@ -16,7 +16,6 @@ namespace Sdl.Community.GroupShareKit.Clients.Logging
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -34,7 +33,6 @@ namespace Sdl.Community.GroupShareKit.Clients.Logging
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -53,7 +51,6 @@ namespace Sdl.Community.GroupShareKit.Clients.Logging
         /// <remarks>
         /// <param name="request"><see cref="PagedLogEntriesWithTotalCount"/></param>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.

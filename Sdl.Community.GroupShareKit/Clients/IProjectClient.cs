@@ -13,7 +13,6 @@ namespace Sdl.Community.GroupShareKit.Clients
     /// A client for GroupShare's Project API.
     /// </summary>
     /// <remarks>
-    /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">Project API documentation</a> for more details.
     /// </remarks>
     public interface IProjectClient
     {
@@ -151,7 +150,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
@@ -171,7 +169,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <param name="request">The basic project parameters</param>
         /// <param name="filesPath">The path pointing to the files for the project. The path can be a zip file, a single file, or a directory. 
@@ -268,7 +265,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
-        /// See the <a href="http://gs2017dev.sdl.com:41234/documentation/api/index#/">API documentation</a> for more information.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.

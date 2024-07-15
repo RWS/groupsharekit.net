@@ -3,9 +3,6 @@ namespace Sdl.Community.GroupShareKit.Clients
     /// <summary>
     /// Used to request projects for an organization.
     /// </summary>
-    /// <remarks>
-    /// API docs: http://gs2017dev.sdl.com:41234/documentation/api/index#/
-    /// </remarks>
     public class ProjectsRequest : RequestParameters
     {
 
