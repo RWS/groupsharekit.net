@@ -213,7 +213,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var file = System.IO.File.ReadAllBytes(filePath);
 
-            var response = await GroupShareClient.TranslationMemories.ImportTm(translationMemoryId.ToString(), languageParameters, file, fileName);
+            var response = await GroupShareClient.TranslationMemories.ImportTm(translationMemoryId, languageParameters, file, fileName);
             Thread.Sleep(3000);
 
             return response;
@@ -336,7 +336,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var languageParam = new LanguageParameters("en-us", "de-de");
             var exportRequest = new ExportRequest();
 
-            var tmExport = await GroupShareClient.TranslationMemories.ExportTm(_translationMemoryId.ToString(), exportRequest, languageParam);
+            var tmExport = await GroupShareClient.TranslationMemories.ExportTm(_translationMemoryId, exportRequest, languageParam);
 
             Assert.True(tmExport.Length > 0);
 
@@ -435,7 +435,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task GetTusNumberForTm()
         {
             var languageParameters = new LanguageParameters("en-us", "de-de");
-            var tusNumber = await GroupShareClient.TranslationMemories.GetNumberOfTus(_translationMemoryId.ToString(), languageParameters);
+            var tusNumber = await GroupShareClient.TranslationMemories.GetTranslationUnitsCount(_translationMemoryId, languageParameters);
 
             Assert.Equal(0, tusNumber);
         }
@@ -446,10 +446,10 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var languageParameters = new LanguageParameters("en-us", "de-de");
 
 
-            var preDatedTUs = await GroupShareClient.TranslationMemories.GetNumberOfPreDatedTus(_translationMemoryId.ToString(), languageParameters);
+            var preDatedTUs = await GroupShareClient.TranslationMemories.GetPredatedTranslationUnitsCount(_translationMemoryId, languageParameters);
             Assert.Equal(0, preDatedTUs);
 
-            var postDatedTUs = await GroupShareClient.TranslationMemories.GetNumberOfPostDatedTus(_translationMemoryId.ToString(), languageParameters);
+            var postDatedTUs = await GroupShareClient.TranslationMemories.GetPostdatedTranslationUnitsCount(_translationMemoryId, languageParameters);
             Assert.Equal(0, postDatedTUs);
         }
 
@@ -458,7 +458,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var languageParameters = new LanguageParameters("en-us", "de-de");
 
-            var tusNumber = await GroupShareClient.TranslationMemories.GetNumberOfUnalignedTus(_translationMemoryId.ToString(), languageParameters);
+            var tusNumber = await GroupShareClient.TranslationMemories.GetUnalignedTranslationUnitsCount(_translationMemoryId, languageParameters);
 
             Assert.Equal(0, tusNumber);
         }

@@ -206,7 +206,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns><see cref="ImportResponse"/></returns>
         Task<ImportResponse> ImportTmWithSettings(Guid tmId, LanguageParameters language, byte[] rawFile, string fileName, ImportSettings settings);
 
-        [Obsolete("This method is obsolete. Call '()' instead.")]
+        [Obsolete("This method is obsolete. Call 'GetTmsNumberByLanguageResourceTemplateId(Guid)' instead.")]
         Task<int> GetTmsNumberByLanguageResourceTemplateId(string resourceTemplateId);
 
         /// <summary>
@@ -350,7 +350,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns><see cref="TranslationUnitResponse"/></returns>
         Task<TranslationUnitResponse> AddAllTranslationUnits(TranslationUnitRequest unitRequest, string tmId, FieldTemplate fieldTemplate);
 
-        [Obsolete("This method is obsolete. Call '(Guid)' instead.")]
+        [Obsolete("This method is obsolete. Call 'GetTranslationUnitsForTm(Guid, TranslationUnitDetailsRequest)' instead.")]
         Task<TranslationUnitDetailsResponse> GetTranslationUnitForTm(string tmId, TranslationUnitDetailsRequest request);
 
         /// <summary>
@@ -390,7 +390,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<int> GetNumberOfPostDatedTus(string tmId, LanguageParameters language);
 
         /// <summary>
-        /// Gets the predated translation units count from the translation memory
+        /// Gets the predated translation units count from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
         /// <param name="tmId">The translation memory Guid</param>
         /// </summary>
@@ -440,10 +440,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns>The unaligned translation units count.</returns>
         Task<int> GetUnalignedTranslationUnitsCount(Guid tmId, LanguageParameters language);
 
+        [Obsolete("This method is obsolete. Call 'GetDuplicateTranslationUnits(Guid, LanguageParameters, DuplicatesTusRequest)' instead.")]
+        Task<TranslationUnitDetailsResponse> GetDuplicateTusForTm(string tmId, LanguageParameters language, DuplicatesTusRequest duplicatesRequest);
+
         /// <summary>
-        /// Retrieves the Duplicate Translation Units in a specific TM
+        /// Retrieves the Duplicate Translation Units in a specific TM.
         /// <param name="language"><see cref="LanguageParameters"/></param>
-        /// <param name="tmId">Translation memory id</param>
+        /// <param name="tmId">The translation memory Guid.</param>
         /// <param name="duplicatesRequest"><see cref="DuplicatesTusRequest"/></param>
         /// </summary>
         /// <remarks>
@@ -454,7 +457,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="TranslationUnitDetailsResponse"/></returns>
-        Task<TranslationUnitDetailsResponse> GetDuplicateTusForTm(string tmId, LanguageParameters language, DuplicatesTusRequest duplicatesRequest);
+        Task<TranslationUnitDetailsResponse> GetDuplicateTranslationUnits(Guid tmId, LanguageParameters language, DuplicatesTusRequest duplicatesRequest);
 
         /// <summary>
         /// Filters translation units, retrieves a string matching the expression
@@ -548,7 +551,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         ///<returns><see cref="Containers"/></returns>
         Task<Containers> GetContainers();
 
-        [Obsolete("This method is obsolete. Call '(Guid)' instead.")]
+        [Obsolete("This method is obsolete. Call 'CreateContainer(CreateContainerRequest)' instead.")]
         Task<string> CreateContainer(ContainerRequest request);
 
         /// <summary>

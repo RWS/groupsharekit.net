@@ -731,10 +731,20 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "unaligned"), language.ToParametersDictionary());
         }
 
+        [Obsolete("This method is obsolete. Call 'GetDuplicateTranslationUnits(Guid, LanguageParameters, DuplicatesTusRequest)' instead.")]
+        public async Task<TranslationUnitDetailsResponse> GetDuplicateTusForTm(string tmId, LanguageParameters language, DuplicatesTusRequest duplicatesRequest)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
+            Ensure.ArgumentNotNull(language, "language parameters request");
+            Ensure.ArgumentNotNull(duplicatesRequest, "duplicates request");
+
+            return await ApiConnection.Post<TranslationUnitDetailsResponse>(ApiUrls.TranslationUnitsDuplicates(tmId, language.Source, language.Target), duplicatesRequest);
+        }
+
         /// <summary>
-        /// Retrieves the Duplicate Translation Units in a specific TM
+        /// Retrieves the Duplicate Translation Units in a specific TM.
         /// <param name="language"><see cref="LanguageParameters"/></param>
-        /// <param name="tmId">Translation memory id</param>
+        /// <param name="tmId">The translation memory Guid.</param>
         /// <param name="duplicatesRequest"><see cref="DuplicatesTusRequest"/></param>
         /// </summary>
         /// <remarks>
@@ -745,9 +755,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns><see cref="TranslationUnitDetailsResponse"/></returns>
-        public async Task<TranslationUnitDetailsResponse> GetDuplicateTusForTm(string tmId, LanguageParameters language, DuplicatesTusRequest duplicatesRequest)
+        public async Task<TranslationUnitDetailsResponse> GetDuplicateTranslationUnits(Guid tmId, LanguageParameters language, DuplicatesTusRequest duplicatesRequest)
         {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
+            Ensure.ArgumentNotNull(tmId, "translation memory id");
             Ensure.ArgumentNotNull(language, "language parameters request");
             Ensure.ArgumentNotNull(duplicatesRequest, "duplicates request");
 
