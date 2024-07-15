@@ -44,7 +44,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> <see cref="Filter"/></returns>
+        /// <returns><see cref="Filter"/></returns>
         Task<FilterResponse> GetFilters(string termbaseId);
 
 
@@ -59,7 +59,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> <see cref="SearchResponse"/></returns>
+        /// <returns><see cref="SearchResponse"/></returns>
         Task<SearchResponse> SearchTerm(SearchTermRequest request);
 
         /// <summary>

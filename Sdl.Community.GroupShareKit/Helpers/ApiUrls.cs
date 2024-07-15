@@ -782,7 +782,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> that removes  users from a certain role 
+        /// Returns the <see cref="Uri"/> that removes users from a certain role 
         /// </summary>
         /// <param name="roleId">The role id</param>
         public static Uri DeleteUserFromRole(string roleId)
@@ -1075,9 +1075,25 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> that gets a list of Fields for a specific Template ID.
+        /// </summary>
+        public static Uri GetFields(Guid templateId)
+        {
+            return "{0}/templates/{1}/fields".FormatUri(CurrentFieldServiceUrl, templateId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that gets a specified Field for a specific Field Template ID.
         /// </summary>
         public static Uri GetField(string fieldTemplateId, string fieldId)
+        {
+            return "{0}/templates/{1}/fields/{2}".FormatUri(CurrentFieldServiceUrl, fieldTemplateId, fieldId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that gets a specified Field for a specific Field Template ID.
+        /// </summary>
+        public static Uri GetField(Guid fieldTemplateId, Guid fieldId)
         {
             return "{0}/templates/{1}/fields/{2}".FormatUri(CurrentFieldServiceUrl, fieldTemplateId, fieldId);
         }

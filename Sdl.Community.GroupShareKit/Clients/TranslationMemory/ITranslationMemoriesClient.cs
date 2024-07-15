@@ -92,7 +92,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task UpdateTranslationMemory(Guid tmId, TranslationMemoryDetails tmDetails);
 
         /// <summary>
-        /// Gets<see cref="Health"/> of tm service .
+        /// Gets <see cref="Health"/> of TM Service .
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -101,11 +101,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Returns the status of tm service</returns>
+        /// <returns>The status of TM Service.</returns>
         Task<Health> Health();
 
         /// <summary>
-        /// Gets<see cref="TmServiceDetails"/> of tm service .
+        /// Gets <see cref="TmServiceDetails"/> of TM Service.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -114,7 +114,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Returns the status of tm service and the dependencies</returns>
+        /// <returns>Returns the status of TM Service and the dependencies</returns>
         Task<TmServiceDetails> TmServiceInfo();
 
         [Obsolete("This method is obsolete. Call 'ExportTm(Guid, ExportRequest, LanguageParameters)' instead.")]
@@ -142,6 +142,23 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<BackgroundTask> GetBackgroundTask(string taskId);
 
         Task<BackgroundTask> GetBackgroundTask(Guid taskId);
+
+        [Obsolete("This method is obsolete. Call 'ImportTm(Guid, LanguageParameters, byte[], string)' instead.")]
+        Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile, string fileName);
+
+        /// <summary>
+        /// Gets the status of a background task operation.
+        /// </summary>
+        /// <param name="backgroundTaskId">The background task's Guid</param>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns><see cref="BackgroundTask"/></returns>
+        Task<BackgroundTask> GetBackgroundTask(Guid backgroundTaskId);
 
         [Obsolete("This method is obsolete. Call 'ImportTm(Guid, LanguageParameters, byte[], string)' instead.")]
         Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile, string fileName);
@@ -800,8 +817,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         Task AddOperationsForFieldTemplate(Guid fieldTemplateId, List<Operation> operations);
 
+        [Obsolete("This method is obsolete. Call 'GetFieldsForTemplate(Guid)' instead.")]
+        Task<IReadOnlyList<Field>> GetFieldsForTemplate(string fieldTemplateId);
+
         /// <summary>
-        /// Gets a list of Fields for a specific Field Template ID
+        /// Gets a list of Fields for a specific Field Template ID.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -810,11 +830,14 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="Field"/>'s</returns>
-        Task<IReadOnlyList<Field>> GetFieldsForTemplate(string fieldTemplateId);
+        /// <returns>A list of <see cref="Field"/>s.</returns>
+        Task<IReadOnlyList<Field>> GetFieldsForTemplate(Guid fieldTemplateId);
+
+        [Obsolete("This method is obsolete. Call 'GetFieldForTemplate(Guid, Guid)' instead.")]
+        Task<Field> GetFieldForTemplate(string fieldTemplateId, string fieldId);
 
         /// <summary>
-        /// Gets a specified Field for a specific Field Template ID
+        /// Gets a specified Field for a specific Field Template ID.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -824,10 +847,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns> <see cref="Field"/></returns>
-        Task<Field> GetFieldForTemplate(string fieldTemplateId, string fieldId);
+        Task<Field> GetFieldForTemplate(Guid fieldTemplateId, Guid fieldId);
+
+        [Obsolete("This method is obsolete. Call 'CreateFieldForTemplate(Guid, FieldRequest)' instead.")]
+        Task<string> CreateFieldForTemplate(string fieldTemplateId, FieldRequest field);
 
         /// <summary>
-        /// Creates a Field for a specific Field Template ID
+        /// Creates a Field for a specific Field Template Guid.
         /// If selected type is SinglePicklist or MultiplePicklist , "values " property should be filled out.
         ///  For each value the id should be a new Guid, and the "name" property should be the value you want to add.
         /// </summary>
@@ -839,8 +865,11 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns> Field Id</returns>
-        Task<string> CreateFieldForTemplate(string fieldTemplateId, FieldRequest field);
+        /// <returns>The field's Guid.</returns>
+        Task<Guid> CreateFieldForTemplate(Guid fieldTemplateId, FieldRequest field);
+
+        [Obsolete("This method is obsolete. Call 'UpdateFieldForTemplate(Guid, Guid, Field)' instead.")]
+        Task UpdateFieldForTemplate(string fieldTemplateId, string fieldId, Field field);
 
         /// <summary>
         /// Updates a Field for a specific Field Template ID
@@ -856,7 +885,10 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task UpdateFieldForTemplate(string fieldTemplateId, string fieldId, Field field);
+        Task UpdateFieldForTemplate(Guid fieldTemplateId, Guid fieldId, Field field);
+
+        [Obsolete("This method is obsolete. Call 'DeleteFieldForTemplate(Guid, Guid)' instead.")]
+        Task DeleteFieldForTemplate(string fieldTemplateId, string fieldId);
 
         /// <summary>
         /// Deletes a specified Field for a specific Field Template ID
@@ -868,7 +900,8 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task DeleteFieldForTemplate(string fieldTemplateId, string fieldId);
+        Task DeleteFieldForTemplate(Guid fieldTemplateId, Guid fieldId);
+
         #endregion
 
         #region Language resource

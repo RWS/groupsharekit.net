@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Models.Response;
@@ -21,7 +22,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<Permission>> GetAll();
 
         /// <summary>
-        /// Gets all permissions names for users <see cref="PermissionsName"/>s.
+        /// Gets all the permissions granted to the current user.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -39,7 +40,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
-        /// <returns>An array of <see cref="OrganizationPermissions"/>s.</returns>
+        /// <returns>A list of <see cref="OrganizationPermissions"/>.</returns>
         Task<IReadOnlyList<OrganizationPermissions>> GetUserPermissions(string username, bool hideImplicitLibs = false);
     }
 }

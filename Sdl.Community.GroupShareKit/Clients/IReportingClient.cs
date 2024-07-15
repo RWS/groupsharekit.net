@@ -139,7 +139,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Exports the Predefined Reports to Excel
         /// </summary>
-        ///  This method requires authentication.
+        /// This method requires authentication.
         Task<byte[]> ExportPredefinedReports(ExportPredefinedReportsFilters filters);
 
         /// <summary>

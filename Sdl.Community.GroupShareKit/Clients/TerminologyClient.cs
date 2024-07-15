@@ -28,6 +28,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             return await ApiConnection.Get<Termbase>(ApiUrls.GetTermbases(), null);
         }
+
         /// <summary>
         /// Gets  <see cref="TermbaseDetails"/>s.
         /// </summary>

@@ -10,6 +10,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         public IdpUserSettingsClient(IApiConnection apiConnection) : base(apiConnection)
         {
         }
+
         public Task<IdpUserSettings> GetIdpUserSettings()
         {
             var idpUserSettingsUrl = ApiUrls.GetIdpUserSettings();

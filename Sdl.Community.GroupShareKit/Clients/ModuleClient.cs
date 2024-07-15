@@ -9,9 +9,9 @@ namespace Sdl.Community.GroupShareKit.Clients
     {
 
         /// <summary>
-        /// Gets modules
+        /// Gets <see cref="Modules"/>.
         /// </summary>
-        /// <returns><see cref="Modules"/> </returns>
+        /// <returns><see cref="Modules"/></returns>
         public async Task<Modules> GetModules()
         {
             return await ApiConnection.Get<Modules>(ApiUrls.Modules(), null);

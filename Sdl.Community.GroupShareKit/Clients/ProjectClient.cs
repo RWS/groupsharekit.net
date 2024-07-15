@@ -391,7 +391,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         [Obsolete("This method is obsolete. Call 'AddFiles(Guid, string, bool)' instead.")]
-        public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string filesPath, bool reference)
+        public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string filesPath, bool reference = false)
         {
             var uri = ApiUrls.AddProjectFiles(projectId, reference);
 
@@ -406,7 +406,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        public async Task<MidProjectUpdateResponse> AddFiles(Guid projectId, string filesPath, bool reference)
+        public async Task<MidProjectUpdateResponse> AddFiles(Guid projectId, string filesPath, bool reference = false)
         {
             var uri = ApiUrls.AddProjectFiles(projectId, reference);
 
@@ -527,7 +527,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         [Obsolete("This method is obsolete. Call 'UpdateSelectedFiles(Guid, string, MidProjectFileIdsModel, bool)' instead.")]
-        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference)
+        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
 
@@ -545,7 +545,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(Guid projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference)
+        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(Guid projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
 
@@ -1125,19 +1125,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Gets all project templates that the user is allowed to access.
         /// </summary>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<ProjectTemplate>> GetProjectTemplates()
-        {
-            return await ApiConnection.GetAll<ProjectTemplate>(ApiUrls.ProjectTemplates(), null);
-        }
-
-        /// <summary>
-        /// Creates a template
-        /// </summary>
-        /// <param name="templateRequest"><see cref="ProjectTemplates"/></param>
-        /// <param name="rawData">The project template file as a byte array.</param>
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
@@ -1145,7 +1134,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Id of created template/></returns>
+        /// <returns>A list of <see cref="ProjectTemplate"/></returns>
+        public async Task<IReadOnlyList<ProjectTemplate>> GetProjectTemplates()
+        {
+            return await ApiConnection.GetAll<ProjectTemplate>(ApiUrls.ProjectTemplates(), null);
+        }
+
+        [Obsolete("This method is obsolete. Call 'CreateProjectTemplate(ProjectTemplate, byte[])' instead.")]
         public async Task<string> CreateTemplate(ProjectTemplates templateRequest, byte[] rawData)
         {
             var templateId = await ApiConnection.Post<string>(ApiUrls.ProjectTemplates(), templateRequest, "application/json");
@@ -1154,11 +1149,18 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Creates a project template.
         /// </summary>
-        /// <param name="projectTemplateRequest"></param>
+        /// <param name="projectTemplateRequest">The project template details</param>
         /// <param name="rawData"></param>
-        /// <returns></returns>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The project template's Guid.</returns>
         public async Task<Guid> CreateProjectTemplate(ProjectTemplate projectTemplateRequest, byte[] rawData)
         {
             var templateId = await ApiConnection.Post<Guid>(ApiUrls.ProjectTemplates(), projectTemplateRequest, "application/json");
@@ -2119,13 +2121,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         [Obsolete("This method is obsolete. Call 'UndoExternalCheckOutForFiles(Guid, List<Guid>)' instead.")]
-        public async Task UndoExternalCheckOutForFiles(string projectId, List<string> filesIdsList)
+        public async Task UndoExternalCheckOutForFiles(string projectId, List<string> filesIds)
         {
             Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotEmpty(filesIdsList, "filesIds");
+            Ensure.ArgumentNotEmpty(filesIds, "filesIds");
 
-            var filesIds = "[\"" + string.Join("\",\"", filesIdsList) + "\"]";
-            var content = new StringContent(filesIds, Encoding.UTF8, "application/json");
+            var filesIdsString = "[\"" + string.Join("\",\"", filesIds) + "\"]";
+            var content = new StringContent(filesIdsString, Encoding.UTF8, "application/json");
 
             await ApiConnection.Post<string>(ApiUrls.UndoExternalCheckOutForFiles(projectId), content);
         }
@@ -2142,13 +2144,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        public async Task UndoExternalCheckOutForFiles(Guid projectId, List<Guid> filesIdsList)
+        public async Task UndoExternalCheckOutForFiles(Guid projectId, List<Guid> filesIds)
         {
             Ensure.ArgumentNotNull(projectId, "projectId");
-            Ensure.ArgumentNotNull(filesIdsList, "filesIds");
+            Ensure.ArgumentNotNull(filesIds, "filesIds");
 
-            var filesIds = "[\"" + string.Join("\",\"", filesIdsList) + "\"]";
-            var content = new StringContent(filesIds, Encoding.UTF8, "application/json");
+            var filesIdsString = "[\"" + string.Join("\",\"", filesIds) + "\"]";
+            var content = new StringContent(filesIdsString, Encoding.UTF8, "application/json");
 
             await ApiConnection.Post<string>(ApiUrls.UndoExternalCheckOutForFiles(projectId), content);
         }

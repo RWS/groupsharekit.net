@@ -6,9 +6,9 @@ namespace Sdl.Community.GroupShareKit.Clients
     public interface IModuleClient
     {
         /// <summary>
-        /// Gets modules
+        /// Gets <see cref="Modules"/>.
         /// </summary>
-        /// <returns><see cref="Modules"/> </returns>
+        /// <returns><see cref="Modules"/></returns>
         Task<Modules> GetModules();
     }
 }

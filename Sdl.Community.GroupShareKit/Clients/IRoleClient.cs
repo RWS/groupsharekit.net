@@ -47,6 +47,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Updates a role.
         /// </summary>
+        /// <param name="role">Role details</param>
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
@@ -91,19 +92,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task DeleteRole(Guid roleId);
 
         /// <summary>
-        /// Add a user to a role for a specific organization.<see cref="Role"/>s.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="Role"/>s.</returns>
-        Task<string> RoleMembership(List<Role> role);
-
-        /// <summary>
         /// Delete user membership <see cref="Role"/>s.
         /// </summary>
         /// <remarks>
@@ -121,6 +109,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Gets users for a specific <see cref="Role"/>.
         /// </summary>
+        /// <param name="roleId">The role's Id</param>
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
@@ -137,8 +126,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Adds users to a specific role.
         /// </summary>
+        /// <param name="roles">An array of <see cref="RoleMembership"/> objects, each of them representing a combination of user, role and organization ids.</param>
         /// <remarks>
-        /// <param name="roles"><see cref="Role"/></param>
         /// This method requires authentication.
         /// </remarks>
         /// <exception cref="AuthorizationException">
@@ -153,6 +142,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Removes users from a specific role.
         /// </summary>
+        /// <param name="roles">An array of <see cref="RoleMembership"/> objects, each of them representing a combination of user, role and organization ids.</param>
         /// <remarks>
         /// <param name="roles"><see cref="RoleMembership"/></param>
         /// This method requires authentication.

@@ -30,7 +30,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Gets all permissions names for users <see cref="PermissionsName"/>s.
+        /// Gets all the permissions granted to the current user.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -51,7 +51,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
-        /// <returns>An array of <see cref="OrganizationPermissions"/>s.</returns>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>A list of <see cref="OrganizationPermissions"/>.</returns>
         public Task<IReadOnlyList<OrganizationPermissions>> GetUserPermissions(string username, bool hideImplicitLibs = false)
         {
             return ApiConnection.GetAll<OrganizationPermissions>(ApiUrls.GetUserPermissions(username, hideImplicitLibs));

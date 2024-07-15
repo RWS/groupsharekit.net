@@ -205,12 +205,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <param name="noOfTopLanguagePairs"></param>
         /// <remarks>
-        ///  This method requires authentication.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task<IReadOnlyList<LanguagePairsInProject>> DashboardTopLanguagePairs()
         {
             return await ApiConnection.GetAll<LanguagePairsInProject>(ApiUrls.DashboardTopLanguagePairs());
@@ -220,12 +220,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Gets the dashboard words per month
         /// </summary>
         /// <remarks>
-        ///  This method requires authentication.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task<IReadOnlyList<DashboardCount>> DashboardWordsPerMonth()
         {
             return await ApiConnection.GetAll<DashboardCount>(ApiUrls.DashboardWordsPerMonth());
@@ -235,12 +235,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Gets the dashboard words per organization
         /// </summary>
         /// <remarks>
-        ///  This method requires authentication.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task<IReadOnlyList<WordsInOrganization>> DashboardWordsPerOrganization()
         {
             return await ApiConnection.GetAll<WordsInOrganization>(ApiUrls.DashboardWordsPerOrganization());
@@ -250,12 +250,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Gets the dashboard projects per month data
         /// </summary>
         /// <remarks>
-		///  This method requires authentication.
-		///  </remarks>
-		///  <exception cref="AuthorizationException">
-		///  Thrown when the current user does not have permission to make the request.
-		///  </exception>
-		///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+		/// This method requires authentication.
+		/// </remarks>
+		/// <exception cref="AuthorizationException">
+		/// Thrown when the current user does not have permission to make the request.
+		/// </exception>
+		/// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task<IReadOnlyList<DashboardCount>> DashboardProjectsPerMonth()
         {
             return await ApiConnection.GetAll<DashboardCount>(ApiUrls.GetProjectsPerMonthData());
@@ -265,12 +265,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Gets the dashboard statistics data
         /// </summary>
         /// <remarks>
-        ///  This method requires authentication.
-        ///  </remarks>
-        ///  <exception cref="AuthorizationException">
-        ///  Thrown when the current user does not have permission to make the request.
-        ///  </exception>
-        ///  <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public async Task<DashboardStatistics> DashboardStatistics()
         {
             return await ApiConnection.Get<DashboardStatistics>(ApiUrls.DashboardStatistics(), null);

@@ -72,6 +72,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Updates a role.
         /// </summary>
+        /// <param name="role">Role details</param>
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
@@ -113,6 +114,28 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         [Obsolete("This method is obsolete. Call 'DeleteRole(Guid)' instead.")]
         public Task DeleteRole(string roleId)
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        [Obsolete("This method is obsolete. Call 'DeleteRole(Guid)' instead.")]
+        public Task DeleteRole(string roleId)
+        {
+        /// <summary>
+        /// Deletes a <see cref="Role"/>.
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        public Task DeleteRole(Guid roleId)
+        /// 
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public Task DeleteRole(Guid roleId)
         {
             Ensure.ArgumentNotNullOrEmptyString(roleId, "roleId");
 
@@ -122,6 +145,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Deletes a <see cref="Role"/>.
         /// </summary>
+        /// <param name="roleId">Role Guid</param>
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
@@ -134,22 +158,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(roleId, "roleId");
 
             return ApiConnection.Delete(ApiUrls.Role(roleId));
-        }
-
-        /// <summary>
-        /// Add a user to a role for a specific organization.<see cref="Role"/>s.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A list of <see cref="Role"/>s.</returns>
-        public Task<string> RoleMembership(List<Role> role)
-        {
-            return ApiConnection.Put<string>(ApiUrls.RoleMembership(), role);
         }
 
         /// <summary>
@@ -170,38 +178,40 @@ namespace Sdl.Community.GroupShareKit.Clients
         [Obsolete("This method is obsolete. Call 'GetUsersForRole(Guid)' instead.")]
         public Task<IReadOnlyList<User>> GetUsersForRole(string roleId)
         {
-            Ensure.ArgumentNotNullOrEmptyString(roleId, "roleId");
+        /// Gets users for a specific <see cref="Role"/>.
             return ApiConnection.GetAll<User>(ApiUrls.GetUsersForRole(roleId));
         }
 
         /// <summary>
-        /// Gets users for a specific <see cref="Role"/>.
+        /// Gets users for a specific role<see cref="Role"/>s.
         /// </summary>
+        /// <param name="roleId">The role's Id</param>
         /// <remarks>
         /// This method requires authentication.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
+        /// <returns>A list of <see cref="User"/>'s</returns>
+        public Task<IReadOnlyList<User>> GetUsersForRole(Guid roleId)
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="User"/>'s</returns>
-        public Task<IReadOnlyList<User>> GetUsersForRole(Guid roleId)
-        {
-            Ensure.ArgumentNotNull(roleId, "roleId");
-            return ApiConnection.GetAll<User>(ApiUrls.GetUsersForRole(roleId));
-        }
-
+        [Obsolete("This method is obsolete. Call 'GetUsersForRole(Guid)' instead.")]
         [Obsolete("This method is obsolete. Call 'AddUserToRole(List<RoleMembership>)' instead.")]
         public async Task AddUserToRole(List<Role> roles)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        /// Adds users to a specific role.
         {
             await ApiConnection.Put<string>(ApiUrls.RoleMembership(), roles);
         }
 
         /// <summary>
-        /// Adds users to a specific role.
+        /// Adds users for a specific role<see cref="Role"/>s.
         /// </summary>
+        /// <param name="roles">An array of <see cref="RoleMembership"/> objects, each of them representing a combination of user, role and organization ids.</param>
         /// <remarks>
-        /// <param name="roles"><see cref="Role"/></param>
         /// This method requires authentication.
         /// </remarks>
         /// <exception cref="AuthorizationException">
@@ -214,18 +224,19 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         [Obsolete("This method is obsolete. Call 'RemoveUserFromRole(List<RoleMembership>)' instead.")]
-        public async Task RemoveUserFromRole(List<Role> roles, string roleId)
+        /// Removes users from a specific role.
         {
             await ApiConnection.Delete(ApiUrls.DeleteUserFromRole(roleId), roles, "application/json");
         }
-
-        /// <summary>
-        /// Removes users from a specific role.
-        /// </summary>
-        /// <remarks>
         /// <param name="roles"><see cref="RoleMembership"/></param>
         /// This method requires authentication.
         /// <remarks>
+        /// Removes users for a specific role<see cref="Role"/>s.
+        /// </summary>
+        /// <param name="roles">An array of <see cref="RoleMembership"/> objects, each of them representing a combination of user, role and organization ids.</param>
+        /// <remarks>
+        /// <param name="roles"><see cref="Role"/></param>
+        /// <param name="roleId">string</param>
         /// This method requires authentication.
         /// </remarks>
         /// <exception cref="AuthorizationException">

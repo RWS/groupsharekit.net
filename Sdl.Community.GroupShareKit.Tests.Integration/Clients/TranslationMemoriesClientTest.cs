@@ -446,21 +446,21 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var languageParameters = new LanguageParameters("en-us", "de-de");
 
 
-            var preDatedTUs = await GroupShareClient.TranslationMemories.GetPredatedTranslationUnitsCount(_translationMemoryId, languageParameters);
-            Assert.Equal(0, preDatedTUs);
+            var predatedTUsCount = await GroupShareClient.TranslationMemories.GetPredatedTranslationUnitsCount(_translationMemoryId, languageParameters);
+            Assert.Equal(0, predatedTUsCount);
 
-            var postDatedTUs = await GroupShareClient.TranslationMemories.GetPostdatedTranslationUnitsCount(_translationMemoryId, languageParameters);
-            Assert.Equal(0, postDatedTUs);
+            var postdatedTUsCount = await GroupShareClient.TranslationMemories.GetPostdatedTranslationUnitsCount(_translationMemoryId, languageParameters);
+            Assert.Equal(0, postdatedTUsCount);
         }
 
         [Fact]
-        public async Task GetTusNumberForUnalignedTm()
+        public async Task GetUnalignedTranslationUnitsCount()
         {
             var languageParameters = new LanguageParameters("en-us", "de-de");
 
-            var tusNumber = await GroupShareClient.TranslationMemories.GetUnalignedTranslationUnitsCount(_translationMemoryId, languageParameters);
+            var unalignedTusCount = await GroupShareClient.TranslationMemories.GetUnalignedTranslationUnitsCount(_translationMemoryId, languageParameters);
 
-            Assert.Equal(0, tusNumber);
+            Assert.Equal(0, unalignedTusCount);
         }
 
         [Fact]
