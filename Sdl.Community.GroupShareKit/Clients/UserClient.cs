@@ -61,7 +61,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Gets a <see cref="User"/>.
+        /// Gets a <see cref="User"/> by Id.
         /// </summary>
         /// <remarks>
         /// <param name="userId">string</param>
@@ -95,7 +95,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>A <see cref="User"/>.</returns>
+        /// <returns>The user's Guid.</returns>
         public Task<Guid> UpdateUser(User user)
         {
             return ApiConnection.Put<Guid>(ApiUrls.User(), user);
@@ -112,12 +112,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Deletes a <see cref="User"/>.
         /// </summary>
-        /// /// <remarks>
+        /// <remarks>
         /// This method requires authentication.
         /// </remarks>
         /// <exception cref="AuthorizationException">
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         public Task DeleteUser(Guid userId)
         {
             Ensure.ArgumentNotNull(userId, "userId");
@@ -133,7 +134,7 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Post<string>(ApiUrls.User(), user, "application/json");
         }
 
-        /// <summary>
+        //// <summary>
         /// Creates a <see cref="User"/>.
         /// </summary>
         /// /// <remarks>

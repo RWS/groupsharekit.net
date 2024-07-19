@@ -18,8 +18,6 @@ namespace Sdl.Community.GroupShareKit.Clients
     /// <summary>
     /// A client for GroupShare's ProjectServer API.
     /// </summary>
-    /// <remarks>
-    /// </remarks>
     public class ProjectClient : ApiClient, IProjectClient
     {
         public ProjectClient(IApiConnection apiConnection) : base(apiConnection)
@@ -896,11 +894,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             if (downloadRequest.Type != null)
             {
-                return
-                 await
-                     ApiConnection.Get<byte[]>(
-                         ApiUrls.DownloadFile(downloadRequest.ProjectId, Enum.GetName(typeof(FileDownloadRequest.Types), downloadRequest.Type)),
-                         null);
+                return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFile(downloadRequest.ProjectId, Enum.GetName(typeof(FileDownloadRequest.Types), downloadRequest.Type)), null);
             }
 
             return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFile(downloadRequest.ProjectId, "all"), null);

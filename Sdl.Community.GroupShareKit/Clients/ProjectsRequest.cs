@@ -3,8 +3,6 @@ namespace Sdl.Community.GroupShareKit.Clients
     /// <summary>
     /// Used to request projects for an organization.
     /// </summary>
-    /// <remarks>
-    /// </remarks>
     public class ProjectsRequest : RequestParameters
     {
 

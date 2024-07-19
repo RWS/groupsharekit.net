@@ -32,29 +32,26 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Gets a new translation job for the specified translate and analysis job.
+        /// Gets a new translation job specified translate and analysis job.
         /// </summary>
-        /// <param name="jobId">The job identifier.</param>
-        /// <param name="request">The document and the tm's options</param>
-        /// <returns>The translatable document identifier</returns>
-        /// <response code="200">Translation triggered successfully.</response>
-        /// <response code="400">When the given document or translation information not correct</response>
-        /// <response code="404">If there is no document with the given identifier</response>
+        /// <param name="jobId">Job identifier</param>
+        /// <param name="request">The request body</param>
+        /// <returns><see cref="int"/>Translation job identifier</returns>
         public Task<int> GetTranslationJob(int jobId, MultipartFormDataContent request)
         {
             return ApiConnection.Post<int>(ApiUrls.TranslationJob(jobId), request, "multipart/form-data");
         }
 
         [Obsolete("This method is obsolete. Call 'GetTranslationStatus(int)' instead.")]
-        public Task<Translation> GetTranslationStatus(string translateJobNo)
+        public Task<Translation> GetTranslationStatus(string translateJobId)
         {
-            return ApiConnection.Get<Translation>(ApiUrls.TranslationJobStatus(translateJobNo), null);
+            return ApiConnection.Get<Translation>(ApiUrls.TranslationJobStatus(translateJobId), null);
         }
 
         /// <summary>
         /// Exposes the translation status
         /// </summary>
-        /// <param name="translateJobNo">The document identifier.</param>
+        /// <param name="translateJobId">The document identifier.</param>
         /// <returns>The translation status and errors</returns>
         /// <response code="200">The status was returned.</response>
         /// <response code="404">If there is no document with the given identifier</response>
@@ -110,7 +107,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Exposes the status of the given analysis job.
         /// </summary>
-        /// <param name="analysisJobNo">The analysis identifier.</param>
+        /// <param name="analysisJobId">The analysis identifier.</param>
         /// <response code="200">The status was returned.</response>
         /// <response code="404">If there is no analysis with the given identifier</response>
         public Task<Analysis> GetAnalysisStatus(int analysisJobId)
@@ -127,7 +124,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Gets the specified analysis statistics.
         /// </summary>
-        /// <param name="analysisJobNo">The analysis identifier.</param>
+        /// <param name="jobId">The analysis identifier.</param>
         /// <returns>The analysis statistics</returns>
         public Task<AnalysisStatistics> GetAnalysisStatistics(int jobId)
         {

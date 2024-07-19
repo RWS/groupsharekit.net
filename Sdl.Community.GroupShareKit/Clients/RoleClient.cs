@@ -63,14 +63,14 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Post<Guid>(ApiUrls.Roles(), role, "application/json");
         }
 
-        [Obsolete("This method is obsolete. Call 'UpdateRole(RoleRequest)' instead.")]
+        [Obsolete("This method is obsolete. Call 'UpdateRole(Guid)' instead.")]
         public Task<string> Update(RoleRequest role)
         {
             return ApiConnection.Put<string>(ApiUrls.Roles(), role);
         }
 
         /// <summary>
-        /// Updates a <see cref="Role"/>.
+        /// Updates a role.
         /// </summary>
         /// <param name="role">Role details</param>
         /// <remarks>
@@ -97,7 +97,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Gets a <see cref="Role"/>.
         /// </summary>
-        /// <param name="roleId">Role Guid</param>
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
@@ -124,7 +123,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Deletes a <see cref="Role"/>.
         /// </summary>
-        /// <param name="roleId">Role Guid</param>
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
@@ -157,12 +155,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         [Obsolete("This method is obsolete. Call 'GetUsersForRole(Guid)' instead.")]
         public Task<IReadOnlyList<User>> GetUsersForRole(string roleId)
         {
-            Ensure.ArgumentNotNullOrEmptyString(roleId, "roleId");
             return ApiConnection.GetAll<User>(ApiUrls.GetUsersForRole(roleId));
         }
 
         /// <summary>
-        /// Gets all <see cref="User"/>s that have a specific role.
+        /// Gets users for a specific <see cref="Role"/>.
         /// </summary>
         /// <param name="roleId">The role's Id</param>
         /// <remarks>
@@ -175,16 +172,9 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="User"/>s.</returns>
         public Task<IReadOnlyList<User>> GetUsersForRole(Guid roleId)
         {
-            Ensure.ArgumentNotNull(roleId, "roleId");
             return ApiConnection.GetAll<User>(ApiUrls.GetUsersForRole(roleId));
         }
-
-        [Obsolete("This method is obsolete. Call 'AddUserToRole(List<RoleMembership>)' instead.")]
-        public Task<string> RoleMembership(List<Role> role)
-        {
-            return ApiConnection.Put<string>(ApiUrls.RoleMembership(), role);
-        }
-
+        
         [Obsolete("This method is obsolete. Call 'AddUserToRole(List<RoleMembership>)' instead.")]
         public async Task AddUserToRole(List<Role> roles)
         {
@@ -192,7 +182,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Adds users to roles in specific organizations.
+        /// Adds users for a specific role<see cref="Role"/>s.
         /// </summary>
         /// <param name="roles">An array of <see cref="RoleMembership"/> objects, each of them representing a combination of user, role and organization ids.</param>
         /// <remarks>
@@ -212,12 +202,15 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             await ApiConnection.Delete(ApiUrls.DeleteUserFromRole(roleId), roles, "application/json");
         }
-
-        /// <summary>
-        /// Removes users from roles in specific organizations.
+        /// <param name="roles"><see cref="RoleMembership"/></param>
+        /// This method requires authentication.
+        /// <remarks>
+        /// Removes users for a specific role<see cref="Role"/>s.
         /// </summary>
         /// <param name="roles">An array of <see cref="RoleMembership"/> objects, each of them representing a combination of user, role and organization ids.</param>
         /// <remarks>
+        /// <param name="roles"><see cref="Role"/></param>
+        /// <param name="roleId">string</param>
         /// This method requires authentication.
         /// </remarks>
         /// <exception cref="AuthorizationException">

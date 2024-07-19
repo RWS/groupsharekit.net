@@ -18,6 +18,9 @@ namespace Sdl.Community.GroupShareKit
         /// <summary>
         /// Access GroupShare's Project API.
         /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: {{serverUri}}/documentation/api/index#/
+        /// </remarks>
         IProjectClient Project { get; }
 
         /// <summary>
@@ -28,46 +31,73 @@ namespace Sdl.Community.GroupShareKit
         /// <summary>
         /// Access GroupShare's TM API.
         /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: {{serverUri}}/documentation/api/index#/
+        /// </remarks>
         ITranslationMemoriesClient TranslationMemories { get; set; }
 
         /// <summary>
         /// Access GroupShare's User API.
         /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: {{serverUri}}/documentation/api/index#/
+        /// </remarks>
         IUserClient User { get; }
 
         /// <summary>
         /// Access GroupShare's ModuleClient API.
         /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: {{serverUri}}/documentation/api/index#/
+        /// </remarks>
         IModuleClient ModuleClient { get; set; }
 
         /// <summary>
         /// Access GroupShare's Organizations API.
         /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: {{serverUri}}/documentation/api/index#/
+        /// </remarks>
         IOrganizationClient Organization { get; set; }
 
         /// <summary>
         /// Access GroupShare's Authentication API.
         /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: {{serverUri}}/documentation/api/index#/
+        /// </remarks>
         IAuthenticateClient Authenticate { get; set; }
 
         /// <summary>
         /// Access GroupShare's Role API.
         /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: {{serverUri}}/documentation/api/index#/
+        /// </remarks>
         IRoleClient Role { get; set; }
 
         /// <summary>
         /// Access GroupShare's Permission API.
         /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: {{serverUri}}/documentation/api/index#/
+        /// </remarks>
         IPermissionClient Permission { get; set; }
 
         /// <summary>
         /// Access GroupShare's License API.
         /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: {{serverUri}}/documentation/api/index#/
+        /// </remarks>
         ILicense License { get; set; }
 
         /// <summary>
         /// Access GroupShare's Terminology API.
         /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: {{serverUri}}/documentation/api/index#/
+        /// </remarks>
         ITerminology Terminology { get; set; }
 
         /// <summary>

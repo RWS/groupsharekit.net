@@ -125,7 +125,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// The encoding file format is a zip with the .gz extension
         /// To save the Tm on disk the array should be decompressed using GZipStream()
         /// <param name="request"><see cref="ExportRequest"/></param>
-        /// <param name="tmId">Translation memory id</param>
+        /// <param name="tmId">Translation memory Guid</param>
         /// <param name="language"><see cref="LanguageParameters"/></param>
         /// </summary>
         /// <remarks>
@@ -218,17 +218,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns><see cref="ImportResponse"/></returns>
         Task<ImportResponse> ImportTmWithSettings(Guid tmId, LanguageParameters language, byte[] rawFile, string fileName, ImportSettings settings);
 
-        /// <summary>
-        /// Gets the  tms number by language resource template.
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>  Tm number</returns>
         [Obsolete("This method is obsolete. Call 'GetTmsNumberByLanguageResourceTemplateId(Guid)' instead.")]
         Task<int> GetTmsNumberByLanguageResourceTemplateId(string resourceTemplateId);
 
@@ -299,7 +288,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns><see cref="FuzzyIndexResponse"/></returns>
         Task<FuzzyIndexResponse> Reindex(Guid tmId, FuzzyRequest request);
 
-        [Obsolete("This method is obsolete. Call 'GetTmLanguageDirection(Guid, Guid)' instead.")]
+        [Obsolete("This method is obsolete. Call 'GetTmLanguageDirection(Guid)' instead.")]
         Task<LanguageDirection> GetLanguageDirectionForTm(string tmId, string languageDirectionId);
 
         /// <summary>
@@ -373,7 +362,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns><see cref="TranslationUnitResponse"/></returns>
         Task<TranslationUnitResponse> AddAllTranslationUnits(TranslationUnitRequest unitRequest, string tmId, FieldTemplate fieldTemplate);
 
-        [Obsolete("This method is obsolete. Call 'GetTranslationUnitsForTm(Guid)' instead.")]
+        [Obsolete("This method is obsolete. Call 'GetTranslationUnitsForTm(Guid, TranslationUnitDetailsRequest)' instead.")]
         Task<TranslationUnitDetailsResponse> GetTranslationUnitForTm(string tmId, TranslationUnitDetailsRequest request);
 
         /// <summary>
@@ -395,7 +384,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         Task<int> GetNumberOfTus(string tmId, LanguageParameters language);
 
         /// <summary>
-        /// Gets the translation units number from the translation memory.
+        /// Gets the translation units count from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
         /// <param name="tmId">Translation memory id</param>
         /// </summary>
@@ -406,7 +395,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>int</returns>
+        /// <returns>The translation units count.</returns>
         Task<int> GetTranslationUnitsCount(Guid tmId, LanguageParameters language);
 
         [Obsolete("This method is obsolete. Call 'GetPostdatedTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
@@ -415,7 +404,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <summary>
         /// Gets the postdated translation units count from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
-        /// <param name="tmId">Translation memory Guid</param>
+        /// <param name="tmId">The translation memory Guid</param>
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -424,7 +413,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>int</returns>
+        /// <returns>The postdated translation units count.</returns>
         Task<int> GetPostdatedTranslationUnitsCount(Guid tmId, LanguageParameters language);
 
         [Obsolete("This method is obsolete. Call 'GetPredatedTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
@@ -433,7 +422,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <summary>
         /// Gets the predated translation units count from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
-        /// <param name="tmId">Translation memory Guid</param>
+        /// <param name="tmId">The translation memory Guid</param>
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -442,7 +431,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>int</returns>
+        /// <returns>The predated translation units count.</returns>
         Task<int> GetPredatedTranslationUnitsCount(Guid tmId, LanguageParameters language);
 
         [Obsolete("This method is obsolete. Call 'GetUnalignedTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
@@ -451,7 +440,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <summary>
         /// Gets the unaligned translation units count from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
-        /// <param name="tmId">Translation memory id</param>
+        /// <param name="tmId">The translation memory's Guid.</param>
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -460,7 +449,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>int</returns>
+        /// <returns>The unaligned translation units count.</returns>
         Task<int> GetUnalignedTranslationUnitsCount(Guid tmId, LanguageParameters language);
 
         [Obsolete("This method is obsolete. Call 'GetDuplicateTranslationUnits(Guid, LanguageParameters, DuplicatesTusRequest)' instead.")]
@@ -469,7 +458,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <summary>
         /// Retrieves the Duplicate Translation Units in a specific TM.
         /// <param name="language"><see cref="LanguageParameters"/></param>
-        /// <param name="tmId">Translation memory id</param>
+        /// <param name="tmId">The translation memory Guid.</param>
         /// <param name="duplicatesRequest"><see cref="DuplicatesTusRequest"/></param>
         /// </summary>
         /// <remarks>
@@ -574,7 +563,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         ///<returns><see cref="Containers"/></returns>
         Task<Containers> GetContainers();
 
-        [Obsolete("This method is obsolete. Call 'CreateContainer(Guid)' instead.")]
+        [Obsolete("This method is obsolete. Call 'CreateContainer(CreateContainerRequest)' instead.")]
         Task<string> CreateContainer(ContainerRequest request);
 
         /// <summary>

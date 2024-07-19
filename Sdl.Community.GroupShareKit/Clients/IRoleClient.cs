@@ -41,11 +41,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>The role's Guid.</returns>
         Task<Guid> CreateRole(Role role);
 
-        [Obsolete("This method is obsolete. Call 'UpdateRole(RoleRequest)' instead.")]
+        [Obsolete("This method is obsolete. Call 'UpdateRole(Guid)' instead.")]
         Task<string> Update(RoleRequest role);
 
         /// <summary>
-        /// Updates a <see cref="Role"/>.
+        /// Updates a role.
         /// </summary>
         /// <param name="role">Role details</param>
         /// <remarks>
@@ -107,7 +107,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<User>> GetUsersForRole(string roleId);
 
         /// <summary>
-        /// Gets all <see cref="User"/>s that have a specific role.
+        /// Gets users for a specific <see cref="Role"/>.
         /// </summary>
         /// <param name="roleId">The role's Id</param>
         /// <remarks>
@@ -121,13 +121,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<IReadOnlyList<User>> GetUsersForRole(Guid roleId);
 
         [Obsolete("This method is obsolete. Call 'AddUserToRole(List<RoleMembership>)' instead.")]
-        Task<string> RoleMembership(List<Role> role);
-
-        [Obsolete("This method is obsolete. Call 'AddUserToRole(List<RoleMembership>)' instead.")]
         Task AddUserToRole(List<Role> roles);
 
         /// <summary>
-        /// Adds users to roles in specific organizations.
+        /// Adds users to a specific role.
         /// </summary>
         /// <param name="roles">An array of <see cref="RoleMembership"/> objects, each of them representing a combination of user, role and organization ids.</param>
         /// <remarks>
@@ -143,9 +140,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task RemoveUserFromRole(List<Role> roles, string roleId);
 
         /// <summary>
-        /// Removes users from roles in specific organizations.
+        /// Removes users from a specific role.
         /// </summary>
         /// <param name="roles">An array of <see cref="RoleMembership"/> objects, each of them representing a combination of user, role and organization ids.</param>
+        /// <remarks>
+        /// <param name="roles"><see cref="RoleMembership"/></param>
+        /// This method requires authentication.
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>

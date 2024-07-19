@@ -306,7 +306,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         [Obsolete("This method is obsolete. Call 'ExportTm(Guid, ExportRequest, LanguageParameters)' instead.")]
         public async Task<byte[]> ExportTm(string tmId, ExportRequest request, LanguageParameters language)
         {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "tm id");
             Ensure.ArgumentNotNull(request, "request");
             Ensure.ArgumentNotNull(language, "language parameters");
 
@@ -328,7 +328,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// The encoding file format is a zip with the .gz extension
         /// To save the Tm on disk the array should be decompressed using GZipStream()
         /// <param name="request"><see cref="ExportRequest"/></param>
-        /// <param name="tmId">Translation memory id</param>
+        /// <param name="tmId">Translation memory Guid</param>
         /// <param name="language"><see cref="LanguageParameters"/></param>
         /// </summary>
         /// <remarks>
@@ -386,7 +386,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         [Obsolete("This method is obsolete. Call 'ImportTm(Guid, LanguageParameters, byte[], string)' instead.")]
         public async Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile, string fileName)
         {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
+            Ensure.ArgumentNotNullOrEmptyString(tmId, "tm id");
             Ensure.ArgumentNotNull(language, "language parameters");
             Ensure.ArgumentNotNull(rawFile, "file");
             Ensure.ArgumentNotNullOrEmptyString(fileName, "file name");
@@ -454,24 +454,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             }
         }
 
-        /// <summary>
-        /// Imports translation units into a translation memory
-        /// </summary>
-        /// <param name="tmId">Translation memory GUID</param>
-        /// <param name="language"><see cref="LanguageParameters"/></param>
-        /// <param name="filePath">Local file path</param>
-        /// <param name="settings">Import settings</param>
-        /// <remarks>
-        /// This method requires authentication.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="ImportResponse"/></returns>
         public async Task<ImportResponse> ImportTmWithSettings(Guid tmId, LanguageParameters language, string filePath, ImportSettings settings)
         {
-            Ensure.ArgumentNotNull(tmId, "tmId");
+            Ensure.ArgumentNotNull(tmId, "tm id");
             Ensure.ArgumentNotNull(language, "language parameters");
             Ensure.ArgumentNotNullOrEmptyString(filePath, "file path");
 
@@ -510,26 +495,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target), multipartContent, "application/json");
         }
 
-        /// <summary>
-        /// Imports TUs into a Translation Memory
-        /// The file should be a TMX type.
-        /// <param name="tmId">Translation memory id</param>
-        /// <param name="language"><see cref="LanguageParameters"/></param>
-        /// <param name="rawFile">byte[] which represents the file</param>
-        /// <param name="fileName">file name</param>
-        /// <param name="settings">import settings</param>
-        /// </summary>
-        /// <remarks>
-        /// This method requires authentication.
-        /// </remarks>
-        /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
-        /// </exception>
-        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns><see cref="ImportResponse"/></returns>
         public async Task<ImportResponse> ImportTmWithSettings(Guid tmId, LanguageParameters language, byte[] rawFile, string fileName, ImportSettings settings)
         {
-            Ensure.ArgumentNotNull(tmId, "tmId");
+            Ensure.ArgumentNotNull(tmId, "tm id");
             Ensure.ArgumentNotNull(language, "language parameters");
             Ensure.ArgumentNotNull(rawFile, "file");
             Ensure.ArgumentNotNullOrEmptyString(fileName, "file name");
@@ -666,7 +634,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Gets the translation units number from the translation memory.
+        /// Gets the translation units count from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
         /// <param name="tmId">Translation memory id</param>
         /// </summary>
@@ -677,7 +645,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Translation units count.</returns>
+        /// <returns>The translation units count.</returns>
         public async Task<int> GetTranslationUnitsCount(Guid tmId, LanguageParameters language)
         {
             Ensure.ArgumentNotNull(tmId, "translation memory id");
@@ -696,9 +664,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Gets the postdated translation units count from the translation memory
+        /// Gets the postdated translation units count from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
-        /// <param name="tmId">Translation memory id</param>
+        /// <param name="tmId">The translation memory Guid</param>
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -707,13 +675,13 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Postdated translation units count.</returns>
+        /// <returns>The postdated translation units count.</returns>
         public async Task<int> GetPostdatedTranslationUnitsCount(Guid tmId, LanguageParameters language)
         {
             Ensure.ArgumentNotNull(tmId, "translation memory id");
             Ensure.ArgumentNotNull(language, "language parameters request");
 
-            return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "postdated"), language.ToParametersDictionary());
+            return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "predated"), language.ToParametersDictionary());
         }
 
         [Obsolete("This method is obsolete. Call 'GetPredatedTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
@@ -726,9 +694,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Gets the predated translation units count from the translation memory
+        /// Gets the predated translation units count from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
-        /// <param name="tmId">Translation memory id</param>
+        /// <param name="tmId">The translation memory Guid</param>
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -737,7 +705,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Predated translation units count.</returns>
+        /// <returns>The predated translation units count.</returns>
         public async Task<int> GetPredatedTranslationUnitsCount(Guid tmId, LanguageParameters language)
         {
             Ensure.ArgumentNotNull(tmId, "translation memory id");
@@ -758,7 +726,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <summary>
         /// Gets the unaligned translation units count from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
-        /// <param name="tmId">Translation memory id</param>
+        /// <param name="tmId">The translation memory's Guid.</param>
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -767,7 +735,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        /// <returns>Unaligned translation units count.</returns>
+        /// <returns>The unaligned translation units count.</returns>
         public async Task<int> GetUnalignedTranslationUnitsCount(Guid tmId, LanguageParameters language)
         {
             Ensure.ArgumentNotNull(tmId, "translation memory id");
@@ -787,9 +755,9 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         }
 
         /// <summary>
-        /// Retrieves the Duplicate Translation Units in a specific TM
+        /// Retrieves the Duplicate Translation Units in a specific TM.
         /// <param name="language"><see cref="LanguageParameters"/></param>
-        /// <param name="tmId">Translation memory id</param>
+        /// <param name="tmId">The translation memory Guid.</param>
         /// <param name="duplicatesRequest"><see cref="DuplicatesTusRequest"/></param>
         /// </summary>
         /// <remarks>
@@ -802,7 +770,7 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         /// <returns><see cref="TranslationUnitDetailsResponse"/></returns>
         public async Task<TranslationUnitDetailsResponse> GetDuplicateTranslationUnits(Guid tmId, LanguageParameters language, DuplicatesTusRequest duplicatesRequest)
         {
-            Ensure.ArgumentNotNull(tmId, "tmId");
+            Ensure.ArgumentNotNull(tmId, "translation memory id");
             Ensure.ArgumentNotNull(language, "language parameters request");
             Ensure.ArgumentNotNull(duplicatesRequest, "duplicates request");
 
