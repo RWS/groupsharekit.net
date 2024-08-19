@@ -30,7 +30,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// This method requires authentication.
         /// </remarks>
         /// <exception cref="AuthorizationException">
-        /// Thrown when the current user does not have permission to make the request.
+        /// Thrown when the current user does not have permission to make the request. 
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>An <see cref="Organization"/>.</returns>
