@@ -24,10 +24,10 @@ namespace Sdl.Community.GroupShareKit.Models.Response
         /// <summary>
         /// Gets or sets the parent organization id
         /// </summary>
-        public string ParentOrganizationId { get; set; }
+        public string ParentOragnizationId { get; set; }
         /// <summary>
         /// Gets or sets the linked organizations ids
         /// </summary>
-        public List<string> LinkedOrganizationIds { get; set; }
+        public List<string> LinkedOragnizationIds { get; set; }
     }
 }
