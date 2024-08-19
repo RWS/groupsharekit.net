@@ -269,7 +269,6 @@ namespace Sdl.Community.GroupShareKit.Http
             request.Headers.Add("User-Agent", UserAgent);
 
             await _authenticator.Apply(request).ConfigureAwait(false);
-
             var response = await _httpClient.Send(request, cancellationToken).ConfigureAwait(false);
             HandleErrors(response);
             return response;
