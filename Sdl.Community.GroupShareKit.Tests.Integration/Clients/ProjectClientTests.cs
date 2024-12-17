@@ -1084,6 +1084,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(template.SourceLanguageCode != string.Empty);
             Assert.True(template.TargetLanguageCodes.Count > 0);
             Assert.False(template.EnableSegmentLockTask);
+            Assert.False(template.EnableSdlXliffAnalysisReport);
         }
 
         [Fact]
@@ -1195,6 +1196,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 OrganizationId = Guid.Parse(Helper.OrganizationId),
                 Settings = new ProjectTemplateSettingsV4
                 {
+                    EnableSdlXliffAnalysisReport = true,
                     EnableSegmentLockTask = true,
                     SourceLanguageCode = "en-us",
                     TargetLanguageCodes = new[] { "fr-fr" },
@@ -1211,6 +1213,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal("fr-fr", updatedProjectTemplate.TargetLanguageCodes.Single());
             Assert.Empty(updatedProjectTemplate.Termbases);
             Assert.Empty(updatedProjectTemplate.TranslationMemories);
+            Assert.True(updatedProjectTemplate.EnableSdlXliffAnalysisReport);
             Assert.True(updatedProjectTemplate.EnableSegmentLockTask);
             Assert.True(updatedProjectTemplate.SegmentLockingSettings.Single().UseAndCondition);
             Assert.Equal(99, updatedProjectTemplate.SegmentLockingSettings.Single().Score);
