@@ -45,16 +45,24 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task ChangeProjectPhases()
         {
+            var languageFile = (await GroupShareClient.Project.GetProjectFiles(_projectId)).First(f => f.FileRole == "Translatable");
+
+            var currentPhaseId = languageFile.Assignment.ProjectPhaseId;
+            var newPhaseId = _phases.First(p => p.ProjectPhaseId != currentPhaseId).ProjectPhaseId;
+
             var request = new[]
             {
                 new ChangePhaseRequest.File
                 {
                     LanguageFileId = _languageFileIds.First().ToString(),
-                    PhaseId = _phases[1].ProjectPhaseId
+                    PhaseId = newPhaseId
                 },
             };
 
             await GroupShareClient.Project.ChangePhase(_projectId, new ChangePhaseRequest("Changed phase ", request));
+
+            var updatedLanguageFile = (await GroupShareClient.Project.GetProjectFiles(_projectId)).First(f => f.UniqueId == languageFile.UniqueId);
+            Assert.Equal(newPhaseId, updatedLanguageFile.Assignment.ProjectPhaseId);
         }
 
         [Fact]
