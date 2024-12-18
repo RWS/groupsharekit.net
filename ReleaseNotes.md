@@ -1,3 +1,7 @@
+# New in 15.1.13
+* Support for GroupShare 2020 SR1 CU13
+* Added EnableSdlXliffAnalysisReport property to the ProjectTemplateSettingsV4 model
+
 # New in 15.1.12
 * Support for GroupShare 2020 SR1 CU12
 * Added support for MTQEAnalysisReportsV3 endpoints
