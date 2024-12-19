@@ -222,16 +222,22 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Fact]
         public async Task Projects_IsCheckOutToSomeoneElseBasicOnlineEditorMode_Succeeds()
-        {
+         {
+            await GroupShareClient.Project.OnlineCheckout(_projectId, _languageFileId);
+
             var editorProfileMode = OnlineCheckout.EditorProfileMode.Basic.ToString();
-            await GroupShareClient.Project.IsCheckoutToSomeoneElse(_languageFileId, editorProfileMode);
+            var isCheckedOutToSomeoneElse = await GroupShareClient.Project.IsCheckoutToSomeoneElse(_languageFileId, editorProfileMode);
+            Assert.False(isCheckedOutToSomeoneElse);
         }
 
         [Fact]
         public async Task Projects_IsCheckOutToSomeoneElseAdvancedOnlineEditorMode_Succeeds()
         {
+            await GroupShareClient.Project.OnlineCheckout(_projectId, _languageFileId);
+
             var editorProfileMode = OnlineCheckout.EditorProfileMode.Advanced.ToString();
-            await GroupShareClient.Project.IsCheckoutToSomeoneElse(_languageFileId, editorProfileMode);
+            var isCheckedOutToSomeoneElse = await GroupShareClient.Project.IsCheckoutToSomeoneElse(_languageFileId, editorProfileMode);
+            Assert.False(isCheckedOutToSomeoneElse);
         }
 
         [Fact]
@@ -733,6 +739,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectId = await GroupShareClient.Project.CreateProjectSkeleton(createProjectRequest);
             await GroupShareClient.Project.PublishPackage(projectId, rawData);
             await GroupShareClient.Project.CancelPublishPackage(projectId);
+
+            var publishingStatus = await GroupShareClient.Project.GetPublishingStatus(Guid.Parse(projectId));
+            Assert.Equal(PublishProjectStatus.Cancelled, publishingStatus.Status);
         }
 
         [Fact]
