@@ -29,21 +29,9 @@ namespace Sdl.Community.GroupShareKit.Helpers
                     {
                         var sourceText = FilterExpression.ConvertSegmentPair(pair.Source);
                         var targetText = FilterExpression.ConvertSegmentPair(pair.Target);
-                        var matchScore = string.Empty;
+                        var matchScore = scoringResult != null ? scoringResult.Match.ToString() : string.Empty;
 
-                        if (scoringResult != null)
-                        {
-                            matchScore = scoringResult.Match.ToString();
-                        }
-
-                        var result = new FilterResponse
-                        {
-                            Source = sourceText,
-                            Target = targetText,
-                            MatchScore = matchScore
-                        };
-
-                        searchResult.Add(result);
+                        searchResult.Add(new FilterResponse { Source = sourceText, Target = targetText, MatchScore = matchScore });
                     }
                 }
             }
