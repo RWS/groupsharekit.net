@@ -10,31 +10,28 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static List<FilterResponse> GetFilterResultForDocument(Document document, RestScoringResult scoringResult)
         {
             var searchResult = new List<FilterResponse>();
-            if (document != null)
+
+            if (document == null)
             {
-                foreach (var file in document.Files)
+                return searchResult;
+            }
+
+            foreach (var file in document.Files)
+            {
+                foreach (var paragraphUnit in file.ParagraphUnits)
                 {
-                    foreach (var paragraphUnit in file.ParagraphUnits)
+                    if (paragraphUnit.IsStructure)
                     {
-                        if (paragraphUnit.IsStructure)
-                            continue;
-                        foreach (var pair in paragraphUnit.SegmentPairs)
-                        {
-                            var sourceText = FilterExpression.ConvertSegmentPair(pair.Source);
-                            var targetText = FilterExpression.ConvertSegmentPair(pair.Target);
-                            var matchScore = string.Empty;
-                            if (scoringResult != null)
-                            {
-                                matchScore = scoringResult.Match.ToString();
-                            }
-                            var result = new FilterResponse
-                            {
-                                Source = sourceText,
-                                Target = targetText,
-                                MatchScore = matchScore
-                            };
-                            searchResult.Add(result);
-                        }
+                        continue;
+                    }
+
+                    foreach (var pair in paragraphUnit.SegmentPairs)
+                    {
+                        var sourceText = FilterExpression.ConvertSegmentPair(pair.Source);
+                        var targetText = FilterExpression.ConvertSegmentPair(pair.Target);
+                        var matchScore = scoringResult != null ? scoringResult.Match.ToString() : string.Empty;
+
+                        searchResult.Add(new FilterResponse { Source = sourceText, Target = targetText, MatchScore = matchScore });
                     }
                 }
             }
