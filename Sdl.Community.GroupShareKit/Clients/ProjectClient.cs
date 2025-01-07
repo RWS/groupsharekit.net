@@ -1068,6 +1068,49 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Post(ApiUrls.CancelPublishProjectPackage(projectId));
         }
 
+        /// <summary>
+        /// Starts exporting a project package (.sdlppx)
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        public async Task<Guid> ProjectPackageExport(Guid projectId, List<Guid> languageFileIds)
+        {
+            var content = new PackageExport()
+            {
+                ProjectId = projectId,
+                LanguageFileIds = languageFileIds
+            };
+            return await ApiConnection.Post<Guid>(ApiUrls.ProjectPackageExport(), content, "application/json");
+        }
+
+        /// <summary>
+        /// Returns the status of the package export task
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        public async Task<PackageExportStatus> PackageExportStatus(Guid taskId){
+
+            return await ApiConnection.GetWithContent<PackageExportStatus>(ApiUrls.ProjectPackageExportStatus(taskId.ToString()), "application/json");
+        }
+
+        /// <summary>
+        /// Returns the exported project package (.sdlppx)
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        public async Task<byte[]> DownloadExportPackage(Guid taskId)
+        {
+            return await ApiConnection.Get<Byte[]>(ApiUrls.ProjectPackageExportResult(taskId.ToString()), null);
+        }
+
+        public Task PackageImport(Guid projectId, byte[] rawData)
+        {
+            throw new NotImplementedException();
+        }
+
         [Obsolete("This method is obsolete. Call 'GetAllProjectFileStatistics(Guid)' instead.")]
         public Task<IReadOnlyList<ProjectFileStatistics>> GetAllProjectFileStatistics(string projectId)
         {

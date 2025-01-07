@@ -346,6 +346,42 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> that enables exporting a package
+        /// </summary>
+        public static Uri ProjectPackageExport()
+        {
+            return "{0}/package/export".
+                FormatUri(CurrentProjectServerV3Url);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that enables exporting a package
+        /// </summary>
+        public static Uri ProjectPackageExportStatus(string workItemId)
+        {
+            return "{0}/package/export/status/{1}".
+                FormatUri(CurrentProjectServerV3Url, workItemId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that enables exporting a package
+        /// </summary>
+        public static Uri ProjectPackageExportResult(string workItemId)
+        {
+            return "{0}/package/export/{1}".
+                FormatUri(CurrentProjectServerV3Url, workItemId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that enables importing a package
+        /// </summary>
+        public static Uri ProjectPackageImport(string projectId)
+        {
+            return "{0}/package/import/{1}".
+                FormatUri(CurrentProjectServerV3Url, projectId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns all files associated with the specified project
         /// </summary>
         /// <param name="projectId">The project id</param>
