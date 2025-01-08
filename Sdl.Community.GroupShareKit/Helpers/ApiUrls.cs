@@ -366,7 +366,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Returns the <see cref="Uri"/> that enables exporting a package
         /// </summary>
-        public static Uri ProjectPackageExportResult(string workItemId)
+        public static Uri ProjectPackageDownload(string workItemId)
         {
             return "{0}/package/export/{1}".
                 FormatUri(CurrentProjectServerV3Url, workItemId);

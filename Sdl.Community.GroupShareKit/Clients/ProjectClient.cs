@@ -1090,7 +1090,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
-        public async Task<PackageExportStatus> PackageExportStatus(Guid taskId){
+        public async Task<PackageExportStatus> ProjectPackageExportStatus(Guid taskId){
 
             return await ApiConnection.GetWithContent<PackageExportStatus>(ApiUrls.ProjectPackageExportStatus(taskId.ToString()), "application/json");
         }
@@ -1101,14 +1101,28 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
-        public async Task<byte[]> DownloadExportPackage(Guid taskId)
+        public async Task<byte[]> ProjectPackageDownload(Guid taskId)
         {
-            return await ApiConnection.Get<Byte[]>(ApiUrls.ProjectPackageExportResult(taskId.ToString()), null);
+            return await ApiConnection.Get<Byte[]>(ApiUrls.ProjectPackageDownload(taskId.ToString()), null);
         }
 
-        public Task PackageImport(Guid projectId, byte[] rawData)
+        /// <summary>
+        /// Imports an package (.sdlrpx)
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        public async Task<string> ProjectPackageImport(Guid projectId, byte[] rawData)
         {
-            throw new NotImplementedException();
+            var byteContent = new ByteArrayContent(rawData);
+            byteContent.Headers.Add("Content-Type", "application/zip");
+
+            var multipartContent = new MultipartFormDataContent
+            {
+                { byteContent, "file", projectId + ".sdlrpx" }
+            };
+
+            return await ApiConnection.Post<string>(ApiUrls.ProjectPackageImport(projectId.ToString()), multipartContent, "application/zip");
         }
 
         [Obsolete("This method is obsolete. Call 'GetAllProjectFileStatistics(Guid)' instead.")]

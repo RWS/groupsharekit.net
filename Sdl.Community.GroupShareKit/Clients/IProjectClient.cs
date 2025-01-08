@@ -488,7 +488,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>The Guid of the background task</returns>
-        Task<PackageExportStatus> PackageExportStatus(Guid taskId);
+        Task<PackageExportStatus> ProjectPackageExportStatus(Guid taskId);
 
         /// <summary>
         /// Returns the exported project package (.sdlppx)
@@ -501,7 +501,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>The project package</returns>
-        Task<byte[]> DownloadExportPackage(Guid taskId);
+        Task<byte[]> ProjectPackageDownload(Guid taskId);
 
         /// <summary>
         /// Imports a project package (.sdlppx)
@@ -513,7 +513,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// Thrown when the current user does not have permission to make the request.
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
-        Task PackageImport(Guid projectId, byte[] rawData);
+        Task<string> ProjectPackageImport(Guid projectId, byte[] rawData);
 
 
         [Obsolete("This method is obsolete. Call 'GetAllProjectFileStatistics(Guid)' instead.")]

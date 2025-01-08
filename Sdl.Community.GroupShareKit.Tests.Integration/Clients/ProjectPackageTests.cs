@@ -24,7 +24,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             _languageFileIds = GroupShareClient
                 .Project
-                .GetProjectFiles(_projectId).Result.Where(f => f.FileRole == "Translatable")
+                .GetProjectFiles(_projectId).Result.Where(f => f.FileRole == "Translatable" && f.LanguageCode == project.TargetLanguage)
                 .Select(lf => lf.UniqueId).ToList();
         }
 
