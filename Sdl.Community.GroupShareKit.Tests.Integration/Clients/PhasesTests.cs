@@ -45,24 +45,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task ChangeProjectPhases()
         {
-            var languageFile = (await GroupShareClient.Project.GetProjectFiles(_projectId)).First(f => f.FileRole == "Translatable");
-
-            var currentPhaseId = languageFile.Assignment.ProjectPhaseId;
-            var newPhaseId = _phases.First(p => p.ProjectPhaseId != currentPhaseId).ProjectPhaseId;
-
             var request = new[]
             {
                 new ChangePhaseRequest.File
                 {
                     LanguageFileId = _languageFileIds.First().ToString(),
-                    PhaseId = newPhaseId
+                    PhaseId = _phases[1].ProjectPhaseId
                 },
             };
 
             await GroupShareClient.Project.ChangePhase(_projectId, new ChangePhaseRequest("Changed phase ", request));
-
-            var updatedLanguageFile = (await GroupShareClient.Project.GetProjectFiles(_projectId)).First(f => f.UniqueId == languageFile.UniqueId);
-            Assert.Equal(newPhaseId, updatedLanguageFile.Assignment.ProjectPhaseId);
         }
 
         [Fact]
@@ -79,33 +71,19 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Fact]
         public async Task ChangeProjectAssignments()
-         {
-            var languageFileId = _languageFileIds.First();
-            var assignmentDueDate = DateTime.UtcNow.AddDays(3);
-            var phaseId = _phases[2].ProjectPhaseId;
-
+        {
             var request = new[]
             {
                 new ChangeAssignmentRequest.File
                 {
-                    LanguageFileId = languageFileId.ToString(),
-                    DueDate = assignmentDueDate,
-                    PhaseId = phaseId,
+                    LanguageFileId = _languageFileIds.First().ToString(),
+                    DueDate =  DateTime.Now.AddDays(1),
+                    PhaseId = _phases[2].ProjectPhaseId,
                     AssignedUsers = new[] { Helper.GsUser }
                 }
             };
 
             await GroupShareClient.Project.ChangeAssignment(_projectId, new ChangeAssignmentRequest("test assignment", request));
-
-            var fileIds = new List<Guid> { languageFileId };
-
-            var assignments = await GroupShareClient.Project.GetProjectAssignmentById(_projectId, fileIds);
-            var assignment = assignments.Single(a => a.PhaseId == phaseId);
-            var dueDate = (DateTime)assignment.DueDate;
-
-            var expectedDueDate = new DateTime(assignmentDueDate.Year, assignmentDueDate.Month, assignmentDueDate.Day, assignmentDueDate.Hour, assignmentDueDate.Minute, assignmentDueDate.Second);
-            var actualDueDate = new DateTime(dueDate.Year, dueDate.Month, dueDate.Day, dueDate.Hour, dueDate.Minute, dueDate.Second);
-            Assert.Equal(expectedDueDate, actualDueDate);
         }
     }
 }

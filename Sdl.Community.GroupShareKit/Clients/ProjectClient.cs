@@ -1068,6 +1068,63 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Post(ApiUrls.CancelPublishProjectPackage(projectId));
         }
 
+        /// <summary>
+        /// Starts exporting a project package (.sdlppx)
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        public async Task<Guid> ProjectPackageExport(Guid projectId, List<Guid> languageFileIds)
+        {
+            var content = new PackageExport()
+            {
+                ProjectId = projectId,
+                LanguageFileIds = languageFileIds
+            };
+            return await ApiConnection.Post<Guid>(ApiUrls.ProjectPackageExport(), content, "application/json");
+        }
+
+        /// <summary>
+        /// Returns the status of the package export task
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        public async Task<PackageExportStatus> ProjectPackageExportStatus(Guid taskId){
+
+            return await ApiConnection.GetWithContent<PackageExportStatus>(ApiUrls.ProjectPackageExportStatus(taskId.ToString()), "application/json");
+        }
+
+        /// <summary>
+        /// Returns the exported project package (.sdlppx)
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        public async Task<byte[]> ProjectPackageDownload(Guid taskId)
+        {
+            return await ApiConnection.Get<Byte[]>(ApiUrls.ProjectPackageDownload(taskId.ToString()), null);
+        }
+
+        /// <summary>
+        /// Imports an package (.sdlrpx)
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        public async Task<string> ProjectPackageImport(Guid projectId, byte[] rawData)
+        {
+            var byteContent = new ByteArrayContent(rawData);
+            byteContent.Headers.Add("Content-Type", "application/zip");
+
+            var multipartContent = new MultipartFormDataContent
+            {
+                { byteContent, "file", projectId + ".sdlrpx" }
+            };
+
+            return await ApiConnection.Post<string>(ApiUrls.ProjectPackageImport(projectId.ToString()), multipartContent, "application/zip");
+        }
+
         [Obsolete("This method is obsolete. Call 'GetAllProjectFileStatistics(Guid)' instead.")]
         public Task<IReadOnlyList<ProjectFileStatistics>> GetAllProjectFileStatistics(string projectId)
         {

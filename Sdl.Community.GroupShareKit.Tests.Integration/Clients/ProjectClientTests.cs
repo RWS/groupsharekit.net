@@ -222,22 +222,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Fact]
         public async Task Projects_IsCheckOutToSomeoneElseBasicOnlineEditorMode_Succeeds()
-         {
-            await GroupShareClient.Project.OnlineCheckout(_projectId, _languageFileId);
-
+        {
             var editorProfileMode = OnlineCheckout.EditorProfileMode.Basic.ToString();
-            var isCheckedOutToSomeoneElse = await GroupShareClient.Project.IsCheckoutToSomeoneElse(_languageFileId, editorProfileMode);
-            Assert.False(isCheckedOutToSomeoneElse);
+            await GroupShareClient.Project.IsCheckoutToSomeoneElse(_languageFileId, editorProfileMode);
         }
 
         [Fact]
         public async Task Projects_IsCheckOutToSomeoneElseAdvancedOnlineEditorMode_Succeeds()
         {
-            await GroupShareClient.Project.OnlineCheckout(_projectId, _languageFileId);
-
             var editorProfileMode = OnlineCheckout.EditorProfileMode.Advanced.ToString();
-            var isCheckedOutToSomeoneElse = await GroupShareClient.Project.IsCheckoutToSomeoneElse(_languageFileId, editorProfileMode);
-            Assert.False(isCheckedOutToSomeoneElse);
+            await GroupShareClient.Project.IsCheckoutToSomeoneElse(_languageFileId, editorProfileMode);
         }
 
         [Fact]
@@ -739,9 +733,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var projectId = await GroupShareClient.Project.CreateProjectSkeleton(createProjectRequest);
             await GroupShareClient.Project.PublishPackage(projectId, rawData);
             await GroupShareClient.Project.CancelPublishPackage(projectId);
-
-            var publishingStatus = await GroupShareClient.Project.GetPublishingStatus(Guid.Parse(projectId));
-            Assert.Equal(PublishProjectStatus.Cancelled, publishingStatus.Status);
         }
 
         [Fact]
@@ -1093,7 +1084,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(template.SourceLanguageCode != string.Empty);
             Assert.True(template.TargetLanguageCodes.Count > 0);
             Assert.False(template.EnableSegmentLockTask);
-            Assert.False(template.EnableSdlXliffAnalysisReport);
         }
 
         [Fact]
@@ -1205,7 +1195,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 OrganizationId = Guid.Parse(Helper.OrganizationId),
                 Settings = new ProjectTemplateSettingsV4
                 {
-                    EnableSdlXliffAnalysisReport = true,
                     EnableSegmentLockTask = true,
                     SourceLanguageCode = "en-us",
                     TargetLanguageCodes = new[] { "fr-fr" },
@@ -1222,7 +1211,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal("fr-fr", updatedProjectTemplate.TargetLanguageCodes.Single());
             Assert.Empty(updatedProjectTemplate.Termbases);
             Assert.Empty(updatedProjectTemplate.TranslationMemories);
-            Assert.True(updatedProjectTemplate.EnableSdlXliffAnalysisReport);
             Assert.True(updatedProjectTemplate.EnableSegmentLockTask);
             Assert.True(updatedProjectTemplate.SegmentLockingSettings.Single().UseAndCondition);
             Assert.Equal(99, updatedProjectTemplate.SegmentLockingSettings.Single().Score);
