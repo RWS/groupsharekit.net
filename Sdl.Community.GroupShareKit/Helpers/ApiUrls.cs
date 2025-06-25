@@ -1,5 +1,6 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
 using System;
+using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Helpers
 {
@@ -2032,5 +2033,78 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/idpusersettings".FormatUri(CurrentManagementV2Url);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Uri Activities()
+        {
+            return "{0}/activities".FormatUri(CurrentManagementV2Url);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Uri TwoFaGlobalSettings()
+        {
+            return "{0}/twoFA/globalSettings".FormatUri(CurrentManagementV2Url);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static Uri TwoFaSettings(Guid userId)
+        {
+            return "{0}/twoFA/settings/{1}".FormatUri(CurrentManagementV2Url, userId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="enabled"></param>
+        /// <returns></returns>
+        public static Uri SetTwoFaStatus(Guid userId, bool enabled)
+        {
+            return "{0}/twoFA/settings/{1}?enabled={2}".FormatUri(CurrentManagementV2Url, userId, enabled);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static Uri UserTwoFaEnforcementStatus(Guid userId)
+        {
+            return "{0}/twoFA/enforcementStatus/{1}".FormatUri(CurrentManagementV2Url, userId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Uri UsersTwoFaEnforcementStatuses(List<Guid> userIds)
+        {
+            return "{0}/twoFA/enforcementStatus".FormatUri(CurrentManagementV2Url, userIds);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="require2FA"></param>
+        /// <returns></returns>
+        public static Uri SetTwoFaEnforcementStatus(Guid userId, bool require2FA)
+        {
+            return "{0}/twoFA/enforcementstatus?userId={1}&require2FA={2}".FormatUri(CurrentManagementV2Url, userId, require2FA);
+        }
+
+
+
+
     }
 }
