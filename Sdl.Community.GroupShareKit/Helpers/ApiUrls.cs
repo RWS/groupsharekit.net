@@ -2047,6 +2047,15 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// 
         /// </summary>
         /// <returns></returns>
+        public static Uri Activities(int page, int start, int limit, string serializedSort, string filter = null)
+        {
+            return "{0}/activities?page={1}&start={2}&limit={3}&sort={4}&filter={5}".FormatUri(CurrentManagementV2Url, page, start, limit, serializedSort, filter);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static Uri TwoFaGlobalSettings()
         {
             return "{0}/twoFA/globalSettings".FormatUri(CurrentManagementV2Url);

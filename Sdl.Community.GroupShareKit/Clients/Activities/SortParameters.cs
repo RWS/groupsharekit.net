@@ -1,30 +1,32 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json.Serialization;
 
-namespace Sdl.Community.GroupShareKit.Clients.Logging
+namespace Sdl.Community.GroupShareKit.Clients.Activities
 {
-    public class LogsSortParameters : IJsonRequest
+    public class SortParameters : IJsonRequest
     {
-        /// <summary>
-        /// Gets or sets the property option
-        /// </summary>
-        /// <value>logDate</value>
-
         [JsonConverter(typeof(StringEnumConverter))]
         public PropertyOption Property { get; set; }
 
-        /// <summary>
-        /// Gets or sets direction option
-        /// </summary>
-        /// <value>ASC</value>
-        /// <value>DESC</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public DirectionOption Direction { get; set; }
 
         public enum PropertyOption
         {
-            LogDate
+            LastActivity,
+            ActivitySource,
+            UserName,
+            UserDisplayName,
+            OrganizationName,
+            CalsConsumed,
+            Login,
+            ActivitySourceDetails
         }
 
         public enum DirectionOption
@@ -35,7 +37,7 @@ namespace Sdl.Community.GroupShareKit.Clients.Logging
 
         public string Stringify()
         {
-            var sort = new LogsSortParameters
+            var sort = new SortParameters
             {
                 Property = Property,
                 Direction = Direction
