@@ -2056,6 +2056,24 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// 
         /// </summary>
         /// <returns></returns>
+        public static Uri ExportActivities()
+        {
+            return "{0}/activities/export".FormatUri(CurrentManagementV2Url);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Uri ExportActivities(int page, int limit, string filter = null, string timezone = null, string language = null)
+        {
+            return "{0}/activities/export?page={1}&limit={2}&filter={3}&timezone={4}&language={5}".FormatUri(CurrentManagementV2Url, page, limit, filter, timezone, language);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static Uri TwoFaGlobalSettings()
         {
             return "{0}/twoFA/globalSettings".FormatUri(CurrentManagementV2Url);

@@ -1,7 +1,7 @@
 ﻿using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
-using Sdl.Community.GroupShareKit.Models;
 using Sdl.Community.GroupShareKit.Models.Response;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients.Activities
@@ -17,9 +17,39 @@ namespace Sdl.Community.GroupShareKit.Clients.Activities
             return await ApiConnection.Get<JsonCollection<Activity>>(ApiUrls.Activities(), null);
         }
 
-        public async Task<JsonCollection<Activity>> GetActivities(int page = 1, int start = 0, int limit = 150, string sort = null, string filter = null)
+        public async Task<JsonCollection<Activity>> GetActivities(ActivitiesFilter filter)
         {
-            return await ApiConnection.Get<JsonCollection<Activity>>(ApiUrls.Activities(page, start, limit, sort, filter), null);
+            var filterParameters = new Dictionary<string, string>
+            {
+                { "page", filter.Page.ToString() },
+                { "start", filter.Start.ToString() },
+                { "limit", filter.Limit.ToString() },
+                { "filter", filter.Filter },
+                { "language", filter.Language.ToString() },
+                { "timeZone", filter.TimeZone },
+                { "sort", filter.Sort }
+            };
+
+            return await ApiConnection.Get<JsonCollection<Activity>>(ApiUrls.Activities(), filterParameters);
+        }
+
+        public async Task<byte[]> ExportActivities()
+        {
+            return await ApiConnection.Get<byte[]>(ApiUrls.ExportActivities(), null);
+        }
+
+        public async Task<byte[]> ExportActivities(ExportActivitiesFilter filter)
+        {
+            var filterParameters = new Dictionary<string, string>
+            {
+                { "Page", filter.Page.ToString() },
+                { "Limit", filter.Limit.ToString() },
+                { "Filter", filter.Filter },
+                { "Language", filter.Language.ToString() },
+                { "TimeZone", filter.TimeZone }
+            };
+
+            return await ApiConnection.Get<byte[]>(ApiUrls.ExportActivities(), filterParameters);
         }
 
     }

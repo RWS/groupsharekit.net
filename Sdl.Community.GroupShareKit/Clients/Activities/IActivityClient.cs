@@ -12,6 +12,24 @@ namespace Sdl.Community.GroupShareKit.Clients.Activities
         /// <returns></returns>
         Task<JsonCollection<Activity>> GetActivities();
 
-        Task<JsonCollection<Activity>> GetActivities(int page = 1, int start = 0, int limit = 150, string sort = null, string filter = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        Task<JsonCollection<Activity>> GetActivities(ActivitiesFilter filter/*, string sort = null*/);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        Task<byte[]> ExportActivities();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        Task<byte[]> ExportActivities(ExportActivitiesFilter filter);
     }
 }

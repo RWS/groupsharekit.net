@@ -29,11 +29,21 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Direction = SortParameters.DirectionOption.DESC
             };
 
-            var filter = new ActivitiesRequestFilter { 
+            var filter = new ActivitiesRequestFilter
+            {
                 ActivitySources = new List<string> { "Trados GroupShare" }
             }.SerializeFilter();
 
-            var activities = await GroupShareClient.ActivityClient.GetActivities(page: 1, start: 0, limit: 2, sort: sortParameters.Stringify(), filter: filter);
+            var activitiesFilter = new ActivitiesFilter
+            {
+                Page = 1,
+                Start = 0,
+                Limit = 2,
+                Filter = filter,
+                Sort = sortParameters.Stringify(),
+            };
+
+            var activities = await GroupShareClient.ActivityClient.GetActivities(activitiesFilter);
 
             Assert.True(activities.Items.Length <= 2);
             Assert.All(activities.Items, activity => Assert.Equal("Trados GroupShare", activity.ActivitySource));
@@ -48,13 +58,54 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Direction = SortParameters.DirectionOption.DESC
             };
 
-            var filter = new ActivitiesRequestFilter { 
+            var filter = new ActivitiesRequestFilter
+            {
                 ActivitySources = new List<string> { "Unknown" }
             }.SerializeFilter();
 
-            var activities = await GroupShareClient.ActivityClient.GetActivities(page: 1, start: 0, limit: 10, sort: sortParameters.Stringify(), filter: filter);
+            var activitiesFilter = new ActivitiesFilter
+            {
+                Page = 1,
+                Start = 0,
+                Limit = 10,
+                Filter = filter,
+                Sort = sortParameters.Stringify(),
+            };
+
+            var activities = await GroupShareClient.ActivityClient.GetActivities(activitiesFilter);
 
             Assert.All(activities.Items, activity => Assert.Equal("Unknown", activity.ActivitySource));
+        }
+
+        [Fact]
+        public async Task GetActivitiesUsingSearchText()
+        {
+            var sortParameters = new SortParameters
+            {
+                Property = SortParameters.PropertyOption.LastActivity,
+                Direction = SortParameters.DirectionOption.DESC
+            };
+
+            var filter = new ActivitiesRequestFilter
+            {
+                ShowOnlineOnly = false,
+                SearchText = "Trados GroupShare"
+            }.SerializeFilter();
+
+            var activitiesFilter = new ActivitiesFilter
+            {
+                Page = 1,
+                Start = 0,
+                Limit = 3,
+                Filter = filter,
+                Language = ReportLanguage.En,
+                TimeZone = "Europe/Paris",
+                Sort = sortParameters.Stringify(),
+            };
+
+            var activities = await GroupShareClient.ActivityClient.GetActivities(activitiesFilter);
+
+            Assert.All(activities.Items, activity => Assert.Equal("Trados GroupShare", activity.ActivitySource));
         }
 
         [Fact]
@@ -62,7 +113,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var sortParameters = new SortParameters
             {
-                Property = SortParameters.PropertyOption.UserDisplayName,
+                Property = SortParameters.PropertyOption.LastActivity,
                 Direction = SortParameters.DirectionOption.ASC
             };
 
@@ -71,10 +122,50 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Users = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() }
             }.SerializeFilter();
 
-            var activities = await GroupShareClient.ActivityClient.GetActivities(page: 1, start: 0, limit: 10, sort: sortParameters.Stringify(), filter: filter);
+            var activitiesFilter = new ActivitiesFilter
+            {
+                Page = 1,
+                Start = 0,
+                Limit = 10,
+                Filter = filter,
+                Language = ReportLanguage.En,
+                Sort = sortParameters.Stringify(),
+            };
+
+            var activities = await GroupShareClient.ActivityClient.GetActivities(activitiesFilter);
 
             Assert.Equal(0, activities.Count);
             Assert.Empty(activities.Items);
+        }
+
+        [Fact]
+        public async Task ExportAllActivities()
+        {
+            var export = await GroupShareClient.ActivityClient.ExportActivities();
+
+            Assert.NotNull(export);
+        }
+
+        [Fact]
+        public async Task ExportActivitiesWithFilter()
+        {
+            var filter = new ActivitiesRequestFilter
+            {
+                ActivitySources = new List<string> { "Trados GroupShare" }
+            }.SerializeFilter();
+
+            var exportFilter = new ExportActivitiesFilter
+            {
+                Page = 1,
+                Limit = 3,
+                Filter = filter,
+                Language = ReportLanguage.Fr,
+                TimeZone = "Europe/Paris"
+            };
+
+            var export = await GroupShareClient.ActivityClient.ExportActivities(exportFilter);
+
+            Assert.NotNull(export);
         }
 
     }

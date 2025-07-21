@@ -18,6 +18,12 @@ namespace Sdl.Community.GroupShareKit.Models
         [JsonProperty("lastUsedEnd")]
         public DateTime? LastUsedEnd { get; set; }
 
+        [JsonProperty("showOnlineOnly")]
+        public bool? ShowOnlineOnly { get; set; }
+
+        [JsonProperty("searchText")]
+        public string SearchText { get; set; }
+
         public string SerializeFilter()
         {
             var serializerSettings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, DateFormatString = "yyyy-MM-ddTHH:mm:ss.fffZ" };
