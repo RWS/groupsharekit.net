@@ -29,7 +29,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Direction = SortParameters.DirectionOption.DESC
             };
 
-            var filter = new ActivitiesRequestFilter
+            var filter = new Filter
             {
                 ActivitySources = new List<string> { "Trados GroupShare" }
             }.SerializeFilter();
@@ -54,7 +54,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var filter = new ActivitiesFilter
             {
-                Filter = new ActivitiesRequestFilter
+                Filter = new Filter
                 {
                     ShowOnlineOnly = true
                 }.SerializeFilter()
@@ -70,7 +70,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var filter = new ActivitiesFilter
             {
-                Filter = new ActivitiesRequestFilter
+                Filter = new Filter
                 {
                     LastUsedStart = DateTime.UtcNow.Date,
                     LastUsedEnd = DateTime.UtcNow.Date.AddHours(23).AddMinutes(59)
@@ -91,7 +91,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Direction = SortParameters.DirectionOption.DESC
             };
 
-            var filter = new ActivitiesRequestFilter
+            var filter = new Filter
             {
                 ActivitySources = new List<string> { "Unknown" }
             }.SerializeFilter();
@@ -119,7 +119,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Direction = SortParameters.DirectionOption.DESC
             };
 
-            var filter = new ActivitiesRequestFilter
+            var filter = new Filter
             {
                 ShowOnlineOnly = false,
                 SearchText = "Trados GroupShare"
@@ -150,7 +150,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Direction = SortParameters.DirectionOption.ASC
             };
 
-            var filter = new ActivitiesRequestFilter
+            var filter = new Filter
             {
                 Users = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() }
             }.SerializeFilter();
@@ -182,7 +182,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task ExportActivitiesWithFilter()
         {
-            var filter = new ActivitiesRequestFilter
+            var filter = new Filter
             {
                 ActivitySources = new List<string> { "Trados GroupShare" }
             }.SerializeFilter();
@@ -204,7 +204,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task ArchiveActivities()
         {
-            var filter = new ActivitiesRequestFilter
+            var filter = new Filter
             {
                 ActivitySources = new List<string> { "Unknown" }
             }.SerializeFilter();

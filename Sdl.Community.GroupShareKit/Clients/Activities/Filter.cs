@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Clients.Activities
 {
-    public class ActivitiesRequestFilter
+    public class Filter
     {
         [JsonProperty("activitySources")]
         public List<string> ActivitySources { get; set; }
