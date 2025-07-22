@@ -96,22 +96,24 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var currentUser = users.Items.First(user => user.Name == Helper.GsUser);
             var currentUserId = Guid.Parse(currentUser.UniqueId);
 
-            var twoFaSettings = await GroupShareClient.TwoFactorAuthenticationClient.GetUserTwoFaSettings(currentUserId);
-            Assert.False(twoFaSettings.Enabled);
+            var twoFaSettings = await GroupShareClient.TwoFactorAuthenticationClient.CreateTwoFaSettings(currentUserId);
+            Assert.False(twoFaSettings.Settings.Enabled);
 
             await GroupShareClient.TwoFactorAuthenticationClient.SetTwoFaStatus(currentUserId, true);
 
-            twoFaSettings = await GroupShareClient.TwoFactorAuthenticationClient.GetUserTwoFaSettings(currentUserId);
-            Assert.True(twoFaSettings.Enabled);
+            var retrievedTwoFaSettings = await GroupShareClient.TwoFactorAuthenticationClient.GetUserTwoFaSettings(currentUserId);
+            Assert.True(retrievedTwoFaSettings.Enabled);
 
             await GroupShareClient.TwoFactorAuthenticationClient.SetTwoFaStatus(currentUserId, false);
 
-            twoFaSettings = await GroupShareClient.TwoFactorAuthenticationClient.GetUserTwoFaSettings(currentUserId);
-            Assert.False(twoFaSettings.Enabled);
+            retrievedTwoFaSettings = await GroupShareClient.TwoFactorAuthenticationClient.GetUserTwoFaSettings(currentUserId);
+            Assert.False(retrievedTwoFaSettings.Enabled);
+
+            await GroupShareClient.TwoFactorAuthenticationClient.ResetTwoFa(currentUserId);
         }
 
         [Fact]
-        public async Task ResetTwoFactorAuthenticationSettingsForUser()
+        public async Task CreateAndResetTwoFactorAuthenticationSettingsForUser()
         {
             var userPageRequest = new UsersRequest(1, 1, 10);
             var users = await GroupShareClient.User.GetAllUsers(userPageRequest);
@@ -124,6 +126,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.Equal(currentUserId, twoFaSettings.Settings.UserId);
             Assert.False(string.IsNullOrEmpty(twoFaSettings.Settings.AccountSecret));
             Assert.False(string.IsNullOrEmpty(twoFaSettings.Settings.ManualCode));
+            Assert.False(twoFaSettings.Require2FA);
 
             var retrievedTwoFaSettings = await GroupShareClient.TwoFactorAuthenticationClient.GetUserTwoFaSettings(currentUserId);
             Assert.Equal(currentUserId, retrievedTwoFaSettings.UserId);

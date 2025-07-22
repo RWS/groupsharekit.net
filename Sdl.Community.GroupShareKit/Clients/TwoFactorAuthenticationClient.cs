@@ -108,7 +108,5 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Put(ApiUrls.SetTwoFaEnforcementStatus(userId, require2FA));
         }
 
-
-
     }
 }
