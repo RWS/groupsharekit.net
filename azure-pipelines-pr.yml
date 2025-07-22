@@ -8,7 +8,7 @@ pr:
   drafts: false
 
 pool:
-  vmImage: 'windows-2019'
+  vmImage: 'windows-2022'
 
 variables:
   solution: '**/*.sln'
@@ -30,7 +30,7 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: SonarCloudPrepare@1
+- task: SonarCloudPrepare@3
   inputs:
     SonarCloud: 'SonarCloudFOrGSKit2'
     organization: 'sdl'
