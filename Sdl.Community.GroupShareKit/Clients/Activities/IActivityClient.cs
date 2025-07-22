@@ -1,5 +1,4 @@
-﻿using Sdl.Community.GroupShareKit.Models;
-using Sdl.Community.GroupShareKit.Models.Response;
+﻿using Sdl.Community.GroupShareKit.Models.Response;
 using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients.Activities
@@ -7,36 +6,31 @@ namespace Sdl.Community.GroupShareKit.Clients.Activities
     public interface IActivityClient
     {
         /// <summary>
-        /// 
+        /// Gets all the activities.
         /// </summary>
-        /// <returns></returns>
         Task<JsonCollection<Activity>> GetActivities();
 
         /// <summary>
-        /// 
+        /// Gets filtered activities.
         /// </summary>
         /// <param name="filter"></param>
-        /// <returns></returns>
         Task<JsonCollection<Activity>> GetActivities(ActivitiesFilter filter);
 
         /// <summary>
-        /// 
+        /// Exports activities.
         /// </summary>
-        /// <returns></returns>
         Task<byte[]> ExportActivities();
 
         /// <summary>
-        /// 
+        /// Exports filtered activities.
         /// </summary>
         /// <param name="filter"></param>
-        /// <returns></returns>
         Task<byte[]> ExportActivities(ExportActivitiesFilter filter);
 
         /// <summary>
-        /// 
+        /// Exports activities and deletes them from the server.
         /// </summary>
         /// <param name="filter"></param>
-        /// <returns></returns>
         Task<byte[]> ArchiveActivities(ExportActivitiesFilter filter);
     }
 }
