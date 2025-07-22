@@ -1,4 +1,4 @@
-﻿using Sdl.Community.GroupShareKit.Models.Response;
+﻿using Sdl.Community.GroupShareKit.Models.Response.TwoFactorAuthentication;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -38,7 +38,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
-        Task CreateTwoFaSettings(Guid userId);
+        Task<CreateTwoFaSettingsResponse> CreateTwoFaSettings(Guid userId);
 
         /// <summary>
         /// Updates the Enabled flag of the Two-Factor Authentication settings for a user. 

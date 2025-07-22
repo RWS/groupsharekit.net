@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Sdl.Community.GroupShareKit.Models.Response
+namespace Sdl.Community.GroupShareKit.Models.Response.TwoFactorAuthentication
 {
     public class UserTwoFaSettings
     {
-        public Guid UserGuid { get; set; }
+        public Guid UserId { get; set; }
 
         public bool Enabled { get; set; }
 

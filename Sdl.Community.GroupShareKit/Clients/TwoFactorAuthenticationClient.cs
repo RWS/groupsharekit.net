@@ -1,6 +1,6 @@
 ﻿using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
-using Sdl.Community.GroupShareKit.Models.Response;
+using Sdl.Community.GroupShareKit.Models.Response.TwoFactorAuthentication;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -53,9 +53,9 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <remarks>
         /// This method requires authentication.
         /// </remarks>
-        public async Task CreateTwoFaSettings(Guid userId)
+        public async Task<CreateTwoFaSettingsResponse> CreateTwoFaSettings(Guid userId)
         {
-            await ApiConnection.Post(ApiUrls.TwoFaSettings(userId));
+            return await ApiConnection.Post<CreateTwoFaSettingsResponse>(ApiUrls.TwoFaSettings(userId));
         }
 
         /// <summary>

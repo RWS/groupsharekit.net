@@ -110,6 +110,28 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.False(twoFaSettings.Enabled);
         }
 
+        [Fact]
+        public async Task ResetTwoFactorAuthenticationSettingsForUser()
+        {
+            var userPageRequest = new UsersRequest(1, 1, 10);
+            var users = await GroupShareClient.User.GetAllUsers(userPageRequest);
+
+            var currentUser = users.Items.First(user => user.Name == Helper.GsUser);
+            var currentUserId = Guid.Parse(currentUser.UniqueId);
+
+            var twoFaSettings = await GroupShareClient.TwoFactorAuthenticationClient.CreateTwoFaSettings(currentUserId);
+
+            Assert.Equal(currentUserId, twoFaSettings.Settings.UserId);
+            Assert.False(string.IsNullOrEmpty(twoFaSettings.Settings.AccountSecret));
+            Assert.False(string.IsNullOrEmpty(twoFaSettings.Settings.ManualCode));
+
+            var retrievedTwoFaSettings = await GroupShareClient.TwoFactorAuthenticationClient.GetUserTwoFaSettings(currentUserId);
+            Assert.Equal(currentUserId, retrievedTwoFaSettings.UserId);
+            Assert.Equal(twoFaSettings.Settings.AccountSecret, retrievedTwoFaSettings.AccountSecret);
+            Assert.Equal(twoFaSettings.Settings.ManualCode, retrievedTwoFaSettings.ManualCode);
+
+            await GroupShareClient.TwoFactorAuthenticationClient.ResetTwoFa(currentUserId);
+        }
 
     }
 }
