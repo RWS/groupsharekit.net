@@ -119,6 +119,13 @@ namespace Sdl.Community.GroupShareKit.Http
             return SendData<T>(uri, HttpMethod.Post, body, contentType, timeout, CancellationToken.None);
         }
 
+        public Task<IApiResponse<T>> Post<T>(Uri uri, IDictionary<string, string> parameters)
+        {
+            Ensure.ArgumentNotNull(uri, "uri");
+
+            return SendData<T>(uri.ApplyParameters(parameters), HttpMethod.Post, null, null, CancellationToken.None);
+        }
+
         public Task<IApiResponse<T>> Post<T>(Uri uri)
         {
             Ensure.ArgumentNotNull(uri, "uri");

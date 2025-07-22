@@ -201,5 +201,27 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.NotNull(export);
         }
 
+        [Fact]
+        public async Task ArchiveActivities()
+        {
+            var filter = new ActivitiesRequestFilter
+            {
+                ActivitySources = new List<string> { "Unknown" }
+            }.SerializeFilter();
+
+            var exportFilter = new ExportActivitiesFilter
+            {
+                Page = 1,
+                Limit = 2,
+                Filter = filter,
+                Language = ReportLanguage.En,
+                TimeZone = "Europe/Bucharest"
+            };
+
+            var export = await GroupShareClient.ActivityClient.ArchiveActivities(exportFilter);
+
+            Assert.NotNull(export);
+        }
+
     }
 }

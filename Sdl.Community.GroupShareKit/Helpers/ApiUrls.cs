@@ -2070,6 +2070,11 @@ namespace Sdl.Community.GroupShareKit.Helpers
             return "{0}/activities/export?page={1}&limit={2}&filter={3}&timezone={4}&language={5}".FormatUri(CurrentManagementV2Url, page, limit, filter, timezone, language);
         }
 
+        public static Uri ArchiveActivities()
+        {
+            return "{0}/activities/archive".FormatUri(CurrentManagementV2Url);
+        }
+
         /// <summary>
         /// 
         /// </summary>

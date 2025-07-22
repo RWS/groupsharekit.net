@@ -31,5 +31,12 @@ namespace Sdl.Community.GroupShareKit.Clients.Activities
         /// <param name="filter"></param>
         /// <returns></returns>
         Task<byte[]> ExportActivities(ExportActivitiesFilter filter);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        Task<byte[]> ArchiveActivities(ExportActivitiesFilter filter);
     }
 }

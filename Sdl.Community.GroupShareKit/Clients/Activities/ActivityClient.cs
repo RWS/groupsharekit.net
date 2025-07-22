@@ -42,14 +42,28 @@ namespace Sdl.Community.GroupShareKit.Clients.Activities
         {
             var filterParameters = new Dictionary<string, string>
             {
-                { "Page", filter.Page.ToString() },
-                { "Limit", filter.Limit.ToString() },
-                { "Filter", filter.Filter },
-                { "Language", filter.Language.ToString() },
-                { "TimeZone", filter.TimeZone }
+                { "page", filter.Page.ToString() },
+                { "limit", filter.Limit.ToString() },
+                { "filter", filter.Filter },
+                { "language", filter.Language.ToString() },
+                { "timeZone", filter.TimeZone }
             };
 
             return await ApiConnection.Get<byte[]>(ApiUrls.ExportActivities(), filterParameters);
+        }
+
+        public async Task<byte[]> ArchiveActivities(ExportActivitiesFilter filter)
+        {
+            var filterParameters = new Dictionary<string, string>
+            {
+                { "page", filter.Page.ToString() },
+                { "limit", filter.Limit.ToString() },
+                { "filter", filter.Filter },
+                { "language", filter.Language.ToString() },
+                { "timeZone", filter.TimeZone }
+            };
+
+            return await ApiConnection.Post<byte[]>(ApiUrls.ArchiveActivities(), filterParameters);
         }
 
     }

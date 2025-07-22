@@ -85,7 +85,10 @@ namespace Sdl.Community.GroupShareKit.Http
         /// <param name="contentType">Specifies the media type of the request body</param>
         /// <returns><seealso cref="IResponse"/> representing the received HTTP response</returns>
         Task<T> Post<T>(Uri uri, object body, string contentType);
+
         Task<T> Post<T>(string uri, object body, string contentType);
+
+        Task<T> Post<T>(Uri uri, IDictionary<string, string> parameters);
 
         Task<T> GetWithContent<T>(Uri uri, string contentType);
 

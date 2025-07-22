@@ -52,6 +52,8 @@ namespace Sdl.Community.GroupShareKit.Http
 
         Task<IApiResponse<T>> Post<T>(string uri, object body, string contentType);
 
+        Task<IApiResponse<T>> Post<T>(Uri uri, IDictionary<string, string> parameters);
+
         /// <summary>
         /// Performs an asynchronous HTTP POST request.
         /// Attempts to map the response body to an object of type <typeparamref name="T"/>
