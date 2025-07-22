@@ -2056,7 +2056,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> for the Two-Factor Authentication global settings
+        /// Returns the <see cref="Uri"/> for the Two-Factor Authentication global setting
         /// </summary>
         public static Uri TwoFaGlobalSettings()
         {
