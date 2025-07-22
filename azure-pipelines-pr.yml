@@ -22,9 +22,7 @@ steps:
     forceReinstallCredentialProvider: true
 
 - task: NuGetToolInstaller@0
-  displayName: Use NuGet 4.7.0
-  inputs:
-    versionSpec: 4.7.0
+  displayName: Use NuGet 
 
 - task: NuGetCommand@2
   inputs:
@@ -34,7 +32,7 @@ steps:
   inputs:
     SonarCloud: 'SonarCloudFOrGSKit2'
     organization: 'sdl'
-    scannerMode: 'MSBuild'
+    scannerMode: 'dotnet'
     projectKey: 'groupsharekit'
     projectName: 'GroupShareKit'
 
