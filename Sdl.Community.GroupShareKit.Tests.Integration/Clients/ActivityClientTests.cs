@@ -21,7 +21,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task GetFilteredActivities()
+        public async Task GetActivitiesByActivitySources()
         {
             var sortParameters = new SortParameters
             {
@@ -47,6 +47,39 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.True(activities.Items.Length <= 2);
             Assert.All(activities.Items, activity => Assert.Equal("Trados GroupShare", activity.ActivitySource));
+        }
+
+        [Fact]
+        public async Task GetActivitiesOfOnlineUsers()
+        {
+            var filter = new ActivitiesFilter
+            {
+                Filter = new ActivitiesRequestFilter
+                {
+                    ShowOnlineOnly = true
+                }.SerializeFilter()
+            };
+
+            var activities = await GroupShareClient.ActivityClient.GetActivities(filter);
+
+            Assert.All(activities.Items, activity => Assert.Equal(DateTime.UtcNow.Date, activity.LastActivity.Value.Date));
+        }
+
+        [Fact]
+        public async Task GetActivitiesByLastActiveTime()
+        {
+            var filter = new ActivitiesFilter
+            {
+                Filter = new ActivitiesRequestFilter
+                {
+                    LastUsedStart = DateTime.UtcNow.Date,
+                    LastUsedEnd = DateTime.UtcNow.Date.AddHours(23).AddMinutes(59)
+                }.SerializeFilter()
+            };
+
+            var activities = await GroupShareClient.ActivityClient.GetActivities(filter);
+
+            Assert.All(activities.Items, activity => Assert.Equal(DateTime.UtcNow.Date, activity.LastActivity.Value.Date));
         }
 
         [Fact]
@@ -78,7 +111,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         }
 
         [Fact]
-        public async Task GetActivitiesUsingSearchText()
+        public async Task GetActivitiesBySearchText()
         {
             var sortParameters = new SortParameters
             {

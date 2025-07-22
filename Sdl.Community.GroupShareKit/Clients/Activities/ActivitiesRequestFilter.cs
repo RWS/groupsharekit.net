@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Sdl.Community.GroupShareKit.Models
+namespace Sdl.Community.GroupShareKit.Clients.Activities
 {
     public class ActivitiesRequestFilter
     {

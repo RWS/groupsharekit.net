@@ -17,7 +17,7 @@ namespace Sdl.Community.GroupShareKit.Clients.Activities
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        Task<JsonCollection<Activity>> GetActivities(ActivitiesFilter filter/*, string sort = null*/);
+        Task<JsonCollection<Activity>> GetActivities(ActivitiesFilter filter);
 
         /// <summary>
         /// 

@@ -15,7 +15,7 @@ namespace Sdl.Community.GroupShareKit.Clients.Activities
         public string Filter { get; set; }
 
         [JsonProperty("language")]
-        public ReportLanguage Language { get; set; }
+        public ReportLanguage? Language { get; set; }
 
         [JsonProperty("timeZone")]
         public string TimeZone { get; set; }
