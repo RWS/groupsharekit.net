@@ -1,3 +1,10 @@
+# New in 15.2.0
+* Support for GroupShare 2020 SR2
+* Added support for ActivityV2 endpoints
+* Added support for ExportActivityV2 endpoints
+* Added support for TwoFactorAuthenticationSettings endpoints
+* Added support for User2FAEnforcementStatusV2 endpoints
+
 # New in 15.1.13
 * Support for GroupShare 2020 SR1 CU13
 * Added EnableSdlXliffAnalysisReport property to the ProjectTemplateSettingsV4 model
