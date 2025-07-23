@@ -1,4 +1,5 @@
-﻿using Sdl.Community.GroupShareKit.Helpers;
+﻿using Newtonsoft.Json.Linq;
+using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response.TwoFactorAuthentication;
 using System;
@@ -10,7 +11,7 @@ namespace Sdl.Community.GroupShareKit.Clients
     public class TwoFactorAuthenticationClient : ApiClient, ITwoFactorAuthenticationClient
     {
         public TwoFactorAuthenticationClient(IApiConnection apiConnection) : base(apiConnection)
-        { 
+        {
         }
 
         /// <summary>
@@ -33,7 +34,16 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </remarks>
         public async Task<UserTwoFaSettings> GetUserTwoFaSettings(Guid userId)
         {
-            return await ApiConnection.Get<UserTwoFaSettings>(ApiUrls.TwoFaSettings(userId), null);
+            var result = await ApiConnection.Get<object>(ApiUrls.TwoFaSettings(userId), null);
+
+            if (!(result is JObject jObject))
+            {
+                return null;
+            }
+
+            var settings = jObject.ToObject<UserTwoFaSettings>();
+
+            return settings;
         }
 
         /// <summary>
