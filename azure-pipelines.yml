@@ -22,18 +22,17 @@ name: $(majorMinorPatchVersion).$(buildVersion)
 
 steps:
 
-- task: NuGetToolInstaller@0
+- task: NuGetToolInstaller@1
   displayName: Use Latest NuGet
-
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
 
-- task: SonarCloudPrepare@1
+- task: SonarCloudPrepare@3
   inputs:
-    SonarCloud: 'SonarCloudFOrGSKit2'
+    SonarCloud: 'SonarCloudForGSKit2'
     organization: 'sdl'
-    scannerMode: 'MSBuild'
+    scannerMode: dotnet
     projectKey: 'groupsharekit'
     projectName: 'GroupShareKit'
 - task: VSBuild@1
@@ -41,8 +40,8 @@ steps:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-- task: SonarCloudAnalyze@1
-- task: SonarCloudPublish@1
+- task: SonarCloudAnalyze@3
+- task: SonarCloudPublish@3
   inputs:
     pollingTimeoutSec: '300'
     

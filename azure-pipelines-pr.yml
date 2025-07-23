@@ -8,7 +8,7 @@ pr:
   drafts: false
 
 pool:
-  vmImage: 'windows-2019'
+  vmImage: 'windows-2022'
 
 variables:
   solution: '**/*.sln'
@@ -22,19 +22,17 @@ steps:
     forceReinstallCredentialProvider: true
 
 - task: NuGetToolInstaller@0
-  displayName: Use NuGet 4.7.0
-  inputs:
-    versionSpec: 4.7.0
+  displayName: Use NuGet 
 
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
 
-- task: SonarCloudPrepare@1
+- task: SonarCloudPrepare@3
   inputs:
     SonarCloud: 'SonarCloudFOrGSKit2'
     organization: 'sdl'
-    scannerMode: 'MSBuild'
+    scannerMode: 'dotnet'
     projectKey: 'groupsharekit'
     projectName: 'GroupShareKit'
 
