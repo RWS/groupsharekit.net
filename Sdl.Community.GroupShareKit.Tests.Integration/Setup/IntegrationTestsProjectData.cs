@@ -44,7 +44,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
 
         private async Task<Guid> CreateTestProject()
         {
-            var projectTemplateId = await CreateTestrojectTemplate();
+            var projectTemplateId = await CreateTestProjectTemplate();
 
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\Grammar.zip"));
             var projectName = $"Project - {Guid.NewGuid()}";
@@ -62,7 +62,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
             return Guid.Parse(projectId);
         }
 
-        private async Task<Guid> CreateTestrojectTemplate()
+        private async Task<Guid> CreateTestProjectTemplate()
         {
             var rawData = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Resources\SampleTemplate.sdltpl"));
 

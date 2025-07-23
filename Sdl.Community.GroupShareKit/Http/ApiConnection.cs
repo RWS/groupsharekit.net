@@ -195,6 +195,14 @@ namespace Sdl.Community.GroupShareKit.Http
             return response.Body;
         }
 
+        public async Task<T> Post<T>(Uri uri, IDictionary<string, string> parameters)
+        {
+            Ensure.ArgumentNotNull(uri, "uri");
+
+            var response = await Connection.Post<T>(uri, parameters).ConfigureAwait(false);
+            return response.Body;
+        }
+
         /// <summary>
         /// Performs an asynchronous HTTP PUT request.
         /// Attempts to map the response body to an object of type <typeparamref name="T"/>

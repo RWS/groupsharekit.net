@@ -43,7 +43,7 @@ namespace Sdl.Community.GroupShareKit.Http
         /// </summary>
         /// <typeparam name="T">Type of the API resource in the list.</typeparam>
         /// <param name="uri">URI of the API resource to get</param>
-        /// <returns><see cref="IReadOnlyList{T}"/> of the The API resources in the list.</returns>
+        /// <returns><see cref="IReadOnlyList{T}"/> of the API resources in the list.</returns>
         /// <exception cref="ApiException">Thrown when an API error occurs.</exception>
         Task<IReadOnlyList<T>> GetAll<T>(Uri uri);
 
@@ -53,7 +53,7 @@ namespace Sdl.Community.GroupShareKit.Http
         /// <typeparam name="T">Type of the API resource in the list.</typeparam>
         /// <param name="uri">URI of the API resource to get</param>
         /// <param name="parameters">Parameters to add to the API request</param>
-        /// <returns><see cref="IReadOnlyList{T}"/> of the The API resources in the list.</returns>
+        /// <returns><see cref="IReadOnlyList{T}"/> of the API resources in the list.</returns>
         /// <exception cref="ApiException">Thrown when an API error occurs.</exception>
         Task<IReadOnlyList<T>> GetAll<T>(Uri uri, IDictionary<string, string> parameters);
 
@@ -85,7 +85,10 @@ namespace Sdl.Community.GroupShareKit.Http
         /// <param name="contentType">Specifies the media type of the request body</param>
         /// <returns><seealso cref="IResponse"/> representing the received HTTP response</returns>
         Task<T> Post<T>(Uri uri, object body, string contentType);
+
         Task<T> Post<T>(string uri, object body, string contentType);
+
+        Task<T> Post<T>(Uri uri, IDictionary<string, string> parameters);
 
         Task<T> GetWithContent<T>(Uri uri, string contentType);
 
@@ -149,6 +152,7 @@ namespace Sdl.Community.GroupShareKit.Http
         /// </summary>
         /// <param name="uri">URI endpoint to send request to</param>
         /// <param name="data">The object to serialize as the body of the request</param>
+        /// <param name="contentType">Specifies the media type of the request body</param>
         /// <returns>A <see cref="Task"/> for the request's execution.</returns>
         Task Delete(Uri uri, object data, string contentType);
 
