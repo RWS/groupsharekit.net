@@ -1,4 +1,4 @@
-# New in 15.2.0.1
+# New in 15.2.0.2
 * Resolved a potential NullReferenceException in a method handling
 
 # New in 15.2.0
