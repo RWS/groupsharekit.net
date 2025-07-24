@@ -1,3 +1,6 @@
+# New in 15.2.0.1
+* Resolved a potential NullReferenceException in a method handling
+
 # New in 15.2.0
 * Support for GroupShare 2020 SR2
 * Added support for ActivityV2 endpoints
