@@ -464,8 +464,61 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </remarks>
         Task CancelPublishPackage(string projectId);
 
+        /// <summary>
+        /// Starts exporting a project package (.sdlppx)
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The Guid of the background task</returns>
+        Task<Guid> ProjectPackageExport(Guid projectId, List<Guid> languageFileIds);
+
+        /// <summary>
+        /// Returns the status of the package export task
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The Guid of the background task</returns>
+        Task<PackageExportStatus> ProjectPackageExportStatus(Guid taskId);
+
+        /// <summary>
+        /// Returns the exported project package (.sdlppx)
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        /// <returns>The project package</returns>
+        Task<byte[]> ProjectPackageDownload(Guid taskId);
+
+        /// <summary>
+        /// Imports a project package (.sdlppx)
+        /// </summary>
+        /// <remarks>
+        /// This method requires authentication.
+        /// </remarks>
+        /// <exception cref="AuthorizationException">
+        /// Thrown when the current user does not have permission to make the request.
+        /// </exception>
+        /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
+        Task<string> ProjectPackageImport(Guid projectId, byte[] rawData);
+
+
         [Obsolete("This method is obsolete. Call 'GetAllProjectFileStatistics(Guid)' instead.")]
         Task<IReadOnlyList<ProjectFileStatistics>> GetAllProjectFileStatistics(string projectId);
+
 
         /// <summary>
         /// Gets a list of file statistics for a project.

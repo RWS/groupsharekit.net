@@ -208,3 +208,4 @@ packaging/
 .fake/
 .store
 *.exe
+/Sdl.Community.GroupShareKit.Tests.Integration/InternalPackageTests.cs
