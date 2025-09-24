@@ -13,9 +13,9 @@ namespace Sdl.Community.GroupShareKit.Http
 {
     public class Connection : IConnection
     {
-        readonly Authenticator _authenticator;
-        readonly JsonHttpPipeline _jsonPipeline;
-        readonly IHttpClient _httpClient;
+        private readonly Authenticator _authenticator;
+        private readonly JsonHttpPipeline _jsonPipeline;
+        private readonly IHttpClient _httpClient;
 
         /// <summary>
         /// Creates a new connection instance used to make requests of the GroupShare API.
@@ -62,7 +62,7 @@ namespace Sdl.Community.GroupShareKit.Http
             _jsonPipeline = new JsonHttpPipeline();
         }
 
-        private string FormatUserAgent()
+        private static string FormatUserAgent()
         {
             return string.Format(CultureInfo.InvariantCulture,
                 "({0} {1}; {2}; {3}; GroupShare kit)", "WindowsRT",
@@ -117,6 +117,13 @@ namespace Sdl.Community.GroupShareKit.Http
             Ensure.ArgumentNotNull(uri, "uri");
 
             return SendData<T>(uri, HttpMethod.Post, body, contentType, timeout, CancellationToken.None);
+        }
+
+        public Task<IApiResponse<T>> Post<T>(Uri uri, IDictionary<string, string> parameters)
+        {
+            Ensure.ArgumentNotNull(uri, "uri");
+
+            return SendData<T>(uri.ApplyParameters(parameters), HttpMethod.Post, null, null, CancellationToken.None);
         }
 
         public Task<IApiResponse<T>> Post<T>(Uri uri)
@@ -284,10 +291,9 @@ namespace Sdl.Community.GroupShareKit.Http
                 { (HttpStatusCode)422, response => new ApiValidationException(response) }
            };
 
-        static void HandleErrors(IResponse response)
+        private static void HandleErrors(IResponse response)
         {
-            Func<IResponse, Exception> exceptionFunc;
-            if (HttpExceptionMap.TryGetValue(response.StatusCode, out exceptionFunc))
+            if (HttpExceptionMap.TryGetValue(response.StatusCode, out var exceptionFunc))
             {
                 throw exceptionFunc(response);
             }
