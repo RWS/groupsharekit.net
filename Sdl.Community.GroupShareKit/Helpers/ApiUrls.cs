@@ -1,5 +1,6 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
 using System;
+using System.Collections.Generic;
 
 namespace Sdl.Community.GroupShareKit.Helpers
 {
@@ -649,7 +650,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="reference"></param>
-        /// <returns></returns>
         public static string AddProjectFiles(Guid projectId, bool reference = false)
         {
             return string.Format("{0}/projects/{1}/update?&reference={2}", CurrentProjectServerV4Url, projectId, reference);
@@ -670,7 +670,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="reference"></param>
-        /// <returns></returns>
         public static Uri UpdateProjectFiles(Guid projectId, bool reference = false)
         {
             return "{0}/projects/{1}/update?&reference={2}".FormatUri(CurrentProjectServerV4Url, projectId, reference);
@@ -728,7 +727,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         /// <param name="projectId"></param>
         /// <param name="deleteProjectTMs"></param>
-        /// <returns></returns>
         public static Uri DetachProject(Guid projectId, bool deleteProjectTMs = false)
         {
             return "{0}/projects/{1}/detach?deleteProjectTMs={2}".FormatUri(CurrentProjectServerUrl, projectId, deleteProjectTMs);
@@ -2032,5 +2030,84 @@ namespace Sdl.Community.GroupShareKit.Helpers
         {
             return "{0}/idpusersettings".FormatUri(CurrentManagementV2Url);
         }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for retrieving activities
+        /// </summary>
+        public static Uri Activities()
+        {
+            return "{0}/activities".FormatUri(CurrentManagementV2Url);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for exporting activities
+        /// </summary>
+        public static Uri ExportActivities()
+        {
+            return "{0}/activities/export".FormatUri(CurrentManagementV2Url);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for archiving activities
+        /// </summary>
+        public static Uri ArchiveActivities()
+        {
+            return "{0}/activities/archive".FormatUri(CurrentManagementV2Url);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for the Two-Factor Authentication global setting
+        /// </summary>
+        public static Uri TwoFaGlobalSettings()
+        {
+            return "{0}/twoFA/globalSettings".FormatUri(CurrentManagementV2Url);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for the Two-Factor Authentication user settings
+        /// </summary>
+        /// <param name="userId"></param>
+        public static Uri TwoFaSettings(Guid userId)
+        {
+            return "{0}/twoFA/settings/{1}".FormatUri(CurrentManagementV2Url, userId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for setting the Two-Factor Authentication status for a user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="enabled"></param>
+        public static Uri SetTwoFaStatus(Guid userId, bool enabled)
+        {
+            return "{0}/twoFA/settings/{1}?enabled={2}".FormatUri(CurrentManagementV2Url, userId, enabled);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for retrieving the Two-Factor Authentication enforcement status for a user
+        /// </summary>
+        /// <param name="userId"></param>
+        public static Uri UserTwoFaEnforcementStatus(Guid userId)
+        {
+            return "{0}/twoFA/enforcementStatus/{1}".FormatUri(CurrentManagementV2Url, userId);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for retrieving the Two-Factor Authentication enforcement status for multiple users
+        /// </summary>
+        public static Uri UsersTwoFaEnforcementStatuses(List<Guid> userIds)
+        {
+            return "{0}/twoFA/enforcementStatus".FormatUri(CurrentManagementV2Url, userIds);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for setting the Two-Factor Authentication enforcement status for a user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="require2FA"></param>
+        public static Uri SetTwoFaEnforcementStatus(Guid userId, bool require2FA)
+        {
+            return "{0}/twoFA/enforcementstatus?userId={1}&require2FA={2}".FormatUri(CurrentManagementV2Url, userId, require2FA);
+        }
+
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Clients.Activities;
 using Sdl.Community.GroupShareKit.Clients.Logging;
 using Sdl.Community.GroupShareKit.Clients.TranslationMemory;
 using Sdl.Community.GroupShareKit.Helpers;
@@ -49,6 +50,8 @@ namespace Sdl.Community.GroupShareKit
 
             Connection = connection;
             var apiConnection = new ApiConnection(connection);
+            ActivityClient = new ActivityClient(apiConnection);
+            TwoFactorAuthenticationClient = new TwoFactorAuthenticationClient(apiConnection);
             Project = new ProjectClient(apiConnection);
             User = new UserClient(apiConnection);
             Organization = new OrganizationClient(apiConnection);
@@ -100,6 +103,9 @@ namespace Sdl.Community.GroupShareKit
 
             return groupShareClient;
         }
+
+        public IActivityClient ActivityClient { get; }
+        public ITwoFactorAuthenticationClient TwoFactorAuthenticationClient { get; }
 
         public IMtProviderClient MtProviderClient{ get; }
 
