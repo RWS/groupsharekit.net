@@ -8,9 +8,6 @@ namespace Sdl.Community.GroupShareKit.Clients
 {
     public interface IOrganizationClient
     {
-        [Obsolete("This method is obsolete. Call 'GetOrganization(Guid)' instead.")]
-        Task<Organization> Get(string organizationId);
-
         /// <summary>
         /// Gets an <see cref="Organization"/> by Guid.
         /// </summary>
@@ -53,9 +50,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="Organization"/>s.</returns>
         Task<IReadOnlyList<Organization>> GetAll(OrganizationRequest request);
 
-        [Obsolete("This method is obsolete. Call 'DeleteOrganization(Guid)' instead.")]
-        Task DeleteOrganization(string organizationId);
-
         /// <summary>
         /// Deletes an <see cref="Organization"/>
         /// </summary>
@@ -69,9 +63,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Organization"/>s.</returns>
         Task DeleteOrganization(Guid organizationId);
-
-        [Obsolete("This method is obsolete. Call 'UpdateOrganization(Guid)' instead.")]
-        Task<string> Update(Organization organization);
 
         /// <summary>
         /// Updates an <see cref="Organization"/>.
@@ -87,9 +78,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>The organization's Guid.</returns>
         Task<Guid> UpdateOrganization(Organization organization);
 
-        [Obsolete("This method is obsolete. Call 'CreateOrganization(Guid)' instead.")]
-        Task<string> Create(Organization organization);
-
         /// <summary>
         /// Creates an <see cref="Organization"/>.
         /// </summary>
@@ -100,9 +88,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>The organization's Guid.</returns>
         Task<Guid> CreateOrganization(Organization organization);
-
-        [Obsolete("This method is obsolete. Call 'GetOrganizationResources(Guid)' instead.")]
-        Task<IReadOnlyList<OrganizationResources>> GetAllOrganizationResources(string organizationId);
 
         /// <summary>
         /// Gets all the <see cref="OrganizationResources"/> of an <see cref="Organization"/>.

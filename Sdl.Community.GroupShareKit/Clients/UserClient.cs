@@ -52,14 +52,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Get<User>(ApiUrls.User(), request.ToParametersDictionary());
         }
 
-        [Obsolete("This method is obsolete. Call 'GetUser(Guid)' instead.")]
-        public Task<User> GetUserById(string userId)
-        {
-            Ensure.ArgumentNotNull(userId, "userId");
-
-            return ApiConnection.Get<User>(ApiUrls.User(userId), null);
-        }
-
         /// <summary>
         /// Gets a <see cref="User"/> by Id.
         /// </summary>
@@ -79,12 +71,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Get<User>(ApiUrls.User(userId), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'UpdateUser(User)' instead.")]
-        public Task<string> Update(User user)
-        {
-            return ApiConnection.Put<string>(ApiUrls.User(), user);
-        }
-
         /// <summary>
         /// Updates a <see cref="User"/>.
         /// </summary>
@@ -99,14 +85,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         public Task<Guid> UpdateUser(User user)
         {
             return ApiConnection.Put<Guid>(ApiUrls.User(), user);
-        }
-
-        [Obsolete("This method is obsolete. Call 'DeleteUser(Guid)' instead.")]
-        public Task Delete(string userId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(userId, "userId");
-
-            return ApiConnection.Delete(ApiUrls.User(userId));
         }
 
         /// <summary>
@@ -124,14 +102,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(userId, "userId");
 
             return ApiConnection.Delete(ApiUrls.User(userId));
-        }
-
-        [Obsolete("This method is obsolete. Call 'CreateUser(CreateUserRequest)' instead.")]
-        public async Task<string> Create(CreateUserRequest user)
-        {
-            Ensure.ArgumentNotNull(user, "user");
-
-            return await ApiConnection.Post<string>(ApiUrls.User(), user, "application/json");
         }
 
         //// <summary>

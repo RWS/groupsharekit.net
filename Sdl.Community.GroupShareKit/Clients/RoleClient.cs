@@ -14,12 +14,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
         }
 
-        [Obsolete("This method is obsolete. Call 'GetRoles()' instead.")]
-        public Task<IReadOnlyList<RoleRequest>> GetAllRoles()
-        {
-            return ApiConnection.GetAll<RoleRequest>(ApiUrls.Roles());
-        }
-
         /// <summary>
         /// Gets all <see cref="Role"/>s.
         /// </summary>
@@ -34,14 +28,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         public Task<IReadOnlyList<Role>> GetRoles()
         {
             return ApiConnection.GetAll<Role>(ApiUrls.Roles());
-        }
-
-        [Obsolete("This method is obsolete. Call 'CreateRole(Role)' instead.")]
-        public async Task<string> CreateRole(RoleRequest request)
-        {
-            Ensure.ArgumentNotNull(request, "request");
-
-            return await ApiConnection.Post<string>(ApiUrls.Roles(), request, "application/json");
         }
 
         /// <summary>
@@ -63,12 +49,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Post<Guid>(ApiUrls.Roles(), role, "application/json");
         }
 
-        [Obsolete("This method is obsolete. Call 'UpdateRole(Guid)' instead.")]
-        public Task<string> Update(RoleRequest role)
-        {
-            return ApiConnection.Put<string>(ApiUrls.Roles(), role);
-        }
-
         /// <summary>
         /// Updates a role.
         /// </summary>
@@ -84,14 +64,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         public Task<Guid> UpdateRole(RoleRequest role)
         {
             return ApiConnection.Put<Guid>(ApiUrls.Roles(), role);
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetRole(Guid)' instead.")]
-        public Task<RoleRequest> GetRole(string roleId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(roleId, "roleId");
-
-            return ApiConnection.Get<RoleRequest>(ApiUrls.Role(roleId), null);
         }
 
         /// <summary>
@@ -110,14 +82,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(roleId, "roleId");
 
             return ApiConnection.Get<Role>(ApiUrls.Role(roleId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'DeleteRole(Guid)' instead.")]
-        public Task DeleteRole(string roleId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(roleId, "roleId");
-
-            return ApiConnection.Delete(ApiUrls.Role(roleId));
         }
 
         /// <summary>
@@ -152,12 +116,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Delete(ApiUrls.RoleMembership(), role, "application/json");
         }
 
-        [Obsolete("This method is obsolete. Call 'GetUsersForRole(Guid)' instead.")]
-        public Task<IReadOnlyList<User>> GetUsersForRole(string roleId)
-        {
-            return ApiConnection.GetAll<User>(ApiUrls.GetUsersForRole(roleId));
-        }
-
         /// <summary>
         /// Gets users for a specific <see cref="Role"/>.
         /// </summary>
@@ -173,12 +131,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         public Task<IReadOnlyList<User>> GetUsersForRole(Guid roleId)
         {
             return ApiConnection.GetAll<User>(ApiUrls.GetUsersForRole(roleId));
-        }
-        
-        [Obsolete("This method is obsolete. Call 'AddUserToRole(List<RoleMembership>)' instead.")]
-        public async Task AddUserToRole(List<Role> roles)
-        {
-            await ApiConnection.Put<string>(ApiUrls.RoleMembership(), roles);
         }
 
         /// <summary>
@@ -197,11 +149,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Put<Guid>(ApiUrls.RoleMembership(), roles);
         }
 
-        [Obsolete("This method is obsolete. Call 'RemoveUserFromRole(List<RoleMembership>)' instead.")]
-        public async Task RemoveUserFromRole(List<Role> roles, string roleId)
-        {
-            await ApiConnection.Delete(ApiUrls.DeleteUserFromRole(roleId), roles, "application/json");
-        }
         /// <param name="roles"><see cref="RoleMembership"/></param>
         /// This method requires authentication.
         /// <remarks>

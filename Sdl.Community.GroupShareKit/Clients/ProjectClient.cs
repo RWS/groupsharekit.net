@@ -79,14 +79,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return allProjects.Result.Items.Where(o => o.OrganizationName == organizationName).ToList();
         }
 
-        [Obsolete("This method is obsolete. Call 'GetProjectFiles(Guid)' instead.")]
-        public Task<IReadOnlyList<File>> GetAllFilesForProject(string projectId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-
-            return ApiConnection.GetAll<File>(ApiUrls.ProjectFiles(projectId));
-        }
-
         /// <summary>
         /// Gets all <see cref="File"/>s of a project.
         /// </summary>
@@ -106,13 +98,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.GetAll<File>(ApiUrls.ProjectFiles(projectId));
         }
 
-        [Obsolete("This method is obsolete. Call 'GetProjectPhases(Guid)' instead.")]
-        public Task<IReadOnlyList<Phase>> GetAllPhasesForProject(string projectId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            return ApiConnection.GetAll<Phase>(ApiUrls.ProjectPhases(projectId));
-        }
-
         /// <summary>
         /// Gets all <see cref="Phase"/>s for a project.
         /// </summary>
@@ -129,14 +114,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotNull(projectId, "projectId");
             return ApiConnection.GetAll<Phase>(ApiUrls.ProjectPhases(projectId));
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetPhasesWithAssignees(Guid, int)' instead.")]
-        public Task<IReadOnlyList<PhasesWithAssignees>> GetPhasesWithAssignees(string projectId, int phaseId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotNullOrEmptyString(phaseId.ToString(), "phaseId");
-            return ApiConnection.GetAll<PhasesWithAssignees>(ApiUrls.ProjectPhasesWithAssignees(projectId, phaseId));
         }
 
         /// <summary>
@@ -160,15 +137,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.GetAll<PhasesWithAssignees>(ApiUrls.ProjectPhasesWithAssignees(projectId, phaseId));
         }
 
-        [Obsolete("This method is obsolete. Call 'ChangePhase(ChangePhaseRequest)' instead.")]
-        public Task ChangePhases(string projectId, ChangePhaseRequest request)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotNull(request, "request");
-
-            return ApiConnection.Post<string>(ApiUrls.ChangePhases(projectId), request, "application/json");
-        }
-
         /// <summary>
         /// Changes the phases for a list of files of a specific project.
         /// </summary>
@@ -187,15 +155,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(request, "request");
 
             return ApiConnection.Post<Guid>(ApiUrls.ChangePhase(projectId), request, "application/json");
-        }
-
-        [Obsolete("This method is obsolete. Call 'ChangeAssignment(Guid, ChangeAssignmentRequest)' instead.")]
-        public Task ChangeAssignments(string projectId, ChangeAssignmentRequest request)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotNull(request, "request");
-
-            return ApiConnection.Post<string>(ApiUrls.ChangeAssignments(projectId), request, "application/json");
         }
 
         /// <summary>
@@ -390,22 +349,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        [Obsolete("This method is obsolete. Call 'AddFiles(Guid, string, bool)' instead.")]
-        public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string filesPath, bool reference = false)
-        {
-            var uri = ApiUrls.AddProjectFiles(projectId, reference);
-
-            using (var content = new MultipartFormDataContent())
-            {
-                var stream = new System.IO.FileStream(filesPath, System.IO.FileMode.Open);
-                var streamContent = new StreamContent(stream);
-                streamContent.Headers.Add("Content-Type", "application/octet-stream");
-                content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
-
-                return await ApiConnection.Post<MidProjectUpdateResponse>(uri, content, null);
-            }
-        }
-
         public async Task<MidProjectUpdateResponse> AddFiles(Guid projectId, string filesPath, bool reference = false)
         {
             var uri = ApiUrls.AddProjectFiles(projectId, reference);
@@ -416,25 +359,6 @@ namespace Sdl.Community.GroupShareKit.Clients
                 var streamContent = new StreamContent(stream);
                 streamContent.Headers.Add("Content-Type", "application/octet-stream");
                 content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
-
-                return await ApiConnection.Post<MidProjectUpdateResponse>(uri, content, null);
-            }
-        }
-
-        [Obsolete("This method is obsolete. Call 'AddFiles(Guid, string[], bool)' instead.")]
-        public async Task<MidProjectUpdateResponse> AddFiles(string projectId, string[] filesPaths, bool reference)
-        {
-            var uri = ApiUrls.AddProjectFiles(projectId, reference);
-
-            using (var content = new MultipartFormDataContent())
-            {
-                foreach (var file in filesPaths)
-                {
-                    var stream = new System.IO.FileStream(file, System.IO.FileMode.Open);
-                    var streamContent = new StreamContent(stream);
-                    streamContent.Headers.Add("Content-Type", "application/octet-stream");
-                    content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
-                }
 
                 return await ApiConnection.Post<MidProjectUpdateResponse>(uri, content, null);
             }
@@ -458,22 +382,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        [Obsolete("This method is obsolete. Call 'UpdateFiles(Guid, string, bool)' instead.")]
-        public async Task<MidProjectUpdateResponse> UpdateFiles(string projectId, string filesPath, bool reference)
-        {
-            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
-
-            using (var content = new MultipartFormDataContent())
-            {
-                var stream = new System.IO.FileStream(filesPath, System.IO.FileMode.Open);
-                var streamContent = new StreamContent(stream);
-                streamContent.Headers.Add("Content-Type", "application/octet-stream");
-                content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
-
-                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
-            }
-        }
-
         public async Task<MidProjectUpdateResponse> UpdateFiles(Guid projectId, string filesPath, bool reference)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
@@ -484,25 +392,6 @@ namespace Sdl.Community.GroupShareKit.Clients
                 var streamContent = new StreamContent(stream);
                 streamContent.Headers.Add("Content-Type", "application/octet-stream");
                 content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
-
-                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
-            }
-        }
-
-        [Obsolete("This method is obsolete. Call 'UpdateFiles(Guid, string[], bool)' instead.")]
-        public async Task<MidProjectUpdateResponse> UpdateFiles(string projectId, string[] filesPaths, bool reference)
-        {
-            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
-
-            using (var content = new MultipartFormDataContent())
-            {
-                foreach (var file in filesPaths)
-                {
-                    var stream = new System.IO.FileStream(file, System.IO.FileMode.Open);
-                    var streamContent = new StreamContent(stream);
-                    streamContent.Headers.Add("Content-Type", "application/octet-stream");
-                    content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
-                }
 
                 return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
             }
@@ -526,25 +415,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        [Obsolete("This method is obsolete. Call 'UpdateSelectedFiles(Guid, string, MidProjectFileIdsModel, bool)' instead.")]
-        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false)
-        {
-            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
-
-            using (var content = new MultipartFormDataContent())
-            {
-                var stream = new System.IO.FileStream(filesPath, System.IO.FileMode.Open);
-                var streamContent = new StreamContent(stream);
-                streamContent.Headers.Add("Content-Type", "application/octet-stream");
-                content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
-
-                var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
-                content.Add(new StringContent(fileIdsString), "FileIds");
-
-                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
-            }
-        }
-
         public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(Guid projectId, string filesPath, MidProjectFileIdsModel fileIds, bool reference = false)
         {
             var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
@@ -555,28 +425,6 @@ namespace Sdl.Community.GroupShareKit.Clients
                 var streamContent = new StreamContent(stream);
                 streamContent.Headers.Add("Content-Type", "application/octet-stream");
                 content.Add(streamContent, "file", System.IO.Path.GetFileName(filesPath));
-
-                var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
-                content.Add(new StringContent(fileIdsString), "FileIds");
-
-                return await ApiConnection.Put<MidProjectUpdateResponse>(uri, content);
-            }
-        }
-
-        [Obsolete("This method is obsolete. Call 'UpdateSelectedFiles(Guid, string, MidProjectFileIdsModel, bool)' instead.")]
-        public async Task<MidProjectUpdateResponse> UpdateSelectedFiles(string projectId, string[] filesPaths, MidProjectFileIdsModel fileIds, bool reference)
-        {
-            var uri = ApiUrls.UpdateProjectFiles(projectId, reference);
-
-            using (var content = new MultipartFormDataContent())
-            {
-                foreach (var file in filesPaths)
-                {
-                    var stream = new System.IO.FileStream(file, System.IO.FileMode.Open);
-                    var streamContent = new StreamContent(stream);
-                    streamContent.Headers.Add("Content-Type", "application/octet-stream");
-                    content.Add(streamContent, "file", System.IO.Path.GetFileName(file));
-                }
 
                 var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
                 content.Add(new StringContent(fileIdsString), "FileIds");
@@ -606,15 +454,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             }
         }
 
-        [Obsolete("This method is obsolete. Call 'CancelProjectFiles(Guid, MidProjectFileIdsModel)' instead.")]
-        public async Task<string> CancelProjectFiles(string projectId, MidProjectFileIdsModel fileIds)
-        {
-            var uri = ApiUrls.CancelProjectFiles(projectId);
-            var fileIdsString = new SimpleJsonSerializer().Serialize(fileIds);
-
-            return await ApiConnection.Put<string>(uri, fileIdsString);
-        }
-
         public async Task<string> CancelProjectFiles(Guid projectId, MidProjectFileIdsModel fileIds)
         {
             var uri = ApiUrls.CancelProjectFiles(projectId);
@@ -639,14 +478,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Get<JsonCollection<BackgroundTask>>(ApiUrls.GetBackgroundTasks(serializedSortOptions, filter), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'DeleteProject(Guid)' instead.")]
-        public Task DeleteProject(string projectId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-
-            return ApiConnection.Delete(ApiUrls.Project(projectId));
-        }
-
         /// <summary>
         /// Deletes a project.
         /// </summary>
@@ -663,14 +494,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(projectId, "projectId");
 
             return ApiConnection.Delete(ApiUrls.Project(projectId));
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetProject(Guid)' instead.")]
-        public Task<ProjectDetails> Get(string projectId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-
-            return ApiConnection.Get<ProjectDetails>(ApiUrls.Project(projectId), null);
         }
 
         /// <summary>
@@ -690,13 +513,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(projectId, "projectId");
 
             return ApiConnection.Get<ProjectDetails>(ApiUrls.Project(projectId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'PublishingStatus(Guid)' instead.")]
-        public async Task<PublishingStatus> PublishingStatus(string projectId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            return await ApiConnection.Get<PublishingStatus>(ApiUrls.PublishingStatus(projectId), null);
         }
 
         /// <summary>
@@ -728,14 +544,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Get<List<ProjectPublishingInformation>>(ApiUrls.PublishingInformation(projectIds), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'DownloadFiles(Guid, List<Guid>)' instead.")]
-        public async Task<byte[]> DownloadFiles(string projectId, List<string> languageFileIds)
-        {
-            Ensure.ArgumentNotEmpty(languageFileIds, "languageFileIds");
-
-            return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFiles(projectId, LanguageIdQuery(languageFileIds)), null);
-        }
-
         /// <summary>
         /// Downloads files with specific language file Ids.
         /// </summary>
@@ -756,12 +564,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Get<byte[]>(ApiUrls.DownloadFiles(projectId, LanguageIdQuery(languageFileIds)), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'DownloadNative(Guid)' instead.")]
-        public async Task<byte[]> DownloadNative(string projectId)
-        {
-            return await ApiConnection.Get<byte[]>(ApiUrls.DownloadNative(projectId), null);
-        }
-
         /// <summary>
         /// Downloads the native files of a project.
         /// </summary>
@@ -777,14 +579,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         public async Task<byte[]> DownloadNative(Guid projectId)
         {
             return await ApiConnection.Get<byte[]>(ApiUrls.DownloadNative(projectId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'Finalize(Guid, List<Guid>)' instead.")]
-        public async Task<byte[]> Finalize(string projectId, List<string> languageFileIds)
-        {
-            Ensure.ArgumentNotEmpty(languageFileIds, "languageFileIds");
-
-            return await ApiConnection.Post<byte[]>(ApiUrls.Finalize(projectId, LanguageIdQuery(languageFileIds)));
         }
 
         /// <summary>
@@ -916,15 +710,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.GetAll<UserAssignments>(ApiUrls.GetProjectsAssignments(), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'GetProjectAssignmentById(Guid, List<Guid>)' instead.")]
-        public async Task<IReadOnlyList<ProjectAssignment>> GetProjectAssignmentById(string projectId, List<string> fileIdsList)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotNull(fileIdsList, "fileIdsList");
-
-            return await ApiConnection.GetAll<ProjectAssignment>(ApiUrls.GetProjectAssignmentById(projectId, FileIdQuery(fileIdsList)), null);
-        }
-
         /// <summary>
         /// Gets a list of assignments for a project.
         /// </summary>
@@ -984,12 +769,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         public async Task<string> ChangeProjectStatus(ChangeStatusRequest statusRequest)
         {
             return await ApiConnection.Put<string>(ApiUrls.ChangeProjectStatus(statusRequest.ProjectId, Enum.GetName(typeof(ChangeStatusRequest.ProjectStatus), statusRequest.Status)), statusRequest);
-        }
-
-        [Obsolete("This method is obsolete. Call 'DetachProject(Guid, bool)' instead.")]
-        public async Task DetachProject(string projectId, bool deleteProjectTMs = false)
-        {
-            await ApiConnection.Delete(ApiUrls.DetachProject(projectId, deleteProjectTMs));
         }
 
         /// <summary>
@@ -1068,27 +847,11 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Post(ApiUrls.CancelPublishProjectPackage(projectId));
         }
 
-        [Obsolete("This method is obsolete. Call 'GetAllProjectFileStatistics(Guid)' instead.")]
-        public Task<IReadOnlyList<ProjectFileStatistics>> GetAllProjectFileStatistics(string projectId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-
-            return ApiConnection.GetAll<ProjectFileStatistics>(ApiUrls.ProjectFileStatistics(projectId), null);
-        }
-
         public Task<IReadOnlyList<ProjectFileStatistics>> GetAllProjectFileStatistics(Guid projectId)
         {
             Ensure.ArgumentNotNull(projectId, "projectId");
 
             return ApiConnection.GetAll<ProjectFileStatistics>(ApiUrls.ProjectFileStatistics(projectId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetProjectLanguageStatistics(Guid)' instead.")]
-        public Task<Dictionary<string, ProjectStatistics>> GetProjectLanguageStatistics(string projectId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-
-            return ApiConnection.Get<Dictionary<string, ProjectStatistics>>(ApiUrls.ProjectLanguageStatistics(projectId), null);
         }
 
         public Task<Dictionary<string, ProjectStatistics>> GetProjectLanguageStatistics(Guid projectId)
@@ -1138,14 +901,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         public async Task<IReadOnlyList<ProjectTemplate>> GetProjectTemplates()
         {
             return await ApiConnection.GetAll<ProjectTemplate>(ApiUrls.ProjectTemplates(), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'CreateProjectTemplate(ProjectTemplate, byte[])' instead.")]
-        public async Task<string> CreateTemplate(ProjectTemplates templateRequest, byte[] rawData)
-        {
-            var templateId = await ApiConnection.Post<string>(ApiUrls.ProjectTemplates(), templateRequest, "application/json");
-            await UploadProjectTemplate(templateId, rawData, templateRequest.Name);
-            return templateId;
         }
 
         /// <summary>
@@ -1258,13 +1013,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Put<Guid>(ApiUrls.ProjectTemplatesV4(templateId), templateRequest);
         }
 
-        [Obsolete("This method is obsolete. Call 'GetProjectTemplate(Guid)' instead.")]
-        public async Task<string> GetTemplateById(string templateId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            return await ApiConnection.Get<string>(ApiUrls.ProjectTemplates(templateId), null);
-        }
-
         /// <summary>
         /// Gets a project template by Id.
         /// </summary>
@@ -1319,13 +1067,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.GetWithContent<ProjectTemplateSettingsV4>(ApiUrls.ProjectTemplatesV4(templateId), "application/json");
         }
 
-        [Obsolete("This method is obsolete. Call 'DeleteProjectTemplate(Guid)' instead.")]
-        public async Task DeleteProjectTemplate(string templateId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            await ApiConnection.Delete(ApiUrls.ProjectTemplates(templateId));
-        }
-
         /// <summary>
         /// Deletes a project template.
         /// </summary>
@@ -1377,19 +1118,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Delete(ApiUrls.ProjectTemplatesV4(templateId));
         }
 
-        [Obsolete("This method is obsolete. Call 'UploadProjectTemplate(Guid, byte[], string)' instead.")]
-        public async Task<string> UploadProjectTemplate(string templateId, byte[] projectTemplate, string templateName)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            var templateByteArray = new ByteArrayContent(projectTemplate);
-            var multipartContent = new MultipartFormDataContent
-            {
-                { templateByteArray, "file", templateName }
-            };
-
-            return await ApiConnection.Post<string>(ApiUrls.UploadProjectTemplate(templateId), multipartContent, "application/json");
-        }
-
         /// <summary>
         /// Uploads a project template.
         /// </summary>
@@ -1419,13 +1147,6 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         #region File version methods
 
-        [Obsolete("This method is obsolete. Call 'GetFileVersions(Guid)' instead.")]
-        public async Task<IReadOnlyList<FileVersion>> GetFileVersions(string languageFileId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(languageFileId, "languageFileId");
-            return await ApiConnection.GetAll<FileVersion>(ApiUrls.GetFileVersion(languageFileId), null);
-        }
-
         /// <summary>
         /// Gets file versions information.
         /// </summary>
@@ -1442,18 +1163,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotNull(languageFileId, "languageFileId");
             return await ApiConnection.GetAll<FileVersion>(ApiUrls.GetFileVersions(languageFileId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'DownloadFileVersion(Guid, Guid, int)' instead.")]
-        public async Task<byte[]> DownloadFileVersion(string projectId, string languageFileId, int version)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(languageFileId, "languageFileId");
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotNull(version, "version");
-
-            var fileContent = await ApiConnection.Get<byte[]>(ApiUrls.DownloadFileForVersion(projectId, languageFileId, version), null);
-
-            return fileContent;
         }
 
         /// <summary>
@@ -1481,15 +1190,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return fileContent;
         }
 
-        [Obsolete("This method is obsolete. Call 'GetAnalysisReports(Guid, string)' instead.")]
-        public async Task<IReadOnlyList<AnalysisReports>> GetAnalysisReports(string projectId, string languageCode)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-
-            var reportResult = await ApiConnection.GetAll<AnalysisReports>(ApiUrls.AnalysisReports(projectId, languageCode), null);
-            return reportResult;
-        }
-
         /// <summary>
         /// Gets the analysis reports for a specific project.
         /// </summary>
@@ -1508,15 +1208,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(projectId, "projectId");
 
             var reportResult = await ApiConnection.GetAll<AnalysisReports>(ApiUrls.AnalysisReports(projectId, languageCode), null);
-            return reportResult;
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetAnalysisReportsAsHtml(Guid, string)' instead.")]
-        public async Task<IReadOnlyList<AnalysisReportWithMimeType>> GetAnalysisReportsAsHtml(string projectId, string languageCode)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-
-            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeType>>(ApiUrls.AnalysisReports(projectId, languageCode), "text/html");
             return reportResult;
         }
 
@@ -1542,15 +1233,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return reportResult;
         }
 
-        [Obsolete("This method is obsolete. Call 'GetAnalysisReportsAsXml(Guid, string)' instead.")]
-        public async Task<IReadOnlyList<AnalysisReportWithMimeType>> GetAnalysisReportsAsXml(string projectId, string languageCode)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-
-            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeType>>(ApiUrls.AnalysisReports(projectId, languageCode), "text/xml");
-            return reportResult;
-        }
-
         /// <summary>
         /// Get the project analysis report for a given project in XML format (the format only refers to the Report property).
         /// The project must be created in GroupShare, not in Studio and published in GroupShare.
@@ -1570,15 +1252,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(projectId, "projectId");
 
             var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeType>>(ApiUrls.AnalysisReports(projectId, languageCode), "text/xml");
-            return reportResult;
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetAnalysisReportsV3(Guid, string, int)' instead.")]
-        public async Task<IReadOnlyList<AnalysisReports>> GetAnalysisReportsV3(string projectId, string languageCode = null, int? reportId = null)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-
-            var reportResult = await ApiConnection.GetAll<AnalysisReports>(ApiUrls.AnalysisReportsV3(projectId, languageCode, reportId));
             return reportResult;
         }
 
@@ -1675,15 +1348,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return reportResult;
         }
 
-        [Obsolete("This method is obsolete. Call 'GetAnalysisReportsV3AsHtml(Guid, string, int)' instead.")]
-        public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsHtml(string projectId, string languageCode = null, int? reportId = null)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-
-            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.AnalysisReportsV3(projectId, languageCode, reportId), "text/html");
-            return reportResult;
-        }
-
         /// <summary>
         /// Get the project analysis report v3 for a given project in HTML format (the format only refers to the Report property)
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare. 
@@ -1707,15 +1371,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return reportResult;
         }
 
-        [Obsolete("This method is obsolete. Call 'GetAnalysisReportsV3AsXml(Guid, string, int)' instead.")]
-        public async Task<IReadOnlyList<AnalysisReportWithMimeTypeV3>> GetAnalysisReportsV3AsXml(string projectId, string languageCode = null, int? reportId = null)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-
-            var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.AnalysisReportsV3(projectId, languageCode, reportId), "text/xml");
-            return reportResult;
-        }
-
         /// <summary>
         /// Get the project analysis report v3 for a given project in XML format (the format only refers to the Report property)
         /// The project must be created or updated via Mid Project Update in GroupShare in order to have reports on GroupShare
@@ -1734,16 +1389,6 @@ namespace Sdl.Community.GroupShareKit.Clients
 
             var reportResult = await ApiConnection.GetWithContent<IReadOnlyList<AnalysisReportWithMimeTypeV3>>(ApiUrls.AnalysisReportsV3(projectId, languageCode, reportId), "text/xml");
             return reportResult;
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetLanguageFileSettings(Guid, Guid)' instead.")]
-        public async Task<ProjectSettings> GetProjectSettings(string projectId, string languageFileId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");
-
-            var projectSettings = await ApiConnection.Get<ProjectSettings>(ApiUrls.GetProjectSettings(projectId, languageFileId), null);
-            return projectSettings;
         }
 
         /// <summary>
@@ -1817,16 +1462,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return segmentLockingConfig;
         }
 
-        [Obsolete("This method is obsolete. Call 'IsUserAuthorizedToOpenFile(Guid, Guid)' instead.")]
-        public async Task<string> IsUserAuthorizedToOpenFile(string projectId, string languageFileId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");
-            var response = await ApiConnection.Get<string>(ApiUrls.IsAuthorizedToOpenInEditor(projectId, languageFileId), null);
-
-            return response;
-        }
-
         /// <summary>
         /// Validates that the user can open the file in Universal Editor.
         /// </summary>
@@ -1839,16 +1474,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(languageFileId, "languageFileId");
 
             return await ApiConnection.Get<string>(ApiUrls.IsAuthorizedToOpenInEditor(projectId, languageFileId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'EditorProfile(Guid, Guid)' instead.")]
-        public async Task<EditorProfile> EditorProfile(string projectId, string languageFileId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "languageFileId");
-            var editorProfile = await ApiConnection.Get<EditorProfile>(ApiUrls.EditorProfile(projectId, languageFileId), null);
-
-            return editorProfile;
         }
 
         /// <summary>
@@ -1864,15 +1489,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             var editorProfile = await ApiConnection.Get<EditorProfile>(ApiUrls.EditorProfile(projectId, languageFileId), null);
 
             return editorProfile;
-        }
-
-        [Obsolete("This method is obsolete. Call 'OnlineCheckin(Guid, Guid, OnlineCheckInRequest)' instead.")]
-        public async Task<OnlineCheckInRequest> OnlineCheckin(string projectId, string languageFileId, OnlineCheckInRequest checkoutResponse)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
-
-            return await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckIn(projectId, languageFileId), checkoutResponse, "application/json");
         }
 
         /// <summary>
@@ -1897,14 +1513,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckIn(projectId, languageFileId), checkoutResponse, "application/json");
         }
 
-        [Obsolete("This method is obsolete. Call 'OnlineCheckout(Guid, Guid)' instead.")]
-        public async Task<OnlineCheckInRequest> OnlineCheckout(string projectId, string languageFileId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
-            return await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckout(projectId, languageFileId), "application/json");
-        }
-
         /// <summary>
         /// Checks out a file for editing in the Universal Editor.
         /// </summary>
@@ -1923,15 +1531,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             Ensure.ArgumentNotNull(projectId, "projectId");
             Ensure.ArgumentNotNull(languageFileId, "languageFileId");
             return await ApiConnection.Post<OnlineCheckInRequest>(ApiUrls.OnlineCheckout(projectId, languageFileId), "application/json");
-        }
-
-        [Obsolete("This method is obsolete. Call 'UndoCheckout(Guid, Guid)' instead.")]
-        public async Task UndoCheckout(string projectId, string languageFileId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
-
-            await ApiConnection.Delete(ApiUrls.UndoCheckout(projectId, languageFileId));
         }
 
         /// <summary>
@@ -1968,13 +1567,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return response;
         }
 
-        [Obsolete("This method is obsolete. Call 'IsCheckoutToSomeoneElse(Guid, string)' instead.")]
-        public async Task<bool> IsCheckoutToSomeoneElse(string languageFileId, string editorProfileMode)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
-            return await ApiConnection.Get<bool>(ApiUrls.IsCheckoutToSomeoneElse(languageFileId, editorProfileMode), null);
-        }
-
         /// <summary>
         /// Checks if the given language file is check-out to someone other than the user making this call.
         /// </summary>
@@ -1992,15 +1584,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotNull(languageFileId, "LanguageFileId");
             return await ApiConnection.Get<bool>(ApiUrls.IsCheckoutToSomeoneElse(languageFileId, editorProfileMode), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'ExternalCheckin(Guid, Guid, string)' instead.")]
-        public async Task<string> ExternalCheckin(string projectId, string languageFileId, string comment)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
-
-            return await ApiConnection.Post<string>(ApiUrls.ExternalCheckin(projectId, languageFileId), comment, "application/json");
         }
 
         /// <summary>
@@ -2025,15 +1608,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Post<string>(ApiUrls.ExternalCheckin(projectId, languageFileId), comment, "application/json");
         }
 
-        [Obsolete("This method is obsolete. Call 'ExternalCheckout(Guid, Guid)' instead.")]
-        public async Task<string> ExternalCheckout(string projectId, string languageFileId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotNullOrEmptyString(languageFileId, "LanguageFileId");
-
-            return await ApiConnection.Post<string>(ApiUrls.ExternalCheckout(projectId, languageFileId), "application/json");
-        }
-
         /// <summary>
         /// Checks out a file for editing.
         /// </summary>
@@ -2054,18 +1628,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.Post<string>(ApiUrls.ExternalCheckout(projectId, languageFileId), "application/json");
         }
 
-        [Obsolete("This method is obsolete. Call 'ExternalCheckOutFiles(Guid, List<Guid>)' instead.")]
-        public async Task ExternalCheckOutFiles(string projectId, List<string> filesIdsList)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotEmpty(filesIdsList, "filesIds");
-
-            var filesIds = "[\"" + string.Join("\",\"", filesIdsList) + "\"]";
-            var content = new StringContent(filesIds, Encoding.UTF8, "application/json");
-
-            await ApiConnection.Post<string>(ApiUrls.ExternalCheckOutFiles(projectId), content);
-        }
-
         /// <summary>
         /// Checks-out multiple files for editing.
         /// </summary>
@@ -2083,18 +1645,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             var content = new StringContent(filesIds, Encoding.UTF8, "application/json");
 
             await ApiConnection.Post<Guid>(ApiUrls.ExternalCheckOutFiles(projectId), content);
-        }
-
-        [Obsolete("This method is obsolete. Call 'ExternalCheckInFiles(Guid, ExternalCheckInData)' instead.")]
-        public async Task ExternalCheckInFiles(string projectId, ExternalCheckInData externalCheckInData)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotNull(externalCheckInData, "externalCheckInData");
-
-            var serialized = new SimpleJsonSerializer().Serialize(externalCheckInData);
-            var content = new StringContent(serialized, Encoding.UTF8, "application/json");
-
-            await ApiConnection.Post<string>(ApiUrls.ExternalCheckInFiles(projectId), content);
         }
 
         /// <summary>
@@ -2118,18 +1668,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             var content = new StringContent(serialized, Encoding.UTF8, "application/json");
 
             await ApiConnection.Post<string>(ApiUrls.ExternalCheckInFiles(projectId), content);
-        }
-
-        [Obsolete("This method is obsolete. Call 'UndoExternalCheckOutForFiles(Guid, List<Guid>)' instead.")]
-        public async Task UndoExternalCheckOutForFiles(string projectId, List<string> filesIds)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            Ensure.ArgumentNotEmpty(filesIds, "filesIds");
-
-            var filesIdsString = "[\"" + string.Join("\",\"", filesIds) + "\"]";
-            var content = new StringContent(filesIdsString, Encoding.UTF8, "application/json");
-
-            await ApiConnection.Post<string>(ApiUrls.UndoExternalCheckOutForFiles(projectId), content);
         }
 
         /// <summary>
@@ -2171,20 +1709,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotNull(projectId, "projectId");
             return ApiConnection.GetAll<AuditTrail>(ApiUrls.AuditTrail(projectId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'AuditTrail(Guid)' instead.")]
-        public Task<IReadOnlyList<AuditTrail>> AuditTrail(string projectId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            return ApiConnection.GetAll<AuditTrail>(ApiUrls.AuditTrail(projectId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'AuditTrail(Guid)' instead.")]
-        public Task<IReadOnlyList<AuditTrial>> AuditTrial(string projectId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(projectId, "projectId");
-            return ApiConnection.GetAll<AuditTrial>(ApiUrls.AuditTrial(projectId), null);
         }
 
         #endregion

@@ -46,13 +46,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<Models.Response.TranslationMemory.TranslationMemory>(ApiUrls.GetTms(), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'GetTranslationMemory(Guid)' instead.")]
-        public async Task<TranslationMemoryDetails> GetTmById(string tmId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
-            return await ApiConnection.Get<TranslationMemoryDetails>(ApiUrls.GetTmById(tmId), null);
-        }
-
         /// <summary>
         /// Gets a <see cref="Models.Response.TranslationMemory.TranslationMemory"/> by Guid.
         /// </summary>
@@ -69,15 +62,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNull(translationMemoryId, "translationMemoryId");
             return await ApiConnection.Get<TranslationMemoryDetails>(ApiUrls.GetTranslationMemory(translationMemoryId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetTmLanguageDirection(Guid, Guid)' instead.")]
-        public async Task<LanguageDirection> GetLanguageDirectionForTm(string tmId, string languageDirectionId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
-            Ensure.ArgumentNotNullOrEmptyString(languageDirectionId, "languageDirectionId");
-
-            return await ApiConnection.Get<LanguageDirection>(ApiUrls.GetLanguageDirectionForTm(tmId, languageDirectionId), null);
         }
 
         /// <summary>
@@ -101,13 +85,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<LanguageDirection>(ApiUrls.GetTmLanguageDirection(tmId, languageDirectionId), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'GetTmsNumberByLanguageResourceTemplateId(Guid)' instead.")]
-        public async Task<int> GetTmsNumberByLanguageResourceTemplateId(string resourceTemplateId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(resourceTemplateId, "resourceTemplateId");
-            return await ApiConnection.Get<int>(ApiUrls.GetTmsNumberByLanguageResourceTemplateId(resourceTemplateId), null);
-        }
-
         /// <summary>
         /// Gets the translation memories number by language resource template Id.
         /// </summary>
@@ -124,13 +101,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
             return await ApiConnection.Get<int>(ApiUrls.GetTmsNumberByLanguageResourceTemplateId(languageResourceTemplateId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetTmsNumberByFieldTemplateId(Guid)' instead.")]
-        public async Task<int> GetTmsNumberByFieldTemplateId(string fieldTemplateId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
-            return await ApiConnection.Get<int>(ApiUrls.GetTmsNumberByFieldTemplateId(fieldTemplateId), null);
         }
 
         /// <summary>
@@ -151,13 +121,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<int>(ApiUrls.GetTmsNumberByFieldTemplateId(fieldTemplateId), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'CreateTranslationMemory(CreateTranslationMemoryRequest)' instead.")]
-        public async Task<string> CreateTm(CreateTmRequest tm)
-        {
-            Ensure.ArgumentNotNull(tm, "Translation memory");
-            return await ApiConnection.Post<string>(ApiUrls.GetTms(), tm, "application/json").ConfigureAwait(false);
-        }
-
         /// <summary>
         /// Creates a <see cref="Models.Response.TranslationMemory.TranslationMemory"/>.
         /// </summary>
@@ -176,13 +139,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Post<Guid>(ApiUrls.GetTms(), request, "application/json");
         }
 
-        [Obsolete("This method is obsolete. Call 'DeleteTranslationMemory(Guid)' instead.")]
-        public async Task DeleteTm(string tmId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
-            await ApiConnection.Delete(ApiUrls.GetTmById(tmId));
-        }
-
         /// <summary>
         /// Deletes a <see cref="Models.Response.TranslationMemory.TranslationMemory"/>.
         /// </summary>
@@ -198,14 +154,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNull(translationMemoryId, "translationMemoryId");
             await ApiConnection.Delete(ApiUrls.GetTranslationMemory(translationMemoryId));
-        }
-
-        [Obsolete("This method is obsolete. Call 'Update(Guid, TranslationMemoryDetails)' instead.")]
-        public async Task Update(string tmId, TranslationMemoryDetails tm)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
-            Ensure.ArgumentNotNull(tm, "tm");
-            await ApiConnection.Put<string>(ApiUrls.GetTmById(tmId), tm);
         }
 
         /// <summary>
@@ -243,15 +191,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<Health>(ApiUrls.Health(), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'RecomputeStatistics(Guid, FuzzyRequest)' instead.")]
-        public async Task<FuzzyIndexResponse> RecomputeStatistics(string tmId, FuzzyRequest request)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
-            Ensure.ArgumentNotNull(request, "request");
-
-            return await ApiConnection.Post<FuzzyIndexResponse>(ApiUrls.Fuzzy(tmId, "recomputestatistics"), request, "application/json");
-        }
-
         /// <summary>
         /// Schedules a recompute statistics operation.
         /// </summary>
@@ -273,15 +212,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Post<FuzzyIndexResponse>(ApiUrls.Fuzzy(tmId, "recomputestatistics"), request, "application/json");
         }
 
-        [Obsolete("This method is obsolete. Call 'Reindex(Guid, FuzzyRequest)' instead.")]
-        public async Task<FuzzyIndexResponse> Reindex(string tmId, FuzzyRequest request)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
-            Ensure.ArgumentNotNull(request, "request");
-
-            return await ApiConnection.Post<FuzzyIndexResponse>(ApiUrls.Fuzzy(tmId, "reindex"), request, "application/json");
-        }
-
         /// <summary>
         /// Schedules a reindex operation.
         /// </summary>
@@ -301,26 +231,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(request, "request");
 
             return await ApiConnection.Post<FuzzyIndexResponse>(ApiUrls.Fuzzy(tmId, "reindex"), request, "application/json");
-        }
-
-        [Obsolete("This method is obsolete. Call 'ExportTm(Guid, ExportRequest, LanguageParameters)' instead.")]
-        public async Task<byte[]> ExportTm(string tmId, ExportRequest request, LanguageParameters language)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tm id");
-            Ensure.ArgumentNotNull(request, "request");
-            Ensure.ArgumentNotNull(language, "language parameters");
-
-            var response = await ApiConnection.Post<ExportResponse>(ApiUrls.Export(tmId, language.Source, language.Target), request, "application/json");
-
-            BackgroundTask backgroundTask;
-            do
-            {
-                backgroundTask = await ApiConnection.Get<BackgroundTask>(ApiUrls.GetTaskById(response.Id), null);
-            } while (backgroundTask.Status != "Done");
-
-            var fileContent = await ApiConnection.Get<byte[]>(ApiUrls.TaskOutput(backgroundTask.Id), null);
-
-            return fileContent;
         }
 
         /// <summary>
@@ -358,13 +268,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return fileContent;
         }
 
-        [Obsolete("This method is obsolete. Call 'GetBackgroundTask(Guid)' instead.")]
-        public async Task<BackgroundTask> GetBackgroundTask(string taskId)
-        {
-            var backgroundTask = await ApiConnection.Get<BackgroundTask>(ApiUrls.GetTaskById(taskId), null);
-            return backgroundTask;
-        }
-
         /// <summary>
         /// Gets the status of a background task operation.
         /// </summary>
@@ -381,24 +284,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             var backgroundTask = await ApiConnection.Get<BackgroundTask>(ApiUrls.GetTaskById(taskId), null);
             return backgroundTask;
-        }
-
-        [Obsolete("This method is obsolete. Call 'ImportTm(Guid, LanguageParameters, byte[], string)' instead.")]
-        public async Task<ImportResponse> ImportTm(string tmId, LanguageParameters language, byte[] rawFile, string fileName)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tm id");
-            Ensure.ArgumentNotNull(language, "language parameters");
-            Ensure.ArgumentNotNull(rawFile, "file");
-            Ensure.ArgumentNotNullOrEmptyString(fileName, "file name");
-
-            var byteContent = new ByteArrayContent(rawFile);
-            byteContent.Headers.Add("Content-Type", "application/json");
-            var multipartContent = new MultipartFormDataContent
-            {
-                { byteContent, "file", fileName }
-            };
-
-            return await ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target), multipartContent, "application/json");
         }
 
         /// <summary>
@@ -434,26 +319,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target), multipartContent, "application/json");
         }
 
-        [Obsolete("This method is obsolete. Call 'ImportTmWithSettings(Guid, LanguageParameters, string, ImportSettings)' instead.")]
-        public async Task<ImportResponse> ImportTmWithSettings(string tmId, LanguageParameters language, string filePath, ImportSettings settings)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tmId");
-            Ensure.ArgumentNotNull(language, "language parameters");
-            Ensure.ArgumentNotNullOrEmptyString(filePath, "file path");
-
-            using (var content = new MultipartFormDataContent())
-            {
-                var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Open);
-                var streamContent = new StreamContent(stream);
-                content.Add(streamContent, "File", System.IO.Path.GetFileName(filePath));
-
-                var importSettings = new SimpleJsonSerializer().Serialize(settings);
-                content.Add(new StringContent(importSettings), "Settings");
-
-                return await ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target), content);
-            }
-        }
-
         public async Task<ImportResponse> ImportTmWithSettings(Guid tmId, LanguageParameters language, string filePath, ImportSettings settings)
         {
             Ensure.ArgumentNotNull(tmId, "tm id");
@@ -471,28 +336,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
                 return await ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target), content);
             }
-        }
-
-        [Obsolete("This method is obsolete. Call 'ImportTmWithSettings(Guid, LanguageParameters, byte[], string, ImportSettings)' instead.")]
-        public async Task<ImportResponse> ImportTmWithSettings(string tmId, LanguageParameters language, byte[] rawFile, string fileName, ImportSettings settings)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "tm id");
-            Ensure.ArgumentNotNull(language, "language parameters");
-            Ensure.ArgumentNotNull(rawFile, "file");
-            Ensure.ArgumentNotNullOrEmptyString(fileName, "file name");
-
-            var byteContent = new ByteArrayContent(rawFile);
-            byteContent.Headers.Add("Content-Type", "application/json");
-
-            var json = JsonConvert.SerializeObject(settings);
-
-            var multipartContent = new MultipartFormDataContent
-            {
-                { byteContent, "file", fileName },
-                { new StringContent(json), "settings" }
-            };
-
-            return await ApiConnection.Post<ImportResponse>(ApiUrls.Import(tmId, language.Source, language.Target), multipartContent, "application/json");
         }
 
         public async Task<ImportResponse> ImportTmWithSettings(Guid tmId, LanguageParameters language, byte[] rawFile, string fileName, ImportSettings settings)
@@ -594,15 +437,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Post<TranslationUnitResponse>(ApiUrls.TranslationUnits(tmId, "text"), unitRequest, "application/json");
         }
 
-        [Obsolete("This method is obsolete. Call 'GetTranslationUnitsForTm(Guid, TranslationUnitDetailsRequest)' instead.")]
-        public async Task<TranslationUnitDetailsResponse> GetTranslationUnitForTm(string tmId, TranslationUnitDetailsRequest request)
-        {
-            Ensure.ArgumentNotNull(request, "translation request params");
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
-
-            return await ApiConnection.Get<TranslationUnitDetailsResponse>(ApiUrls.Tus(tmId), request.ToParametersDictionary());
-        }
-
         /// <summary>
         /// Gets the translation units from the translation memory.
         /// </summary>
@@ -622,15 +456,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(tmId, "translation memory id");
 
             return await ApiConnection.Get<TranslationUnitDetailsResponse>(ApiUrls.Tus(tmId), request.ToParametersDictionary());
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
-        public async Task<int> GetNumberOfTus(string tmId, LanguageParameters language)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
-            Ensure.ArgumentNotNull(language, "language parameters request");
-
-            return await ApiConnection.Get<int>(ApiUrls.TusCount(tmId), language.ToParametersDictionary());
         }
 
         /// <summary>
@@ -654,15 +479,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<int>(ApiUrls.TusCount(tmId), language.ToParametersDictionary());
         }
 
-        [Obsolete("This method is obsolete. Call 'GetPostdatedTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
-        public async Task<int> GetNumberOfPostDatedTus(string tmId, LanguageParameters language)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
-            Ensure.ArgumentNotNull(language, "language parameters request");
-
-            return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "postdated"), language.ToParametersDictionary());
-        }
-
         /// <summary>
         /// Gets the postdated translation units count from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
@@ -679,15 +495,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task<int> GetPostdatedTranslationUnitsCount(Guid tmId, LanguageParameters language)
         {
             Ensure.ArgumentNotNull(tmId, "translation memory id");
-            Ensure.ArgumentNotNull(language, "language parameters request");
-
-            return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "predated"), language.ToParametersDictionary());
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetPredatedTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
-        public async Task<int> GetNumberOfPreDatedTus(string tmId, LanguageParameters language)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
             Ensure.ArgumentNotNull(language, "language parameters request");
 
             return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "predated"), language.ToParametersDictionary());
@@ -714,15 +521,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "predated"), language.ToParametersDictionary());
         }
 
-        [Obsolete("This method is obsolete. Call 'GetUnalignedTranslationUnitsCount(Guid, LanguageParameters)' instead.")]
-        public async Task<int> GetNumberOfUnalignedTus(string tmId, LanguageParameters language)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
-            Ensure.ArgumentNotNull(language, "language parameters request");
-
-            return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "unaligned"), language.ToParametersDictionary());
-        }
-
         /// <summary>
         /// Gets the unaligned translation units count from the translation memory.
         /// <param name="language"><see cref="LanguageParameters"/></param>
@@ -742,16 +540,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(language, "language parameters request");
 
             return await ApiConnection.Get<int>(ApiUrls.TusByType(tmId, "unaligned"), language.ToParametersDictionary());
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetDuplicateTranslationUnits(Guid, LanguageParameters, DuplicatesTusRequest)' instead.")]
-        public async Task<TranslationUnitDetailsResponse> GetDuplicateTusForTm(string tmId, LanguageParameters language, DuplicatesTusRequest duplicatesRequest)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(tmId, "translation memory id");
-            Ensure.ArgumentNotNull(language, "language parameters request");
-            Ensure.ArgumentNotNull(duplicatesRequest, "duplicates request");
-
-            return await ApiConnection.Post<TranslationUnitDetailsResponse>(ApiUrls.TranslationUnitsDuplicates(tmId, language.Source, language.Target), duplicatesRequest);
         }
 
         /// <summary>
@@ -1134,13 +922,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<Containers>(ApiUrls.Containers(), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'CreateContainer(CreateContainerRequest)' instead.")]
-        public async Task<string> CreateContainer(ContainerRequest request)
-        {
-            Ensure.ArgumentNotNull(request, "container request");
-            return await ApiConnection.Post<string>(ApiUrls.Containers(), request, "application/json");
-        }
-
         /// <summary>
         /// Creates a <see cref="ContainerRequest"/>.
         /// </summary>
@@ -1157,13 +938,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNull(request, "request");
             return await ApiConnection.Post<Guid>(ApiUrls.Containers(), request, "application/json");
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetContainer(Guid)' instead.")]
-        public async Task<Container> GetContainerById(string containerId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(containerId, "container id");
-            return await ApiConnection.Get<Container>(ApiUrls.Containers(containerId), null);
         }
 
         /// <summary>
@@ -1184,13 +958,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<Container>(ApiUrls.Containers(containerId), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'DeleteContainer(Guid)' instead.")]
-        public async Task DeleteContainer(string containerId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(containerId, "container id");
-            await ApiConnection.Delete(ApiUrls.Containers(containerId));
-        }
-
         /// <summary>
         /// Deletes a <see cref="Container"/>.
         /// </summary>
@@ -1206,15 +973,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNull(containerId, "containerId");
             await ApiConnection.Delete(ApiUrls.Containers(containerId));
-        }
-
-        [Obsolete("This method is obsolete. Call 'UpdateContainer(Guid)' instead.")]
-        public async Task UpdateContainer(string containerId, UpdateContainerRequest request)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(containerId, "container id");
-            Ensure.ArgumentNotNull(request, "request");
-
-            await ApiConnection.Put<string>(ApiUrls.Containers(containerId), request);
         }
 
         /// <summary>
@@ -1256,13 +1014,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<DatabaseServerResponse>(ApiUrls.DbServers(), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'GetDbServer(Guid)' instead.")]
-        public async Task<DatabaseServer> GetDbServerById(string serverId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(serverId, "serverId");
-            return await ApiConnection.Get<DatabaseServer>(ApiUrls.DbServers(serverId), null);
-        }
-
         /// <summary>
         /// Gets a <see cref="DatabaseServer"/> with the specified Id.
         /// </summary>
@@ -1281,13 +1032,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<DatabaseServer>(ApiUrls.DbServers(serverId), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'CreateDbServer(CreateDatabaseServerRequest)' instead.")]
-        public async Task<string> CreateDbServer(DatabaseServerRequest request)
-        {
-            Ensure.ArgumentNotNull(request, "request");
-            return await ApiConnection.Post<string>(ApiUrls.DbServers(), request, "application/json");
-        }
-
         /// <summary>
         /// Creates a <see cref="DatabaseServer"/>.
         /// </summary>
@@ -1302,13 +1046,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNull(request, "request");
             return await ApiConnection.Post<Guid>(ApiUrls.DbServers(), request, "application/json");
-        }
-
-        [Obsolete("This method is obsolete. Call 'DeleteDbServer(Guid)' instead.")]
-        public async Task DeleteDbServer(string serverId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(serverId, "server id");
-            await ApiConnection.Delete(ApiUrls.DbServers(serverId));
         }
 
         /// <summary>
@@ -1326,15 +1063,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNull(serverId, "serverId");
             await ApiConnection.Delete(ApiUrls.DbServers(serverId));
-        }
-
-        [Obsolete("This method is obsolete. Call 'UpdateDbServer(Guid)' instead.")]
-        public async Task UpdateDbServer(string serverId, RequestDbServer request)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(serverId, "server id");
-            Ensure.ArgumentNotNull(request, "server request");
-
-            await ApiConnection.Put<string>(ApiUrls.DbServers(serverId), request);
         }
 
         /// <summary>
@@ -1357,14 +1085,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         #endregion
 
         #region Fields methods
-        [Obsolete("This method is obsolete. Call 'CreateFieldTemplate(CreateFieldTemplateRequest)' instead.")]
-        public async Task<string> CreateFieldTemplate(FieldTemplate template)
-        {
-            Ensure.ArgumentNotNull(template, "FieldTemplate");
-            var templateLocation = await ApiConnection.Post<string>(ApiUrls.FieldTemplate(), template, "application/json");
-            var templateId = templateLocation.Split('/').Last();
-            return templateId;
-        }
 
         /// <summary>
         /// Creates a <see cref="FieldTemplate"/>.
@@ -1402,12 +1122,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<FieldTemplates>(ApiUrls.FieldTemplate(), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'GetFieldTemplate(Guid)' instead.")]
-        public async Task<FieldTemplate> GetFieldTemplateById(string id)
-        {
-            return await ApiConnection.Get<FieldTemplate>(ApiUrls.GetFieldTemplateById(id), null);
-        }
-
         /// <summary>
         /// Gets a <see cref="FieldTemplate"/> by Id.
         /// </summary>
@@ -1423,15 +1137,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         public async Task<FieldTemplate> GetFieldTemplate(Guid fieldTemplateId)
         {
             return await ApiConnection.Get<FieldTemplate>(ApiUrls.GetFieldTemplate(fieldTemplateId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'UpdateFieldTemplate(Guid)' instead.")]
-        public async Task UpdateFieldTemplate(string templateId, FieldTemplateRequest templateRequest)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            Ensure.ArgumentNotNull(templateRequest, "templateRequest");
-
-            await ApiConnection.Put<string>(ApiUrls.GetFieldTemplateById(templateId), templateRequest);
         }
 
         /// <summary>
@@ -1454,13 +1159,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Put<Guid>(ApiUrls.GetFieldTemplate(fieldTemplateId), templateRequest);
         }
 
-        [Obsolete("This method is obsolete. Call 'DeleteFieldTemplate(Guid)' instead.")]
-        public async Task DeleteFieldTemplate(string templateId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            await ApiConnection.Delete(ApiUrls.GetFieldTemplateById(templateId));
-        }
-
         /// <summary>
         /// Deletes a <see cref="FieldTemplate"/> by Id.
         /// </summary>
@@ -1476,15 +1174,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
             await ApiConnection.Delete(ApiUrls.GetFieldTemplate(fieldTemplateId));
-        }
-
-        [Obsolete("This method is obsolete. Call 'AddOperationsForFieldTemplate(Guid, List<Operation>)' instead.")]
-        public async Task AddOperationsForFieldTemplate(string templateId, FieldTemplatePatchRequest request)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            Ensure.ArgumentNotNull(request, "request");
-
-            await ApiConnection.Patch(ApiUrls.GetFieldTemplateById(templateId), request, "application/json");
         }
 
         /// <summary>
@@ -1506,13 +1195,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Patch(ApiUrls.GetFieldTemplate(fieldTemplateId), operations, "application/json");
         }
 
-        [Obsolete("This method is obsolete. Call 'GetFieldForTemplate(Guid, Guid)' instead.")]
-        public async Task<IReadOnlyList<Field>> GetFieldsForTemplate(string fieldTemplateId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
-            return await ApiConnection.GetAll<Field>(ApiUrls.GetFields(fieldTemplateId), null);
-        }
-
         /// <summary>
         /// Gets a list of Fields for a specific field Template ID
         /// </summary>
@@ -1528,14 +1210,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
             return await ApiConnection.GetAll<Field>(ApiUrls.GetFields(fieldTemplateId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetFieldForTemplate(Guid, Guid)' instead.")]
-        public async Task<Field> GetFieldForTemplate(string fieldTemplateId, string fieldId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
-            Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
-            return await ApiConnection.Get<Field>(ApiUrls.GetField(fieldTemplateId, fieldId), null);
         }
 
         /// <summary>
@@ -1554,28 +1228,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
             Ensure.ArgumentNotNull(fieldId, "fieldId");
             return await ApiConnection.Get<Field>(ApiUrls.GetField(fieldTemplateId, fieldId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'CreateFieldForTemplate(Guid, FieldRequest)' instead.")]
-        public async Task<string> CreateFieldForTemplate(string fieldTemplateId, FieldRequest fieldRequest)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
-            Ensure.ArgumentNotNull(fieldRequest, "field request");
-            var fieldType = Enum.GetName(typeof(FieldRequest.TypeEnum), fieldRequest.Type);
-
-            // in case the type is SinglePicklist or MultiplePicklist the values will be a list of strings.
-
-            var field = new Field
-            {
-                Type = fieldType,
-                Name = fieldRequest.Name,
-                FieldId = fieldRequest.FieldId,
-                Values = GetValues(fieldRequest.Values)
-            };
-
-            var fieldLocation = await ApiConnection.Post<string>(ApiUrls.GetFields(fieldTemplateId), field, "application/json");
-            var fieldId = fieldLocation.Split('/').Last();
-            return fieldId;
         }
 
         /// <summary>
@@ -1635,15 +1287,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return multipleValuesList;
         }
 
-        [Obsolete("This method is obsolete. Call 'UpdateFieldForTemplate(Guid, Guid, Field)' instead.")]
-        public async Task UpdateFieldForTemplate(string fieldTemplateId, string fieldId, Field field)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
-            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
-            Ensure.ArgumentNotNull(field, "field request");
-            await ApiConnection.Put<string>(ApiUrls.GetField(fieldTemplateId, fieldId), field);
-        }
-
         /// <summary>
         /// Updates a Field for a specific Field Template ID
         /// </summary>
@@ -1660,15 +1303,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(fieldTemplateId, "fieldTemplateId");
             Ensure.ArgumentNotNull(field, "field request");
             await ApiConnection.Put<string>(ApiUrls.GetField(fieldTemplateId, fieldId), field);
-        }
-
-        [Obsolete("This method is obsolete. Call 'DeleteFieldForTemplate(Guid, Guid)' instead.")]
-        public async Task DeleteFieldForTemplate(string fieldTemplateId, string fieldId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(fieldTemplateId, "fieldTemplateId");
-            Ensure.ArgumentNotNullOrEmptyString(fieldId, "fieldId");
-
-            await ApiConnection.Delete(ApiUrls.GetField(fieldTemplateId, fieldId));
         }
 
         /// <summary>
@@ -1693,13 +1327,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
         #region Language resource methods
 
-        [Obsolete("This method is obsolete. Call 'GetLanguageResources(Guid)' instead.")]
-        public async Task<IReadOnlyList<Resource>> GetLanguageResourcesForTemplate(string templateId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            return await ApiConnection.GetAll<Resource>(ApiUrls.LanguageResource(templateId), null);
-        }
-
         /// <summary>
         /// Gets the <see cref="LanguageResource"/>s of a <see cref="LanguageResourceTemplate"/>.
         /// </summary>
@@ -1716,18 +1343,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
             return await ApiConnection.GetAll<LanguageResource>(ApiUrls.LanguageResources(languageResourceTemplateId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'CreateLanguageResourceForTemplate(Guid)' instead.")]
-        public async Task<string> CreateLanguageResourceForTemplate(string templateId, Resource request)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            Ensure.ArgumentNotNull(request, "request");
-            var encodeData = Convert.ToBase64String(Encoding.UTF8.GetBytes(request.Data));
-            request.Data = encodeData;
-            var resourceUrl = await ApiConnection.Post<string>(ApiUrls.LanguageResource(templateId), request, "application/json");
-
-            return resourceUrl.Split('/').Last();
         }
 
         /// <summary>
@@ -1754,14 +1369,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Post<Guid>(ApiUrls.LanguageResources(languageResourceTemplateId), request, "application/json");
         }
 
-        [Obsolete("This method is obsolete. Call 'GetLanguageResourceServiceDefaults(LanguageResourceServiceDefaultsRequest)' instead.")]
-        public async Task<Resource> GetDefaultsType(ResourceServiceDefaultsRequest defaultsRequest)
-        {
-            Ensure.ArgumentNotNull(defaultsRequest, "request");
-
-            return await ApiConnection.Get<Resource>(ApiUrls.GetDefaults(Enum.GetName(typeof(ResourceServiceDefaultsRequest.ResourceType), defaultsRequest.Type), defaultsRequest.Language), null);
-        }
-
         /// <summary>
         /// Gets language resource service defaults.
         /// </summary>
@@ -1779,15 +1386,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(request, "request");
 
             return await ApiConnection.Get<LanguageResource>(ApiUrls.GetDefaults(Enum.GetName(typeof(LanguageResourceType), request.Type), request.Language), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetLanguageResourceForTemplate(Guid, Guid)' instead.")]
-        public async Task<Resource> GetLanguageResourceForTemplate(string templateId, string languageResourceId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            Ensure.ArgumentNotNullOrEmptyString(languageResourceId, "languageResourceId");
-
-            return await ApiConnection.Get<Resource>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId), null);
         }
 
         /// <summary>
@@ -1811,15 +1409,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<LanguageResource>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'DeleteLanguageResourceForTemplate(Guid, Guid)' instead.")]
-        public async Task DeleteLanguageResourceForTemplate(string templateId, string languageResourceId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            Ensure.ArgumentNotNullOrEmptyString(languageResourceId, "languageResourceId");
-
-            await ApiConnection.Delete(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId));
-        }
-
         /// <summary>
         /// Deletes a <see cref="LanguageResource"/>s of a <see cref="LanguageResourceTemplate"/>.
         /// </summary>
@@ -1838,19 +1427,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(languageResourceId, "languageResourceId");
 
             await ApiConnection.Delete(ApiUrls.LanguageResourcesForTemplate(languageResourceTemplateId, languageResourceId));
-        }
-
-        [Obsolete("This method is obsolete. Call 'UpdateLanguageResourceForTemplate(Guid, Guid, LanguageResource)' instead.")]
-        public async Task UpdateLanguageResourceForTemplate(string templateId, string languageResourceId, Resource resourceRequest)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            Ensure.ArgumentNotNullOrEmptyString(languageResourceId, "languageResourceId");
-            Ensure.ArgumentNotNull(resourceRequest, "resourceRequest");
-
-            var encodeData = Convert.ToBase64String(Encoding.UTF8.GetBytes(resourceRequest.Data));
-            resourceRequest.Data = encodeData;
-
-            await ApiConnection.Put<string>(ApiUrls.LanguageResourcesForTemplate(templateId, languageResourceId), resourceRequest);
         }
 
         /// <summary>
@@ -1878,15 +1454,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Put<string>(ApiUrls.LanguageResourcesForTemplate(languageResourceTemplateId, languageResourceId), resourceRequest);
         }
 
-        [Obsolete("This method is obsolete. Call 'ResetLanguageResourceToDefault(Guid, Guid)' instead.")]
-        public async Task ResetToDefaultLanguageResource(string templateId, string languageResourceId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            Ensure.ArgumentNotNullOrEmptyString(languageResourceId, "languageResourceId");
-
-            await ApiConnection.Put<string>(ApiUrls.LanguageResourceActions(templateId, languageResourceId, "reset"), templateId);
-        }
-
         /// <summary>
         /// Reset to default Culture values a specific Language Resource in a specific Language Resource Template
         /// </summary>
@@ -1905,23 +1472,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             Ensure.ArgumentNotNull(languageResourceId, "languageResourceId");
 
             await ApiConnection.Put<string>(ApiUrls.LanguageResourceActions(languageResourceTemplateId, languageResourceId, "reset"), languageResourceTemplateId);
-        }
-
-        [Obsolete("This method is obsolete. Call 'ImportFileForLanguageResource(Guid, Guid, byte[])' instead.")]
-        public async Task ImportFileForLanguageResource(string templateId, string languageResourceId, byte[] file)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            Ensure.ArgumentNotNullOrEmptyString(languageResourceId, "languageResourceId");
-            Ensure.ArgumentNotNull(file, "fileData");
-
-            var byteContent = new ByteArrayContent(file);
-            byteContent.Headers.Add("Content-Type", "application/json");
-            var multipartContent = new MultipartFormDataContent
-            {
-                { byteContent, "file" }
-            };
-
-            await ApiConnection.Post<string>(ApiUrls.LanguageResourceActions(templateId, languageResourceId, "import"), multipartContent);
         }
 
         /// <summary>
@@ -1952,16 +1502,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             };
 
             await ApiConnection.Post<string>(ApiUrls.LanguageResourceActions(languageResourceTemplateId, languageResourceId, "import"), multipartContent, "application/json");
-        }
-
-        [Obsolete("This method is obsolete. Call 'ExportFileForLanguageResource(Guid, Guid)' instead.")]
-        public async Task<byte[]> ExportFileForLanguageResource(string templateId, string languageResourceId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            Ensure.ArgumentNotNullOrEmptyString(languageResourceId, "languageResourceId");
-
-            var document = await ApiConnection.Get<string>(ApiUrls.LanguageResourceActions(templateId, languageResourceId, "export"), null);
-            return Encoding.UTF8.GetBytes(document);
         }
 
         /// <summary>
@@ -2005,13 +1545,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             return await ApiConnection.Get<LanguageResourceTemplates>(ApiUrls.LanguageResourceServiceTemplates(), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'GetLanguageResourceTemplate(Guid)' instead.")]
-        public async Task<LanguageResourceTemplate> GetTemplateById(string templateId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            return await ApiConnection.Get<LanguageResourceTemplate>(ApiUrls.GetLanguageResourceTemplateById(templateId), null);
-        }
-
         /// <summary>
         /// Gets a <see cref="LanguageResourceTemplate"/> with the specified Id.
         /// </summary>
@@ -2028,14 +1561,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
         {
             Ensure.ArgumentNotNull(languageResourceTemplateId, "languageResourceTemplateId");
             return await ApiConnection.Get<LanguageResourceTemplate>(ApiUrls.GetLanguageResourceTemplate(languageResourceTemplateId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'UpdateLanguageResourceTemplate(Guid, UpdateTemplateRequest)' instead.")]
-        public async Task EditTemplate(string templateId, FieldTemplateRequest request)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(templateId, "templateId");
-            Ensure.ArgumentNotNull(request, "request");
-            await ApiConnection.Put<string>(ApiUrls.GetLanguageResourceTemplateById(templateId), request);
         }
 
         /// <summary>
@@ -2057,24 +1582,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
             await ApiConnection.Put<Guid>(ApiUrls.GetLanguageResourceTemplate(languageResourceTemplateId), request);
         }
 
-        [Obsolete("This method is obsolete. Call 'CreateLanguageResourceTemplate(CreateLanguageResourceTemplateRequest)' instead.")]
-        public async Task<string> CreateTemplate(LanguageResourceTemplate templateRequest)
-        {
-            Ensure.ArgumentNotNull(templateRequest, "templateRequest");
-            foreach (var resource in templateRequest.LanguageResources)
-            {
-                var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(resource.Data));
-                resource.Data = encoded;
-            }
-
-            var responseUrl = await ApiConnection
-                .Post<string>(ApiUrls.LanguageResourceServiceTemplates(), templateRequest, "application/json")
-                .ConfigureAwait(false);
-
-            var id = responseUrl.Split('/').Last();
-            return id;
-        }
-
         /// <summary>
         /// Creates a <see cref="LanguageResourceTemplate"/>.
         /// </summary>
@@ -2093,13 +1600,6 @@ namespace Sdl.Community.GroupShareKit.Clients.TranslationMemory
 
             var languageResourceTemplateId = await ApiConnection.Post<Guid>(ApiUrls.LanguageResourceServiceTemplates(), request, "application/json");
             return languageResourceTemplateId;
-        }
-
-        [Obsolete("This method is obsolete. Call 'DeleteLanguageResourceTemplate(Guid)' instead.")]
-        public async Task DeleteTemplate(string languageResourceTemplateId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(languageResourceTemplateId, "languageResourceTemplateId");
-            await ApiConnection.Delete(ApiUrls.GetLanguageResourceTemplateById(languageResourceTemplateId));
         }
 
         /// <summary>

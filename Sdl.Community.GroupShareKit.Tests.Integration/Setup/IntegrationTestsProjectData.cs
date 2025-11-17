@@ -23,7 +23,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Setup
         {
             for (var i = 0; i < maxTryCount; i++)
             {
-                var statusInfo = await Helper.GsClient.Project.PublishingStatus(projectId);
+                var statusInfo = await Helper.GsClient.Project.GetPublishingStatus(Guid.Parse(projectId));
                 switch (statusInfo.Status)
                 {
                     case PublishProjectStatus.Uploading:
