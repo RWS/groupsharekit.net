@@ -24,7 +24,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// <summary>
         /// Gets or sets a list of language resources
         /// </summary>
-        public List<Resource> LanguageResources { get; set; }
+        public List<LanguageResource> LanguageResources { get; set; }
         /// <summary>
         /// Gets or sets language resource location
         /// </summary>

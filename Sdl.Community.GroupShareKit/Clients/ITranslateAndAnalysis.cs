@@ -17,9 +17,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns><see cref="int"/>Job identifier</returns>
         Task<int> GetTranslateAndAnalysisJob(TranslationAndAnalysisJobRequest request);
 
-        [Obsolete("This method is obsolete. Call 'GetTranslationJob(int, MultipartFormDataContent)' instead.")]
-        Task<int> GetTranslationJob(string jobId, MultipartFormDataContent request);
-
         /// <summary>
         /// Gets a new translation job specified translate and analysis job.
         /// </summary>
@@ -28,9 +25,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns><see cref="int"/>Translation job identifier</returns>
         Task<int> GetTranslationJob(int jobId, MultipartFormDataContent request);
 
-        [Obsolete("This method is obsolete. Call 'GetTranslationStatus(int)' instead.")]
-        Task<Translation> GetTranslationStatus(string translateJobNo);
-
         /// <summary>
         /// Gets the status for a translation job.
         /// </summary>
@@ -38,18 +32,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns><see cref="Translation"/>The translation status and errors messages</returns>
         Task<Translation> GetTranslationStatus(int translateJobId);
 
-        [Obsolete("This method is obsolete. Call 'DownloadTranslationDocument(int)' instead.")]
-        Task<byte[]> DownloadTranslationDocument(string translateJobNo);
-
         /// <summary>
         /// Downloads the translated document.
         /// </summary>
         /// <param name="translateJobNo">The translation identifier</param>
         /// <returns>The file content in byte[]</returns>
         Task<byte[]> DownloadTranslationDocument(int translateJobNo);
-
-        [Obsolete("This method is obsolete. Call 'GetAnalysisJob(int)' instead.")]
-        Task<int> GetAnalysisJob(string jobId);
 
         /// <summary>
         /// Triggers the analysis.
@@ -61,9 +49,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <response code="400">When the given document or translation information is incorrect</response>
         Task<int> GetAnalysisJob(int jobId);
 
-        [Obsolete("This method is obsolete. Call 'GetAnalysisStatus(int)' instead.")]
-        Task<Analysis> GetAnalysisStatus(string analysisJobNo);
-
         /// <summary>
         /// Gets the status for a analysis job.
         /// </summary>
@@ -71,18 +56,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns><see cref="Analysis"/>The analysis status and errors messages</returns>
         Task<Analysis> GetAnalysisStatus(int analysisJobId);
 
-        [Obsolete("This method is obsolete. Call 'GetAnalysisStatistics(int)' instead.")]
-        Task<AnalysisStatistics> GetAnalysisStatistics(string analysisJobNo);
-
         /// <summary>
         /// Gets the specified analysis statistics.
         /// </summary>
         /// <param name="analysisJobNo">The analysis identifier.</param>
         /// <returns>The analysis statistics</returns>
         Task<AnalysisStatistics> GetAnalysisStatistics(int jobId);
-
-        [Obsolete("This method is obsolete. Call 'DeleteJob(int)' instead.")]
-        Task DeleteJob(string jobId);
 
         /// <summary>
         /// Completes a translate and analysis task.

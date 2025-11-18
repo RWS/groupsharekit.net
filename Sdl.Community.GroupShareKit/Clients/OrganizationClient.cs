@@ -14,14 +14,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
         }
 
-        [Obsolete("This method is obsolete. Call 'GetOrganization(Guid)' instead.")]
-        public Task<Organization> Get(string organizationId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(organizationId, "organizationId");
-
-            return ApiConnection.Get<Organization>(ApiUrls.Organization(organizationId), null);
-        }
-
         /// <summary>
         /// Gets an <see cref="Organization"/> by Guid.
         /// </summary>
@@ -79,14 +71,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return await ApiConnection.GetAll<Organization>(ApiUrls.Organizations(), request.ToParametersDictionary());
         }
 
-        [Obsolete("This method is obsolete. Call 'DeleteOrganization(Guid)' instead.")]
-        public Task DeleteOrganization(string organizationId)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(organizationId, "organizationId");
-
-            return ApiConnection.Delete(ApiUrls.Organization(organizationId));
-        }
-
         /// <summary>
         /// Deletes an <see cref="Organization"/>
         /// </summary>
@@ -106,12 +90,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Delete(ApiUrls.Organization(organizationId));
         }
 
-        [Obsolete("This method is obsolete. Call 'UpdateOrganization(Guid)' instead.")]
-        public Task<string> Update(Organization organization)
-        {
-            return ApiConnection.Put<string>(ApiUrls.Organizations(), organization);
-        }
-
         /// <summary>
         /// Updates an <see cref="Organization"/>.
         /// </summary>
@@ -129,12 +107,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Put<Guid>(ApiUrls.Organizations(), organization);
         }
 
-        [Obsolete("This method is obsolete. Call 'CreateOrganization(Guid)' instead.")]
-        public async Task<string> Create(Organization organization)
-        {
-            return await ApiConnection.Post<string>(ApiUrls.Organizations(), organization, "application/json");
-        }
-
         /// <summary>
         /// Creates an <see cref="Organization"/>.
         /// </summary>
@@ -147,12 +119,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         public async Task<Guid> CreateOrganization(Organization organization)
         {
             return await ApiConnection.Post<Guid>(ApiUrls.Organizations(), organization, "application/json");
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetOrganizationResources(Guid)' instead.")]
-        public async Task<IReadOnlyList<OrganizationResources>> GetAllOrganizationResources(string organizationId)
-        {
-            return await ApiConnection.GetAll<OrganizationResources>(ApiUrls.OrganizationResources(organizationId));
         }
 
         /// <summary>

@@ -25,12 +25,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Post<int>(ApiUrls.InitiateTranslateAndAnalysisJob(), request, "application/json");
         }
 
-        [Obsolete("This method is obsolete. Call 'GetTranslationJob(int, MultipartFormDataContent)' instead.")]
-        public Task<int> GetTranslationJob(string jobId, MultipartFormDataContent request)
-        {
-            return ApiConnection.Post<int>(ApiUrls.TranslationJob(jobId), request, "multipart/form-data");
-        }
-
         /// <summary>
         /// Gets a new translation job specified translate and analysis job.
         /// </summary>
@@ -40,12 +34,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         public Task<int> GetTranslationJob(int jobId, MultipartFormDataContent request)
         {
             return ApiConnection.Post<int>(ApiUrls.TranslationJob(jobId), request, "multipart/form-data");
-        }
-
-        [Obsolete("This method is obsolete. Call 'GetTranslationStatus(int)' instead.")]
-        public Task<Translation> GetTranslationStatus(string translateJobId)
-        {
-            return ApiConnection.Get<Translation>(ApiUrls.TranslationJobStatus(translateJobId), null);
         }
 
         /// <summary>
@@ -58,12 +46,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         public Task<Translation> GetTranslationStatus(int translateJobId)
         {
             return ApiConnection.Get<Translation>(ApiUrls.TranslationJobStatus(translateJobId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'DownloadTranslationDocument(int)' instead.")]
-        public Task<byte[]> DownloadTranslationDocument(string translateJobNo)
-        {
-            return ApiConnection.Get<byte[]>(ApiUrls.DownloadTranslationDocument(translateJobNo), null);
         }
 
         /// <summary>
@@ -79,12 +61,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Get<byte[]>(ApiUrls.DownloadTranslationDocument(translateJobNo), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'GetAnalysisJob(int)' instead.")]
-        public Task<int> GetAnalysisJob(string jobId)
-        {
-            return ApiConnection.Post<int>(ApiUrls.AnalysisJob(jobId), string.Empty, "application/json");
-        }
-
         /// <summary>
         /// Triggers the analysis.
         /// This should be called after all the translations are complete.
@@ -98,12 +74,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Post<int>(ApiUrls.AnalysisJob(jobId), string.Empty, "application/json");
         }
 
-        [Obsolete("This method is obsolete. Call 'GetAnalysisStatus(int)' instead.")]
-        public Task<Analysis> GetAnalysisStatus(string analysisJobNo)
-        {
-            return ApiConnection.Get<Analysis>(ApiUrls.AnalysisJobStatus(analysisJobNo), null);
-        }
-
         /// <summary>
         /// Exposes the status of the given analysis job.
         /// </summary>
@@ -115,12 +85,6 @@ namespace Sdl.Community.GroupShareKit.Clients
             return ApiConnection.Get<Analysis>(ApiUrls.AnalysisJobStatus(analysisJobId), null);
         }
 
-        [Obsolete("This method is obsolete. Call 'GetAnalysisStatistics(int)' instead.")]
-        public Task<AnalysisStatistics> GetAnalysisStatistics(string analysisJobNo)
-        {
-            return ApiConnection.Get<AnalysisStatistics>(ApiUrls.AnalysisStatistics(analysisJobNo), null);
-        }
-
         /// <summary>
         /// Gets the specified analysis statistics.
         /// </summary>
@@ -129,12 +93,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         public Task<AnalysisStatistics> GetAnalysisStatistics(int jobId)
         {
             return ApiConnection.Get<AnalysisStatistics>(ApiUrls.AnalysisStatistics(jobId), null);
-        }
-
-        [Obsolete("This method is obsolete. Call 'DeleteJob(int)' instead.")]
-        public Task DeleteJob(string jobId)
-        {
-            return ApiConnection.Delete(ApiUrls.DeleteJob(jobId));
         }
 
         /// <summary>

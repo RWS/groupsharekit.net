@@ -38,9 +38,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A <see cref="User"/>.</returns>
         Task<User> Get(UserRequest request);
 
-        [Obsolete("This method is obsolete. Call 'GetUser(Guid)' instead.")]
-        Task<User> GetUserById(string userId);
-
         /// <summary>
         /// Gets a <see cref="User"/> by Guid.
         /// </summary>
@@ -54,9 +51,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A <see cref="User"/>.</returns>
         Task<User> GetUser(Guid userId);
-
-        [Obsolete("This method is obsolete. Call 'UpdateUser(User)' instead.")]
-        Task<string> Update(User user);
 
         /// <summary>
         /// Updates a <see cref="User"/>.
@@ -72,9 +66,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>The user's Guid.</returns>
         Task<Guid> UpdateUser(User user);
 
-        [Obsolete("This method is obsolete. Call 'DeleteUser(Guid)' instead.")]
-        Task Delete(string userId);
-
         /// <summary>
         /// Deletes a <see cref="User"/>.
         /// </summary>
@@ -87,9 +78,6 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <param name="userId">User Guid</param>
         Task DeleteUser(Guid userId);
-
-        [Obsolete("This method is obsolete. Call 'CreateUser(CreateUserRequest)' instead.")]
-        Task<string> Create(CreateUserRequest user);
 
         /// <summary>
         /// Creates a <see cref="User"/>.
