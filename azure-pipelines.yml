@@ -28,7 +28,7 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: SonarCloudPrepare@3.4.1
+- task: SonarCloudPrepare@3
   inputs:
     SonarCloud: 'SonarCloudForGSKit2'
     organization: 'sdl'
@@ -40,9 +40,9 @@ steps:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-- task: SonarCloudAnalyze@3.4.1
+- task: SonarCloudAnalyze@3
 
-- task: SonarCloudPublish@3.4.1
+- task: SonarCloudPublish@3
   inputs:
     pollingTimeoutSec: '300'
     
