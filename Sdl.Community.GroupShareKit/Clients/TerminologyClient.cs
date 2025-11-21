@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response;
+using Sdl.Community.GroupShareKit.Models.Response.MultiTerm;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
@@ -226,5 +228,318 @@ namespace Sdl.Community.GroupShareKit.Clients
 
             await ApiConnection.Delete(ApiUrls.GetConcepts(termbaseId, conceptId));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<TermbasesV2> GetTermbasesV2()
+        {
+            return await ApiConnection.Get<TermbasesV2>(ApiUrls.GetTermbasesV2(), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <returns></returns>
+        public async Task<XmlObject> GetTermbaseDefinition(Guid termbaseId)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+
+            return await ApiConnection.Get<XmlObject>(ApiUrls.GetTermbaseDefinition(termbaseId), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <returns></returns>
+        public async Task<TermbaseV2> GetTermbasePublicObjects(Guid termbaseId)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+
+            return await ApiConnection.Get<TermbaseV2>(ApiUrls.GetTermbasePublicObjects(termbaseId), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <returns></returns>
+        public async Task DeleteTermbase(Guid termbaseId)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+
+            await ApiConnection.Delete(ApiUrls.GetTermbaseDefinition(termbaseId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseName"></param>
+        /// <returns></returns>
+        public async Task<Guid> GetTermbaseGuidByName(TermbaseNameModel termbaseName)
+        {
+            Ensure.ArgumentNotNull(termbaseName, "termbaseName");
+
+            return await ApiConnection.Post<Guid>(ApiUrls.GetTermbaseGuidByName(), termbaseName, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="conceptId"></param>
+        /// <returns></returns>
+        public async Task<ConceptV2> GetConceptV2(Guid termbaseId, int conceptId)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(conceptId, "conceptId");
+
+            return await ApiConnection.Get<ConceptV2>(ApiUrls.ConceptV2(termbaseId, conceptId), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="conceptId"></param>
+        /// <returns></returns>
+        public async Task<ConceptXmlObject> GetConceptXml(Guid termbaseId, int conceptId)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(conceptId, "conceptId");
+
+            return await ApiConnection.Get<ConceptXmlObject>(ApiUrls.ConceptXml(termbaseId, conceptId), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="concept"></param>
+        /// <returns></returns>
+        public async Task<int> CreateConcept(Guid termbaseId, ConceptV2 concept)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(concept, "concept");
+
+            return await ApiConnection.Post<int>(ApiUrls.ConceptsV2(termbaseId), concept, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="concept"></param>
+        /// <returns></returns>
+        public async Task UpdateConcept(Guid termbaseId, ConceptV2 concept)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(concept, "concept");
+
+            await ApiConnection.Put<string>(ApiUrls.ConceptsV2(termbaseId), concept);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="conceptXml"></param>
+        /// <returns></returns>
+        public async Task<int> CreateConceptXml(Guid termbaseId, ConceptXmlObject conceptXml)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(conceptXml, "conceptXml");
+
+            return await ApiConnection.Post<int>(ApiUrls.ConceptXmls(termbaseId), conceptXml, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="conceptXml"></param>
+        /// <returns></returns>
+        public async Task UpdateConceptXml(Guid termbaseId, ConceptXmlObject conceptXml)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(conceptXml, "conceptXml");
+
+            await ApiConnection.Put<string>(ApiUrls.ConceptXmls(termbaseId), conceptXml);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ConceptXmlObject> SearchConcept(Guid termbaseId, SearchConceptRequest request)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(request, "request");
+
+            return await ApiConnection.Post<ConceptXmlObject>(ApiUrls.SearchConcept(termbaseId), request, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="conceptId"></param>
+        /// <returns></returns>
+        public async Task LockConcept(Guid termbaseId, int conceptId)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(conceptId, "conceptId");
+
+            await ApiConnection.Post(ApiUrls.LockConcept(termbaseId, conceptId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="conceptId"></param>
+        /// <param name="stealLock"></param>
+        /// <returns></returns>
+        public async Task LockConcept(Guid termbaseId, int conceptId, bool stealLock)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(conceptId, "conceptId");
+            Ensure.ArgumentNotNull(stealLock, "stealLock");
+
+            await ApiConnection.Post(ApiUrls.LockConcept(termbaseId, conceptId, stealLock));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="conceptId"></param>
+        /// <returns></returns>
+        public async Task UnlockConcept(Guid termbaseId, int conceptId)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(conceptId, "conceptId");
+
+            await ApiConnection.Post(ApiUrls.UnlockConcept(termbaseId, conceptId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="conceptId"></param>
+        /// <returns></returns>
+        public async Task DeleteConceptV2(Guid termbaseId, int conceptId)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(conceptId, "conceptId");
+
+            await ApiConnection.Delete(ApiUrls.ConceptV2(termbaseId, conceptId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<TermbaseSearchResult> SearchTermbase(Guid termbaseId, string request)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNullOrEmptyString(request, "request");
+
+            return await ApiConnection.Post<TermbaseSearchResult>(ApiUrls.SearchTermbase(termbaseId), request, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<TermbaseBrowseResult> BrowseExTermbase(Guid termbaseId, string request)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNullOrEmptyString(request, "request");
+
+            return await ApiConnection.Post<TermbaseBrowseResult>(ApiUrls.BrowseExTermbase(termbaseId), request, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="catalogObjectId"></param>
+        /// <returns></returns>
+        public async Task<XmlObject> GetCatalogObject(Guid termbaseId, int catalogObjectId)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(catalogObjectId, "catalogObjectId");
+
+            return await ApiConnection.Get<XmlObject>(ApiUrls.CatalogObject(termbaseId, catalogObjectId), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="catalogObjectId"></param>
+        /// <returns></returns>
+        public async Task DeleteCatalogObject(Guid termbaseId, int catalogObjectId)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(catalogObjectId, "catalogObjectId");
+
+            await ApiConnection.Delete(ApiUrls.CatalogObject(termbaseId, catalogObjectId));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="imageId"></param>
+        /// <returns></returns>
+        public async Task<byte[]> GetMultimediaV2(Guid termbaseId, int imageId)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(imageId, "imageId");
+
+            return await ApiConnection.Get<byte[]>(ApiUrls.TermbaseMultimediaV2(termbaseId, imageId), null);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<int> AddMultimediaV2(Guid termbaseId, MultimediaRequest request)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(request, "request");
+
+            return await ApiConnection.Post<int>(ApiUrls.AddTermbaseMultimediaV2(termbaseId), request, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="conceptId"></param>
+        /// <returns></returns>
+        public async Task DeleteMultimediaV2(Guid termbaseId, int conceptId)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(conceptId, "conceptId");
+
+            await ApiConnection.Delete(ApiUrls.TermbaseMultimediaV2(termbaseId, conceptId));
+        }
+
+
+
+
     }
 }

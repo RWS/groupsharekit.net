@@ -1,4 +1,5 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
+using Sdl.Community.GroupShareKit.Models.Response.MultiTerm;
 using System;
 using System.Collections.Generic;
 
@@ -15,6 +16,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static readonly Uri CurrentTranslationMemoriesUrl = new Uri("api/tmservice", UriKind.Relative);
         public static readonly Uri CurrentFieldServiceUrl = new Uri("api/fieldservice", UriKind.Relative);
         public static readonly Uri CurrentMultitermUrl = new Uri("multiterm/api/1.0", UriKind.Relative);
+        public static readonly Uri CurrentMultiTermV2Url = new Uri("api/multiterm/v2", UriKind.Relative);
         public static readonly Uri CurrentLanguageResourceServiceUrl = new Uri("api/language-resource-service", UriKind.Relative);
         public static readonly Uri TranslateAndAnalysisServiceUrl = new Uri("ta/api", UriKind.Relative);
         public static readonly Uri ReportingServiceUrl = new Uri("api/reports", UriKind.Relative);
@@ -873,6 +875,177 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static Uri GetTermbases()
         {
             return "{0}/termbases".FormatUri(CurrentMultitermUrl);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Uri GetTermbasesV2()
+        {
+            return "{0}/termbases".FormatUri(CurrentMultiTermV2Url);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <returns></returns>
+        public static Uri GetTermbaseDefinition(Guid termbaseId)
+        {
+            return "{0}/termbases/{1}".FormatUri(CurrentMultiTermV2Url, termbaseId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <returns></returns>
+        public static Uri GetTermbasePublicObjects(Guid termbaseId)
+        {
+            return "{0}/termbases/{1}/publicObjects".FormatUri(CurrentMultiTermV2Url, termbaseId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="catalogObjectId"></param>
+        /// <returns></returns>
+        public static Uri CatalogObject(Guid termbaseId, int catalogObjectId)
+        {
+            return "{0}/catalogObjects/{1}/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, catalogObjectId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static Uri TermbaseMultimediaV2(Guid termbaseId, int id)
+        {
+            return "{0}/termbases/{1}/multimedia/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, id);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <returns></returns>
+        public static Uri AddTermbaseMultimediaV2(Guid termbaseId)
+        {
+            return "{0}/termbases/{1}/multimedia".FormatUri(CurrentMultiTermV2Url, termbaseId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Uri GetTermbaseGuidByName()
+        {
+            return "{0}/termbases/resolvename".FormatUri(CurrentMultiTermV2Url);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <returns></returns>
+        public static Uri ConceptsV2(Guid termbaseId)
+        {
+            return "{0}/termbases/{1}/concepts".FormatUri(CurrentMultiTermV2Url, termbaseId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="conceptId"></param>
+        /// <returns></returns>
+        public static Uri ConceptV2(Guid termbaseId, int conceptId)
+        {
+            return "{0}/termbases/{1}/concepts/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, conceptId);
+        }
+
+        public static Uri ConceptXmls(Guid termbaseId)
+        {
+            return "{0}/termbases/{1}/conceptxmls".FormatUri(CurrentMultiTermV2Url, termbaseId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="conceptId"></param>
+        /// <returns></returns>
+        public static Uri ConceptXml(Guid termbaseId, int conceptId)
+        {
+            return "{0}/termbases/{1}/conceptxmls/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, conceptId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <returns></returns>
+        public static Uri SearchConcept(Guid termbaseId)
+        {
+            return "{0}/termbases/{1}/conceptxmls/searchConcept".FormatUri(CurrentMultiTermV2Url, termbaseId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="conceptId"></param>
+        /// <returns></returns>
+        public static Uri LockConcept(Guid termbaseId, int conceptId)
+        {
+            return "{0}/termbases/{1}/lockConcept/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, conceptId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="conceptId"></param>
+        /// <param name="stealLock"></param>
+        /// <returns></returns>
+        public static Uri LockConcept(Guid termbaseId, int conceptId, bool stealLock)
+        {
+            return "{0}/termbases/{1}/lockConcept/{2}?stealLock={3}".FormatUri(CurrentMultiTermV2Url, termbaseId, conceptId, stealLock);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="conceptId"></param>
+        /// <returns></returns>
+        public static Uri UnlockConcept(Guid termbaseId, int conceptId)
+        {
+            return "{0}/termbases/{1}/unlockConcept/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, conceptId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <returns></returns>
+        public static Uri SearchTermbase(Guid termbaseId)
+        {
+            return "{0}/termbases/{1}/searchTerms".FormatUri(CurrentMultiTermV2Url, termbaseId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <returns></returns>
+        public static Uri BrowseExTermbase(Guid termbaseId)
+        {
+            return "{0}/termbases/{1}/browseEx".FormatUri(CurrentMultiTermV2Url, termbaseId);
         }
 
         /// <summary>
