@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Sdl.Community.GroupShareKit.Models.Response.MultiTerm
+namespace Sdl.Community.GroupShareKit.Models.Response.MultiTerm.Search
 {
     public class TermbaseSearchRequest
     {

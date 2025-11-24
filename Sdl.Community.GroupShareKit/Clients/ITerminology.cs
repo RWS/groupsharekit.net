@@ -1,6 +1,10 @@
 ﻿using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Models.Response;
 using Sdl.Community.GroupShareKit.Models.Response.MultiTerm;
+using Sdl.Community.GroupShareKit.Models.Response.MultiTerm.Browse;
+using Sdl.Community.GroupShareKit.Models.Response.MultiTerm.Concepts;
+using Sdl.Community.GroupShareKit.Models.Response.MultiTerm.Images;
+using Sdl.Community.GroupShareKit.Models.Response.MultiTerm.Search;
 using System;
 using System.Threading.Tasks;
 

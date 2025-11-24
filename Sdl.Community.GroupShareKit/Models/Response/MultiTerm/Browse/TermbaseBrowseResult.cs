@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Sdl.Community.GroupShareKit.Models.Response.MultiTerm
+namespace Sdl.Community.GroupShareKit.Models.Response.MultiTerm.Browse
 {
     public class TermbaseBrowseResult
     {

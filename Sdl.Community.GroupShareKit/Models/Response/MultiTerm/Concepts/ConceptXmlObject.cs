@@ -1,4 +1,4 @@
-﻿namespace Sdl.Community.GroupShareKit.Models.Response.MultiTerm
+﻿namespace Sdl.Community.GroupShareKit.Models.Response.MultiTerm.Concepts
 {
     public class ConceptXmlObject
     {
