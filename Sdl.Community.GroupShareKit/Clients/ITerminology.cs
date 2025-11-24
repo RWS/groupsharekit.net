@@ -152,181 +152,135 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task DeleteConcept(string termbaseId, string conceptId);
 
         /// <summary>
-        /// 
+        /// Retrieves all termbases using the v2 API.
         /// </summary>
-        /// <returns></returns>
         Task<TermbasesV2> GetTermbasesV2();
 
         /// <summary>
-        /// 
+        /// Retrieves the termbase definition.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <returns></returns>
-        Task<XmlObject> GetTermbaseDefinition(Guid termbaseId);
+        Task<XmlObject> GetTermbaseDefinitionV2(Guid termbaseId);
 
         /// <summary>
-        /// 
+        /// Retrieves the termbase public objects.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <returns></returns>
-        Task<TermbaseV2> GetTermbasePublicObjects(Guid termbaseId);
+        Task<TermbaseV2> GetTermbasePublicObjectsV2(Guid termbaseId);
 
         /// <summary>
-        /// 
+        /// Deletes a termbase.
         /// </summary>
-        /// <returns></returns>
-        Task DeleteTermbase(Guid termbaseId);
+        Task DeleteTermbaseV2(Guid termbaseId);
 
         /// <summary>
-        /// 
+        /// Retrieves a termbase GUID by its friendly name.
         /// </summary>
-        /// <param name="termbaseName"></param>
-        /// <returns></returns>
-        Task<Guid> GetTermbaseGuidByName(TermbaseNameModel termbaseName);
+        Task<Guid> GetTermbaseGuidByNameV2(TermbaseNameModel termbaseName);
 
         /// <summary>
-        /// 
+        /// Retrieves a termbase concept from the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptId"></param>
-        /// <returns></returns>
         Task<ConceptV2> GetConceptV2(Guid termbaseId, int conceptId);
 
         /// <summary>
-        /// 
+        /// Retrieves a termbase concept XML from the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptId"></param>
-        /// <returns></returns>
-        Task<ConceptXmlObject> GetConceptXml(Guid termbaseId, int conceptId);
+        Task<ConceptXmlObject> GetConceptXmlV2(Guid termbaseId, int conceptId);
 
         /// <summary>
-        /// 
+        /// Creates a new concept in the specified termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="concept"></param>
-        /// <returns></returns>
-        Task<int> CreateConcept(Guid termbaseId, ConceptV2 concept);
+        /// <param name="termbaseId">The identifier of the termbase where the concept will be created.</param>
+        /// <param name="concept">The concept details associated with the concept.</param>
+        Task<int> CreateConceptV2(Guid termbaseId, ConceptV2 concept);
 
         /// <summary>
-        /// 
+        /// Updates an existing concept in the specified termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="concept"></param>
-        /// <returns></returns>
-        Task UpdateConcept(Guid termbaseId, ConceptV2 concept);
+        /// <param name="termbaseId">The identifier of the termbase where the concept exists.</param>
+        /// <param name="concept">The updated concept details associated with the concept.</param>
+        Task UpdateConceptV2(Guid termbaseId, ConceptV2 concept);
 
         /// <summary>
-        /// 
+        /// Creates a new concept in the specified termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptXml"></param>
-        /// <returns></returns>
-        Task<int> CreateConceptXml(Guid termbaseId, ConceptXmlObject conceptXml);
+        /// <param name="termbaseId">The identifier of the termbase where the concept will be created.</param>
+        /// <param name="conceptXml">The concept details associated with the concept.</param>
+        Task<int> CreateConceptXmlV2(Guid termbaseId, ConceptXmlObject conceptXml);
 
         /// <summary>
-        /// 
+        /// Updates an existing concept in the specified termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptXml"></param>
-        /// <returns></returns>
-        Task UpdateConceptXml(Guid termbaseId, ConceptXmlObject conceptXml);
+        /// <param name="termbaseId">The identifier of the termbase where the concept exists.</param>
+        /// <param name="conceptXml">The updated concept details associated with the concept.</param>
+        Task UpdateConceptXmlV2(Guid termbaseId, ConceptXmlObject conceptXml);
 
         /// <summary>
-        /// 
+        /// Locks a termbase concept for editing.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        Task<ConceptXmlObject> SearchConcept(Guid termbaseId, SearchConceptRequest request);
+        Task LockConceptV2(Guid termbaseId, int conceptId);
 
         /// <summary>
-        /// 
+        /// Locks a termbase concept for editing.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptId"></param>
-        /// <returns></returns>
-        Task LockConcept(Guid termbaseId, int conceptId);
+        /// <param name="stealLock">If set to true, steals the lock previously acquired by the same user.</param>
+        Task LockConceptV2(Guid termbaseId, int conceptId, bool stealLock);
 
         /// <summary>
-        /// 
+        /// Unlocks a termbase concept.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptId"></param>
-        /// <param name="stealLock"></param>
-        /// <returns></returns>
-        Task LockConcept(Guid termbaseId, int conceptId, bool stealLock);
+        Task UnlockConceptV2(Guid termbaseId, int conceptId);
 
         /// <summary>
-        /// 
+        /// Deletes a concept from a termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptId"></param>
-        /// <returns></returns>
-        Task UnlockConcept(Guid termbaseId, int conceptId);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptId"></param>
-        /// <returns></returns>
         Task DeleteConceptV2(Guid termbaseId, int conceptId);
 
         /// <summary>
-        /// 
+        /// Searches terms in a termbase using the v2 API.
         /// </summary>
         /// <param name="termbaseId"></param>
         /// <param name="request"></param>
-        /// <returns></returns>
-        Task<TermbaseSearchResult> SearchTermbase(Guid termbaseId, string request);
+        Task<TermbaseSearchResult> SearchTermbaseV2(Guid termbaseId, string request);
 
         /// <summary>
-        /// 
+        /// Searches for a concept in a termbase using the v2 API.
         /// </summary>
         /// <param name="termbaseId"></param>
         /// <param name="request"></param>
-        /// <returns></returns>
-        Task<TermbaseBrowseResult> BrowseExTermbase(Guid termbaseId, string request);
+        Task<ConceptXmlObject> SearchConceptV2(Guid termbaseId, SearchConceptRequest request);
 
         /// <summary>
-        /// 
+        /// Browses entries in a termbase using the v2 API.
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        /// <param name="request"></param>
+        Task<TermbaseBrowseResult> BrowseExTermbaseV2(Guid termbaseId, string request);
+
+        /// <summary>
+        /// Retrieves a catalog object from a termbase using the v2 API.
+        /// </summary>
+        Task<XmlObject> GetCatalogObjectV2(Guid termbaseId, int catalogObjectId);
+
+        /// <summary>
+        /// Deletes a catalog object from a termbase using the v2 API.
         /// </summary>
         /// <param name="termbaseId"></param>
         /// <param name="catalogObjectId"></param>
-        /// <returns></returns>
-        Task<XmlObject> GetCatalogObject(Guid termbaseId, int catalogObjectId);
+        Task DeleteCatalogObjectV2(Guid termbaseId, int catalogObjectId);
 
         /// <summary>
-        /// 
+        /// Retrieves a multimedia (image) file from a termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="catalogObjectId"></param>
-        /// <returns></returns>
-        Task DeleteCatalogObject(Guid termbaseId, int catalogObjectId);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="imageId"></param>
-        /// <returns></returns>
         Task<byte[]> GetMultimediaV2(Guid termbaseId, int imageId);
 
         /// <summary>
-        /// 
+        /// Creates a multimedia (image) file in a termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name=""></param>
-        /// <returns></returns>
         Task<int> AddMultimediaV2(Guid termbaseId, MultimediaRequest request);
 
         /// <summary>
-        /// 
+        /// Deletes a multimedia (image) file from a termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptId"></param>
-        /// <returns></returns>
         Task DeleteMultimediaV2(Guid termbaseId, int conceptId);
 
     }

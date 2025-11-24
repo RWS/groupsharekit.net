@@ -878,171 +878,157 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for the v2 termbases endpoint.
         /// </summary>
-        /// <returns></returns>
         public static Uri GetTermbasesV2()
         {
             return "{0}/termbases".FormatUri(CurrentMultiTermV2Url);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for the v2 termbase definition endpoint.
         /// </summary>
         /// <param name="termbaseId"></param>
-        /// <returns></returns>
-        public static Uri GetTermbaseDefinition(Guid termbaseId)
+        public static Uri GetTermbaseDefinitionV2(Guid termbaseId)
         {
             return "{0}/termbases/{1}".FormatUri(CurrentMultiTermV2Url, termbaseId);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for the v2 termbase public objects endpoint.
         /// </summary>
         /// <param name="termbaseId"></param>
-        /// <returns></returns>
-        public static Uri GetTermbasePublicObjects(Guid termbaseId)
+        public static Uri GetTermbasePublicObjectsV2(Guid termbaseId)
         {
             return "{0}/termbases/{1}/publicObjects".FormatUri(CurrentMultiTermV2Url, termbaseId);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for the v2 catalog object endpoint.
         /// </summary>
         /// <param name="termbaseId"></param>
         /// <param name="catalogObjectId"></param>
-        /// <returns></returns>
-        public static Uri CatalogObject(Guid termbaseId, int catalogObjectId)
+        public static Uri CatalogObjectV2(Guid termbaseId, int catalogObjectId)
         {
             return "{0}/catalogObjects/{1}/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, catalogObjectId);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for the v2 termbase multimedia endpoint.
         /// </summary>
         /// <param name="termbaseId"></param>
         /// <param name="id"></param>
-        /// <returns></returns>
         public static Uri TermbaseMultimediaV2(Guid termbaseId, int id)
         {
             return "{0}/termbases/{1}/multimedia/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, id);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for creating termbase multimedia.
         /// </summary>
         /// <param name="termbaseId"></param>
-        /// <returns></returns>
         public static Uri AddTermbaseMultimediaV2(Guid termbaseId)
         {
             return "{0}/termbases/{1}/multimedia".FormatUri(CurrentMultiTermV2Url, termbaseId);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for retrieving a termbase GUID by name.
         /// </summary>
-        /// <returns></returns>
-        public static Uri GetTermbaseGuidByName()
+        public static Uri GetTermbaseGuidByNameV2()
         {
             return "{0}/termbases/resolvename".FormatUri(CurrentMultiTermV2Url);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for the v2 concepts endpoint.
         /// </summary>
         /// <param name="termbaseId"></param>
-        /// <returns></returns>
         public static Uri ConceptsV2(Guid termbaseId)
         {
             return "{0}/termbases/{1}/concepts".FormatUri(CurrentMultiTermV2Url, termbaseId);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for the v2 concept endpoint.
         /// </summary>
         /// <param name="termbaseId"></param>
         /// <param name="conceptId"></param>
-        /// <returns></returns>
         public static Uri ConceptV2(Guid termbaseId, int conceptId)
         {
             return "{0}/termbases/{1}/concepts/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, conceptId);
         }
 
-        public static Uri ConceptXmls(Guid termbaseId)
+        /// <summary>
+        /// Gets the URI for the v2 concept XMLs endpoint.
+        /// </summary>
+        /// <param name="termbaseId"></param>
+        public static Uri ConceptXmlsV2(Guid termbaseId)
         {
             return "{0}/termbases/{1}/conceptxmls".FormatUri(CurrentMultiTermV2Url, termbaseId);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for the v2 concept XML endpoint.
         /// </summary>
         /// <param name="termbaseId"></param>
         /// <param name="conceptId"></param>
-        /// <returns></returns>
         public static Uri ConceptXml(Guid termbaseId, int conceptId)
         {
             return "{0}/termbases/{1}/conceptxmls/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, conceptId);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for the v2 endpoint that searches for a concept in the termbase.
         /// </summary>
         /// <param name="termbaseId"></param>
-        /// <returns></returns>
-        public static Uri SearchConcept(Guid termbaseId)
+        public static Uri SearchConceptsV2(Guid termbaseId)
         {
             return "{0}/termbases/{1}/conceptxmls/searchConcept".FormatUri(CurrentMultiTermV2Url, termbaseId);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for the v2 endpoint that locks a concept.
         /// </summary>
         /// <param name="termbaseId"></param>
         /// <param name="conceptId"></param>
-        /// <returns></returns>
         public static Uri LockConcept(Guid termbaseId, int conceptId)
         {
             return "{0}/termbases/{1}/lockConcept/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, conceptId);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for the v2 endpoint that locks a concept.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptId"></param>
         /// <param name="stealLock"></param>
-        /// <returns></returns>
         public static Uri LockConcept(Guid termbaseId, int conceptId, bool stealLock)
         {
             return "{0}/termbases/{1}/lockConcept/{2}?stealLock={3}".FormatUri(CurrentMultiTermV2Url, termbaseId, conceptId, stealLock);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for the v2 endpoint that unlocks a concept.
         /// </summary>
         /// <param name="termbaseId"></param>
         /// <param name="conceptId"></param>
-        /// <returns></returns>
         public static Uri UnlockConcept(Guid termbaseId, int conceptId)
         {
             return "{0}/termbases/{1}/unlockConcept/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, conceptId);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for the v2 endpoint that searches terms in a termbase.
         /// </summary>
         /// <param name="termbaseId"></param>
-        /// <returns></returns>
         public static Uri SearchTermbase(Guid termbaseId)
         {
             return "{0}/termbases/{1}/searchTerms".FormatUri(CurrentMultiTermV2Url, termbaseId);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for the v2 endpoint that browses entries in a termbase.
         /// </summary>
         /// <param name="termbaseId"></param>
-        /// <returns></returns>
         public static Uri BrowseExTermbase(Guid termbaseId)
         {
             return "{0}/termbases/{1}/browseEx".FormatUri(CurrentMultiTermV2Url, termbaseId);

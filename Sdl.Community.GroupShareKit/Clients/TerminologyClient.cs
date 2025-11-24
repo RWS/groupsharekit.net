@@ -20,7 +20,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Gets  <see cref="Termbase"/>s.
+        /// Gets <see cref="Termbase"/>s.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -36,7 +36,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Gets  <see cref="TermbaseDetails"/>s.
+        /// Gets <see cref="TermbaseDetails"/>s.
         /// </summary>
         /// <remarks>
         /// This method requires authentication.
@@ -53,7 +53,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Gets  <see cref="Filter"/>s.
+        /// Gets <see cref="Filter"/>s.
         /// </summary>
         /// <param name="termbaseId"></param>
         /// <remarks>
@@ -234,68 +234,56 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Retrieves all termbases using the v2 API.
         /// </summary>
-        /// <returns></returns>
         public async Task<TermbasesV2> GetTermbasesV2()
         {
             return await ApiConnection.Get<TermbasesV2>(ApiUrls.GetTermbasesV2(), null);
         }
 
         /// <summary>
-        /// 
+        /// Retrieves the termbase definition.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <returns></returns>
-        public async Task<XmlObject> GetTermbaseDefinition(Guid termbaseId)
+        public async Task<XmlObject> GetTermbaseDefinitionV2(Guid termbaseId)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
 
-            return await ApiConnection.Get<XmlObject>(ApiUrls.GetTermbaseDefinition(termbaseId), null);
+            return await ApiConnection.Get<XmlObject>(ApiUrls.GetTermbaseDefinitionV2(termbaseId), null);
         }
 
         /// <summary>
-        /// 
+        /// Retrieves the termbase public objects.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <returns></returns>
-        public async Task<TermbaseV2> GetTermbasePublicObjects(Guid termbaseId)
+        public async Task<TermbaseV2> GetTermbasePublicObjectsV2(Guid termbaseId)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
 
-            return await ApiConnection.Get<TermbaseV2>(ApiUrls.GetTermbasePublicObjects(termbaseId), null);
+            return await ApiConnection.Get<TermbaseV2>(ApiUrls.GetTermbasePublicObjectsV2(termbaseId), null);
         }
 
         /// <summary>
-        /// 
+        /// Deletes a termbase.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <returns></returns>
-        public async Task DeleteTermbase(Guid termbaseId)
+        public async Task DeleteTermbaseV2(Guid termbaseId)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
 
-            await ApiConnection.Delete(ApiUrls.GetTermbaseDefinition(termbaseId));
+            await ApiConnection.Delete(ApiUrls.GetTermbaseDefinitionV2(termbaseId));
         }
 
         /// <summary>
-        /// 
+        /// Retrieves a termbase GUID by its friendly name.
         /// </summary>
-        /// <param name="termbaseName"></param>
-        /// <returns></returns>
-        public async Task<Guid> GetTermbaseGuidByName(TermbaseNameModel termbaseName)
+        public async Task<Guid> GetTermbaseGuidByNameV2(TermbaseNameModel termbaseName)
         {
             Ensure.ArgumentNotNull(termbaseName, "termbaseName");
 
-            return await ApiConnection.Post<Guid>(ApiUrls.GetTermbaseGuidByName(), termbaseName, "application/json");
+            return await ApiConnection.Post<Guid>(ApiUrls.GetTermbaseGuidByNameV2(), termbaseName, "application/json");
         }
 
         /// <summary>
-        /// 
+        /// Retrieves a termbase concept from the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptId"></param>
-        /// <returns></returns>
         public async Task<ConceptV2> GetConceptV2(Guid termbaseId, int conceptId)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
@@ -305,12 +293,9 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Retrieves a termbase concept XML from the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptId"></param>
-        /// <returns></returns>
-        public async Task<ConceptXmlObject> GetConceptXml(Guid termbaseId, int conceptId)
+        public async Task<ConceptXmlObject> GetConceptXmlV2(Guid termbaseId, int conceptId)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
             Ensure.ArgumentNotNull(conceptId, "conceptId");
@@ -319,12 +304,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Creates a new concept in the specified termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="concept"></param>
-        /// <returns></returns>
-        public async Task<int> CreateConcept(Guid termbaseId, ConceptV2 concept)
+        /// <param name="termbaseId">The identifier of the termbase where the concept will be created.</param>
+        /// <param name="concept">The concept details associated with the concept.</param>
+        public async Task<int> CreateConceptV2(Guid termbaseId, ConceptV2 concept)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
             Ensure.ArgumentNotNull(concept, "concept");
@@ -333,12 +317,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Updates an existing concept in the specified termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="concept"></param>
-        /// <returns></returns>
-        public async Task UpdateConcept(Guid termbaseId, ConceptV2 concept)
+        /// <param name="termbaseId">The identifier of the termbase where the concept exists.</param>
+        /// <param name="concept">The updated concept details associated with the concept.</param>
+        public async Task UpdateConceptV2(Guid termbaseId, ConceptV2 concept)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
             Ensure.ArgumentNotNull(concept, "concept");
@@ -347,54 +330,37 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Creates a new concept in the specified termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptXml"></param>
-        /// <returns></returns>
-        public async Task<int> CreateConceptXml(Guid termbaseId, ConceptXmlObject conceptXml)
+        /// <param name="termbaseId">The identifier of the termbase where the concept will be created.</param>
+        /// <param name="conceptXml">The concept details associated with the concept.</param>
+        public async Task<int> CreateConceptXmlV2(Guid termbaseId, ConceptXmlObject conceptXml)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
             Ensure.ArgumentNotNull(conceptXml, "conceptXml");
 
-            return await ApiConnection.Post<int>(ApiUrls.ConceptXmls(termbaseId), conceptXml, "application/json");
+            return await ApiConnection.Post<int>(ApiUrls.ConceptXmlsV2(termbaseId), conceptXml, "application/json");
         }
 
         /// <summary>
-        /// 
+        /// Updates an existing concept in the specified termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptXml"></param>
-        /// <returns></returns>
-        public async Task UpdateConceptXml(Guid termbaseId, ConceptXmlObject conceptXml)
+        /// <param name="termbaseId">The identifier of the termbase where the concept exists.</param>
+        /// <param name="conceptXml">The updated concept details associated with the concept.</param>
+        public async Task UpdateConceptXmlV2(Guid termbaseId, ConceptXmlObject conceptXml)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
             Ensure.ArgumentNotNull(conceptXml, "conceptXml");
 
-            await ApiConnection.Put<string>(ApiUrls.ConceptXmls(termbaseId), conceptXml);
+            await ApiConnection.Put<string>(ApiUrls.ConceptXmlsV2(termbaseId), conceptXml);
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public async Task<ConceptXmlObject> SearchConcept(Guid termbaseId, SearchConceptRequest request)
-        {
-            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
-            Ensure.ArgumentNotNull(request, "request");
-
-            return await ApiConnection.Post<ConceptXmlObject>(ApiUrls.SearchConcept(termbaseId), request, "application/json");
-        }
-
-        /// <summary>
-        /// 
+        /// Locks a concept from a termbase.
         /// </summary>
         /// <param name="termbaseId"></param>
         /// <param name="conceptId"></param>
-        /// <returns></returns>
-        public async Task LockConcept(Guid termbaseId, int conceptId)
+        public async Task LockConceptV2(Guid termbaseId, int conceptId)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
             Ensure.ArgumentNotNull(conceptId, "conceptId");
@@ -403,13 +369,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Locks a concept from a termbase.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptId"></param>
-        /// <param name="stealLock"></param>
+        /// <param name="termbaseId">The identifier of the termbase.</param>
+        /// <param name="conceptId">The identifier of the concept.</param>
+        /// <param name="stealLock">If set to true, steals the lock previously acquired by the same user.</param>
         /// <returns></returns>
-        public async Task LockConcept(Guid termbaseId, int conceptId, bool stealLock)
+        public async Task LockConceptV2(Guid termbaseId, int conceptId, bool stealLock)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
             Ensure.ArgumentNotNull(conceptId, "conceptId");
@@ -419,12 +385,12 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Unlocks a concept from a termbase.
         /// </summary>
         /// <param name="termbaseId"></param>
         /// <param name="conceptId"></param>
         /// <returns></returns>
-        public async Task UnlockConcept(Guid termbaseId, int conceptId)
+        public async Task UnlockConceptV2(Guid termbaseId, int conceptId)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
             Ensure.ArgumentNotNull(conceptId, "conceptId");
@@ -433,11 +399,10 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Deletes a concept from a termbase using the v2 API.
         /// </summary>
         /// <param name="termbaseId"></param>
         /// <param name="conceptId"></param>
-        /// <returns></returns>
         public async Task DeleteConceptV2(Guid termbaseId, int conceptId)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
@@ -447,12 +412,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Searches terms in a termbase using the v2 API.
         /// </summary>
         /// <param name="termbaseId"></param>
         /// <param name="request"></param>
-        /// <returns></returns>
-        public async Task<TermbaseSearchResult> SearchTermbase(Guid termbaseId, string request)
+        public async Task<TermbaseSearchResult> SearchTermbaseV2(Guid termbaseId, string request)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
             Ensure.ArgumentNotNullOrEmptyString(request, "request");
@@ -461,12 +425,20 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Searches for a concept in a termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public async Task<TermbaseBrowseResult> BrowseExTermbase(Guid termbaseId, string request)
+        public async Task<ConceptXmlObject> SearchConceptV2(Guid termbaseId, SearchConceptRequest request)
+        {
+            Ensure.ArgumentNotNull(termbaseId, "termbaseId");
+            Ensure.ArgumentNotNull(request, "request");
+
+            return await ApiConnection.Post<ConceptXmlObject>(ApiUrls.SearchConceptsV2(termbaseId), request, "application/json");
+        }
+
+        /// <summary>
+        /// Browses entries in a termbase using the v2 API.
+        /// </summary>
+        public async Task<TermbaseBrowseResult> BrowseExTermbaseV2(Guid termbaseId, string request)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
             Ensure.ArgumentNotNullOrEmptyString(request, "request");
@@ -475,39 +447,30 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Retrieves a catalog object from a termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="catalogObjectId"></param>
-        /// <returns></returns>
-        public async Task<XmlObject> GetCatalogObject(Guid termbaseId, int catalogObjectId)
+        public async Task<XmlObject> GetCatalogObjectV2(Guid termbaseId, int catalogObjectId)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
             Ensure.ArgumentNotNull(catalogObjectId, "catalogObjectId");
 
-            return await ApiConnection.Get<XmlObject>(ApiUrls.CatalogObject(termbaseId, catalogObjectId), null);
+            return await ApiConnection.Get<XmlObject>(ApiUrls.CatalogObjectV2(termbaseId, catalogObjectId), null);
         }
 
         /// <summary>
-        /// 
+        /// Deletes a catalog object from a termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="catalogObjectId"></param>
-        /// <returns></returns>
-        public async Task DeleteCatalogObject(Guid termbaseId, int catalogObjectId)
+        public async Task DeleteCatalogObjectV2(Guid termbaseId, int catalogObjectId)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
             Ensure.ArgumentNotNull(catalogObjectId, "catalogObjectId");
 
-            await ApiConnection.Delete(ApiUrls.CatalogObject(termbaseId, catalogObjectId));
+            await ApiConnection.Delete(ApiUrls.CatalogObjectV2(termbaseId, catalogObjectId));
         }
 
         /// <summary>
-        /// 
+        /// Retrieves a multimedia (image) file from a termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="imageId"></param>
-        /// <returns></returns>
         public async Task<byte[]> GetMultimediaV2(Guid termbaseId, int imageId)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
@@ -517,9 +480,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Creates a multimedia (image) file in a termbase using the v2 API.
         /// </summary>
-        /// <returns></returns>
         public async Task<int> AddMultimediaV2(Guid termbaseId, MultimediaRequest request)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
@@ -529,11 +491,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// 
+        /// Deletes a multimedia (image) file from a termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptId"></param>
-        /// <returns></returns>
         public async Task DeleteMultimediaV2(Guid termbaseId, int conceptId)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
