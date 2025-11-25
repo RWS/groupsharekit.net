@@ -245,23 +245,17 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Searches terms in a termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="request"></param>
-        Task<TermbaseSearchResult> SearchTermbaseV2(Guid termbaseId, string request);
+        Task<TermbaseSearchResult> SearchTermbaseV2(Guid termbaseId, TermbaseSearchRequest request);
 
         /// <summary>
         /// Searches for a concept in a termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="request"></param>
         Task<ConceptXmlObject> SearchConceptV2(Guid termbaseId, SearchConceptRequest request);
 
         /// <summary>
         /// Browses entries in a termbase using the v2 API.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="request"></param>
-        Task<TermbaseBrowseResult> BrowseExTermbaseV2(Guid termbaseId, string request);
+        Task<TermbaseBrowseResult> BrowseExTermbaseV2(Guid termbaseId, TermbaseBrowseRequest request);
 
         /// <summary>
         /// Retrieves a catalog object from a termbase using the v2 API.

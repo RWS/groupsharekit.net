@@ -1,4 +1,6 @@
-﻿using Sdl.Community.GroupShareKit.Exceptions;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Sdl.Community.GroupShareKit.Exceptions;
 using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 using Sdl.Community.GroupShareKit.Models.Response;
@@ -426,12 +428,18 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         /// <param name="termbaseId"></param>
         /// <param name="request"></param>
-        public async Task<TermbaseSearchResult> SearchTermbaseV2(Guid termbaseId, string request)
+        public async Task<TermbaseSearchResult> SearchTermbaseV2(Guid termbaseId, TermbaseSearchRequest request)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
-            Ensure.ArgumentNotNullOrEmptyString(request, "request");
+            Ensure.ArgumentNotNull(request, "request");
 
-            return await ApiConnection.Post<TermbaseSearchResult>(ApiUrls.SearchTermbase(termbaseId), request, "application/json");
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Converters = { new StringEnumConverter() }
+            };
+
+            return await ApiConnection.Post<TermbaseSearchResult>(ApiUrls.SearchTermbase(termbaseId), JsonConvert.SerializeObject(request, settings), "application/json");
         }
 
         /// <summary>
@@ -448,12 +456,18 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Browses entries in a termbase using the v2 API.
         /// </summary>
-        public async Task<TermbaseBrowseResult> BrowseExTermbaseV2(Guid termbaseId, string request)
+        public async Task<TermbaseBrowseResult> BrowseExTermbaseV2(Guid termbaseId, TermbaseBrowseRequest request)
         {
             Ensure.ArgumentNotNull(termbaseId, "termbaseId");
-            Ensure.ArgumentNotNullOrEmptyString(request, "request");
+            Ensure.ArgumentNotNull(request, "request");
 
-            return await ApiConnection.Post<TermbaseBrowseResult>(ApiUrls.BrowseExTermbase(termbaseId), request, "application/json");
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Converters = { new StringEnumConverter() }
+            };
+
+            return await ApiConnection.Post<TermbaseBrowseResult>(ApiUrls.BrowseExTermbase(termbaseId), JsonConvert.SerializeObject(request, settings), "application/json");
         }
 
         /// <summary>
