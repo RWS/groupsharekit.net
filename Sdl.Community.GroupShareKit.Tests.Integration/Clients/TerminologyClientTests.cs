@@ -1,8 +1,14 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Models.Response;
+using Sdl.Community.GroupShareKit.Models.Response.MultiTerm;
+using Sdl.Community.GroupShareKit.Models.Response.MultiTerm.Browse;
+using Sdl.Community.GroupShareKit.Models.Response.MultiTerm.Concepts;
+using Sdl.Community.GroupShareKit.Models.Response.MultiTerm.Images;
+using Sdl.Community.GroupShareKit.Models.Response.MultiTerm.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Xunit;
 using Attribute = Sdl.Community.GroupShareKit.Models.Response.Attribute;
@@ -36,6 +42,229 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var termbases = await _groupShareClient.Terminology.GetTermbasesV2(page: 2, limit: 2);
 
             Assert.True(termbases.Count > 0);
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task SearchTermbaseV2()
+        {
+            var request = new TermbaseSearchRequest
+            {
+                Query = "interface",
+                SourceIndex = "English"
+            };
+            
+            var searchResult = await _groupShareClient.Terminology.SearchTermbaseV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), request);
+            Assert.Equal("interface", searchResult.LastTerm);
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task BrowseExTermbaseV2()
+        {
+            var request = new TermbaseBrowseRequest
+            {
+                SourceIndex = "English",
+                TargetIndex = "French",
+                LastTerm = "interface",
+                SortDirection = Direction.Desc
+            };
+
+            var browseResult = await _groupShareClient.Terminology.BrowseExTermbaseV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), request);
+            Assert.NotEmpty(browseResult.Terms);
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task GetTermbaseDefinitionV2()
+        {
+            var termbaseDefinition = await _groupShareClient.Terminology.GetTermbaseDefinitionV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"));
+            Assert.NotNull(termbaseDefinition);
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task GetTermbasePublicObjectsV2()
+        {
+            var publicObjects = await _groupShareClient.Terminology.GetTermbasePublicObjectsV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"));
+            Assert.NotNull(publicObjects);
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task GetConceptV2()
+        {
+            var concept = await _groupShareClient.Terminology.GetConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), 12);
+            var conceptXml = await _groupShareClient.Terminology.GetConceptXmlV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), 12);
+
+            Assert.NotNull(concept);
+            Assert.NotNull(conceptXml);
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task CreateConceptV2()
+        {
+            var conceptToCreate = new ConceptV2
+            {
+                EntryClass = new ConceptV2.EntryClassBase
+                {
+                    Id = 1
+                },
+                Languages = new List<ConceptV2.IndexLanguage>
+                {
+                    new ConceptV2.IndexLanguage
+                    {
+                        Language = new ConceptV2.LanguageDescription
+                        {
+                            Id = "English"
+                        },
+                        Terms = new List<ConceptV2.Term>
+                        {
+                            new ConceptV2.Term
+                            {
+                                Text = "red"
+                            }
+                        }
+                    }
+                },
+            };
+
+            var conceptId = await _groupShareClient.Terminology.CreateConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), conceptToCreate);
+            var concept = await _groupShareClient.Terminology.GetConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), conceptId);
+
+            Assert.NotNull(concept);
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task UpdateConceptV2()
+        {
+            var newConceptVersion = new ConceptV2
+            {
+                Id = "32",
+                EntryClass = new ConceptV2.EntryClassBase
+                {
+                    Id = 3
+                },
+                Languages = new List<ConceptV2.IndexLanguage>
+                {
+                    new ConceptV2.IndexLanguage
+                    {
+                        Language = new ConceptV2.LanguageDescription
+                        {
+                            Id = "English"
+                        },
+                        Terms = new List<ConceptV2.Term>
+                        {
+                            new ConceptV2.Term
+                            {
+                                Text = "blue"
+                            }
+                        }
+                    }
+                }
+            };
+
+            await _groupShareClient.Terminology.UpdateConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), newConceptVersion);
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task CreateConceptXmlV2()
+        {
+            var conceptXml = new ConceptXmlObject(Regex.Unescape("<?xml version=\"1.0\"?><cG><c>1</c><sy type=\"entryClass\">1</sy><lG><l type=\"English\" lang=\"EN\"/><tG><t>car</t><trG><tr type=\"origination\">sa</tr><dt>2025-07-30T16:46:03</dt></trG><trG><tr type=\"modification\">sa</tr><dt>2025-07-30T16:46:03</dt></trG></tG></lG><lG><l type=\"French\" lang=\"FR\"/><tG><t>voiture</t><trG><tr type=\"origination\">sa</tr><dt>2025-07-30T16:46:03</dt></trG><trG><tr type=\"modification\">sa</tr><dt>2025-07-30T16:46:03</dt></trG></tG></lG><trG><tr type=\"origination\">sa</tr><dt>2025-07-30T16:46:03</dt></trG><trG><tr type=\"modification\">sa</tr><dt>2025-07-30T16:46:03</dt></trG></cG>"));
+            var conceptId = await _groupShareClient.Terminology.CreateConceptXmlV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), conceptXml);
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task UpdateConceptXmlV2()
+        {
+            var conceptXml = new ConceptXmlObject(Regex.Unescape("<?xml version=\"1.0\"?><cG><c>1</c><sy type=\"entryClass\">1</sy><lG><l type=\"English\" lang=\"EN\"/><tG><t>green</t><trG><tr type=\"origination\">sa</tr><dt>2025-07-30T16:46:03</dt></trG><trG><tr type=\"modification\">sa</tr><dt>2025-07-30T16:46:03</dt></trG></tG></lG><lG><l type=\"French\" lang=\"FR\"/><tG><t>vert</t><trG><tr type=\"origination\">sa</tr><dt>2025-07-30T16:46:03</dt></trG><trG><tr type=\"modification\">sa</tr><dt>2025-07-30T16:46:03</dt></trG></tG></lG><trG><tr type=\"origination\">sa</tr><dt>2025-07-30T16:46:03</dt></trG><trG><tr type=\"modification\">sa</tr><dt>2025-07-30T16:46:03</dt></trG></cG>"));
+            await _groupShareClient.Terminology.UpdateConceptXmlV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), conceptXml);
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task SearchConceptV2()
+        {
+            var request = new SearchConceptRequest
+            {
+                SourceIndex = "English",
+                Term = "adapter"
+            };
+
+            var conceptXml = await _groupShareClient.Terminology.SearchConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), request);
+            Assert.NotNull(conceptXml);
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task DeleteConceptV2()
+        {
+            await _groupShareClient.Terminology.DeleteConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), 32);
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task LockConcept()
+        {
+            await _groupShareClient.Terminology.LockConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), 1);
+            await _groupShareClient.Terminology.LockConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), 1, stealLock: true);
+            await _groupShareClient.Terminology.UnlockConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), 1);
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task DeleteTermbaseV2()
+        {
+            await _groupShareClient.Terminology.DeleteTermbaseV2(Guid.Parse("53dd8d25-2eca-4136-b28f-723ac7e2d3bf"));
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task GetTermbaseGuidByNameV2()
+        {
+            var termbaseName = new TermbaseNameModel
+            {
+                TermbaseName = "T1 - Sample - en_de_fr - SR2"
+            };
+
+            var termbaseId = await _groupShareClient.Terminology.GetTermbaseGuidByNameV2(termbaseName);
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task GetCatalogObjectV2()
+        {
+            var catalogObject = await _groupShareClient.Terminology.GetCatalogObjectV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), 1);
+            Assert.NotNull(catalogObject);
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task DeleteCatalogObjectV2()
+        {
+            var catalogObject = await _groupShareClient.Terminology.GetCatalogObjectV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), 1);
+            await _groupShareClient.Terminology.DeleteCatalogObjectV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), 1);
+        }
+
+        // This test relies on resources specific to a single server and will fail in other environments.
+        [Fact]
+        public async Task MultimediaV2()
+        {
+            var request = new MultimediaRequest
+            {
+                Extension = ".JPG",
+                Base64data = "iVBORw0KGgoAAAANSUhEUgAABAAAAAQAAQMAAABF07nAAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABlBMVEVmAJn///+7PN20AAAAAWJLR0QB/wIt3gAAAAd0SU1FB+kIGgsgH+aS2mYAAACWSURBVHja7cEBAQAAAIIg/69uSEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO8GBB4AAQ3eOGQAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjUtMDgtMjZUMTE6MzI6MzErMDA6MDA8b/cMAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI1LTA4LTI2VDExOjMyOjMxKzAwOjAwTTJPsAAAAABJRU5ErkJggg==",
+                ConceptId = "4"
+            };
+
+            var imageId = await _groupShareClient.Terminology.AddMultimediaV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), request);
+            var image = await _groupShareClient.Terminology.GetMultimediaV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), imageId);
+
+            await _groupShareClient.Terminology.DeleteMultimediaV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), 4);
         }
 
         [Theory]
@@ -523,6 +752,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await _groupShareClient.Terminology.EditConcept(termbaseId, conceptResponse);
             await DeleteConcept(termbaseId, conceptId);
         }
-    
+
     }
 }
