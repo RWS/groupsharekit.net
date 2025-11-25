@@ -525,8 +525,5 @@ namespace Sdl.Community.GroupShareKit.Clients
             await ApiConnection.Delete(ApiUrls.TermbaseMultimediaV2(termbaseId, conceptId));
         }
 
-
-
-
     }
 }
