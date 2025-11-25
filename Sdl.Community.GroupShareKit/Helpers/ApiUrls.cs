@@ -886,6 +886,16 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Gets the URI for the v2 termbases endpoint with pagination support.
+        /// </summary>
+        /// <param name="page">The page number to retrieve.</param>
+        /// <param name="limit">The maximum number of items per page.</param>
+        public static Uri GetTermbasesV2(int page, int limit)
+        {
+            return "{0}/termbases?page={1}&limit={2}".FormatUri(CurrentMultiTermV2Url, page, limit);
+        }
+
+        /// <summary>
         /// Gets the URI for the v2 termbase definition endpoint.
         /// </summary>
         /// <param name="termbaseId"></param>

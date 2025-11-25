@@ -234,11 +234,21 @@ namespace Sdl.Community.GroupShareKit.Clients
         }
 
         /// <summary>
-        /// Retrieves all termbases using the v2 API.
+        /// Retrieves all termbases from the v2 API.
         /// </summary>
         public async Task<TermbasesV2> GetTermbasesV2()
         {
             return await ApiConnection.Get<TermbasesV2>(ApiUrls.GetTermbasesV2(), null);
+        }
+
+        /// <summary>
+        /// Retrieves termbases from the v2 API using pagination.
+        /// </summary>
+        /// <param name="page">The page number to retrieve.</param>
+        /// <param name="limit">The maximum number of items per page.</param>
+        public async Task<TermbasesV2> GetTermbasesV2(int page, int limit)
+        {
+            return await ApiConnection.Get<TermbasesV2>(ApiUrls.GetTermbasesV2(page, limit), null);
         }
 
         /// <summary>

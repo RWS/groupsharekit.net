@@ -22,6 +22,22 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(termbases.TotalCount > 0);
         }
 
+        [Fact]
+        public async Task GetTermbasesV2()
+        {
+            var termbases = await _groupShareClient.Terminology.GetTermbasesV2();
+
+            Assert.True(termbases.Count > 0);
+        }
+
+        [Fact]
+        public async Task GetTermbasesWithPaginationV2()
+        {
+            var termbases = await _groupShareClient.Terminology.GetTermbasesV2(page: 2, limit: 2);
+
+            Assert.True(termbases.Count > 0);
+        }
+
         [Theory]
         [InlineData("testTB")]
         public async Task GetTermbaseById(string termbaseId)
@@ -507,6 +523,6 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await _groupShareClient.Terminology.EditConcept(termbaseId, conceptResponse);
             await DeleteConcept(termbaseId, conceptId);
         }
-
+    
     }
 }
