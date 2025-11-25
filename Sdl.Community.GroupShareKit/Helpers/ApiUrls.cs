@@ -898,7 +898,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Gets the URI for the v2 termbase definition endpoint.
         /// </summary>
-        /// <param name="termbaseId"></param>
         public static Uri GetTermbaseDefinitionV2(Guid termbaseId)
         {
             return "{0}/termbases/{1}".FormatUri(CurrentMultiTermV2Url, termbaseId);
@@ -907,7 +906,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Gets the URI for the v2 termbase public objects endpoint.
         /// </summary>
-        /// <param name="termbaseId"></param>
         public static Uri GetTermbasePublicObjectsV2(Guid termbaseId)
         {
             return "{0}/termbases/{1}/publicObjects".FormatUri(CurrentMultiTermV2Url, termbaseId);
@@ -916,8 +914,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Gets the URI for the v2 catalog object endpoint.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="catalogObjectId"></param>
         public static Uri CatalogObjectV2(Guid termbaseId, int catalogObjectId)
         {
             return "{0}/catalogObjects/{1}/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, catalogObjectId);
@@ -926,8 +922,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Gets the URI for the v2 termbase multimedia endpoint.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="id"></param>
         public static Uri TermbaseMultimediaV2(Guid termbaseId, int id)
         {
             return "{0}/termbases/{1}/multimedia/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, id);
@@ -936,7 +930,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Gets the URI for creating termbase multimedia.
         /// </summary>
-        /// <param name="termbaseId"></param>
         public static Uri AddTermbaseMultimediaV2(Guid termbaseId)
         {
             return "{0}/termbases/{1}/multimedia".FormatUri(CurrentMultiTermV2Url, termbaseId);
@@ -953,7 +946,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Gets the URI for the v2 concepts endpoint.
         /// </summary>
-        /// <param name="termbaseId"></param>
         public static Uri ConceptsV2(Guid termbaseId)
         {
             return "{0}/termbases/{1}/concepts".FormatUri(CurrentMultiTermV2Url, termbaseId);
@@ -962,8 +954,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Gets the URI for the v2 concept endpoint.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptId"></param>
         public static Uri ConceptV2(Guid termbaseId, int conceptId)
         {
             return "{0}/termbases/{1}/concepts/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, conceptId);
@@ -981,8 +971,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Gets the URI for the v2 concept XML endpoint.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptId"></param>
         public static Uri ConceptXml(Guid termbaseId, int conceptId)
         {
             return "{0}/termbases/{1}/conceptxmls/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, conceptId);
@@ -991,7 +979,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Gets the URI for the v2 endpoint that searches for a concept in the termbase.
         /// </summary>
-        /// <param name="termbaseId"></param>
         public static Uri SearchConceptsV2(Guid termbaseId)
         {
             return "{0}/termbases/{1}/conceptxmls/searchConcept".FormatUri(CurrentMultiTermV2Url, termbaseId);
@@ -1000,8 +987,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Gets the URI for the v2 endpoint that locks a concept.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptId"></param>
         public static Uri LockConcept(Guid termbaseId, int conceptId)
         {
             return "{0}/termbases/{1}/lockConcept/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, conceptId);
@@ -1010,7 +995,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Gets the URI for the v2 endpoint that locks a concept.
         /// </summary>
-        /// <param name="stealLock"></param>
+        /// <param name="stealLock">If set to true, steals the lock previously acquired by the same user.</param>
         public static Uri LockConcept(Guid termbaseId, int conceptId, bool stealLock)
         {
             return "{0}/termbases/{1}/lockConcept/{2}?stealLock={3}".FormatUri(CurrentMultiTermV2Url, termbaseId, conceptId, stealLock);
@@ -1019,8 +1004,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Gets the URI for the v2 endpoint that unlocks a concept.
         /// </summary>
-        /// <param name="termbaseId"></param>
-        /// <param name="conceptId"></param>
         public static Uri UnlockConcept(Guid termbaseId, int conceptId)
         {
             return "{0}/termbases/{1}/unlockConcept/{2}".FormatUri(CurrentMultiTermV2Url, termbaseId, conceptId);
@@ -1029,7 +1012,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Gets the URI for the v2 endpoint that searches terms in a termbase.
         /// </summary>
-        /// <param name="termbaseId"></param>
         public static Uri SearchTermbase(Guid termbaseId)
         {
             return "{0}/termbases/{1}/searchTerms".FormatUri(CurrentMultiTermV2Url, termbaseId);
@@ -1038,7 +1020,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Gets the URI for the v2 endpoint that browses entries in a termbase.
         /// </summary>
-        /// <param name="termbaseId"></param>
         public static Uri BrowseExTermbase(Guid termbaseId)
         {
             return "{0}/termbases/{1}/browseEx".FormatUri(CurrentMultiTermV2Url, termbaseId);
@@ -1072,7 +1053,6 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// 
         /// </summary>
         /// <param name="fieldTemplateId"></param>
-        /// <returns></returns>
         public static Uri GetFieldTemplate(Guid fieldTemplateId)
         {
             return "{0}/templates/{1}".FormatUri(CurrentFieldServiceUrl, fieldTemplateId);
