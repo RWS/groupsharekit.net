@@ -228,7 +228,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var termbaseName = new TermbaseNameModel
             {
-                TermbaseName = "T1 - Sample - en_de_fr - SR2"
+                TermbaseName = "T1 - Sample - en_de_fr"
             };
 
             var termbaseId = await _groupShareClient.Terminology.GetTermbaseGuidByNameV2(termbaseName);
@@ -263,6 +263,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             var imageId = await _groupShareClient.Terminology.AddMultimediaV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), request);
             var image = await _groupShareClient.Terminology.GetMultimediaV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), imageId);
+            Assert.NotNull(image);
 
             await _groupShareClient.Terminology.DeleteMultimediaV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), 4);
         }
