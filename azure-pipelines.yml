@@ -41,6 +41,7 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 - task: SonarCloudAnalyze@3
+
 - task: SonarCloudPublish@3
   inputs:
     pollingTimeoutSec: '300'
