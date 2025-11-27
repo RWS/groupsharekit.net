@@ -464,7 +464,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task DeleteConcept(string termbaseId, string conceptId)
         {
             // conceptId may not exist, but neither RestAPI nor Kit return an error in this case
-            await _groupShareClient.Terminology.DeleteConcept(termbaseId, conceptId);
+            var exception = await Record.ExceptionAsync(() => _groupShareClient.Terminology.DeleteConcept(termbaseId, conceptId));
+            Assert.Null(exception);
         }
 
         public async Task<string> CreateConcept(string termbaseId, string entryName)
@@ -774,6 +775,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public async Task UpdateNewCreatedConcept(string termbaseId)
         {
             var conceptId = await CreateConcept(termbaseId, "NewEntry");
+            Assert.True(Convert.ToInt32(conceptId) > 0);
 
             var conceptRequest = new ConceptResponse(termbaseId, conceptId);
             var conceptResponse = await _groupShareClient.Terminology.GetConcept(conceptRequest);
