@@ -142,7 +142,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var newConceptVersion = new ConceptV2
             {
-                Id = "32",
+                Id = "7",
                 EntryClass = new ConceptV2.EntryClassBase
                 {
                     Id = 3
@@ -159,14 +159,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                         {
                             new ConceptV2.Term
                             {
-                                Text = "blue"
+                                Text = "modified term"
                             }
                         }
                     }
                 }
             };
 
-            await _groupShareClient.Terminology.UpdateConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), newConceptVersion);
+            await _groupShareClient.Terminology.UpdateConceptV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), newConceptVersion);
+
+            var updatedConcept = await _groupShareClient.Terminology.GetConceptV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), 7);
+            Assert.Equal("modified term", updatedConcept.Languages.First().Terms.First().Text);
         }
 
         // This test relies on resources specific to a single server and will fail in other environments.
@@ -175,6 +178,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var conceptXml = new ConceptXmlObject(Regex.Unescape("<?xml version=\"1.0\"?><cG><c>1</c><sy type=\"entryClass\">1</sy><lG><l type=\"English\" lang=\"EN\"/><tG><t>car</t><trG><tr type=\"origination\">sa</tr><dt>2025-07-30T16:46:03</dt></trG><trG><tr type=\"modification\">sa</tr><dt>2025-07-30T16:46:03</dt></trG></tG></lG><lG><l type=\"French\" lang=\"FR\"/><tG><t>voiture</t><trG><tr type=\"origination\">sa</tr><dt>2025-07-30T16:46:03</dt></trG><trG><tr type=\"modification\">sa</tr><dt>2025-07-30T16:46:03</dt></trG></tG></lG><trG><tr type=\"origination\">sa</tr><dt>2025-07-30T16:46:03</dt></trG><trG><tr type=\"modification\">sa</tr><dt>2025-07-30T16:46:03</dt></trG></cG>"));
             var conceptId = await _groupShareClient.Terminology.CreateConceptXmlV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), conceptXml);
+
+            Assert.True(conceptId > 0);
         }
 
         // This test relies on resources specific to a single server and will fail in other environments.
@@ -183,6 +188,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         {
             var conceptXml = new ConceptXmlObject(Regex.Unescape("<?xml version=\"1.0\"?><cG><c>1</c><sy type=\"entryClass\">1</sy><lG><l type=\"English\" lang=\"EN\"/><tG><t>green</t><trG><tr type=\"origination\">sa</tr><dt>2025-07-30T16:46:03</dt></trG><trG><tr type=\"modification\">sa</tr><dt>2025-07-30T16:46:03</dt></trG></tG></lG><lG><l type=\"French\" lang=\"FR\"/><tG><t>vert</t><trG><tr type=\"origination\">sa</tr><dt>2025-07-30T16:46:03</dt></trG><trG><tr type=\"modification\">sa</tr><dt>2025-07-30T16:46:03</dt></trG></tG></lG><trG><tr type=\"origination\">sa</tr><dt>2025-07-30T16:46:03</dt></trG><trG><tr type=\"modification\">sa</tr><dt>2025-07-30T16:46:03</dt></trG></cG>"));
             await _groupShareClient.Terminology.UpdateConceptXmlV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), conceptXml);
+            
+            var updatedConcept = await _groupShareClient.Terminology.GetConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), 1);
+            var language = updatedConcept.Languages.Single(l => l.Language.Name.Equals("French", StringComparison.OrdinalIgnoreCase));
+            var termText = language.Terms.First().Text;
+
+            Assert.Equal("vert", termText);
         }
 
         // This test relies on resources specific to a single server and will fail in other environments.
@@ -203,23 +214,33 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task DeleteConceptV2()
         {
-            await _groupShareClient.Terminology.DeleteConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), 32);
+            await _groupShareClient.Terminology.DeleteConceptV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), 5);
+
+            var exception = await Record.ExceptionAsync(() => _groupShareClient.Terminology.GetConceptV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), 6));
+            Assert.NotNull(exception);
         }
 
         // This test relies on resources specific to a single server and will fail in other environments.
         [Fact]
-        public async Task LockConcept()
+        public async Task LockConceptV2()
         {
-            await _groupShareClient.Terminology.LockConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), 1);
-            await _groupShareClient.Terminology.LockConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), 1, stealLock: true);
-            await _groupShareClient.Terminology.UnlockConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), 1);
+            var lockException = await Record.ExceptionAsync(() => _groupShareClient.Terminology.LockConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), 1));
+            var stealLockException = await Record.ExceptionAsync(() => _groupShareClient.Terminology.LockConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), 1, stealLock: true));
+            var unLockException = await Record.ExceptionAsync(() => _groupShareClient.Terminology.UnlockConceptV2(Guid.Parse("5b1e4f26-cdcf-44b8-888a-3d87d1bb4b3c"), 1));
+
+            Assert.Null(lockException);
+            Assert.Null(stealLockException);
+            Assert.Null(unLockException);
         }
 
         // This test relies on resources specific to a single server and will fail in other environments.
         [Fact]
         public async Task DeleteTermbaseV2()
         {
-            await _groupShareClient.Terminology.DeleteTermbaseV2(Guid.Parse("53dd8d25-2eca-4136-b28f-723ac7e2d3bf"));
+            await _groupShareClient.Terminology.DeleteTermbaseV2(Guid.Parse("95cdb6b7-33ac-4541-ace3-911a05795035"));
+
+            var exception = await Record.ExceptionAsync(() => _groupShareClient.Terminology.GetTermbaseDefinitionV2(Guid.Parse("95cdb6b7-33ac-4541-ace3-911a05795035")));
+            Assert.NotNull(exception);
         }
 
         // This test relies on resources specific to a single server and will fail in other environments.
@@ -232,6 +253,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             };
 
             var termbaseId = await _groupShareClient.Terminology.GetTermbaseGuidByNameV2(termbaseName);
+            var publicObjects = await _groupShareClient.Terminology.GetTermbasePublicObjectsV2(termbaseId);
+
+            Assert.Equal("T1 - Sample - en_de_fr", publicObjects.Name);
         }
 
         // This test relies on resources specific to a single server and will fail in other environments.
@@ -246,8 +270,11 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task DeleteCatalogObjectV2()
         {
-            var catalogObject = await _groupShareClient.Terminology.GetCatalogObjectV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), 1);
-            await _groupShareClient.Terminology.DeleteCatalogObjectV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), 1);
+            var catalogObject = await _groupShareClient.Terminology.GetCatalogObjectV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), 12);
+            await _groupShareClient.Terminology.DeleteCatalogObjectV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), 12);
+
+            var exception = await Record.ExceptionAsync(() => _groupShareClient.Terminology.GetCatalogObjectV2(Guid.Parse("91745d42-0cd7-4836-ba2b-57ab18797fc5"), 12));
+            Assert.NotNull(exception);
         }
 
         // This test relies on resources specific to a single server and will fail in other environments.
@@ -392,7 +419,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             conceptResponse.Concept.Languages[0].Terms.Add(newTerm);
 
             var updatedResponse = await _groupShareClient.Terminology.EditConcept(termbaseId, conceptResponse);
-            await DeleteConcept(termbaseId, conceptId);
+
+            var exception = await Record.ExceptionAsync(() => DeleteConcept(termbaseId, conceptId));
+            Assert.Null(exception);
         }
 
         [Theory]
@@ -425,6 +454,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             conceptResponse.Concept.Languages[0].Terms.Add(newTerm);
 
             var updatedResponse = await _groupShareClient.Terminology.EditConcept(termbaseId, conceptResponse);
+            Assert.NotNull(updatedResponse);
 
             await DeleteConcept(termbaseId, conceptId);
         }
