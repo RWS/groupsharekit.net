@@ -1,3 +1,12 @@
+# New in 15.2.14
+* Support for GroupShare 2020 SR2 CU14
+* Added support for TermbasesV2 endpoints
+* Added support for TermbaseConceptsV2 endpoints
+* Added support for TermbaseCatalogObjectsV2 endpoints
+* Added support for TermbaseImagesV2 endpoints
+* Added support for TermbaseSearchV2 endpoints
+* Added support for TermbaseBrowseV2 endpoints
+
 # New in 15.2.0.2
 * Resolved a potential NullReferenceException in a method handling
 
