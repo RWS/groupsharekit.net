@@ -4,7 +4,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class Attribute
     {
-        public string Id     { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Delete { get; set; }
         public List<Attribute> Attributes { get; set; }
