@@ -28,17 +28,39 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="ApiException"/>s.</returns>
         public async Task<Authorization> Post(IEnumerable<string> scopes)
         {
-            var token = await ApiConnection.Post<string>(ApiUrls.Login(), scopes, "application/json");
+            var requestBody = new Dictionary<string, string>
+            {
+                { "username", ApiConnection.Connection.Credentials.Login },
+                { "password", ApiConnection.Connection.Credentials.Password },
+                { "scope", string.Join(" ", scopes)},
+                { "grant_type", "password"}
+            };
 
-            var authorization = new Authorization()
+            var token = await ApiConnection.Post<TokenResponse>(
+                ApiUrls.Login(),
+                requestBody,
+                "application/x-www-form-urlencoded"
+            );
+
+            var authorization = new Authorization
             {
                 UserName = ApiConnection.Connection.Credentials.Login,
                 ExpirationDate = DateTimeOffset.UtcNow.Add(new TimeSpan(11, 59, 59)),
                 Scopes = scopes.ToArray(),
-                Token = token
+                Token = token.access_token
             };
 
             return authorization;
         }
+
+        public class TokenResponse
+        {
+            public string access_token { get; set; }
+            public int expires_in { get; set; }
+            public string token_type { get; set; }
+        }
+
+
+
     }
 }
