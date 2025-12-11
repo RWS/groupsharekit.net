@@ -19,14 +19,6 @@ namespace Sdl.Community.GroupShareKit.Authentication
             Ensure.ArgumentNotNull(credentials,"credentials");
             Ensure.ArgumentNotNull(credentials.Login,"credentials.Login");
             Ensure.ArgumentNotNull(credentials.Password,"credentials.Password");
-
-            var header = string.Format(
-                CultureInfo.InvariantCulture,
-                "Basic {0}",
-                Convert.ToBase64String(Encoding.UTF8.GetBytes(
-                    string.Format(CultureInfo.InvariantCulture, "{0}:{1}", credentials.Login, credentials.Password))));
-
-            request.Headers["Authorization"] = header;
         }
     }
 }

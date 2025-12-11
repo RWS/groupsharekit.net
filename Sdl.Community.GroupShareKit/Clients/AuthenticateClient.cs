@@ -36,9 +36,11 @@ namespace Sdl.Community.GroupShareKit.Clients
                 { "grant_type", "password"}
             };
 
+            string requestBodyString = string.Join("&", requestBody.Select(kvp => $"{Uri.EscapeDataString(kvp.Key)}={Uri.EscapeDataString(kvp.Value)}"));
+
             var token = await ApiConnection.Post<TokenResponse>(
                 ApiUrls.Login(),
-                requestBody,
+                requestBodyString,
                 "application/x-www-form-urlencoded"
             );
 

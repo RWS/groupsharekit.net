@@ -83,12 +83,11 @@ namespace Sdl.Community.GroupShareKit
             IEnumerable<string> scopes)
         {
             var credentials = new Credentials(user, password);
-
             var inMemoryCredentials = new InMemoryCredentialStore(credentials);
-
             var tokenGroupShareClient = new GroupShareClient(inMemoryCredentials, baseAddress);
 
             var authorization = await tokenGroupShareClient.Authenticate.Post(scopes);
+
             return authorization.Token;
         }
 
