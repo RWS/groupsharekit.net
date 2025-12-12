@@ -123,7 +123,7 @@ namespace Sdl.Community.GroupShareKit
                             string responseContent = await response.Content.ReadAsStringAsync();
                             
                             var tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(responseContent);
-                            return tokenResponse?.access_token ?? string.Empty;
+                            return tokenResponse?.AccessToken ?? string.Empty;
                         }
                     }
                 }

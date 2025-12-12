@@ -50,7 +50,7 @@ namespace Sdl.Community.GroupShareKit.Clients
                 UserName = ApiConnection.Connection.Credentials.Login,
                 ExpirationDate = DateTimeOffset.UtcNow.Add(new TimeSpan(11, 59, 59)),
                 Scopes = scopes.ToArray(),
-                Token = token.access_token
+                Token = token.AccessToken
             };
 
             return authorization;
