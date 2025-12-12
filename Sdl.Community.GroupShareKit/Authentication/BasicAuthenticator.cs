@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Text;
-using Sdl.Community.GroupShareKit.Helpers;
+﻿using Sdl.Community.GroupShareKit.Helpers;
 using Sdl.Community.GroupShareKit.Http;
 
 namespace Sdl.Community.GroupShareKit.Authentication

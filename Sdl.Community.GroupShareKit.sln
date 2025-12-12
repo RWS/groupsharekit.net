@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2036
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sdl.Community.GroupShareKit", "Sdl.Community.GroupShareKit\Sdl.Community.GroupShareKit.csproj", "{2A8A6988-57DD-4779-8888-6B5301E489CE}"
 EndProject
@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{488B436E
 		groupsharekit.nuspec = groupsharekit.nuspec
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroupShareKitExample", "GroupShareKitExample\GroupShareKitExample.csproj", "{363A11C2-01C7-4F53-BE8B-FB1BCC2DA1E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{D29100C2-941B-4047-9E89-6790B9B08F51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D29100C2-941B-4047-9E89-6790B9B08F51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D29100C2-941B-4047-9E89-6790B9B08F51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{363A11C2-01C7-4F53-BE8B-FB1BCC2DA1E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{363A11C2-01C7-4F53-BE8B-FB1BCC2DA1E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{363A11C2-01C7-4F53-BE8B-FB1BCC2DA1E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{363A11C2-01C7-4F53-BE8B-FB1BCC2DA1E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

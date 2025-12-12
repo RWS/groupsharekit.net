@@ -64,10 +64,7 @@ namespace Sdl.Community.GroupShareKit.Http
 
         private static string FormatUserAgent()
         {
-            return string.Format(CultureInfo.InvariantCulture,
-                "({0} {1}; {2}; {3}; GroupShare kit)", "WindowsRT",
-                "8+",
-                "unknown", CultureInfo.CurrentCulture.Name);
+            return "GroupShareKit";
         }
 
         public Task<IApiResponse<T>> Get<T>(Uri uri, IDictionary<string, string> parameters)

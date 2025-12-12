@@ -11,6 +11,7 @@ namespace Sdl.Community.GroupShareKit.Authentication
             new Dictionary<AuthenticationType, IAuthenticationHandler>()
             {
                 {AuthenticationType.Basic, new BasicAuthenticator()},
+                {AuthenticationType.Negotiate, new NegotiateAuthenticator()},
                 {AuthenticationType.Oauth, new TokenAuthenticator() }
             };
 

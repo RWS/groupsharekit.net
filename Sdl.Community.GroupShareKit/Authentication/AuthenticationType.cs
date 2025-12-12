@@ -6,9 +6,16 @@ namespace Sdl.Community.GroupShareKit.Authentication
     public enum AuthenticationType
     {
         /// <summary>
-        /// Username &amp; password
+        /// Basic authentication using username and password
         /// </summary>
         Basic,
+
+        /// <summary>
+        /// Use "Negotiate" authentication scheme that acts as a wrapper that can use either:
+        /// Kerberos or NTLM
+        /// </summary>
+        Negotiate,
+
         /// <summary>
         /// Delegated access to a third party
         /// </summary>
