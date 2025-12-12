@@ -27,7 +27,6 @@ namespace Sdl.Community.GroupShareKit.Http
         {
             Ensure.ArgumentNotNullOrEmptyString(token, "token");
             Ensure.ArgumentNotNullOrEmptyString(login, "login");
-            //Ensure.ArgumentNotNullOrEmptyString(password, "password");
 
             Login = login;
             Password = password;
