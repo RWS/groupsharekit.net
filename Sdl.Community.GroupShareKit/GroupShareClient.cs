@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Sdl.Community.GroupShareKit.Authentication;
 using Sdl.Community.GroupShareKit.Clients;
 using Sdl.Community.GroupShareKit.Clients.Activities;
 using Sdl.Community.GroupShareKit.Clients.Logging;
@@ -78,18 +81,59 @@ namespace Sdl.Community.GroupShareKit
         /// <param name="baseAddress">The address to point this client to.</param>
         /// <param name="scopes">The token scope(s).</param>
         /// <returns></returns>
-
         public static async Task<string> GetRequestToken(string user, string password, Uri baseAddress,
             IEnumerable<string> scopes)
         {
             var credentials = new Credentials(user, password);
-
             var inMemoryCredentials = new InMemoryCredentialStore(credentials);
-
             var tokenGroupShareClient = new GroupShareClient(inMemoryCredentials, baseAddress);
 
             var authorization = await tokenGroupShareClient.Authenticate.Post(scopes);
+
             return authorization.Token;
+        }
+
+        public static async Task<string> GetRequestToken(string user, Uri baseAddress, IEnumerable<string> scopes)
+        {
+            try
+            {
+                // UseDefaultCredentials - true
+                // Requests made by the HttpClientHandler object should, if requested by the server, be authenticated using
+                // the credentials of the currently logged on user. 
+                using (var handler = new HttpClientHandler { UseDefaultCredentials = true })
+                {
+                    using (var client = new HttpClient(handler))
+                    {
+                        var formData = new Dictionary<string, string>
+                        {
+                            { "username", user },
+                            { "password", "SDLINTERNALDOMAIN" },
+                            { "scope", scopes != null ? string.Join(" ", scopes) : string.Empty},
+                            { "grant_type", "password" }
+                        };
+
+                        using (var content = new FormUrlEncodedContent(formData))
+                        {
+                            var response = await client.PostAsync(
+                                new Uri(baseAddress + "/authentication/api/token"),
+                                content);
+
+                            response.EnsureSuccessStatusCode();
+
+                            string responseContent = await response.Content.ReadAsStringAsync();
+                            
+                            var tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(responseContent);
+                            return tokenResponse?.AccessToken ?? string.Empty;
+                        }
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine($"Error during Negotiate login: {exc}");
+            }
+
+            return string.Empty;
         }
 
         public static async Task<GroupShareClient> AuthenticateClient(string token, string user, string password, string bearerId, Uri baseAddress,

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Sdl.Community.GroupShareKit.Authentication;
 
 namespace Sdl.Community.GroupShareKit.Clients
 {
@@ -28,14 +29,28 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <returns>A list of <see cref="ApiException"/>s.</returns>
         public async Task<Authorization> Post(IEnumerable<string> scopes)
         {
-            var token = await ApiConnection.Post<string>(ApiUrls.Login(), scopes, "application/json");
+            var requestBody = new Dictionary<string, string>
+            {
+                { "username", ApiConnection.Connection.Credentials.Login },
+                { "password", ApiConnection.Connection.Credentials.Password },
+                { "scope", string.Join(" ", scopes)},
+                { "grant_type", "password"}
+            };
 
-            var authorization = new Authorization()
+            string requestBodyString = string.Join("&", requestBody.Select(kvp => $"{Uri.EscapeDataString(kvp.Key)}={Uri.EscapeDataString(kvp.Value)}"));
+
+            var token = await ApiConnection.Post<TokenResponse>(
+                ApiUrls.Login(),
+                requestBodyString,
+                "application/x-www-form-urlencoded"
+            );
+
+            var authorization = new Authorization
             {
                 UserName = ApiConnection.Connection.Credentials.Login,
                 ExpirationDate = DateTimeOffset.UtcNow.Add(new TimeSpan(11, 59, 59)),
                 Scopes = scopes.ToArray(),
-                Token = token
+                Token = token.AccessToken
             };
 
             return authorization;

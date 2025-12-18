@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -64,10 +66,11 @@ namespace Sdl.Community.GroupShareKit.Http
 
         private static string FormatUserAgent()
         {
-            return string.Format(CultureInfo.InvariantCulture,
-                "({0} {1}; {2}; {3}; GroupShare kit)", "WindowsRT",
-                "8+",
-                "unknown", CultureInfo.CurrentCulture.Name);
+            var os = RuntimeInformation.OSDescription;
+            var arch = RuntimeInformation.ProcessArchitecture.ToString();
+            var dotnetVersion = RuntimeInformation.FrameworkDescription;
+
+            return $"GroupShareKit/GroupShare API Client ({os}; {arch}) {dotnetVersion}";
         }
 
         public Task<IApiResponse<T>> Get<T>(Uri uri, IDictionary<string, string> parameters)

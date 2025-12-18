@@ -5,19 +5,6 @@ namespace Sdl.Community.GroupShareKit.Http
 {
     public class Credentials
     {
-        public Credentials(string token, string login, string password, string bearerId = "")
-        {
-            Ensure.ArgumentNotNullOrEmptyString(token, "token");
-            Ensure.ArgumentNotNullOrEmptyString(login, "login");
-            Ensure.ArgumentNotNullOrEmptyString(password, "password");
-
-            Login = login;
-            Password = password;
-            Token = token;
-            BearerId = bearerId;
-            AuthenticationType = AuthenticationType.Oauth;
-        }
-
         internal Credentials(string login, string password)
         {
             Ensure.ArgumentNotNullOrEmptyString(login, "login");
@@ -27,6 +14,27 @@ namespace Sdl.Community.GroupShareKit.Http
             Password = password;
             AuthenticationType = AuthenticationType.Basic;
         }
+
+        public Credentials(string login)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(login, "login");
+
+            Login = login;
+            AuthenticationType = AuthenticationType.Negotiate;
+        }
+
+        public Credentials(string token, string login, string password, string bearerId = "")
+        {
+            Ensure.ArgumentNotNullOrEmptyString(token, "token");
+            Ensure.ArgumentNotNullOrEmptyString(login, "login");
+
+            Login = login;
+            Password = password;
+            Token = token;
+            BearerId = bearerId;
+            AuthenticationType = AuthenticationType.Oauth;
+        }
+
 
         public string Login
         {

@@ -12,7 +12,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         public static readonly Uri CurrentProjectServerV4Url = new Uri("api/projectserver/v4", UriKind.Relative);
         public static readonly Uri CurrentManagementV2Url = new Uri("api/management/v2", UriKind.Relative);
         public static readonly Uri CurrentManagementV3Url = new Uri("api/management/v3", UriKind.Relative);
-        public static readonly Uri CurrentAuthenticationUrl = new Uri("authentication/api/1.0", UriKind.Relative);
+        public static readonly Uri CurrentAuthenticationUrl = new Uri("authentication/api/token", UriKind.Relative);
         public static readonly Uri CurrentTranslationMemoriesUrl = new Uri("api/tmservice", UriKind.Relative);
         public static readonly Uri CurrentFieldServiceUrl = new Uri("api/fieldservice", UriKind.Relative);
         public static readonly Uri CurrentMultitermUrl = new Uri("multiterm/api/1.0", UriKind.Relative);
@@ -32,7 +32,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri Login()
         {
-            return "{0}/login".FormatUri(CurrentAuthenticationUrl);
+            return "{0}".FormatUri(CurrentAuthenticationUrl);
         }
 
         /// <summary>
