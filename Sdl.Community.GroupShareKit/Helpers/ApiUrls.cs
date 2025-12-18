@@ -1,5 +1,4 @@
 ﻿using Sdl.Community.GroupShareKit.Clients;
-using Sdl.Community.GroupShareKit.Models.Response.MultiTerm;
 using System;
 using System.Collections.Generic;
 
