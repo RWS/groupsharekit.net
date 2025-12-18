@@ -1,3 +1,6 @@
+# New in 15.2.14.1
+* Added support for "Negotiate" authentication scheme
+
 # New in 15.2.14
 * Support for GroupShare 2020 SR2 CU14
 * Added support for TermbasesV2 endpoints
