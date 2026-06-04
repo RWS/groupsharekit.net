@@ -318,7 +318,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Retrieves XML representations for multiple termbase concepts in a single request.
         /// </summary>
-        /// <param name="termbaseId">he unique identifier of the termbase from which concepts are retrieved.</param>
+        /// <param name="termbaseId">The unique identifier of the termbase from which concepts are retrieved.</param>
         /// <param name="conceptIds">An array of concept IDs to retrieve XML representations for. This will be sent as a JSON array in the request body.</param>
         public async Task<ConceptXmlBatchResponse> GetConceptXmlBatchV2(Guid termbaseId, int[] conceptIds)
         {
