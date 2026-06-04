@@ -30,7 +30,7 @@ steps:
 
 - task: SonarCloudPrepare@4
   inputs:
-    SonarCloud: 'SonarCloudForGSKit2'
+    SonarCloud: 'SonarCloud'
     organization: 'sdl'
     scannerMode: dotnet
     projectKey: 'groupsharekit'
