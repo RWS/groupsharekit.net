@@ -28,7 +28,7 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: SonarCloudPrepare@3
+- task: SonarCloudPrepare@4
   inputs:
     SonarCloud: 'SonarCloudFOrGSKit2'
     organization: 'sdl'
