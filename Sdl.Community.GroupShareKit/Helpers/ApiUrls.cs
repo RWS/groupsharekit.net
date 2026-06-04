@@ -961,10 +961,17 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Gets the URI for the v2 concept XMLs endpoint.
         /// </summary>
-        /// <param name="termbaseId"></param>
         public static Uri ConceptXmlsV2(Guid termbaseId)
         {
             return "{0}/termbases/{1}/conceptxmls".FormatUri(CurrentMultiTermV2Url, termbaseId);
+        }
+
+        /// <summary>
+        /// Gets the URI for the v2 concept XML batch endpoint.
+        /// </summary>
+        public static Uri ConceptXmlBatchV2(Guid termbaseId)
+        {
+            return "{0}/termbases/{1}/conceptxmls/batch".FormatUri(CurrentMultiTermV2Url, termbaseId);
         }
 
         /// <summary>

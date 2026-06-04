@@ -101,6 +101,17 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.NotNull(conceptXml);
         }
 
+        [Fact]
+        public async Task GetConceptXmlBatchV2()
+        {
+            var conceptIds = new[] { 52, 8, 28, 72, 7, 4, 47, 6 };
+            var conceptXmlBatch = await _groupShareClient.Terminology.GetConceptXmlBatchV2(Guid.Parse("cc08622c-0f49-47dc-b072-2f3f18eba8eb"), conceptIds);
+
+            Assert.Equal(5, conceptXmlBatch.Concepts.Length);
+            Assert.Equal(3, conceptXmlBatch.NotFound.Length);
+            Assert.Equal(new[] { 52, 72, 47 }, conceptXmlBatch.NotFound);
+        }
+
         // This test relies on resources specific to a single server and will fail in other environments.
         [Fact]
         public async Task CreateConceptV2()
