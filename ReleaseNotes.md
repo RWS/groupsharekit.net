@@ -1,3 +1,7 @@
+# New in 15.2.15
+* Added support for GroupShare 2020 SR2 CU15
+* Added support for TermbaseConceptXmlBatchV2 endpoint
+
 # New in 15.2.14.1
 * Added support for "Negotiate" authentication scheme
 
