@@ -43,7 +43,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Project"/>s.</returns>
-        Task<Project> GetAllProjects();
+        Task<Project> GetAllProjects(IDictionary<string, string> parameters = null);
 
         /// <summary>
         /// Gets all <see cref="Project"/>s for the organization.

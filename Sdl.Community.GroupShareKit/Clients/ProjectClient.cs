@@ -56,9 +56,9 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </exception>
         /// <exception cref="ApiException">Thrown when a general API error occurs.</exception>
         /// <returns>A list of <see cref="Project"/>s.</returns>
-        public Task<Project> GetAllProjects()
+        public Task<Project> GetAllProjects(IDictionary<string, string> parameters = null) 
         {
-            return ApiConnection.Get<Project>(ApiUrls.GetAllProjects(), null);
+            return ApiConnection.Get<Project>(ApiUrls.GetAllProjects(), parameters);
         }
 
         /// <summary>
