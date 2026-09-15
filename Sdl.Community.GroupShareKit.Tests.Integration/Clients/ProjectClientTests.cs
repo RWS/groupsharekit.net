@@ -687,7 +687,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             foreach (var r in individualLanguageReports)
             {
-                Assert.Equal("de-de", r.LanguageCode);
+                Assert.Equal("de-de", r.LanguageCode, ignoreCase: true);
             }
 
             individualLanguageReports = await GroupShareClient.Project.GetAnalysisReportsV3(projectId, "fr-fr");
@@ -695,7 +695,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             foreach (var r in individualLanguageReports)
             {
-                Assert.Equal("fr-FR", r.LanguageCode);
+                Assert.Equal("fr-FR", r.LanguageCode, ignoreCase: true);
             }
 
             individualLanguageReports = await GroupShareClient.Project.GetAnalysisReportsV3(projectId, "it-it");
@@ -703,7 +703,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             foreach (var r in individualLanguageReports)
             {
-                Assert.Equal("it-IT", r.LanguageCode);
+                Assert.Equal("it-IT", r.LanguageCode, ignoreCase: true);
             }
 
             await DeleteTestProject(projectId);

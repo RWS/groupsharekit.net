@@ -9,7 +9,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// Gets or sets container id
         /// </summary>
         [JsonProperty("containerId", NullValueHandling = NullValueHandling.Ignore)]
-        public Guid ContainerId { get; set; }
+        public Guid? ContainerId { get; set; }
 
         /// <summary>
         /// Gets or sets database server id
