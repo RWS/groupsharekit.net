@@ -34,7 +34,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Description = description,
                 OwnerId = Guid.Parse(Helper.OrganizationId),
                 Location = Helper.OrganizationPath,
-                Host = Helper.GsServerName
+                Host = Helper.GsServerName,
+                Authentication = "Windows"
             };
 
             var serverId = await GroupShareClient.TranslationMemories.CreateDbServer(databaseServerRequest);
@@ -97,7 +98,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Description = "Created using GroupShare Kit",
                 OwnerId = Guid.Parse(Helper.OrganizationId),
                 Location = Helper.OrganizationPath,
-                Host = Helper.GsServerName
+                Host = Helper.GsServerName,
+                Authentication = "Windows"
             };
 
             var serverId = await GroupShareClient.TranslationMemories.CreateDbServer(dbServerRequest);

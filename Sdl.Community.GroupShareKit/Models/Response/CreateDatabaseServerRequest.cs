@@ -9,7 +9,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response.TranslationMemory
         /// Gets or sets database server id
         /// </summary>
         [JsonProperty("databaseServerId", NullValueHandling = NullValueHandling.Ignore)]
-        public Guid DatabaseServerId { get; set; }
+        public Guid? DatabaseServerId { get; set; }
 
         /// <summary>
         /// Gets or sets db server name

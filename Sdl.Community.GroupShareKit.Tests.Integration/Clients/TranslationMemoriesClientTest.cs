@@ -20,14 +20,39 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         private Guid _languageResourceTemplateId;
         private Guid _languageDirectionId;
         private Guid _translationMemoryId;
+        private bool _createdContainer;
+        private bool _createdDatabaseServer;
 
         public TranslationMemoriesClientTests()
         {
-            _databaseServerId = CreateTestDatabaseServer().Result;
-            _containerId = CreateTestContainer().Result;
+            var existingContainerId = TryGetExistingContainerId().Result;
+
+            if (existingContainerId.HasValue)
+            {
+                _containerId = existingContainerId.Value;
+            }
+            else
+            {
+                _databaseServerId = CreateTestDatabaseServer().Result;
+                _createdDatabaseServer = true;
+                _containerId = CreateTestContainer().Result;
+                _createdContainer = true;
+            }
+
             _fieldTemplateId = CreateTmSpecificFieldTemplate().Result;
             _languageResourceTemplateId = CreateTmSpecificLanguageResourceTemplate().Result;
             _translationMemoryId = CreateTranslationMemory(_fieldTemplateId, _languageResourceTemplateId).Result;
+        }
+
+        private async Task<Guid?> TryGetExistingContainerId()
+        {
+            var containers = await GroupShareClient.TranslationMemories.GetContainers();
+            var organizationId = Guid.Parse(Helper.OrganizationId);
+
+            var container = containers?.Items?.FirstOrDefault(c => c.OwnerId == organizationId)
+                ?? containers?.Items?.FirstOrDefault();
+
+            return container?.ContainerId;
         }
 
         private async Task<Guid> CreateTestDatabaseServer()
@@ -38,7 +63,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Description = "Created using GroupShare Kit",
                 OwnerId = Guid.Parse(Helper.OrganizationId),
                 Location = Helper.OrganizationPath,
-                Host = Helper.GsServerName
+                Host = Helper.GsServerName,
+                Authentication = "Windows"
             };
 
             _databaseServerId = await GroupShareClient.TranslationMemories.CreateDbServer(databaseServerRequest);
@@ -223,8 +249,16 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         public void Dispose()
         {
             GroupShareClient.TranslationMemories.DeleteTranslationMemory(_translationMemoryId).Wait();
-            GroupShareClient.TranslationMemories.DeleteContainer(_containerId).Wait();
-            GroupShareClient.TranslationMemories.DeleteDbServer(_databaseServerId).Wait();
+
+            if (_createdContainer)
+            {
+                GroupShareClient.TranslationMemories.DeleteContainer(_containerId).Wait();
+            }
+
+            if (_createdDatabaseServer)
+            {
+                GroupShareClient.TranslationMemories.DeleteDbServer(_databaseServerId).Wait();
+            }
         }
 
         [Fact]

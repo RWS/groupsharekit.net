@@ -14,7 +14,7 @@ variables:
   solution: '**/*.sln' 
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  majorMinorPatchVersion: '15.2.15'
+  majorMinorPatchVersion: '15.2.15.1'
   buildVersion: $[counter(variables['majorMinorPatchVersion'], 0)]
   name: $(majorMinorPatchVersion).$(buildVersion)
   
@@ -26,7 +26,10 @@ steps:
   displayName: Use Latest NuGet
 - task: NuGetCommand@2
   inputs:
+    command: 'restore'
     restoreSolution: '$(solution)'
+    feedsToUse: 'config'
+    nugetConfigPath: 'NuGet.config'
 
 - task: SonarCloudPrepare@4
   inputs:

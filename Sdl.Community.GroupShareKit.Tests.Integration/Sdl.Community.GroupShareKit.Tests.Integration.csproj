@@ -16,6 +16,7 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.4</Version>
     </PackageReference>
+    <PackageReference Include="Sdl.TmService.Sdk" Version="4.0.0.88" />
     <PackageReference Include="System.AppContext">
       <Version>4.3.0</Version>
     </PackageReference>
@@ -141,14 +142,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sdl.Community.GroupShareKit\Sdl.Community.GroupShareKit.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Sdl.Core.Bcm.BcmModel">
-      <HintPath>..\Sdl.Community.GroupShareKit\3rd party\Sdl.Core.Bcm.BcmModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Sdl.TmService.Sdk">
-      <HintPath>..\Sdl.Community.GroupShareKit\3rd party\Sdl.TmService.Sdk.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Update="Resources\DefaultTemplate_en-de.sdltpl">
