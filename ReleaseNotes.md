@@ -1,3 +1,6 @@
+# New in 15.2.15.1
+* Updated internal dependencies 
+
 # New in 15.2.15
 * Added support for GroupShare 2020 SR2 CU15
 * Added support for TermbaseConceptXmlBatchV2 endpoint
