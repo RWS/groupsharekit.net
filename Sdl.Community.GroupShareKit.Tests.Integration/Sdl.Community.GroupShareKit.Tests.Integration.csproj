@@ -16,7 +16,7 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.4</Version>
     </PackageReference>
-    <PackageReference Include="Sdl.TmService.Sdk" Version="4.0.0.88" />
+    <PackageReference Include="Sdl.TmService.Sdk" Version="4.0.0.93" />
     <PackageReference Include="System.AppContext">
       <Version>4.3.0</Version>
     </PackageReference>
