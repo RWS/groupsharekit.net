@@ -1,4 +1,7 @@
-# New in 15.2.15.1
+# New in 15.2.15.3
+* Removed public dependencies for .netframework4.8
+
+# New in 15.2.15.2
 * Updated internal dependencies 
 
 # New in 15.2.15
