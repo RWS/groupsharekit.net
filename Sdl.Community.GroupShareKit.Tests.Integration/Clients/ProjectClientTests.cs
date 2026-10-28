@@ -9,7 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using File = System.IO.File; 
+using File = System.IO.File;
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
@@ -222,7 +222,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         [Fact]
         public async Task Projects_IsCheckOutToSomeoneElseBasicOnlineEditorMode_Succeeds()
-         {
+        {
             await GroupShareClient.Project.OnlineCheckout(_projectId, _languageFileId);
 
             var editorProfileMode = OnlineCheckout.EditorProfileMode.Basic.ToString();
@@ -1230,9 +1230,188 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             await GroupShareClient.Project.DeleteProjectTemplateV4(projectTemplateId);
         }
 
+        [Fact]
+        public async Task CreateProjectTemplateV4_default_AnalysisTask_settings()
+        {
+            var templateName = $"Project template - default Analyze Files settings - {Guid.NewGuid()}";
+            var analysisTaskSettings = new List<AnalysisTaskSettings>
+            {
+                new AnalysisTaskSettings
+                {
+                    ReportCrossFileRepetitions = true,
+                    ReportInternalFuzzyMatchLeverage = false,
+                    ReportLockedSegmentsSeparately = false,
+                    ExcludeLockedSegments = false,
+                    PresentIndividualFileDetails = true,
+                    ExportUnknownSegments = false,
+                    UnknownSegmentsMaximumMatchValue = 75,
+                    ExportFrequentSegments = false,
+                    FrequentSegmentsNoOfOccurrences = 5
+                }
+            };
+
+            var templateSettings = new ProjectTemplateSettingsV4
+            {
+                SourceLanguageCode = "en-us",
+                TargetLanguageCodes = new[] { "de-de" },
+                AnalysisTaskSettings = analysisTaskSettings,
+                SegmentLockingSettings = new List<SegmentLockingSettings>(),
+                Termbases = new List<TermbaseDetailsV3>(),
+                TranslationMemories = new List<TranslationMemoryDetailsV3>()
+            };
+
+            var templateRequest = new ProjectTemplateV4(templateName, description: "default Analyze Files settings", Guid.Parse(Helper.OrganizationId), templateSettings);
+            var templateId = await GroupShareClient.Project.CreateProjectTemplateV4(templateRequest);
+
+            Assert.NotEqual(Guid.Empty, templateId);
+
+            var projectTemplate = await GroupShareClient.Project.GetProjectTemplateV4(templateId);
+
+            Assert.NotEmpty(projectTemplate.AnalysisTaskSettings);
+            Assert.Empty(projectTemplate.TranslateTaskSettings);
+
+            await GroupShareClient.Project.DeleteProjectTemplateV4(templateId);
+        }
+
+        [Fact]
+        public async Task UpdateProjectTemplateV4_AnalysisTask_settings()
+        {
+            var projectTemplateId = await CreateTestProjectTemplate();
+            var analysisTaskSettings = new List<AnalysisTaskSettings>
+            {
+                new AnalysisTaskSettings
+                {
+                    ReportCrossFileRepetitions = false,
+                    ReportInternalFuzzyMatchLeverage = true,
+                    ExportFrequentSegments = true,
+                    FrequentSegmentsNoOfOccurrences = 7
+                }
+            };
+
+            var templateRequest = new ProjectTemplateV4
+            {
+                Name = "Project template - " + projectTemplateId + " - edited",
+                Description = "edited using GroupShare Kit",
+                OrganizationId = Guid.Parse(Helper.OrganizationId),
+                Settings = new ProjectTemplateSettingsV4
+                {
+                    SourceLanguageCode = "en-us",
+                    TargetLanguageCodes = new[] { "fr-fr" },
+                    SegmentLockingSettings = new List<SegmentLockingSettings>(),
+                    Termbases = new List<TermbaseDetailsV3>(),
+                    AnalysisTaskSettings = analysisTaskSettings,
+                    TranslationMemories = new List<TranslationMemoryDetailsV3>()
+                }
+            };
+
+            await GroupShareClient.Project.UpdateProjectTemplateV4(projectTemplateId, templateRequest);
+            var updatedProjectTemplate = await GroupShareClient.Project.GetProjectTemplateV4(projectTemplateId);
+
+            Assert.Equal("en-us", updatedProjectTemplate.SourceLanguageCode);
+            Assert.Equal("fr-fr", updatedProjectTemplate.TargetLanguageCodes.Single());
+            Assert.Empty(updatedProjectTemplate.Termbases);
+            Assert.Empty(updatedProjectTemplate.TranslationMemories);
+            Assert.False(updatedProjectTemplate.AnalysisTaskSettings.Single().ReportCrossFileRepetitions);
+            Assert.True(updatedProjectTemplate.AnalysisTaskSettings.Single().ReportInternalFuzzyMatchLeverage);
+            Assert.True(updatedProjectTemplate.AnalysisTaskSettings.Single().ExportFrequentSegments);
+            Assert.Equal(7, updatedProjectTemplate.AnalysisTaskSettings.Single().FrequentSegmentsNoOfOccurrences);
+
+            await GroupShareClient.Project.DeleteProjectTemplateV4(projectTemplateId);
+        }
+
+        [Fact]
+        public async Task CreateProjectTemplateV4_default_TranslateTask_settings()
+        {
+            var templateName = $"Project template - default Pre-translate Files settings - {Guid.NewGuid()}";
+            var translateTaskSettings = new List<TranslateTaskSettings>
+            {
+                new TranslateTaskSettings
+                {
+                    MinimumMatchScore = 100,
+                    TranslationOverwriteMode = TranslationUpdateMode.OverwriteExistingTranslationIfBetterMatch,
+                    OverwritePerfectMatch = false,
+                    LockContextMatchSegments = false,
+                    LockExactMatchSegments = false,
+                    ConfirmAfterApplyingExactMatch = true,
+                    ConfirmAfterApplyingInContextExactMatch = true,
+                    NoTranslationMemoryMatchFoundAction = NoTranslationMemoryMatchFoundAction.LeaveEmpty
+                }
+            };
+
+            var templateSettings = new ProjectTemplateSettingsV4
+            {
+                SourceLanguageCode = "en-us",
+                TargetLanguageCodes = new[] { "de-de" },
+                TranslateTaskSettings = translateTaskSettings,
+                SegmentLockingSettings = new List<SegmentLockingSettings>(),
+                Termbases = new List<TermbaseDetailsV3>(),
+                TranslationMemories = new List<TranslationMemoryDetailsV3>()
+            };
+
+            var templateRequest = new ProjectTemplateV4(templateName, description: "default Analyze Files settings", Guid.Parse(Helper.OrganizationId), templateSettings);
+            var templateId = await GroupShareClient.Project.CreateProjectTemplateV4(templateRequest);
+
+            Assert.NotEqual(Guid.Empty, templateId);
+
+            var projectTemplate = await GroupShareClient.Project.GetProjectTemplateV4(templateId);
+
+            Assert.Empty(projectTemplate.AnalysisTaskSettings);
+            Assert.NotEmpty(projectTemplate.TranslateTaskSettings);
+
+            await GroupShareClient.Project.DeleteProjectTemplateV4(templateId);
+        }
+
+        [Fact]
+        public async Task UpdateProjectTemplateV4_TranslateTask_settings()
+        {
+            var projectTemplateId = await CreateTestProjectTemplate();
+            var translateTaskSettings = new List<TranslateTaskSettings>
+            {
+                new TranslateTaskSettings
+                {
+                    MinimumMatchScore = 95,
+                    ConfirmAfterApplyingExactMatch = true,
+                    ConfirmAfterApplyingInContextExactMatch = true,
+                    LockContextMatchSegments = true,
+                    NoTranslationMemoryMatchFoundAction = NoTranslationMemoryMatchFoundAction.CopySourceToTarget
+                }
+            };
+
+            var templateRequest = new ProjectTemplateV4
+            {
+                Name = "Project template - " + projectTemplateId + " - edited",
+                Description = "edited using GroupShare Kit",
+                OrganizationId = Guid.Parse(Helper.OrganizationId),
+                Settings = new ProjectTemplateSettingsV4
+                {
+                    SourceLanguageCode = "en-us",
+                    TargetLanguageCodes = new[] { "fr-fr" },
+                    SegmentLockingSettings = new List<SegmentLockingSettings>(),
+                    Termbases = new List<TermbaseDetailsV3>(),
+                    TranslateTaskSettings = translateTaskSettings,
+                    TranslationMemories = new List<TranslationMemoryDetailsV3>()
+                }
+            };
+
+            await GroupShareClient.Project.UpdateProjectTemplateV4(projectTemplateId, templateRequest);
+            var updatedProjectTemplate = await GroupShareClient.Project.GetProjectTemplateV4(projectTemplateId);
+
+            Assert.Equal("en-us", updatedProjectTemplate.SourceLanguageCode);
+            Assert.Equal("fr-fr", updatedProjectTemplate.TargetLanguageCodes.Single());
+            Assert.Empty(updatedProjectTemplate.Termbases);
+            Assert.Empty(updatedProjectTemplate.TranslationMemories);
+            Assert.Equal(95, updatedProjectTemplate.TranslateTaskSettings.Single().MinimumMatchScore);
+            Assert.True(updatedProjectTemplate.TranslateTaskSettings.Single().ConfirmAfterApplyingExactMatch);
+            Assert.True(updatedProjectTemplate.TranslateTaskSettings.Single().ConfirmAfterApplyingInContextExactMatch);
+            Assert.True(updatedProjectTemplate.TranslateTaskSettings.Single().LockContextMatchSegments);
+            Assert.Equal(NoTranslationMemoryMatchFoundAction.CopySourceToTarget, updatedProjectTemplate.TranslateTaskSettings.Single().NoTranslationMemoryMatchFoundAction);
+
+            await GroupShareClient.Project.DeleteProjectTemplateV4(projectTemplateId);
+        }
+
         #endregion
 
-        #region File version tests
+            #region File version tests
         [Fact]
         public async Task GetFileVersions()
         {
