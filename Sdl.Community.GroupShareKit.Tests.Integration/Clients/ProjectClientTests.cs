@@ -191,6 +191,8 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
             Assert.False(projectSettings.EnableSegmentLockTask);
             Assert.Empty(projectSettings.SegmentLock);
+            Assert.Empty(projectSettings.AnalysisTaskSettings);
+            Assert.Empty(projectSettings.TranslateTaskSettings);
             Assert.Equal(_projectId, projectSettings.GeneralSettings.ProjectId);
             Assert.Equal(3, projectSettings.GeneralSettings.LanguageDirection.Count);
             Assert.Empty(projectSettings.Termbases);
@@ -202,6 +204,73 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var segmentLockingConfig = await GroupShareClient.Project.GetGetSegmentLockingConfig();
 
             Assert.NotNull(segmentLockingConfig);
+        }
+
+        [Fact]
+        public async Task Projects_CreateProjectWithCustomAnalysisTaskAndPretranslateTaskSettings()
+        {
+            var templateName = $"Project template - custom Analyze Files and Pre-translate Files settings - {Guid.NewGuid()}";
+            var analysisTaskSettings = new List<AnalysisTaskSettings>
+            {
+                new AnalysisTaskSettings
+                {
+                    ReportCrossFileRepetitions = false,
+                    ExcludeLockedSegments = true,
+                    PresentIndividualFileDetails = true,
+                    ExportUnknownSegments = true,
+                    UnknownSegmentsMaximumMatchValue = 88,
+                    ExportFrequentSegments = true,
+                    FrequentSegmentsNoOfOccurrences = 8
+                }
+            };
+
+            var translateTaskSettings = new List<TranslateTaskSettings>
+            {
+                new TranslateTaskSettings
+                {
+                    MinimumMatchScore = 98,
+                    TranslationOverwriteMode = TranslationUpdateMode.OverwriteExistingTranslation,
+                    LockContextMatchSegments = true,
+                    ConfirmAfterApplyingExactMatch = false,
+                    NoTranslationMemoryMatchFoundAction = NoTranslationMemoryMatchFoundAction.CopySourceToTarget
+                }
+            };
+
+            var templateSettings = new ProjectTemplateSettingsV4
+            {
+                SourceLanguageCode = "en-us",
+                TargetLanguageCodes = new[] { "de-de" },
+                AnalysisTaskSettings = analysisTaskSettings,
+                TranslateTaskSettings = translateTaskSettings,
+                SegmentLockingSettings = new List<SegmentLockingSettings>(),
+                Termbases = new List<TermbaseDetailsV3>(),
+                TranslationMemories = new List<TranslationMemoryDetailsV3>()
+            };
+
+            var projectTemplateRequest = new ProjectTemplateV4(templateName, description: "default Analyze Files settings", Guid.Parse(Helper.OrganizationId), templateSettings);
+            var projectTemplateId = await GroupShareClient.Project.CreateProjectTemplateV4(projectTemplateRequest);
+
+            var projectId = await CreateTestProject(projectTemplateId, "FiveWords.txt");
+
+            var projectSettings = await GroupShareClient.Project.GetProjectSettingsV4(projectId);
+            var projectAnalysisTaskSettings = projectSettings.AnalysisTaskSettings.Single();
+
+            Assert.Null(projectAnalysisTaskSettings.TargetLanguage);
+            Assert.False(projectAnalysisTaskSettings.ReportCrossFileRepetitions);
+            Assert.True(projectAnalysisTaskSettings.ExcludeLockedSegments);
+            Assert.True(projectAnalysisTaskSettings.PresentIndividualFileDetails);
+            Assert.True(projectAnalysisTaskSettings.ExportUnknownSegments);
+            Assert.Equal(88, projectAnalysisTaskSettings.UnknownSegmentsMaximumMatchValue);
+            Assert.True(projectAnalysisTaskSettings.ExportUnknownSegments);
+            Assert.Equal(8, projectAnalysisTaskSettings.FrequentSegmentsNoOfOccurrences);
+
+            var projectTranslateTaskSettings = projectSettings.TranslateTaskSettings.Single();
+            Assert.Null(projectTranslateTaskSettings.TargetLanguage);
+            Assert.Equal(98, projectTranslateTaskSettings.MinimumMatchScore);
+            Assert.Equal(TranslationUpdateMode.OverwriteExistingTranslation, projectTranslateTaskSettings.TranslationOverwriteMode);
+            Assert.True(projectTranslateTaskSettings.LockContextMatchSegments);
+            Assert.False(projectTranslateTaskSettings.ConfirmAfterApplyingExactMatch);
+            Assert.Equal(NoTranslationMemoryMatchFoundAction.CopySourceToTarget, projectTranslateTaskSettings.NoTranslationMemoryMatchFoundAction);
         }
 
         [Fact]

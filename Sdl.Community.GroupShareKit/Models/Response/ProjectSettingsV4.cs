@@ -11,6 +11,12 @@ namespace Sdl.Community.GroupShareKit.Models.Response
 
         [JsonProperty(PropertyName = "enableSegmentLockTask")]
         public bool? EnableSegmentLockTask { get; set; }
+
+        [JsonProperty(PropertyName = "analysisTaskSettings")]
+        public IList<AnalysisTaskSettings> AnalysisTaskSettings { get; set; }
+
+        [JsonProperty(PropertyName = "translateTaskSettings")]
+        public IList<TranslateTaskSettings> TranslateTaskSettings { get; set; }
     }
 
     public class GeneralSettings
