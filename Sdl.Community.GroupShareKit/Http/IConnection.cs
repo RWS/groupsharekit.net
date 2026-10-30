@@ -40,6 +40,15 @@ namespace Sdl.Community.GroupShareKit.Http
         Task<HttpStatusCode> Post(Uri uri);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="body"></param>
+        /// <param name="contentType"></param>
+        /// <returns></returns>
+        Task Post(Uri uri, object body, string contentType);
+
+        /// <summary>
         /// Performs an asynchronous HTTP POST request.
         /// Attempts to map the response body to an object of type <typeparamref name="T"/>
         /// </summary>

@@ -103,6 +103,21 @@ namespace Sdl.Community.GroupShareKit.Http
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="body"></param>
+        /// <param name="contentType"></param>
+        /// <returns></returns>
+        public async Task Post(Uri uri, object body, string contentType)
+        {
+            Ensure.ArgumentNotNull(uri, "uri");
+            Ensure.ArgumentNotNull(body, "body");
+
+            await Connection.Post(uri, body, contentType);
+        }
+
+        /// <summary>
         /// Performs an asynchronous HTTP POST request.
         /// Attempts to map the response body to an object of type <typeparamref name="T"/>
         /// </summary>

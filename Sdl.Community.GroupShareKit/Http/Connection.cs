@@ -101,6 +101,11 @@ namespace Sdl.Community.GroupShareKit.Http
             return response.HttpResponse.StatusCode;
         }
 
+        public async Task Post(Uri uri, object body, string contentType)
+        {
+            await SendData<object>(uri, HttpMethod.Post, body, contentType, CancellationToken.None);
+        }
+
         public Task<IApiResponse<T>> Post<T>(Uri uri, object body, string contentType)
         {
             Ensure.ArgumentNotNull(uri, "uri");

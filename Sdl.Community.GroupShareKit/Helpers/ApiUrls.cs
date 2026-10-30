@@ -2173,6 +2173,37 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static Uri AiProvider(Guid userId)
+        {
+            return "{0}/openAiTranslationProvider/{1}".FormatUri(CurrentProjectServerV4Url, userId);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="providerSettings"></param>
+        /// <returns></returns>
+        public static Uri AuthenticateAiProvider()
+        {
+            return "{0}/authenticate/aiProvider".FormatUri(CurrentProjectServerV4Url);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="providerSettingId"></param>
+        /// <returns></returns>
+        public static Uri DeleteAiProviderSettings(Guid userId, int providerSettingId)
+        {
+            return "{0}/openAiTranslationProvider/{1}?providerSettingId={2}".FormatUri(CurrentProjectServerV4Url, userId, providerSettingId);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for retrieving the IDP user settings
         /// </summary>
         public static Uri GetIdpUserSettings()
