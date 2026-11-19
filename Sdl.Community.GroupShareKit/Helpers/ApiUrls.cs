@@ -2204,6 +2204,24 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Uri AiEndpoints()
+        {
+            return "{0}/api/projectserver/v4/aiEndpoints".FormatUri(CurrentProjectServerV4Url);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Uri AiEndpoint(Guid id)
+        {
+            return "{0}/api/projectserver/v4/aiEndpoints/{1}".FormatUri(CurrentProjectServerV4Url, id);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for retrieving the IDP user settings
         /// </summary>
         public static Uri GetIdpUserSettings()

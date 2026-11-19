@@ -72,6 +72,7 @@ namespace Sdl.Community.GroupShareKit
             Logs = new LogsClient(apiConnection);
             MtProviderClient = new MtProviderClient(apiConnection);
             AiProviderClient = new AiProviderClient(apiConnection);
+            AiEndpointClient = new AiEndpointClient(apiConnection);
         }
 
         /// <summary>
@@ -154,6 +155,7 @@ namespace Sdl.Community.GroupShareKit
 
         public IMtProviderClient MtProviderClient { get; }
         public IAiProviderClient AiProviderClient { get; }
+        public IAiEndpointClient AiEndpointClient { get; }
 
         public IProjectClient Project { get; }
         public IReportingClient Reporting { get; }
