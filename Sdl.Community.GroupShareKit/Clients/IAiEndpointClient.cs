@@ -9,12 +9,24 @@ namespace Sdl.Community.GroupShareKit.Clients
 {
     public interface IAiEndpointClient
     {
+        /// <summary>
+        /// Gets all AI endpoints available at organization level, that have system wide settings enabled.
+        /// </summary>
         Task<IEnumerable<AiEndpoint>> GetAiEndpoints();
 
-        Task<AiEndpoint> AddAiEndpoint(AiEndpoint aiEndpoint);
+        /// <summary>
+        /// Creates system wide settings for a new AI endpoint.
+        /// </summary>
+        Task<AiEndpoint> AddAiEndpoint(AiEndpoint endpoint);
 
-        Task<AiEndpoint> UpdateAiEndpoint(Guid id, AiEndpoint aiEndpoint);
+        /// <summary>
+        /// Updates system wide settings for an existing AI endpoint.
+        /// </summary>
+        Task<AiEndpoint> UpdateAiEndpoint(Guid id, AiEndpoint endpoint);
 
-        Task DeleteAiEndpoint(Guid aiEndpointId);
+        /// <summary>
+        /// Deletes system wide settings an AI endpoint.
+        /// </summary>
+        Task DeleteAiEndpoint(Guid id);
     }
 }

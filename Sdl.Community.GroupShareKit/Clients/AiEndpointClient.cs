@@ -13,24 +13,36 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
         }
 
+        /// <summary>
+        /// Gets all AI endpoints available at organization level, that have system wide settings enabled.
+        /// </summary>
         public async Task<IEnumerable<AiEndpoint>> GetAiEndpoints()
         {
             return await ApiConnection.Get<List<AiEndpoint>>(ApiUrls.AiEndpoints(), null);
         }
 
-        public async Task<AiEndpoint> AddAiEndpoint(AiEndpoint aiEndpoint)
+        /// <summary>
+        /// Creates system wide settings for a new AI endpoint.
+        /// </summary>
+        public async Task<AiEndpoint> AddAiEndpoint(AiEndpoint endpoint)
         {
-            return await ApiConnection.Post<AiEndpoint>(ApiUrls.AiEndpoints(), aiEndpoint, "application/json");
+            return await ApiConnection.Post<AiEndpoint>(ApiUrls.AiEndpoints(), endpoint, "application/json");
         }
 
-        public async Task<AiEndpoint> UpdateAiEndpoint(Guid id, AiEndpoint aiEndpoint)
+        /// <summary>
+        /// Updates system wide settings for an existing AI endpoint.
+        /// </summary>
+        public async Task<AiEndpoint> UpdateAiEndpoint(Guid id, AiEndpoint endpoint)
         {
-            return await ApiConnection.Put<AiEndpoint>(ApiUrls.AiEndpoint(id), aiEndpoint);
+            return await ApiConnection.Put<AiEndpoint>(ApiUrls.AiEndpoint(id), endpoint);
         }
 
-        public async Task DeleteAiEndpoint(Guid aiEndpointId)
+        /// <summary>
+        /// Deletes system wide settings an AI endpoint.
+        /// </summary>
+        public async Task DeleteAiEndpoint(Guid id)
         {
-            await ApiConnection.Delete(ApiUrls.AiEndpoint(aiEndpointId));
+            await ApiConnection.Delete(ApiUrls.AiEndpoint(id));
         }
     }
 }
