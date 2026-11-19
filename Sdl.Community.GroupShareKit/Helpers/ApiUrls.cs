@@ -2173,49 +2173,40 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI of the AI provider for the specified user.
         /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
         public static Uri AiProvider(Guid userId)
         {
             return "{0}/openAiTranslationProvider/{1}".FormatUri(CurrentProjectServerV4Url, userId);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI for authenticating the AI provider.
         /// </summary>
-        /// <param name="providerSettings"></param>
-        /// <returns></returns>
         public static Uri AuthenticateAiProvider()
         {
             return "{0}/authenticate/aiProvider".FormatUri(CurrentProjectServerV4Url);
         }
 
         /// <summary>
-        /// 
+        /// Gets the URI of the specified AI provider setting.
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="providerSettingId"></param>
-        /// <returns></returns>
-        public static Uri DeleteAiProviderSettings(Guid userId, int providerSettingId)
+        public static Uri AiProviderSettings(Guid userId, int providerSettingId)
         {
             return "{0}/openAiTranslationProvider/{1}?providerSettingId={2}".FormatUri(CurrentProjectServerV4Url, userId, providerSettingId);
         }
 
         /// <summary>
-        /// 
+        /// Gets the AI endpoints URI.
         /// </summary>
-        /// <returns></returns>
         public static Uri AiEndpoints()
         {
             return "{0}/api/projectserver/v4/aiEndpoints".FormatUri(CurrentProjectServerV4Url);
         }
 
         /// <summary>
-        /// 
+        /// Gets the AI endpoint URI for the specified ID.
         /// </summary>
-        /// <returns></returns>
         public static Uri AiEndpoint(Guid id)
         {
             return "{0}/api/projectserver/v4/aiEndpoints/{1}".FormatUri(CurrentProjectServerV4Url, id);

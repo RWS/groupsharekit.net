@@ -35,7 +35,7 @@ namespace Sdl.Community.GroupShareKit.Clients
 
         public async Task DeleteAiProviderSettings(Guid userId, int providerSettingId)
         {
-            await ApiConnection.Delete(ApiUrls.DeleteAiProviderSettings(userId, providerSettingId));
+            await ApiConnection.Delete(ApiUrls.AiProviderSettings(userId, providerSettingId));
         }
 
     }
