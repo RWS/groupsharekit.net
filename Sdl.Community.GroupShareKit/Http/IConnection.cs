@@ -40,12 +40,11 @@ namespace Sdl.Community.GroupShareKit.Http
         Task<HttpStatusCode> Post(Uri uri);
 
         /// <summary>
-        /// 
+        /// Performs an asynchronous HTTP POST request.
         /// </summary>
-        /// <param name="uri"></param>
-        /// <param name="body"></param>
-        /// <param name="contentType"></param>
-        /// <returns></returns>
+        /// <param name="uri">The URI endpoint to which the request is sent.</param>
+        /// <param name="body">The object to serialize as the request body.</param>
+        /// <param name="contentType">The media type of the request body.</param>
         Task Post(Uri uri, object body, string contentType);
 
         /// <summary>
