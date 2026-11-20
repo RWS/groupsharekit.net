@@ -261,7 +261,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(projectAnalysisTaskSettings.PresentIndividualFileDetails);
             Assert.True(projectAnalysisTaskSettings.ExportUnknownSegments);
             Assert.Equal(88, projectAnalysisTaskSettings.UnknownSegmentsMaximumMatchValue);
-            Assert.True(projectAnalysisTaskSettings.ExportUnknownSegments);
+            Assert.True(projectAnalysisTaskSettings.ExportFrequentSegments);
             Assert.Equal(8, projectAnalysisTaskSettings.FrequentSegmentsNoOfOccurrences);
 
             var projectTranslateTaskSettings = projectSettings.TranslateTaskSettings.Single();
@@ -271,6 +271,9 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             Assert.True(projectTranslateTaskSettings.LockContextMatchSegments);
             Assert.False(projectTranslateTaskSettings.ConfirmAfterApplyingExactMatch);
             Assert.Equal(NoTranslationMemoryMatchFoundAction.CopySourceToTarget, projectTranslateTaskSettings.NoTranslationMemoryMatchFoundAction);
+
+            await DeleteTestProject(projectId);
+            await DeleteTestProjectTemplate(projectTemplateId);
         }
 
         [Fact]
