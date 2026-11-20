@@ -1,5 +1,4 @@
 ﻿using Sdl.Community.GroupShareKit.Models.Response;
-using System;
 using System.Threading.Tasks;
 using Xunit;
 
