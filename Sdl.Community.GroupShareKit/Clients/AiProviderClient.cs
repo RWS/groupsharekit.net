@@ -9,8 +9,8 @@ namespace Sdl.Community.GroupShareKit.Clients
 {
     public class AiProviderClient : ApiClient, IAiProviderClient
     {
-        public AiProviderClient(IApiConnection apiConnection) : base(apiConnection) 
-        { 
+        public AiProviderClient(IApiConnection apiConnection) : base(apiConnection)
+        {
         }
 
         /// <summary>
@@ -26,6 +26,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         public async Task AuthenticateAiProvider(AiProviderSettings providerSettings)
         {
+            Ensure.ArgumentNotNull(providerSettings, nameof(providerSettings));
+
             await ApiConnection.Post(ApiUrls.AuthenticateAiProvider(), providerSettings, "application/json");
         }
 
@@ -34,6 +36,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         public async Task<Guid> RegisterAiProvider(Guid userId, AiProviderSettings providerSettings)
         {
+            Ensure.ArgumentNotNull(providerSettings, nameof(providerSettings));
+
             return await ApiConnection.Post<Guid>(ApiUrls.AiProvider(userId), providerSettings, "application/json");
         }
 
@@ -42,6 +46,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         public async Task<Guid> UpdateAiProviderSettings(Guid userId, AiProviderSettings providerSettings)
         {
+            Ensure.ArgumentNotNull(providerSettings, nameof(providerSettings));
+
             return await ApiConnection.Put<Guid>(ApiUrls.AiProvider(userId), providerSettings);
         }
 

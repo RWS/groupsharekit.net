@@ -1,8 +1,6 @@
 ﻿using Sdl.Community.GroupShareKit.Models.Response;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Sdl.Community.GroupShareKit.Clients
@@ -25,7 +23,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         Task<AiEndpoint> UpdateAiEndpoint(Guid id, AiEndpoint endpoint);
 
         /// <summary>
-        /// Deletes system wide settings an AI endpoint.
+        /// Deletes system wide settings for an AI endpoint.
         /// </summary>
         Task DeleteAiEndpoint(Guid id);
     }

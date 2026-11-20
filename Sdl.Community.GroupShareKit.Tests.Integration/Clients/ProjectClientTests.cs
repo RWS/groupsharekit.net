@@ -9,7 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using File = System.IO.File;
+using File = System.IO.File; 
 
 namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 {
@@ -1480,7 +1480,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
 
         #endregion
 
-            #region File version tests
+        #region File version tests
         [Fact]
         public async Task GetFileVersions()
         {

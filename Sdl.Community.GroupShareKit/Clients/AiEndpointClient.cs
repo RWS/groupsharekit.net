@@ -26,6 +26,8 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         public async Task<AiEndpoint> AddAiEndpoint(AiEndpoint endpoint)
         {
+            Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
+
             return await ApiConnection.Post<AiEndpoint>(ApiUrls.AiEndpoints(), endpoint, "application/json");
         }
 
@@ -34,11 +36,13 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// </summary>
         public async Task<AiEndpoint> UpdateAiEndpoint(Guid id, AiEndpoint endpoint)
         {
+            Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
+
             return await ApiConnection.Put<AiEndpoint>(ApiUrls.AiEndpoint(id), endpoint);
         }
 
         /// <summary>
-        /// Deletes system wide settings an AI endpoint.
+        /// Deletes system wide settings for an AI endpoint.
         /// </summary>
         public async Task DeleteAiEndpoint(Guid id)
         {
