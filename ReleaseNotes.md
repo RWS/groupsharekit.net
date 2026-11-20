@@ -2,7 +2,7 @@
 * Added support for Trados Edge
 * Added support for AI provider endpoints (`GroupShareClient.AiProviderClient`): get, register, update and delete AI provider settings for a user, and authenticate provider settings without consuming tokens
 * Added support for AI endpoints (`GroupShareClient.AiEndpointClient`): get, add, update and delete organization-level AI endpoints
-* Added AnalysisTaskSettings and TranslateTaskSettings properties to the ProjectTemplateSettingsV4 model, so the task settings of a project can be read or set
+* Added AnalysisTaskSettings and TranslateTaskSettings properties to the ProjectTemplateSettingsV4 model, so the task settings of a project template can be read or set
 * Added AnalysisTaskSettings and TranslateTaskSettings properties to the ProjectSettingsV4 model, so the task settings of a project can be read
 
 # New in 15.2.15.3
