@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -99,11 +98,6 @@ namespace Sdl.Community.GroupShareKit.Http
 
             var response = await SendData<object>(uri, HttpMethod.Post, null, null, CancellationToken.None);
             return response.HttpResponse.StatusCode;
-        }
-
-        public async Task Post(Uri uri, object body, string contentType)
-        {
-            await SendData<object>(uri, HttpMethod.Post, body, contentType, CancellationToken.None);
         }
 
         public Task<IApiResponse<T>> Post<T>(Uri uri, object body, string contentType)

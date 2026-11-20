@@ -28,7 +28,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         {
             Ensure.ArgumentNotNull(providerSettings, nameof(providerSettings));
 
-            await ApiConnection.Post(ApiUrls.AuthenticateAiProvider(), providerSettings, "application/json");
+            await ApiConnection.Post<object>(ApiUrls.AuthenticateAiProvider(), providerSettings, "application/json");
         }
 
         /// <summary>

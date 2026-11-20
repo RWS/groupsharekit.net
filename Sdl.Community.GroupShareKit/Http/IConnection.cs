@@ -41,14 +41,6 @@ namespace Sdl.Community.GroupShareKit.Http
 
         /// <summary>
         /// Performs an asynchronous HTTP POST request.
-        /// </summary>
-        /// <param name="uri">The URI endpoint to which the request is sent.</param>
-        /// <param name="body">The object to serialize as the request body.</param>
-        /// <param name="contentType">The media type of the request body.</param>
-        Task Post(Uri uri, object body, string contentType);
-
-        /// <summary>
-        /// Performs an asynchronous HTTP POST request.
         /// Attempts to map the response body to an object of type <typeparamref name="T"/>
         /// </summary>
         /// <typeparam name="T">The type to map the response to</typeparam>
