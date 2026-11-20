@@ -2201,7 +2201,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri AiEndpoints()
         {
-            return "{0}/api/projectserver/v4/aiEndpoints".FormatUri(CurrentProjectServerV4Url);
+            return "{0}/aiEndpoints".FormatUri(CurrentProjectServerV4Url);
         }
 
         /// <summary>
@@ -2209,7 +2209,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// </summary>
         public static Uri AiEndpoint(Guid id)
         {
-            return "{0}/api/projectserver/v4/aiEndpoints/{1}".FormatUri(CurrentProjectServerV4Url, id);
+            return "{0}/aiEndpoints/{1}".FormatUri(CurrentProjectServerV4Url, id);
         }
 
         /// <summary>

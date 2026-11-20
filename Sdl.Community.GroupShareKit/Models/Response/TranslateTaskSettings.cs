@@ -1,35 +1,35 @@
-﻿using Newtonsoft.Json.Converters;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class TranslateTaskSettings
     {
-        [JsonPropertyName("targetLanguage")]
+        [JsonProperty("targetLanguage")]
         public string TargetLanguage { get; set; }
 
-        [JsonPropertyName("minimumMatchScore"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("minimumMatchScore", NullValueHandling = NullValueHandling.Ignore)]
         public int? MinimumMatchScore { get; set; }
 
-        [JsonPropertyName("translationOverwriteMode"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("translationOverwriteMode", NullValueHandling = NullValueHandling.Ignore)]
         public TranslationUpdateMode? TranslationOverwriteMode { get; set; }
 
-        [JsonPropertyName("overwritePerfectMatch"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("overwritePerfectMatch", NullValueHandling = NullValueHandling.Ignore)]
         public bool? OverwritePerfectMatch { get; set; }
 
-        [JsonPropertyName("lockContextMatchSegments"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("lockContextMatchSegments", NullValueHandling = NullValueHandling.Ignore)]
         public bool? LockContextMatchSegments { get; set; }
 
-        [JsonPropertyName("lockExactMatchSegments"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("lockExactMatchSegments", NullValueHandling = NullValueHandling.Ignore)]
         public bool? LockExactMatchSegments { get; set; }
 
-        [JsonPropertyName("confirmAfterApplyingExactMatch"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("confirmAfterApplyingExactMatch", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ConfirmAfterApplyingExactMatch { get; set; }
 
-        [JsonPropertyName("confirmAfterApplyingInContextExactMatch"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("confirmAfterApplyingInContextExactMatch", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ConfirmAfterApplyingInContextExactMatch { get; set; }
 
-        [JsonPropertyName("noTranslationMemoryMatchFoundAction"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("noTranslationMemoryMatchFoundAction", NullValueHandling = NullValueHandling.Ignore)]
         public NoTranslationMemoryMatchFoundAction? NoTranslationMemoryMatchFoundAction { get; set; }
     }
 

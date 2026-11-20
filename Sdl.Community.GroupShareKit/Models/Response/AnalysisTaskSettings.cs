@@ -1,37 +1,37 @@
-﻿using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Sdl.Community.GroupShareKit.Models.Response
 {
     public class AnalysisTaskSettings
     {
-        [JsonPropertyName("targetLanguage")]
+        [JsonProperty("targetLanguage")]
         public string TargetLanguage { get; set; }
 
-        [JsonPropertyName("reportCrossFileRepetitions"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("reportCrossFileRepetitions", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ReportCrossFileRepetitions { get; set; }
 
-        [JsonPropertyName("reportInternalFuzzyMatchLeverage"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("reportInternalFuzzyMatchLeverage", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ReportInternalFuzzyMatchLeverage { get; set; }
 
-        [JsonPropertyName("reportLockedSegmentsSeparately"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("reportLockedSegmentsSeparately", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ReportLockedSegmentsSeparately { get; set; }
 
-        [JsonPropertyName("excludeLockedSegments"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("excludeLockedSegments", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ExcludeLockedSegments { get; set; }
 
-        [JsonPropertyName("presentIndividualFileDetails"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("presentIndividualFileDetails", NullValueHandling = NullValueHandling.Ignore)]
         public bool? PresentIndividualFileDetails { get; set; }
 
-        [JsonPropertyName("exportUnknownSegments"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("exportUnknownSegments", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ExportUnknownSegments { get; set; }
 
-        [JsonPropertyName("unknownSegmentsMaximumMatchValue"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("unknownSegmentsMaximumMatchValue", NullValueHandling = NullValueHandling.Ignore)]
         public int? UnknownSegmentsMaximumMatchValue { get; set; }
 
-        [JsonPropertyName("exportFrequentSegments"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("exportFrequentSegments", NullValueHandling = NullValueHandling.Ignore)]
         public bool? ExportFrequentSegments { get; set; }
 
-        [JsonPropertyName("frequentSegmentsNoOfOccurrences"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonProperty("frequentSegmentsNoOfOccurrences", NullValueHandling = NullValueHandling.Ignore)]
         public int? FrequentSegmentsNoOfOccurrences { get; set; }
     }
 
