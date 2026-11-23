@@ -2207,7 +2207,7 @@ namespace Sdl.Community.GroupShareKit.Helpers
         /// <summary>
         /// Gets the AI endpoint URI for the specified ID.
         /// </summary>
-        public static Uri AiEndpoint(Guid id)
+        public static Uri AiEndpoint(string id)
         {
             return "{0}/aiEndpoints/{1}".FormatUri(CurrentProjectServerV4Url, id);
         }

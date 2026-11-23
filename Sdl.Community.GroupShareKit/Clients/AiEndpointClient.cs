@@ -34,7 +34,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Updates system wide settings for an existing AI endpoint.
         /// </summary>
-        public async Task<AiEndpoint> UpdateAiEndpoint(Guid id, AiEndpoint endpoint)
+        public async Task<AiEndpoint> UpdateAiEndpoint(string id, AiEndpoint endpoint)
         {
             Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
 
@@ -44,7 +44,7 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Deletes system wide settings for an AI endpoint.
         /// </summary>
-        public async Task DeleteAiEndpoint(Guid id)
+        public async Task DeleteAiEndpoint(string id)
         {
             await ApiConnection.Delete(ApiUrls.AiEndpoint(id));
         }

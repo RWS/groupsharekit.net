@@ -20,11 +20,11 @@ namespace Sdl.Community.GroupShareKit.Clients
         /// <summary>
         /// Updates system wide settings for an existing AI endpoint.
         /// </summary>
-        Task<AiEndpoint> UpdateAiEndpoint(Guid id, AiEndpoint endpoint);
+        Task<AiEndpoint> UpdateAiEndpoint(string id, AiEndpoint endpoint);
 
         /// <summary>
         /// Deletes system wide settings for an AI endpoint.
         /// </summary>
-        Task DeleteAiEndpoint(Guid id);
+        Task DeleteAiEndpoint(string id);
     }
 }
