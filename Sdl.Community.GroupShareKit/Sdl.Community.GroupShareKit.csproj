@@ -35,7 +35,7 @@
     <PackageReference Include="Sdl.TmService.Sdk" Version="4.0.0.93" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
-    <PackageReference Include="System.Text.Json" Version="11.0.0" />
+    <PackageReference Include="System.Text.Json" Version="10.0.15" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
