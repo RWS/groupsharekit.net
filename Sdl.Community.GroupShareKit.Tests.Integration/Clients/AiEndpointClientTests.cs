@@ -1,4 +1,5 @@
 ﻿using Sdl.Community.GroupShareKit.Models.Response;
+using System;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -34,7 +35,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 MaxConcurrentRequests = 3
             };
 
-            retrievedSettings = await GroupShareClient.AiEndpointClient.UpdateAiEndpoint(retrievedSettings.Id, updatedSettings);
+            retrievedSettings = await GroupShareClient.AiEndpointClient.UpdateAiEndpoint(Guid.Parse(retrievedSettings.Id), updatedSettings);
             Assert.Equal(updatedSettings.DisplayName, retrievedSettings.DisplayName);
             Assert.Equal(updatedSettings.Provider, retrievedSettings.Provider);
             Assert.Equal(updatedSettings.Endpoint, retrievedSettings.Endpoint);
@@ -43,7 +44,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var aiEndpoints = await GroupShareClient.AiEndpointClient.GetAiEndpoints();
             Assert.Contains(aiEndpoints, x => x.Id == retrievedSettings.Id);
 
-            await GroupShareClient.AiEndpointClient.DeleteAiEndpoint(retrievedSettings.Id);
+            await GroupShareClient.AiEndpointClient.DeleteAiEndpoint(Guid.Parse(retrievedSettings.Id));
 
             aiEndpoints = await GroupShareClient.AiEndpointClient.GetAiEndpoints();
             Assert.DoesNotContain(aiEndpoints, x => x.Id == retrievedSettings.Id);

@@ -8,7 +8,7 @@ namespace Sdl.Community.GroupShareKit.Models.Response
     /// </summary>
     public class AiEndpoint
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         public string DisplayName { get; set; }
 
