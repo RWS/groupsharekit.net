@@ -71,6 +71,8 @@ namespace Sdl.Community.GroupShareKit
             IdpUserSettingsClient = new IdpUserSettingsClient(apiConnection);
             Logs = new LogsClient(apiConnection);
             MtProviderClient = new MtProviderClient(apiConnection);
+            AiProviderClient = new AiProviderClient(apiConnection);
+            AiEndpointClient = new AiEndpointClient(apiConnection);
         }
 
         /// <summary>
@@ -121,7 +123,7 @@ namespace Sdl.Community.GroupShareKit
                             response.EnsureSuccessStatusCode();
 
                             string responseContent = await response.Content.ReadAsStringAsync();
-                            
+
                             var tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(responseContent);
                             return tokenResponse?.AccessToken ?? string.Empty;
                         }
@@ -151,7 +153,9 @@ namespace Sdl.Community.GroupShareKit
         public IActivityClient ActivityClient { get; }
         public ITwoFactorAuthenticationClient TwoFactorAuthenticationClient { get; }
 
-        public IMtProviderClient MtProviderClient{ get; }
+        public IMtProviderClient MtProviderClient { get; }
+        public IAiProviderClient AiProviderClient { get; }
+        public IAiEndpointClient AiEndpointClient { get; }
 
         public IProjectClient Project { get; }
         public IReportingClient Reporting { get; }

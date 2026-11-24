@@ -2173,6 +2173,46 @@ namespace Sdl.Community.GroupShareKit.Helpers
         }
 
         /// <summary>
+        /// Gets the URI of the AI provider for the specified user.
+        /// </summary>
+        public static Uri AiProvider(Guid userId)
+        {
+            return "{0}/openAiTranslationProvider/{1}".FormatUri(CurrentProjectServerV4Url, userId);
+        }
+
+        /// <summary>
+        /// Gets the URI for authenticating the AI provider.
+        /// </summary>
+        public static Uri AuthenticateAiProvider()
+        {
+            return "{0}/authenticate/aiProvider".FormatUri(CurrentProjectServerV4Url);
+        }
+
+        /// <summary>
+        /// Gets the URI of the specified AI provider setting.
+        /// </summary>
+        public static Uri AiProviderSettings(Guid userId, int providerSettingId)
+        {
+            return "{0}/openAiTranslationProvider/{1}?providerSettingId={2}".FormatUri(CurrentProjectServerV4Url, userId, providerSettingId);
+        }
+
+        /// <summary>
+        /// Gets the AI endpoints URI.
+        /// </summary>
+        public static Uri AiEndpoints()
+        {
+            return "{0}/aiEndpoints".FormatUri(CurrentProjectServerV4Url);
+        }
+
+        /// <summary>
+        /// Gets the AI endpoint URI for the specified ID.
+        /// </summary>
+        public static Uri AiEndpoint(string id)
+        {
+            return "{0}/aiEndpoints/{1}".FormatUri(CurrentProjectServerV4Url, id);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for retrieving the IDP user settings
         /// </summary>
         public static Uri GetIdpUserSettings()
