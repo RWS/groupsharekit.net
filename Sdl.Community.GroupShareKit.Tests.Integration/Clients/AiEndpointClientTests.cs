@@ -12,11 +12,12 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
         [Fact]
         public async Task Add_update_delete_AiEndpoint_settings()
         {
+            var uniqueId = Guid.NewGuid().ToString("N");
             var initialSettings = new AiEndpoint
             {
                 DisplayName = "LM Studio",
                 Provider = "lm-studio",
-                Endpoint = "http://url/v1",
+                Endpoint = $"http://url-{uniqueId}/v1",
                 MaxConcurrentRequests = 2
             };
 
@@ -31,7 +32,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
                 Id = retrievedSettings.Id,
                 DisplayName = "OpenAI",
                 Provider = "openai",
-                Endpoint = "http://url/v1/updated",
+                Endpoint = $"http://url-{uniqueId}/v1/updated",
                 MaxConcurrentRequests = 3
             };
 

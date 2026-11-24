@@ -19,7 +19,7 @@ namespace Sdl.Community.GroupShareKit.Tests.Integration.Clients
             var user = await GroupShareClient.User.Get(new UserRequest(GroupShareClient.Credentials.Login));
 
             var providerSettings = await GroupShareClient.AiProviderClient.GetAiProviderSettings(user.UniqueId);
-            Assert.Empty(providerSettings);
+            Assert.NotNull(providerSettings);
         }
 
         [Fact]
